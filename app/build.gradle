@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
   compileSdkVersion 26
   buildToolsVersion "26.0.0"
@@ -21,29 +23,69 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 dependencies {
   // App
-  final SUPPORT_LIBRARY_VERSION = "26.0.0-beta2"
+  final RX_ANDROID_VERSION = "2.0.1"
+  final RX_JAVA_VERSION = "2.1.1"
+  final RX_KOTLIN_VERSION = "2.1.0"
+  final RX_BINDING_VERSION = "2.0.0"
+  final RETROFIT_VERSION = "2.3.0"
+  final DAGGER_VERSION = "2.11"
+  final JSOUP_VERSION = "1.10.3"
+  final TIMBER_VERSION = "4.5.1"
 
   // Testing
   final ESPRESSO_VERSION = "2.2.2"
   final JUNIT_VERSION = "4.12"
+  final MOCKITO_VERSION = "2.8.47"
+
+  // Debugging
+  final LEAK_CANARY_VERSION = "1.5.1"
+  final STETHO_VERSION = "1.5.0"
 
   def junit = "junit:junit:${JUNIT_VERSION}"
+  def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+  def mockito = "org.mockito:mockito-core:$MOCKITO_VERSION"
+  def mockitoAndroid = "org.mockito:mockito-android:$MOCKITO_VERSION"
 
   // Android libs
   implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
+  implementation "com.android.support:appcompat-v7:$support_library_version"
   implementation "com.android.support.constraint:constraint-layout:1.0.2"
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
   // App dependencies
+  implementation "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION"
+  implementation "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION"
+  implementation "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION"
+  implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$RX_BINDING_VERSION"
+  implementation "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$RX_BINDING_VERSION"
+  implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$RX_BINDING_VERSION"
+  implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+  implementation "com.google.dagger:dagger:$DAGGER_VERSION"
+  implementation "org.jsoup:jsoup:$JSOUP_VERSION"
+  implementation "com.jakewharton.timber:timber:$TIMBER_VERSION"
+
+  //  annotationProcessor daggerCompiler
+  kapt daggerCompiler
 
   // Instrumentation tests dependencies
   androidTestImplementation "com.android.support.test.espresso:espresso-core:${ESPRESSO_VERSION}"
+  androidTestImplementation junit
+  androidTestImplementation mockito
+  androidTestImplementation mockitoAndroid
 
   // Unit tests dependencies
   testImplementation junit
+  testImplementation mockito
+
+  // Debugging tools dependencies
+  debugImplementation "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
+  debugImplementation "com.facebook.stetho:stetho:$STETHO_VERSION"
 }
