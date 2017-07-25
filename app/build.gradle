@@ -68,6 +68,7 @@ dependencies {
   implementation "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$RX_BINDING_VERSION"
   implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$RX_BINDING_VERSION"
   implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
   implementation "com.google.dagger:dagger:$DAGGER_VERSION"
   implementation "org.jsoup:jsoup:$JSOUP_VERSION"
   implementation "com.jakewharton.timber:timber:$TIMBER_VERSION"
