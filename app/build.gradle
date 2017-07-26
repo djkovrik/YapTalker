@@ -44,6 +44,8 @@ dependencies {
   final ESPRESSO_VERSION = "2.2.2"
   final JUNIT_VERSION = "4.12"
   final MOCKITO_VERSION = "2.8.47"
+  final MOCKITO_KOTLIN_VERSION = "1.5.0"
+  final EXPEKT_VERSION = "0.5.0"
 
   // Debugging
   final LEAK_CANARY_VERSION = "1.5.1"
@@ -53,6 +55,8 @@ dependencies {
   def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
   def mockito = "org.mockito:mockito-core:$MOCKITO_VERSION"
   def mockitoAndroid = "org.mockito:mockito-android:$MOCKITO_VERSION"
+  def mockitoKotlin = "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION"
+  def expekt = "com.winterbe:expekt:$EXPEKT_VERSION"
 
   // Android libs
   implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -80,11 +84,14 @@ dependencies {
   androidTestImplementation "com.android.support.test.espresso:espresso-core:${ESPRESSO_VERSION}"
   androidTestImplementation junit
   androidTestImplementation mockito
+  androidTestImplementation mockitoKotlin
   androidTestImplementation mockitoAndroid
 
   // Unit tests dependencies
   testImplementation junit
   testImplementation mockito
+  testImplementation mockitoKotlin
+  testImplementation expekt
 
   // Debugging tools dependencies
   debugImplementation "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
