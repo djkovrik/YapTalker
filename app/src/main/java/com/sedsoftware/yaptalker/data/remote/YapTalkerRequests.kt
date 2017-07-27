@@ -21,7 +21,7 @@ interface YapNewsLoader {
  * Load main forums list
  */
 interface YapForumsListLoader {
-  @GET()
+  @GET("/forum")
   fun loadForumsList(): Observable<List<ForumItem>>
 }
 

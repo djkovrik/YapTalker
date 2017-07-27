@@ -2,8 +2,10 @@ package com.sedsoftware.yaptalker.data
 
 data class NewsItem(val summary: String, val topic: TopicItem)
 
-data class ForumItem(val id: Int, val title: String, val image: String, val description: String,
-    val lastTopic: TopicItem)
+data class ForumItem(val id: Int, val title: String, val lastTopic: TopicItemShort)
+
+data class TopicItemShort(val id: Int, val title: String, val author: UserProfileShort,
+    val date: String)
 
 data class TopicItem(val id: Int, val title: String, val answers: Int, val views: Int, val uq: Int,
     val author: UserProfileShort, val date: String)
