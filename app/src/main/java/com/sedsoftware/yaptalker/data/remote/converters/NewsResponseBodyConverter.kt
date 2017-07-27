@@ -45,7 +45,6 @@ class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
     for (index in 0..newsCount - 1) {
 
       // Parse header block
-
       val newsItem = news[index]
       val title = newsItem.select(NEWS_TITLE_SELECTOR).first().text()
       val header = newsItem.select(NEWS_HEADER_SELECTOR).first()
@@ -75,9 +74,8 @@ class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
       val topicItem = TopicItem(
           id = topicId,
           title = title,
-          answers = Integer.parseInt(comments.chopEdges()),
-          uq = Integer.parseInt(rating),
-          views = 0,
+          answers = comments.chopEdges().toInt(),
+          uq = rating.toInt(),
           author = userInfo,
           date = topicDate)
 
