@@ -20,8 +20,16 @@ fun String.getLastDigits(): Int {
 }
 
 /**
- * Removes first and last symbols from string
+ * Removes first and last symbols from string and returns result string.
  */
 fun String.chopEdges() : String {
   return this.substring(1, this.length - 1)
+}
+
+/**
+ * Extracts and returns date string from forum description html.
+ */
+fun String.extractDate() : String {
+  val endPosition = this.indexOf("<br")
+  return this.substring(0, endPosition)
 }

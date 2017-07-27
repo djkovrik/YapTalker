@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.data.remote.converters
 
+import com.sedsoftware.yaptalker.commons.extensions.extractDate
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.ForumItem
 import com.sedsoftware.yaptalker.data.TopicItemShort
@@ -15,7 +16,6 @@ class ForumsListResponseBodyConverter : Converter<ResponseBody, List<ForumItem>>
     val FORUM_TITLES_SELECTOR = "b > a[href].title"
     val LINK_BY_ATTRIBUTE_SELECTOR = "href"
     val LAST_TOPIC_SELECTOR = "td.row2 > span"
-    val TAG_AFTER_DATE = "<br>"
   }
 
   override fun convert(value: ResponseBody): List<ForumItem> {
@@ -48,9 +48,7 @@ class ForumsListResponseBodyConverter : Converter<ResponseBody, List<ForumItem>>
       val userId = links[2].attr(LINK_BY_ATTRIBUTE_SELECTOR).getLastDigits()
       val nickname = links[2].text()
 
-      val topicHtml = topics[index].html()
-      val brPosition = topicHtml.indexOf(TAG_AFTER_DATE)
-      val lastPostDate = topicHtml.substring(0, brPosition)
+      val lastPostDate = topics[index].html().extractDate()
 
       // Construct ForumItem object
       val userInfo = UserProfileShort(
