@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.data.remote.converters
 
-import com.sedsoftware.yaptalker.data.TopicItem
+import com.sedsoftware.yaptalker.data.TopicItemList
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Converter
@@ -10,7 +10,7 @@ import java.lang.reflect.Type
 class ChosenForumConverterFactory : Converter.Factory() {
 
   override fun responseBodyConverter(type: Type?, annotations: Array<out Annotation>?,
-      retrofit: Retrofit?): Converter<ResponseBody, List<TopicItem>>? {
+      retrofit: Retrofit?): Converter<ResponseBody, List<TopicItemList>>? {
 
     return ChosenForumResponseBodyConverter()
   }

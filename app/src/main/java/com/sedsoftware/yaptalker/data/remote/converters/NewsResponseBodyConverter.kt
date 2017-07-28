@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.data.remote.converters
 import com.sedsoftware.yaptalker.commons.extensions.chopEdges
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.NewsItem
-import com.sedsoftware.yaptalker.data.TopicItem
+import com.sedsoftware.yaptalker.data.TopicItemList
 import com.sedsoftware.yaptalker.data.UserProfileShort
 import okhttp3.ResponseBody
 import org.jsoup.Jsoup
@@ -71,7 +71,7 @@ class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
       // Build NewsItem
       val userInfo = UserProfileShort(id = userId, name = nickname)
 
-      val topicItem = TopicItem(
+      val topicItem = TopicItemList(
           id = topicId,
           title = title,
           answers = comments,

@@ -2,13 +2,13 @@ package com.sedsoftware.yaptalker.data.remote.converters
 
 import com.sedsoftware.yaptalker.commons.extensions.extractDate
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
-import com.sedsoftware.yaptalker.data.TopicItem
+import com.sedsoftware.yaptalker.data.TopicItemList
 import com.sedsoftware.yaptalker.data.UserProfileShort
 import okhttp3.ResponseBody
 import org.jsoup.Jsoup
 import retrofit2.Converter
 
-class ChosenForumResponseBodyConverter : Converter<ResponseBody, List<TopicItem>> {
+class ChosenForumResponseBodyConverter : Converter<ResponseBody, List<TopicItemList>> {
 
   companion object {
     private val TOPIC_TITLES_SELECTOR = "td.row4 > div > a"
@@ -19,7 +19,7 @@ class ChosenForumResponseBodyConverter : Converter<ResponseBody, List<TopicItem>
     private val LINK_BY_ATTRIBUTE_SELECTOR = "href"
   }
 
-  override fun convert(value: ResponseBody): List<TopicItem> {
+  override fun convert(value: ResponseBody): List<TopicItemList> {
 
     val html = value.string()
     val htmlDocument = Jsoup.parse(html)
@@ -37,7 +37,7 @@ class ChosenForumResponseBodyConverter : Converter<ResponseBody, List<TopicItem>
     assert(topicsCount == ratings.size)
     assert(topicsCount == dates.size)
 
-    val result = ArrayList<TopicItem>()
+    val result = ArrayList<TopicItemList>()
 
     // Iterate through all elements and create TopicItem objects
 
@@ -65,7 +65,7 @@ class ChosenForumResponseBodyConverter : Converter<ResponseBody, List<TopicItem>
           id = userId,
           name = nickname)
 
-      val topicItem = TopicItem(
+      val topicItem = TopicItemList(
           id = topicId,
           title = topicTitle,
           answers = answersCount,

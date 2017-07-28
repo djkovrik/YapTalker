@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.data.remote
 
 import com.nhaarman.mockito_kotlin.mock
 import com.sedsoftware.yaptalker.data.NewsItem
-import com.sedsoftware.yaptalker.data.TopicItem
+import com.sedsoftware.yaptalker.data.TopicItemList
 import com.sedsoftware.yaptalker.data.UserProfileShort
 import io.reactivex.Observable
 import io.reactivex.observers.TestObserver
@@ -51,7 +51,7 @@ class YapNewsLoaderTest {
   fun getDummyNewsItem(seed: Int): NewsItem {
     return NewsItem(
         "News summary#$seed",
-        TopicItem(seed + 1,
+        TopicItemList(seed + 1,
             "Title#$seed",
             seed + 2,
             seed + 3,

@@ -2,7 +2,10 @@
 
 package com.sedsoftware.yaptalker.data.remote
 
-import com.sedsoftware.yaptalker.data.*
+import com.sedsoftware.yaptalker.data.ForumItem
+import com.sedsoftware.yaptalker.data.NewsItem
+import com.sedsoftware.yaptalker.data.TopicItemFull
+import com.sedsoftware.yaptalker.data.TopicItemList
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -37,7 +40,7 @@ interface YapChosenForumLoader {
   fun loadChosenForum(
       @Path("forumId") forumId: Int,
       @Path("startFrom") startTopicNumber: Int,
-      @Path("sortingMode") sortingMode: String): Observable<List<TopicItem>>
+      @Path("sortingMode") sortingMode: String): Observable<List<TopicItemList>>
 }
 
 /**
@@ -51,15 +54,5 @@ interface YapTopicLoader {
   @GET("/forum{forumId}/st/{startPage}/topic{topicId}.html")
   fun loadTopic(
       @Path("forumId") forumId: Int,
-      @Path("topicId") topicId: Int): Observable<List<PostItem>>
-}
-
-/**
- * Load user profile info
- *
- * @param memberId User profile id
- */
-interface YapProfileLoader {
-  @GET("/members/member{memberId}.html")
-  fun loadUserProfile(@Path("memberId") memberId: Int): Observable<UserProfileInfo>
+      @Path("topicId") topicId: Int): Observable<TopicItemFull>
 }
