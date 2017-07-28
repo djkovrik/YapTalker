@@ -18,7 +18,8 @@ class StringExtTest {
         625385 to "http://www.yaplakal.com/forum7/topic625385.html",
         1633749 to "http://www.yaplakal.com/forum1/topic1633749.html",
         1634928 to "http://www.yaplakal.com/forum2/topic1634928.html",
-        12345678 to "1234ww1www2ww344aww55*sds12345678abracadabra")
+        12345678 to "1234ww1www2ww344aww55*sds12345678abracadabra",
+        61979992 to "entry61979992")
 
     // Assert
     testMap.forEach { id, link ->

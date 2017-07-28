@@ -9,7 +9,7 @@ fun String.getLastDigits(): Int {
 
   var value = 0
 
-  val regex = Pattern.compile("(\\d+)(?=\\D+$)")
+  val regex = Pattern.compile("(\\d+)(?!.*\\d)")
   val matcher = regex.matcher(this)
 
   if (matcher.find()) {
