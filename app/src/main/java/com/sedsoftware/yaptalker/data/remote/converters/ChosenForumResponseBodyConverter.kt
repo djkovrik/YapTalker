@@ -52,25 +52,25 @@ class ChosenForumResponseBodyConverter : Converter<ResponseBody, List<TopicItem>
       val nickname = authors[index].text()
 
       // Parse answers count
-      val answersCount = answers[index].text()
+      val answersCount = answers[index].text().toInt()
 
       // Parse UQ
-      val rating = ratings[index].text()
+      val rating = ratings[index].text().toInt()
 
       // Parse date
       val topicDate = dates[index].html().extractDate()
 
       // Build TopicItem
-      val topicAuthor = UserProfileShort(
+      val userInfo = UserProfileShort(
           id = userId,
           name = nickname)
 
       val topicItem = TopicItem(
           id = topicId,
           title = topicTitle,
-          answers = answersCount.toInt(),
-          uq = rating.toInt(),
-          author = topicAuthor,
+          answers = answersCount,
+          uq = rating,
+          author = userInfo,
           date = topicDate)
 
       result.add(topicItem)

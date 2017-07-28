@@ -12,15 +12,15 @@ import retrofit2.Converter
 class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
 
   companion object {
-    val NEWS_SELECTOR = "td.newshead"
-    val NEWS_HEADER_SELECTOR = "div.rating-short-value > a"
-    val NEWS_TITLE_SELECTOR = "a.subtitle"
-    val LINK_BY_ATTRIBUTE_SELECTOR = "href"
-    val CONTENT_SELECTOR = "td.news-content"
-    val TOPIC_INFO_SELECTOR = "td.holder"
-    val TOPIC_DATE_SELECTOR = "b.icon-date"
-    val PROFILE_INFO_SELECTOR = "b > a"
-    val COMMENTS_COUNT_SELECTOR = "span"
+    private val NEWS_SELECTOR = "td.newshead"
+    private val NEWS_HEADER_SELECTOR = "div.rating-short-value > a"
+    private val NEWS_TITLE_SELECTOR = "a.subtitle"
+    private val LINK_BY_ATTRIBUTE_SELECTOR = "href"
+    private val CONTENT_SELECTOR = "td.news-content"
+    private val TOPIC_INFO_SELECTOR = "td.holder"
+    private val TOPIC_DATE_SELECTOR = "b.icon-date"
+    private val PROFILE_INFO_SELECTOR = "b > a"
+    private val COMMENTS_COUNT_SELECTOR = "span"
   }
 
   override fun convert(value: ResponseBody): List<NewsItem> {
@@ -50,7 +50,7 @@ class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
       val header = newsItem.select(NEWS_HEADER_SELECTOR).first()
 
       // Skip advertisement blocks (when header == null)
-      val rating = header?.text() ?: continue
+      val rating = header?.text()?.toInt() ?: continue
 
       val topicLink = header.attr(LINK_BY_ATTRIBUTE_SELECTOR)
       val topicId = topicLink.getLastDigits()
@@ -66,7 +66,7 @@ class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
       val nickname = profileInfo[0].text()
       val profileLink = profileInfo[0].attr(LINK_BY_ATTRIBUTE_SELECTOR)
       val userId = profileLink.getLastDigits()
-      val comments = topicInfo.select(COMMENTS_COUNT_SELECTOR).text()
+      val comments = topicInfo.select(COMMENTS_COUNT_SELECTOR).text().chopEdges().toInt()
 
       // Build NewsItem
       val userInfo = UserProfileShort(id = userId, name = nickname)
@@ -74,8 +74,8 @@ class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
       val topicItem = TopicItem(
           id = topicId,
           title = title,
-          answers = comments.chopEdges().toInt(),
-          uq = rating.toInt(),
+          answers = comments,
+          uq = rating,
           author = userInfo,
           date = topicDate)
 

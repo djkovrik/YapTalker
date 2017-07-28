@@ -12,10 +12,10 @@ import retrofit2.Converter
 class ForumsListResponseBodyConverter : Converter<ResponseBody, List<ForumItem>> {
 
   companion object {
-    val HEADERS_SELECTOR = "td.row4"
-    val FORUM_TITLES_SELECTOR = "b > a[href].title"
-    val LINK_BY_ATTRIBUTE_SELECTOR = "href"
-    val LAST_TOPIC_SELECTOR = "td.row2 > span"
+    private val HEADERS_SELECTOR = "td.row4"
+    private val FORUM_TITLES_SELECTOR = "b > a[href].title"
+    private val LINK_BY_ATTRIBUTE_SELECTOR = "href"
+    private val LAST_TOPIC_SELECTOR = "td.row2 > span"
   }
 
   override fun convert(value: ResponseBody): List<ForumItem> {
@@ -44,7 +44,7 @@ class ForumsListResponseBodyConverter : Converter<ResponseBody, List<ForumItem>>
       // Parse last topic info
       val links = topics[index].getElementsByAttribute(LINK_BY_ATTRIBUTE_SELECTOR)
       val topicId = links[1].attr(LINK_BY_ATTRIBUTE_SELECTOR).getLastDigits()
-      val topicName = links[1].text()
+      val topicTitle = links[1].text()
       val userId = links[2].attr(LINK_BY_ATTRIBUTE_SELECTOR).getLastDigits()
       val nickname = links[2].text()
 
@@ -57,7 +57,7 @@ class ForumsListResponseBodyConverter : Converter<ResponseBody, List<ForumItem>>
 
       val lastTopicItem = TopicItemShort(
           id = topicId,
-          title = topicName,
+          title = topicTitle,
           author = userInfo,
           date = lastPostDate)
 
