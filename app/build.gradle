@@ -13,8 +13,11 @@ android {
     applicationId "com.sedsoftware.yaptalker"
     minSdkVersion 19
     targetSdkVersion 26
-    versionCode 1
-    versionName "1.0"
+    // Versioning convention from ribot:
+    // Major -> Millions, Minor -> Thousands, Bugfix -> Hundreds. E.g 1.3.72 == 1,003,072
+    // Current: 000,001,000
+    versionCode 1000
+    versionName "0.1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
   buildTypes {
@@ -44,15 +47,21 @@ dependencies {
   final ESPRESSO_VERSION = "2.2.2"
   final JUNIT_VERSION = "4.12"
   final MOCKITO_VERSION = "2.8.47"
+  final MOCKITO_KOTLIN_VERSION = "1.5.0"
+  final EXPEKT_VERSION = "0.5.0"
 
   // Debugging
   final LEAK_CANARY_VERSION = "1.5.1"
   final STETHO_VERSION = "1.5.0"
 
-  def junit = "junit:junit:${JUNIT_VERSION}"
   def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+
+  def junit = "junit:junit:${JUNIT_VERSION}"
+  def espresso = "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION"
   def mockito = "org.mockito:mockito-core:$MOCKITO_VERSION"
   def mockitoAndroid = "org.mockito:mockito-android:$MOCKITO_VERSION"
+  def mockitoKotlin = "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION"
+  def expekt = "com.winterbe:expekt:$EXPEKT_VERSION"
 
   // Android libs
   implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -68,6 +77,7 @@ dependencies {
   implementation "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$RX_BINDING_VERSION"
   implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$RX_BINDING_VERSION"
   implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
   implementation "com.google.dagger:dagger:$DAGGER_VERSION"
   implementation "org.jsoup:jsoup:$JSOUP_VERSION"
   implementation "com.jakewharton.timber:timber:$TIMBER_VERSION"
@@ -76,14 +86,17 @@ dependencies {
   kapt daggerCompiler
 
   // Instrumentation tests dependencies
-  androidTestImplementation "com.android.support.test.espresso:espresso-core:${ESPRESSO_VERSION}"
+  androidTestImplementation espresso
   androidTestImplementation junit
   androidTestImplementation mockito
+  androidTestImplementation mockitoKotlin
   androidTestImplementation mockitoAndroid
 
   // Unit tests dependencies
   testImplementation junit
   testImplementation mockito
+  testImplementation mockitoKotlin
+  testImplementation expekt
 
   // Debugging tools dependencies
   debugImplementation "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
