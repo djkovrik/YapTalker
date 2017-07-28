@@ -55,8 +55,7 @@ class YapNewsLoaderTest {
             "Title#$seed",
             seed + 2,
             seed + 3,
-            seed + 4,
-            UserProfileShort(seed + 5,
+            UserProfileShort(seed + 4,
                 "Name#$seed"),
             "Date#$seed"))
   }

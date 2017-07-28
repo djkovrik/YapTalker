@@ -4,7 +4,7 @@ package com.sedsoftware.yaptalker.data.remote
 
 import com.sedsoftware.yaptalker.data.ForumItem
 import com.sedsoftware.yaptalker.data.NewsItem
-import com.sedsoftware.yaptalker.data.TopicItemFull
+import com.sedsoftware.yaptalker.data.PostItem
 import com.sedsoftware.yaptalker.data.TopicItemList
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -50,9 +50,10 @@ interface YapChosenForumLoader {
  * @param startPage Starting topic page, should be multiple of 25
  * @param topicId Topic id
  */
-interface YapTopicLoader {
+interface YapChosenTopicLoader {
   @GET("/forum{forumId}/st/{startPage}/topic{topicId}.html")
-  fun loadTopic(
+  fun loadChosenTopic(
       @Path("forumId") forumId: Int,
-      @Path("topicId") topicId: Int): Observable<TopicItemFull>
+      @Path("startPage") startPage: Int,
+      @Path("topicId") topicId: Int): Observable<List<PostItem>>
 }
