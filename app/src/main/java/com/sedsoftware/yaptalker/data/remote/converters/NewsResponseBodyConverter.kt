@@ -12,6 +12,7 @@ import retrofit2.Converter
 class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
 
   companion object {
+    // Selectors
     private val NEWS_SELECTOR = "td.newshead"
     private val NEWS_HEADER_SELECTOR = "div.rating-short-value > a"
     private val NEWS_TITLE_SELECTOR = "a.subtitle"
@@ -21,6 +22,9 @@ class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
     private val TOPIC_DATE_SELECTOR = "b.icon-date"
     private val PROFILE_INFO_SELECTOR = "b > a"
     private val COMMENTS_COUNT_SELECTOR = "span"
+
+    // Defaults for not parsed values
+    private val STRING_DEFAULT = "Unknown news item value"
   }
 
   override fun convert(value: ResponseBody): List<NewsItem> {
@@ -46,27 +50,27 @@ class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
 
       // Parse header block
       val newsItem = news[index]
-      val title = newsItem.select(NEWS_TITLE_SELECTOR).first().text()
-      val header = newsItem.select(NEWS_HEADER_SELECTOR).first()
+      val title = newsItem.select(NEWS_TITLE_SELECTOR)?.first()?.text() ?: STRING_DEFAULT
+      val header = newsItem.select(NEWS_HEADER_SELECTOR)?.first()
 
       // Skip advertisement blocks (when header == null)
       val rating = header?.text()?.toInt() ?: continue
 
-      val topicLink = header.attr(LINK_BY_ATTRIBUTE_SELECTOR)
-      val topicId = topicLink.getLastDigits()
+      val topicId = header.attr(LINK_BY_ATTRIBUTE_SELECTOR).getLastDigits()
 
       // Parse content block
-      val contentItem = content[index]
-      val contentBody = contentItem.html()
+      val contentBody = content[index]?.html() ?: STRING_DEFAULT
 
       // Parse topic info block
       val topicInfo = topics[index]
-      val topicDate = topicInfo.select(TOPIC_DATE_SELECTOR).first().text()
-      val profileInfo = topicInfo.select(PROFILE_INFO_SELECTOR)
-      val nickname = profileInfo[0].text()
-      val profileLink = profileInfo[0].attr(LINK_BY_ATTRIBUTE_SELECTOR)
-      val userId = profileLink.getLastDigits()
+      val topicDate = topicInfo.select(TOPIC_DATE_SELECTOR)?.first()?.text() ?: STRING_DEFAULT
+
       val comments = topicInfo.select(COMMENTS_COUNT_SELECTOR).text().chopEdges().toInt()
+
+      val profileInfo = topicInfo.select(PROFILE_INFO_SELECTOR)
+      val nickname = profileInfo[0]?.text() ?: STRING_DEFAULT
+
+      val userId = profileInfo[0].attr(LINK_BY_ATTRIBUTE_SELECTOR).getLastDigits()
 
       // Build NewsItem
       val userInfo = UserProfileShort(id = userId, name = nickname)

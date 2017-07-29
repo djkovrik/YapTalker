@@ -10,8 +10,6 @@ import retrofit2.Converter
 class ChosenTopicResponseBodyConverter : Converter<ResponseBody, List<PostItem>> {
 
   companion object {
-    private val TOPIC_TITLE_SELECTOR = "h1.subpage > a"
-    private val TOPIC_UQ_SELECTOR = "div.rating-value"
     private val POST_LIST_SELECTOR = "table[width='100%'][border='0'][cellspacing='1'][cellpadding='3']"
     private val POST_DATE_SELECTOR = "div.desc > a"
     private val POST_RANK_SELECTOR = "span[class~=rank-*]"
@@ -26,6 +24,9 @@ class ChosenTopicResponseBodyConverter : Converter<ResponseBody, List<PostItem>>
     private val RANK_BY_ATTRIBUTE_SELECTOR = "name"
 
     private val AVATAR_PREFIX = "http:"
+
+    // Defaults for not parsed values
+    private val STRING_DEFAULT = "Unknown post item value"
     private val NO_AVATAR_LINK = "http://www.yaplakal.com/html/static/noavatar.gif"
   }
 
@@ -41,8 +42,8 @@ class ChosenTopicResponseBodyConverter : Converter<ResponseBody, List<PostItem>>
     // Iterate through all elements and create PostItem objects
     for (index in 0..posts.size - 1) {
 
-      val postDate = posts[index].select(POST_DATE_SELECTOR).text()
-      val postRankText = posts[index].select(POST_RANK_SELECTOR).text()
+      val postDate = posts[index].select(POST_DATE_SELECTOR)?.text() ?: STRING_DEFAULT
+      val postRankText = posts[index].select(POST_RANK_SELECTOR)?.text() ?: STRING_DEFAULT
 
       val postRank = when {
         postRankText.isEmpty() -> 0
@@ -54,8 +55,10 @@ class ChosenTopicResponseBodyConverter : Converter<ResponseBody, List<PostItem>>
           .attr(RANK_BY_ATTRIBUTE_SELECTOR)
           .getLastDigits()
 
-      val authorNickname = posts[index].select(POST_AUTHOR_NICKNAME_SELECTOR).text()
-      val postContent = posts[index].select(POST_CONTENT_SELECTOR).html()
+      val authorNickname = posts[index].select(
+          POST_AUTHOR_NICKNAME_SELECTOR)?.text() ?: STRING_DEFAULT
+
+      val postContent = posts[index].select(POST_CONTENT_SELECTOR)?.html() ?: STRING_DEFAULT
 
       val info = posts[index]
           .select(POST_AUTHOR_ID_SELECTOR)
@@ -65,7 +68,7 @@ class ChosenTopicResponseBodyConverter : Converter<ResponseBody, List<PostItem>>
       val authorId = info.attr(LINK_BY_ATTRIBUTE_SELECTOR).getLastDigits()
       val avatarLink = info.getElementsByTag(IMG_BY_TAG_SELECTOR).first()
       val authorAvatar = avatarLink?.attr(IMG_BY_ATTRIBUTE_SELECTOR) ?: NO_AVATAR_LINK
-      val authorStatusDesc = posts[index].select(POST_AUTHOR_REG_SELECTOR).html()
+      val authorStatusDesc = posts[index].select(POST_AUTHOR_REG_SELECTOR)?.html() ?: STRING_DEFAULT
 
       val user = UserProfile(
           id = authorId,

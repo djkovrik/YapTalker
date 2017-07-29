@@ -17,6 +17,10 @@ class ChosenForumResponseBodyConverter : Converter<ResponseBody, List<TopicItemL
     private val TOPIC_UQ_SELECTOR = "div.rating-short-value"
     private val TOPIC_DATES_SELECTOR = "td.row2 > span.desc"
     private val LINK_BY_ATTRIBUTE_SELECTOR = "href"
+
+    // Defaults for not parsed values
+    private val STRING_DEFAULT = "Unknown topic item value"
+    private val INT_DEFAULT = -1
   }
 
   override fun convert(value: ResponseBody): List<TopicItemList> {
@@ -44,21 +48,21 @@ class ChosenForumResponseBodyConverter : Converter<ResponseBody, List<TopicItemL
     for (index in 0..topicsCount - 1) {
 
       // Parse title block
-      val topicId = titles[index].attr(LINK_BY_ATTRIBUTE_SELECTOR).getLastDigits()
-      val topicTitle = titles[index].text()
+      val topicId = titles[index]?.attr(LINK_BY_ATTRIBUTE_SELECTOR)?.getLastDigits() ?: INT_DEFAULT
+      val topicTitle = titles[index]?.text() ?: STRING_DEFAULT
 
       // Parse author block
-      val userId = authors[index].attr(LINK_BY_ATTRIBUTE_SELECTOR).getLastDigits()
-      val nickname = authors[index].text()
+      val userId = authors[index]?.attr(LINK_BY_ATTRIBUTE_SELECTOR)?.getLastDigits() ?: INT_DEFAULT
+      val nickname = authors[index]?.text() ?: STRING_DEFAULT
 
       // Parse answers count
-      val answersCount = answers[index].text().toInt()
+      val answersCount = answers[index]?.text()?.toInt() ?: INT_DEFAULT
 
       // Parse UQ
-      val rating = ratings[index].text().toInt()
+      val rating = ratings[index]?.text()?.toInt() ?: INT_DEFAULT
 
       // Parse date
-      val topicDate = dates[index].html().extractDate()
+      val topicDate = dates[index]?.html()?.extractDate() ?: STRING_DEFAULT
 
       // Build TopicItem
       val userInfo = UserProfileShort(
