@@ -6,7 +6,7 @@ import com.sedsoftware.yaptalker.data.ForumItem
 import com.sedsoftware.yaptalker.data.NewsItem
 import com.sedsoftware.yaptalker.data.PostItem
 import com.sedsoftware.yaptalker.data.TopicItemList
-import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -17,7 +17,7 @@ import retrofit2.http.Path
  */
 interface YapNewsLoader {
   @GET("/st/{startPage}/")
-  fun loadNews(@Path("startPage") startPage: Int): Observable<List<NewsItem>>
+  fun loadNews(@Path("startPage") startPage: Int): Single<List<NewsItem>>
 }
 
 /**
@@ -25,7 +25,7 @@ interface YapNewsLoader {
  */
 interface YapForumsListLoader {
   @GET("/forum")
-  fun loadForumsList(): Observable<List<ForumItem>>
+  fun loadForumsList(): Single<List<ForumItem>>
 }
 
 /**
@@ -40,7 +40,7 @@ interface YapChosenForumLoader {
   fun loadChosenForum(
       @Path("forumId") forumId: Int,
       @Path("startFrom") startTopicNumber: Int,
-      @Path("sortingMode") sortingMode: String): Observable<List<TopicItemList>>
+      @Path("sortingMode") sortingMode: String): Single<List<TopicItemList>>
 }
 
 /**
@@ -55,5 +55,5 @@ interface YapChosenTopicLoader {
   fun loadChosenTopic(
       @Path("forumId") forumId: Int,
       @Path("startPage") startPage: Int,
-      @Path("topicId") topicId: Int): Observable<List<PostItem>>
+      @Path("topicId") topicId: Int): Single<List<PostItem>>
 }

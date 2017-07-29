@@ -4,7 +4,7 @@ import com.nhaarman.mockito_kotlin.mock
 import com.sedsoftware.yaptalker.data.NewsItem
 import com.sedsoftware.yaptalker.data.TopicItemList
 import com.sedsoftware.yaptalker.data.UserProfileShort
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
@@ -23,7 +23,7 @@ class YapNewsLoaderTest {
     loaderMock = mock<YapNewsLoader>()
 
     `when`(loaderMock.loadNews(ArgumentMatchers.anyInt()))
-        .thenReturn(Observable.just(getDummyNewsList()))
+        .thenReturn(Single.just(getDummyNewsList()))
   }
 
   @Test
