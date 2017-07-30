@@ -1,7 +1,8 @@
-package com.sedsoftware.yaptalker
+package com.sedsoftware.yaptalker.features.mainview
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.sedsoftware.yaptalker.R
 
 class MainActivity : AppCompatActivity() {
 
