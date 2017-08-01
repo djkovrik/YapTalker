@@ -125,6 +125,12 @@ dependencies {
 
   // Debugging tools dependencies
   implementation "com.jakewharton.timber:timber:$TIMBER_VERSION"
+
   debugImplementation "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
+  releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
+  testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
+
   debugImplementation "com.facebook.stetho:stetho:$STETHO_VERSION"
+  releaseImplementation "net.igenius:stetho-no-op:1.1"
+  testImplementation "net.igenius:stetho-no-op:1.1"
 }
