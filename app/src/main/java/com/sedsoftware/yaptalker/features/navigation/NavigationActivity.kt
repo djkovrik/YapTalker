@@ -1,14 +1,14 @@
-package com.sedsoftware.yaptalker.features.homeview
+package com.sedsoftware.yaptalker.features.navigation
 
 import android.os.Bundle
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
 
-class HomeActivity : MvpAppCompatActivity(), HomeView {
+class NavigationActivity : MvpAppCompatActivity(), NavigationView {
 
   @InjectPresenter
-  lateinit var homeViewPresenter: HomeViewPresenter
+  lateinit var homeViewPresenter: NavigationViewPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

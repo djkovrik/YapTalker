@@ -1,14 +1,11 @@
-package com.sedsoftware.yaptalker.features.homeview
+package com.sedsoftware.yaptalker.features.navigation
 
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
-import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
-
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface HomeView : MvpView {
+interface NavigationView : MvpView {
 
-  @StateStrategyType(OneExecutionStateStrategy::class)
   fun initNavigationDrawer()
 }
