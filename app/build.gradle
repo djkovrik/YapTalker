@@ -48,6 +48,7 @@ dependencies {
   final CONDUCTOR_VERSION = "2.1.4"
   final PICASSO_VERSION = "2.5.2"
   final JSOUP_VERSION = "1.10.3"
+  final ANKO_VERSION = "0.10.1"
 
   // App - UI
   final MATERIAL_VALUES_VERSION = "1.1.1"
@@ -102,6 +103,8 @@ dependencies {
   implementation "com.bluelinelabs:conductor:$CONDUCTOR_VERSION"
   implementation "com.squareup.picasso:picasso:$PICASSO_VERSION"
   implementation "org.jsoup:jsoup:$JSOUP_VERSION"
+  implementation "org.jetbrains.anko:anko-commons:$ANKO_VERSION"
+  implementation "org.jetbrains.anko:anko-design:$ANKO_VERSION"
 
   // UI
   implementation "blue.aodev:material-values:$MATERIAL_VALUES_VERSION"
