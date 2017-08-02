@@ -1,16 +1,16 @@
 package com.sedsoftware.yaptalker.features.navigation
 
 import android.os.Bundle
-import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.features.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main_appbar.*
 
-class NavigationActivity : MvpAppCompatActivity(), NavigationView {
+class NavigationActivity : BaseActivity(), NavigationView {
 
   @InjectPresenter
   lateinit var homeViewPresenter: NavigationViewPresenter
