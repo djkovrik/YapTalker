@@ -54,6 +54,7 @@ dependencies {
   // App - UI
   final MATERIAL_VALUES_VERSION = "1.1.1"
   final MATERIAL_DRAWER_VERSION = "5.9.5"
+  final MATERIAL_ICONS_VERSION = "3.0.1.1.original@aar"
 
   // Testing
   final ESPRESSO_VERSION = "2.2.2"
@@ -112,6 +113,7 @@ dependencies {
   // UI
   implementation "blue.aodev:material-values:$MATERIAL_VALUES_VERSION"
   implementation "com.mikepenz:materialdrawer:$MATERIAL_DRAWER_VERSION"
+  implementation "com.mikepenz:google-material-typeface:$MATERIAL_ICONS_VERSION"
 
   kapt daggerCompiler
   kapt moxyCompiler
