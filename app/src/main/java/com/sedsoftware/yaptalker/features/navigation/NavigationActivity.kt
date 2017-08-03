@@ -1,15 +1,17 @@
 package com.sedsoftware.yaptalker.features.navigation
 
 import android.os.Bundle
+import co.zsmb.materialdrawerkt.builders.accountHeader
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.divider
+import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.mikepenz.google_material_typeface_library.GoogleMaterial
+import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.Drawer
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.booleanRes
@@ -31,9 +33,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
   // Navigation navDrawer contents
   private lateinit var navDrawer: Drawer
-  private lateinit var drawerItemMainPage: PrimaryDrawerItem
-  private lateinit var drawerItemForums: PrimaryDrawerItem
-  private lateinit var drawerItemSettings: PrimaryDrawerItem
+  private lateinit var navHeader: AccountHeader
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -45,15 +45,14 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     navDrawer.saveInstanceState(outState)
+    navHeader.saveInstanceState(outState)
     super.onSaveInstanceState(outState)
   }
 
   override fun onBackPressed() {
-
-    if (navDrawer.isDrawerOpen) {
-      navDrawer.closeDrawer()
-    } else if (!router.handleBack()) {
-      super.onBackPressed()
+    when {
+      navDrawer.isDrawerOpen -> navDrawer.closeDrawer()
+      !router.handleBack() -> super.onBackPressed()
     }
   }
 
@@ -65,6 +64,19 @@ class NavigationActivity : BaseActivity(), NavigationView {
       savedInstance = savedInstanceState
       selectedItem = Navigation.MAIN_PAGE
       buildViewOnly = isInTwoPaneMode
+      hasStableIds = true
+
+      navHeader = accountHeader {
+
+        savedInstance = savedInstanceState
+        translucentStatusBar = true
+        background = R.drawable.nav_header
+        selectionListEnabledForSingleProfile = false
+
+        profile {
+          name = getString(R.string.nav_drawer_guest_name)
+        }
+      }
 
       onItemClick { _, _, drawerItem ->
         if (drawerItem is Nameable<*>) {
@@ -73,7 +85,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
         false
       }
 
-      drawerItemMainPage = primaryItem {
+      primaryItem {
         name = stringRes(R.string.nav_drawer_main_page)
         iicon = GoogleMaterial.Icon.gmd_home
         textColor = color(R.color.colorNavDefaultText).toLong()
@@ -82,7 +94,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
         selectedIconColorRes = R.color.colorNavMainPage
       }
 
-      drawerItemForums = primaryItem {
+      primaryItem {
         identifier = Navigation.FORUMS
         name = stringRes(R.string.nav_drawer_forums)
         iicon = GoogleMaterial.Icon.gmd_forum
@@ -94,7 +106,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
       divider()
 
-      drawerItemSettings = primaryItem {
+      primaryItem {
         identifier = Navigation.SETTINGS
         name = stringRes(R.string.nav_drawer_settings)
         iicon = GoogleMaterial.Icon.gmd_settings
