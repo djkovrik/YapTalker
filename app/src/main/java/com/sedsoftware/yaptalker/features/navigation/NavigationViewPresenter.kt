@@ -8,7 +8,7 @@ import com.sedsoftware.yaptalker.features.base.BasePresenter
 class NavigationViewPresenter : BasePresenter<NavigationView>() {
 
   fun initLayout(savedInstanceState: Bundle?) {
-    viewState.initDrawer()
+    viewState.initDrawer(savedInstanceState)
     viewState.initRouter(savedInstanceState)
   }
 

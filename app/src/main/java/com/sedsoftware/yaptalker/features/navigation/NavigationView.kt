@@ -10,7 +10,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 interface NavigationView : MvpView {
 
   @StateStrategyType(OneExecutionStateStrategy::class)
-  fun initDrawer()
+  fun initDrawer(savedInstanceState: Bundle?)
 
   @StateStrategyType(OneExecutionStateStrategy::class)
   fun initRouter(savedInstanceState: Bundle?)

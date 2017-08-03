@@ -1,19 +1,20 @@
 package com.sedsoftware.yaptalker.features.navigation
 
 import android.os.Bundle
+import co.zsmb.materialdrawerkt.builders.drawer
+import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
+import co.zsmb.materialdrawerkt.draweritems.divider
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
-import com.evernote.android.state.State
 import com.mikepenz.google_material_typeface_library.GoogleMaterial
 import com.mikepenz.materialdrawer.Drawer
-import com.mikepenz.materialdrawer.DrawerBuilder
-import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.booleanRes
 import com.sedsoftware.yaptalker.commons.extensions.color
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.features.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main_appbar.*
@@ -25,14 +26,11 @@ class NavigationActivity : BaseActivity(), NavigationView {
   @InjectPresenter
   lateinit var navigationViewPresenter: NavigationViewPresenter
 
-  @State
-  var currentNavigationItem = Navigation.MAIN_PAGE
-
   private lateinit var router: Router
-  private val twoPaneMode by lazy { booleanRes(R.bool.two_pane_layout) }
+  private val isInTwoPaneMode by lazy { booleanRes(R.bool.two_pane_layout) }
 
-  // Navigation drawer contents
-  private lateinit var drawer: Drawer
+  // Navigation navDrawer contents
+  private lateinit var navDrawer: Drawer
   private lateinit var drawerItemMainPage: PrimaryDrawerItem
   private lateinit var drawerItemForums: PrimaryDrawerItem
   private lateinit var drawerItemSettings: PrimaryDrawerItem
@@ -45,64 +43,71 @@ class NavigationActivity : BaseActivity(), NavigationView {
     navigationViewPresenter.initLayout(savedInstanceState)
   }
 
+  override fun onSaveInstanceState(outState: Bundle) {
+    navDrawer.saveInstanceState(outState)
+    super.onSaveInstanceState(outState)
+  }
+
   override fun onBackPressed() {
-    if (!router.handleBack()) {
+
+    if (navDrawer.isDrawerOpen) {
+      navDrawer.closeDrawer()
+    } else if (!router.handleBack()) {
       super.onBackPressed()
     }
   }
 
-  override fun initDrawer() {
+  override fun initDrawer(savedInstanceState: Bundle?) {
 
-    drawerItemMainPage = PrimaryDrawerItem()
-        .withIdentifier(Navigation.MAIN_PAGE)
-        .withName(R.string.nav_drawer_main_page)
-        .withIcon(GoogleMaterial.Icon.gmd_home)
-        .withTextColor(color(R.color.colorNavDefaultText))
-        .withIconColorRes(R.color.colorNavMainPage)
-        .withSelectedTextColor(color(R.color.colorNavMainPage))
-        .withSelectedIconColorRes(R.color.colorNavMainPage)
+    navDrawer = drawer {
 
-    drawerItemForums = PrimaryDrawerItem()
-        .withIdentifier(Navigation.FORUMS)
-        .withName(R.string.nav_drawer_forums)
-        .withIcon(GoogleMaterial.Icon.gmd_forum)
-        .withTextColor(color(R.color.colorNavDefaultText))
-        .withIconColorRes(R.color.colorNavForums)
-        .withSelectedTextColor(color(R.color.colorNavForums))
-        .withSelectedIconColorRes(R.color.colorNavForums)
+      toolbar = this@NavigationActivity.toolbar
+      savedInstance = savedInstanceState
+      selectedItem = Navigation.MAIN_PAGE
+      buildViewOnly = isInTwoPaneMode
 
-    drawerItemSettings = PrimaryDrawerItem()
-        .withIdentifier(Navigation.SETTINGS)
-        .withIcon(GoogleMaterial.Icon.gmd_settings)
-        .withName(R.string.nav_drawer_settings)
-        .withTextColor(color(R.color.colorNavDefaultText))
-        .withIconColorRes(R.color.colorNavSettings)
-        .withSelectedTextColor(color(R.color.colorNavSettings))
-        .withSelectedIconColorRes(R.color.colorNavSettings)
-
-    val drawerBuilder = DrawerBuilder()
-        .withActivity(this)
-        .withToolbar(toolbar)
-        .addDrawerItems(drawerItemMainPage)
-        .addDrawerItems(drawerItemForums)
-        .addDrawerItems(DividerDrawerItem())
-        .addDrawerItems(drawerItemSettings)
-        .withSelectedItem(currentNavigationItem)
-        .withOnDrawerItemClickListener { _, _, drawerItem ->
-          if (drawerItem is Nameable<*>) {
-            currentNavigationItem = drawerItem.identifier
-            navigationViewPresenter.onNavigationClicked(currentNavigationItem)
-          }
-          false
+      onItemClick { _, _, drawerItem ->
+        if (drawerItem is Nameable<*>) {
+          navigationViewPresenter.onNavigationClicked(drawerItem.identifier)
         }
+        false
+      }
 
-    if (twoPaneMode) {
-      drawer = drawerBuilder.buildView()
-      navigation_drawer.addView(drawer.slider)
-    } else {
-      drawer = drawerBuilder.build()
+      drawerItemMainPage = primaryItem {
+        name = stringRes(R.string.nav_drawer_main_page)
+        iicon = GoogleMaterial.Icon.gmd_home
+        textColor = color(R.color.colorNavDefaultText).toLong()
+        iconColorRes = R.color.colorNavMainPage
+        selectedTextColor = color(R.color.colorNavMainPage).toLong()
+        selectedIconColorRes = R.color.colorNavMainPage
+      }
+
+      drawerItemForums = primaryItem {
+        identifier = Navigation.FORUMS
+        name = stringRes(R.string.nav_drawer_forums)
+        iicon = GoogleMaterial.Icon.gmd_forum
+        textColor = color(R.color.colorNavDefaultText).toLong()
+        iconColorRes = R.color.colorNavForums
+        selectedTextColor = color(R.color.colorNavForums).toLong()
+        selectedIconColorRes = R.color.colorNavForums
+      }
+
+      divider()
+
+      drawerItemSettings = primaryItem {
+        identifier = Navigation.SETTINGS
+        name = stringRes(R.string.nav_drawer_settings)
+        iicon = GoogleMaterial.Icon.gmd_settings
+        textColor = color(R.color.colorNavDefaultText).toLong()
+        iconColorRes = R.color.colorNavSettings
+        selectedTextColor = color(R.color.colorNavSettings).toLong()
+        selectedIconColorRes = R.color.colorNavSettings
+      }
     }
 
+    if (isInTwoPaneMode) {
+      navigation_drawer.addView(navDrawer.slider)
+    }
   }
 
   override fun initRouter(savedInstanceState: Bundle?) {
