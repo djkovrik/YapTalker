@@ -17,7 +17,7 @@
 
     <FrameLayout
       android:id="@+id/navigation_drawer"
-      android:layout_width="@dimen/tablets_drawer_width"
+      android:layout_width="@dimen/landscape_drawer_width"
       android:layout_height="match_parent"/>
 
     <include
