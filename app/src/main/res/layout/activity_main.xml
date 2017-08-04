@@ -4,6 +4,11 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context="com.sedsoftware.yaptalker.features.mainview.MainActivity">
+  android:fitsSystemWindows="true"
+  tools:context="com.sedsoftware.yaptalker.features.navigation.NavigationActivity">
+
+  <include layout="@layout/activity_main_appbar"/>
+
+  <include layout="@layout/activity_main_content"/>
 
 </android.support.constraint.ConstraintLayout>

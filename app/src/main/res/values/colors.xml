@@ -4,4 +4,10 @@
   <color name="colorPrimaryDark">#ab000d</color>
   <color name="colorAccent">#0277bd</color>
   <color name="colorAccentDark">#004c8c</color>
+
+  <!-- Navigation drawer colors -->
+  <color name="colorNavDefaultText">@color/material_color_grey_600</color>
+  <color name="colorNavMainPage">@color/colorPrimary</color>
+  <color name="colorNavForums">@color/material_color_purple_600</color>
+  <color name="colorNavSettings">@color/material_color_grey_700</color>
 </resources>

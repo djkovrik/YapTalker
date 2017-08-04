@@ -1,3 +1,11 @@
 <resources>
   <string name="app_name">YapTalker</string>
+
+  <!-- NavigationDrawer  header items -->
+  <string name="nav_drawer_guest_name">Guest</string>
+
+  <!-- NavigationDrawer items -->
+  <string name="nav_drawer_main_page">Main page</string>
+  <string name="nav_drawer_forums">Forums</string>
+  <string name="nav_drawer_settings">Settings</string>
 </resources>
