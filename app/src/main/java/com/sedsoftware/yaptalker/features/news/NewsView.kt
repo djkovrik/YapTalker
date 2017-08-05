@@ -16,7 +16,7 @@ interface NewsView : MvpView {
 
   fun hideRefreshing()
 
-  fun showErrorMessage()
+  fun showErrorMessage(message: String)
 
   fun setNews(news: List<NewsItem>)
 

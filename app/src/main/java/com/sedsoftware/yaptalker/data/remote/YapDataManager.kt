@@ -1,7 +1,9 @@
 package com.sedsoftware.yaptalker.data.remote
 
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.sedsoftware.yaptalker.data.NewsItem
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class YapDataManager(
@@ -18,28 +20,28 @@ class YapDataManager(
         .subscribe(requestState)
   }
 
-  fun loadNews(startPage: Int = 0) =
+  fun getNews(startNumber: Int = 0): Single<List<NewsItem>> =
       newsLoader
-          .loadNews(startPage)
+          .loadNews(startNumber)
           .doOnSubscribe { publishRequestState(YapRequestState.LOADING) }
           .doOnError { publishRequestState(YapRequestState.ERROR) }
           .doOnSuccess { publishRequestState(YapRequestState.COMPLETED) }
 
-  fun loadForums() =
+  fun getForumsList() =
       forumsListLoader
           .loadForumsList()
           .doOnSubscribe { publishRequestState(YapRequestState.LOADING) }
           .doOnError { publishRequestState(YapRequestState.ERROR) }
           .doOnSuccess { publishRequestState(YapRequestState.COMPLETED) }
 
-  fun loadChosenForum(forumId: Int, startTopicNumber: Int, sortingMode: String = "last_post") =
+  fun getChosenForum(forumId: Int, startTopicNumber: Int = 0, sortingMode: String = "last_post") =
       chosenForumLoader
           .loadChosenForum(forumId, startTopicNumber, sortingMode)
           .doOnSubscribe { publishRequestState(YapRequestState.LOADING) }
           .doOnError { publishRequestState(YapRequestState.ERROR) }
           .doOnSuccess { publishRequestState(YapRequestState.COMPLETED) }
 
-  fun loadChosenTopic(forumId: Int, startPage: Int = 0, topicId: Int) =
+  fun getChosenTopic(forumId: Int, startPage: Int = 0, topicId: Int) =
       chosenTopicLoader
           .loadChosenTopic(forumId, startPage, topicId)
           .doOnSubscribe { publishRequestState(YapRequestState.LOADING) }

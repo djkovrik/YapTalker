@@ -9,6 +9,7 @@ import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
+import com.bluelinelabs.conductor.RouterTransaction
 import com.mikepenz.google_material_typeface_library.GoogleMaterial
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.Drawer
@@ -18,10 +19,10 @@ import com.sedsoftware.yaptalker.commons.extensions.booleanRes
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.features.base.BaseActivity
+import com.sedsoftware.yaptalker.features.news.NewsController
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main_appbar.*
 import kotlinx.android.synthetic.main.activity_main_content.*
-
 
 class NavigationActivity : BaseActivity(), NavigationView {
 
@@ -124,9 +125,9 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
   override fun initRouter(savedInstanceState: Bundle?) {
     router = Conductor.attachRouter(this, content_frame, savedInstanceState)
-//    if (!router.hasRootController()) {
-//      router.setRoot(RouterTransaction.with())
-//    }
+    if (!router.hasRootController()) {
+      router.setRoot(RouterTransaction.with(NewsController()))
+    }
   }
 
   override fun goToChosenSection(section: Long) {
