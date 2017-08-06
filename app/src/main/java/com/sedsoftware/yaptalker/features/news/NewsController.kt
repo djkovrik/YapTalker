@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.InfiniteScrollListener
 import com.sedsoftware.yaptalker.data.NewsItem
 import com.sedsoftware.yaptalker.features.base.BaseController
 import kotlinx.android.synthetic.main.controller_news.view.*
@@ -23,14 +24,20 @@ class NewsController : BaseController(), NewsView {
     newsAdapter.setHasStableIds(true)
 
     with(view.refresh_layout) {
-      setOnRefreshListener { newsPresenter.loadNews() }
+      setOnRefreshListener { newsPresenter.loadNews(true) }
     }
 
     with(view.news_list) {
-      setHasFixedSize(true)
-      val manager = LinearLayoutManager(context)
-      layoutManager = manager
+      val linearLayout = LinearLayoutManager(context)
+      layoutManager = linearLayout
       adapter = newsAdapter
+
+      setHasFixedSize(true)
+      clearOnScrollListeners()
+
+      addOnScrollListener(InfiniteScrollListener({
+        newsPresenter.loadNews(false)
+      }, linearLayout))
     }
   }
 
@@ -46,15 +53,11 @@ class NewsController : BaseController(), NewsView {
 
   }
 
-  override fun showNews() {
-    newsPresenter.loadNews()
+  override fun refreshNews(news: List<NewsItem>) {
+    newsAdapter.clearAndAddNews(news)
   }
 
-  override fun setNews(news: List<NewsItem>) {
-    newsAdapter.setNews(news)
+  override fun appendNews(news: List<NewsItem>) {
+    newsAdapter.addNews(news)
   }
-
-  override fun addNews(news: List<NewsItem>) {
-  }
-
 }

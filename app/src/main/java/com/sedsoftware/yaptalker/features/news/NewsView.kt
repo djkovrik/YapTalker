@@ -14,9 +14,7 @@ interface NewsView : MvpView {
 
   fun showErrorMessage(message: String)
 
-  fun showNews()
+  fun refreshNews(news: List<NewsItem>)
 
-  fun setNews(news: List<NewsItem>)
-
-  fun addNews(news: List<NewsItem>)
+  fun appendNews(news: List<NewsItem>)
 }

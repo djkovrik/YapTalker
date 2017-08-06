@@ -16,6 +16,10 @@ class NewsPresenter : BasePresenter<NewsView>() {
   @Inject
   lateinit var yapDataManager: YapDataManager
 
+  private val NEWS_PER_PAGE = 50
+  private var currentPage = 0
+  private var backToFirstPage = false
+
   init {
     YapTalkerApp.appComponent.inject(this)
   }
@@ -27,11 +31,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
 
   override fun attachView(view: NewsView?) {
     super.attachView(view)
-    viewState.showNews()
-  }
-
-  fun loadNews() {
-    loadData(0)
+    loadNews(true)
   }
 
   fun attachRefreshIndicator() {
@@ -51,11 +51,24 @@ class NewsPresenter : BasePresenter<NewsView>() {
     unsubscribeOnDestroy(subscription)
   }
 
-  fun loadData(startNumber: Int) {
+  fun loadNews(loadFromFirstPage: Boolean) {
+
+    backToFirstPage = loadFromFirstPage
+
+    if (backToFirstPage) {
+      currentPage = 0
+    } else {
+      currentPage += NEWS_PER_PAGE
+    }
+
+    loadDataForCurrentPage()
+  }
+
+  private fun loadDataForCurrentPage() {
 
     val subscription =
         yapDataManager
-            .getNews(startNumber)
+            .getNews(currentPage)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -73,7 +86,11 @@ class NewsPresenter : BasePresenter<NewsView>() {
   }
 
   private fun onLoadingSuccess(news: List<NewsItem>) {
-    viewState.setNews(news)
+    if (backToFirstPage) {
+      viewState.refreshNews(news)
+    } else {
+      viewState.appendNews(news)
+    }
   }
 
   private fun onLoadingError(error: Throwable) {

@@ -26,10 +26,15 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     holder.bindTo(news[position])
   }
 
-  fun setNews(list: List<NewsItem>) {
+  fun addNews(list: List<NewsItem>) {
+    val insertPosition = news.size
+    news.addAll(insertPosition, list)
+    notifyItemRangeInserted(insertPosition, news.size)
+  }
+
+  fun clearAndAddNews(list: List<NewsItem>) {
     news.clear()
-    news.addAll(list)
-    notifyDataSetChanged()
+    addNews(list)
   }
 
   class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
