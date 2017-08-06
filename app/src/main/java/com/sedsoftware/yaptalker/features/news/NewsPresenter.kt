@@ -23,7 +23,11 @@ class NewsPresenter : BasePresenter<NewsView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
     attachRefreshIndicator()
-    loadNews()
+  }
+
+  override fun attachView(view: NewsView?) {
+    super.attachView(view)
+    viewState.showNews()
   }
 
   fun loadNews() {
@@ -35,12 +39,10 @@ class NewsPresenter : BasePresenter<NewsView>() {
         yapDataManager.requestState.subscribe { state: Long ->
           when (state) {
             YapRequestState.LOADING -> {
-              viewState.onStartLoading()
               viewState.showRefreshing()
             }
             YapRequestState.COMPLETED,
             YapRequestState.ERROR -> {
-              viewState.onFinishLoading()
               viewState.hideRefreshing()
             }
           }

@@ -8,15 +8,13 @@ import com.sedsoftware.yaptalker.data.NewsItem
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface NewsView : MvpView {
 
-  fun onStartLoading()
-
-  fun onFinishLoading()
-
   fun showRefreshing()
 
   fun hideRefreshing()
 
   fun showErrorMessage(message: String)
+
+  fun showNews()
 
   fun setNews(news: List<NewsItem>)
 
