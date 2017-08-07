@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.data
 
 // NEWS
-data class NewsItem(val summary: String, val topic: TopicItemList)
+data class NewsItem(val summary: String, val forum: String, val topic: TopicItemList)
 
 // CHOSEN FORUM
 data class TopicItemList(val id: Int, val title: String, val answers: Int, val uq: Int,

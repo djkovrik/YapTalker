@@ -69,8 +69,8 @@ class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
 
       val profileInfo = topicInfo.select(PROFILE_INFO_SELECTOR)
       val nickname = profileInfo[0]?.text() ?: STRING_DEFAULT
-
       val userId = profileInfo[0].attr(LINK_BY_ATTRIBUTE_SELECTOR).getLastDigits()
+      val forumLabel = profileInfo[1]?.text() ?: STRING_DEFAULT
 
       // Build NewsItem
       val userInfo = UserProfileShort(id = userId, name = nickname)
@@ -83,7 +83,7 @@ class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
           author = userInfo,
           date = topicDate)
 
-      val singleNewsItem = NewsItem(summary = contentBody, topic = topicItem)
+      val singleNewsItem = NewsItem(summary = contentBody, forum = forumLabel, topic = topicItem)
 
       result.add(singleNewsItem)
     }
