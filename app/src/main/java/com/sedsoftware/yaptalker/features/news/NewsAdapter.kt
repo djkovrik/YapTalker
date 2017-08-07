@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.data.NewsItem
 import kotlinx.android.synthetic.main.controller_news_item.view.*
+import java.util.*
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
@@ -33,15 +34,23 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
   }
 
   fun clearAndAddNews(list: List<NewsItem>) {
+    notifyItemRangeRemoved(0, news.size)
     news.clear()
     addNews(list)
   }
 
   class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    val headerTemplate: String = itemView.context.getString(R.string.news_header_info_template)
+    val karmaTemplate: String = itemView.context.getString(R.string.news_karma_template)
+
     fun bindTo(newsItem: NewsItem) {
       with(newsItem) {
+        itemView.news_info_text.text = String.format(Locale.US, headerTemplate, topic.author.name, forum)
+        itemView.news_date.text = topic.date
+        itemView.news_rating.text = String.format(Locale.US, karmaTemplate, topic.uq)
         itemView.news_title.text = topic.title
+        itemView.news_content.loadDataWithBaseURL("http://www.yaplakal.com/", summary, "text/html; charset=UTF-8", null, null)
       }
     }
   }
