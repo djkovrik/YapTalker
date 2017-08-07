@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="app_name">YapTalker</string>
 
   <!-- NavigationDrawer  header items -->
@@ -8,4 +8,12 @@
   <string name="nav_drawer_main_page">Main page</string>
   <string name="nav_drawer_forums">Forums</string>
   <string name="nav_drawer_settings">Settings</string>
+
+  <!-- News Item -->
+  <string name="news_header_info_template" translatable="false">
+    <xliff:g id="author">%s</xliff:g> - <xliff:g id="forum">%s</xliff:g>
+  </string>
+  <string name="news_karma_template" translatable="false">
+   +<xliff:g id="karma">%d</xliff:g>
+  </string>
 </resources>
