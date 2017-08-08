@@ -20,7 +20,7 @@ class NewsController : BaseController(), NewsView {
 
   override fun onViewBound(view: View) {
 
-    newsAdapter = NewsAdapter()
+    newsAdapter = NewsAdapter(view.context)
     newsAdapter.setHasStableIds(true)
 
     with(view.refresh_layout) {
