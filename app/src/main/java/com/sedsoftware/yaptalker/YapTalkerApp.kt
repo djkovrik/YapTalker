@@ -46,7 +46,6 @@ class YapTalkerApp : Application() {
 
     // Init MaterialDrawer image loader
 
-
     DrawerImageLoader.init(object: AbstractDrawerImageLoader() {
       override fun set(imageView: ImageView?, uri: Uri?, placeholder: Drawable?, tag: String?) {
         Picasso.with(imageView?.context).load(uri).placeholder(placeholder).into(imageView)

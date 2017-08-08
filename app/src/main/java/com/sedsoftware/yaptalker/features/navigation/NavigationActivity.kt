@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.features.navigation
 
+import android.content.Context
 import android.os.Bundle
 import co.zsmb.materialdrawerkt.builders.accountHeader
 import co.zsmb.materialdrawerkt.builders.drawer
@@ -10,7 +11,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
-import com.mikepenz.google_material_typeface_library.GoogleMaterial
+import com.mikepenz.community_material_typeface_library.CommunityMaterial
+import com.mikepenz.iconics.context.IconicsContextWrapper
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
@@ -42,6 +44,11 @@ class NavigationActivity : BaseActivity(), NavigationView {
     setSupportActionBar(toolbar)
 
     navigationViewPresenter.initLayout(savedInstanceState)
+  }
+
+  // Init Iconics here
+  override fun attachBaseContext(base: Context?) {
+    super.attachBaseContext(IconicsContextWrapper.wrap(base))
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -88,7 +95,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
       primaryItem {
         name = stringRes(R.string.nav_drawer_main_page)
-        iicon = GoogleMaterial.Icon.gmd_home
+        iicon = CommunityMaterial.Icon.cmd_home
         textColor = color(R.color.colorNavDefaultText).toLong()
         iconColorRes = R.color.colorNavMainPage
         selectedTextColor = color(R.color.colorNavMainPage).toLong()
@@ -98,7 +105,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
       primaryItem {
         identifier = Navigation.FORUMS
         name = stringRes(R.string.nav_drawer_forums)
-        iicon = GoogleMaterial.Icon.gmd_forum
+        iicon = CommunityMaterial.Icon.cmd_forum
         textColor = color(R.color.colorNavDefaultText).toLong()
         iconColorRes = R.color.colorNavForums
         selectedTextColor = color(R.color.colorNavForums).toLong()
@@ -110,7 +117,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
       primaryItem {
         identifier = Navigation.SETTINGS
         name = stringRes(R.string.nav_drawer_settings)
-        iicon = GoogleMaterial.Icon.gmd_settings
+        iicon = CommunityMaterial.Icon.cmd_settings
         textColor = color(R.color.colorNavDefaultText).toLong()
         iconColorRes = R.color.colorNavSettings
         selectedTextColor = color(R.color.colorNavSettings).toLong()
