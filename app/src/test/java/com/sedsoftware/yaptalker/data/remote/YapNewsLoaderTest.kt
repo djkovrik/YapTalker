@@ -50,13 +50,15 @@ class YapNewsLoaderTest {
 
   fun getDummyNewsItem(seed: Int): NewsItem {
     return NewsItem(
-        "News summary#$seed",
-        TopicItemList(seed + 1,
-            "Title#$seed",
-            seed + 2,
-            seed + 3,
-            UserProfileShort(seed + 4,
-                "Name#$seed"),
-            "Date#$seed"))
+        summary = "News summary#$seed",
+        forum = "Forum title#$seed",
+        topic = TopicItemList(id = seed + 1,
+            title = "Title#$seed",
+            answers = seed + 2,
+            uq = seed + 3,
+            author = UserProfileShort(
+                id = seed + 4,
+                name = "Name#$seed"),
+            date = "Date#$seed"))
   }
 }
