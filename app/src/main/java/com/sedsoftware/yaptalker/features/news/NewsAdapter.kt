@@ -41,16 +41,22 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
   class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    val headerTemplate: String = itemView.context.getString(R.string.news_header_info_template)
+    val forumTitleTemplate: String = itemView.context.getString(R.string.news_forum_title_template)
     val karmaTemplate: String = itemView.context.getString(R.string.news_karma_template)
+    val dateTemplate: String = itemView.context.getString(R.string.news_date_template)
+    val commentsTemplate: String = itemView.context.getString(R.string.news_comments_template)
 
     fun bindTo(newsItem: NewsItem) {
-      with(newsItem) {
-        itemView.news_info_text.text = String.format(Locale.US, headerTemplate, topic.author.name, forum)
-        itemView.news_date.text = topic.date
-        itemView.news_rating.text = String.format(Locale.US, karmaTemplate, topic.uq)
-        itemView.news_title.text = topic.title
-        itemView.news_content.loadDataWithBaseURL("http://www.yaplakal.com/", summary, "text/html; charset=UTF-8", null, null)
+      with(itemView) {
+        news_author.text = newsItem.topic.author.name
+        news_title.text = newsItem.topic.title
+        news_forum.text = String.format(Locale.US, forumTitleTemplate, newsItem.forum)
+        news_date.text = String.format(Locale.US, dateTemplate, newsItem.topic.date)
+        news_rating.text = String.format(Locale.US, karmaTemplate, newsItem.topic.uq)
+        news_comments_counter.text = String.format(Locale.US, commentsTemplate, newsItem.topic.answers)
+
+//        itemView.news_content.loadDataWithBaseURL("http://www.yaplakal.com/", summary,
+//            "text/html; charset=UTF-8", null, null)
       }
     }
   }

@@ -3,8 +3,7 @@
 
   <!-- Cards -->
   <dimen name="card_margin_value_half">@dimen/material_baseline_grid_0.5x</dimen>
-  <dimen name="card_head_text_size">12sp</dimen>
-  <dimen name="card_rating_label_padding">@dimen/material_card_edge_margin</dimen>
+  <dimen name="card_news_title_font_size">16sp</dimen>
 
   <!-- Other -->
   <dimen name="landscape_drawer_width">280dp</dimen>
