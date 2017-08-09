@@ -56,6 +56,7 @@ dependencies {
   final MATERIAL_VALUES_VERSION = "1.1.1"
   final MATERIAL_DRAWER_KT_VERSION = "1.0.6"
   final COMMUNITY_MATERIAL_ICONS_VERSION = "1.9.32.2@aar"
+  final TOASTY_VERSION = "1.2.5"
 
   // Testing
   final ESPRESSO_VERSION = "2.2.2"
@@ -117,6 +118,7 @@ dependencies {
   implementation "blue.aodev:material-values:$MATERIAL_VALUES_VERSION"
   implementation "co.zsmb:materialdrawer-kt:$MATERIAL_DRAWER_KT_VERSION"
   implementation "com.mikepenz:community-material-typeface:$COMMUNITY_MATERIAL_ICONS_VERSION"
+  implementation "com.github.grenderg:toasty:$TOASTY_VERSION"
 
   kapt daggerCompiler
   kapt moxyCompiler
