@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.data.model
 
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
+import timber.log.Timber
 
 data class NewsItem(
     val summary: String,
@@ -16,24 +17,25 @@ data class NewsItemContent(val sourceHtml: String) {
     private val SRC_SELECTOR = "src"
   }
 
-  var images: MutableList<String> = ArrayList()
-  var videos: MutableList<String> = ArrayList()
+  var image = ""
+  var video = ""
 
   var text: String = Jsoup
-      .clean(sourceHtml, Whitelist().addTags("i", "u", "br"))
-      .replace("<br>(\\s+)?\\R<br>", "<br>")
+      .clean(sourceHtml, Whitelist().addTags("i", "u", "b", "br"))
 
   init {
+    if (text.contains("<br>")) {
+      text = text.substring(0, text.indexOf("<br>"))
+    }
+
     val content = Jsoup.parse(sourceHtml)
     val imageLinks = content.select(IMAGE_SELECTOR)
-    val videoLinks = content.select(VIDEO_SELECTOR)
+    val videoBlock = content.select(VIDEO_SELECTOR)
 
-    imageLinks.forEach {
-      images.add(it.attr(SRC_SELECTOR))
-    }
+    image = imageLinks.attr(SRC_SELECTOR)
+    video = videoBlock.toString()
 
-    videoLinks.forEach {
-      videos.add(it.html())
-    }
+    Timber.d("IMAGE: $image")
+    Timber.d("VIDEO: $video")
   }
 }
