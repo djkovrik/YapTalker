@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.webkit.WebView
 import android.widget.ImageView
+import android.widget.LinearLayout
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
@@ -88,6 +89,11 @@ class NewsAdapter(val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsV
 
         if (content.image.isNotEmpty()) {
           val imageView = ImageView(itemView.context)
+          imageView.adjustViewBounds = true
+          imageView.layoutParams =
+              ViewGroup.LayoutParams(
+                  LinearLayout.LayoutParams.MATCH_PARENT,
+                  LinearLayout.LayoutParams.WRAP_CONTENT)
           news_content_media.addView(imageView)
           imageView.loadFromUrl("http:${content.image}")
         }

@@ -2,7 +2,6 @@ package com.sedsoftware.yaptalker.data.model
 
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
-import timber.log.Timber
 
 data class NewsItem(
     val summary: String,
@@ -34,8 +33,5 @@ data class NewsItemContent(val sourceHtml: String) {
 
     image = imageLinks.attr(SRC_SELECTOR)
     video = videoBlock.toString()
-
-    Timber.d("IMAGE: $image")
-    Timber.d("VIDEO: $video")
   }
 }

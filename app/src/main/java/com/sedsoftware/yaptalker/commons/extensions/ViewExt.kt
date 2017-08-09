@@ -20,12 +20,10 @@ fun ImageView.loadFromUrl(url: String) {
 @Suppress("DEPRECATION")
 fun TextView.textFromHtml(html: String) {
 
-  val result =
+  this.text =
       if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
         Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
       } else {
         Html.fromHtml(html)
       }
-
-  this.text = result
 }
