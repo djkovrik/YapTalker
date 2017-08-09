@@ -17,12 +17,10 @@ import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.extensions.booleanRes
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.features.base.BaseActivity
 import com.sedsoftware.yaptalker.features.news.NewsController
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main_appbar.*
 import kotlinx.android.synthetic.main.activity_main_content.*
 
@@ -32,7 +30,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
   lateinit var navigationViewPresenter: NavigationViewPresenter
 
   private lateinit var router: Router
-  private val isInTwoPaneMode by lazy { booleanRes(R.bool.two_pane_layout) }
+//  private val isInTwoPaneMode by lazy { booleanRes(R.bool.two_pane_layout) }
 
   // Navigation navDrawer contents
   private lateinit var navDrawer: Drawer
@@ -71,7 +69,6 @@ class NavigationActivity : BaseActivity(), NavigationView {
       toolbar = this@NavigationActivity.toolbar
       savedInstance = savedInstanceState
       selectedItem = Navigation.MAIN_PAGE
-      buildViewOnly = isInTwoPaneMode
       hasStableIds = true
 
       navHeader = accountHeader {
@@ -125,9 +122,9 @@ class NavigationActivity : BaseActivity(), NavigationView {
       }
     }
 
-    if (isInTwoPaneMode) {
-      navigation_drawer.addView(navDrawer.slider)
-    }
+//    if (isInTwoPaneMode) {
+//      navigation_drawer.addView(navDrawer.slider)
+//    }
   }
 
   override fun initRouter(savedInstanceState: Bundle?) {
