@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.data.remote
 
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.data.NewsItem
+import com.sedsoftware.yaptalker.data.model.NewsItem
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

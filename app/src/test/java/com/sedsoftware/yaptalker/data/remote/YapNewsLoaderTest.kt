@@ -1,9 +1,9 @@
 package com.sedsoftware.yaptalker.data.remote
 
 import com.nhaarman.mockito_kotlin.mock
-import com.sedsoftware.yaptalker.data.NewsItem
-import com.sedsoftware.yaptalker.data.TopicItemList
-import com.sedsoftware.yaptalker.data.UserProfileShort
+import com.sedsoftware.yaptalker.data.model.NewsItem
+import com.sedsoftware.yaptalker.data.model.TopicItemList
+import com.sedsoftware.yaptalker.data.model.UserProfileShort
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.junit.Before

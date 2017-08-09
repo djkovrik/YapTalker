@@ -1,8 +1,8 @@
 package com.sedsoftware.yaptalker.data.remote.converters
 
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
-import com.sedsoftware.yaptalker.data.PostItem
-import com.sedsoftware.yaptalker.data.UserProfile
+import com.sedsoftware.yaptalker.data.model.PostItem
+import com.sedsoftware.yaptalker.data.model.UserProfile
 import okhttp3.ResponseBody
 import org.jsoup.Jsoup
 import retrofit2.Converter

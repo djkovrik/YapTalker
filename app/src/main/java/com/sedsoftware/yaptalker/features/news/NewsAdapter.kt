@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.data.NewsItem
+import com.sedsoftware.yaptalker.data.model.NewsItem
 import kotlinx.android.synthetic.main.controller_news_item.view.*
 import java.util.*
 

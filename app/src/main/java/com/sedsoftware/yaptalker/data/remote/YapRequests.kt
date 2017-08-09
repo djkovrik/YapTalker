@@ -2,10 +2,10 @@
 
 package com.sedsoftware.yaptalker.data.remote
 
-import com.sedsoftware.yaptalker.data.ForumItem
-import com.sedsoftware.yaptalker.data.NewsItem
-import com.sedsoftware.yaptalker.data.PostItem
-import com.sedsoftware.yaptalker.data.TopicItemList
+import com.sedsoftware.yaptalker.data.model.ForumItem
+import com.sedsoftware.yaptalker.data.model.NewsItem
+import com.sedsoftware.yaptalker.data.model.PostItem
+import com.sedsoftware.yaptalker.data.model.TopicItemList
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

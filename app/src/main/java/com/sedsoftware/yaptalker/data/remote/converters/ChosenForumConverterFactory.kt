@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.data.remote.converters
 
-import com.sedsoftware.yaptalker.data.TopicItemList
+import com.sedsoftware.yaptalker.data.model.TopicItemList
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.Retrofit

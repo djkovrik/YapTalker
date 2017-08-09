@@ -5,7 +5,7 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.InfiniteScrollListener
-import com.sedsoftware.yaptalker.data.NewsItem
+import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.features.base.BaseController
 import kotlinx.android.synthetic.main.controller_news.view.*
 
