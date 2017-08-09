@@ -6,6 +6,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.InfiniteScrollListener
 import com.sedsoftware.yaptalker.commons.extensions.color
+import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.features.base.BaseController
 import kotlinx.android.synthetic.main.controller_news.view.*
@@ -57,7 +58,7 @@ class NewsController : BaseController(), NewsView {
   }
 
   override fun showErrorMessage(message: String) {
-
+    toastError(message)
   }
 
   override fun refreshNews(news: List<NewsItem>) {
