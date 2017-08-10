@@ -2,9 +2,9 @@ package com.sedsoftware.yaptalker.data.remote.converters
 
 import com.sedsoftware.yaptalker.commons.extensions.chopEdges
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
-import com.sedsoftware.yaptalker.data.NewsItem
-import com.sedsoftware.yaptalker.data.TopicItemList
-import com.sedsoftware.yaptalker.data.UserProfileShort
+import com.sedsoftware.yaptalker.data.model.NewsItem
+import com.sedsoftware.yaptalker.data.model.TopicItemList
+import com.sedsoftware.yaptalker.data.model.UserProfileShort
 import okhttp3.ResponseBody
 import org.jsoup.Jsoup
 import retrofit2.Converter
@@ -69,11 +69,12 @@ class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
 
       val profileInfo = topicInfo.select(PROFILE_INFO_SELECTOR)
       val nickname = profileInfo[0]?.text() ?: STRING_DEFAULT
-
       val userId = profileInfo[0].attr(LINK_BY_ATTRIBUTE_SELECTOR).getLastDigits()
+      val forumLabel = profileInfo[1]?.text() ?: STRING_DEFAULT
 
       // Build NewsItem
-      val userInfo = UserProfileShort(id = userId, name = nickname)
+      val userInfo = UserProfileShort(id = userId,
+          name = nickname)
 
       val topicItem = TopicItemList(
           id = topicId,
@@ -83,7 +84,8 @@ class NewsResponseBodyConverter : Converter<ResponseBody, List<NewsItem>> {
           author = userInfo,
           date = topicDate)
 
-      val singleNewsItem = NewsItem(summary = contentBody, topic = topicItem)
+      val singleNewsItem = NewsItem(summary = contentBody,
+          forum = forumLabel, topic = topicItem)
 
       result.add(singleNewsItem)
     }

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+  <!-- Cards -->
+  <dimen name="card_margin_value_half">@dimen/material_baseline_grid_0.5x</dimen>
+  <dimen name="card_news_title_font_size">16sp</dimen>
+
+  <!-- Other -->
   <dimen name="landscape_drawer_width">280dp</dimen>
 </resources>

@@ -2,9 +2,9 @@ package com.sedsoftware.yaptalker.data.remote.converters
 
 import com.sedsoftware.yaptalker.commons.extensions.extractDate
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
-import com.sedsoftware.yaptalker.data.ForumItem
-import com.sedsoftware.yaptalker.data.TopicItemShort
-import com.sedsoftware.yaptalker.data.UserProfileShort
+import com.sedsoftware.yaptalker.data.model.ForumItem
+import com.sedsoftware.yaptalker.data.model.TopicItemShort
+import com.sedsoftware.yaptalker.data.model.UserProfileShort
 import okhttp3.ResponseBody
 import org.jsoup.Jsoup
 import retrofit2.Converter

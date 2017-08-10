@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.features.navigation
 
+import android.content.Context
 import android.os.Bundle
 import co.zsmb.materialdrawerkt.builders.accountHeader
 import co.zsmb.materialdrawerkt.builders.drawer
@@ -9,19 +10,19 @@ import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
-import com.mikepenz.google_material_typeface_library.GoogleMaterial
+import com.bluelinelabs.conductor.RouterTransaction
+import com.mikepenz.community_material_typeface_library.CommunityMaterial
+import com.mikepenz.iconics.context.IconicsContextWrapper
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.extensions.booleanRes
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.features.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import com.sedsoftware.yaptalker.features.news.NewsController
 import kotlinx.android.synthetic.main.activity_main_appbar.*
 import kotlinx.android.synthetic.main.activity_main_content.*
-
 
 class NavigationActivity : BaseActivity(), NavigationView {
 
@@ -29,7 +30,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
   lateinit var navigationViewPresenter: NavigationViewPresenter
 
   private lateinit var router: Router
-  private val isInTwoPaneMode by lazy { booleanRes(R.bool.two_pane_layout) }
+//  private val isInTwoPaneMode by lazy { booleanRes(R.bool.two_pane_layout) }
 
   // Navigation navDrawer contents
   private lateinit var navDrawer: Drawer
@@ -41,6 +42,11 @@ class NavigationActivity : BaseActivity(), NavigationView {
     setSupportActionBar(toolbar)
 
     navigationViewPresenter.initLayout(savedInstanceState)
+  }
+
+  // Init Iconics here
+  override fun attachBaseContext(base: Context?) {
+    super.attachBaseContext(IconicsContextWrapper.wrap(base))
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -63,7 +69,6 @@ class NavigationActivity : BaseActivity(), NavigationView {
       toolbar = this@NavigationActivity.toolbar
       savedInstance = savedInstanceState
       selectedItem = Navigation.MAIN_PAGE
-      buildViewOnly = isInTwoPaneMode
       hasStableIds = true
 
       navHeader = accountHeader {
@@ -87,7 +92,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
       primaryItem {
         name = stringRes(R.string.nav_drawer_main_page)
-        iicon = GoogleMaterial.Icon.gmd_home
+        iicon = CommunityMaterial.Icon.cmd_home
         textColor = color(R.color.colorNavDefaultText).toLong()
         iconColorRes = R.color.colorNavMainPage
         selectedTextColor = color(R.color.colorNavMainPage).toLong()
@@ -97,7 +102,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
       primaryItem {
         identifier = Navigation.FORUMS
         name = stringRes(R.string.nav_drawer_forums)
-        iicon = GoogleMaterial.Icon.gmd_forum
+        iicon = CommunityMaterial.Icon.cmd_forum
         textColor = color(R.color.colorNavDefaultText).toLong()
         iconColorRes = R.color.colorNavForums
         selectedTextColor = color(R.color.colorNavForums).toLong()
@@ -109,7 +114,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
       primaryItem {
         identifier = Navigation.SETTINGS
         name = stringRes(R.string.nav_drawer_settings)
-        iicon = GoogleMaterial.Icon.gmd_settings
+        iicon = CommunityMaterial.Icon.cmd_settings
         textColor = color(R.color.colorNavDefaultText).toLong()
         iconColorRes = R.color.colorNavSettings
         selectedTextColor = color(R.color.colorNavSettings).toLong()
@@ -117,16 +122,16 @@ class NavigationActivity : BaseActivity(), NavigationView {
       }
     }
 
-    if (isInTwoPaneMode) {
-      navigation_drawer.addView(navDrawer.slider)
-    }
+//    if (isInTwoPaneMode) {
+//      navigation_drawer.addView(navDrawer.slider)
+//    }
   }
 
   override fun initRouter(savedInstanceState: Bundle?) {
     router = Conductor.attachRouter(this, content_frame, savedInstanceState)
-//    if (!router.hasRootController()) {
-//      router.setRoot(RouterTransaction.with())
-//    }
+    if (!router.hasRootController()) {
+      router.setRoot(RouterTransaction.with(NewsController()))
+    }
   }
 
   override fun goToChosenSection(section: Long) {

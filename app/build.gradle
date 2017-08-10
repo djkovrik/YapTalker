@@ -50,11 +50,13 @@ dependencies {
   final JSOUP_VERSION = "1.10.3"
   final ANKO_VERSION = "0.10.1"
   final STATE_VERSION = "1.1.3"
+  final BUTTERKNIFE_VERSION = "8.8.0"
 
   // App - UI
   final MATERIAL_VALUES_VERSION = "1.1.1"
   final MATERIAL_DRAWER_KT_VERSION = "1.0.6"
-  final MATERIAL_ICONS_VERSION = "3.0.1.1.original@aar"
+  final COMMUNITY_MATERIAL_ICONS_VERSION = "1.9.32.2@aar"
+  final TOASTY_VERSION = "1.2.5"
 
   // Testing
   final ESPRESSO_VERSION = "2.2.2"
@@ -71,6 +73,7 @@ dependencies {
   def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
   def moxyCompiler = "com.arello-mobile:moxy-compiler:$MOXY_VERSION"
   def stateApt = "com.evernote:android-state-processor:$STATE_VERSION"
+  def butterknifeCompiler = "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
 
   def junit = "junit:junit:${JUNIT_VERSION}"
   def espresso = "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION"
@@ -82,6 +85,7 @@ dependencies {
   // Android libs
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation "com.android.support:appcompat-v7:$support_library_version"
+  implementation "com.android.support:cardview-v7:$support_library_version"
   implementation "com.android.support:design:$support_library_version"
   implementation "com.android.support.constraint:constraint-layout:1.0.2"
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -91,7 +95,6 @@ dependencies {
   implementation "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION"
   implementation "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION"
   implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$RX_BINDING_VERSION"
-  implementation "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$RX_BINDING_VERSION"
   implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$RX_BINDING_VERSION"
   implementation "com.jakewharton.rxrelay2:rxrelay:$RX_RELAY_VERSION"
   implementation "nl.littlerobots.rxlint:rxlint:$RX_LINT_VERSION"
@@ -109,15 +112,18 @@ dependencies {
   implementation "org.jetbrains.anko:anko-commons:$ANKO_VERSION"
   implementation "org.jetbrains.anko:anko-design:$ANKO_VERSION"
   implementation "com.evernote:android-state:$STATE_VERSION"
+  implementation "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"
 
   // UI
   implementation "blue.aodev:material-values:$MATERIAL_VALUES_VERSION"
   implementation "co.zsmb:materialdrawer-kt:$MATERIAL_DRAWER_KT_VERSION"
-  implementation "com.mikepenz:google-material-typeface:$MATERIAL_ICONS_VERSION"
+  implementation "com.mikepenz:community-material-typeface:$COMMUNITY_MATERIAL_ICONS_VERSION"
+  implementation "com.github.grenderg:toasty:$TOASTY_VERSION"
 
   kapt daggerCompiler
   kapt moxyCompiler
   kapt stateApt
+  kapt butterknifeCompiler
 
   // Instrumentation tests dependencies
   androidTestImplementation espresso
