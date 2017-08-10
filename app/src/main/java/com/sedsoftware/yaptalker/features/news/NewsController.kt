@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.features.news
 
+import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -13,6 +14,8 @@ import kotlinx.android.synthetic.main.controller_news.view.*
 
 class NewsController : BaseController(), NewsView {
 
+  private val NEWS_LIST_KEY = "NEWS_LIST_KEY"
+
   @InjectPresenter
   lateinit var newsPresenter: NewsPresenter
 
@@ -20,13 +23,13 @@ class NewsController : BaseController(), NewsView {
 
   override fun getLayoutId() = R.layout.controller_news
 
-  override fun onViewBound(view: View) {
+  override fun onViewBound(view: View, savedViewState: Bundle?) {
 
     newsAdapter = NewsAdapter(view.context)
     newsAdapter.setHasStableIds(true)
 
     with(view.refresh_layout) {
-      setOnRefreshListener { newsPresenter.loadNews(true) }
+      setOnRefreshListener { newsPresenter.loadNews(loadFromFirstPage = true) }
       setColorSchemeColors(
           view.context.color(R.color.colorPrimary),
           view.context.color(R.color.colorAccent),
@@ -44,9 +47,26 @@ class NewsController : BaseController(), NewsView {
       clearOnScrollListeners()
 
       addOnScrollListener(InfiniteScrollListener({
-        newsPresenter.loadNews(false)
+        newsPresenter.loadNews(loadFromFirstPage = false)
       }, linearLayout))
     }
+
+    // Restore news list or force reload
+    if (savedViewState != null && savedViewState.containsKey(NEWS_LIST_KEY)) {
+      val news = savedViewState.getParcelableArrayList<NewsItem>(NEWS_LIST_KEY)
+      newsAdapter.clearAndAddNews(news)
+    } else {
+      newsPresenter.loadNews(loadFromFirstPage = true)
+    }
+  }
+
+  override fun onSaveViewState(view: View, outState: Bundle) {
+    super.onSaveViewState(view, outState)
+    val news = newsAdapter.getNews()
+    if (news.size > 0) {
+      outState.putParcelableArrayList(NEWS_LIST_KEY, news)
+    }
+
   }
 
   override fun showRefreshing() {

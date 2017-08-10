@@ -29,10 +29,10 @@ class NewsPresenter : BasePresenter<NewsView>() {
     attachRefreshIndicator()
   }
 
-  override fun attachView(view: NewsView?) {
-    super.attachView(view)
-    loadNews(true)
-  }
+//  override fun attachView(view: NewsView?) {
+//    super.attachView(view)
+//    loadNews(true)
+//  }
 
   fun attachRefreshIndicator() {
     val subscription =

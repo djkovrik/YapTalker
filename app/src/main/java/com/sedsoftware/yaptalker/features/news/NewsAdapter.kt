@@ -64,6 +64,8 @@ class NewsAdapter(val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsV
     addNews(list)
   }
 
+  fun getNews() = news
+
   class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     val forumTitleTemplate: String = itemView.context.getString(R.string.news_forum_title_template)
