@@ -64,7 +64,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
     loadDataForCurrentPage()
   }
 
-  private fun loadDataForCurrentPage() {
+  fun loadDataForCurrentPage() {
 
     val subscription =
         yapDataManager
@@ -85,7 +85,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
     unsubscribeOnDestroy(subscription)
   }
 
-  private fun onLoadingSuccess(news: List<NewsItem>) {
+  fun onLoadingSuccess(news: List<NewsItem>) {
     if (backToFirstPage) {
       viewState.refreshNews(news)
     } else {
@@ -93,7 +93,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
     }
   }
 
-  private fun onLoadingError(error: Throwable) {
+  fun onLoadingError(error: Throwable) {
     error.message?.let { viewState.showErrorMessage(it) }
   }
 }
