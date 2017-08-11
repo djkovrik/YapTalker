@@ -10,15 +10,25 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.data.model.NewsItemContent
+import com.sedsoftware.yaptalker.data.remote.thumbnails.ThumbnailsLoader
 import kotlinx.android.synthetic.main.controller_news_item.view.*
 import java.util.*
+import javax.inject.Inject
 
 
 class NewsAdapter(val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+
+  init {
+    YapTalkerApp.appComponent.inject(this)
+  }
+
+  @Inject
+  lateinit var thumbnailsLoader: ThumbnailsLoader
 
   private var news: ArrayList<NewsItem> = ArrayList()
   private var lastPosition = -1
@@ -65,7 +75,7 @@ class NewsAdapter(val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsV
 
   fun getNews() = news
 
-  class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+  inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     val forumTitleTemplate: String = itemView.context.getString(R.string.news_forum_title_template)
     val karmaTemplate: String = itemView.context.getString(R.string.news_karma_template)
@@ -97,6 +107,15 @@ class NewsAdapter(val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsV
                   LinearLayout.LayoutParams.WRAP_CONTENT)
           news_content_media.addView(imageView)
           imageView.loadFromUrl("http:${content.image}")
+        } else if (content.video.second.isNotEmpty()) {
+          val imageView = ImageView(itemView.context)
+          imageView.adjustViewBounds = true
+          imageView.layoutParams =
+              ViewGroup.LayoutParams(
+                  LinearLayout.LayoutParams.MATCH_PARENT,
+                  LinearLayout.LayoutParams.WRAP_CONTENT)
+          news_content_media.addView(imageView)
+          thumbnailsLoader.loadThumbnail(content.video, imageView)
         }
       }
     }

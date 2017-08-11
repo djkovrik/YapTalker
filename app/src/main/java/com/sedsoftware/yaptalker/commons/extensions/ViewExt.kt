@@ -17,6 +17,10 @@ fun ImageView.loadFromUrl(url: String) {
   }
 }
 
+fun ImageView.loadFromDrawable(resId: Int) {
+  Picasso.with(context).load(resId).into(this)
+}
+
 @Suppress("DEPRECATION")
 fun TextView.textFromHtml(html: String) {
 
