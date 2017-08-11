@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.sedsoftware.yaptalker.commons.parseLink
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
 
@@ -41,7 +42,7 @@ data class NewsItemContent(val sourceHtml: String) {
   }
 
   var image = ""
-  var video = ""
+  var video: Pair<Int, String>
 
   var text: String = Jsoup
       .clean(sourceHtml, Whitelist().addTags("i", "u", "b", "br"))
@@ -56,6 +57,6 @@ data class NewsItemContent(val sourceHtml: String) {
     val videoLink = content.select(VIDEO_SELECTOR)
 
     image = imageLink.attr(SRC_SELECTOR)
-    video = videoLink.attr(SRC_SELECTOR)
+    video = parseLink(videoLink.attr(SRC_SELECTOR))
   }
 }
