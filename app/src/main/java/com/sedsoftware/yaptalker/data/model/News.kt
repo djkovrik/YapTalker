@@ -52,10 +52,10 @@ data class NewsItemContent(val sourceHtml: String) {
     }
 
     val content = Jsoup.parse(sourceHtml)
-    val imageLinks = content.select(IMAGE_SELECTOR)
-    val videoBlock = content.select(VIDEO_SELECTOR)
+    val imageLink = content.select(IMAGE_SELECTOR)
+    val videoLink = content.select(VIDEO_SELECTOR)
 
-    image = imageLinks.attr(SRC_SELECTOR)
-    video = videoBlock.toString()
+    image = imageLink.attr(SRC_SELECTOR)
+    video = videoLink.attr(SRC_SELECTOR)
   }
 }

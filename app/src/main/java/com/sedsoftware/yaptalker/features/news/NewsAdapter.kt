@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.sedsoftware.yaptalker.R
@@ -98,14 +97,6 @@ class NewsAdapter(val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsV
                   LinearLayout.LayoutParams.WRAP_CONTENT)
           news_content_media.addView(imageView)
           imageView.loadFromUrl("http:${content.image}")
-        }
-
-        if (content.video.isNotEmpty()) {
-          val videoView = WebView(itemView.context)
-          videoView.settings.javaScriptEnabled = true
-          videoView.loadDataWithBaseURL("http://www.yaplakal.com/", content.video,
-              "text/html; charset=UTF-8", null, null)
-          news_content_media.addView(videoView)
         }
       }
     }
