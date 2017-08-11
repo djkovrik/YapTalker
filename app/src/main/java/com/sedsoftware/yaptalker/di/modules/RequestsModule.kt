@@ -1,5 +1,7 @@
 package com.sedsoftware.yaptalker.di.modules
 
+import com.sedsoftware.yaptalker.data.remote.thumbnails.CoubThumbnailLoader
+import com.sedsoftware.yaptalker.data.remote.thumbnails.RutubeThumbnailLoader
 import com.sedsoftware.yaptalker.data.remote.yap.YapChosenForumLoader
 import com.sedsoftware.yaptalker.data.remote.yap.YapChosenTopicLoader
 import com.sedsoftware.yaptalker.data.remote.yap.YapForumsListLoader
@@ -35,5 +37,17 @@ class RequestsModule {
   @Singleton
   fun provideChosenTopicLoader(@Named("ChosenTopicLoader") retrofit: Retrofit): YapChosenTopicLoader {
     return retrofit.create(YapChosenTopicLoader::class.java)
+  }
+
+  @Provides
+  @Singleton
+  fun provideRutubeThumbnailLoader(@Named("RutubeThumbnailLoader") retrofit: Retrofit): RutubeThumbnailLoader {
+    return retrofit.create(RutubeThumbnailLoader::class.java)
+  }
+
+  @Provides
+  @Singleton
+  fun provideCoubThumbnailLoader(@Named("CoubThumbnailLoader") retrofit: Retrofit): CoubThumbnailLoader {
+    return retrofit.create(CoubThumbnailLoader::class.java)
   }
 }
