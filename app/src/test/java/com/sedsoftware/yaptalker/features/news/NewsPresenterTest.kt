@@ -6,7 +6,7 @@ import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.sedsoftware.yaptalker.TestComponent
 import com.sedsoftware.yaptalker.TestComponentRule
-import com.sedsoftware.yaptalker.data.remote.YapDataManager
+import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
 import com.sedsoftware.yaptalker.di.ApplicationComponent
 import com.sedsoftware.yaptalker.getDummyNewsList
 import io.reactivex.Single

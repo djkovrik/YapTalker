@@ -1,6 +1,6 @@
 @file:Suppress("KDocUnresolvedReference")
 
-package com.sedsoftware.yaptalker.data.remote
+package com.sedsoftware.yaptalker.data.remote.yap
 
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.data.model.NewsItem

@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.data.remote
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import com.sedsoftware.yaptalker.data.model.NewsItem
+import com.sedsoftware.yaptalker.data.remote.yap.YapNewsLoader
 import com.sedsoftware.yaptalker.getDummyNewsList
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver

@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.remote
+package com.sedsoftware.yaptalker.data.remote.yap
 
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.data.model.NewsItem
@@ -23,28 +23,40 @@ class YapDataManager(
   fun getNews(startNumber: Int = 0): Single<List<NewsItem>> =
       newsLoader
           .loadNews(startNumber)
-          .doOnSubscribe { publishRequestState(YapRequestState.LOADING) }
-          .doOnError { publishRequestState(YapRequestState.ERROR) }
-          .doOnSuccess { publishRequestState(YapRequestState.COMPLETED) }
+          .doOnSubscribe { publishRequestState(
+              YapRequestState.LOADING) }
+          .doOnError { publishRequestState(
+              YapRequestState.ERROR) }
+          .doOnSuccess { publishRequestState(
+              YapRequestState.COMPLETED) }
 
   fun getForumsList() =
       forumsListLoader
           .loadForumsList()
-          .doOnSubscribe { publishRequestState(YapRequestState.LOADING) }
-          .doOnError { publishRequestState(YapRequestState.ERROR) }
-          .doOnSuccess { publishRequestState(YapRequestState.COMPLETED) }
+          .doOnSubscribe { publishRequestState(
+              YapRequestState.LOADING) }
+          .doOnError { publishRequestState(
+              YapRequestState.ERROR) }
+          .doOnSuccess { publishRequestState(
+              YapRequestState.COMPLETED) }
 
   fun getChosenForum(forumId: Int, startTopicNumber: Int = 0, sortingMode: String = "last_post") =
       chosenForumLoader
           .loadChosenForum(forumId, startTopicNumber, sortingMode)
-          .doOnSubscribe { publishRequestState(YapRequestState.LOADING) }
-          .doOnError { publishRequestState(YapRequestState.ERROR) }
-          .doOnSuccess { publishRequestState(YapRequestState.COMPLETED) }
+          .doOnSubscribe { publishRequestState(
+              YapRequestState.LOADING) }
+          .doOnError { publishRequestState(
+              YapRequestState.ERROR) }
+          .doOnSuccess { publishRequestState(
+              YapRequestState.COMPLETED) }
 
   fun getChosenTopic(forumId: Int, startPage: Int = 0, topicId: Int) =
       chosenTopicLoader
           .loadChosenTopic(forumId, startPage, topicId)
-          .doOnSubscribe { publishRequestState(YapRequestState.LOADING) }
-          .doOnError { publishRequestState(YapRequestState.ERROR) }
-          .doOnSuccess { publishRequestState(YapRequestState.COMPLETED) }
+          .doOnSubscribe { publishRequestState(
+              YapRequestState.LOADING) }
+          .doOnError { publishRequestState(
+              YapRequestState.ERROR) }
+          .doOnSuccess { publishRequestState(
+              YapRequestState.COMPLETED) }
 }

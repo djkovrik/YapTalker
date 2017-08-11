@@ -1,9 +1,9 @@
 package com.sedsoftware.yaptalker.di.modules
 
-import com.sedsoftware.yaptalker.data.remote.YapChosenForumLoader
-import com.sedsoftware.yaptalker.data.remote.YapChosenTopicLoader
-import com.sedsoftware.yaptalker.data.remote.YapForumsListLoader
-import com.sedsoftware.yaptalker.data.remote.YapNewsLoader
+import com.sedsoftware.yaptalker.data.remote.yap.YapChosenForumLoader
+import com.sedsoftware.yaptalker.data.remote.yap.YapChosenTopicLoader
+import com.sedsoftware.yaptalker.data.remote.yap.YapForumsListLoader
+import com.sedsoftware.yaptalker.data.remote.yap.YapNewsLoader
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

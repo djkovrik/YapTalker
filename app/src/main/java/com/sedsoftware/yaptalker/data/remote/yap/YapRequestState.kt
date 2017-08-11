@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.remote
+package com.sedsoftware.yaptalker.data.remote.yap
 
 import android.support.annotation.IntDef
 
@@ -12,6 +12,9 @@ class YapRequestState {
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @IntDef(IDLE, LOADING, COMPLETED, ERROR)
+  @IntDef(IDLE,
+      LOADING,
+      COMPLETED,
+      ERROR)
   annotation class State
 }

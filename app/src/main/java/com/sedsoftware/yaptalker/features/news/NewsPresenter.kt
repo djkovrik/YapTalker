@@ -3,8 +3,8 @@ package com.sedsoftware.yaptalker.features.news
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.NewsItem
-import com.sedsoftware.yaptalker.data.remote.YapDataManager
-import com.sedsoftware.yaptalker.data.remote.YapRequestState
+import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
+import com.sedsoftware.yaptalker.data.remote.yap.YapRequestState
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
