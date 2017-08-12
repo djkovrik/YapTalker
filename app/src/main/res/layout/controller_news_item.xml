@@ -83,23 +83,24 @@
       android:textSize="@dimen/material_card_supporting_text_text_size"
       tools:text="Here is a long news text, here is a long news text here"/>
 
-    <LinearLayout
-      android:id="@+id/news_content_media"
+    <ImageView
+      android:id="@+id/news_content_image"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/news_content_text"
       android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
       android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
       android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-      android:gravity="center_horizontal"
-      android:orientation="horizontal"/>
+      android:adjustViewBounds="true"
+      android:visibility="gone"
+      tools:ignore="ContentDescription"/>
 
     <TextView
       android:id="@+id/news_date"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
-      android:layout_below="@id/news_content_media"
+      android:layout_below="@id/news_content_image"
       android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
       android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
       android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
@@ -113,7 +114,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
-      android:layout_below="@id/news_content_media"
+      android:layout_below="@id/news_content_image"
       android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
       android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
       android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"

@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.LinearLayout
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
@@ -94,29 +92,16 @@ class NewsAdapter(val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsV
         val content = NewsItemContent(newsItem.summary)
         news_content_text.textFromHtml(content.text)
 
-        news_content_media.removeAllViews()
-
-        val imageView = prepareImageView()
-
         if (content.image.isNotEmpty()) {
-          news_content_media.addView(imageView)
-          imageView.loadFromUrl("http:${content.image}")
+          news_content_image.visibility = View.VISIBLE
+          news_content_image.loadFromUrl("http:${content.image}")
         } else if (content.video.second.isNotEmpty()) {
-          news_content_media.addView(imageView)
-          thumbnailsLoader.loadThumbnail(content.video, imageView)
+          news_content_image.visibility = View.VISIBLE
+          thumbnailsLoader.loadThumbnail(content.video, news_content_image)
+        } else {
+          news_content_image.visibility = View.GONE
         }
       }
-    }
-
-    private fun prepareImageView(): ImageView {
-      val image = ImageView(itemView.context)
-      image.adjustViewBounds = true
-      image.layoutParams =
-          ViewGroup.LayoutParams(
-              LinearLayout.LayoutParams.MATCH_PARENT,
-              LinearLayout.LayoutParams.WRAP_CONTENT)
-
-      return image
     }
   }
 }
