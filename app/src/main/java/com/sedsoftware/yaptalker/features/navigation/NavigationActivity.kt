@@ -10,6 +10,8 @@ import co.zsmb.materialdrawerkt.draweritems.divider
 import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.Controller
+import com.bluelinelabs.conductor.RouterTransaction
+import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.context.IconicsContextWrapper
 import com.mikepenz.materialdrawer.AccountHeader
@@ -19,9 +21,11 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.features.base.BaseActivity
+import com.sedsoftware.yaptalker.features.forumslist.ForumsController
 import com.sedsoftware.yaptalker.features.news.NewsController
 import kotlinx.android.synthetic.main.activity_main_appbar.*
 import kotlinx.android.synthetic.main.activity_main_content.*
+import timber.log.Timber
 
 class NavigationActivity : BaseActivity(), NavigationView {
 
@@ -95,6 +99,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
       }
 
       primaryItem {
+        identifier = Navigation.MAIN_PAGE
         name = stringRes(R.string.nav_drawer_main_page)
         iicon = CommunityMaterial.Icon.cmd_home
         textColor = color(R.color.colorNavDefaultText).toLong()
@@ -128,6 +133,23 @@ class NavigationActivity : BaseActivity(), NavigationView {
   }
 
   override fun goToChosenSection(section: Long) {
-    // TODO() Switch controllers here
+    // TODO() Add tags and popToTag to manage backstack
+    when (section) {
+      Navigation.MAIN_PAGE -> {
+        router.pushController(
+            RouterTransaction.with(NewsController())
+                .pushChangeHandler(FadeChangeHandler())
+                .popChangeHandler(FadeChangeHandler()))
+      }
+      Navigation.FORUMS -> {
+        router.pushController(
+            RouterTransaction.with(ForumsController())
+                .pushChangeHandler(FadeChangeHandler())
+                .popChangeHandler(FadeChangeHandler()))
+      }
+      Navigation.SETTINGS -> {
+        Timber.d("Settings click")
+      }
+    }
   }
 }
