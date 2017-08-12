@@ -9,7 +9,6 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
 
   fun initLayout(savedInstanceState: Bundle?) {
     viewState.initDrawer(savedInstanceState)
-    viewState.initRouter(savedInstanceState)
   }
 
   fun onNavigationClicked(@Navigation.Section section: Long) {

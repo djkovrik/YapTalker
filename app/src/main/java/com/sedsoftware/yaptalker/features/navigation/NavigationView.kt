@@ -12,8 +12,5 @@ interface NavigationView : MvpView {
   @StateStrategyType(OneExecutionStateStrategy::class)
   fun initDrawer(savedInstanceState: Bundle?)
 
-  @StateStrategyType(OneExecutionStateStrategy::class)
-  fun initRouter(savedInstanceState: Bundle?)
-
   fun goToChosenSection(@Navigation.Section section: Long)
 }

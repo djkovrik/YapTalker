@@ -2,15 +2,14 @@ package com.sedsoftware.yaptalker.features.navigation
 
 import android.content.Context
 import android.os.Bundle
+import android.view.ViewGroup
 import co.zsmb.materialdrawerkt.builders.accountHeader
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.divider
 import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.bluelinelabs.conductor.Conductor
-import com.bluelinelabs.conductor.Router
-import com.bluelinelabs.conductor.RouterTransaction
+import com.bluelinelabs.conductor.Controller
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.context.IconicsContextWrapper
 import com.mikepenz.materialdrawer.AccountHeader
@@ -29,8 +28,14 @@ class NavigationActivity : BaseActivity(), NavigationView {
   @InjectPresenter
   lateinit var navigationViewPresenter: NavigationViewPresenter
 
-  private lateinit var router: Router
-//  private val isInTwoPaneMode by lazy { booleanRes(R.bool.two_pane_layout) }
+  override val layoutId: Int
+    get() = R.layout.activity_main
+
+  override val contentFrame: ViewGroup
+    get() = content_frame
+
+  override val rootController: Controller
+    get() = NewsController()
 
   // Navigation navDrawer contents
   private lateinit var navDrawer: Drawer
@@ -38,7 +43,6 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
     setSupportActionBar(toolbar)
 
     navigationViewPresenter.initLayout(savedInstanceState)
@@ -120,13 +124,6 @@ class NavigationActivity : BaseActivity(), NavigationView {
         selectedTextColor = color(R.color.colorNavSettings).toLong()
         selectedIconColorRes = R.color.colorNavSettings
       }
-    }
-  }
-
-  override fun initRouter(savedInstanceState: Bundle?) {
-    router = Conductor.attachRouter(this, content_frame, savedInstanceState)
-    if (!router.hasRootController()) {
-      router.setRoot(RouterTransaction.with(NewsController()))
     }
   }
 
