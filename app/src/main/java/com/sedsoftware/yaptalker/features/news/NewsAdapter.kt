@@ -1,6 +1,5 @@
 package com.sedsoftware.yaptalker.features.news
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +16,7 @@ import kotlinx.android.synthetic.main.controller_news_item.view.*
 import java.util.*
 import javax.inject.Inject
 
-
-class NewsAdapter(val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
   init {
     YapTalkerApp.appComponent.inject(this)
@@ -43,7 +41,7 @@ class NewsAdapter(val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsV
   override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
     holder.bindTo(news[position])
 
-    val animation = AnimationUtils.loadAnimation(context,
+    val animation = AnimationUtils.loadAnimation(holder.itemView.context,
         if (position > lastPosition)
           R.anim.recyclerview_up_from_bottom
         else

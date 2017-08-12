@@ -25,7 +25,7 @@ class NewsController : BaseController(), NewsView {
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
-    newsAdapter = NewsAdapter(view.context)
+    newsAdapter = NewsAdapter()
     newsAdapter.setHasStableIds(true)
 
     with(view.refresh_layout) {
@@ -66,7 +66,11 @@ class NewsController : BaseController(), NewsView {
     if (news.size > 0) {
       outState.putParcelableArrayList(NEWS_LIST_KEY, news)
     }
+  }
 
+  override fun onDetach(view: View) {
+    super.onDetach(view)
+    view.news_list.adapter = null
   }
 
   override fun showRefreshing() {
