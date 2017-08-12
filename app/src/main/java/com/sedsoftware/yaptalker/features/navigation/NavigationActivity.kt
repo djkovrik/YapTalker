@@ -121,10 +121,6 @@ class NavigationActivity : BaseActivity(), NavigationView {
         selectedIconColorRes = R.color.colorNavSettings
       }
     }
-
-//    if (isInTwoPaneMode) {
-//      navigation_drawer.addView(navDrawer.slider)
-//    }
   }
 
   override fun initRouter(savedInstanceState: Bundle?) {

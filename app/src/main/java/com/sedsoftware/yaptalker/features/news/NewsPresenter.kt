@@ -29,11 +29,6 @@ class NewsPresenter : BasePresenter<NewsView>() {
     attachRefreshIndicator()
   }
 
-//  override fun attachView(view: NewsView?) {
-//    super.attachView(view)
-//    loadNews(true)
-//  }
-
   fun attachRefreshIndicator() {
     val subscription =
         yapDataManager.requestState.subscribe { state: Long ->
@@ -75,7 +70,6 @@ class NewsPresenter : BasePresenter<NewsView>() {
               // onSuccess
               newsList: List<NewsItem> ->
               onLoadingSuccess(newsList)
-
             }, {
               // onError
               throwable ->

@@ -1,20 +1,21 @@
 package com.sedsoftware.yaptalker.commons.extensions
 
 import android.text.Html
-import android.text.TextUtils
 import android.widget.ImageView
 import android.widget.TextView
+import com.mikepenz.community_material_typeface_library.CommunityMaterial
+import com.mikepenz.iconics.IconicsDrawable
 import com.sedsoftware.yaptalker.R
 import com.squareup.picasso.Picasso
 
 fun ImageView.loadFromUrl(url: String) {
 
-  // TODO() Add placeholders
-  if (TextUtils.isEmpty(url)) {
-    Picasso.with(context).load(R.mipmap.ic_launcher).into(this)
-  } else {
-    Picasso.with(context).load(url).into(this)
-  }
+  val placeholder = IconicsDrawable(context)
+      .icon(CommunityMaterial.Icon.cmd_image)
+      .color(context.color(R.color.colorPrimaryLight))
+      .sizeDp(24)
+
+  Picasso.with(context).load(url).error(placeholder).into(this)
 }
 
 fun ImageView.loadFromDrawable(resId: Int) {

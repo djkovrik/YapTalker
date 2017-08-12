@@ -1,6 +1,5 @@
 package com.sedsoftware.yaptalker.features.news
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -53,7 +52,7 @@ class NewsAdapter(val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsV
           R.anim.recyclerview_down_from_top)
 
     holder.itemView.startAnimation(animation)
-    lastPosition = position
+    lastPosition = holder.adapterPosition
   }
 
   override fun onViewDetachedFromWindow(holder: NewsViewHolder?) {
@@ -82,7 +81,6 @@ class NewsAdapter(val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsV
     val dateTemplate: String = itemView.context.getString(R.string.news_date_template)
     val commentsTemplate: String = itemView.context.getString(R.string.news_comments_template)
 
-    @SuppressLint("SetJavaScriptEnabled")
     fun bindTo(newsItem: NewsItem) {
       with(itemView) {
         news_author.text = newsItem.topic.author.name
@@ -98,26 +96,27 @@ class NewsAdapter(val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsV
 
         news_content_media.removeAllViews()
 
+        val imageView = prepareImageView()
+
         if (content.image.isNotEmpty()) {
-          val imageView = ImageView(itemView.context)
-          imageView.adjustViewBounds = true
-          imageView.layoutParams =
-              ViewGroup.LayoutParams(
-                  LinearLayout.LayoutParams.MATCH_PARENT,
-                  LinearLayout.LayoutParams.WRAP_CONTENT)
           news_content_media.addView(imageView)
           imageView.loadFromUrl("http:${content.image}")
         } else if (content.video.second.isNotEmpty()) {
-          val imageView = ImageView(itemView.context)
-          imageView.adjustViewBounds = true
-          imageView.layoutParams =
-              ViewGroup.LayoutParams(
-                  LinearLayout.LayoutParams.MATCH_PARENT,
-                  LinearLayout.LayoutParams.WRAP_CONTENT)
           news_content_media.addView(imageView)
           thumbnailsLoader.loadThumbnail(content.video, imageView)
         }
       }
+    }
+
+    private fun prepareImageView(): ImageView {
+      val image = ImageView(itemView.context)
+      image.adjustViewBounds = true
+      image.layoutParams =
+          ViewGroup.LayoutParams(
+              LinearLayout.LayoutParams.MATCH_PARENT,
+              LinearLayout.LayoutParams.WRAP_CONTENT)
+
+      return image
     }
   }
 }

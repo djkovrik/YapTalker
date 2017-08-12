@@ -7,29 +7,22 @@ import java.util.regex.Pattern
  */
 fun String.getLastDigits(): Int {
 
-  var value = 0
-
   val regex = Pattern.compile("(\\d+)(?!.*\\d)")
   val matcher = regex.matcher(this)
 
   if (matcher.find()) {
-    value = Integer.parseInt(matcher.group(1))
+    return Integer.parseInt(matcher.group(1))
   }
 
-  return value
+  return 0
 }
 
 /**
  * Removes first and last symbols from string and returns result string.
  */
-fun String.chopEdges() : String {
-  return this.substring(1, this.length - 1)
-}
+fun String.chopEdges() = this.substring(1, this.length - 1)
 
 /**
  * Extracts and returns date string from forum description html.
  */
-fun String.extractDate() : String {
-  val endPosition = this.indexOf("<br")
-  return this.substring(0, endPosition)
-}
+fun String.extractDate() = this.substring(0, this.indexOf("<br"))
