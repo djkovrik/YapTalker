@@ -40,6 +40,7 @@ dependencies {
   final RX_BINDING_VERSION = "2.0.0"
   final RX_RELAY_VERSION = "2.0.0"
   final RX_LINT_VERSION = "1.4"
+  final AUTO_DISPOSE_VERSION = "0.2.0"
 
   // App - Core
   final RETROFIT_VERSION = "2.3.0"
@@ -50,7 +51,6 @@ dependencies {
   final JSOUP_VERSION = "1.10.3"
   final ANKO_VERSION = "0.10.1"
   final STATE_VERSION = "1.1.3"
-  final BUTTERKNIFE_VERSION = "8.8.0"
   final MOSHI_VERSION = "1.5.0"
 
   // App - UI
@@ -74,7 +74,6 @@ dependencies {
   def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
   def moxyCompiler = "com.arello-mobile:moxy-compiler:$MOXY_VERSION"
   def stateApt = "com.evernote:android-state-processor:$STATE_VERSION"
-  def butterknifeCompiler = "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
 
   def junit = "junit:junit:${JUNIT_VERSION}"
   def espresso = "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION"
@@ -97,8 +96,11 @@ dependencies {
   implementation "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION"
   implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$RX_BINDING_VERSION"
   implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$RX_BINDING_VERSION"
+  implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:$RX_BINDING_VERSION"
   implementation "com.jakewharton.rxrelay2:rxrelay:$RX_RELAY_VERSION"
   implementation "nl.littlerobots.rxlint:rxlint:$RX_LINT_VERSION"
+  implementation "com.uber.autodispose:autodispose:$AUTO_DISPOSE_VERSION"
+  implementation "com.uber.autodispose:autodispose-kotlin:$AUTO_DISPOSE_VERSION"
 
   // Core
   implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
@@ -109,12 +111,12 @@ dependencies {
   implementation "com.arello-mobile:moxy-android:$MOXY_VERSION"
   implementation "com.arello-mobile:moxy-app-compat:$MOXY_VERSION"
   implementation "com.bluelinelabs:conductor:$CONDUCTOR_VERSION"
+  implementation "com.bluelinelabs:conductor-autodispose:$CONDUCTOR_VERSION"
   implementation "com.squareup.picasso:picasso:$PICASSO_VERSION"
   implementation "org.jsoup:jsoup:$JSOUP_VERSION"
   implementation "org.jetbrains.anko:anko-commons:$ANKO_VERSION"
   implementation "org.jetbrains.anko:anko-design:$ANKO_VERSION"
   implementation "com.evernote:android-state:$STATE_VERSION"
-  implementation "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"
   implementation "com.squareup.moshi:moshi:$MOSHI_VERSION"
 
   // UI
@@ -126,7 +128,6 @@ dependencies {
   kapt daggerCompiler
   kapt moxyCompiler
   kapt stateApt
-  kapt butterknifeCompiler
 
   // Instrumentation tests dependencies
   androidTestImplementation espresso

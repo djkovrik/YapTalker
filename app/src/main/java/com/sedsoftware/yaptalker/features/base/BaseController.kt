@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.arellomobile.mvp.MvpDelegate
 import com.bluelinelabs.conductor.RestoreViewOnCreateController
 
@@ -15,8 +13,6 @@ abstract class BaseController : RestoreViewOnCreateController {
   private val mvpDelegate: MvpDelegate<out BaseController> by lazy {
     MvpDelegate<BaseController>(this)
   }
-
-  lateinit var unbinder: Unbinder
 
   constructor() : super() {
     mvpDelegate.onCreate()
@@ -34,7 +30,6 @@ abstract class BaseController : RestoreViewOnCreateController {
 
     val view = inflater.inflate(getLayoutId(), container, false)
     onViewBound(view, savedViewState)
-    unbinder = ButterKnife.bind(this, view)
     return view
   }
 
@@ -51,7 +46,6 @@ abstract class BaseController : RestoreViewOnCreateController {
   override fun onDestroy() {
     super.onDestroy()
     mvpDelegate.onDestroy()
-    unbinder.unbind()
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
