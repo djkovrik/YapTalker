@@ -21,7 +21,9 @@ class NewsController : BaseController(), NewsView {
 
   lateinit var newsAdapter: NewsAdapter
 
-  override fun getLayoutId() = R.layout.controller_news
+  override val controllerLayoutId: Int
+    get() = R.layout.controller_news
+
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 

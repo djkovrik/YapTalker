@@ -22,13 +22,14 @@ abstract class BaseController : RestoreViewOnCreateController {
     mvpDelegate.onCreate(args)
   }
 
-  protected abstract fun getLayoutId(): Int
+  protected abstract val controllerLayoutId: Int
+
   protected abstract fun onViewBound(view: View, savedViewState: Bundle?)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup,
       savedViewState: Bundle?): View {
 
-    val view = inflater.inflate(getLayoutId(), container, false)
+    val view = inflater.inflate(controllerLayoutId, container, false)
     onViewBound(view, savedViewState)
     return view
   }
