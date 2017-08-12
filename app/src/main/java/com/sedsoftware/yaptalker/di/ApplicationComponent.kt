@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.di
 import com.sedsoftware.yaptalker.di.modules.ApplicationModule
 import com.sedsoftware.yaptalker.di.modules.DataManagerModule
 import com.sedsoftware.yaptalker.di.modules.ThumbnailsLoaderModule
+import com.sedsoftware.yaptalker.features.forumslist.ForumsPresenter
 import com.sedsoftware.yaptalker.features.news.NewsAdapter
 import com.sedsoftware.yaptalker.features.news.NewsPresenter
 import dagger.Component
@@ -20,4 +21,5 @@ interface ApplicationComponent {
   // Injections here
   fun inject(presenter: NewsPresenter)
   fun inject(adapter: NewsAdapter)
+  fun inject(presenter: ForumsPresenter)
 }
