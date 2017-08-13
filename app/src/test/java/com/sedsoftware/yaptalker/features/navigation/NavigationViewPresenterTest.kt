@@ -31,7 +31,6 @@ class NavigationViewPresenterTest {
   fun navigation_shouldInitDrawerAndRouter() {
     presenter.initLayout(savedInstanceState)
     verify(navigationViewState).initDrawer(savedInstanceState)
-    verify(navigationViewState).initRouter(savedInstanceState)
   }
 
   @Test
