@@ -1,8 +1,32 @@
 package com.sedsoftware.yaptalker
 
-import com.sedsoftware.yaptalker.data.model.NewsItem
-import com.sedsoftware.yaptalker.data.model.TopicItemList
-import com.sedsoftware.yaptalker.data.model.UserProfileShort
+import com.sedsoftware.yaptalker.data.model.*
+
+fun getDummyForumsList(): List<ForumItem> {
+  return listOf(
+      getDummyForumItem(1),
+      getDummyForumItem(2),
+      getDummyForumItem(3),
+      getDummyForumItem(4),
+      getDummyForumItem(5)
+  )
+}
+
+fun getDummyForumItem(seed: Int): ForumItem {
+  return ForumItem(
+      id = seed + 1,
+      title = "Title#$seed",
+      lastTopic = TopicItemShort(
+          id = seed,
+          title = "Title#$seed",
+          date = "date#$seed",
+          author = UserProfileShort(
+              id = seed + 2,
+              name = "name#$seed"
+          )
+      )
+  )
+}
 
 fun getDummyNewsList(): List<NewsItem> {
   return listOf(

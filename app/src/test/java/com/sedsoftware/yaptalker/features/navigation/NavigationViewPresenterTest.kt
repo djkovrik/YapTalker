@@ -1,26 +1,21 @@
 package com.sedsoftware.yaptalker.features.navigation
 
 import android.os.Bundle
+import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 
 class NavigationViewPresenterTest {
 
-  @Mock
-  lateinit var navigationView: NavigationView
-
-  @Mock
-  lateinit var navigationViewState: `NavigationView$$State`
+  val navigationView = mock<NavigationView>()
+  val navigationViewState = mock<`NavigationView$$State`>()
 
   lateinit var savedInstanceState: Bundle
   lateinit var presenter: NavigationViewPresenter
 
   @Before
   fun setUp() {
-    MockitoAnnotations.initMocks(this)
     savedInstanceState = Bundle()
     presenter = NavigationViewPresenter()
     presenter.attachView(navigationView)
