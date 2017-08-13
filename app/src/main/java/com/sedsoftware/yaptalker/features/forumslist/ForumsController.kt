@@ -21,7 +21,6 @@ class ForumsController : BaseController(), ForumsView {
   override val controllerLayoutId: Int
     get() = R.layout.controller_forums_list
 
-  // TODO() Check why onViewBound called twice
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
     forumsAdapter = ForumsAdapter()
