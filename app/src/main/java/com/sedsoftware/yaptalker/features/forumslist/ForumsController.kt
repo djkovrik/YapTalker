@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.controller_forums_list.view.*
 
 class ForumsController : BaseController(), ForumsView {
 
+  private val FORUMS_LIST_KEY = "FORUMS_LIST_KEY"
+
   @InjectPresenter
   lateinit var forumsPresenter: ForumsPresenter
 
@@ -35,7 +37,18 @@ class ForumsController : BaseController(), ForumsView {
       setHasFixedSize(true)
     }
 
-    forumsPresenter.loadForumsList()
+    if (savedViewState != null && savedViewState.containsKey(FORUMS_LIST_KEY)) {
+      val forums = savedViewState.getParcelableArrayList<ForumItem>(FORUMS_LIST_KEY)
+      forumsAdapter.addForumsList(forums)
+    } else {
+      forumsPresenter.loadForumsList()
+    }
+  }
+
+  override fun onSaveViewState(view: View, outState: Bundle) {
+    super.onSaveViewState(view, outState)
+    val forums = forumsAdapter.getForumsList()
+    outState.putParcelableArrayList(FORUMS_LIST_KEY, forums)
   }
 
   override fun onDetach(view: View) {
