@@ -26,6 +26,7 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
             .getForumsList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { onLoadingStart() }
             .subscribe({
               // onSuccess
               forumsList: List<ForumItem> ->
@@ -39,11 +40,17 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
     unsubscribeOnDestroy(subscription)
   }
 
+  fun onLoadingStart() {
+    viewState.showProgressBar()
+  }
+
   fun onLoadingSuccess(forums: List<ForumItem>) {
+    viewState.hideProgressBar()
     viewState.showForums(forums)
   }
 
   fun onLoadingError(error: Throwable) {
+    viewState.hideProgressBar()
     error.message?.let { viewState.showErrorMessage(it) }
   }
 }

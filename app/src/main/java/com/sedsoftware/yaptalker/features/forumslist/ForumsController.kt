@@ -63,4 +63,14 @@ class ForumsController : BaseController(), ForumsView {
   override fun showErrorMessage(message: String) {
     toastError(message)
   }
+
+  override fun showProgressBar() {
+    view?.forums_list?.visibility = View.GONE
+    view?.forums_list_loading?.visibility = View.VISIBLE
+  }
+
+  override fun hideProgressBar() {
+    view?.forums_list_loading?.visibility = View.GONE
+    view?.forums_list?.visibility = View.VISIBLE
+  }
 }

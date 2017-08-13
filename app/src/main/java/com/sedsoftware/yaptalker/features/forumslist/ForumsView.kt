@@ -11,4 +11,8 @@ interface ForumsView : MvpView {
   fun showForums(forums: List<ForumItem>)
 
   fun showErrorMessage(message: String)
+
+  fun showProgressBar()
+
+  fun hideProgressBar()
 }
