@@ -38,9 +38,8 @@ class YapTalkerApp : Application() {
       LeakCanary.install(this)
       Stetho.initializeWithDefaults(this)
       Timber.plant(Timber.DebugTree())
-    } else {
-      // TODO() Init Timber with Firebase Crash Reporting tree here
     }
+    // TODO() Else init Timber with Firebase Crash Reporting tree here
 
     appComponent = DaggerApplicationComponent.builder().build()
 

@@ -13,17 +13,17 @@ object Selectors {
   val YAPFILES_SELECTOR = "yapfiles.ru/get_player"
 }
 
-fun parseLink(link: String): Pair<Int, String> {
+fun parseLink(link: String): Pair<Int, String> =
 
-  if (link.contains(COUB_SELECTOR)) {
-    return VideoTypes.COUB to link.substringAfterLast("/")
-  } else if (link.contains(YOUTUBE_SELECTOR)) {
-    return VideoTypes.YOUTUBE to link.substring(link.lastIndexOf("/") + 1, link.lastIndexOf("?"))
-  } else if (link.contains(RUTUBE_SELECTOR)) {
-    return VideoTypes.RUTUBE to link.substringAfterLast("/")
-  } else if (link.contains(YAPFILES_SELECTOR)) {
-    return VideoTypes.YAP_FILES to link.substringAfterLast("=")
-  } else {
-    return VideoTypes.OTHER to ""
-  }
-}
+    if (link.contains(COUB_SELECTOR)) {
+      VideoTypes.COUB to link.substringAfterLast("/")
+    } else if (link.contains(YOUTUBE_SELECTOR)) {
+      VideoTypes.YOUTUBE to link.substring(link.lastIndexOf("/") + 1, link.lastIndexOf("?"))
+    } else if (link.contains(RUTUBE_SELECTOR)) {
+      VideoTypes.RUTUBE to link.substringAfterLast("/")
+    } else if (link.contains(YAPFILES_SELECTOR)) {
+      VideoTypes.YAP_FILES to link.substringAfterLast("=")
+    } else {
+      VideoTypes.OTHER to ""
+    }
+

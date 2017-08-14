@@ -1,8 +1,16 @@
 package com.sedsoftware.yaptalker.commons.extensions
 
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 import java.util.regex.Pattern
+
+private const val MILLISEC_PER_SECOND = 1000
+private const val MINUTES_PER_HOUR = 60
+private const val SECONDS_PER_MINUTE = 60
+private const val HOURS_PER_DAY = 24
+private const val DAYS_PER_MONTH = 30
+private const val MONTH_PER_YEAR = 12
 
 /**
  * Extracts and returns id from yaplakal.com link
@@ -38,40 +46,49 @@ fun String.getShortTime(): String {
   val topicDate = format.parse(this)
   val currentDate = Calendar.getInstance().time
 
-  var diffInSeconds = ((currentDate.time - topicDate.time) / 1000).toInt()
+  val diff = ((currentDate.time - topicDate.time) / MILLISEC_PER_SECOND).toInt()
+  return getSecondsText(diff)
+}
 
-  val sec = if (diffInSeconds >= 60) (diffInSeconds % 60) else diffInSeconds
-  diffInSeconds /= 60
-  val min = if (diffInSeconds >= 60) (diffInSeconds % 60) else diffInSeconds
-  diffInSeconds /= 60
-  val hrs = if (diffInSeconds >= 24) (diffInSeconds % 24) else diffInSeconds
-  diffInSeconds /= 24
-  val days = if (diffInSeconds >= 30) (diffInSeconds % 30) else diffInSeconds
-  diffInSeconds /= 30
-  val months = if (diffInSeconds >= 12) (diffInSeconds % 12) else diffInSeconds
-  diffInSeconds /= 12
+private fun getSecondsText(diff: Int): String {
+
+  var diffInSeconds = diff
+
+  val sec = if (diffInSeconds >= MINUTES_PER_HOUR) (diffInSeconds % MINUTES_PER_HOUR) else diffInSeconds
+  diffInSeconds /= MINUTES_PER_HOUR
+  val min = if (diffInSeconds >= SECONDS_PER_MINUTE) (diffInSeconds % SECONDS_PER_MINUTE) else diffInSeconds
+  diffInSeconds /= SECONDS_PER_MINUTE
+  val hrs = if (diffInSeconds >= HOURS_PER_DAY) (diffInSeconds % HOURS_PER_DAY) else diffInSeconds
+  diffInSeconds /= HOURS_PER_DAY
+  val days = if (diffInSeconds >= DAYS_PER_MONTH) (diffInSeconds % DAYS_PER_MONTH) else diffInSeconds
+  diffInSeconds /= DAYS_PER_MONTH
+  val months = if (diffInSeconds >= MONTH_PER_YEAR) (diffInSeconds % MONTH_PER_YEAR) else diffInSeconds
+  diffInSeconds /= MONTH_PER_YEAR
   val years = diffInSeconds
 
-  // TODO() Adapt to Russian
-  if (years > 0)
-    return "$years year(s)"
-  else if (months > 0)
-    return "$months month(s)"
-  else if (days > 0)
-    return "$days day(s)"
-  else if (hrs > 0)
-    return "$hrs hour(s)"
-  else if (min > 0) {
-    if (min == 1) {
-      return "minute ago"
-    } else {
-      return "$min min(s)"
-    }
-  } else {
-    if (sec <= 1) {
-      return "second ago"
-    } else {
-      return "$sec seconds"
-    }
-  }
+  return CalculatedTime(sec, min, hrs, days, months, years).buildString()
 }
+
+// TODO() Adapt to Russian
+private fun CalculatedTime.buildString() =
+
+    if (years > 0) "$years years(s)"
+    else if (months > 0) "$months month(s)"
+    else if (days > 0) "$days day(s)"
+    else if (hours > 0) "$hours hour(s)"
+    else
+      if (minutes > 0) {
+        if (minutes == 1) "minute ago"
+        else "$minutes min(s)"
+      } else {
+        if (seconds <= 1) "second ago"
+        else "$seconds seconds"
+      }
+
+private class CalculatedTime(
+    val seconds: Int,
+    val minutes: Int,
+    val hours: Int,
+    val days: Int,
+    val months: Int,
+    val years: Int)

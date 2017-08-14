@@ -8,12 +8,14 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.sedsoftware.yaptalker.R
 import com.squareup.picasso.Picasso
 
+private const val ICON_SIZE = 24
+
 fun ImageView.loadFromUrl(url: String) {
 
   val placeholder = IconicsDrawable(context)
       .icon(CommunityMaterial.Icon.cmd_image)
       .color(context.color(R.color.colorPrimaryLight))
-      .sizeDp(24)
+      .sizeDp(ICON_SIZE)
 
   Picasso.with(context).load(url).error(placeholder).into(this)
 }

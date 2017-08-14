@@ -13,7 +13,9 @@ import kotlinx.android.synthetic.main.controller_forums_list.view.*
 
 class ForumsController : BaseController(), ForumsView {
 
-  private val FORUMS_LIST_KEY = "FORUMS_LIST_KEY"
+  companion object {
+    private const val FORUMS_LIST_KEY = "FORUMS_LIST_KEY"
+  }
 
   @InjectPresenter
   lateinit var forumsPresenter: ForumsPresenter

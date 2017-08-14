@@ -13,10 +13,13 @@ import javax.inject.Inject
 @InjectViewState
 class NewsPresenter : BasePresenter<NewsView>() {
 
+  companion object {
+    const val NEWS_PER_PAGE = 50
+  }
+
   @Inject
   lateinit var yapDataManager: YapDataManager
 
-  private val NEWS_PER_PAGE = 50
   private var currentPage = 0
   private var backToFirstPage = false
 

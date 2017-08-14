@@ -14,7 +14,9 @@ import kotlinx.android.synthetic.main.controller_news.view.*
 
 class NewsController : BaseController(), NewsView {
 
-  private val NEWS_LIST_KEY = "NEWS_LIST_KEY"
+  companion object {
+    private const val NEWS_LIST_KEY = "NEWS_LIST_KEY"
+  }
 
   @InjectPresenter
   lateinit var newsPresenter: NewsPresenter

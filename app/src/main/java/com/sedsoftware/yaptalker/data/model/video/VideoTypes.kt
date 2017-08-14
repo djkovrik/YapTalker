@@ -1,10 +1,10 @@
 package com.sedsoftware.yaptalker.data.model.video
 
 object VideoTypes {
-  val YOUTUBE = 1
-  val RUTUBE = 2
-  val COUB = 3
-  val YAP_FILES = 4
+  const val YOUTUBE = 1
+  const val RUTUBE = 2
+  const val COUB = 3
+  const val YAP_FILES = 4
 
-  val OTHER = 100
+  const val OTHER = 100
 }
