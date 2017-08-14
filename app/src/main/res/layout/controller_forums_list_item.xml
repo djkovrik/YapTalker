@@ -37,20 +37,16 @@
 
     <TextView
       android:id="@+id/forum_title"
-      android:textStyle="bold"
+      style="@style/ForumsForumTitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textSize="@dimen/material_list_normal_primary_text_size"
       tools:text="Forum title"/>
 
     <TextView
       android:id="@+id/forum_last_topic_title"
+      style="@style/CommonSupportingText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:ellipsize="end"
-      android:maxLines="1"
-      android:textColor="@color/colorSupportingText"
-      android:textSize="@dimen/material_list_normal_secondary_text_size"
       tools:text="Forum long long long long long long long title"/>
 
   </LinearLayout>
@@ -72,18 +68,16 @@
 
     <TextView
       android:id="@+id/forum_last_topic_author"
+      style="@style/CommonSupportingText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textColor="@color/colorSupportingText"
-      android:textSize="@dimen/material_list_normal_secondary_text_size"
       tools:text="Jus"/>
 
     <TextView
       android:id="@+id/forum_last_topic_date"
+      style="@style/CommonSupportingText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textColor="@color/colorSupportingText"
-      android:textSize="@dimen/material_list_normal_secondary_text_size"
       tools:text="5 min"/>
 
   </LinearLayout>

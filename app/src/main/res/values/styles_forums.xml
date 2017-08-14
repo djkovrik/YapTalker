@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="ForumsForumTitle">
+    <item name="android:textStyle">bold</item>
+    <item name="android:textSize">@dimen/material_list_normal_primary_text_size</item>
+  </style>
+
+</resources>
