@@ -13,10 +13,11 @@ import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.data.model.NewsItemContent
 import com.sedsoftware.yaptalker.data.remote.thumbnails.ThumbnailsLoader
 import kotlinx.android.synthetic.main.controller_news_item.view.*
-import java.util.*
+import java.util.ArrayList
+import java.util.Locale
 import javax.inject.Inject
 
-class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
   init {
     YapTalkerApp.appComponent.inject(this)
@@ -87,17 +88,19 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         news_comments_counter.text = String.format(Locale.US, commentsTemplate,
             newsItem.topic.answers)
 
-        val content = NewsItemContent(newsItem.summary)
-        news_content_text.textFromHtml(content.text)
+        NewsItemContent(newsItem.summary).apply {
 
-        if (content.image.isNotEmpty()) {
-          news_content_image.visibility = View.VISIBLE
-          news_content_image.loadFromUrl("http:${content.image}")
-        } else if (content.video.second.isNotEmpty()) {
-          news_content_image.visibility = View.VISIBLE
-          thumbnailsLoader.loadThumbnail(content.video, news_content_image)
-        } else {
-          news_content_image.visibility = View.GONE
+          news_content_text.textFromHtml(this.text)
+
+          if (this.image.isNotEmpty()) {
+            news_content_image.visibility = View.VISIBLE
+            news_content_image.loadFromUrl("http:${this.image}")
+          } else if (this.video.second.isNotEmpty()) {
+            news_content_image.visibility = View.VISIBLE
+            thumbnailsLoader.loadThumbnail(this.video, news_content_image)
+          } else {
+            news_content_image.visibility = View.GONE
+          }
         }
       }
     }

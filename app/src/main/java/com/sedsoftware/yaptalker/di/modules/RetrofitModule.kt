@@ -1,9 +1,9 @@
 package com.sedsoftware.yaptalker.di.modules
 
-import com.sedsoftware.yaptalker.data.remote.converters.ChosenForumConverterFactory
-import com.sedsoftware.yaptalker.data.remote.converters.ChosenTopicConverterFactory
-import com.sedsoftware.yaptalker.data.remote.converters.ForumsListConverterFactory
-import com.sedsoftware.yaptalker.data.remote.converters.NewsConverterFactory
+import com.sedsoftware.yaptalker.data.remote.yap.converters.ChosenForumConverterFactory
+import com.sedsoftware.yaptalker.data.remote.yap.converters.ChosenTopicConverterFactory
+import com.sedsoftware.yaptalker.data.remote.yap.converters.ForumsListConverterFactory
+import com.sedsoftware.yaptalker.data.remote.yap.converters.NewsConverterFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

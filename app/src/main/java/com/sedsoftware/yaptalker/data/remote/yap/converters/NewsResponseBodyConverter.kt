@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.remote.converters
+package com.sedsoftware.yaptalker.data.remote.yap.converters
 
 import com.sedsoftware.yaptalker.commons.extensions.chopEdges
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits

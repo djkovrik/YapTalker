@@ -6,7 +6,8 @@
   android:layout_height="match_parent"
   android:orientation="vertical"
   android:background="@color/colorMaterialBackground"
-  tools:context="com.sedsoftware.yaptalker.features.navigation.NavigationActivity">
+  tools:context="com.sedsoftware.yaptalker.features.navigation.NavigationActivity"
+  tools:ignore="Overdraw">
 
   <include layout="@layout/activity_main_appbar"/>
 
