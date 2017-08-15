@@ -2,9 +2,9 @@ package com.sedsoftware.yaptalker.data.remote
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import com.sedsoftware.yaptalker.data.model.NewsItem
-import com.sedsoftware.yaptalker.data.remote.yap.YapNewsLoader
-import com.sedsoftware.yaptalker.getDummyNewsList
+import com.sedsoftware.yaptalker.data.model.News
+import com.sedsoftware.yaptalker.data.remote.yap.YapLoader
+import com.sedsoftware.yaptalker.getDummyNews
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.junit.Before
@@ -13,16 +13,16 @@ import org.mockito.ArgumentMatchers
 
 class YapNewsLoaderTest {
 
-  var loaderMock = mock<YapNewsLoader>()
-  var testSubscriber = TestObserver<List<NewsItem>>()
+  var loaderMock = mock<YapLoader>()
+  var testSubscriber = TestObserver<News>()
 
   @Before
   fun setUp() {
-    testSubscriber = TestObserver<List<NewsItem>>()
-    loaderMock = mock<YapNewsLoader>()
+    testSubscriber = TestObserver<News>()
+    loaderMock = mock<YapLoader>()
 
     whenever(loaderMock.loadNews(ArgumentMatchers.anyInt()))
-        .thenReturn(Single.just(getDummyNewsList()))
+        .thenReturn(Single.just(getDummyNews()))
   }
 
   @Test
@@ -33,8 +33,6 @@ class YapNewsLoaderTest {
 
     // Assert
     testSubscriber.assertNoErrors()
-    testSubscriber.assertValueCount(1)
-    testSubscriber.assertValue({ list: List<NewsItem> -> list.size == 5 })
     testSubscriber.assertComplete()
   }
 }

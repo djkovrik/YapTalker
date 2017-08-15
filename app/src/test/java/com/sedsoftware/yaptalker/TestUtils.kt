@@ -1,6 +1,8 @@
 package com.sedsoftware.yaptalker
 
-import com.sedsoftware.yaptalker.data.model.*
+import com.sedsoftware.yaptalker.data.model.ForumItem
+import com.sedsoftware.yaptalker.data.model.News
+import com.sedsoftware.yaptalker.data.model.NewsItem
 
 fun getDummyForumsList(): List<ForumItem> {
   return listOf(
@@ -14,18 +16,11 @@ fun getDummyForumsList(): List<ForumItem> {
 
 fun getDummyForumItem(seed: Int): ForumItem {
   return ForumItem(
+      title = "title$seed",
       id = seed + 1,
-      title = "Title#$seed",
-      lastTopic = TopicItemShort(
-          id = seed,
-          title = "Title#$seed",
-          date = "date#$seed",
-          author = UserProfileShort(
-              id = seed + 2,
-              name = "name#$seed"
-          )
-      )
-  )
+      lastTopicTitle = "title$seed",
+      lastTopicAuthor = "author$seed",
+      htmlDesc = "htmlDesc")
 }
 
 fun getDummyNewsList(): List<NewsItem> {
@@ -39,14 +34,19 @@ fun getDummyNewsList(): List<NewsItem> {
 
 fun getDummyNewsItem(seed: Int): NewsItem {
   return NewsItem(
-      summary = "News summary#$seed",
-      forum = "Forum title#$seed",
-      topic = TopicItemList(id = seed + 1,
-          title = "Title#$seed",
-          answers = seed + 2,
-          uq = seed + 3,
-          author = UserProfileShort(
-              id = seed + 4,
-              name = "Name#$seed"),
-          date = "Date#$seed"))
+      title = "title$seed",
+      link = "link$seed",
+      rating = "rating$seed",
+      description = "description$seed",
+      images = ArrayList(),
+      videos = ArrayList(),
+      author = "author$seed",
+      authorLink = "link$seed",
+      date = "date$seed",
+      forumName = "name$seed",
+      comments = "comments$seed")
+}
+
+fun getDummyNews(): News {
+  return News()
 }

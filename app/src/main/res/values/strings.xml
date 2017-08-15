@@ -14,12 +14,12 @@
     <xliff:g id="bullet">\u25AA</xliff:g> <xliff:g id="forum">%s</xliff:g>
   </string>
   <string name="news_karma_template" translatable="false">
-   +<xliff:g id="karma">%d</xliff:g>
+   +<xliff:g id="karma">%s</xliff:g>
   </string>
   <string name="news_date_template" translatable="false">
    <xliff:g id="icon">{cmd-calendar-clock} <xliff:g id="date">%s</xliff:g></xliff:g>
   </string>
   <string name="news_comments_template" translatable="false">
-   <xliff:g id="icon">{cmd-comment-multiple-outline} <xliff:g id="comments">%d</xliff:g></xliff:g>
+   <xliff:g id="icon">{cmd-comment-multiple-outline} <xliff:g id="comments">%s</xliff:g></xliff:g>
   </string>
 </resources>

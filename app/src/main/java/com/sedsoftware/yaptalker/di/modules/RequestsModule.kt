@@ -2,10 +2,7 @@ package com.sedsoftware.yaptalker.di.modules
 
 import com.sedsoftware.yaptalker.data.remote.thumbnails.CoubThumbnailLoader
 import com.sedsoftware.yaptalker.data.remote.thumbnails.RutubeThumbnailLoader
-import com.sedsoftware.yaptalker.data.remote.yap.YapChosenForumLoader
-import com.sedsoftware.yaptalker.data.remote.yap.YapChosenTopicLoader
-import com.sedsoftware.yaptalker.data.remote.yap.YapForumsListLoader
-import com.sedsoftware.yaptalker.data.remote.yap.YapNewsLoader
+import com.sedsoftware.yaptalker.data.remote.yap.YapLoader
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -17,37 +14,22 @@ class RequestsModule {
 
   @Provides
   @Singleton
-  fun provideNewsLoader(@Named("NewsLoader") retrofit: Retrofit): YapNewsLoader {
-    return retrofit.create(YapNewsLoader::class.java)
+  fun provideYapLoader(
+      @Named("YapLoader") retrofit: Retrofit): YapLoader {
+    return retrofit.create(YapLoader::class.java)
   }
 
   @Provides
   @Singleton
-  fun provideForumsListLoader(@Named("ForumsListLoader") retrofit: Retrofit): YapForumsListLoader {
-    return retrofit.create(YapForumsListLoader::class.java)
-  }
-
-  @Provides
-  @Singleton
-  fun provideChosenForumLoader(@Named("ChosenForumLoader") retrofit: Retrofit): YapChosenForumLoader {
-    return retrofit.create(YapChosenForumLoader::class.java)
-  }
-
-  @Provides
-  @Singleton
-  fun provideChosenTopicLoader(@Named("ChosenTopicLoader") retrofit: Retrofit): YapChosenTopicLoader {
-    return retrofit.create(YapChosenTopicLoader::class.java)
-  }
-
-  @Provides
-  @Singleton
-  fun provideRutubeThumbnailLoader(@Named("RutubeThumbnailLoader") retrofit: Retrofit): RutubeThumbnailLoader {
+  fun provideRutubeThumbnailLoader(
+      @Named("RutubeThumbnailLoader") retrofit: Retrofit): RutubeThumbnailLoader {
     return retrofit.create(RutubeThumbnailLoader::class.java)
   }
 
   @Provides
   @Singleton
-  fun provideCoubThumbnailLoader(@Named("CoubThumbnailLoader") retrofit: Retrofit): CoubThumbnailLoader {
+  fun provideCoubThumbnailLoader(
+      @Named("CoubThumbnailLoader") retrofit: Retrofit): CoubThumbnailLoader {
     return retrofit.create(CoubThumbnailLoader::class.java)
   }
 }
