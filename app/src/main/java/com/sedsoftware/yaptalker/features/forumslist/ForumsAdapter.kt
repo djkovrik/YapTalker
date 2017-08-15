@@ -41,9 +41,9 @@ class ForumsAdapter : RecyclerView.Adapter<ForumsAdapter.ForumsViewHolder>() {
     fun bindTo(forum: ForumItem) {
       with(itemView) {
         forum_title.text = forum.title
-        forum_last_topic_title.text = forum.lastTopic.title
-        forum_last_topic_author.text = forum.lastTopic.author.name
-        forum_last_topic_date.text = forum.lastTopic.date.getShortTime()
+        forum_last_topic_title.text = forum.lastTopicTitle
+        forum_last_topic_author.text = forum.lastTopicAuthor
+        forum_last_topic_date.text = forum.date.getShortTime()
         forum_image.loadFromUrl("http://www.yaplakal.com/html/icons/${forum.id}.gif")
       }
     }

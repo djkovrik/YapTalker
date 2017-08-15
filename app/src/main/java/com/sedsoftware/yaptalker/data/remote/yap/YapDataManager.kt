@@ -2,18 +2,16 @@ package com.sedsoftware.yaptalker.data.remote.yap
 
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.data.model.ForumItem
+import com.sedsoftware.yaptalker.data.model.Forums
 import com.sedsoftware.yaptalker.data.model.NewsItem
-import com.sedsoftware.yaptalker.data.model.PostItem
-import com.sedsoftware.yaptalker.data.model.TopicItemList
+import com.sedsoftware.yaptalker.data.model.createForumsList
+import com.sedsoftware.yaptalker.data.model.createNewsList
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class YapDataManager(
-    val newsLoader: YapNewsLoader,
-    val forumsListLoader: YapForumsListLoader,
-    val chosenForumLoader: YapChosenForumLoader,
-    val chosenTopicLoader: YapChosenTopicLoader,
+    val yapLoader: YapLoader,
     val requestState: BehaviorRelay<Long>) {
 
   fun publishRequestState(@YapRequestState.State currentState: Long) {
@@ -23,8 +21,9 @@ class YapDataManager(
   }
 
   fun getNews(startNumber: Int = 0): Single<List<NewsItem>> =
-      newsLoader
+      yapLoader
           .loadNews(startNumber)
+          .map { news -> news.createNewsList() }
           .doOnSubscribe {
             publishRequestState(
                 YapRequestState.LOADING)
@@ -39,46 +38,9 @@ class YapDataManager(
           }
 
   fun getForumsList(): Single<List<ForumItem>> =
-      forumsListLoader
+      yapLoader
           .loadForumsList()
-          .doOnSubscribe {
-            publishRequestState(
-                YapRequestState.LOADING)
-          }
-          .doOnError {
-            publishRequestState(
-                YapRequestState.ERROR)
-          }
-          .doOnSuccess {
-            publishRequestState(
-                YapRequestState.COMPLETED)
-          }
-
-  fun getChosenForum(
-      forumId: Int,
-      startTopicNumber: Int = 0,
-      sortingMode: String = "last_post"): Single<List<TopicItemList>> =
-      chosenForumLoader
-          .loadChosenForum(forumId, startTopicNumber, sortingMode)
-          .doOnSubscribe {
-            publishRequestState(
-                YapRequestState.LOADING)
-          }
-          .doOnError {
-            publishRequestState(
-                YapRequestState.ERROR)
-          }
-          .doOnSuccess {
-            publishRequestState(
-                YapRequestState.COMPLETED)
-          }
-
-  fun getChosenTopic(
-      forumId: Int,
-      startPage: Int = 0,
-      topicId: Int): Single<List<PostItem>> =
-      chosenTopicLoader
-          .loadChosenTopic(forumId, startPage, topicId)
+          .map { forums: Forums -> forums.createForumsList() }
           .doOnSubscribe {
             publishRequestState(
                 YapRequestState.LOADING)
