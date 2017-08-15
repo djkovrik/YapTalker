@@ -26,7 +26,7 @@ class ForumsAdapter : RecyclerView.Adapter<ForumsAdapter.ForumsViewHolder>() {
 
   override fun getItemCount() = forumsList.size
 
-  override fun getItemId(position: Int) = forumsList[position].id.toLong()
+  override fun getItemId(position: Int) = forumsList[position].forumId.toLong()
 
   fun addForumsList(list: List<ForumItem>) {
     forumsList.clear()
@@ -38,13 +38,15 @@ class ForumsAdapter : RecyclerView.Adapter<ForumsAdapter.ForumsViewHolder>() {
 
   class ForumsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bindTo(forum: ForumItem) {
-      with(itemView) {
-        forum_title.text = forum.title
-        forum_last_topic_title.text = forum.lastTopicTitle
-        forum_last_topic_author.text = forum.lastTopicAuthor
-        forum_last_topic_date.text = forum.date.getShortTime()
-        forum_image.loadFromUrl("http://www.yaplakal.com/html/icons/${forum.id}.gif")
+    fun bindTo(forumItem: ForumItem) {
+      with(forumItem) {
+        with(itemView) {
+          forum_title.text = title
+          forum_last_topic_title.text = lastTopicTitle
+          forum_last_topic_author.text = lastTopicAuthor
+          forum_last_topic_date.text = date.getShortTime()
+          forum_image.loadFromUrl("http://www.yaplakal.com/html/icons/$forumId.gif")
+        }
       }
     }
   }

@@ -28,7 +28,7 @@ fun Forums.createForumsList(): List<ForumItem> {
   titles.forEachIndexed { index, _ ->
     result.add(ForumItem(
         title = titles[index],
-        id = ids[index].getLastDigits(),
+        forumId = ids[index].getLastDigits(),
         lastTopicTitle = topics[index].title,
         lastTopicAuthor = topics[index].author,
         htmlDesc = topics[index].htmlDesc))
@@ -39,7 +39,7 @@ fun Forums.createForumsList(): List<ForumItem> {
 
 data class ForumItem(
     val title: String,
-    val id: Int,
+    val forumId: Int,
     val lastTopicTitle: String,
     val lastTopicAuthor: String,
     val htmlDesc: String) : Parcelable {
@@ -56,7 +56,7 @@ data class ForumItem(
 
   override fun writeToParcel(parcel: Parcel, flags: Int) {
     parcel.writeString(title)
-    parcel.writeInt(id)
+    parcel.writeInt(forumId)
     parcel.writeString(lastTopicTitle)
     parcel.writeString(lastTopicAuthor)
     parcel.writeString(htmlDesc)

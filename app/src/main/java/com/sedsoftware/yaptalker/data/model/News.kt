@@ -3,6 +3,8 @@ package com.sedsoftware.yaptalker.data.model
 import android.os.Parcel
 import android.os.Parcelable
 import com.sedsoftware.yaptalker.commons.extensions.chopEdges
+import org.jsoup.Jsoup
+import org.jsoup.safety.Whitelist
 import pl.droidsonroids.jspoon.annotation.Selector
 
 class News {
@@ -72,11 +74,12 @@ data class NewsItem(
 
   val cleanedDescription: String
     get() {
-      if (description.contains("<br>"))
-        return description.substring(0, description.indexOf("<br>"))
-      else
-        return description
-
+      with(Jsoup.clean(description, Whitelist().addTags("i", "u", "b", "br"))) {
+        if (this.contains("<br>"))
+          return this.substring(0, this.indexOf("<br>"))
+        else
+          return this
+      }
     }
 
   constructor(parcel: Parcel) : this(

@@ -17,7 +17,7 @@ fun getDummyForumsList(): List<ForumItem> {
 fun getDummyForumItem(seed: Int): ForumItem {
   return ForumItem(
       title = "title$seed",
-      id = seed + 1,
+      forumId = seed + 1,
       lastTopicTitle = "title$seed",
       lastTopicAuthor = "author$seed",
       htmlDesc = "htmlDesc")
