@@ -20,8 +20,8 @@ class LastTopic {
 
 fun Forums.createForumsList(): List<ForumItem> {
 
-  assert(titles.size == ids.size)
-  assert(ids.size == topics.size)
+  assert(titles.size == ids.size, { "Titles size should match ids size" })
+  assert(topics.size == ids.size, { "Topics size should match ids size" })
 
   val result: MutableList<ForumItem> = ArrayList()
 
@@ -69,8 +69,6 @@ data class ForumItem(
       return ForumItem(parcel)
     }
 
-    override fun newArray(size: Int): Array<ForumItem?> {
-      return arrayOfNulls(size)
-    }
+    override fun newArray(size: Int): Array<ForumItem?> = arrayOfNulls(size)
   }
 }

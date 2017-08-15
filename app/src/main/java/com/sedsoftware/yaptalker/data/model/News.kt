@@ -35,8 +35,8 @@ class NewsBottom {
 
 fun News.createNewsList(): List<NewsItem> {
 
-  assert(headers == contents)
-  assert(contents == bottoms)
+  assert(headers.size == contents.size, { "Headers size should match contents size" })
+  assert(contents.size == bottoms.size, { "Contents size should match bottoms size" })
 
   val result: MutableList<NewsItem> = ArrayList()
 
@@ -116,8 +116,6 @@ data class NewsItem(
       return NewsItem(parcel)
     }
 
-    override fun newArray(size: Int): Array<NewsItem?> {
-      return arrayOfNulls(size)
-    }
+    override fun newArray(size: Int): Array<NewsItem?> = arrayOfNulls(size)
   }
 }
