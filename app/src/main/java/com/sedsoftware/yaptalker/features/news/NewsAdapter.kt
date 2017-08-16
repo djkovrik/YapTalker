@@ -86,7 +86,11 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
           news_title.text = title
           news_forum.text = String.format(Locale.US, forumTitleTemplate, forumName)
           news_date.text = String.format(Locale.US, dateTemplate, date)
-          news_rating.text = String.format(Locale.US, karmaTemplate, rating)
+
+          if (rating.isNotEmpty()) {
+            news_rating.text = String.format(Locale.US, karmaTemplate, rating)
+          }
+
           news_comments_counter.text = String.format(Locale.US, commentsTemplate, comments)
           news_content_text.textFromHtml(cleanedDescription)
 

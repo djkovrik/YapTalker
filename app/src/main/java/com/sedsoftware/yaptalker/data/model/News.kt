@@ -16,7 +16,7 @@ class News {
 class NewsHead {
   @Selector(".subtitle") lateinit var title: String
   @Selector(".subtitle", attr = "href") lateinit var link: String
-  @Selector(".rating-short-value > a") lateinit var rating: String
+  @Selector(".rating-short-value > a", defValue = "") lateinit var rating: String
 }
 
 class NewsContent {
