@@ -1,3 +1,25 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="app_name">YapTalker</string>
+
+  <!-- NavigationDrawer  header items -->
+  <string name="nav_drawer_guest_name">Guest</string>
+
+  <!-- NavigationDrawer items -->
+  <string name="nav_drawer_main_page">Main page</string>
+  <string name="nav_drawer_forums">Forums</string>
+  <string name="nav_drawer_settings">Settings</string>
+
+  <!-- News Item -->
+  <string name="news_forum_title_template" translatable="false">
+    <xliff:g id="bullet">\u25AA</xliff:g> <xliff:g id="forum">%s</xliff:g>
+  </string>
+  <string name="news_karma_template" translatable="false">
+   +<xliff:g id="karma">%s</xliff:g>
+  </string>
+  <string name="news_date_template" translatable="false">
+   <xliff:g id="icon">{cmd-calendar-clock} <xliff:g id="date">%s</xliff:g></xliff:g>
+  </string>
+  <string name="news_comments_template" translatable="false">
+   <xliff:g id="icon">{cmd-comment-multiple-outline} <xliff:g id="comments">%s</xliff:g></xliff:g>
+  </string>
 </resources>

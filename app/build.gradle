@@ -1,8 +1,11 @@
+plugins {
+  id "io.gitlab.arturbosch.detekt" version "1.0.0.RC2"
+}
+
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
   compileSdkVersion 26
@@ -11,8 +14,11 @@ android {
     applicationId "com.sedsoftware.yaptalker"
     minSdkVersion 19
     targetSdkVersion 26
-    versionCode 1
-    versionName "1.0"
+    // Versioning convention from ribot:
+    // Major -> Millions, Minor -> Thousands, Bugfix -> Hundreds. E.g 1.3.72 == 1,003,072
+    // Current: 000,001,000
+    versionCode 1000
+    versionName "0.1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
   buildTypes {
@@ -21,29 +27,143 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+detekt {
+  version = "1.0.0.RC2"
+
+  profile("main") {
+    input = "$projectDir/src/main/java"
+    config = "$rootDir/tools/static-analysis/detekt-config.yml"
+    filters = ".*test.*,.*/resources/.*,.*/tmp/.*"
+    output = "$projectDir/build/reports/detekt.xml"
+    baseline = "$projectDir/build/reports/baseline.xml"
+  }
 }
 
 dependencies {
-  // App
-  final SUPPORT_LIBRARY_VERSION = "26.0.0-beta2"
+  // App - Rx
+  final RX_ANDROID_VERSION = "2.0.1"
+  final RX_JAVA_VERSION = "2.1.1"
+  final RX_KOTLIN_VERSION = "2.1.0"
+  final RX_BINDING_VERSION = "2.0.0"
+  final RX_RELAY_VERSION = "2.0.0"
+  final RX_LINT_VERSION = "1.4"
+  final AUTO_DISPOSE_VERSION = "0.2.0"
+
+  // App - Core
+  final RETROFIT_VERSION = "2.3.0"
+  final DAGGER_VERSION = "2.11"
+  final MOXY_VERSION = "1.5.3"
+  final CONDUCTOR_VERSION = "2.1.4"
+  final PICASSO_VERSION = "2.5.2"
+  final JSPOON_VERSION = "1.0.0"
+  final ANKO_VERSION = "0.10.1"
+  final STATE_VERSION = "1.1.3"
+  final MOSHI_VERSION = "1.5.0"
+
+  // App - UI
+  final MATERIAL_VALUES_VERSION = "1.1.1"
+  final MATERIAL_DRAWER_KT_VERSION = "1.0.6"
+  final COMMUNITY_MATERIAL_ICONS_VERSION = "1.9.32.2@aar"
+  final TOASTY_VERSION = "1.2.5"
 
   // Testing
   final ESPRESSO_VERSION = "2.2.2"
   final JUNIT_VERSION = "4.12"
+  final MOCKITO_VERSION = "2.8.47"
+  final MOCKITO_KOTLIN_VERSION = "1.5.0"
+  final EXPEKT_VERSION = "0.5.0"
+
+  // Debugging
+  final TIMBER_VERSION = "4.5.1"
+  final LEAK_CANARY_VERSION = "1.5.1"
+  final STETHO_VERSION = "1.5.0"
+
+  def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+  def moxyCompiler = "com.arello-mobile:moxy-compiler:$MOXY_VERSION"
+  def stateApt = "com.evernote:android-state-processor:$STATE_VERSION"
 
   def junit = "junit:junit:${JUNIT_VERSION}"
+  def espresso = "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION"
+  def mockito = "org.mockito:mockito-core:$MOCKITO_VERSION"
+  def mockitoAndroid = "org.mockito:mockito-android:$MOCKITO_VERSION"
+  def mockitoKotlin = "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION"
+  def expekt = "com.winterbe:expekt:$EXPEKT_VERSION"
 
   // Android libs
   implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
+  implementation "com.android.support:appcompat-v7:$support_library_version"
+  implementation "com.android.support:cardview-v7:$support_library_version"
+  implementation "com.android.support:design:$support_library_version"
   implementation "com.android.support.constraint:constraint-layout:1.0.2"
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
-  // App dependencies
+  // Rx
+  implementation "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION"
+  implementation "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION"
+  implementation "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION"
+  implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$RX_BINDING_VERSION"
+  implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$RX_BINDING_VERSION"
+  implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:$RX_BINDING_VERSION"
+  implementation "com.jakewharton.rxrelay2:rxrelay:$RX_RELAY_VERSION"
+  implementation "nl.littlerobots.rxlint:rxlint:$RX_LINT_VERSION"
+  implementation "com.uber.autodispose:autodispose:$AUTO_DISPOSE_VERSION"
+  implementation "com.uber.autodispose:autodispose-kotlin:$AUTO_DISPOSE_VERSION"
+
+  // Core
+  implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
+  implementation "com.squareup.retrofit2:converter-moshi:$RETROFIT_VERSION"
+  implementation "com.google.dagger:dagger:$DAGGER_VERSION"
+  implementation "com.arello-mobile:moxy:$MOXY_VERSION"
+  implementation "com.arello-mobile:moxy-android:$MOXY_VERSION"
+  implementation "com.arello-mobile:moxy-app-compat:$MOXY_VERSION"
+  implementation "com.bluelinelabs:conductor:$CONDUCTOR_VERSION"
+  implementation "com.bluelinelabs:conductor-autodispose:$CONDUCTOR_VERSION"
+  implementation "com.squareup.picasso:picasso:$PICASSO_VERSION"
+  implementation "pl.droidsonroids:jspoon:$JSPOON_VERSION"
+  implementation "pl.droidsonroids.retrofit2:converter-jspoon:$JSPOON_VERSION"
+  implementation "org.jetbrains.anko:anko-commons:$ANKO_VERSION"
+  implementation "org.jetbrains.anko:anko-design:$ANKO_VERSION"
+  implementation "com.evernote:android-state:$STATE_VERSION"
+  implementation "com.squareup.moshi:moshi:$MOSHI_VERSION"
+
+  // UI
+  implementation "blue.aodev:material-values:$MATERIAL_VALUES_VERSION"
+  implementation "co.zsmb:materialdrawer-kt:$MATERIAL_DRAWER_KT_VERSION"
+  implementation "com.mikepenz:community-material-typeface:$COMMUNITY_MATERIAL_ICONS_VERSION"
+  implementation "com.github.grenderg:toasty:$TOASTY_VERSION"
+
+  kapt daggerCompiler
+  kapt moxyCompiler
+  kapt stateApt
 
   // Instrumentation tests dependencies
-  androidTestImplementation "com.android.support.test.espresso:espresso-core:${ESPRESSO_VERSION}"
+  androidTestImplementation espresso
+  androidTestImplementation junit
+  androidTestImplementation mockito
+  androidTestImplementation mockitoKotlin
+  androidTestImplementation mockitoAndroid
 
   // Unit tests dependencies
   testImplementation junit
+  testImplementation mockito
+  testImplementation mockitoKotlin
+  testImplementation expekt
+
+  // Debugging tools dependencies
+  implementation "com.jakewharton.timber:timber:$TIMBER_VERSION"
+
+  debugImplementation "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
+  releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
+  testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
+
+  debugImplementation "com.facebook.stetho:stetho:$STETHO_VERSION"
+  releaseImplementation "net.igenius:stetho-no-op:1.1"
+  testImplementation "net.igenius:stetho-no-op:1.1"
 }
