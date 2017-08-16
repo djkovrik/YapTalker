@@ -53,8 +53,8 @@ class ForumsController : BaseController(), ForumsView {
     outState.putParcelableArrayList(FORUMS_LIST_KEY, forums)
   }
 
-  override fun onDetach(view: View) {
-    super.onDetach(view)
+  override fun onDestroyView(view: View) {
+    super.onDestroyView(view)
     view.forums_list.adapter = null
   }
 
