@@ -46,6 +46,13 @@ class ThumbnailsLoader(val rutube: RutubeThumbnailLoader, val coub: CoubThumbnai
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(getDrawableObserver(imageView))
       }
+      VideoTypes.OTHER -> {
+        Single
+            .just(R.drawable.ic_othervideo)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(getDrawableObserver(imageView))
+      }
     }
   }
 
