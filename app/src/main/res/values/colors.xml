@@ -19,6 +19,14 @@
   <!-- UQ colors -->
   <color name="colorRatingGreen">@color/material_color_green_500</color>
   <color name="colorRatingGold">@color/material_color_amber_400</color>
-  <color name="colorRatingPlatinum">@color/material_color_grey_200</color>
-  <color name="colorRatingRed">@color/material_color_red_400</color>
+  <color name="colorRatingPlatinum">@color/material_color_grey_300</color>
+  <color name="colorRatingRed">@color/material_color_red_300</color>
+  <color name="colorRatingDarkRed">@color/material_color_red_900</color>
+
+  <!-- UQ text colors -->
+  <color name="colorRatingGreenText">@color/material_color_white</color>
+  <color name="colorRatingGoldText">@color/material_color_black_54_percent</color>
+  <color name="colorRatingPlatinumText">@color/material_color_black_54_percent</color>
+  <color name="colorRatingRedText">@color/material_color_black_54_percent</color>
+  <color name="colorRatingDarkRedText">@color/material_color_black_54_percent</color>
 </resources>

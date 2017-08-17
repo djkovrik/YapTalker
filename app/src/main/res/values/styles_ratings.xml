@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="RatingPlatinum">
+    <item name="android:background">@drawable/topic_rating_platinum</item>
+    <item name="android:textColor">@color/colorRatingPlatinumText</item>
+  </style>
+
+  <style name="RatingGold">
+    <item name="android:background">@drawable/topic_rating_gold</item>
+    <item name="android:textColor">@color/colorRatingGoldText</item>
+  </style>
+
+  <style name="RatingGreen">
+    <item name="android:background">@drawable/topic_rating_green</item>
+    <item name="android:textColor">@color/colorRatingGreenText</item>
+  </style>
+
+  <style name="RatingRed">
+    <item name="android:background">@drawable/topic_rating_red</item>
+    <item name="android:textColor">@color/colorRatingRedText</item>
+  </style>
+
+  <style name="RatingDarkRed">
+    <item name="android:background">@drawable/topic_rating_dark_red</item>
+    <item name="android:textColor">@color/colorRatingDarkRedText</item>
+  </style>
+
+</resources>
