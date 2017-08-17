@@ -2,7 +2,6 @@ package com.sedsoftware.yaptalker.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.sedsoftware.yaptalker.commons.extensions.extractDate
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import pl.droidsonroids.jspoon.annotation.Selector
 
@@ -13,9 +12,9 @@ class Forums {
 }
 
 class LastTopic {
-  @Selector(".desc", attr = "innerHtml") lateinit var htmlDesc: String
   @Selector("a.subtitle") lateinit var title: String
   @Selector("a ~ a ~ a") lateinit var author: String
+  @Selector(".desc", format = "([0-9\\.]+ - [0-9:]+)") lateinit var date: String
 }
 
 fun Forums.createForumsList(): List<ForumItem> {
@@ -31,7 +30,7 @@ fun Forums.createForumsList(): List<ForumItem> {
         forumId = ids[index].getLastDigits(),
         lastTopicTitle = topics[index].title,
         lastTopicAuthor = topics[index].author,
-        htmlDesc = topics[index].htmlDesc))
+        date = topics[index].date))
   }
 
   return result
@@ -42,10 +41,7 @@ data class ForumItem(
     val forumId: Int,
     val lastTopicTitle: String,
     val lastTopicAuthor: String,
-    val htmlDesc: String) : Parcelable {
-
-  val date
-    get() = htmlDesc.extractDate()
+    val date: String) : Parcelable {
 
   constructor(parcel: Parcel) : this(
       parcel.readString(),
@@ -59,7 +55,7 @@ data class ForumItem(
     parcel.writeInt(forumId)
     parcel.writeString(lastTopicTitle)
     parcel.writeString(lastTopicAuthor)
-    parcel.writeString(htmlDesc)
+    parcel.writeString(date)
   }
 
   override fun describeContents() = 0

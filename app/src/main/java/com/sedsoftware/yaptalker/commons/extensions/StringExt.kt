@@ -33,11 +33,6 @@ fun String.getLastDigits(): Int {
 fun String.chopEdges() = this.substring(1, this.length - 1)
 
 /**
- * Extracts and returns date string from forum description html.
- */
-fun String.extractDate() = this.substring(0, this.indexOf("<br"))
-
-/**
  * Converts date string to shortened variant.
  */
 fun String.getShortTime(): String {
