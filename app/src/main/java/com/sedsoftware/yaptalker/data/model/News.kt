@@ -75,10 +75,10 @@ data class NewsItem(
   val cleanedDescription: String
     get() {
       with(Jsoup.clean(description, Whitelist().addTags("i", "u", "b", "br"))) {
-        if (this.contains("<br>"))
-          return this.substring(0, this.indexOf("<br>"))
+        return if (this.contains("<br>"))
+          this.substring(0, this.indexOf("<br>"))
         else
-          return this
+          this
       }
     }
 

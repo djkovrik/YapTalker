@@ -94,14 +94,16 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
           news_comments_counter.text = String.format(Locale.US, commentsTemplate, comments)
           news_content_text.textFromHtml(cleanedDescription)
 
-          if (images.isNotEmpty()) {
-            news_content_image.visibility = View.VISIBLE
-            news_content_image.loadFromUrl("http:${images.first()}")
-          } else if (videos.isNotEmpty()) {
-            news_content_image.visibility = View.VISIBLE
-            thumbnailsLoader.loadThumbnail(parseLink(videos.first()), news_content_image)
-          } else {
-            news_content_image.visibility = View.GONE
+          when {
+            images.isNotEmpty() -> {
+              news_content_image.visibility = View.VISIBLE
+              news_content_image.loadFromUrl("http:${images.first()}")
+            }
+            videos.isNotEmpty() -> {
+              news_content_image.visibility = View.VISIBLE
+              thumbnailsLoader.loadThumbnail(parseLink(videos.first()), news_content_image)
+            }
+            else -> news_content_image.visibility = View.GONE
           }
         }
       }
