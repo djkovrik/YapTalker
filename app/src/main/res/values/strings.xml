@@ -22,4 +22,9 @@
   <string name="news_comments_template" translatable="false">
    <xliff:g id="icon">{cmd-comment-multiple-outline} <xliff:g id="comments">%s</xliff:g></xliff:g>
   </string>
+
+  <!-- Forum item -->
+  <string name="forum_answers_template" translatable="false">
+   Answers: <xliff:g id="answers">%s</xliff:g>
+  </string>
 </resources>
