@@ -11,13 +11,15 @@ import com.sedsoftware.yaptalker.data.model.Topic
 import com.sedsoftware.yaptalker.features.base.BaseController
 import kotlinx.android.synthetic.main.controller_chosen_forum.view.*
 
-class ChosenForumController(var forumId: Int) : BaseController(), ChosenForumView {
-
-  // TODO(IMPORTANT) Add secondary constructor with bundles
+class ChosenForumController(val bundle: Bundle) : BaseController(bundle), ChosenForumView {
 
   companion object {
-    private const val FORUM_ID_KEY = "FORUM_ID_KEY"
+    const val FORUM_ID_KEY = "FORUM_ID_KEY"
     private const val TOPICS_LIST_KEY = "TOPICS_LIST"
+  }
+
+  val forumId: Int by lazy {
+    bundle.getInt(FORUM_ID_KEY)
   }
 
   @InjectPresenter
