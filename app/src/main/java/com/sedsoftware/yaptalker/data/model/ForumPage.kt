@@ -11,7 +11,7 @@ class ForumPage() : Parcelable {
   lateinit var forumId: String
   @Selector("a[title~=Страница: \\d+]", attr = "title", defValue = "0")
   lateinit var totalPages: String
-  @Selector("table tr + tr")
+  @Selector("table tr:has(td.row4)")
   lateinit var topics: List<Topic>
 
   constructor(parcel: Parcel) : this() {
@@ -39,11 +39,11 @@ class ForumPage() : Parcelable {
 class Topic() : Parcelable {
   @Selector("a.subtitle") lateinit var title: String
   @Selector("a.subtitle", attr = "href") lateinit var link: String
-  @Selector("td.row2 > a") lateinit var author: String
-  @Selector("td.row2 > a", attr = "href") lateinit var authorLink: String
+  @Selector("td[class~=row(2|4)] > a") lateinit var author: String
+  @Selector("td[class~=row(2|4)] > a", attr = "href") lateinit var authorLink: String
   @Selector("div.rating-short-value") lateinit var rating: String
   @Selector("td.row4:matchesOwn(\\d+)") lateinit var answers: String
-  @Selector("td.row2 > .desc", format = "([0-9\\.]+ - [0-9:]+)") lateinit var lastPostDate: String
+  @Selector("span.desc", format = "([0-9\\.]+ - [0-9:]+)") lateinit var lastPostDate: String
   @Selector("span.desc a ~ a") lateinit var lastPostAuthor: String
 
   constructor(parcel: Parcel) : this() {
