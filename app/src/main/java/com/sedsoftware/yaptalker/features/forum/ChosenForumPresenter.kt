@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.features.forum
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
 import com.sedsoftware.yaptalker.data.remote.yap.YapRequestState
@@ -15,6 +16,10 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   companion object {
     private const val LAST_UPDATE_SORTER = "last_post"
     private const val RATING_SORTER = "rank"
+  }
+
+  init {
+    YapTalkerApp.appComponent.inject(this)
   }
 
   @Inject
