@@ -38,7 +38,7 @@ fun TextView.textFromHtml(html: String) {
 
 var TextView.textColor: Int
   get() = currentTextColor
-  set(v) = setTextColor(v)
+  set(v) = setTextColor(context.color(v))
 
 fun SwipeRefreshLayout.setAppColorScheme() {
   setColorSchemeColors(
