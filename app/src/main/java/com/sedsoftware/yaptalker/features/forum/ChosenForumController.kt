@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.features.forum
 
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -44,6 +45,8 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
       val linearLayout = LinearLayoutManager(context)
       layoutManager = linearLayout
       adapter = forumAdapter
+
+      addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
       setHasFixedSize(true)
     }

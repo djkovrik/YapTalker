@@ -2,8 +2,7 @@
 <resources>
 
   <style name="RatingGrey">
-    <item name="android:background">@drawable/topic_rating_grey</item>
-    <item name="android:textColor">@color/colorRatingGreyText</item>
+    <item name="android:textStyle">bold</item>
   </style>
 
 </resources>

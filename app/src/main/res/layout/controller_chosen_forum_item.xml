@@ -25,7 +25,7 @@
     <TextView
       android:id="@+id/topic_name"
       style="@style/ForumTopicTitle"
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       tools:text="Very very very very very very very long title here"/>
 
@@ -68,12 +68,12 @@
   <TextView
     android:id="@+id/topic_rating"
     style="@style/RatingGrey"
-    android:layout_width="wrap_content"
+    android:layout_width="@dimen/rating_background_width"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/material_list_normal_padding_vertical"
     android:layout_marginBottom="@dimen/material_list_normal_padding_vertical"
     android:layout_marginEnd="@dimen/materialize_screen_edge"
-    android:gravity="center_vertical"
+    android:gravity="center_vertical|center_horizontal"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
