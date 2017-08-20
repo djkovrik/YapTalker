@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/navigation_panel"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_margin="@dimen/card_margin_value_half">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <ImageView
+      android:id="@+id/navigation_go_previous"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      app:ico_color="@color/colorSupportingText"
+      app:ico_icon="cmd-chevron-left"
+      app:ico_padding="8dp"
+      app:ico_size="30dp"
+      tools:ignore="ContentDescription,MissingPrefix"/>
+
+    <TextView
+      android:id="@+id/navigation_pages_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical|center_horizontal"
+      android:paddingStart="@dimen/material_card_actions_action_gutter_horizontal"
+      android:paddingEnd="@dimen/material_card_actions_action_gutter_horizontal"
+      android:textColor="@color/colorSupportingText"
+      tools:text="Page 1 of 1000"/>
+
+    <ImageView
+      android:id="@+id/navigation_go_next"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      app:ico_color="@color/colorSupportingText"
+      app:ico_icon="cmd-chevron-right"
+      app:ico_padding="8dp"
+      app:ico_size="30dp"
+      tools:ignore="ContentDescription,MissingPrefix"/>
+
+  </LinearLayout>
+
+</android.support.v7.widget.CardView>
