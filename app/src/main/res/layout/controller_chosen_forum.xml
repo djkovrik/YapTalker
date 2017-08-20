@@ -3,11 +3,31 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/forum_refresh_layout"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  android:layout_margin="@dimen/card_margin_value_half">
 
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/forum_topics_list"
+  <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="wrap_content">
+
+    <include
+      android:id="@+id/navigation_card"
+      layout="@layout/navigation_panel"/>
+
+    <android.support.v7.widget.CardView
+      android:id="@+id/recycler_view_card"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/card_margin_value_half"
+      android:layout_below="@id/navigation_card">
+
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/forum_topics_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    </android.support.v7.widget.CardView>
+
+  </RelativeLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>
