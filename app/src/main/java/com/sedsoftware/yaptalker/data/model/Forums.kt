@@ -19,8 +19,8 @@ class LastTopic {
 
 fun Forums.createForumsList(): List<ForumItem> {
 
-  assert(titles.size == ids.size, { "Titles size should match ids size" })
-  assert(topics.size == ids.size, { "Topics size should match ids size" })
+  check(titles.size == ids.size) { "Titles size should match ids size" }
+  check(topics.size == ids.size) { "Topics size should match ids size" }
 
   val result: MutableList<ForumItem> = ArrayList()
 

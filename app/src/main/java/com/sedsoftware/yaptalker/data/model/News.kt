@@ -37,8 +37,8 @@ class NewsBottom {
 
 fun News.createNewsList(): List<NewsItem> {
 
-  assert(headers.size == contents.size, { "Headers size should match contents size" })
-  assert(contents.size == bottoms.size, { "Contents size should match bottoms size" })
+  check(headers.size == contents.size) { "Headers size should match contents size" }
+  check(contents.size == bottoms.size) { "Contents size should match bottoms size" }
 
   val result: MutableList<NewsItem> = ArrayList()
 
