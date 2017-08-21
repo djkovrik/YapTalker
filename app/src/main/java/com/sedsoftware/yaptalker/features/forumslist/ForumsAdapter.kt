@@ -10,14 +10,15 @@ import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import kotlinx.android.synthetic.main.controller_forums_list_item.view.*
 
-class ForumsAdapter : RecyclerView.Adapter<ForumsAdapter.ForumsViewHolder>() {
+class ForumsAdapter(
+    val itemClick: (Int) -> Unit) : RecyclerView.Adapter<ForumsAdapter.ForumsViewHolder>() {
 
   private var forumsList: ArrayList<ForumItem> = ArrayList()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForumsViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_forums_list_item,
         parent, false)
-    return ForumsViewHolder(view)
+    return ForumsViewHolder(view, itemClick)
   }
 
   override fun onBindViewHolder(holder: ForumsViewHolder, position: Int) {
@@ -36,7 +37,8 @@ class ForumsAdapter : RecyclerView.Adapter<ForumsAdapter.ForumsViewHolder>() {
 
   fun getForumsList() = forumsList
 
-  class ForumsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+  class ForumsViewHolder(
+      itemView: View, val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     fun bindTo(forumItem: ForumItem) {
       with(forumItem) {
@@ -46,6 +48,8 @@ class ForumsAdapter : RecyclerView.Adapter<ForumsAdapter.ForumsViewHolder>() {
           forum_last_topic_author.text = lastTopicAuthor
           forum_last_topic_date.text = date.getShortTime()
           forum_image.loadFromUrl("http://www.yaplakal.com/html/icons/$forumId.gif")
+
+          setOnClickListener { itemClick(forumId) }
         }
       }
     }

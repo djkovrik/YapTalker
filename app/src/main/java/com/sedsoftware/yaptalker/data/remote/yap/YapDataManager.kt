@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.data.remote.yap
 
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.data.model.ForumItem
+import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Forums
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.data.model.createForumsList
@@ -41,6 +42,22 @@ class YapDataManager(
       yapLoader
           .loadForumsList()
           .map { forums: Forums -> forums.createForumsList() }
+          .doOnSubscribe {
+            publishRequestState(
+                YapRequestState.LOADING)
+          }
+          .doOnError {
+            publishRequestState(
+                YapRequestState.ERROR)
+          }
+          .doOnSuccess {
+            publishRequestState(
+                YapRequestState.COMPLETED)
+          }
+
+  fun getChosenForum(forumId: Int, startNumber: Int, sortingMode: String): Single<ForumPage> =
+      yapLoader
+          .loadForumPage(forumId, startNumber, sortingMode)
           .doOnSubscribe {
             publishRequestState(
                 YapRequestState.LOADING)

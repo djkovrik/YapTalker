@@ -5,10 +5,13 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.bluelinelabs.conductor.RouterTransaction
+import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.features.base.BaseController
+import com.sedsoftware.yaptalker.features.forum.ChosenForumController
 import kotlinx.android.synthetic.main.controller_forums_list.view.*
 
 class ForumsController : BaseController(), ForumsView {
@@ -27,7 +30,16 @@ class ForumsController : BaseController(), ForumsView {
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
-    forumsAdapter = ForumsAdapter()
+    forumsAdapter = ForumsAdapter {
+      // Load chosen forum
+      val bundle = Bundle()
+      bundle.putInt(ChosenForumController.FORUM_ID_KEY, it)
+      router.pushController(
+          RouterTransaction.with(ChosenForumController(bundle))
+              .pushChangeHandler(FadeChangeHandler())
+              .popChangeHandler(FadeChangeHandler()))
+    }
+
     forumsAdapter.setHasStableIds(true)
 
     with(view.forums_list) {
@@ -45,6 +57,9 @@ class ForumsController : BaseController(), ForumsView {
     } else {
       forumsPresenter.loadForumsList()
     }
+  }
+
+  override fun subscribeViews(parent: View) {
   }
 
   override fun onSaveViewState(view: View, outState: Bundle) {

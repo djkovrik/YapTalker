@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.commons.extensions
 
+import android.support.v4.widget.SwipeRefreshLayout
 import android.text.Html
 import android.widget.ImageView
 import android.widget.TextView
@@ -33,4 +34,16 @@ fun TextView.textFromHtml(html: String) {
       } else {
         Html.fromHtml(html)
       }
+}
+
+var TextView.textColor: Int
+  get() = currentTextColor
+  set(v) = setTextColor(context.color(v))
+
+fun SwipeRefreshLayout.setAppColorScheme() {
+  setColorSchemeColors(
+      context.color(R.color.colorPrimary),
+      context.color(R.color.colorAccent),
+      context.color(R.color.colorPrimaryDark),
+      context.color(R.color.colorAccentDark))
 }

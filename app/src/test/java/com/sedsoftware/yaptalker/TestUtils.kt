@@ -20,7 +20,7 @@ fun getDummyForumItem(seed: Int): ForumItem {
       forumId = seed + 1,
       lastTopicTitle = "title$seed",
       lastTopicAuthor = "author$seed",
-      htmlDesc = "htmlDesc")
+      date = "date")
 }
 
 fun getDummyNewsList(): List<NewsItem> {

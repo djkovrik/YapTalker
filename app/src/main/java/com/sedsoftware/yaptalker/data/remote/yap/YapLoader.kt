@@ -2,6 +2,7 @@
 
 package com.sedsoftware.yaptalker.data.remote.yap
 
+import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Forums
 import com.sedsoftware.yaptalker.data.model.News
 import io.reactivex.Single
@@ -23,4 +24,17 @@ interface YapLoader {
    */
   @GET("/forum")
   fun loadForumsList(): Single<Forums>
+
+  /**
+   * Load chosen forum page.
+   *
+   * @param forumId Chosen forum id
+   * @param startFrom Starting page (first page equals 0, should be multiply of 30)
+   * @param sortingMode Possible values: last_post and rank
+   */
+  @GET("/forum{forumId}/st/{startFrom}/100/Z-A/{sortingMode}")
+  fun loadForumPage(
+      @Path("forumId") forumId: Int,
+      @Path("startFrom") startTopicNumber: Int,
+      @Path("sortingMode") sortingMode: String): Single<ForumPage>
 }

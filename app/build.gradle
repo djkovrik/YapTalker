@@ -45,6 +45,10 @@ detekt {
   }
 }
 
+androidExtensions {
+  experimental = true
+}
+
 dependencies {
   // App - Rx
   final RX_ANDROID_VERSION = "2.0.1"

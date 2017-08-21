@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/material_list_two_line_normal_height"
+  tools:layout_editor_absoluteX="0dp"
+  tools:layout_editor_absoluteY="25dp">
+
+  <LinearLayout
+    android:id="@+id/linearLayoutTopic"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="@dimen/material_list_normal_padding_vertical"
+    android:layout_marginBottom="@dimen/material_list_normal_padding_vertical"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@+id/topic_rating"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+      android:id="@+id/topic_name"
+      style="@style/ForumTopicTitle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:text="Very very very very very very very long title here"/>
+
+    <LinearLayout
+      android:id="@+id/linearLayoutLastPost"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:gravity="end"
+      android:orientation="horizontal"
+      tools:layout_editor_absoluteX="194dp"
+      tools:layout_editor_absoluteY="16dp">
+
+      <TextView
+        android:id="@+id/topic_last_post_author"
+        style="@style/ForumTopicAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Administration"/>
+
+      <TextView
+        android:id="@+id/topic_last_post_time"
+        style="@style/CommonSupportingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/materialize_screen_edge"
+        android:paddingEnd="@dimen/materialize_screen_edge"
+        tools:text="minute ago"/>
+
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/topic_answers"
+      style="@style/ForumTopicAnswers"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:text="Answers: 1000"/>
+
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/topic_rating"
+    style="@style/RatingGrey"
+    android:layout_width="@dimen/rating_background_width"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/material_list_normal_padding_vertical"
+    android:layout_marginBottom="@dimen/material_list_normal_padding_vertical"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
+    android:gravity="center_vertical|center_horizontal"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="+1000"/>
+
+</android.support.constraint.ConstraintLayout>

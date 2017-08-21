@@ -7,6 +7,8 @@ import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
 import pl.droidsonroids.jspoon.annotation.Selector
 
+// TODO () Add NO_VALUE handlers for all values
+
 class News {
   @Selector(".newshead") lateinit var headers: List<NewsHead>
   @Selector(".news-content") lateinit var contents: List<NewsContent>
@@ -75,10 +77,10 @@ data class NewsItem(
   val cleanedDescription: String
     get() {
       with(Jsoup.clean(description, Whitelist().addTags("i", "u", "b", "br"))) {
-        if (this.contains("<br>"))
-          return this.substring(0, this.indexOf("<br>"))
+        return if (this.contains("<br>"))
+          this.substring(0, this.indexOf("<br>"))
         else
-          return this
+          this
       }
     }
 
