@@ -7,16 +7,19 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.Topic
 import com.sedsoftware.yaptalker.features.base.BaseController
 import kotlinx.android.synthetic.main.controller_chosen_forum.view.*
+import kotlinx.android.synthetic.main.include_navigation_panel.view.*
+import java.util.Locale
 
 class ChosenForumController(val bundle: Bundle) : BaseController(bundle), ChosenForumView {
 
   companion object {
+    const val TOPICS_LIST_KEY = "TOPICS_LIST"
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
-    private const val TOPICS_LIST_KEY = "TOPICS_LIST"
   }
 
   val forumId: Int by lazy {
@@ -51,12 +54,7 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
       setHasFixedSize(true)
     }
 
-    if (savedViewState != null && savedViewState.containsKey(TOPICS_LIST_KEY)) {
-      val topics = savedViewState.getParcelableArrayList<Topic>(TOPICS_LIST_KEY)
-      forumAdapter.setTopics(topics)
-    } else {
-      forumPresenter.loadForum(forumId)
-    }
+    forumPresenter.checkSavedState(forumId, savedViewState)
   }
 
   override fun onSaveViewState(view: View, outState: Bundle) {
@@ -86,5 +84,30 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun refreshTopics(topics: List<Topic>) {
     forumAdapter.setTopics(topics)
+  }
+
+  // TODO() Add animation here because now it looks awful
+  override fun setIfNavigationPanelVisible(isVisible: Boolean) {
+    when (isVisible) {
+      true -> view?.navigation_panel?.visibility = View.VISIBLE
+      else -> view?.navigation_panel?.visibility = View.GONE
+    }
+  }
+
+  override fun setNavigationPagesLabel(page: Int, totalPages: Int) {
+
+    val template = view?.context?.stringRes(R.string.navigation_pages_template) ?: ""
+
+    if (template.isNotEmpty()) {
+      view?.navigation_pages_label?.text = String.format(Locale.US, template, page, totalPages)
+    }
+  }
+
+  override fun setIfNavigationBackEnabled(isEnabled: Boolean) {
+    view?.navigation_go_previous?.isEnabled = isEnabled
+  }
+
+  override fun setIfNavigationForwardEnabled(isEnabled: Boolean) {
+    view?.navigation_go_next?.isEnabled = isEnabled
   }
 }
