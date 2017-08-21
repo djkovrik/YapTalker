@@ -5,12 +5,15 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.Topic
 import com.sedsoftware.yaptalker.features.base.BaseController
+import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_forum.view.*
 import kotlinx.android.synthetic.main.include_navigation_panel.view.*
 import java.util.Locale
@@ -55,6 +58,26 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     }
 
     forumPresenter.checkSavedState(forumId, savedViewState)
+  }
+
+  override fun subscribeViews(parent: View) {
+
+    val previous = parent.navigation_go_previous
+    val next = parent.navigation_go_next
+
+    previous?.let {
+      RxView
+          .clicks(previous)
+          .autoDisposeWith(scopeProvider)
+          .subscribe { forumPresenter.goToPreviousPage() }
+    }
+
+    next?.let {
+      RxView
+          .clicks(next)
+          .autoDisposeWith(scopeProvider)
+          .subscribe { forumPresenter.goToNextPage() }
+    }
   }
 
   override fun onSaveViewState(view: View, outState: Bundle) {
