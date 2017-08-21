@@ -15,4 +15,12 @@ interface ChosenForumView : MvpView {
   fun showErrorMessage(message: String)
 
   fun refreshTopics(topics: List<Topic>)
+
+  fun setIfNavigationPanelVisible(isVisible: Boolean)
+
+  fun setNavigationPagesLabel(page: Int, totalPages: Int)
+
+  fun setIfNavigationBackEnabled(isEnabled: Boolean)
+
+  fun setIfNavigationForwardEnabled(isEnabled: Boolean)
 }
