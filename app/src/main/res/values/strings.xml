@@ -34,4 +34,9 @@
   </string>
   <string name="navigation_previous">Back</string>
   <string name="navigation_next">Next</string>
+  <string name="navigation_go_to_page_title">Go to page</string>
+  <string name="navigation_go_to_page_hint">Enter page number…</string>
+  <string name="navigation_page_not_available">
+    Page <xliff:g id="page">%d</xliff:g> is not available
+  </string>
 </resources>

@@ -60,6 +60,7 @@ class ChosenForumAdapter : RecyclerView.Adapter<ChosenForumAdapter.ForumViewHold
     }
   }
 
+  @Suppress("MagicNumber")
   private fun TextView.loadRatingBackground(rating: Int) {
 
     when (rating) {

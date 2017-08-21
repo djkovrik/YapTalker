@@ -3,7 +3,9 @@ package com.sedsoftware.yaptalker.features.forum
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.text.InputType
 import android.view.View
+import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
@@ -11,6 +13,7 @@ import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
+import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.data.model.Topic
 import com.sedsoftware.yaptalker.features.base.BaseController
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -62,21 +65,31 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun subscribeViews(parent: View) {
 
-    val previous = parent.navigation_go_previous
-    val next = parent.navigation_go_next
+    val buttonPrevious = parent.navigation_go_previous
 
-    previous?.let {
+    buttonPrevious?.let {
       RxView
-          .clicks(previous)
+          .clicks(buttonPrevious)
           .autoDisposeWith(scopeProvider)
           .subscribe { forumPresenter.goToPreviousPage() }
     }
 
-    next?.let {
+    val buttonNext = parent.navigation_go_next
+
+    buttonNext?.let {
       RxView
-          .clicks(next)
+          .clicks(buttonNext)
           .autoDisposeWith(scopeProvider)
           .subscribe { forumPresenter.goToNextPage() }
+    }
+
+    val pagesLabel = parent.navigation_pages_label
+
+    pagesLabel?.let {
+      RxView
+          .clicks(pagesLabel)
+          .autoDisposeWith(scopeProvider)
+          .subscribe { forumPresenter.goToChosenPage() }
     }
   }
 
@@ -132,5 +145,27 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun setIfNavigationForwardEnabled(isEnabled: Boolean) {
     view?.navigation_go_next?.isEnabled = isEnabled
+  }
+
+  override fun showGoToPageDialog(maxPages: Int) {
+
+    view?.context?.let {
+      MaterialDialog.Builder(it)
+          .title(R.string.navigation_go_to_page_title)
+          .inputType(InputType.TYPE_CLASS_NUMBER)
+          .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
+            forumPresenter.loadChosenForumPage(input.toString().toInt())
+          })
+          .show()
+    }
+  }
+
+  override fun showCantLoadPageMessage(page: Int) {
+    // TODO() Style Toasty to match app palette
+    val messageTemplate = view?.context?.stringRes(R.string.navigation_page_not_available)
+
+    messageTemplate?.let {
+      toastWarning(String.format(Locale.US, it, page))
+    }
   }
 }

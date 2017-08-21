@@ -23,4 +23,8 @@ interface ChosenForumView : MvpView {
   fun setIfNavigationBackEnabled(isEnabled: Boolean)
 
   fun setIfNavigationForwardEnabled(isEnabled: Boolean)
+
+  fun showGoToPageDialog(maxPages: Int)
+
+  fun showCantLoadPageMessage(page: Int)
 }

@@ -40,8 +40,10 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   }
 
   fun checkSavedState(forumId: Int, savedViewState: Bundle?) {
-    if (savedViewState != null && savedViewState.containsKey(ChosenForumController.TOPICS_LIST_KEY)) {
-      val topics = savedViewState.getParcelableArrayList<Topic>(ChosenForumController.TOPICS_LIST_KEY)
+    if (savedViewState != null && savedViewState.containsKey(
+        ChosenForumController.TOPICS_LIST_KEY)) {
+      val topics = savedViewState.getParcelableArrayList<Topic>(
+          ChosenForumController.TOPICS_LIST_KEY)
       onRestoringSuccess(topics)
     } else {
       loadForum(forumId)
@@ -62,6 +64,10 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     }
   }
 
+  fun goToChosenPage() {
+    viewState.showGoToPageDialog(totalPages)
+  }
+
   fun loadForum(forumId: Int, page: Int = 0, sortByRank: Boolean = false) {
     currentForumId = forumId
     currentPage = page
@@ -70,6 +76,15 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
         else LAST_UPDATE_SORTER
 
     loadForumCurrentPage()
+  }
+
+  fun loadChosenForumPage(chosenPage: Int) {
+    if (chosenPage in 1..totalPages) {
+      currentPage = chosenPage - OFFSET_FOR_PAGE_NUMBER
+      loadForumCurrentPage()
+    } else {
+      viewState.showCantLoadPageMessage(chosenPage)
+    }
   }
 
   private fun loadForumCurrentPage() {
