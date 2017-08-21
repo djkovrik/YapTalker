@@ -59,6 +59,9 @@ class NewsController : BaseController(), NewsView {
     }
   }
 
+  override fun subscribeViews(parent: View) {
+  }
+
   override fun onSaveViewState(view: View, outState: Bundle) {
     super.onSaveViewState(view, outState)
     val news = newsAdapter.getNews()

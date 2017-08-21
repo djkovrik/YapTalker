@@ -59,6 +59,9 @@ class ForumsController : BaseController(), ForumsView {
     }
   }
 
+  override fun subscribeViews(parent: View) {
+  }
+
   override fun onSaveViewState(view: View, outState: Bundle) {
     super.onSaveViewState(view, outState)
     val forums = forumsAdapter.getForumsList()
