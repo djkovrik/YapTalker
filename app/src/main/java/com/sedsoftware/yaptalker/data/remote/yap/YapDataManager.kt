@@ -15,12 +15,6 @@ class YapDataManager(
     val yapLoader: YapLoader,
     val requestState: BehaviorRelay<Long>) {
 
-  fun publishRequestState(@YapRequestState.State currentState: Long) {
-    Observable.just(currentState)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(requestState)
-  }
-
   fun getNews(startNumber: Int = 0): Single<List<NewsItem>> =
       yapLoader
           .loadNews(startNumber)
@@ -70,4 +64,10 @@ class YapDataManager(
             publishRequestState(
                 YapRequestState.COMPLETED)
           }
+
+  private fun publishRequestState(@YapRequestState.State currentState: Long) {
+    Observable.just(currentState)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(requestState)
+  }
 }

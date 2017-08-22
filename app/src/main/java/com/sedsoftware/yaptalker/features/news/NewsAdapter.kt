@@ -74,10 +74,10 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
   inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    val forumTitleTemplate: String = itemView.context.getString(R.string.news_forum_title_template)
-    val karmaTemplate: String = itemView.context.getString(R.string.news_karma_template)
-    val dateTemplate: String = itemView.context.getString(R.string.news_date_template)
-    val commentsTemplate: String = itemView.context.getString(R.string.news_comments_template)
+    private val forumTitleTemplate: String = itemView.context.getString(R.string.news_forum_title_template)
+    private val karmaTemplate: String = itemView.context.getString(R.string.news_karma_template)
+    private val dateTemplate: String = itemView.context.getString(R.string.news_date_template)
+    private val commentsTemplate: String = itemView.context.getString(R.string.news_comments_template)
 
     fun bindTo(newsItem: NewsItem) {
       with(newsItem) {

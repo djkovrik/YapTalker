@@ -23,7 +23,7 @@ class ForumsController : BaseController(), ForumsView {
   @InjectPresenter
   lateinit var forumsPresenter: ForumsPresenter
 
-  lateinit var forumsAdapter: ForumsAdapter
+  private lateinit var forumsAdapter: ForumsAdapter
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_forums_list

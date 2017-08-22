@@ -13,13 +13,13 @@ import org.mockito.ArgumentMatchers
 
 class YapNewsLoaderTest {
 
-  var loaderMock = mock<YapLoader>()
-  var testSubscriber = TestObserver<News>()
+  private var loaderMock = mock<YapLoader>()
+  private var testSubscriber = TestObserver<News>()
 
   @Before
   fun setUp() {
-    testSubscriber = TestObserver<News>()
-    loaderMock = mock<YapLoader>()
+    testSubscriber = TestObserver()
+    loaderMock = mock()
 
     whenever(loaderMock.loadNews(ArgumentMatchers.anyInt()))
         .thenReturn(Single.just(getDummyNews()))

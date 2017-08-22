@@ -28,14 +28,14 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
   }
 
-  val forumId: Int by lazy {
+  private val forumId: Int by lazy {
     bundle.getInt(FORUM_ID_KEY)
   }
 
   @InjectPresenter
   lateinit var forumPresenter: ChosenForumPresenter
 
-  lateinit var forumAdapter: ChosenForumAdapter
+  private lateinit var forumAdapter: ChosenForumAdapter
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_chosen_forum

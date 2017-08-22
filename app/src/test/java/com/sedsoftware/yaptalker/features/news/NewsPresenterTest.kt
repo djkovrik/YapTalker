@@ -29,9 +29,9 @@ class NewsPresenterTest {
   val testComponentRule: TestComponentRule = TestComponentRule(testAppComponent())
 
   val dataManagerMock = mock<YapDataManager>()
-  val newsViewState = mock<`NewsView$$State`>()
+  private val newsViewState = mock<`NewsView$$State`>()
 
-  lateinit var presenter: NewsPresenter
+  private lateinit var presenter: NewsPresenter
 
   @Before
   fun setUp() {
@@ -72,7 +72,7 @@ class NewsPresenterTest {
     verify(newsViewState).showErrorMessage(error.message!!)
   }
 
-  fun testAppComponent(): ApplicationComponent {
+  private fun testAppComponent(): ApplicationComponent {
     return object : TestComponent() {
       override fun inject(presenter: NewsPresenter) {
         presenter.yapDataManager = dataManagerMock

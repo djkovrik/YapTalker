@@ -12,7 +12,8 @@ class YapRequestState {
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @IntDef(IDLE,
+  @IntDef(
+      IDLE,
       LOADING,
       COMPLETED,
       ERROR)

@@ -6,17 +6,9 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 
-class TestComponentRule : TestRule {
+class TestComponentRule(@NonNull component: ApplicationComponent) : TestRule {
 
-  var testComponent: ApplicationComponent
-
-  constructor() {
-    testComponent = TestComponent()
-  }
-
-  constructor(@NonNull component: ApplicationComponent) {
-    this.testComponent = component
-  }
+  var testComponent: ApplicationComponent = component
 
   override fun apply(base: Statement?, description: Description?): Statement {
     return object : Statement() {

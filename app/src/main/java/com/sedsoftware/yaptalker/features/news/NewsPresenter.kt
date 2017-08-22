@@ -32,7 +32,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
     attachRefreshIndicator()
   }
 
-  fun attachRefreshIndicator() {
+  private fun attachRefreshIndicator() {
     val subscription =
         yapDataManager.requestState.subscribe { state: Long ->
           when (state) {
@@ -62,7 +62,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
     loadDataForCurrentPage()
   }
 
-  fun loadDataForCurrentPage() {
+  private fun loadDataForCurrentPage() {
 
     val subscription =
         yapDataManager

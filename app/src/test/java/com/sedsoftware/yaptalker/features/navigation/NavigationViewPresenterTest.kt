@@ -8,11 +8,11 @@ import org.junit.Test
 
 class NavigationViewPresenterTest {
 
-  val navigationView = mock<NavigationView>()
-  val navigationViewState = mock<`NavigationView$$State`>()
+  private val navigationView = mock<NavigationView>()
+  private val navigationViewState = mock<`NavigationView$$State`>()
 
-  lateinit var savedInstanceState: Bundle
-  lateinit var presenter: NavigationViewPresenter
+  private lateinit var savedInstanceState: Bundle
+  private lateinit var presenter: NavigationViewPresenter
 
   @Before
   fun setUp() {

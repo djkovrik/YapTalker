@@ -13,9 +13,9 @@ import javax.inject.Singleton
 class RetrofitModule {
 
   companion object {
-    val YAPLAKAL_ENDPOINT = "http://www.yaplakal.com/"
-    val RUTUBE_ENDPOINT = "http://rutube.ru/"
-    val COUB_ENDPOINT = "http://coub.com/"
+    private const val YAPLAKAL_ENDPOINT = "http://www.yaplakal.com/"
+    private const val RUTUBE_ENDPOINT = "http://rutube.ru/"
+    private const val COUB_ENDPOINT = "http://coub.com/"
   }
 
   @Provides

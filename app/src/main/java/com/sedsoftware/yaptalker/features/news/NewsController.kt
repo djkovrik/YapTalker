@@ -21,7 +21,7 @@ class NewsController : BaseController(), NewsView {
   @InjectPresenter
   lateinit var newsPresenter: NewsPresenter
 
-  lateinit var newsAdapter: NewsAdapter
+  private lateinit var newsAdapter: NewsAdapter
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_news
