@@ -12,7 +12,7 @@ interface ForumsView : MvpView {
 
   fun showErrorMessage(message: String)
 
-  fun showProgressBar()
+  fun showRefreshing()
 
-  fun hideProgressBar()
+  fun hideRefreshing()
 }

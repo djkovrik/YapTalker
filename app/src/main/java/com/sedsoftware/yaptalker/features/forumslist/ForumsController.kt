@@ -7,11 +7,15 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
+import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
+import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.features.base.BaseController
 import com.sedsoftware.yaptalker.features.forum.ChosenForumController
+import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_forums_list.view.*
 
 class ForumsController : BaseController(), ForumsView {
@@ -25,6 +29,7 @@ class ForumsController : BaseController(), ForumsView {
 
   private lateinit var forumsAdapter: ForumsAdapter
 
+  // TODO() Materialize list (with CardView)
   override val controllerLayoutId: Int
     get() = R.layout.controller_forums_list
 
@@ -42,6 +47,10 @@ class ForumsController : BaseController(), ForumsView {
 
     forumsAdapter.setHasStableIds(true)
 
+    with(view.forums_list_refresh_layout) {
+      setAppColorScheme()
+    }
+
     with(view.forums_list) {
       val linearLayout = LinearLayoutManager(context)
       layoutManager = linearLayout
@@ -51,15 +60,17 @@ class ForumsController : BaseController(), ForumsView {
       setHasFixedSize(true)
     }
 
-    if (savedViewState != null && savedViewState.containsKey(FORUMS_LIST_KEY)) {
-      val forums = savedViewState.getParcelableArrayList<ForumItem>(FORUMS_LIST_KEY)
-      forumsAdapter.addForumsList(forums)
-    } else {
-      forumsPresenter.loadForumsList()
-    }
+    forumsPresenter.checkSavedState(savedViewState, FORUMS_LIST_KEY)
   }
 
   override fun subscribeViews(parent: View) {
+
+    parent.forums_list_refresh_layout?.let {
+      RxSwipeRefreshLayout
+          .refreshes(parent.forums_list_refresh_layout)
+          .autoDisposeWith(scopeProvider)
+          .subscribe { forumsPresenter.loadForumsList() }
+    }
   }
 
   override fun onSaveViewState(view: View, outState: Bundle) {
@@ -81,13 +92,11 @@ class ForumsController : BaseController(), ForumsView {
     toastError(message)
   }
 
-  override fun showProgressBar() {
-    view?.forums_list?.visibility = View.GONE
-    view?.forums_list_loading?.visibility = View.VISIBLE
+  override fun showRefreshing() {
+    view?.forums_list_refresh_layout?.isRefreshing = true
   }
 
-  override fun hideProgressBar() {
-    view?.forums_list_loading?.visibility = View.GONE
-    view?.forums_list?.visibility = View.VISIBLE
+  override fun hideRefreshing() {
+    view?.forums_list_refresh_layout?.isRefreshing = false
   }
 }
