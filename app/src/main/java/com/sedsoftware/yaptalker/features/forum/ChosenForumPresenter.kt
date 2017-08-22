@@ -39,11 +39,9 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     attachRefreshIndicator()
   }
 
-  fun checkSavedState(forumId: Int, savedViewState: Bundle?) {
-    if (savedViewState != null && savedViewState.containsKey(
-        ChosenForumController.TOPICS_LIST_KEY)) {
-      val topics = savedViewState.getParcelableArrayList<Topic>(
-          ChosenForumController.TOPICS_LIST_KEY)
+  fun checkSavedState(forumId: Int, savedViewState: Bundle?, key: String) {
+    if (savedViewState != null && savedViewState.containsKey(key)) {
+      val topics = savedViewState.getParcelableArrayList<Topic>(key)
       onRestoringSuccess(topics)
     } else {
       loadForum(forumId)
