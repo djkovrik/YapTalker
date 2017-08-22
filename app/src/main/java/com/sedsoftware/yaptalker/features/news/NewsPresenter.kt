@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.features.news
 
+import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.NewsItem
@@ -32,21 +33,13 @@ class NewsPresenter : BasePresenter<NewsView>() {
     attachRefreshIndicator()
   }
 
-  private fun attachRefreshIndicator() {
-    val subscription =
-        yapDataManager.requestState.subscribe { state: Long ->
-          when (state) {
-            YapRequestState.LOADING -> {
-              viewState.showRefreshing()
-            }
-            YapRequestState.COMPLETED,
-            YapRequestState.ERROR -> {
-              viewState.hideRefreshing()
-            }
-          }
-        }
-
-    unsubscribeOnDestroy(subscription)
+  fun checkSavedState(savedViewState: Bundle?, key: String) {
+    if (savedViewState != null && savedViewState.containsKey(key)) {
+      val news = savedViewState.getParcelableArrayList<NewsItem>(key)
+      viewState.refreshNews(news)
+    } else {
+      loadNews(true)
+    }
   }
 
   fun loadNews(loadFromFirstPage: Boolean) {
@@ -92,5 +85,24 @@ class NewsPresenter : BasePresenter<NewsView>() {
 
   fun onLoadingError(error: Throwable) {
     error.message?.let { viewState.showErrorMessage(it) }
+  }
+
+  // TODO() Move attachRefreshIndicator to presenter base class,
+  // add higher order funcs for loading and load ending
+  private fun attachRefreshIndicator() {
+    val subscription =
+        yapDataManager.requestState.subscribe { state: Long ->
+          when (state) {
+            YapRequestState.LOADING -> {
+              viewState.showRefreshing()
+            }
+            YapRequestState.COMPLETED,
+            YapRequestState.ERROR -> {
+              viewState.hideRefreshing()
+            }
+          }
+        }
+
+    unsubscribeOnDestroy(subscription)
   }
 }

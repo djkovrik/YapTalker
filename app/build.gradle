@@ -115,6 +115,7 @@ dependencies {
   implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$RX_BINDING_VERSION"
   implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$RX_BINDING_VERSION"
   implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:$RX_BINDING_VERSION"
+  implementation "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$RX_BINDING_VERSION"
   implementation "com.jakewharton.rxrelay2:rxrelay:$RX_RELAY_VERSION"
   implementation "nl.littlerobots.rxlint:rxlint:$RX_LINT_VERSION"
   implementation "com.uber.autodispose:autodispose:$AUTO_DISPOSE_VERSION"
