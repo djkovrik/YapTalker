@@ -137,13 +137,20 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   }
 
   private fun setNavigationAvailability() {
+
+    var backNavigationAvailable = true
+    var forwardNavigationAvailable = true
+
     when (currentPage) {
-      0 -> viewState.setIfNavigationBackEnabled(false)
-      totalPages -> viewState.setIfNavigationForwardEnabled(false)
-      else -> {
-        viewState.setIfNavigationBackEnabled(true)
-        viewState.setIfNavigationForwardEnabled(true)
+      0 -> {
+        backNavigationAvailable = false
+      }
+      totalPages - OFFSET_FOR_PAGE_NUMBER -> {
+        forwardNavigationAvailable = false
       }
     }
+
+    viewState.setIfNavigationBackEnabled(backNavigationAvailable)
+    viewState.setIfNavigationForwardEnabled(forwardNavigationAvailable)
   }
 }
