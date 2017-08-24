@@ -56,7 +56,6 @@ class ThumbnailsLoader(val rutube: RutubeThumbnailLoader, val coub: CoubThumbnai
     }
   }
 
-  // TODO() Add error handling (messages or something)
   fun getImageObserver(imageView: ImageView) =
       object : SingleObserver<String?> {
         override fun onError(e: Throwable) {

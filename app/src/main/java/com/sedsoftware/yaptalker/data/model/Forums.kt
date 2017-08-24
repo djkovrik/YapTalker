@@ -12,9 +12,9 @@ class Forums {
 }
 
 class LastTopic {
-  @Selector("a.subtitle") lateinit var title: String
-  @Selector("a ~ a ~ a") lateinit var author: String
-  @Selector(".desc", format = "([0-9\\.]+ - [0-9:]+)") lateinit var date: String
+  @Selector("a.subtitle", defValue = "Unknown") lateinit var title: String
+  @Selector("a ~ a ~ a", defValue = "Unknown") lateinit var author: String
+  @Selector(".desc", format = "([0-9\\.]+ - [0-9:]+)", defValue = "Unknown") lateinit var date: String
 }
 
 fun Forums.createForumsList(): List<ForumItem> {
