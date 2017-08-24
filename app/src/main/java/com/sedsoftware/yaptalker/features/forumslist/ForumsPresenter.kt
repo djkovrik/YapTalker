@@ -5,7 +5,6 @@ import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
-import com.sedsoftware.yaptalker.data.remote.yap.YapRequestState
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -23,7 +22,14 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
-    attachRefreshIndicator()
+
+    attachRefreshIndicator(yapDataManager.requestState, {
+      // onStart
+      viewState.showRefreshing()
+    }, {
+      // onFinish
+      viewState.hideRefreshing()
+    })
   }
 
   fun checkSavedState(savedViewState: Bundle?, key: String) {
@@ -61,22 +67,5 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
 
   fun onLoadingError(error: Throwable) {
     error.message?.let { viewState.showErrorMessage(it) }
-  }
-
-  private fun attachRefreshIndicator() {
-    val subscription =
-        yapDataManager.requestState.subscribe { state: Long ->
-          when (state) {
-            YapRequestState.LOADING -> {
-              viewState.showRefreshing()
-            }
-            YapRequestState.COMPLETED,
-            YapRequestState.ERROR -> {
-              viewState.hideRefreshing()
-            }
-          }
-        }
-
-    unsubscribeOnDestroy(subscription)
   }
 }

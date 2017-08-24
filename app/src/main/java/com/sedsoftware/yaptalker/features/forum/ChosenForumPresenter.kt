@@ -6,7 +6,6 @@ import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
 import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
-import com.sedsoftware.yaptalker.data.remote.yap.YapRequestState
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -36,7 +35,16 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
-    attachRefreshIndicator()
+
+    attachRefreshIndicator(yapDataManager.requestState, {
+      // onStart
+      viewState.setIfNavigationPanelVisible(false)
+      viewState.showRefreshing()
+    }, {
+      // onFinish
+      viewState.hideRefreshing()
+      viewState.setIfNavigationPanelVisible(true)
+    })
   }
 
   fun checkSavedState(forumId: Int, savedViewState: Bundle?, key: String) {
@@ -103,26 +111,6 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
               throwable ->
               onLoadingError(throwable)
             })
-
-    unsubscribeOnDestroy(subscription)
-  }
-
-  private fun attachRefreshIndicator() {
-
-    val subscription =
-        yapDataManager.requestState.subscribe { state: Long ->
-          when (state) {
-            YapRequestState.LOADING -> {
-              viewState.setIfNavigationPanelVisible(false)
-              viewState.showRefreshing()
-            }
-            YapRequestState.COMPLETED,
-            YapRequestState.ERROR -> {
-              viewState.hideRefreshing()
-              viewState.setIfNavigationPanelVisible(true)
-            }
-          }
-        }
 
     unsubscribeOnDestroy(subscription)
   }
