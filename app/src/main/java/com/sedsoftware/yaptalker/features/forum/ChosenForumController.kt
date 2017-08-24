@@ -161,7 +161,6 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun showCantLoadPageMessage(page: Int) {
-    // TODO() Style Toasty to match app palette
     val messageTemplate = view?.context?.stringRes(R.string.navigation_page_not_available)
 
     messageTemplate?.let {

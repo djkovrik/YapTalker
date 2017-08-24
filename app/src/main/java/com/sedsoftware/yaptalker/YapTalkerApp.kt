@@ -9,10 +9,12 @@ import com.facebook.stetho.Stetho
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.di.ApplicationComponent
 import com.sedsoftware.yaptalker.di.DaggerApplicationComponent
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
+import es.dmoral.toasty.Toasty
 import timber.log.Timber
 
 class YapTalkerApp : Application() {
@@ -43,9 +45,16 @@ class YapTalkerApp : Application() {
 
     appComponent = DaggerApplicationComponent.builder().build()
 
-    // Init MaterialDrawer image loader
+    // Toasty coloring
+    Toasty.Config.getInstance()
+        .setErrorColor(color(R.color.toastyColorError))
+        .setInfoColor(color(R.color.toastyColorInfo))
+        .setSuccessColor(color(R.color.toastyColorSuccess))
+        .setWarningColor(color(R.color.toastyColorWarning))
+        .apply()
 
-    DrawerImageLoader.init(object: AbstractDrawerImageLoader() {
+    // Init MaterialDrawer image loader
+    DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
       override fun set(imageView: ImageView?, uri: Uri?, placeholder: Drawable?, tag: String?) {
         Picasso.with(imageView?.context).load(uri).placeholder(placeholder).into(imageView)
       }

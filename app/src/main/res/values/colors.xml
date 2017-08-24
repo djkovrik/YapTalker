@@ -31,4 +31,10 @@
   <color name="colorRatingGreyText">@color/material_color_black_54_percent</color>
   <color name="colorRatingRedText">@color/material_color_black_54_percent</color>
   <color name="colorRatingDarkRedText">@color/material_color_black_54_percent</color>
+  
+  <!-- Toasty colors -->
+  <color name="toastyColorError">@color/colorPrimary</color>
+  <color name="toastyColorInfo">@color/colorAccent</color>
+  <color name="toastyColorSuccess">@color/material_color_green_500</color>
+  <color name="toastyColorWarning">@color/colorAccentDark</color>
 </resources>
