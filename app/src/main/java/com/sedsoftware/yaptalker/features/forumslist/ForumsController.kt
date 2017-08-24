@@ -29,7 +29,6 @@ class ForumsController : BaseController(), ForumsView {
 
   private lateinit var forumsAdapter: ForumsAdapter
 
-  // TODO() Materialize list (with CardView)
   override val controllerLayoutId: Int
     get() = R.layout.controller_forums_list
 

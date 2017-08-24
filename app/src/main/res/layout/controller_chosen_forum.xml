@@ -4,8 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/forum_refresh_layout"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:layout_margin="@dimen/card_margin_value_half">
+  android:layout_height="match_parent">
 
   <RelativeLayout
     android:layout_width="match_parent"
@@ -16,11 +15,11 @@
       layout="@layout/include_navigation_panel"/>
 
     <android.support.v7.widget.CardView
-      android:id="@+id/recycler_view_card"
+      android:id="@+id/topics_list_card"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_margin="@dimen/card_margin_value_half"
       android:layout_below="@id/navigation_panel"
+      android:layout_margin="@dimen/card_margin_value_half"
       android:elevation="@dimen/material_card_elevation_resting"
       tools:targetApi="lollipop">
 
