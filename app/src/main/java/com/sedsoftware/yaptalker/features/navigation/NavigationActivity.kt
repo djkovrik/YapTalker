@@ -133,7 +133,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
   }
 
   override fun goToChosenSection(section: Long) {
-    // TODO() Add tags and popToTag to manage backstack
+
     when (section) {
       Navigation.MAIN_PAGE -> {
         router.pushController(

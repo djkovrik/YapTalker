@@ -27,7 +27,7 @@
   <string name="forum_answers_template" translatable="false">
    Answers: <xliff:g id="answers">%s</xliff:g>
   </string>
-  
+
   <!-- Navigation panel -->
   <string name="navigation_pages_template">
     Page <xliff:g id="page">%d</xliff:g> of <xliff:g id="total_pages">%d</xliff:g>
@@ -39,4 +39,26 @@
   <string name="navigation_page_not_available">
     Page <xliff:g id="page">%d</xliff:g> is not available
   </string>
+
+  <!-- Short date strings -->
+  <plurals name="short_date_years">
+    <item quantity="one"><xliff:g id="years">%d</xliff:g> year(s)</item>
+    <item quantity="few"><xliff:g id="years">%d</xliff:g> year(s)</item>
+    <item quantity="many"><xliff:g id="years">%d</xliff:g> year(s)</item>
+    <item quantity="other"><xliff:g id="years">%d</xliff:g> year(s)</item>
+  </plurals>
+
+  <string name="short_date_month"><xliff:g id="month">%d</xliff:g> month(s)</string>
+
+  <plurals name="short_date_days">
+    <item quantity="one"><xliff:g id="days">%d</xliff:g> day(s)</item>
+    <item quantity="few"><xliff:g id="days">%d</xliff:g> day(s)</item>
+    <item quantity="many"><xliff:g id="years">%d</xliff:g> day(s)</item>
+    <item quantity="other"><xliff:g id="days">%d</xliff:g> day(s)</item>
+  </plurals>
+
+  <string name="short_date_hours"><xliff:g id="hours">%d</xliff:g> hour(s)</string>
+  <string name="short_date_minutes"><xliff:g id="minutes">%d</xliff:g> min(s)</string>
+  <string name="short_date_seconds_now">just now</string>
+
 </resources>

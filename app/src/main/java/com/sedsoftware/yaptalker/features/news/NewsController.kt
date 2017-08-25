@@ -72,7 +72,6 @@ class NewsController : BaseController(), NewsView {
     }
   }
 
-  // TODO() Investigate adapters leak for better fix
   override fun onDestroyView(view: View) {
     super.onDestroyView(view)
     view.news_list.adapter = null

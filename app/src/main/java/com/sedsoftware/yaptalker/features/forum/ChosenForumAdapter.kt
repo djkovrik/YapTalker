@@ -48,7 +48,7 @@ class ChosenForumAdapter : RecyclerView.Adapter<ChosenForumAdapter.ForumViewHold
         with(itemView) {
           topic_name.text = title
           topic_last_post_author.text = lastPostAuthor
-          topic_last_post_time.text = lastPostDate.getShortTime()
+          topic_last_post_time.text = context.getShortTime(lastPostDate)
           topic_answers.text = String.format(Locale.US, answersTemplate, answers)
           topic_rating.text = rating
 

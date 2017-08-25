@@ -46,7 +46,7 @@ class ForumsAdapter(
           forum_title.text = title
           forum_last_topic_title.text = lastTopicTitle
           forum_last_topic_author.text = lastTopicAuthor
-          forum_last_topic_date.text = date.getShortTime()
+          forum_last_topic_date.text = context.getShortTime(date)
           forum_image.loadFromUrl("http://www.yaplakal.com/html/icons/$forumId.gif")
 
           setOnClickListener { itemClick(forumId) }
