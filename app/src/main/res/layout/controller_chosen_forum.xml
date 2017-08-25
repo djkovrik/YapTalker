@@ -4,21 +4,19 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/forum_refresh_layout"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  android:animateLayoutChanges="true">
 
-  <RelativeLayout
+  <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <include
-      android:id="@+id/navigation_panel"
-      layout="@layout/include_navigation_panel"/>
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <android.support.v7.widget.CardView
       android:id="@+id/topics_list_card"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/navigation_panel"
+      android:layout_height="0dp"
+      android:layout_weight="1"
       android:layout_margin="@dimen/card_margin_value_half"
       android:elevation="@dimen/material_card_elevation_resting"
       tools:targetApi="lollipop">
@@ -30,6 +28,10 @@
 
     </android.support.v7.widget.CardView>
 
-  </RelativeLayout>
+    <include
+      android:id="@+id/navigation_panel"
+      layout="@layout/include_navigation_panel"/>
+
+  </LinearLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

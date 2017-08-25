@@ -5,6 +5,7 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
 import android.view.View
+import android.view.animation.AccelerateInterpolator
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.view.RxView
@@ -24,6 +25,9 @@ import java.util.Locale
 class ChosenForumController(val bundle: Bundle) : BaseController(bundle), ChosenForumView {
 
   companion object {
+    private const val ANIMATION_DELAY = 100L
+    private const val ANIMATION_DURATION = 250L
+    private const val PANEL_OFFSET = 200f
     private const val TOPICS_LIST_KEY = "TOPICS_LIST"
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
   }
@@ -120,14 +124,6 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun refreshTopics(topics: List<Topic>) {
     forumAdapter.setTopics(topics)
-  }
-
-  // TODO() Add animation here because now it looks awful
-  override fun setIfNavigationPanelVisible(isVisible: Boolean) {
-    when (isVisible) {
-      true -> view?.navigation_panel?.visibility = View.VISIBLE
-      else -> view?.navigation_panel?.visibility = View.GONE
-    }
   }
 
   override fun setNavigationPagesLabel(page: Int, totalPages: Int) {

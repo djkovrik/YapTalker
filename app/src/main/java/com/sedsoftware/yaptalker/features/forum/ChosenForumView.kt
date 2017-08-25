@@ -16,8 +16,6 @@ interface ChosenForumView : MvpView {
 
   fun refreshTopics(topics: List<Topic>)
 
-  fun setIfNavigationPanelVisible(isVisible: Boolean)
-
   fun setNavigationPagesLabel(page: Int, totalPages: Int)
 
   fun setIfNavigationBackEnabled(isEnabled: Boolean)

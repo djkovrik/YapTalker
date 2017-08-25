@@ -38,12 +38,10 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
     attachRefreshIndicator(yapDataManager.requestState, {
       // onStart
-      viewState.setIfNavigationPanelVisible(false)
       viewState.showRefreshing()
     }, {
       // onFinish
       viewState.hideRefreshing()
-      viewState.setIfNavigationPanelVisible(true)
     })
   }
 
