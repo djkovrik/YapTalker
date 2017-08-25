@@ -56,32 +56,31 @@ private fun getSecondsText(context: Context, diff: Int): String {
   return CalculatedTime(min, hrs, days, months, years).buildString(context)
 }
 
-private fun CalculatedTime.buildString(context: Context): String {
+private fun CalculatedTime.buildString(context: Context) =
 
-  when {
-    years > 0 -> {
-      val template = context.stringQuantityRes(R.plurals.short_date_years, years)
-      return String.format(Locale.getDefault(), template, years)
+    when {
+      years > 0 -> {
+        val template = context.stringQuantityRes(R.plurals.short_date_years, years)
+        String.format(Locale.getDefault(), template, years)
+      }
+      months > 0 -> {
+        val template = context.stringRes(R.string.short_date_month)
+        String.format(Locale.getDefault(), template, months)
+      }
+      days > 0 -> {
+        val template = context.stringQuantityRes(R.plurals.short_date_days, days)
+        String.format(Locale.getDefault(), template, days)
+      }
+      hours > 0 -> {
+        val template = context.stringRes(R.string.short_date_hours)
+        String.format(Locale.getDefault(), template, hours)
+      }
+      minutes > 0 -> {
+        val template = context.stringRes(R.string.short_date_minutes)
+        String.format(Locale.getDefault(), template, minutes)
+      }
+      else -> context.stringRes(R.string.short_date_seconds_now)
     }
-    months > 0 -> {
-      val template = context.stringRes(R.string.short_date_month)
-      return String.format(Locale.getDefault(), template, months)
-    }
-    days > 0 -> {
-      val template = context.stringQuantityRes(R.plurals.short_date_days, days)
-      return String.format(Locale.getDefault(), template, days)
-    }
-    hours > 0 -> {
-      val template = context.stringRes(R.string.short_date_hours)
-      return String.format(Locale.getDefault(), template, hours)
-    }
-    minutes > 0 -> {
-      val template = context.stringRes(R.string.short_date_minutes)
-      return String.format(Locale.getDefault(), template, minutes)
-    }
-    else -> return context.stringRes(R.string.short_date_seconds_now)
-  }
-}
 
 private class CalculatedTime(
     val minutes: Int,
