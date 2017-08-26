@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
+import com.sedsoftware.yaptalker.commons.extensions.getShortTime
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.parseLink
@@ -72,10 +73,11 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
   inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private val forumTitleTemplate: String = itemView.context.getString(R.string.news_forum_title_template)
+    private val forumTitleTemplate: String = itemView.context.getString(
+        R.string.news_forum_title_template)
     private val karmaTemplate: String = itemView.context.getString(R.string.news_karma_template)
-    private val dateTemplate: String = itemView.context.getString(R.string.news_date_template)
-    private val commentsTemplate: String = itemView.context.getString(R.string.news_comments_template)
+    private val commentsTemplate: String = itemView.context.getString(
+        R.string.news_comments_template)
 
     fun bindTo(newsItem: NewsItem) {
       with(newsItem) {
@@ -83,7 +85,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
           news_author.text = author
           news_title.text = title
           news_forum.text = String.format(Locale.US, forumTitleTemplate, forumName)
-          news_date.text = String.format(Locale.US, dateTemplate, date)
+          news_date.text = context.getShortTime(date)
 
           if (rating.isNotEmpty()) {
             news_rating.text = String.format(Locale.US, karmaTemplate, rating)

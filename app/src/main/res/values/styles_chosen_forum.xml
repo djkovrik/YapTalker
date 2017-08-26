@@ -10,6 +10,7 @@
   </style>
 
   <style name="ForumTopicAuthor" parent="NewsAuthorNickname">
+    <item name="android:textStyle">normal</item>
   </style>
 
   <style name="ForumTopicAnswers" parent="CommonSupportingText">

@@ -6,6 +6,5 @@
   android:id="@+id/content_frame"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:layout_margin="@dimen/card_margin_value_half"
   app:layout_behavior="@string/appbar_scrolling_view_behavior"
   tools:ignore="MergeRootFrame"/>

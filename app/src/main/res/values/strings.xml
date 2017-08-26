@@ -10,22 +10,21 @@
   <string name="nav_drawer_settings">Settings</string>
 
   <!-- News Item -->
+  <string name="news_comments_template">
+   <xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments
+  </string>
+
   <string name="news_forum_title_template" translatable="false">
     <xliff:g id="bullet">\u25AA</xliff:g> <xliff:g id="forum">%s</xliff:g>
   </string>
+
   <string name="news_karma_template" translatable="false">
    +<xliff:g id="karma">%s</xliff:g>
   </string>
-  <string name="news_date_template" translatable="false">
-   <xliff:g id="icon">{cmd-calendar-clock} <xliff:g id="date">%s</xliff:g></xliff:g>
-  </string>
-  <string name="news_comments_template" translatable="false">
-   <xliff:g id="icon">{cmd-comment-multiple-outline} <xliff:g id="comments">%s</xliff:g></xliff:g>
-  </string>
 
   <!-- Forum item -->
-  <string name="forum_answers_template" translatable="false">
-   Answers: <xliff:g id="answers">%s</xliff:g>
+  <string name="forum_comments_template" translatable="false">
+   Comments: <xliff:g id="answers">%s</xliff:g>
   </string>
 
   <!-- Navigation panel -->

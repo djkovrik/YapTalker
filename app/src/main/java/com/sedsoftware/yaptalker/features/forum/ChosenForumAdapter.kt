@@ -41,7 +41,7 @@ class ChosenForumAdapter : RecyclerView.Adapter<ChosenForumAdapter.ForumViewHold
 
   inner class ForumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private val answersTemplate = itemView.context.getString(R.string.forum_answers_template)
+    private val commentsTemplate = itemView.context.getString(R.string.forum_comments_template)
 
     fun bindTo(topicItem: Topic) {
       with(topicItem) {
@@ -49,7 +49,7 @@ class ChosenForumAdapter : RecyclerView.Adapter<ChosenForumAdapter.ForumViewHold
           topic_name.text = title
           topic_last_post_author.text = lastPostAuthor
           topic_last_post_time.text = context.getShortTime(lastPostDate)
-          topic_answers.text = String.format(Locale.US, answersTemplate, answers)
+          topic_answers.text = String.format(Locale.US, commentsTemplate, answers)
           topic_rating.text = rating
 
           if (rating.isNotEmpty()) {
