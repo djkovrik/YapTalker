@@ -134,6 +134,8 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
   override fun goToChosenSection(section: Long) {
 
+    router.popToRoot()
+
     when (section) {
       Navigation.MAIN_PAGE -> {
         router.pushController(
