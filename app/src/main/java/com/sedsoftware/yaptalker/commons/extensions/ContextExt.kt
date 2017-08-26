@@ -72,7 +72,7 @@ private fun CalculatedTime.buildString(context: Context) =
         String.format(Locale.getDefault(), template, days)
       }
       hours > 0 -> {
-        val template = context.stringRes(R.string.short_date_hours)
+        val template = context.stringQuantityRes(R.plurals.short_date_hours, hours)
         String.format(Locale.getDefault(), template, hours)
       }
       minutes > 0 -> {

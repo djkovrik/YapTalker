@@ -1,4 +1,4 @@
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="app_name">YapTalker</string>
 
   <!-- NavigationDrawer  header items -->
@@ -48,7 +48,9 @@
     <item quantity="other"><xliff:g id="years">%d</xliff:g> year(s)</item>
   </plurals>
 
-  <string name="short_date_month"><xliff:g id="month">%d</xliff:g> month(s)</string>
+  <string name="short_date_month" tools:ignore="PluralsCandidate">
+    <xliff:g id="month">%d</xliff:g> month(s)
+  </string>
 
   <plurals name="short_date_days">
     <item quantity="one"><xliff:g id="days">%d</xliff:g> day(s)</item>
@@ -57,7 +59,13 @@
     <item quantity="other"><xliff:g id="days">%d</xliff:g> day(s)</item>
   </plurals>
 
-  <string name="short_date_hours"><xliff:g id="hours">%d</xliff:g> hour(s)</string>
+  <plurals name="short_date_hours">
+    <item quantity="one"><xliff:g id="days">%d</xliff:g> hour(s)</item>
+    <item quantity="few"><xliff:g id="days">%d</xliff:g> hour(s)</item>
+    <item quantity="many"><xliff:g id="years">%d</xliff:g> hour(s)</item>
+    <item quantity="other"><xliff:g id="days">%d</xliff:g> hour(s)</item>
+  </plurals>
+
   <string name="short_date_minutes"><xliff:g id="minutes">%d</xliff:g> min(s)</string>
   <string name="short_date_seconds_now">just now</string>
 

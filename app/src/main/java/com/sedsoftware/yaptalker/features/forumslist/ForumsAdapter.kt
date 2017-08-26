@@ -35,8 +35,6 @@ class ForumsAdapter(
     notifyDataSetChanged()
   }
 
-  fun getForumsList() = forumsList
-
   class ForumsViewHolder(
       itemView: View, val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
