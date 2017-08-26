@@ -1,7 +1,5 @@
 package com.sedsoftware.yaptalker.data.model
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import pl.droidsonroids.jspoon.annotation.Selector
 
@@ -41,30 +39,4 @@ data class ForumItem(
     val forumId: Int,
     val lastTopicTitle: String,
     val lastTopicAuthor: String,
-    val date: String) : Parcelable {
-
-  constructor(parcel: Parcel) : this(
-      parcel.readString(),
-      parcel.readInt(),
-      parcel.readString(),
-      parcel.readString(),
-      parcel.readString())
-
-  override fun writeToParcel(parcel: Parcel, flags: Int) {
-    parcel.writeString(title)
-    parcel.writeInt(forumId)
-    parcel.writeString(lastTopicTitle)
-    parcel.writeString(lastTopicAuthor)
-    parcel.writeString(date)
-  }
-
-  override fun describeContents() = 0
-
-  companion object CREATOR : Parcelable.Creator<ForumItem> {
-    override fun createFromParcel(parcel: Parcel): ForumItem {
-      return ForumItem(parcel)
-    }
-
-    override fun newArray(size: Int): Array<ForumItem?> = arrayOfNulls(size)
-  }
-}
+    val date: String)

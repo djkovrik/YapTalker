@@ -1,6 +1,5 @@
 package com.sedsoftware.yaptalker.features.forumslist
 
-import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.ForumItem
@@ -30,15 +29,6 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
       // onFinish
       viewState.hideRefreshing()
     })
-  }
-
-  fun checkSavedState(savedViewState: Bundle?, key: String) {
-    if (savedViewState != null && savedViewState.containsKey(key)) {
-      val forums = savedViewState.getParcelableArrayList<ForumItem>(key)
-      viewState.showForums(forums)
-    } else {
-      loadForumsList()
-    }
   }
 
   fun loadForumsList() {

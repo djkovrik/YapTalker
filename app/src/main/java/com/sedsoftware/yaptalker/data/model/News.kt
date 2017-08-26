@@ -1,7 +1,5 @@
 package com.sedsoftware.yaptalker.data.model
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.sedsoftware.yaptalker.commons.extensions.chopEdges
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
@@ -20,7 +18,8 @@ class NewsHead {
 }
 
 class NewsContent {
-  @Selector("[id~=news_.*]", attr = "innerHtml", defValue = "Unknown") lateinit var description: String
+  @Selector("[id~=news_.*]", attr = "innerHtml",
+      defValue = "Unknown") lateinit var description: String
   @Selector("img[src]", attr = "src") lateinit var images: List<String>
   @Selector("iframe[src]", attr = "src") lateinit var videos: List<String>
 }
@@ -70,7 +69,7 @@ data class NewsItem(
     val authorLink: String,
     val date: String,
     val forumName: String,
-    val comments: String) : Parcelable {
+    val comments: String) {
 
   val cleanedDescription: String
     get() {
@@ -81,41 +80,4 @@ data class NewsItem(
           this
       }
     }
-
-  constructor(parcel: Parcel) : this(
-      parcel.readString(),
-      parcel.readString(),
-      parcel.readString(),
-      parcel.readString(),
-      parcel.createStringArrayList(),
-      parcel.createStringArrayList(),
-      parcel.readString(),
-      parcel.readString(),
-      parcel.readString(),
-      parcel.readString(),
-      parcel.readString())
-
-  override fun writeToParcel(parcel: Parcel, flags: Int) {
-    parcel.writeString(title)
-    parcel.writeString(link)
-    parcel.writeString(rating)
-    parcel.writeString(description)
-    parcel.writeStringList(images)
-    parcel.writeStringList(videos)
-    parcel.writeString(author)
-    parcel.writeString(authorLink)
-    parcel.writeString(date)
-    parcel.writeString(forumName)
-    parcel.writeString(comments)
-  }
-
-  override fun describeContents() = 0
-
-  companion object CREATOR : Parcelable.Creator<NewsItem> {
-    override fun createFromParcel(parcel: Parcel): NewsItem {
-      return NewsItem(parcel)
-    }
-
-    override fun newArray(size: Int): Array<NewsItem?> = arrayOfNulls(size)
-  }
 }

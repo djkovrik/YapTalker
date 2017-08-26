@@ -1,6 +1,5 @@
 package com.sedsoftware.yaptalker.features.news
 
-import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.NewsItem
@@ -37,15 +36,6 @@ class NewsPresenter : BasePresenter<NewsView>() {
       // onFinish
       viewState.hideRefreshing()
     })
-  }
-
-  fun checkSavedState(savedViewState: Bundle?, key: String) {
-    if (savedViewState != null && savedViewState.containsKey(key)) {
-      val news = savedViewState.getParcelableArrayList<NewsItem>(key)
-      viewState.refreshNews(news)
-    } else {
-      loadNews(true)
-    }
   }
 
   fun loadNews(loadFromFirstPage: Boolean) {

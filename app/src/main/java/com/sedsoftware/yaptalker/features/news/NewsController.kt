@@ -17,10 +17,6 @@ import kotlinx.android.synthetic.main.controller_news.view.*
 
 class NewsController : BaseController(), NewsView {
 
-  companion object {
-    private const val NEWS_LIST_KEY = "NEWS_LIST_KEY"
-  }
-
   @InjectPresenter
   lateinit var newsPresenter: NewsPresenter
 
@@ -51,7 +47,7 @@ class NewsController : BaseController(), NewsView {
       }, linearLayout))
     }
 
-    newsPresenter.checkSavedState(savedViewState, NEWS_LIST_KEY)
+    newsPresenter.loadNews(true)
   }
 
   override fun subscribeViews(parent: View) {
@@ -61,14 +57,6 @@ class NewsController : BaseController(), NewsView {
           .refreshes(parent.refresh_layout)
           .autoDisposeWith(scopeProvider)
           .subscribe { newsPresenter.loadNews(loadFromFirstPage = true) }
-    }
-  }
-
-  override fun onSaveViewState(view: View, outState: Bundle) {
-    super.onSaveViewState(view, outState)
-    val news = newsAdapter.getNews()
-    if (news.isNotEmpty()) {
-      outState.putParcelableArrayList(NEWS_LIST_KEY, news)
     }
   }
 
