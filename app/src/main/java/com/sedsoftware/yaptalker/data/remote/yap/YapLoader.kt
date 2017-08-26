@@ -5,6 +5,7 @@ package com.sedsoftware.yaptalker.data.remote.yap
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Forums
 import com.sedsoftware.yaptalker.data.model.News
+import com.sedsoftware.yaptalker.data.model.TopicPage
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -37,4 +38,17 @@ interface YapLoader {
       @Path("forumId") forumId: Int,
       @Path("startFrom") startTopicNumber: Int,
       @Path("sortingMode") sortingMode: String): Single<ForumPage>
+
+  /**
+   * Load chosen topic.
+   *
+   * @param forumId Parent forum id
+   * @param topicId Chosen topic id
+   * @param startFrom Starting page (first page equals 0, should be multiply of 25)
+   */
+  @GET("/forum{forumId}/st/{startFrom}/topic{topicId}.html")
+  fun loadTopicPage(
+      @Path("forumId") forumId: Int,
+      @Path("topicId") topicId: Int,
+      @Path("startFrom") startPageNumber: Int): Single<TopicPage>
 }
