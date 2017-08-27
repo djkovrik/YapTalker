@@ -79,6 +79,15 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     loadTopicCurrentPage()
   }
 
+  fun loadChosenTopicPage(chosenPage: Int) {
+    if (chosenPage in 1..totalPages) {
+      currentPage = chosenPage - OFFSET_FOR_PAGE_NUMBER
+      loadTopicCurrentPage()
+    } else {
+      viewState.showCantLoadPageMessage(chosenPage)
+    }
+  }
+
   private fun loadTopicCurrentPage() {
 
     val startingPost = currentPage * POSTS_PER_PAGE

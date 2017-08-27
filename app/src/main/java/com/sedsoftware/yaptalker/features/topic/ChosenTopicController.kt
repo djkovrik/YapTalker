@@ -156,7 +156,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
           .title(R.string.navigation_go_to_page_title)
           .inputType(InputType.TYPE_CLASS_NUMBER)
           .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
-            topicPresenter.loadTopic(currentForumId, currentTopicId, input.toString().toInt())
+            topicPresenter.loadChosenTopicPage(input.toString().toInt())
           })
           .show()
     }
