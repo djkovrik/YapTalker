@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:elevation="@dimen/material_elevation_card_resting"
+  tools:targetApi="lollipop">
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+      android:id="@+id/post_author_avatar"
+      android:layout_width="@dimen/material_list_avatar_size"
+      android:layout_height="@dimen/material_list_avatar_size"
+      android:layout_marginTop="@dimen/material_card_title_block_small_padding_vertical"
+      android:layout_marginBottom="@dimen/material_card_title_block_small_padding_vertical"
+      android:layout_marginStart="@dimen/material_list_avatar_margin_start"
+      android:layout_marginEnd="@dimen/material_card_gutter"
+      android:layout_alignParentStart="true"
+      tools:ignore="ContentDescription"
+      tools:src="@mipmap/ic_launcher"/>
+
+    <TextView
+      android:id="@+id/post_author"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/material_card_gutter"
+      android:layout_marginEnd="@dimen/material_card_gutter"
+      android:layout_alignBottom="@id/post_author_avatar"
+      android:layout_alignTop="@+id/post_author_avatar"
+      android:layout_toEndOf="@+id/post_author_avatar"
+      android:gravity="center_vertical"
+      tools:text="Administrator"/>
+
+    <TextView
+      android:id="@+id/post_rating"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@id/post_author_avatar"
+      android:layout_alignTop="@+id/post_author_avatar"
+      android:layout_toEndOf="@+id/post_author"
+      android:gravity="center_vertical"
+      tools:text="+100"/>
+
+    <TextView
+      android:id="@+id/post_date"
+      style="@style/CommonSupportingText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/material_card_gutter"
+      android:layout_marginEnd="@dimen/material_list_avatar_margin_start"
+      android:layout_alignBottom="@id/post_author_avatar"
+      android:layout_alignParentEnd="true"
+      android:layout_alignTop="@+id/post_author_avatar"
+      android:layout_toEndOf="@+id/post_rating"
+      android:gravity="center_vertical|end"
+      tools:text="20 min"/>
+
+    <WebView
+      android:id="@+id/post_content"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/post_author_avatar"
+      android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
+      android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+      android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"/>
+
+  </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+
