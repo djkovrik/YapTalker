@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <style name="PostAuthorNickname" parent="NewsAuthorNickname"/>
+
+  <style name="PostRating" parent="NewsTopicRating">
+    <item name="android:textStyle">normal</item>
+  </style>
+
 </resources>

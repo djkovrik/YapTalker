@@ -5,8 +5,6 @@
   android:id="@+id/navigation_card"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:layout_marginTop="@dimen/card_margin_value_half"
-  android:layout_marginBottom="@dimen/card_margin_value_half"
   android:elevation="@dimen/material_card_elevation_resting"
   tools:targetApi="lollipop">
 

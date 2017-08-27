@@ -17,8 +17,7 @@
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
-      android:layout_marginTop="@dimen/card_margin_value_half"
-      android:layout_marginBottom="@dimen/card_margin_value_half"
+      android:layout_marginBottom="@dimen/material_card_edge_margin"
       android:elevation="@dimen/material_card_elevation_resting"
       tools:targetApi="lollipop">
 
