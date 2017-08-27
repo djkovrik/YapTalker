@@ -44,11 +44,11 @@ interface YapLoader {
    *
    * @param forumId Parent forum id
    * @param topicId Chosen topic id
-   * @param startFrom Starting page (first page equals 0, should be multiply of 25)
+   * @param startPostNumber Starting page (first page equals 0, should be multiply of 25)
    */
   @GET("/forum{forumId}/st/{startFrom}/topic{topicId}.html")
   fun loadTopicPage(
       @Path("forumId") forumId: Int,
       @Path("topicId") topicId: Int,
-      @Path("startFrom") startPageNumber: Int): Single<TopicPage>
+      @Path("startFrom") startPostNumber: Int): Single<TopicPage>
 }

@@ -57,9 +57,9 @@ class YapDataManager(
             publishRequestState(YapRequestState.COMPLETED)
           }
 
-  fun getChosenTopic(forumId: Int, topicId: Int, startPageNumber: Int): Single<TopicPage> =
+  fun getChosenTopic(forumId: Int, topicId: Int, startPostNumber: Int): Single<TopicPage> =
       yapLoader
-          .loadTopicPage(forumId, topicId, startPageNumber)
+          .loadTopicPage(forumId, topicId, startPostNumber)
           .doOnSubscribe {
             publishRequestState(YapRequestState.LOADING)
           }
