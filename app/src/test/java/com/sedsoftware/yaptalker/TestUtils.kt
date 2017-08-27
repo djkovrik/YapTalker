@@ -44,6 +44,7 @@ fun getDummyNewsItem(seed: Int): NewsItem {
       authorLink = "link$seed",
       date = "date$seed",
       forumName = "name$seed",
+      forumLink = "link$seed",
       comments = "comments$seed")
 }
 

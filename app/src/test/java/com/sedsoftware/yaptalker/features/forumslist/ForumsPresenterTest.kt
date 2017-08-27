@@ -26,7 +26,6 @@ class ForumsPresenterTest {
   val testComponentRule: TestComponentRule = TestComponentRule(testAppComponent())
 
   val dataManagerMock = mock<YapDataManager>()
-  private val forumsView = mock<ForumsView>()
   private val forumsViewState = mock<`ForumsView$$State`>()
 
   private lateinit var presenter: ForumsPresenter
@@ -34,7 +33,6 @@ class ForumsPresenterTest {
   @Before
   fun setUp() {
     presenter = ForumsPresenter()
-    presenter.attachView(forumsView)
     presenter.setViewState(forumsViewState)
 
     RxAndroidPlugins.reset()
