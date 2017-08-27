@@ -13,14 +13,15 @@ import com.sedsoftware.yaptalker.data.model.Topic
 import kotlinx.android.synthetic.main.controller_chosen_forum_item.view.*
 import java.util.Locale
 
-class ChosenForumAdapter : RecyclerView.Adapter<ChosenForumAdapter.ForumViewHolder>() {
+class ChosenForumAdapter(
+    val itemClick: (Int) -> Unit) : RecyclerView.Adapter<ChosenForumAdapter.ForumViewHolder>() {
 
   private var topics: ArrayList<Topic> = ArrayList()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForumViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_chosen_forum_item,
         parent, false)
-    return ForumViewHolder(view)
+    return ForumViewHolder(view, itemClick)
   }
 
   override fun onBindViewHolder(holder: ForumViewHolder, position: Int) {
@@ -39,7 +40,8 @@ class ChosenForumAdapter : RecyclerView.Adapter<ChosenForumAdapter.ForumViewHold
 
   fun getTopics() = topics
 
-  inner class ForumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+  inner class ForumViewHolder(
+      itemView: View, val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     private val commentsTemplate = itemView.context.getString(R.string.forum_comments_template)
 
@@ -55,6 +57,8 @@ class ChosenForumAdapter : RecyclerView.Adapter<ChosenForumAdapter.ForumViewHold
           if (rating.isNotEmpty()) {
             topic_rating.loadRatingBackground(rating.toInt())
           }
+
+          setOnClickListener { itemClick(link.getLastDigits()) }
         }
       }
     }
