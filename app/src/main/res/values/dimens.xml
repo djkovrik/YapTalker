@@ -10,5 +10,5 @@
   <dimen name="rating_background_padding">3dp</dimen>
   <dimen name="rating_background_corner_radius">1dp</dimen>
   <dimen name="rating_background_width">50dp</dimen>
-  <dimen name="avatar_size">40dp</dimen>
+  <dimen name="avatar_size">36dp</dimen>
 </resources>

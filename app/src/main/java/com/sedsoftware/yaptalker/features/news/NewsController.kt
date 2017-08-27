@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.bluelinelabs.conductor.RouterTransaction
+import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.InfiniteScrollListener
+import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.features.base.BaseController
+import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_news.view.*
 
@@ -27,7 +31,22 @@ class NewsController : BaseController(), NewsView {
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
-    newsAdapter = NewsAdapter()
+    newsAdapter = NewsAdapter{ link, forumLink ->
+
+      if (link.contains("yaplakal.com")) {
+        val topicId = link.getLastDigits()
+        val forumId = forumLink.getLastDigits()
+        val bundle = Bundle()
+
+        bundle.putInt(ChosenTopicController.TOPIC_ID_KEY, topicId)
+        bundle.putInt(ChosenTopicController.FORUM_ID_KEY, forumId)
+        router.pushController(
+            RouterTransaction.with(ChosenTopicController(bundle))
+                .pushChangeHandler(FadeChangeHandler())
+                .popChangeHandler(FadeChangeHandler()))
+      }
+    }
+
     newsAdapter.setHasStableIds(true)
 
     with(view.refresh_layout) {

@@ -29,6 +29,7 @@ class NewsBottom {
   @Selector(".icon-user > a", attr = "href") lateinit var authorLink: String
   @Selector(".icon-date", defValue = "Unknown") lateinit var date: String
   @Selector(".icon-forum > a", defValue = "Unknown") lateinit var forumName: String
+  @Selector(".icon-forum > a", attr="href", defValue = "Unknown") lateinit var forumLink: String
   @Selector("span", defValue = "0") lateinit var comments: String
 }
 
@@ -52,6 +53,7 @@ fun News.createNewsList(): List<NewsItem> {
         authorLink = bottoms[index].authorLink,
         date = bottoms[index].date,
         forumName = bottoms[index].forumName,
+        forumLink = bottoms[index].forumLink,
         comments = bottoms[index].comments.chopEdges()))
   }
 
@@ -69,6 +71,7 @@ data class NewsItem(
     val authorLink: String,
     val date: String,
     val forumName: String,
+    val forumLink: String,
     val comments: String) {
 
   val cleanedDescription: String

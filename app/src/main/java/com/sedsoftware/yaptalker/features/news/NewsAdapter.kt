@@ -19,7 +19,8 @@ import java.util.ArrayList
 import java.util.Locale
 import javax.inject.Inject
 
-class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(
+    val itemClick: (String, String) -> Unit) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
   init {
     YapTalkerApp.appComponent.inject(this)
@@ -38,7 +39,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_news_item, parent,
         false)
-    return NewsViewHolder(view)
+    return NewsViewHolder(view, itemClick)
   }
 
   override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
@@ -71,7 +72,8 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     addNews(list)
   }
 
-  inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+  inner class NewsViewHolder(
+      itemView: View, val itemClick: (String, String) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     private val forumTitleTemplate: String = itemView.context.getString(
         R.string.news_forum_title_template)
@@ -105,6 +107,8 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
             }
             else -> news_content_image.visibility = View.GONE
           }
+
+          setOnClickListener { itemClick(link, forumLink) }
         }
       }
     }
