@@ -9,6 +9,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
+import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
@@ -58,7 +59,6 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     forumAdapter.setHasStableIds(true)
 
     with(view.forum_refresh_layout) {
-      setOnRefreshListener { forumPresenter.loadForum(currentForumId) }
       setAppColorScheme()
     }
 
@@ -76,6 +76,13 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun subscribeViews(parent: View) {
+
+    parent.forum_refresh_layout?.let {
+      RxSwipeRefreshLayout
+          .refreshes(parent.forum_refresh_layout)
+          .autoDisposeWith(scopeProvider)
+          .subscribe { forumPresenter.loadForum(currentForumId) }
+    }
 
     val buttonPrevious = parent.navigation_go_previous
 
