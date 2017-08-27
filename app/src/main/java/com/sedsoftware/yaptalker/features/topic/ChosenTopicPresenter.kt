@@ -113,6 +113,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   private fun onLoadingSuccess(topicPage: TopicPage) {
     totalPages = topicPage.totalPages.getLastDigits()
     viewState.refreshPosts(topicPage.posts)
+    viewState.scrollToViewTop()
     setNavigationLabel()
     setNavigationAvailability()
   }

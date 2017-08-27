@@ -31,6 +31,8 @@ class NewsController : BaseController(), NewsView {
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
+    restoreAppbarState()
+
     newsAdapter = NewsAdapter{ link, forumLink ->
 
       if (link.contains("yaplakal.com")) {

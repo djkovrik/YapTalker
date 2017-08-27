@@ -25,4 +25,6 @@ interface ChosenTopicView : MvpView {
   fun showGoToPageDialog(maxPages: Int)
 
   fun showCantLoadPageMessage(page: Int)
+
+  fun scrollToViewTop()
 }

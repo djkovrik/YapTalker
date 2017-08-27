@@ -48,6 +48,8 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
+    restoreAppbarState()
+
     topicAdapter = ChosenTopicAdapter()
     topicAdapter.setHasStableIds(true)
 
@@ -168,5 +170,9 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     messageTemplate?.let {
       toastWarning(String.format(Locale.US, it, page))
     }
+  }
+
+  override fun scrollToViewTop() {
+    view?.topic_posts_list?.layoutManager?.scrollToPosition(0)
   }
 }

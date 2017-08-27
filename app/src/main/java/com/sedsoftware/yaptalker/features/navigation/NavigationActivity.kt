@@ -153,7 +153,5 @@ class NavigationActivity : BaseActivity(), NavigationView {
         Timber.d("Settings click")
       }
     }
-
-    appbar.setExpanded(true, true)
   }
 }

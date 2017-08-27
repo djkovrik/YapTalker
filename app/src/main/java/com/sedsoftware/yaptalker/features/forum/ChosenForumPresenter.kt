@@ -116,6 +116,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   private fun onLoadingSuccess(forumPage: ForumPage) {
     totalPages = forumPage.totalPages.toInt()
     viewState.refreshTopics(forumPage.topics)
+    viewState.scrollToViewTop()
     setNavigationLabel()
     setNavigationAvailability()
   }

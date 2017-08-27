@@ -1,12 +1,14 @@
 package com.sedsoftware.yaptalker.features.base
 
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpDelegate
 import com.bluelinelabs.conductor.RestoreViewOnCreateController
-
+import com.sedsoftware.yaptalker.R
+import org.jetbrains.anko.find
 
 abstract class BaseController : RestoreViewOnCreateController {
 
@@ -55,5 +57,9 @@ abstract class BaseController : RestoreViewOnCreateController {
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     mvpDelegate.onSaveInstanceState(outState)
+  }
+
+  fun restoreAppbarState() {
+    router.activity?.find<AppBarLayout>(R.id.appbar)?.setExpanded(true, true)
   }
 }
