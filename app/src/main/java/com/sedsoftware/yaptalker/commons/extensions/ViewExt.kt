@@ -7,6 +7,7 @@ import android.widget.TextView
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.IconicsDrawable
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.CircleImageTransformation
 import com.squareup.picasso.Picasso
 
 private const val ICON_SIZE = 24
@@ -19,6 +20,21 @@ fun ImageView.loadFromUrl(url: String) {
       .sizeDp(ICON_SIZE)
 
   Picasso.with(context).load(url).error(placeholder).into(this)
+}
+
+fun ImageView.loadAvatarFromUrl(url: String) {
+
+  val placeholder = IconicsDrawable(context)
+      .icon(CommunityMaterial.Icon.cmd_face_profile)
+      .color(context.color(R.color.colorPrimaryLight))
+      .sizeDp(ICON_SIZE)
+
+  Picasso
+      .with(context)
+      .load(url)
+      .transform(CircleImageTransformation())
+      .error(placeholder)
+      .into(this)
 }
 
 fun ImageView.loadFromDrawable(resId: Int) {
