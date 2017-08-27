@@ -1,9 +1,11 @@
 package com.sedsoftware.yaptalker.features.topic
 
+import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.model.TopicPage
+import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -40,6 +42,15 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
       // onFinish
       viewState.hideRefreshing()
     })
+  }
+
+  fun checkSavedState(forumId: Int, topicId:Int, savedViewState: Bundle?, key: String) {
+    if (savedViewState != null && savedViewState.containsKey(key)) {
+      val posts = savedViewState.getParcelableArrayList<TopicPost>(key)
+      onRestoringSuccess(posts)
+    } else {
+      loadTopic(forumId, topicId)
+    }
   }
 
   fun goToNextPage() {
@@ -93,6 +104,12 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   private fun onLoadingSuccess(topicPage: TopicPage) {
     totalPages = topicPage.totalPages.getLastDigits()
     viewState.refreshPosts(topicPage.posts)
+    setNavigationLabel()
+    setNavigationAvailability()
+  }
+
+  private fun onRestoringSuccess(list: List<TopicPost>) {
+    viewState.refreshPosts(list)
     setNavigationLabel()
     setNavigationAvailability()
   }

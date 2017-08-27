@@ -1,5 +1,7 @@
 package com.sedsoftware.yaptalker.data.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import pl.droidsonroids.jspoon.annotation.Selector
 
 class TopicPage {
@@ -15,7 +17,7 @@ class TopicPage {
   lateinit var posts: List<TopicPost>
 }
 
-class TopicPost {
+class TopicPost() : Parcelable {
   @Selector(".normalname", defValue = "Unknown")
   lateinit var authorNickname: String
   @Selector("a[title=Профиль]", attr = "href", defValue = "")
@@ -31,4 +33,34 @@ class TopicPost {
   // TODO() Content needs cleaning with jsoup tags whitelist
   @Selector("td[width*=100%][valign*=top]", attr = "innerHtml", defValue = "")
   lateinit var postContent: String
+
+  constructor(parcel: Parcel) : this() {
+    authorNickname = parcel.readString()
+    authorProfile = parcel.readString()
+    authorAvatar = parcel.readString()
+    authorMessagesCount = parcel.readString()
+    postDate = parcel.readString()
+    postRank = parcel.readString()
+    postContent = parcel.readString()
+  }
+
+  override fun writeToParcel(parcel: Parcel, flags: Int) {
+    parcel.writeString(authorNickname)
+    parcel.writeString(authorProfile)
+    parcel.writeString(authorAvatar)
+    parcel.writeString(authorMessagesCount)
+    parcel.writeString(postDate)
+    parcel.writeString(postRank)
+    parcel.writeString(postContent)
+  }
+
+  override fun describeContents() = 0
+
+  companion object CREATOR : Parcelable.Creator<TopicPost> {
+    override fun createFromParcel(parcel: Parcel): TopicPost {
+      return TopicPost(parcel)
+    }
+
+    override fun newArray(size: Int): Array<TopicPost?> = arrayOfNulls(size)
+  }
 }

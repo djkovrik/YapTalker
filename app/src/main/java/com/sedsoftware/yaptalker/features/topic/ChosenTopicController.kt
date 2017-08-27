@@ -25,6 +25,7 @@ import java.util.Locale
 class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), ChosenTopicView {
 
   companion object {
+    private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
     const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
   }
@@ -64,7 +65,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
       setHasFixedSize(true)
     }
 
-    topicPresenter.loadTopic(currentForumId, currentTopicId)
+    topicPresenter.checkSavedState(currentForumId, currentTopicId, savedViewState, POSTS_LIST_KEY)
   }
 
   override fun subscribeViews(parent: View) {
@@ -100,6 +101,14 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
           .clicks(pagesLabel)
           .autoDisposeWith(scopeProvider)
           .subscribe { topicPresenter.goToChosenPage() }
+    }
+  }
+
+  override fun onSaveViewState(view: View, outState: Bundle) {
+    super.onSaveViewState(view, outState)
+    val posts = topicAdapter.getPosts()
+    if (posts.isNotEmpty()) {
+      outState.putParcelableArrayList(POSTS_LIST_KEY, posts)
     }
   }
 
