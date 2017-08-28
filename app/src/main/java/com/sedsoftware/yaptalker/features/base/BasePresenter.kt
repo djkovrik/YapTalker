@@ -5,6 +5,8 @@ import com.arellomobile.mvp.MvpPresenter
 import com.arellomobile.mvp.MvpView
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.data.remote.yap.YapRequestState
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -14,6 +16,17 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>() {
 
   protected fun unsubscribeOnDestroy(@NonNull subscription: Disposable) {
     subscriptions.add(subscription)
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    subscriptions.clear()
+  }
+
+  fun pushAppbarTitle(channel: BehaviorRelay<String>, title: String) {
+    Observable.just(title)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(channel)
   }
 
   protected fun attachRefreshIndicator(requestState: BehaviorRelay<Long>,
@@ -33,10 +46,5 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>() {
         }
 
     unsubscribeOnDestroy(subscription)
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    subscriptions.clear()
   }
 }

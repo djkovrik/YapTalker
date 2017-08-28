@@ -5,6 +5,7 @@ import com.sedsoftware.yaptalker.di.modules.DataManagerModule
 import com.sedsoftware.yaptalker.di.modules.ThumbnailsLoaderModule
 import com.sedsoftware.yaptalker.features.forum.ChosenForumPresenter
 import com.sedsoftware.yaptalker.features.forumslist.ForumsPresenter
+import com.sedsoftware.yaptalker.features.navigation.NavigationViewPresenter
 import com.sedsoftware.yaptalker.features.news.NewsAdapter
 import com.sedsoftware.yaptalker.features.news.NewsPresenter
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicPresenter
@@ -21,6 +22,7 @@ import javax.inject.Singleton
 
 interface ApplicationComponent {
   // Injections here
+  fun inject(presenter: NavigationViewPresenter)
   fun inject(presenter: NewsPresenter)
   fun inject(adapter: NewsAdapter)
   fun inject(presenter: ForumsPresenter)

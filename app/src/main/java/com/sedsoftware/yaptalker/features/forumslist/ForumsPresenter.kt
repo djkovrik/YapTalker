@@ -12,12 +12,12 @@ import javax.inject.Inject
 @InjectViewState
 class ForumsPresenter : BasePresenter<ForumsView>() {
 
-  @Inject
-  lateinit var yapDataManager: YapDataManager
-
   init {
     YapTalkerApp.appComponent.inject(this)
   }
+
+  @Inject
+  lateinit var yapDataManager: YapDataManager
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()

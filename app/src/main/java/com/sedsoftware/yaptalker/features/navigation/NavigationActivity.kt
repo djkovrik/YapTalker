@@ -154,4 +154,8 @@ class NavigationActivity : BaseActivity(), NavigationView {
       }
     }
   }
+
+  override fun setAppbarTitle(text: String) {
+    supportActionBar?.title = text
+  }
 }
