@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.features.topic
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
+import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.model.TopicPage
@@ -27,10 +28,14 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   @Inject
   lateinit var yapDataManager: YapDataManager
 
+  @Inject
+  lateinit var titleChannel: BehaviorRelay<String>
+
   private var currentForumId = 0
   private var currentTopicId = 0
   private var currentPage = 0
   private var totalPages = -1
+  private var currentTitle = ""
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
@@ -112,14 +117,17 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   private fun onLoadingSuccess(topicPage: TopicPage) {
     totalPages = topicPage.totalPages.getLastDigits()
+    currentTitle = topicPage.topicTitle
     viewState.refreshPosts(topicPage.posts)
     viewState.scrollToViewTop()
+    viewState.setAppbarTitle(currentTitle)
     setNavigationLabel()
     setNavigationAvailability()
   }
 
   private fun onRestoringSuccess(list: List<TopicPost>) {
     viewState.refreshPosts(list)
+    viewState.setAppbarTitle(currentTitle)
     setNavigationLabel()
     setNavigationAvailability()
   }
@@ -148,5 +156,9 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
     viewState.setIfNavigationBackEnabled(backNavigationAvailable)
     viewState.setIfNavigationForwardEnabled(forwardNavigationAvailable)
+  }
+
+  fun setAppbarTitle(title: String) {
+    pushAppbarTitle(titleChannel, title)
   }
 }

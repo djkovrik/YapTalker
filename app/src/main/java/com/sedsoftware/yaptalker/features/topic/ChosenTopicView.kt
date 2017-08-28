@@ -27,4 +27,6 @@ interface ChosenTopicView : MvpView {
   fun showCantLoadPageMessage(page: Int)
 
   fun scrollToViewTop()
+
+  fun setAppbarTitle(title: String)
 }

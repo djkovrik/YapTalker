@@ -11,6 +11,7 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.features.base.BaseController
@@ -89,5 +90,11 @@ class ForumsController : BaseController(), ForumsView {
 
   override fun hideRefreshing() {
     view?.forums_list_refresh_layout?.isRefreshing = false
+  }
+
+  override fun updateAppbarTitle() {
+    view?.context?.let {
+      forumsPresenter.updateTitle(it.stringRes(R.string.nav_drawer_forums))
+    }
   }
 }

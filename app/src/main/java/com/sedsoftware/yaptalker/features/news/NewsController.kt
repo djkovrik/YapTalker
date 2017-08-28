@@ -12,6 +12,7 @@ import com.sedsoftware.yaptalker.commons.InfiniteScrollListener
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.features.base.BaseController
@@ -104,5 +105,11 @@ class NewsController : BaseController(), NewsView {
 
   override fun appendNews(news: List<NewsItem>) {
     newsAdapter.addNews(news)
+  }
+
+  override fun updateAppbarTitle() {
+    view?.context?.let {
+      newsPresenter.updateTitle(it.stringRes(R.string.nav_drawer_main_page))
+    }
   }
 }

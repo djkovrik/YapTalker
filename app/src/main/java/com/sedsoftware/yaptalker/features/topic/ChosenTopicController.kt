@@ -175,4 +175,8 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   override fun scrollToViewTop() {
     view?.topic_posts_list?.layoutManager?.scrollToPosition(0)
   }
+
+  override fun setAppbarTitle(title: String) {
+    topicPresenter.setAppbarTitle(title)
+  }
 }

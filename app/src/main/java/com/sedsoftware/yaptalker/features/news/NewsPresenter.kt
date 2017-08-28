@@ -1,12 +1,14 @@
 package com.sedsoftware.yaptalker.features.news
 
 import com.arellomobile.mvp.InjectViewState
+import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState
@@ -18,6 +20,9 @@ class NewsPresenter : BasePresenter<NewsView>() {
 
   @Inject
   lateinit var yapDataManager: YapDataManager
+
+  @Inject
+  lateinit var titleChannel: BehaviorRelay<String>
 
   private var currentPage = 0
   private var backToFirstPage = false
@@ -36,6 +41,12 @@ class NewsPresenter : BasePresenter<NewsView>() {
       // onFinish
       viewState.hideRefreshing()
     })
+  }
+
+  override fun attachView(view: NewsView?) {
+    super.attachView(view)
+    viewState.updateAppbarTitle()
+    Timber.tag("xxxx").d("attachView from news")
   }
 
   fun loadNews(loadFromFirstPage: Boolean) {
@@ -81,5 +92,9 @@ class NewsPresenter : BasePresenter<NewsView>() {
 
   fun onLoadingError(error: Throwable) {
     error.message?.let { viewState.showErrorMessage(it) }
+  }
+
+  fun updateTitle(title: String) {
+    pushAppbarTitle(titleChannel, title)
   }
 }

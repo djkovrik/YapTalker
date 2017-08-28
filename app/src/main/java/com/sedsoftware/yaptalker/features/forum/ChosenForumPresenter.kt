@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.features.forum
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
+import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
@@ -28,10 +29,14 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   @Inject
   lateinit var yapDataManager: YapDataManager
 
+  @Inject
+  lateinit var titleChannel: BehaviorRelay<String>
+
   private var currentForumId = 0
   private var currentSorting = LAST_UPDATE_SORTER
   private var currentPage = 0
   private var totalPages = -1
+  private var currentTitle = ""
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
@@ -115,14 +120,17 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
   private fun onLoadingSuccess(forumPage: ForumPage) {
     totalPages = forumPage.totalPages.toInt()
+    currentTitle = forumPage.forumTitle
     viewState.refreshTopics(forumPage.topics)
     viewState.scrollToViewTop()
+    viewState.setAppbarTitle(currentTitle)
     setNavigationLabel()
     setNavigationAvailability()
   }
 
   private fun onRestoringSuccess(topics: List<Topic>) {
     viewState.refreshTopics(topics)
+    viewState.setAppbarTitle(currentTitle)
     setNavigationLabel()
     setNavigationAvailability()
   }
@@ -151,5 +159,9 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
     viewState.setIfNavigationBackEnabled(backNavigationAvailable)
     viewState.setIfNavigationForwardEnabled(forwardNavigationAvailable)
+  }
+
+  fun setAppbarTitle(title: String) {
+    pushAppbarTitle(titleChannel, title)
   }
 }

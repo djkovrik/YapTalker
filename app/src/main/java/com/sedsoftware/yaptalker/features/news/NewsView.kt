@@ -17,4 +17,6 @@ interface NewsView : MvpView {
   fun refreshNews(news: List<NewsItem>)
 
   fun appendNews(news: List<NewsItem>)
+
+  fun updateAppbarTitle()
 }
