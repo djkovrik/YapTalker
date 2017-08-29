@@ -32,8 +32,8 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>() {
   protected fun attachRefreshIndicator(requestState: BehaviorRelay<Long>,
       onLoadingStart: () -> Unit, onLoadingFinish: () -> Unit) {
 
-    val subscription =
-        requestState.subscribe { state: Long ->
+    requestState
+        .subscribe { state: Long ->
           when (state) {
             YapRequestState.LOADING -> {
               onLoadingStart()
@@ -44,7 +44,6 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>() {
             }
           }
         }
-
-    unsubscribeOnDestroy(subscription)
+        .apply { unsubscribeOnDestroy(this) }
   }
 }

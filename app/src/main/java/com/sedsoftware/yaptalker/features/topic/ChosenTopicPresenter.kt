@@ -49,7 +49,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     })
   }
 
-  fun checkSavedState(forumId: Int, topicId:Int, savedViewState: Bundle?, key: String) {
+  fun checkSavedState(forumId: Int, topicId: Int, savedViewState: Bundle?, key: String) {
     if (savedViewState != null && savedViewState.containsKey(key)) {
       val posts = savedViewState.getParcelableArrayList<TopicPost>(key)
       onRestoringSuccess(posts)
@@ -97,22 +97,20 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
     val startingPost = currentPage * POSTS_PER_PAGE
 
-    val subscription =
-        yapDataManager
-            .getChosenTopic(currentForumId, currentTopicId, startingPost)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-              // onSuccess
-              page: TopicPage ->
-              onLoadingSuccess(page)
-            }, {
-              // onError
-              throwable ->
-              onLoadingError(throwable)
-            })
-
-    unsubscribeOnDestroy(subscription)
+    yapDataManager
+        .getChosenTopic(currentForumId, currentTopicId, startingPost)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({
+          // onSuccess
+          page: TopicPage ->
+          onLoadingSuccess(page)
+        }, {
+          // onError
+          throwable ->
+          onLoadingError(throwable)
+        })
+        .apply { unsubscribeOnDestroy(this) }
   }
 
   private fun onLoadingSuccess(topicPage: TopicPage) {

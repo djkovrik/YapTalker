@@ -8,7 +8,6 @@ import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState
@@ -46,7 +45,6 @@ class NewsPresenter : BasePresenter<NewsView>() {
   override fun attachView(view: NewsView?) {
     super.attachView(view)
     viewState.updateAppbarTitle()
-    Timber.tag("xxxx").d("attachView from news")
   }
 
   fun loadNews(loadFromFirstPage: Boolean) {
@@ -64,22 +62,20 @@ class NewsPresenter : BasePresenter<NewsView>() {
 
   private fun loadDataForCurrentPage() {
 
-    val subscription =
-        yapDataManager
-            .getNews(currentPage)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-              // onSuccess
-              newsList: List<NewsItem> ->
-              onLoadingSuccess(newsList)
-            }, {
-              // onError
-              throwable ->
-              onLoadingError(throwable)
-            })
-
-    unsubscribeOnDestroy(subscription)
+    yapDataManager
+        .getNews(currentPage)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({
+          // onSuccess
+          newsList: List<NewsItem> ->
+          onLoadingSuccess(newsList)
+        }, {
+          // onError
+          throwable ->
+          onLoadingError(throwable)
+        })
+        .apply { unsubscribeOnDestroy(this) }
   }
 
   fun onLoadingSuccess(news: List<NewsItem>) {

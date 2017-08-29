@@ -100,22 +100,20 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
     val startingTopic = currentPage * TOPICS_PER_PAGE
 
-    val subscription =
-        yapDataManager
-            .getChosenForum(currentForumId, startingTopic, currentSorting)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-              // onSuccess
-              page: ForumPage ->
-              onLoadingSuccess(page)
-            }, {
-              // onError
-              throwable ->
-              onLoadingError(throwable)
-            })
-
-    unsubscribeOnDestroy(subscription)
+    yapDataManager
+        .getChosenForum(currentForumId, startingTopic, currentSorting)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({
+          // onSuccess
+          page: ForumPage ->
+          onLoadingSuccess(page)
+        }, {
+          // onError
+          throwable ->
+          onLoadingError(throwable)
+        })
+        .apply { unsubscribeOnDestroy(this) }
   }
 
   private fun onLoadingSuccess(forumPage: ForumPage) {

@@ -20,10 +20,9 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-    val subscription = titleChannel
+    titleChannel
         .subscribe { text -> viewState.setAppbarTitle(text) }
-
-    unsubscribeOnDestroy(subscription)
+        .apply { unsubscribeOnDestroy(this) }
   }
 
   fun initLayout(savedInstanceState: Bundle?) {
