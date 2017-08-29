@@ -56,10 +56,13 @@ var TextView.textColor: Int
   get() = currentTextColor
   set(v) = setTextColor(context.color(v))
 
+/**
+ * Sets up SwipeRefreshLayout indicator coloring
+ */
 fun SwipeRefreshLayout.setAppColorScheme() {
   setColorSchemeColors(
       context.color(R.color.colorPrimary),
-      context.color(R.color.colorAccent),
       context.color(R.color.colorPrimaryDark),
+      context.color(R.color.colorAccent),
       context.color(R.color.colorAccentDark))
 }

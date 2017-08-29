@@ -13,6 +13,12 @@ object Selectors {
   val YAPFILES_SELECTOR = "yapfiles.ru/get_player"
 }
 
+/**
+ * Parses video link to get video type and id
+ *
+ * @param link Given video link
+ * @return A pair of video type as Int and video id as String
+ */
 fun parseLink(link: String): Pair<Int, String> =
 
     when {

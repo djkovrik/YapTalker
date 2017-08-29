@@ -7,8 +7,10 @@ import android.graphics.Paint
 import android.graphics.Shader
 import com.squareup.picasso.Transformation
 
-// Source: https://gist.github.com/julianshen/5829333
-
+/**
+ * Circle image transformation for Picasso
+ * Source: https://gist.github.com/julianshen/5829333
+ */
 class CircleImageTransformation : Transformation {
 
   private var x: Int = 0
