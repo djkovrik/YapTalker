@@ -16,17 +16,18 @@ class YapDataManager(
     val yapLoader: YapLoader,
     val requestState: BehaviorRelay<Long>) {
 
-  fun getNews(startNumber: Int = 0): Single<List<NewsItem>> =
+  fun getNews(startNumber: Int = 0): Observable<NewsItem> =
       yapLoader
           .loadNews(startNumber)
           .map { news -> news.createNewsList() }
+          .flatMapObservable { list -> Observable.fromIterable(list) }
           .doOnSubscribe {
             publishRequestState(YapRequestState.LOADING)
           }
           .doOnError {
             publishRequestState(YapRequestState.ERROR)
           }
-          .doOnSuccess {
+          .doOnComplete {
             publishRequestState(YapRequestState.COMPLETED)
           }
 

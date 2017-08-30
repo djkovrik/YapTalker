@@ -67,9 +67,9 @@ class NewsPresenter : BasePresenter<NewsView>() {
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({
-          // onSuccess
-          newsList: List<NewsItem> ->
-          onLoadingSuccess(newsList)
+          // onNext
+          newsItem: NewsItem ->
+          onLoadingSuccess(newsItem)
         }, {
           // onError
           throwable ->
@@ -78,12 +78,12 @@ class NewsPresenter : BasePresenter<NewsView>() {
         .apply { unsubscribeOnDestroy(this) }
   }
 
-  fun onLoadingSuccess(news: List<NewsItem>) {
+  fun onLoadingSuccess(newsItem: NewsItem) {
     if (backToFirstPage) {
-      viewState.refreshNews(news)
-    } else {
-      viewState.appendNews(news)
+      viewState.clearNewsList()
+      backToFirstPage = false
     }
+    viewState.appendNewsItem(newsItem)
   }
 
   fun onLoadingError(error: Throwable) {

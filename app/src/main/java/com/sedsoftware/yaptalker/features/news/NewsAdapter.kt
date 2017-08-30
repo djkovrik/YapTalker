@@ -60,16 +60,15 @@ class NewsAdapter(
     holder?.itemView?.clearAnimation()
   }
 
-  fun addNews(list: List<NewsItem>) {
+  fun addNewsItem(item: NewsItem) {
     val insertPosition = news.size
-    news.addAll(insertPosition, list)
-    notifyItemRangeInserted(insertPosition, news.size)
+    news.add(item)
+    notifyItemInserted(insertPosition)
   }
 
-  fun clearAndAddNews(list: List<NewsItem>) {
+  fun clearNews() {
     notifyItemRangeRemoved(0, news.size)
     news.clear()
-    addNews(list)
   }
 
   inner class NewsViewHolder(

@@ -99,12 +99,12 @@ class NewsController : BaseController(), NewsView {
     toastError(message)
   }
 
-  override fun refreshNews(news: List<NewsItem>) {
-    newsAdapter.clearAndAddNews(news)
+  override fun clearNewsList() {
+    newsAdapter.clearNews()
   }
 
-  override fun appendNews(news: List<NewsItem>) {
-    newsAdapter.addNews(news)
+  override fun appendNewsItem(item: NewsItem) {
+    newsAdapter.addNewsItem(item)
   }
 
   override fun updateAppbarTitle() {
