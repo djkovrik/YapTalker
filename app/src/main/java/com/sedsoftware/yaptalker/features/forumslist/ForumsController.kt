@@ -76,8 +76,12 @@ class ForumsController : BaseController(), ForumsView {
     view.forums_list.adapter = null
   }
 
-  override fun showForums(forums: List<ForumItem>) {
-    forumsAdapter.addForumsList(forums)
+  override fun clearForumsList() {
+    forumsAdapter.clearForumsList()
+  }
+
+  override fun appendForumItem(item: ForumItem) {
+    forumsAdapter.addForumsListItem(item)
   }
 
   override fun showErrorMessage(message: String) {

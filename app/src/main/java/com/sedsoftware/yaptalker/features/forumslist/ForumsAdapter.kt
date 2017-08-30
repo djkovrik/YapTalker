@@ -29,10 +29,15 @@ class ForumsAdapter(
 
   override fun getItemId(position: Int) = forumsList[position].forumId.toLong()
 
-  fun addForumsList(list: List<ForumItem>) {
+  fun addForumsListItem(item: ForumItem) {
+    val insertPosition = forumsList.size
+    forumsList.add(item)
+    notifyItemInserted(insertPosition)
+  }
+
+  fun clearForumsList() {
+    notifyItemRangeRemoved(0, forumsList.size)
     forumsList.clear()
-    forumsList.addAll(list)
-    notifyDataSetChanged()
   }
 
   class ForumsViewHolder(

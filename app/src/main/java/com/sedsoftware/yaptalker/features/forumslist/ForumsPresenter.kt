@@ -42,14 +42,16 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
 
   fun loadForumsList() {
 
+    viewState.clearForumsList()
+
     yapDataManager
         .getForumsList()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({
-          // onSuccess
-          forumsList: List<ForumItem> ->
-          onLoadingSuccess(forumsList)
+          // OnNext
+          forumsListItem: ForumItem ->
+          onLoadingSuccess(forumsListItem)
         }, {
           // onError
           throwable ->
@@ -58,8 +60,8 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
         .apply { unsubscribeOnDestroy(this) }
   }
 
-  fun onLoadingSuccess(forums: List<ForumItem>) {
-    viewState.showForums(forums)
+  fun onLoadingSuccess(item: ForumItem) {
+    viewState.appendForumItem(item)
   }
 
   fun onLoadingError(error: Throwable) {

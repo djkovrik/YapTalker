@@ -3,7 +3,6 @@ package com.sedsoftware.yaptalker.data.remote.yap
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.data.model.ForumPage
-import com.sedsoftware.yaptalker.data.model.Forums
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.data.model.createForumsList
@@ -31,17 +30,18 @@ class YapDataManager(
             publishRequestState(YapRequestState.COMPLETED)
           }
 
-  fun getForumsList(): Single<List<ForumItem>> =
+  fun getForumsList(): Observable<ForumItem> =
       yapLoader
           .loadForumsList()
-          .map { forums: Forums -> forums.createForumsList() }
+          .map { forums -> forums.createForumsList() }
+          .flatMapObservable { list -> Observable.fromIterable(list) }
           .doOnSubscribe {
             publishRequestState(YapRequestState.LOADING)
           }
           .doOnError {
             publishRequestState(YapRequestState.ERROR)
           }
-          .doOnSuccess {
+          .doOnComplete {
             publishRequestState(YapRequestState.COMPLETED)
           }
 
