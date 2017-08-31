@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="NavigationPanel">
+    <item name="android:background">@color/colorAccent</item>
+  </style>
+
+  <style name="NavigationText">
+    <item name="android:textColor">@color/material_color_white</item>
+  </style>
+
+</resources>

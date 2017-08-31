@@ -3,13 +3,14 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/navigation_card"
-  android:layout_width="match_parent"
+  android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:elevation="@dimen/material_card_elevation_resting"
   tools:targetApi="lollipop">
 
   <LinearLayout
-    android:layout_width="match_parent"
+    style="@style/NavigationPanel"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="horizontal">
@@ -19,13 +20,16 @@
       style="@style/Widget.AppCompat.Button.Borderless"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/navigation_previous"/>
+      android:text="@string/navigation_previous"
+      android:theme="@style/NavigationText"/>
 
     <TextView
       android:id="@+id/navigation_pages_label"
+      style="@style/NavigationText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical|center_horizontal"
+      android:theme="@style/NavigationText"
       tools:text="Page 1 of 1000"/>
 
     <Button
@@ -33,7 +37,8 @@
       style="@style/Widget.AppCompat.Button.Borderless"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/navigation_next"/>
+      android:text="@string/navigation_next"
+      android:theme="@style/NavigationText"/>
 
   </LinearLayout>
 

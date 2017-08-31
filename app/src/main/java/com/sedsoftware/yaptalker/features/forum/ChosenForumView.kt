@@ -29,4 +29,8 @@ interface ChosenForumView : MvpView {
   fun scrollToViewTop()
 
   fun setAppbarTitle(title: String)
+
+  fun hideNavigationPanel()
+
+  fun showNavigationPanel()
 }

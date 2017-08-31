@@ -8,10 +8,13 @@ import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
+import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.extensions.hideBeyondBottomEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.showFromBottomEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
@@ -25,6 +28,7 @@ import java.util.Locale
 class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), ChosenTopicView {
 
   companion object {
+    private const val NAVIGATION_PANEL_OFFSET = 200f
     private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
     const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
@@ -76,31 +80,33 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
           .subscribe { topicPresenter.loadTopic(currentForumId, currentTopicId) }
     }
 
-    val buttonPrevious = parent.navigation_go_previous
-
-    buttonPrevious?.let {
+    parent.navigation_go_previous?.let {
       RxView
-          .clicks(buttonPrevious)
+          .clicks(parent.navigation_go_previous)
           .autoDisposeWith(scopeProvider)
           .subscribe { topicPresenter.goToPreviousPage() }
     }
 
-    val buttonNext = parent.navigation_go_next
-
-    buttonNext?.let {
+    parent.navigation_go_next?.let {
       RxView
-          .clicks(buttonNext)
+          .clicks(parent.navigation_go_next)
           .autoDisposeWith(scopeProvider)
           .subscribe { topicPresenter.goToNextPage() }
     }
 
-    val pagesLabel = parent.navigation_pages_label
-
-    pagesLabel?.let {
+    parent.navigation_pages_label?.let {
       RxView
-          .clicks(pagesLabel)
+          .clicks(parent.navigation_pages_label)
           .autoDisposeWith(scopeProvider)
           .subscribe { topicPresenter.goToChosenPage() }
+    }
+
+    parent.topic_posts_list?.let {
+      RxRecyclerView
+          .scrollEvents(parent.topic_posts_list)
+          .distinct()
+          .autoDisposeWith(scopeProvider)
+          .subscribe { event -> topicPresenter.handleNavigationVisibility(diff = event.dy()) }
     }
   }
 
@@ -176,5 +182,13 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun setAppbarTitle(title: String) {
     topicPresenter.setAppbarTitle(title)
+  }
+
+  override fun hideNavigationPanel() {
+    view?.navigation_panel?.hideBeyondBottomEdge(NAVIGATION_PANEL_OFFSET)
+  }
+
+  override fun showNavigationPanel() {
+    view?.navigation_panel?.showFromBottomEdge()
   }
 }

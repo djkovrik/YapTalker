@@ -10,10 +10,13 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
+import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.extensions.hideBeyondBottomEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.showFromBottomEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
@@ -28,6 +31,7 @@ import java.util.Locale
 class ChosenForumController(val bundle: Bundle) : BaseController(bundle), ChosenForumView {
 
   companion object {
+    private const val NAVIGATION_PANEL_OFFSET = 200f
     private const val TOPICS_LIST_KEY = "TOPICS_LIST"
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
   }
@@ -84,31 +88,33 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
           .subscribe { forumPresenter.loadForum(currentForumId) }
     }
 
-    val buttonPrevious = parent.navigation_go_previous
-
-    buttonPrevious?.let {
+    parent.navigation_go_previous?.let {
       RxView
-          .clicks(buttonPrevious)
+          .clicks(parent.navigation_go_previous)
           .autoDisposeWith(scopeProvider)
           .subscribe { forumPresenter.goToPreviousPage() }
     }
 
-    val buttonNext = parent.navigation_go_next
-
-    buttonNext?.let {
+    parent.navigation_go_next?.let {
       RxView
-          .clicks(buttonNext)
+          .clicks(parent.navigation_go_next)
           .autoDisposeWith(scopeProvider)
           .subscribe { forumPresenter.goToNextPage() }
     }
 
-    val pagesLabel = parent.navigation_pages_label
-
-    pagesLabel?.let {
+    parent.navigation_pages_label?.let {
       RxView
-          .clicks(pagesLabel)
+          .clicks(parent.navigation_pages_label)
           .autoDisposeWith(scopeProvider)
           .subscribe { forumPresenter.goToChosenPage() }
+    }
+
+    parent.forum_topics_list?.let {
+      RxRecyclerView
+          .scrollEvents(parent.forum_topics_list)
+          .distinct()
+          .autoDisposeWith(scopeProvider)
+          .subscribe { event -> forumPresenter.handleNavigationVisibility(diff = event.dy()) }
     }
   }
 
@@ -185,5 +191,13 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun setAppbarTitle(title: String) {
     forumPresenter.setAppbarTitle(title)
+  }
+
+  override fun hideNavigationPanel() {
+    view?.navigation_panel?.hideBeyondBottomEdge(NAVIGATION_PANEL_OFFSET)
+  }
+
+  override fun showNavigationPanel() {
+    view?.navigation_panel?.showFromBottomEdge()
   }
 }

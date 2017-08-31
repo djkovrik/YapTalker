@@ -96,6 +96,17 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     }
   }
 
+  fun setAppbarTitle(title: String) {
+    pushAppbarTitle(titleChannel, title)
+  }
+
+  fun handleNavigationVisibility(diff: Int) {
+    when {
+      diff > 0 -> viewState.hideNavigationPanel()
+      else -> viewState.showNavigationPanel()
+    }
+  }
+
   private fun loadForumCurrentPage() {
 
     val startingTopic = currentPage * TOPICS_PER_PAGE
@@ -114,6 +125,24 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
           onLoadingError(throwable)
         })
         .apply { unsubscribeOnDestroy(this) }
+  }
+
+  private fun setNavigationLabel() {
+    viewState.setNavigationPagesLabel(currentPage + OFFSET_FOR_PAGE_NUMBER, totalPages)
+  }
+
+  private fun setNavigationAvailability() {
+
+    var backNavigationAvailable = true
+    var forwardNavigationAvailable = true
+
+    when (currentPage) {
+      0 -> backNavigationAvailable = false
+      totalPages - OFFSET_FOR_PAGE_NUMBER -> forwardNavigationAvailable = false
+    }
+
+    viewState.setIfNavigationBackEnabled(backNavigationAvailable)
+    viewState.setIfNavigationForwardEnabled(forwardNavigationAvailable)
   }
 
   private fun onLoadingSuccess(forumPage: ForumPage) {
@@ -135,31 +164,5 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
   private fun onLoadingError(error: Throwable) {
     error.message?.let { viewState.showErrorMessage(it) }
-  }
-
-  private fun setNavigationLabel() {
-    viewState.setNavigationPagesLabel(currentPage + OFFSET_FOR_PAGE_NUMBER, totalPages)
-  }
-
-  private fun setNavigationAvailability() {
-
-    var backNavigationAvailable = true
-    var forwardNavigationAvailable = true
-
-    when (currentPage) {
-      0 -> {
-        backNavigationAvailable = false
-      }
-      totalPages - OFFSET_FOR_PAGE_NUMBER -> {
-        forwardNavigationAvailable = false
-      }
-    }
-
-    viewState.setIfNavigationBackEnabled(backNavigationAvailable)
-    viewState.setIfNavigationForwardEnabled(forwardNavigationAvailable)
-  }
-
-  fun setAppbarTitle(title: String) {
-    pushAppbarTitle(titleChannel, title)
   }
 }

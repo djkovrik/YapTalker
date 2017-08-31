@@ -93,6 +93,17 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     }
   }
 
+  fun setAppbarTitle(title: String) {
+    pushAppbarTitle(titleChannel, title)
+  }
+
+  fun handleNavigationVisibility(diff: Int) {
+    when {
+      diff > 0 -> viewState.hideNavigationPanel()
+      else -> viewState.showNavigationPanel()
+    }
+  }
+
   private fun loadTopicCurrentPage() {
 
     val startingPost = currentPage * POSTS_PER_PAGE
@@ -154,9 +165,5 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
     viewState.setIfNavigationBackEnabled(backNavigationAvailable)
     viewState.setIfNavigationForwardEnabled(forwardNavigationAvailable)
-  }
-
-  fun setAppbarTitle(title: String) {
-    pushAppbarTitle(titleChannel, title)
   }
 }
