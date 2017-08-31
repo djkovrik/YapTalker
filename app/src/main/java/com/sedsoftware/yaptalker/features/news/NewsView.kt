@@ -22,6 +22,8 @@ interface NewsView : MvpView {
 
   fun hideFab()
 
+  fun hideFabWithoutAnimation()
+
   fun showFab()
 
   fun scrollListToTop()

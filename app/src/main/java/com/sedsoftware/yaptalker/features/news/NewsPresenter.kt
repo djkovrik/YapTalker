@@ -47,6 +47,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
   override fun attachView(view: NewsView?) {
     super.attachView(view)
     viewState.updateAppbarTitle()
+    viewState.hideFabWithoutAnimation()
   }
 
   fun loadNews(loadFromFirstPage: Boolean) {
@@ -105,5 +106,6 @@ class NewsPresenter : BasePresenter<NewsView>() {
 
   fun scrollToTop() {
     viewState.scrollListToTop()
+    viewState.hideFab()
   }
 }

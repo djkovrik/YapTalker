@@ -40,6 +40,8 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
+    viewState.hideNavigationPanelWithoutAnimation()
+
     attachRefreshIndicator(yapDataManager.requestState, {
       // onStart
       viewState.showRefreshing()

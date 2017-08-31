@@ -41,6 +41,8 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
+    viewState.hideNavigationPanelWithoutAnimation()
+
     attachRefreshIndicator(yapDataManager.requestState, {
       // onStart
       viewState.showRefreshing()

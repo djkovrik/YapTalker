@@ -32,5 +32,7 @@ interface ChosenForumView : MvpView {
 
   fun hideNavigationPanel()
 
+  fun hideNavigationPanelWithoutAnimation()
+
   fun showNavigationPanel()
 }

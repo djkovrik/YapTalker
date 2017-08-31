@@ -92,7 +92,6 @@ class NewsController : BaseController(), NewsView {
     parent.news_list?.let {
       RxRecyclerView
           .scrollEvents(parent.news_list)
-          .distinct()
           .autoDisposeWith(scopeProvider)
           .subscribe { event -> newsPresenter.handleFabVisibility(diff = event.dy()) }
     }
@@ -145,6 +144,10 @@ class NewsController : BaseController(), NewsView {
       fab.hideBeyondBottomEdge(FAB_OFFSET)
       isFabShown = false
     }
+  }
+
+  override fun hideFabWithoutAnimation() {
+    view?.news_fab?.translationY = FAB_OFFSET
   }
 
   override fun showFab() {

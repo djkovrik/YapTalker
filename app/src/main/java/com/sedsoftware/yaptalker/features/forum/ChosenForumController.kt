@@ -112,7 +112,6 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     parent.forum_topics_list?.let {
       RxRecyclerView
           .scrollEvents(parent.forum_topics_list)
-          .distinct()
           .autoDisposeWith(scopeProvider)
           .subscribe { event -> forumPresenter.handleNavigationVisibility(diff = event.dy()) }
     }
@@ -195,6 +194,10 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun hideNavigationPanel() {
     view?.navigation_panel?.hideBeyondBottomEdge(NAVIGATION_PANEL_OFFSET)
+  }
+
+  override fun hideNavigationPanelWithoutAnimation() {
+    view?.navigation_panel?.translationY = 200f
   }
 
   override fun showNavigationPanel() {
