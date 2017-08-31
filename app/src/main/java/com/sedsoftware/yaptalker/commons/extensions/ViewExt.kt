@@ -2,6 +2,9 @@ package com.sedsoftware.yaptalker.commons.extensions
 
 import android.support.v4.widget.SwipeRefreshLayout
 import android.text.Html
+import android.view.View
+import android.view.animation.Interpolator
+import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextView
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
@@ -10,7 +13,13 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.CircleImageTransformation
 import com.squareup.picasso.Picasso
 
+// Icon params
 private const val ICON_SIZE = 24
+
+// Fab params
+private const val ANIMATION_DELAY = 150L
+private const val ANIMATION_DURATION = 250L
+private const val DEFAULT_INTERPOLATOR_TENSION = 1.5f
 
 fun ImageView.loadFromUrl(url: String) {
 
@@ -65,4 +74,38 @@ fun SwipeRefreshLayout.setAppColorScheme() {
       context.color(R.color.colorPrimaryDark),
       context.color(R.color.colorAccent),
       context.color(R.color.colorAccentDark))
+}
+
+/**
+ * Hides view beyond bottom screen edge.
+ *
+ * @param interpolator Animation interpolator.
+ * @param offset Y-axis offset for view animation.
+ */
+fun View.hideBeyondBottomEdge(
+    offset: Float,
+    interpolator: Interpolator = OvershootInterpolator(DEFAULT_INTERPOLATOR_TENSION)) {
+
+  this.animate()
+      .translationY(offset)
+      .setInterpolator(interpolator)
+      .setStartDelay(ANIMATION_DELAY)
+      .setDuration(ANIMATION_DURATION)
+      .start()
+}
+
+/**
+ * Returns previously hidden view to position with zero Y-axis offset.
+ *
+ * @param interpolator Animation interpolator.
+ */
+fun View.showFromBottomEdge(
+    interpolator: Interpolator = OvershootInterpolator(DEFAULT_INTERPOLATOR_TENSION)) {
+
+  this.animate()
+      .translationY(0f)
+      .setInterpolator(interpolator)
+      .setStartDelay(ANIMATION_DELAY)
+      .setDuration(ANIMATION_DURATION)
+      .start()
 }

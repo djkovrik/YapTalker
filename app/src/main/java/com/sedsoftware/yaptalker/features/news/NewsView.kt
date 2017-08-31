@@ -19,4 +19,10 @@ interface NewsView : MvpView {
   fun appendNewsItem(item: NewsItem)
 
   fun updateAppbarTitle()
+
+  fun hideFab()
+
+  fun showFab()
+
+  fun scrollListToTop()
 }

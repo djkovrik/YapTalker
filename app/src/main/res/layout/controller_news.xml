@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
+<FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/refresh_layout"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/news_list"
+  <android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent">
 
-</android.support.v4.widget.SwipeRefreshLayout>
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/news_list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+
+  </android.support.v4.widget.SwipeRefreshLayout>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/news_fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/materialize_screen_edge"
+    android:layout_gravity="end|bottom"
+    android:elevation="@dimen/material_elevation_fab_resting"
+    app:fabSize="mini"
+    app:ico_color="@color/material_color_white"
+    app:ico_icon="cmd-chevron-double-up"
+    app:ico_padding="@dimen/mini_fab_icon_padding"
+    tools:targetApi="lollipop"/>
+
+</FrameLayout>

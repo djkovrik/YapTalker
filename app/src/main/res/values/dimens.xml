@@ -11,4 +11,7 @@
   <dimen name="rating_background_corner_radius">1dp</dimen>
   <dimen name="rating_background_width">50dp</dimen>
   <dimen name="avatar_size">36dp</dimen>
+  <dimen name="fab_icon_padding">6dp</dimen>
+  <dimen name="mini_fab_icon_padding">4dp</dimen>
+  <dimen name="hidden_view_y_translation">200dp</dimen>
 </resources>

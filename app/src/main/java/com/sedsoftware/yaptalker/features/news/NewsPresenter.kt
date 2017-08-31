@@ -33,6 +33,8 @@ class NewsPresenter : BasePresenter<NewsView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
+    viewState.showFab()
+
     attachRefreshIndicator(yapDataManager.requestState, {
       // onStart
       viewState.showRefreshing()
@@ -92,5 +94,16 @@ class NewsPresenter : BasePresenter<NewsView>() {
 
   fun updateTitle(title: String) {
     pushAppbarTitle(titleChannel, title)
+  }
+
+  fun handleFabVisibility(diff: Int) {
+    when {
+      diff > 0 -> viewState.hideFab()
+      else -> viewState.showFab()
+    }
+  }
+
+  fun scrollToTop() {
+    viewState.scrollListToTop()
   }
 }

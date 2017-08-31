@@ -7,11 +7,15 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
+import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
+import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.InfiniteScrollListener
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
+import com.sedsoftware.yaptalker.commons.extensions.hideBeyondBottomEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.showFromBottomEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.NewsItem
@@ -22,17 +26,23 @@ import kotlinx.android.synthetic.main.controller_news.view.*
 
 class NewsController : BaseController(), NewsView {
 
+  companion object {
+    // TODO() Calculate offsets in runtime
+    private const val FAB_OFFSET = 200f
+  }
+
   @InjectPresenter
   lateinit var newsPresenter: NewsPresenter
 
   private lateinit var newsAdapter: NewsAdapter
+  private var isFabShown = true
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_news
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
-    newsAdapter = NewsAdapter{ link, forumLink ->
+    newsAdapter = NewsAdapter { link, forumLink ->
 
       if (link.contains("yaplakal.com")) {
         val topicId = link.getLastDigits()
@@ -78,6 +88,21 @@ class NewsController : BaseController(), NewsView {
           .autoDisposeWith(scopeProvider)
           .subscribe { newsPresenter.loadNews(loadFromFirstPage = true) }
     }
+
+    parent.news_list?.let {
+      RxRecyclerView
+          .scrollEvents(parent.news_list)
+          .distinct()
+          .autoDisposeWith(scopeProvider)
+          .subscribe { event -> newsPresenter.handleFabVisibility(diff = event.dy()) }
+    }
+
+    parent.news_fab?.let {
+      RxView
+          .clicks(parent.news_fab)
+          .autoDisposeWith(scopeProvider)
+          .subscribe { newsPresenter.scrollToTop() }
+    }
   }
 
   override fun onDestroyView(view: View) {
@@ -109,5 +134,31 @@ class NewsController : BaseController(), NewsView {
     view?.context?.let {
       newsPresenter.updateTitle(it.stringRes(R.string.nav_drawer_main_page))
     }
+  }
+
+  override fun hideFab() {
+    if (!isFabShown) {
+      return
+    }
+
+    view?.news_fab?.let { fab ->
+      fab.hideBeyondBottomEdge(FAB_OFFSET)
+      isFabShown = false
+    }
+  }
+
+  override fun showFab() {
+    if (isFabShown) {
+      return
+    }
+
+    view?.news_fab?.let { fab ->
+      fab.showFromBottomEdge()
+      isFabShown = true
+    }
+  }
+
+  override fun scrollListToTop() {
+    view?.news_list?.smoothScrollToPosition(0)
   }
 }
