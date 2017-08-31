@@ -31,8 +31,6 @@ class ForumsController : BaseController(), ForumsView {
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
-    restoreAppbarState()
-
     forumsAdapter = ForumsAdapter {
       // Load chosen forum
       val bundle = Bundle()

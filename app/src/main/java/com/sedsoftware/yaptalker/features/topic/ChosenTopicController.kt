@@ -48,8 +48,6 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
-    restoreAppbarState()
-
     topicAdapter = ChosenTopicAdapter()
     topicAdapter.setHasStableIds(true)
 

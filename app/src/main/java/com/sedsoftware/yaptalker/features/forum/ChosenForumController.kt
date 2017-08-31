@@ -46,8 +46,6 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
-    restoreAppbarState()
-
     forumAdapter = ChosenForumAdapter {
       val bundle = Bundle()
       bundle.putInt(ChosenTopicController.FORUM_ID_KEY, currentForumId)
