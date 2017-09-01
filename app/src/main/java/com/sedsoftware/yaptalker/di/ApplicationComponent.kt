@@ -8,6 +8,7 @@ import com.sedsoftware.yaptalker.features.forumslist.ForumsPresenter
 import com.sedsoftware.yaptalker.features.navigation.NavigationViewPresenter
 import com.sedsoftware.yaptalker.features.news.NewsAdapter
 import com.sedsoftware.yaptalker.features.news.NewsPresenter
+import com.sedsoftware.yaptalker.features.topic.ChosenTopicAdapter
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicPresenter
 import dagger.Component
 import javax.inject.Singleton
@@ -22,9 +23,10 @@ import javax.inject.Singleton
 
 interface ApplicationComponent {
   // Injections here
+  fun inject(adapter: NewsAdapter)
+  fun inject(adapter: ChosenTopicAdapter)
   fun inject(presenter: NavigationViewPresenter)
   fun inject(presenter: NewsPresenter)
-  fun inject(adapter: NewsAdapter)
   fun inject(presenter: ForumsPresenter)
   fun inject(presenter: ChosenForumPresenter)
   fun inject(presenter: ChosenTopicPresenter)

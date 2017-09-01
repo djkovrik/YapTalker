@@ -1,20 +1,51 @@
 package com.sedsoftware.yaptalker.features.topic
 
+import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.YapTalkerApp
+import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.getShortTime
 import com.sedsoftware.yaptalker.commons.extensions.loadAvatarFromUrl
+import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textColor
+import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
+import com.sedsoftware.yaptalker.commons.parseLink
+import com.sedsoftware.yaptalker.data.model.ParsedPost
+import com.sedsoftware.yaptalker.data.model.PostHiddenText
+import com.sedsoftware.yaptalker.data.model.PostLink
+import com.sedsoftware.yaptalker.data.model.PostQuote
+import com.sedsoftware.yaptalker.data.model.PostQuoteAuthor
+import com.sedsoftware.yaptalker.data.model.PostScript
+import com.sedsoftware.yaptalker.data.model.PostText
 import com.sedsoftware.yaptalker.data.model.TopicPost
+import com.sedsoftware.yaptalker.data.remote.thumbnails.ThumbnailsLoader
 import kotlinx.android.synthetic.main.controller_chosen_topic_item.view.*
 import java.util.Locale
+import javax.inject.Inject
 
 class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolder>() {
 
+  companion object {
+    private const val IMAGE_VERTICAL_PADDING = 5
+    private const val TEXT_HORIZONTAL_PADDING = 25
+    private const val INITIAL_NESTING_LEVEL = 0
+  }
+
+  init {
+    YapTalkerApp.appComponent.inject(this)
+  }
+
   private var posts: ArrayList<TopicPost> = ArrayList()
+
+  @Inject
+  lateinit var thumbnailsLoader: ThumbnailsLoader
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_chosen_topic_item,
@@ -24,13 +55,6 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
 
   override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
     holder.bindTo(posts[position])
-  }
-
-  override fun onViewDetachedFromWindow(holder: PostViewHolder?) {
-    super.onViewDetachedFromWindow(holder)
-    // Clear WebView
-    holder?.itemView?.post_content?.loadUrl("about:blank")
-    holder?.itemView?.post_content?.clearHistory()
   }
 
   override fun getItemCount() = posts.size
@@ -48,33 +72,117 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
   inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bindTo(postItem: TopicPost) {
-      with(postItem) {
-        with(itemView) {
-          post_author.text = authorNickname
-          post_date.text = context.getShortTime(postDate)
-          post_author_avatar.loadAvatarFromUrl("http:$authorAvatar")
+      with(itemView) {
+        // Fill post header
+        post_author.text = postItem.authorNickname
+        post_date.text = context.getShortTime(postItem.postDate)
+        post_author_avatar.loadAvatarFromUrl("http:${postItem.authorAvatar}")
 
-          if (postRank.isNotEmpty()) {
-            when {
-              postRank.toInt() > 0 -> {
-                post_rating.text = String.format(Locale.getDefault(), "+%s", postRank)
-                post_rating.textColor = R.color.colorRatingGreen
-              }
-              postRank.toInt() < 0 -> {
-                post_rating.text = String.format(Locale.getDefault(), "-%s", postRank)
-                post_rating.textColor = R.color.colorRatingRed
-              }
-              else -> {
-                post_rating.text = postRank
-                post_rating.textColor = R.color.colorSupportingText
-              }
+        if (postItem.postRank.isNotEmpty()) {
+          when {
+            postItem.postRank.toInt() > 0 -> {
+              post_rating.text = String.format(Locale.getDefault(), "+%s", postItem.postRank)
+              post_rating.textColor = R.color.colorRatingGreen
+            }
+            postItem.postRank.toInt() < 0 -> {
+              post_rating.text = String.format(Locale.getDefault(), "-%s", postItem.postRank)
+              post_rating.textColor = R.color.colorRatingRed
+            }
+            else -> {
+              post_rating.text = postItem.postRank
+              post_rating.textColor = R.color.colorSupportingText
             }
           }
+        }
 
-          // TODO() Replace webview with parsing
-//          post_content.settings.javaScriptEnabled = true
-//          post_content.loadDataWithBaseURL("http://www.yaplakal.com/", postContent,
-//              "text/html; charset=UTF-8", null, null)
+        var currentNestingLevel = INITIAL_NESTING_LEVEL
+
+        // Fill post content
+        with(ParsedPost(postItem.postContent)) {
+          // Text
+          if (content.isNotEmpty()) {
+            post_content_text_container.visibility = View.VISIBLE
+            post_content_text_container.removeAllViews()
+            content.forEach {
+              when (it) {
+                is PostQuoteAuthor -> {
+                  currentNestingLevel++
+                  val quoteAuthor = TextView(context)
+                  quoteAuthor.textFromHtml(it.text)
+                  if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
+                    quoteAuthor.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)
+                  }
+                  quoteAuthor.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
+                  post_content_text_container.addView(quoteAuthor)
+                }
+                is PostQuote -> {
+                  val quoteText = TextView(context)
+                  quoteText.textFromHtml(it.text)
+                  quoteText.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
+                  quoteText.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)
+                  post_content_text_container.addView(quoteText)
+                }
+                is PostText -> {
+                  currentNestingLevel--
+                  val postText = TextView(context)
+                  postText.textFromHtml(it.text)
+                  if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
+                    postText.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
+                    postText.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)
+                  }
+                  post_content_text_container.addView(postText)
+                }
+                is PostHiddenText -> {
+                  val template = context.stringRes(R.string.post_hidden_text_template)
+                  val hiddenText = TextView(context)
+                  hiddenText.textFromHtml(it.text)
+                  hiddenText.text = String.format(Locale.getDefault(), template, hiddenText.text)
+                  post_content_text_container.addView(hiddenText)
+                }
+                is PostScript -> {
+                  val postScriptText = TextView(context)
+                  postScriptText.setTypeface(postScriptText.typeface, Typeface.ITALIC)
+                  postScriptText.textColor = R.color.colorPostScriptText
+                  postScriptText.textFromHtml(it.text)
+                  post_content_text_container.addView(postScriptText)
+                }
+                is PostLink -> {
+                }
+              }
+            }
+          } else {
+            post_content_text_container.visibility = View.GONE
+          }
+
+          // Images
+          if (images.isNotEmpty()) {
+            post_content_image_container.visibility = View.VISIBLE
+            post_content_image_container.removeAllViews()
+            images.forEach {
+              val image = ImageView(context)
+              image.adjustViewBounds = true
+              image.setPadding(0, IMAGE_VERTICAL_PADDING, 0, IMAGE_VERTICAL_PADDING)
+              post_content_image_container.addView(image)
+              image.loadFromUrl("http:$it")
+            }
+          } else {
+            post_content_image_container.visibility = View.GONE
+          }
+
+          // Videos
+          if (videos.isNotEmpty()) {
+            post_content_video_container.visibility = View.VISIBLE
+            post_content_video_container.removeAllViews()
+            videos.forEach {
+              val thumbnail = ImageView(context)
+              thumbnail.adjustViewBounds = true
+              thumbnail.setPadding(0, IMAGE_VERTICAL_PADDING, 0, IMAGE_VERTICAL_PADDING)
+              post_content_video_container.addView(thumbnail)
+              thumbnailsLoader.loadThumbnail(parseLink(it), thumbnail)
+            }
+          } else {
+            post_content_video_container.visibility = View.GONE
+          }
         }
       }
     }
