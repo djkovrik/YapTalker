@@ -25,6 +25,7 @@ class ParsedPost(html: String,
     private const val SRC_ATTR = "src"
     private const val HREF_ATTR = "href"
     private const val QUOTE_AUTHOR_MARKER = "@"
+    private const val QUOTE_EMPTY_MARKER = "Цитата"
     private const val QUOTE_AUTHOR_LINE_LAST_CHAR = ")"
 
     private val tagsToSkip =
@@ -77,6 +78,8 @@ class ParsedPost(html: String,
           // Quote authors
           if (element.text().contains(QUOTE_AUTHOR_MARKER) &&
               element.text().endsWith(QUOTE_AUTHOR_LINE_LAST_CHAR)) {
+            content.add(PostQuoteAuthor(text = element.html()))
+          } else if (element.text() == QUOTE_EMPTY_MARKER) {
             content.add(PostQuoteAuthor(text = element.html()))
           }
 
