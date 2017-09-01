@@ -126,7 +126,7 @@ class ParsedPost(html: String,
         // Replace html spaces
         .replace("&nbsp;", " ")
         // Replace extra <br>
-        .replace(Regex("(<br>(\\s+)?\\R)+", RegexOption.MULTILINE), "")
+//        .replace(Regex("(<br>(\\s+)?\\R)+", RegexOption.MULTILINE), "")
         // Replace smile links with filename only
         .replace(Regex("<img src=.*/(\\w+).*>"), { matchResult ->
           val replacement = matchResult.groups[1]?.value ?: ""
