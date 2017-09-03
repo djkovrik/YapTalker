@@ -161,9 +161,9 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
                   }
 
                   val targetTitle = when {
-                    it.title.startsWith("http") -> context.stringRes(R.string.post_link)
-                    it.title.length < MAX_LINK_TITLE_LENGTH -> it.title
-                    else -> context.stringRes(R.string.post_link)
+                    it.title.startsWith("http") ||
+                        it.title.length > MAX_LINK_TITLE_LENGTH -> context.stringRes(R.string.post_link)
+                    else -> it.title
                   }
 
                   links.add(PostLink(url = targetUrl, title = targetTitle))
