@@ -7,7 +7,6 @@ import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
-import com.evernote.android.state.StateSaver
 
 abstract class BaseActivity: MvpAppCompatActivity() {
 
@@ -19,7 +18,6 @@ abstract class BaseActivity: MvpAppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    StateSaver.restoreInstanceState(this, savedInstanceState)
     setContentView(layoutId)
 
     router = Conductor.attachRouter(this, contentFrame, savedInstanceState)
@@ -30,6 +28,5 @@ abstract class BaseActivity: MvpAppCompatActivity() {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    StateSaver.saveInstanceState(this, outState)
   }
 }
