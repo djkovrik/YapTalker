@@ -28,9 +28,8 @@
   </string>
 
   <!-- Post item -->
-  <string name="post_hidden_text_template">
-    Hidden text: <xliff:g id="spoiler">%s</xliff:g>
-  </string>
+  <string name="post_hidden_text_template">Hidden text: <xliff:g id="spoiler">%s</xliff:g></string>
+  <string name="post_link">Link</string>
 
   <!-- Navigation panel -->
   <string name="navigation_pages_template">

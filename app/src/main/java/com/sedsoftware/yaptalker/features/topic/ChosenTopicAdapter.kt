@@ -27,15 +27,17 @@ import com.sedsoftware.yaptalker.data.model.PostText
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.data.remote.thumbnails.ThumbnailsLoader
 import kotlinx.android.synthetic.main.controller_chosen_topic_item.view.*
+import org.jetbrains.anko.browse
 import java.util.Locale
 import javax.inject.Inject
 
 class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolder>() {
 
   companion object {
-    private const val IMAGE_VERTICAL_PADDING = 5
-    private const val TEXT_HORIZONTAL_PADDING = 25
+    private const val IMAGE_VERTICAL_PADDING = 16
+    private const val TEXT_HORIZONTAL_PADDING = 24
     private const val INITIAL_NESTING_LEVEL = 0
+    private const val MAX_LINK_TITLE_LENGTH = 15
   }
 
   init {
@@ -71,7 +73,9 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
 
   inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    @Suppress("ComplexMethod", "NestedBlockDepth")
     fun bindTo(postItem: TopicPost) {
+
       with(itemView) {
         // Fill post header
         post_author.text = postItem.authorNickname
@@ -96,6 +100,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
         }
 
         var currentNestingLevel = INITIAL_NESTING_LEVEL
+        val links = HashSet<PostLink>()
 
         // Fill post content
         with(ParsedPost(postItem.postContent)) {
@@ -103,6 +108,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
           if (content.isNotEmpty()) {
             post_content_text_container.visibility = View.VISIBLE
             post_content_text_container.removeAllViews()
+
             content.forEach {
               when (it) {
                 is PostQuoteAuthor -> {
@@ -147,11 +153,31 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
                   post_content_text_container.addView(postScriptText)
                 }
                 is PostLink -> {
+                  val targetUrl = when {
+                    it.url.startsWith("/go") -> "http://www.yaplakal.com${it.url}"
+                    else -> it.url
+                  }
+
+                  val targetTitle = when {
+                    it.title.startsWith("http") -> context.stringRes(R.string.post_link)
+                    it.title.length < MAX_LINK_TITLE_LENGTH -> it.title
+                    else -> context.stringRes(R.string.post_link)
+                  }
+
+                  links.add(PostLink(url = targetUrl, title = targetTitle))
                 }
               }
             }
+          }
+
+          // Setup link
+          if (links.isNotEmpty()) {
+            val link = links.last()
+            post_link_button.setOnClickListener { context.browse(url = link.url, newTask = true) }
+            post_link_button.text = link.title
+            post_link_button.visibility = View.VISIBLE
           } else {
-            post_content_text_container.visibility = View.GONE
+            post_link_button.visibility = View.GONE
           }
 
           // Images

@@ -7,4 +7,9 @@
     <item name="android:textStyle">normal</item>
   </style>
 
+  <style name="PostLink" parent="Widget.AppCompat.Button.Borderless">
+    <item name="android:textColor">@color/colorAccent</item>
+    <item name="android:minHeight">0dp</item>
+  </style>
+
 </resources>

@@ -63,12 +63,13 @@
       tools:text="20 min"/>
 
     <LinearLayout
+      android:id="@+id/post_content"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/post_author_avatar"
       android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
-      android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-      android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+      android:paddingStart="@dimen/materialize_screen_edge"
+      android:paddingEnd="@dimen/materialize_screen_edge"
       android:orientation="vertical">
 
       <LinearLayout
@@ -90,6 +91,19 @@
         android:orientation="vertical"/>
 
     </LinearLayout>
+
+    <Button
+      android:id="@+id/post_link_button"
+      style="@style/PostLink"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/post_content"
+      android:paddingBottom="@dimen/materialize_screen_edge"
+      android:paddingStart="@dimen/materialize_screen_edge"
+      android:paddingEnd="@dimen/materialize_screen_edge"
+      android:drawableStart="@drawable/ic_link"
+      android:text="@string/post_link"
+      android:visibility="gone"/>
 
   </RelativeLayout>
 
