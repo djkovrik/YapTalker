@@ -81,18 +81,6 @@ class NewsPresenter : BasePresenter<NewsView>() {
         .apply { unsubscribeOnDestroy(this) }
   }
 
-  fun onLoadingSuccess(newsItem: NewsItem) {
-    if (backToFirstPage) {
-      viewState.clearNewsList()
-      backToFirstPage = false
-    }
-    viewState.appendNewsItem(newsItem)
-  }
-
-  fun onLoadingError(error: Throwable) {
-    error.message?.let { viewState.showErrorMessage(it) }
-  }
-
   fun updateTitle(title: String) {
     pushAppbarTitle(titleChannel, title)
   }
@@ -107,5 +95,17 @@ class NewsPresenter : BasePresenter<NewsView>() {
   fun scrollToTop() {
     viewState.scrollListToTop()
     viewState.hideFab()
+  }
+
+  private fun onLoadingSuccess(newsItem: NewsItem) {
+    if (backToFirstPage) {
+      viewState.clearNewsList()
+      backToFirstPage = false
+    }
+    viewState.appendNewsItem(newsItem)
+  }
+
+  private fun onLoadingError(error: Throwable) {
+    error.message?.let { viewState.showErrorMessage(it) }
   }
 }

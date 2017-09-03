@@ -188,7 +188,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun hideNavigationPanelWithoutAnimation() {
-    view?.navigation_panel?.translationY = 200f
+    view?.navigation_panel?.translationY = NAVIGATION_PANEL_OFFSET
   }
 
   override fun showNavigationPanel() {

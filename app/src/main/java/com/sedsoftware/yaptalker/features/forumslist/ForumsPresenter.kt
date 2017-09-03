@@ -60,15 +60,15 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
         .apply { unsubscribeOnDestroy(this) }
   }
 
-  fun onLoadingSuccess(item: ForumItem) {
+  fun updateTitle(title: String) {
+    pushAppbarTitle(titleChannel, title)
+  }
+
+  private fun onLoadingSuccess(item: ForumItem) {
     viewState.appendForumItem(item)
   }
 
-  fun onLoadingError(error: Throwable) {
+  private fun onLoadingError(error: Throwable) {
     error.message?.let { viewState.showErrorMessage(it) }
-  }
-
-  fun updateTitle(title: String) {
-    pushAppbarTitle(titleChannel, title)
   }
 }
