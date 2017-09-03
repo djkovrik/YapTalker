@@ -9,7 +9,9 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.getShortTime
+import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.parseLink
 import com.sedsoftware.yaptalker.data.model.NewsItem
@@ -97,14 +99,14 @@ class NewsAdapter(
 
           when {
             images.isNotEmpty() -> {
-              news_content_image.visibility = View.VISIBLE
+              news_content_image.showView()
               news_content_image.loadFromUrl("http:${images.first()}")
             }
             videos.isNotEmpty() -> {
-              news_content_image.visibility = View.VISIBLE
+              news_content_image.showView()
               thumbnailsLoader.loadThumbnail(parseLink(videos.first()), news_content_image)
             }
-            else -> news_content_image.visibility = View.GONE
+            else -> news_content_image.hideView()
           }
 
           setOnClickListener { itemClick(link, forumLink) }

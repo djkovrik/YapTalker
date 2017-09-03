@@ -11,8 +11,10 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.getShortTime
+import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.loadAvatarFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
@@ -106,7 +108,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
         with(ParsedPost(postItem.postContent)) {
           // Text
           if (content.isNotEmpty()) {
-            post_content_text_container.visibility = View.VISIBLE
+            post_content_text_container.showView()
             post_content_text_container.removeAllViews()
 
             content.forEach {
@@ -175,14 +177,14 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
             val link = links.last()
             post_link_button.setOnClickListener { context.browse(url = link.url, newTask = true) }
             post_link_button.text = link.title
-            post_link_button.visibility = View.VISIBLE
+            post_link_button.showView()
           } else {
-            post_link_button.visibility = View.GONE
+            post_link_button.hideView()
           }
 
           // Images
           if (images.isNotEmpty()) {
-            post_content_image_container.visibility = View.VISIBLE
+            post_content_image_container.showView()
             post_content_image_container.removeAllViews()
             images.forEach {
               val image = ImageView(context)
@@ -192,12 +194,12 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
               image.loadFromUrl("http:$it")
             }
           } else {
-            post_content_image_container.visibility = View.GONE
+            post_content_image_container.hideView()
           }
 
           // Videos
           if (videos.isNotEmpty()) {
-            post_content_video_container.visibility = View.VISIBLE
+            post_content_video_container.showView()
             post_content_video_container.removeAllViews()
             videos.forEach {
               val thumbnail = ImageView(context)
@@ -207,7 +209,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
               thumbnailsLoader.loadThumbnail(parseLink(it), thumbnail)
             }
           } else {
-            post_content_video_container.visibility = View.GONE
+            post_content_video_container.hideView()
           }
         }
       }

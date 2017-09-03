@@ -21,6 +21,11 @@ private const val ANIMATION_DELAY = 150L
 private const val ANIMATION_DURATION = 250L
 private const val DEFAULT_INTERPOLATOR_TENSION = 1.5f
 
+/**
+ * Loads image into ImageView
+ *
+ * @param url Image url.
+ */
 fun ImageView.loadFromUrl(url: String) {
 
   val placeholder = IconicsDrawable(context)
@@ -31,6 +36,11 @@ fun ImageView.loadFromUrl(url: String) {
   Picasso.with(context).load(url).error(placeholder).into(this)
 }
 
+/**
+ * Loads avatar into ImageView and makes it circle.
+ *
+ * @param url Avatar url.
+ */
 fun ImageView.loadAvatarFromUrl(url: String) {
 
   val placeholder = IconicsDrawable(context)
@@ -46,10 +56,20 @@ fun ImageView.loadAvatarFromUrl(url: String) {
       .into(this)
 }
 
+/**
+ * Loads drawable into ImageView.
+ *
+ * @param resId Drawable resource id.
+ */
 fun ImageView.loadFromDrawable(resId: Int) {
   Picasso.with(context).load(resId).into(this)
 }
 
+/**
+ * Sets html formatted text to TextView.
+ *
+ * @param html Source html.
+ */
 @Suppress("DEPRECATION")
 fun TextView.textFromHtml(html: String) {
 
@@ -61,6 +81,9 @@ fun TextView.textFromHtml(html: String) {
       }
 }
 
+/**
+ * Text color property for TextView.
+ */
 var TextView.textColor: Int
   get() = currentTextColor
   set(v) = setTextColor(context.color(v))
@@ -108,4 +131,18 @@ fun View.showFromBottomEdge(
       .setStartDelay(ANIMATION_DELAY)
       .setDuration(ANIMATION_DURATION)
       .start()
+}
+
+/**
+ * Hides view from the screen with no animation.
+ */
+fun View.hideView() {
+  this.visibility = View.GONE
+}
+
+/**
+ * Makes previously hidden view visible with no animation.
+ */
+fun View.showView() {
+  this.visibility = View.VISIBLE
 }
