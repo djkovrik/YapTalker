@@ -105,7 +105,7 @@ class ParsedPost(html: String,
           }
 
           // P.S.
-          if (element.attributes().toString().contains(Regex("edit|grey"))) {
+          if (element.attributes().toString().contains("edit")) {
             content.add(PostScript(
                 text = element.html()))
           }
