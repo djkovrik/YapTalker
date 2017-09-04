@@ -127,10 +127,10 @@ class ParsedPost(html: String,
         // Replace extra <br>
         .replace(Regex("(<br>(\\s+)?\\R)+", RegexOption.MULTILINE), "<br>")
         // Replace smile links with filename only
-        .replace(Regex("<img src=.*/(\\w+).*>"), { matchResult ->
-          val replacement = matchResult.groups[1]?.value ?: ""
-          String.format("<img src='%s'>", replacement)
-        })
+        //.replace(Regex("<img src=.*/(\\w+).*>"), { matchResult ->
+        //  val replacement = matchResult.groups[1]?.value ?: ""
+        //  String.format("<img src='%s'>", replacement)
+        //})
   }
 
   private fun String.trimLinebreakTags(): String {

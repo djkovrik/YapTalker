@@ -11,6 +11,7 @@ import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.IconicsDrawable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.CircleImageTransformation
+import com.sedsoftware.yaptalker.commons.PicassoImageGetter
 import com.squareup.picasso.Picasso
 
 // Icon params
@@ -75,9 +76,9 @@ fun TextView.textFromHtml(html: String) {
 
   this.text =
       if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-        Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
+        Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, PicassoImageGetter(context, this), null)
       } else {
-        Html.fromHtml(html)
+        Html.fromHtml(html, PicassoImageGetter(context, this), null)
       }
 }
 
