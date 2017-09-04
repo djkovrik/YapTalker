@@ -43,6 +43,10 @@
     Page <xliff:g id="page">%d</xliff:g> is not available
   </string>
 
+  <!-- Menu items -->
+  <string name="action_save">Save</string>
+  <string name="action_share">Share</string>
+
   <!-- Short date strings -->
   <plurals name="short_date_years">
     <item quantity="one"><xliff:g id="years">%d</xliff:g> year(s)</item>

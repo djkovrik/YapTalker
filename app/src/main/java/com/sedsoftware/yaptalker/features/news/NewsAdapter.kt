@@ -16,7 +16,9 @@ import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.parseLink
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.data.remote.thumbnails.ThumbnailsLoader
+import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import kotlinx.android.synthetic.main.controller_news_item.view.*
+import org.jetbrains.anko.startActivity
 import java.util.ArrayList
 import java.util.Locale
 import javax.inject.Inject
@@ -99,8 +101,12 @@ class NewsAdapter(
 
           when {
             images.isNotEmpty() -> {
+              val url = "http:${images.first()}"
               news_content_image.showView()
-              news_content_image.loadFromUrl("http:${images.first()}")
+              news_content_image.loadFromUrl(url)
+              news_content_image.setOnClickListener {
+                context.startActivity<ImageDisplayActivity>("url" to url)
+              }
             }
             videos.isNotEmpty() -> {
               news_content_image.showView()
