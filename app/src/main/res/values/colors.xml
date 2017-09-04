@@ -15,7 +15,7 @@
   <!-- Misc UI colors -->
   <color name="colorMaterialBackground">@color/material_color_grey_200</color>
   <color name="colorSupportingText">@color/material_color_grey_500</color>
-  <color name="colorQuotedTextBackground">@color/material_color_grey_300</color>
+  <color name="colorQuotedTextBackground">@color/material_color_grey_200</color>
   <color name="colorPostScriptText">@color/material_color_grey_500</color>
 
   <!-- UQ colors -->

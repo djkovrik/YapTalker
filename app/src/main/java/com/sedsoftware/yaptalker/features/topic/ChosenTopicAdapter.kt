@@ -36,10 +36,12 @@ import javax.inject.Inject
 class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolder>() {
 
   companion object {
+    // TODO() Move some values to dimens?
     private const val IMAGE_VERTICAL_PADDING = 16
     private const val TEXT_HORIZONTAL_PADDING = 24
     private const val INITIAL_NESTING_LEVEL = 0
     private const val MAX_LINK_TITLE_LENGTH = 15
+    private const val POSTSCRIPT_TEXT_SIZE = 12f
   }
 
   init {
@@ -151,6 +153,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
                   val postScriptText = TextView(context)
                   postScriptText.setTypeface(postScriptText.typeface, Typeface.ITALIC)
                   postScriptText.textColor = R.color.colorPostScriptText
+                  postScriptText.textSize = POSTSCRIPT_TEXT_SIZE
                   postScriptText.textFromHtml(it.text)
                   post_content_text_container.addView(postScriptText)
                 }
