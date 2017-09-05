@@ -67,7 +67,7 @@ class ParsedPost(html: String,
 
           // Quotes
           if (element.attributes().toString().contains(QUOTE_SELECTOR)
-              && !element.text().startsWith(QUOTE_START_TEXT)) {
+              && !element.text().contains(QUOTE_START_TEXT)) {
             element.html().cleanExtraTags().trimLinebreakTags().apply {
               if (this.isNotEmpty())
                 content.add(PostQuote(text = this))
