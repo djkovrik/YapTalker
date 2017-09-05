@@ -101,7 +101,9 @@ class NewsAdapter(
 
           when {
             images.isNotEmpty() -> {
-              val url = "http:${images.first()}"
+              var url = images.first()
+              if (!url.startsWith("http:"))
+                url = "http:$url"
               news_content_image.showView()
               news_content_image.loadFromUrl(url)
               news_content_image.setOnClickListener {

@@ -194,7 +194,8 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
               image.adjustViewBounds = true
               image.setPadding(0, IMAGE_VERTICAL_PADDING, 0, IMAGE_VERTICAL_PADDING)
               post_content_image_container.addView(image)
-              image.loadFromUrl("http:$it")
+              val url = if (it.startsWith("http:")) it else "http:$it"
+              image.loadFromUrl(url)
             }
           } else {
             post_content_image_container.hideView()
