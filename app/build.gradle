@@ -76,6 +76,7 @@ dependencies {
   final COMMUNITY_MATERIAL_ICONS_VERSION = "1.9.32.2@aar"
   final ICONICS_VERSION = "2.9.3@aar"
   final TOASTY_VERSION = "1.2.5"
+  final PHOTOVIEW_VERSION = "2.0.0"
 
   // Testing
   final ESPRESSO_VERSION = "2.2.2"
@@ -145,6 +146,7 @@ dependencies {
   implementation "com.afollestad.material-dialogs:commons:$MATERIAL_DIALOGUES_VERSION"
   implementation "com.mikepenz:community-material-typeface:$COMMUNITY_MATERIAL_ICONS_VERSION"
   implementation "com.github.grenderg:toasty:$TOASTY_VERSION"
+  implementation "com.github.chrisbanes:PhotoView:$PHOTOVIEW_VERSION"
 
   kapt daggerCompiler
   kapt moxyCompiler

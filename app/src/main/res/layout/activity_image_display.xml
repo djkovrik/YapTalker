@@ -4,7 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@color/colorMaterialBackground"
+  android:background="@color/material_color_black"
   android:fitsSystemWindows="true"
   android:orientation="vertical"
   tools:context="com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity"
@@ -12,11 +12,9 @@
 
   <include layout="@layout/include_main_appbar"/>
 
-  <ImageView
-    android:id="@+id/target_image"
+  <com.github.chrisbanes.photoview.PhotoView
+    android:id="@+id/photo_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:adjustViewBounds="true"
-    tools:ignore="ContentDescription"/>
+    android:layout_height="match_parent"/>
 
 </LinearLayout>

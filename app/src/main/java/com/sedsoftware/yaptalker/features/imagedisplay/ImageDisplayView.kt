@@ -1,13 +1,15 @@
 package com.sedsoftware.yaptalker.features.imagedisplay
 
 import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
+import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
-@StateStrategyType(AddToEndSingleStrategy::class)
+@StateStrategyType(SkipStrategy::class)
 interface ImageDisplayView : MvpView {
 
-  fun hideSystemUi()
+  fun toggleSystemUiVisibility()
 
-  fun showSystemUi()
+  fun hideAppbar()
+
+  fun showAppbar()
 }

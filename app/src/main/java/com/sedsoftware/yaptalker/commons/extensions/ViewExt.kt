@@ -106,7 +106,7 @@ fun SwipeRefreshLayout.setAppColorScheme() {
  * @param interpolator Animation interpolator.
  * @param offset Y-axis offset for view animation.
  */
-fun View.hideBeyondBottomEdge(
+fun View.hideBeyondScreenEdge(
     offset: Float,
     interpolator: Interpolator = OvershootInterpolator(DEFAULT_INTERPOLATOR_TENSION)) {
 
@@ -123,7 +123,7 @@ fun View.hideBeyondBottomEdge(
  *
  * @param interpolator Animation interpolator.
  */
-fun View.showFromBottomEdge(
+fun View.showFromScreenEdge(
     interpolator: Interpolator = OvershootInterpolator(DEFAULT_INTERPOLATOR_TENSION)) {
 
   this.animate()
