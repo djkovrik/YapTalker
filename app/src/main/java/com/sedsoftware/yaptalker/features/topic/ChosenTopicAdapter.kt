@@ -28,8 +28,10 @@ import com.sedsoftware.yaptalker.data.model.PostScript
 import com.sedsoftware.yaptalker.data.model.PostText
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.data.remote.thumbnails.ThumbnailsLoader
+import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import kotlinx.android.synthetic.main.controller_chosen_topic_item.view.*
 import org.jetbrains.anko.browse
+import org.jetbrains.anko.startActivity
 import java.util.Locale
 import javax.inject.Inject
 
@@ -165,7 +167,8 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
 
                   val targetTitle = when {
                     it.title.startsWith("http") ||
-                        it.title.length > MAX_LINK_TITLE_LENGTH -> context.stringRes(R.string.post_link)
+                        it.title.length > MAX_LINK_TITLE_LENGTH -> context.stringRes(
+                        R.string.post_link)
                     else -> it.title
                   }
 
@@ -196,6 +199,9 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
               post_content_image_container.addView(image)
               val url = if (it.startsWith("http:")) it else "http:$it"
               image.loadFromUrl(url)
+              image.setOnClickListener {
+                context.startActivity<ImageDisplayActivity>("url" to url)
+              }
             }
           } else {
             post_content_image_container.hideView()
