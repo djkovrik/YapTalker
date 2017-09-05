@@ -7,7 +7,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import kotlinx.android.synthetic.main.activity_image_display.*
-import kotlinx.android.synthetic.main.activity_main_appbar.*
+import kotlinx.android.synthetic.main.include_main_appbar.*
 
 class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
 

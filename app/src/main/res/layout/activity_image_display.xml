@@ -10,7 +10,7 @@
   tools:context="com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity"
   tools:ignore="Overdraw">
 
-  <include layout="@layout/activity_main_appbar"/>
+  <include layout="@layout/include_main_appbar"/>
 
   <ImageView
     android:id="@+id/target_image"

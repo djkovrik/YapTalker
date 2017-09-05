@@ -9,8 +9,8 @@
   tools:context="com.sedsoftware.yaptalker.features.navigation.NavigationActivity"
   tools:ignore="Overdraw">
 
-  <include layout="@layout/activity_main_appbar"/>
+  <include layout="@layout/include_main_appbar"/>
 
-  <include layout="@layout/activity_main_content"/>
+  <include layout="@layout/include_main_content"/>
 
 </LinearLayout>
