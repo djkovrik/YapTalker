@@ -188,6 +188,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
             post_link_button.hideView()
           }
 
+          // TODO() Fix moderators warning image stretching
           // Images
           if (images.isNotEmpty()) {
             post_content_image_container.showView()

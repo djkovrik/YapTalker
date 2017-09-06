@@ -16,7 +16,6 @@ class PostLink(val url: String, val title: String) : Content {
 
   override fun equals(other: Any?): Boolean {
     return when (other) {
-      this -> true
       !is PostLink -> false
       else -> this.url == other.url
     }
