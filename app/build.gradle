@@ -71,7 +71,7 @@ dependencies {
 
   // App - UI
   final MATERIAL_VALUES_VERSION = "1.1.1"
-  final MATERIAL_DRAWER_KT_VERSION = "1.1.0"
+  final MATERIAL_DRAWER_KT_VERSION = "1.1.1"
   final MATERIAL_DIALOGUES_VERSION = "0.9.4.7"
   final COMMUNITY_MATERIAL_ICONS_VERSION = "1.9.32.2@aar"
   final ICONICS_VERSION = "2.9.3@aar"
