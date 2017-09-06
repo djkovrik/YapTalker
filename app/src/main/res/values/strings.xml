@@ -43,6 +43,9 @@
     Page <xliff:g id="page">%d</xliff:g> is not available
   </string>
 
+  <!-- Messages and titles -->
+  <string name="title_share_image">Share Image</string>
+
   <!-- Menu items -->
   <string name="action_save">Save</string>
   <string name="action_share">Share</string>
