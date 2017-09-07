@@ -16,7 +16,10 @@ import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.parseLink
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.data.remote.thumbnails.ThumbnailsLoader
+import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
+import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import kotlinx.android.synthetic.main.controller_news_item.view.*
+import org.jetbrains.anko.startActivity
 import java.util.ArrayList
 import java.util.Locale
 import javax.inject.Inject
@@ -97,14 +100,27 @@ class NewsAdapter(
           news_comments_counter.text = String.format(Locale.US, commentsTemplate, comments)
           news_content_text.textFromHtml(cleanedDescription)
 
+          // Remove listener before setting the new one
+          news_content_image.setOnClickListener(null)
+
           when {
             images.isNotEmpty() -> {
+              var url = images.first()
+              // TODO() Refactor this to handle http as well as https
+              if (!url.startsWith("http:"))
+                url = "http:$url"
               news_content_image.showView()
-              news_content_image.loadFromUrl("http:${images.first()}")
+              news_content_image.loadFromUrl(url)
+              news_content_image.setOnClickListener {
+                context.startActivity<ImageDisplayActivity>("url" to url)
+              }
             }
             videos.isNotEmpty() -> {
               news_content_image.showView()
               thumbnailsLoader.loadThumbnail(parseLink(videos.first()), news_content_image)
+              news_content_image.setOnClickListener {
+                context.startActivity<VideoDisplayActivity>("video" to videosRaw.first())
+              }
             }
             else -> news_content_image.hideView()
           }

@@ -22,6 +22,7 @@ class NewsContent {
       defValue = "Unknown") lateinit var description: String
   @Selector("img[src]", attr = "src") lateinit var images: List<String>
   @Selector("iframe[src]", attr = "src") lateinit var videos: List<String>
+  @Selector("iframe[src]", attr = "outerHtml") lateinit var videosRaw: List<String>
 }
 
 class NewsBottom {
@@ -49,6 +50,7 @@ fun News.createNewsList(): List<NewsItem> {
         description = contents[index].description,
         images = contents[index].images,
         videos = contents[index].videos,
+        videosRaw = contents[index].videosRaw,
         author = bottoms[index].author,
         authorLink = bottoms[index].authorLink,
         date = bottoms[index].date,
@@ -67,6 +69,7 @@ data class NewsItem(
     val description: String,
     val images: List<String>,
     val videos: List<String>,
+    val videosRaw: List<String>,
     val author: String,
     val authorLink: String,
     val date: String,

@@ -13,10 +13,10 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.extensions.hideBeyondBottomEdge
+import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
-import com.sedsoftware.yaptalker.commons.extensions.showFromBottomEdge
+import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
@@ -193,7 +193,7 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun hideNavigationPanel() {
-    view?.navigation_panel?.hideBeyondBottomEdge(NAVIGATION_PANEL_OFFSET)
+    view?.navigation_panel?.hideBeyondScreenEdge(NAVIGATION_PANEL_OFFSET)
   }
 
   override fun hideNavigationPanelWithoutAnimation() {
@@ -201,6 +201,6 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun showNavigationPanel() {
-    view?.navigation_panel?.showFromBottomEdge()
+    view?.navigation_panel?.showFromScreenEdge()
   }
 }

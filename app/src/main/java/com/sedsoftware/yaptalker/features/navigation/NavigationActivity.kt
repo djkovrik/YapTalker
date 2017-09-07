@@ -23,8 +23,8 @@ import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.features.base.BaseActivity
 import com.sedsoftware.yaptalker.features.forumslist.ForumsController
 import com.sedsoftware.yaptalker.features.news.NewsController
-import kotlinx.android.synthetic.main.activity_main_appbar.*
-import kotlinx.android.synthetic.main.activity_main_content.*
+import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.include_main_content.*
 import timber.log.Timber
 
 class NavigationActivity : BaseActivity(), NavigationView {

@@ -2,11 +2,13 @@ package com.sedsoftware.yaptalker.data.model
 
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
+import timber.log.Timber
 
 class ParsedPost(html: String,
     val content: MutableList<Content> = ArrayList(),
     val images: MutableList<String> = ArrayList(),
-    val videos: MutableList<String> = ArrayList()) {
+    val videos: MutableList<String> = ArrayList(),
+    val videosRaw: MutableList<String> = ArrayList()) {
 
   companion object {
     private const val TEXT_SELECTOR = "postcolor"
@@ -67,7 +69,7 @@ class ParsedPost(html: String,
 
           // Quotes
           if (element.attributes().toString().contains(QUOTE_SELECTOR)
-              && !element.text().startsWith(QUOTE_START_TEXT)) {
+              && !element.text().contains(QUOTE_START_TEXT)) {
             element.html().cleanExtraTags().trimLinebreakTags().apply {
               if (this.isNotEmpty())
                 content.add(PostQuote(text = this))
@@ -102,6 +104,7 @@ class ParsedPost(html: String,
           if (element.tagName() == IFRAME_TAG &&
               element.hasAttr(SRC_ATTR)) {
             videos.add(element.attr(SRC_ATTR))
+            videosRaw.add(element.toString())
           }
 
           // P.S.

@@ -4,13 +4,17 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@color/colorMaterialBackground"
+  android:background="@color/material_color_black"
+  android:fitsSystemWindows="true"
   android:orientation="vertical"
-  tools:context="com.sedsoftware.yaptalker.features.navigation.NavigationActivity"
+  tools:context="com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity"
   tools:ignore="Overdraw">
 
   <include layout="@layout/include_main_appbar"/>
 
-  <include layout="@layout/include_main_content"/>
+  <com.github.chrisbanes.photoview.PhotoView
+    android:id="@+id/photo_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
 </LinearLayout>

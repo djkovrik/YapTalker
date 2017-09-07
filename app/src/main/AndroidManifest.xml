@@ -12,6 +12,7 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
+
     <activity
       android:launchMode="singleTop"
       android:name=".features.navigation.NavigationActivity"
@@ -22,6 +23,36 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-  </application>
 
+    <activity
+      android:label="@string/app_name"
+      android:name=".features.imagedisplay.ImageDisplayActivity"
+      android:parentActivityName=".features.navigation.NavigationActivity"
+      android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".features.navigation.NavigationActivity"/>
+    </activity>
+
+    <activity
+      android:label="@string/app_name"
+      android:name=".features.videodisplay.VideoDisplayActivity"
+      android:parentActivityName=".features.navigation.NavigationActivity"
+      android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".features.navigation.NavigationActivity"/>
+    </activity>
+
+    <provider
+      android:authorities="com.sedsoftware.yaptalker"
+      android:exported="false"
+      android:grantUriPermissions="true"
+      android:name="android.support.v4.content.FileProvider">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/fileprovider"/>
+    </provider>
+
+  </application>
 </manifest>

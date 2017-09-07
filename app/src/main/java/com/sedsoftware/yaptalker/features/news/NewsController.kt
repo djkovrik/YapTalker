@@ -12,10 +12,10 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.InfiniteScrollListener
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
-import com.sedsoftware.yaptalker.commons.extensions.hideBeyondBottomEdge
+import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
-import com.sedsoftware.yaptalker.commons.extensions.showFromBottomEdge
+import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.NewsItem
@@ -141,7 +141,7 @@ class NewsController : BaseController(), NewsView {
     }
 
     view?.news_fab?.let { fab ->
-      fab.hideBeyondBottomEdge(FAB_OFFSET)
+      fab.hideBeyondScreenEdge(FAB_OFFSET)
       isFabShown = false
     }
   }
@@ -156,7 +156,7 @@ class NewsController : BaseController(), NewsView {
     }
 
     view?.news_fab?.let { fab ->
-      fab.showFromBottomEdge()
+      fab.showFromScreenEdge()
       isFabShown = true
     }
   }
