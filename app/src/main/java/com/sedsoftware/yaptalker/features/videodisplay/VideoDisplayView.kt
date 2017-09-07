@@ -7,4 +7,9 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 @StateStrategyType(SkipStrategy::class)
 interface VideoDisplayView : MvpView {
 
+  fun initWebView()
+
+  fun displayWebViewContent()
+
+  fun clearWebView()
 }
