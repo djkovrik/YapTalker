@@ -2,11 +2,13 @@ package com.sedsoftware.yaptalker.data.model
 
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
+import timber.log.Timber
 
 class ParsedPost(html: String,
     val content: MutableList<Content> = ArrayList(),
     val images: MutableList<String> = ArrayList(),
-    val videos: MutableList<String> = ArrayList()) {
+    val videos: MutableList<String> = ArrayList(),
+    val videosRaw: MutableList<String> = ArrayList()) {
 
   companion object {
     private const val TEXT_SELECTOR = "postcolor"
@@ -102,6 +104,7 @@ class ParsedPost(html: String,
           if (element.tagName() == IFRAME_TAG &&
               element.hasAttr(SRC_ATTR)) {
             videos.add(element.attr(SRC_ATTR))
+            videosRaw.add(element.toString())
           }
 
           // P.S.

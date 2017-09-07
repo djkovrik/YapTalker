@@ -29,6 +29,7 @@ import com.sedsoftware.yaptalker.data.model.PostText
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.data.remote.thumbnails.ThumbnailsLoader
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
+import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import kotlinx.android.synthetic.main.controller_chosen_topic_item.view.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
@@ -209,15 +210,18 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
           }
 
           // Videos
-          if (videos.isNotEmpty()) {
+          if (videos.isNotEmpty() && videosRaw.isNotEmpty()) {
             post_content_video_container.showView()
             post_content_video_container.removeAllViews()
-            videos.forEach {
+            videos.forEachIndexed { index, str ->
               val thumbnail = ImageView(context)
               thumbnail.adjustViewBounds = true
               thumbnail.setPadding(0, IMAGE_VERTICAL_PADDING, 0, IMAGE_VERTICAL_PADDING)
               post_content_video_container.addView(thumbnail)
-              thumbnailsLoader.loadThumbnail(parseLink(it), thumbnail)
+              thumbnailsLoader.loadThumbnail(parseLink(str), thumbnail)
+              thumbnail.setOnClickListener {
+                context.startActivity<VideoDisplayActivity>("video" to videosRaw[index])
+              }
             }
           } else {
             post_content_video_container.hideView()
