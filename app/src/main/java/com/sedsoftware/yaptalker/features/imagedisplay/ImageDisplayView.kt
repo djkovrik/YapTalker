@@ -12,4 +12,8 @@ interface ImageDisplayView : MvpView {
   fun hideAppbar()
 
   fun showAppbar()
+
+  fun updateGallery(filepath: String)
+
+  // TODO() Add file saving toast messages
 }

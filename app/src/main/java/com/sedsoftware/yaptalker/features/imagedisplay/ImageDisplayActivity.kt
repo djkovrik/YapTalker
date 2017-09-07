@@ -68,6 +68,7 @@ class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
         true
       }
       R.id.action_save -> {
+        displayPresenter.saveImage(imageUrl)
         true
       }
       else -> super.onOptionsItemSelected(item)
@@ -92,6 +93,16 @@ class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
   override fun showAppbar() {
     appbar?.showFromScreenEdge(AccelerateInterpolator())
   }
+
+  override fun updateGallery(filepath: String) {
+    val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+    val f = File(filepath)
+    val contentUri = Uri.fromFile(f)
+    mediaScanIntent.data = contentUri
+    this.sendBroadcast(mediaScanIntent)
+  }
+
+  // TODO () Move all methods below to presenter
 
   private fun shareImage() {
     if (imageUrl.isNotEmpty()) {
