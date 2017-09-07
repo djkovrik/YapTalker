@@ -10,8 +10,8 @@ class VideoDisplayPresenter : BasePresenter<VideoDisplayView>() {
     viewState.displayWebViewContent()
   }
 
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
+  override fun attachView(view: VideoDisplayView?) {
+    super.attachView(view)
     viewState.initWebView()
   }
 

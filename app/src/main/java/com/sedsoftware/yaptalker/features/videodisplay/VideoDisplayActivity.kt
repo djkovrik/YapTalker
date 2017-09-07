@@ -19,6 +19,7 @@ class VideoDisplayActivity : MvpAppCompatActivity(), VideoDisplayView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    // TODO() Activity view requires styling
     setContentView(R.layout.activity_video_display)
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
