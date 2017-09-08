@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.remote.thumbnails
+package com.sedsoftware.yaptalker.data.remote
 
 import android.widget.ImageView
 import com.sedsoftware.yaptalker.R
@@ -11,7 +11,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class ThumbnailsLoader(val rutube: RutubeThumbnailLoader, val coub: CoubThumbnailLoader) {
+class ThumbnailsManager(val rutube: RutubeLoader, val coub: CoubLoader) {
 
   fun loadThumbnail(video: Pair<Int, String>, imageView: ImageView) {
 

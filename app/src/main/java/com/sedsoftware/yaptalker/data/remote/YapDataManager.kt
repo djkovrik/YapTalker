@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.remote.yap
+package com.sedsoftware.yaptalker.data.remote
 
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.data.model.ForumItem
@@ -11,9 +11,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class YapDataManager(
-    val yapLoader: YapLoader,
-    val requestState: BehaviorRelay<Long>) {
+class YapDataManager(val yapLoader: YapLoader, val requestState: BehaviorRelay<Long>) {
 
   fun getNews(startNumber: Int = 0): Observable<NewsItem> =
       yapLoader

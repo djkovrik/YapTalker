@@ -4,7 +4,7 @@ import android.support.annotation.NonNull
 import com.arellomobile.mvp.MvpPresenter
 import com.arellomobile.mvp.MvpView
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.data.remote.yap.YapRequestState
+import com.sedsoftware.yaptalker.data.remote.YapRequestState
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
