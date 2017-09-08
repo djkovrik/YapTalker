@@ -61,7 +61,6 @@ dependencies {
 
   // App - Core
   final RETROFIT_VERSION = "2.3.0"
-  final DAGGER_VERSION = "2.11"
   final MOXY_VERSION = "1.5.3"
   final CONDUCTOR_VERSION = "2.1.4"
   final PICASSO_VERSION = "2.5.2"
@@ -90,7 +89,6 @@ dependencies {
   final LEAK_CANARY_VERSION = "1.5.1"
   final STETHO_VERSION = "1.5.0"
 
-  def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
   def moxyCompiler = "com.arello-mobile:moxy-compiler:$MOXY_VERSION"
 
   def junit = "junit:junit:${JUNIT_VERSION}"
@@ -125,7 +123,6 @@ dependencies {
   implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
   implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
   implementation "com.squareup.retrofit2:converter-moshi:$RETROFIT_VERSION"
-  implementation "com.google.dagger:dagger:$DAGGER_VERSION"
   implementation "com.arello-mobile:moxy:$MOXY_VERSION"
   implementation "com.arello-mobile:moxy-android:$MOXY_VERSION"
   implementation "com.arello-mobile:moxy-app-compat:$MOXY_VERSION"
@@ -148,7 +145,6 @@ dependencies {
   implementation "com.github.grenderg:toasty:$TOASTY_VERSION"
   implementation "com.github.chrisbanes:PhotoView:$PHOTOVIEW_VERSION"
 
-  kapt daggerCompiler
   kapt moxyCompiler
 
   // Instrumentation tests dependencies

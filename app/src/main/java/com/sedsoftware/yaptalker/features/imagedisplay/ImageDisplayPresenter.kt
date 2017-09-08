@@ -2,12 +2,10 @@ package com.sedsoftware.yaptalker.features.imagedisplay
 
 import android.os.Environment
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import okio.Okio
@@ -15,17 +13,12 @@ import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.lang.RuntimeException
-import javax.inject.Inject
 
 @InjectViewState
 class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
 
-  init {
-    YapTalkerApp.appComponent.inject(this)
-  }
-
-  @Inject
-  lateinit var httpClient: OkHttpClient
+//  @Inject
+//  lateinit var httpClient: OkHttpClient
 
   fun toggleFullscreenView() {
     viewState.toggleSystemUiVisibility()
@@ -60,8 +53,8 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
     return Single.create<Response> { emitter ->
       try {
         val request = Request.Builder().url(url).build()
-        val response = httpClient.newCall(request).execute()
-        emitter.onSuccess(response)
+//        val response = httpClient.newCall(request).execute()
+//        emitter.onSuccess(response)
       } catch (e: IOException) {
         emitter.onError(e)
       }

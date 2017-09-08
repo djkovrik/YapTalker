@@ -10,18 +10,12 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.sedsoftware.yaptalker.commons.extensions.color
-import com.sedsoftware.yaptalker.di.ApplicationComponent
-import com.sedsoftware.yaptalker.di.DaggerApplicationComponent
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import timber.log.Timber
 
 class YapTalkerApp : Application() {
-
-  companion object {
-    lateinit var appComponent: ApplicationComponent
-  }
 
   override fun onCreate() {
     super.onCreate()
@@ -42,8 +36,6 @@ class YapTalkerApp : Application() {
       Timber.plant(Timber.DebugTree())
     }
     // TODO() Else init Timber with Firebase Crash Reporting tree here
-
-    appComponent = DaggerApplicationComponent.builder().build()
 
     // Toasty coloring
     Toasty.Config.getInstance()

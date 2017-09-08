@@ -1,14 +1,8 @@
 package com.sedsoftware.yaptalker.features.news
 
 import com.arellomobile.mvp.InjectViewState
-import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.NewsItem
-import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
 import com.sedsoftware.yaptalker.features.base.BasePresenter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 @InjectViewState
 class NewsPresenter : BasePresenter<NewsView>() {
@@ -17,31 +11,27 @@ class NewsPresenter : BasePresenter<NewsView>() {
     const val NEWS_PER_PAGE = 50
   }
 
-  @Inject
-  lateinit var yapDataManager: YapDataManager
-
-  @Inject
-  lateinit var titleChannel: BehaviorRelay<String>
+//  @Inject
+//  lateinit var yapDataManager: YapDataManager
+//
+//  @Inject
+//  lateinit var titleChannel: BehaviorRelay<String>
 
   private var currentPage = 0
   private var backToFirstPage = false
-
-  init {
-    YapTalkerApp.appComponent.inject(this)
-  }
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
     viewState.showFab()
 
-    attachRefreshIndicator(yapDataManager.requestState, {
-      // onStart
-      viewState.showRefreshing()
-    }, {
-      // onFinish
-      viewState.hideRefreshing()
-    })
+//    attachRefreshIndicator(yapDataManager.requestState, {
+//      // onStart
+//      viewState.showRefreshing()
+//    }, {
+//      // onFinish
+//      viewState.hideRefreshing()
+//    })
   }
 
   override fun attachView(view: NewsView?) {
@@ -65,24 +55,24 @@ class NewsPresenter : BasePresenter<NewsView>() {
 
   private fun loadDataForCurrentPage() {
 
-    yapDataManager
-        .getNews(currentPage)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({
-          // onNext
-          newsItem: NewsItem ->
-          onLoadingSuccess(newsItem)
-        }, {
-          // onError
-          throwable ->
-          onLoadingError(throwable)
-        })
-        .apply { unsubscribeOnDestroy(this) }
+//    yapDataManager
+//        .getNews(currentPage)
+//        .subscribeOn(Schedulers.io())
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .subscribe({
+//          // onNext
+//          newsItem: NewsItem ->
+//          onLoadingSuccess(newsItem)
+//        }, {
+//          // onError
+//          throwable ->
+//          onLoadingError(throwable)
+//        })
+//        .apply { unsubscribeOnDestroy(this) }
   }
 
   fun updateTitle(title: String) {
-    pushAppbarTitle(titleChannel, title)
+//    pushAppbarTitle(titleChannel, title)
   }
 
   fun handleFabVisibility(diff: Int) {

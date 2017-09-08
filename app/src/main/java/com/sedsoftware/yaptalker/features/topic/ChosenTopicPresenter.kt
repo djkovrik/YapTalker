@@ -2,16 +2,10 @@ package com.sedsoftware.yaptalker.features.topic
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
-import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.data.model.TopicPost
-import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
 import com.sedsoftware.yaptalker.features.base.BasePresenter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 @InjectViewState
 class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
@@ -21,15 +15,11 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
 
-  init {
-    YapTalkerApp.appComponent.inject(this)
-  }
-
-  @Inject
-  lateinit var yapDataManager: YapDataManager
-
-  @Inject
-  lateinit var titleChannel: BehaviorRelay<String>
+//  @Inject
+//  lateinit var yapDataManager: YapDataManager
+//
+//  @Inject
+//  lateinit var titleChannel: BehaviorRelay<String>
 
   private var currentForumId = 0
   private var currentTopicId = 0
@@ -42,13 +32,13 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
     viewState.hideNavigationPanelWithoutAnimation()
 
-    attachRefreshIndicator(yapDataManager.requestState, {
-      // onStart
-      viewState.showRefreshing()
-    }, {
-      // onFinish
-      viewState.hideRefreshing()
-    })
+//    attachRefreshIndicator(yapDataManager.requestState, {
+//      // onStart
+//      viewState.showRefreshing()
+//    }, {
+//      // onFinish
+//      viewState.hideRefreshing()
+//    })
   }
 
   fun checkSavedState(forumId: Int, topicId: Int, savedViewState: Bundle?, key: String) {
@@ -96,7 +86,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   }
 
   fun setAppbarTitle(title: String) {
-    pushAppbarTitle(titleChannel, title)
+//    pushAppbarTitle(titleChannel, title)
   }
 
   fun handleNavigationVisibility(diff: Int) {
@@ -110,20 +100,20 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
     val startingPost = currentPage * POSTS_PER_PAGE
 
-    yapDataManager
-        .getChosenTopic(currentForumId, currentTopicId, startingPost)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({
-          // onSuccess
-          page: TopicPage ->
-          onLoadingSuccess(page)
-        }, {
-          // onError
-          throwable ->
-          onLoadingError(throwable)
-        })
-        .apply { unsubscribeOnDestroy(this) }
+//    yapDataManager
+//        .getChosenTopic(currentForumId, currentTopicId, startingPost)
+//        .subscribeOn(Schedulers.io())
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .subscribe({
+//          // onSuccess
+//          page: TopicPage ->
+//          onLoadingSuccess(page)
+//        }, {
+//          // onError
+//          throwable ->
+//          onLoadingError(throwable)
+//        })
+//        .apply { unsubscribeOnDestroy(this) }
   }
 
   private fun onLoadingSuccess(topicPage: TopicPage) {

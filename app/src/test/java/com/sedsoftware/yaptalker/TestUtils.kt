@@ -40,6 +40,7 @@ fun getDummyNewsItem(seed: Int): NewsItem {
       description = "description$seed",
       images = ArrayList(),
       videos = ArrayList(),
+      videosRaw = ArrayList(),
       author = "author$seed",
       authorLink = "link$seed",
       date = "date$seed",

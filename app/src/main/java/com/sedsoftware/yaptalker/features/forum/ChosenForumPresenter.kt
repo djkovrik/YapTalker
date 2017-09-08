@@ -2,15 +2,9 @@ package com.sedsoftware.yaptalker.features.forum
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
-import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
-import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
 import com.sedsoftware.yaptalker.features.base.BasePresenter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 @InjectViewState
 class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
@@ -22,15 +16,11 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
 
-  init {
-    YapTalkerApp.appComponent.inject(this)
-  }
-
-  @Inject
-  lateinit var yapDataManager: YapDataManager
-
-  @Inject
-  lateinit var titleChannel: BehaviorRelay<String>
+//  @Inject
+//  lateinit var yapDataManager: YapDataManager
+//
+//  @Inject
+//  lateinit var titleChannel: BehaviorRelay<String>
 
   private var currentForumId = 0
   private var currentSorting = LAST_UPDATE_SORTER
@@ -43,13 +33,13 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
     viewState.hideNavigationPanelWithoutAnimation()
 
-    attachRefreshIndicator(yapDataManager.requestState, {
-      // onStart
-      viewState.showRefreshing()
-    }, {
-      // onFinish
-      viewState.hideRefreshing()
-    })
+//    attachRefreshIndicator(yapDataManager.requestState, {
+//      // onStart
+//      viewState.showRefreshing()
+//    }, {
+//      // onFinish
+//      viewState.hideRefreshing()
+//    })
   }
 
   fun checkSavedState(forumId: Int, savedViewState: Bundle?, key: String) {
@@ -99,7 +89,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   }
 
   fun setAppbarTitle(title: String) {
-    pushAppbarTitle(titleChannel, title)
+//    pushAppbarTitle(titleChannel, title)
   }
 
   fun handleNavigationVisibility(diff: Int) {
@@ -113,20 +103,20 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
     val startingTopic = currentPage * TOPICS_PER_PAGE
 
-    yapDataManager
-        .getChosenForum(currentForumId, startingTopic, currentSorting)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({
-          // onSuccess
-          page: ForumPage ->
-          onLoadingSuccess(page)
-        }, {
-          // onError
-          throwable ->
-          onLoadingError(throwable)
-        })
-        .apply { unsubscribeOnDestroy(this) }
+//    yapDataManager
+//        .getChosenForum(currentForumId, startingTopic, currentSorting)
+//        .subscribeOn(Schedulers.io())
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .subscribe({
+//          // onSuccess
+//          page: ForumPage ->
+//          onLoadingSuccess(page)
+//        }, {
+//          // onError
+//          throwable ->
+//          onLoadingError(throwable)
+//        })
+//        .apply { unsubscribeOnDestroy(this) }
   }
 
   private fun setNavigationLabel() {
