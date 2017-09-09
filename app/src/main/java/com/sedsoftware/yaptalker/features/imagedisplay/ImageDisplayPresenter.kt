@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.features.imagedisplay
 
 import android.os.Environment
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.YapTalkerApp
+import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,17 +15,12 @@ import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.lang.RuntimeException
-import javax.inject.Inject
 
 @InjectViewState
 class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
 
-  init {
-    YapTalkerApp.appComponent.inject(this)
-  }
-
-  @Inject
-  lateinit var httpClient: OkHttpClient
+  // Kodein injection
+  private val httpClient: OkHttpClient by instance()
 
   fun toggleFullscreenView() {
     viewState.toggleSystemUiVisibility()

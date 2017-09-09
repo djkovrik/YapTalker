@@ -1,14 +1,15 @@
-@file:Suppress("KDocUnresolvedReference")
-
-package com.sedsoftware.yaptalker.data.remote.yap
+package com.sedsoftware.yaptalker.data.remote
 
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Forums
 import com.sedsoftware.yaptalker.data.model.News
 import com.sedsoftware.yaptalker.data.model.TopicPage
+import com.sedsoftware.yaptalker.data.model.video.CoubData
+import com.sedsoftware.yaptalker.data.model.video.RutubeData
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface YapLoader {
 
@@ -51,4 +52,24 @@ interface YapLoader {
       @Path("forumId") forumId: Int,
       @Path("topicId") topicId: Int,
       @Path("startFrom") startPostNumber: Int): Single<TopicPage>
+}
+
+interface RutubeLoader {
+  /**
+   * Loads thumbnail for Rutube video.
+   *
+   * @param id Target video id.
+   */
+  @GET("/api/video/{id}")
+  fun loadThumbnail(@Path("id") id: String, @Query("format") format: String): Single<RutubeData>
+}
+
+interface CoubLoader {
+  /**
+   * Loads thumbnail for Coub.
+   *
+   * @param url Target coub url.
+   */
+  @GET("/api/oembed.json")
+  fun loadThumbnail(@Query("url") url: String): Single<CoubData>
 }

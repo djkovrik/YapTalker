@@ -1,27 +1,13 @@
 package com.sedsoftware.yaptalker.features.forumslist
 
 import com.arellomobile.mvp.InjectViewState
-import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.ForumItem
-import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 @InjectViewState
 class ForumsPresenter : BasePresenter<ForumsView>() {
-
-  init {
-    YapTalkerApp.appComponent.inject(this)
-  }
-
-  @Inject
-  lateinit var yapDataManager: YapDataManager
-
-  @Inject
-  lateinit var titleChannel: BehaviorRelay<String>
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()

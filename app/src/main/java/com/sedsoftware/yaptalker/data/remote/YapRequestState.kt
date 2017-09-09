@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.remote.yap
+package com.sedsoftware.yaptalker.data.remote
 
 import android.support.annotation.IntDef
 

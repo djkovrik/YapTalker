@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.LazyKodeinAware
+import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
@@ -15,24 +18,22 @@ import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.parseLink
 import com.sedsoftware.yaptalker.data.model.NewsItem
-import com.sedsoftware.yaptalker.data.remote.thumbnails.ThumbnailsLoader
+import com.sedsoftware.yaptalker.data.remote.ThumbnailsManager
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import kotlinx.android.synthetic.main.controller_news_item.view.*
 import org.jetbrains.anko.startActivity
 import java.util.ArrayList
 import java.util.Locale
-import javax.inject.Inject
 
 class NewsAdapter(
-    val itemClick: (String, String) -> Unit) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+    val itemClick: (String, String) -> Unit) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(), LazyKodeinAware {
 
-  init {
-    YapTalkerApp.appComponent.inject(this)
-  }
+  override val kodein: LazyKodein
+    get() = LazyKodein { YapTalkerApp.kodeinInstance }
 
-  @Inject
-  lateinit var thumbnailsLoader: ThumbnailsLoader
+  // Kodein injection
+  private val thumbnailsLoader: ThumbnailsManager by instance()
 
   private var news: ArrayList<NewsItem> = ArrayList()
   private var lastPosition = -1

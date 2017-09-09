@@ -2,15 +2,11 @@ package com.sedsoftware.yaptalker.features.forum
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
-import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
-import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 @InjectViewState
 class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
@@ -21,16 +17,6 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     private const val TOPICS_PER_PAGE = 30
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
-
-  init {
-    YapTalkerApp.appComponent.inject(this)
-  }
-
-  @Inject
-  lateinit var yapDataManager: YapDataManager
-
-  @Inject
-  lateinit var titleChannel: BehaviorRelay<String>
 
   private var currentForumId = 0
   private var currentSorting = LAST_UPDATE_SORTER

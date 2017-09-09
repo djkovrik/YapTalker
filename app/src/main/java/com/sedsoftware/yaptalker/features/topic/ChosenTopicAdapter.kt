@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.LazyKodeinAware
+import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.color
@@ -27,16 +30,15 @@ import com.sedsoftware.yaptalker.data.model.PostQuoteAuthor
 import com.sedsoftware.yaptalker.data.model.PostScript
 import com.sedsoftware.yaptalker.data.model.PostText
 import com.sedsoftware.yaptalker.data.model.TopicPost
-import com.sedsoftware.yaptalker.data.remote.thumbnails.ThumbnailsLoader
+import com.sedsoftware.yaptalker.data.remote.ThumbnailsManager
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import kotlinx.android.synthetic.main.controller_chosen_topic_item.view.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
 import java.util.Locale
-import javax.inject.Inject
 
-class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolder>() {
+class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolder>(), LazyKodeinAware {
 
   companion object {
     // TODO() Move some values to dimens?
@@ -47,14 +49,12 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
     private const val POSTSCRIPT_TEXT_SIZE = 12f
   }
 
-  init {
-    YapTalkerApp.appComponent.inject(this)
-  }
+  override val kodein: LazyKodein
+    get() = LazyKodein { YapTalkerApp.kodeinInstance }
+
+  private val thumbnailsLoader: ThumbnailsManager by instance()
 
   private var posts: ArrayList<TopicPost> = ArrayList()
-
-  @Inject
-  lateinit var thumbnailsLoader: ThumbnailsLoader
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_chosen_topic_item,
