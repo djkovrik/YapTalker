@@ -59,9 +59,7 @@ class NewsController : BaseController(), NewsView {
 
     newsAdapter.setHasStableIds(true)
 
-    with(view.refresh_layout) {
-      setAppColorScheme()
-    }
+    view.refresh_layout.setAppColorScheme()
 
     with(view.news_list) {
       val linearLayout = LinearLayoutManager(context)

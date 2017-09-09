@@ -14,7 +14,6 @@ import okio.Okio
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
-import java.lang.RuntimeException
 
 @InjectViewState
 class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
@@ -73,7 +72,7 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
             "${Environment.DIRECTORY_PICTURES}/YapTalker")
 
         if (!storageDir.exists() && !storageDir.mkdir()) {
-          throw RuntimeException("Can't create file path")
+          throw IOException("Can't create file path")
         }
 
         val file = File(storageDir, filename)

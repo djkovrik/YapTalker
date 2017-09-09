@@ -18,6 +18,7 @@ import com.sedsoftware.yaptalker.features.base.BaseController
 import com.sedsoftware.yaptalker.features.forum.ChosenForumController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_forums_list.view.*
+import kotlinx.android.synthetic.main.controller_news.view.*
 
 class ForumsController : BaseController(), ForumsView {
 
@@ -43,9 +44,7 @@ class ForumsController : BaseController(), ForumsView {
 
     forumsAdapter.setHasStableIds(true)
 
-    with(view.forums_list_refresh_layout) {
-      setAppColorScheme()
-    }
+    view.refresh_layout.setAppColorScheme()
 
     with(view.forums_list) {
       val linearLayout = LinearLayoutManager(context)

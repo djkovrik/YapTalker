@@ -31,6 +31,10 @@ import com.squareup.picasso.Target as ImageTarget
 
 class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
 
+  companion object {
+    private const val ENCODING_IMAGE_QUALITY = 100
+  }
+
   @InjectPresenter
   lateinit var displayPresenter: ImageDisplayPresenter
 
@@ -123,7 +127,7 @@ class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
             imageUrl.substringAfterLast("/").substringBefore(".") + ".png")
 
         val out = FileOutputStream(file)
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, out)
+        bmp.compress(Bitmap.CompressFormat.PNG, ENCODING_IMAGE_QUALITY, out)
         out.close()
 
         bmpUri = FileProvider.getUriForFile(this, applicationContext.packageName, file)

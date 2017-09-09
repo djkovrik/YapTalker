@@ -37,7 +37,7 @@ interface YapLoader {
   @GET("/forum{forumId}/st/{startFrom}/100/Z-A/{sortingMode}")
   fun loadForumPage(
       @Path("forumId") forumId: Int,
-      @Path("startFrom") startTopicNumber: Int,
+      @Path("startFrom") startFrom: Int,
       @Path("sortingMode") sortingMode: String): Single<ForumPage>
 
   /**

@@ -18,7 +18,7 @@ class PicassoImageGetter(val context: Context, val textView: TextView) : Html.Im
     return drawable
   }
 
-  inner class EmojiDrawable : DrawableTarget, BitmapDrawable() {
+  inner class EmojiDrawable : DrawableTarget, BitmapDrawable(context.resources, "") {
 
     var drawable: Drawable? = null
 

@@ -87,46 +87,44 @@ class NewsAdapter(
         R.string.news_comments_template)
 
     fun bindTo(newsItem: NewsItem) {
-      with(newsItem) {
-        with(itemView) {
-          news_author.text = author
-          news_title.text = title
-          news_forum.text = String.format(Locale.US, forumTitleTemplate, forumName)
-          news_date.text = context.getShortTime(date)
+      with(itemView) {
+        news_author.text = newsItem.author
+        news_title.text = newsItem.title
+        news_forum.text = String.format(Locale.US, forumTitleTemplate, newsItem.forumName)
+        news_date.text = context.getShortTime(newsItem.date)
 
-          if (rating.isNotEmpty()) {
-            news_rating.text = String.format(Locale.US, karmaTemplate, rating)
-          }
-
-          news_comments_counter.text = String.format(Locale.US, commentsTemplate, comments)
-          news_content_text.textFromHtml(cleanedDescription)
-
-          // Remove listener before setting the new one
-          news_content_image.setOnClickListener(null)
-
-          when {
-            images.isNotEmpty() -> {
-              var url = images.first()
-              if (!url.startsWith("http"))
-                url = "http:$url"
-              news_content_image.showView()
-              news_content_image.loadFromUrl(url)
-              news_content_image.setOnClickListener {
-                context.startActivity<ImageDisplayActivity>("url" to url)
-              }
-            }
-            videos.isNotEmpty() -> {
-              news_content_image.showView()
-              thumbnailsLoader.loadThumbnail(parseLink(videos.first()), news_content_image)
-              news_content_image.setOnClickListener {
-                context.startActivity<VideoDisplayActivity>("video" to videosRaw.first())
-              }
-            }
-            else -> news_content_image.hideView()
-          }
-
-          setOnClickListener { itemClick(link, forumLink) }
+        if (newsItem.rating.isNotEmpty()) {
+          news_rating.text = String.format(Locale.US, karmaTemplate, newsItem.rating)
         }
+
+        news_comments_counter.text = String.format(Locale.US, commentsTemplate, newsItem.comments)
+        news_content_text.textFromHtml(newsItem.cleanedDescription)
+
+        // Remove listener before setting the new one
+        news_content_image.setOnClickListener(null)
+
+        when {
+          newsItem.images.isNotEmpty() -> {
+            var url = newsItem.images.first()
+            if (!url.startsWith("http"))
+              url = "http:$url"
+            news_content_image.showView()
+            news_content_image.loadFromUrl(url)
+            news_content_image.setOnClickListener {
+              context.startActivity<ImageDisplayActivity>("url" to url)
+            }
+          }
+          newsItem.videos.isNotEmpty() -> {
+            news_content_image.showView()
+            thumbnailsLoader.loadThumbnail(parseLink(newsItem.videos.first()), news_content_image)
+            news_content_image.setOnClickListener {
+              context.startActivity<VideoDisplayActivity>("video" to newsItem.videosRaw.first())
+            }
+          }
+          else -> news_content_image.hideView()
+        }
+
+        setOnClickListener { itemClick(newsItem.link, newsItem.forumLink) }
       }
     }
   }

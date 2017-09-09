@@ -2,7 +2,6 @@ package com.sedsoftware.yaptalker.data.model
 
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
-import timber.log.Timber
 
 class ParsedPost(html: String,
     val content: MutableList<Content> = ArrayList(),
@@ -129,11 +128,11 @@ class ParsedPost(html: String,
         .replace("&nbsp;", " ")
         // Replace extra <br>
         .replace(Regex("(<br>(\\s+)?\\R)+", RegexOption.MULTILINE), "<br>")
-        // Replace smile links with filename only
-        //.replace(Regex("<img src=.*/(\\w+).*>"), { matchResult ->
-        //  val replacement = matchResult.groups[1]?.value ?: ""
-        //  String.format("<img src='%s'>", replacement)
-        //})
+    // Replace smile links with filename only
+    //.replace(Regex("<img src=.*/(\\w+).*>"), { matchResult ->
+    //  val replacement = matchResult.groups[1]?.value ?: ""
+    //  String.format("<img src='%s'>", replacement)
+    //})
   }
 
   private fun String.trimLinebreakTags(): String {
