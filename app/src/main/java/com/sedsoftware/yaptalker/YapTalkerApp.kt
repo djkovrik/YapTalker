@@ -27,6 +27,10 @@ import timber.log.Timber
 
 class YapTalkerApp : Application(), KodeinAware {
 
+  companion object {
+    lateinit var kodeinInstance: Kodein
+  }
+
   override val kodein by Kodein.lazy {
     // Android auto module import
     import(autoAndroidModule(this@YapTalkerApp))
@@ -43,6 +47,8 @@ class YapTalkerApp : Application(), KodeinAware {
 
   override fun onCreate() {
     super.onCreate()
+
+    kodeinInstance = kodein
 
     if (LeakCanary.isInAnalyzerProcess(this)) {
       // This process is dedicated to LeakCanary for heap analysis.
