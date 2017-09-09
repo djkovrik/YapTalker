@@ -107,8 +107,7 @@ class NewsAdapter(
           when {
             images.isNotEmpty() -> {
               var url = images.first()
-              // TODO() Refactor this to handle http as well as https
-              if (!url.startsWith("http:"))
+              if (!url.startsWith("http"))
                 url = "http:$url"
               news_content_image.showView()
               news_content_image.loadFromUrl(url)
