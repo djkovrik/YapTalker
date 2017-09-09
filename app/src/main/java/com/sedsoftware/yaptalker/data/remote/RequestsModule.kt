@@ -18,41 +18,31 @@ val requestsModule = Kodein.Module {
   constant("RUTUBE_ENDPOINT") with "http://coub.com/"
 
   // Retrofit bindings
-  bind<Retrofit>("YapLoader") with singleton {
+  bind<YapLoader>("YapLoader") with singleton {
     Retrofit.Builder()
         .baseUrl(instance<String>("YAP_ENDPOINT"))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(JspoonConverterFactory.create())
         .build()
+        .create(YapLoader::class.java)
   }
 
-  bind<Retrofit>("CoubLoader") with singleton {
+  bind<CoubLoader>("CoubLoader") with singleton {
     Retrofit.Builder()
         .baseUrl(instance<String>("COUB_ENDPOINT"))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
+        .create(CoubLoader::class.java)
   }
 
-  bind<Retrofit>("RutubeLoader") with singleton {
+  bind<RutubeLoader>("RutubeLoader") with singleton {
     Retrofit.Builder()
         .baseUrl(instance<String>("RUTUBE_ENDPOINT"))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
-  }
-
-  // Interfaces bindings
-  bind<YapLoader>() with singleton {
-    instance<Retrofit>("YapLoader").create(YapLoader::class.java)
-  }
-
-  bind<CoubLoader>() with singleton {
-    instance<Retrofit>("CoubLoader").create(CoubLoader::class.java)
-  }
-
-  bind<RutubeLoader>() with singleton {
-    instance<Retrofit>("RutubeLoader").create(RutubeLoader::class.java)
+        .create(RutubeLoader::class.java)
   }
 
   // OkHttp client for file downloading
