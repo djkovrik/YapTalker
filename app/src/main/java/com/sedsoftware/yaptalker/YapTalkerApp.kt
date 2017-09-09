@@ -65,7 +65,6 @@ class YapTalkerApp : Application(), KodeinAware {
       Stetho.initializeWithDefaults(this)
       Timber.plant(Timber.DebugTree())
     }
-    // TODO() Else init Timber with Firebase Crash Reporting tree here
 
     // Toasty coloring
     Toasty.Config.getInstance()

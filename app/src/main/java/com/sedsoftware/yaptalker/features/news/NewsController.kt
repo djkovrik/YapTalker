@@ -27,8 +27,7 @@ import kotlinx.android.synthetic.main.controller_news.view.*
 class NewsController : BaseController(), NewsView {
 
   companion object {
-    // TODO() Calculate offsets in runtime
-    private const val FAB_OFFSET = 200f
+    private const val INITIAL_FAB_OFFSET = 200f
   }
 
   @InjectPresenter
@@ -141,13 +140,15 @@ class NewsController : BaseController(), NewsView {
     }
 
     view?.news_fab?.let { fab ->
-      fab.hideBeyondScreenEdge(FAB_OFFSET)
+      val offset = fab.height + fab.paddingTop + fab.paddingBottom
+      fab.hideBeyondScreenEdge(offset.toFloat())
       isFabShown = false
     }
   }
 
   override fun hideFabWithoutAnimation() {
-    view?.news_fab?.translationY = FAB_OFFSET
+    view?.news_fab?.translationY = INITIAL_FAB_OFFSET
+    isFabShown = false
   }
 
   override fun showFab() {

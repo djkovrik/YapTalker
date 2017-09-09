@@ -52,7 +52,7 @@ class NewsAdapter(
     holder.bindTo(news[position])
 
     val animation = AnimationUtils.loadAnimation(holder.itemView.context,
-        if (position > lastPosition)
+        if (position == 0 || position > lastPosition)
           R.anim.recyclerview_up_from_bottom
         else
           R.anim.recyclerview_down_from_top)

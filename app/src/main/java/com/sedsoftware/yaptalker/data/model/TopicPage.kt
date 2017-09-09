@@ -30,7 +30,6 @@ class TopicPost() : Parcelable {
   lateinit var postDate: String
   @Selector("span[class~=rank-\\w+]", defValue = "")
   lateinit var postRank: String
-  // TODO() Content needs cleaning with jsoup tags whitelist
   @Selector("td[width*=100%][valign*=top]", attr = "innerHtml", defValue = "")
   lateinit var postContent: String
 
