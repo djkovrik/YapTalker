@@ -3,19 +3,15 @@ package com.sedsoftware.yaptalker.features.news
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.features.base.BasePresenter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
 class NewsPresenter : BasePresenter<NewsView>() {
 
   companion object {
-    const val NEWS_PER_PAGE = 50
+    private const val NEWS_PER_PAGE = 50
   }
-
-//  @Inject
-//  lateinit var yapDataManager: YapDataManager
-//
-//  @Inject
-//  lateinit var titleChannel: BehaviorRelay<String>
 
   private var currentPage = 0
   private var backToFirstPage = false
@@ -25,13 +21,13 @@ class NewsPresenter : BasePresenter<NewsView>() {
 
     viewState.showFab()
 
-//    attachRefreshIndicator(yapDataManager.requestState, {
-//      // onStart
-//      viewState.showRefreshing()
-//    }, {
-//      // onFinish
-//      viewState.hideRefreshing()
-//    })
+    attachRefreshIndicator(yapDataManager.requestState, {
+      // onStart
+      viewState.showRefreshing()
+    }, {
+      // onFinish
+      viewState.hideRefreshing()
+    })
   }
 
   override fun attachView(view: NewsView?) {
@@ -55,24 +51,24 @@ class NewsPresenter : BasePresenter<NewsView>() {
 
   private fun loadDataForCurrentPage() {
 
-//    yapDataManager
-//        .getNews(currentPage)
-//        .subscribeOn(Schedulers.io())
-//        .observeOn(AndroidSchedulers.mainThread())
-//        .subscribe({
-//          // onNext
-//          newsItem: NewsItem ->
-//          onLoadingSuccess(newsItem)
-//        }, {
-//          // onError
-//          throwable ->
-//          onLoadingError(throwable)
-//        })
-//        .apply { unsubscribeOnDestroy(this) }
+    yapDataManager
+        .getNews(currentPage)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({
+          // onNext
+          newsItem: NewsItem ->
+          onLoadingSuccess(newsItem)
+        }, {
+          // onError
+          throwable ->
+          onLoadingError(throwable)
+        })
+        .apply { unsubscribeOnDestroy(this) }
   }
 
   fun updateTitle(title: String) {
-//    pushAppbarTitle(titleChannel, title)
+    pushAppbarTitle(titleChannel, title)
   }
 
   fun handleFabVisibility(diff: Int) {

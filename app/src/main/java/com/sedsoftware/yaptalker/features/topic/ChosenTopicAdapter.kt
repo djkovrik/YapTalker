@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.LazyKodeinAware
+import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.getShortTime
 import com.sedsoftware.yaptalker.commons.extensions.hideView
@@ -17,6 +21,7 @@ import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
+import com.sedsoftware.yaptalker.commons.parseLink
 import com.sedsoftware.yaptalker.data.model.ParsedPost
 import com.sedsoftware.yaptalker.data.model.PostHiddenText
 import com.sedsoftware.yaptalker.data.model.PostLink
@@ -25,13 +30,15 @@ import com.sedsoftware.yaptalker.data.model.PostQuoteAuthor
 import com.sedsoftware.yaptalker.data.model.PostScript
 import com.sedsoftware.yaptalker.data.model.PostText
 import com.sedsoftware.yaptalker.data.model.TopicPost
+import com.sedsoftware.yaptalker.data.remote.ThumbnailsManager
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
+import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import kotlinx.android.synthetic.main.controller_chosen_topic_item.view.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
 import java.util.Locale
 
-class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolder>() {
+class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolder>(), LazyKodeinAware {
 
   companion object {
     // TODO() Move some values to dimens?
@@ -42,11 +49,12 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
     private const val POSTSCRIPT_TEXT_SIZE = 12f
   }
 
+  override val kodein: LazyKodein
+    get() = LazyKodein { YapTalkerApp.kodeinInstance }
+
+  private val thumbnailsLoader: ThumbnailsManager by instance()
 
   private var posts: ArrayList<TopicPost> = ArrayList()
-
-//  @Inject
-//  lateinit var thumbnailsLoader: ThumbnailsLoader
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_chosen_topic_item,
@@ -202,22 +210,22 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
           }
 
           // Videos
-//          if (videos.isNotEmpty() && videosRaw.isNotEmpty()) {
-//            post_content_video_container.showView()
-//            post_content_video_container.removeAllViews()
-//            videos.forEachIndexed { index, str ->
-//              val thumbnail = ImageView(context)
-//              thumbnail.adjustViewBounds = true
-//              thumbnail.setPadding(0, IMAGE_VERTICAL_PADDING, 0, IMAGE_VERTICAL_PADDING)
-//              post_content_video_container.addView(thumbnail)
-//              thumbnailsLoader.loadThumbnail(parseLink(str), thumbnail)
-//              thumbnail.setOnClickListener {
-//                context.startActivity<VideoDisplayActivity>("video" to videosRaw[index])
-//              }
-//            }
-//          } else {
-//            post_content_video_container.hideView()
-//          }
+          if (videos.isNotEmpty() && videosRaw.isNotEmpty()) {
+            post_content_video_container.showView()
+            post_content_video_container.removeAllViews()
+            videos.forEachIndexed { index, str ->
+              val thumbnail = ImageView(context)
+              thumbnail.adjustViewBounds = true
+              thumbnail.setPadding(0, IMAGE_VERTICAL_PADDING, 0, IMAGE_VERTICAL_PADDING)
+              post_content_video_container.addView(thumbnail)
+              thumbnailsLoader.loadThumbnail(parseLink(str), thumbnail)
+              thumbnail.setOnClickListener {
+                context.startActivity<VideoDisplayActivity>("video" to videosRaw[index])
+              }
+            }
+          } else {
+            post_content_video_container.hideView()
+          }
         }
       }
     }

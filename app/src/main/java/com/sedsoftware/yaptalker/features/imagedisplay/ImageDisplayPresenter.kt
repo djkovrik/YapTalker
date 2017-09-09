@@ -2,10 +2,12 @@ package com.sedsoftware.yaptalker.features.imagedisplay
 
 import android.os.Environment
 import com.arellomobile.mvp.InjectViewState
+import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import okio.Okio
@@ -17,8 +19,8 @@ import java.lang.RuntimeException
 @InjectViewState
 class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
 
-//  @Inject
-//  lateinit var httpClient: OkHttpClient
+  // Kodein injection
+  private val httpClient: OkHttpClient by instance()
 
   fun toggleFullscreenView() {
     viewState.toggleSystemUiVisibility()
@@ -53,8 +55,8 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
     return Single.create<Response> { emitter ->
       try {
         val request = Request.Builder().url(url).build()
-//        val response = httpClient.newCall(request).execute()
-//        emitter.onSuccess(response)
+        val response = httpClient.newCall(request).execute()
+        emitter.onSuccess(response)
       } catch (e: IOException) {
         emitter.onError(e)
       }

@@ -5,25 +5,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.LazyKodeinAware
+import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.getShortTime
 import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
+import com.sedsoftware.yaptalker.commons.parseLink
 import com.sedsoftware.yaptalker.data.model.NewsItem
+import com.sedsoftware.yaptalker.data.remote.ThumbnailsManager
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
+import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import kotlinx.android.synthetic.main.controller_news_item.view.*
 import org.jetbrains.anko.startActivity
 import java.util.ArrayList
 import java.util.Locale
 
 class NewsAdapter(
-    val itemClick: (String, String) -> Unit) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+    val itemClick: (String, String) -> Unit) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(), LazyKodeinAware {
 
-//  @Inject
-//  lateinit var thumbnailsLoader: ThumbnailsLoader
+  override val kodein: LazyKodein
+    get() = LazyKodein { YapTalkerApp.kodeinInstance }
+
+  // Kodein injection
+  private val thumbnailsLoader: ThumbnailsManager by instance()
 
   private var news: ArrayList<NewsItem> = ArrayList()
   private var lastPosition = -1
@@ -106,13 +116,13 @@ class NewsAdapter(
                 context.startActivity<ImageDisplayActivity>("url" to url)
               }
             }
-//            videos.isNotEmpty() -> {
-//              news_content_image.showView()
-//              thumbnailsLoader.loadThumbnail(parseLink(videos.first()), news_content_image)
-//              news_content_image.setOnClickListener {
-//                context.startActivity<VideoDisplayActivity>("video" to videosRaw.first())
-//              }
-//            }
+            videos.isNotEmpty() -> {
+              news_content_image.showView()
+              thumbnailsLoader.loadThumbnail(parseLink(videos.first()), news_content_image)
+              news_content_image.setOnClickListener {
+                context.startActivity<VideoDisplayActivity>("video" to videosRaw.first())
+              }
+            }
             else -> news_content_image.hideView()
           }
 

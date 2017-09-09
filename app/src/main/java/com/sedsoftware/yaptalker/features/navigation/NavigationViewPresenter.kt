@@ -7,15 +7,12 @@ import com.sedsoftware.yaptalker.features.base.BasePresenter
 @InjectViewState
 class NavigationViewPresenter : BasePresenter<NavigationView>() {
 
-//  @Inject
-//  lateinit var titleChannel: BehaviorRelay<String>
-
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-//    titleChannel
-//        .subscribe { text -> viewState.setAppbarTitle(text) }
-//        .apply { unsubscribeOnDestroy(this) }
+    titleChannel
+        .subscribe { text -> viewState.setAppbarTitle(text) }
+        .apply { unsubscribeOnDestroy(this) }
   }
 
   fun initLayout(savedInstanceState: Bundle?) {
