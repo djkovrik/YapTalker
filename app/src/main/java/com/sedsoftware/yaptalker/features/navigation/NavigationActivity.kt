@@ -158,4 +158,11 @@ class NavigationActivity : BaseActivity(), NavigationView {
   override fun setAppbarTitle(text: String) {
     supportActionBar?.title = text
   }
+
+  override fun onControllerChanged(target: Controller?) {
+    when (target) {
+      is NewsController -> navDrawer.setSelection(Navigation.MAIN_PAGE, false)
+      else -> navDrawer.setSelection(Navigation.FORUMS, false)
+    }
+  }
 }
