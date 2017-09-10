@@ -48,7 +48,7 @@
       android:gravity="center_vertical"
       tools:text="+100"/>
 
-    <TextView
+    <com.sedsoftware.yaptalker.commons.views.ShortDateView
       android:id="@+id/post_date"
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"

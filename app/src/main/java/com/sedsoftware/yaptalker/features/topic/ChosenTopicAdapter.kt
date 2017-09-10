@@ -13,7 +13,6 @@ import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.color
-import com.sedsoftware.yaptalker.commons.extensions.getShortTime
 import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.loadAvatarFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
@@ -86,7 +85,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
       with(itemView) {
         // Fill post header
         post_author.text = postItem.authorNickname
-        post_date.text = context.getShortTime(postItem.postDate)
+        post_date.shortDateText = postItem.postDate
         post_author_avatar.loadAvatarFromUrl("http:${postItem.authorAvatar}")
 
         if (postItem.postRank.isNotEmpty()) {

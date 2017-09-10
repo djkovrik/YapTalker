@@ -45,8 +45,8 @@
         android:layout_height="wrap_content"
         tools:text="Administration"/>
 
-      <TextView
-        android:id="@+id/topic_last_post_time"
+      <com.sedsoftware.yaptalker.commons.views.ShortDateView
+        android:id="@+id/topic_last_post_date"
         style="@style/CommonSupportingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

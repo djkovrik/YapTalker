@@ -25,7 +25,7 @@
       android:paddingEnd="@dimen/material_card_gutter"
       tools:text="Administrator"/>
 
-    <TextView
+    <com.sedsoftware.yaptalker.commons.views.ShortDateView
       android:id="@+id/news_date"
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"

@@ -11,7 +11,6 @@ import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
-import com.sedsoftware.yaptalker.commons.extensions.getShortTime
 import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.showView
@@ -91,7 +90,7 @@ class NewsAdapter(
         news_author.text = newsItem.author
         news_title.text = newsItem.title
         news_forum.text = String.format(Locale.US, forumTitleTemplate, newsItem.forumName)
-        news_date.text = context.getShortTime(newsItem.date)
+        news_date.shortDateText = newsItem.date
 
         if (newsItem.rating.isNotEmpty()) {
           news_rating.text = String.format(Locale.US, karmaTemplate, newsItem.rating)
@@ -129,4 +128,3 @@ class NewsAdapter(
     }
   }
 }
-

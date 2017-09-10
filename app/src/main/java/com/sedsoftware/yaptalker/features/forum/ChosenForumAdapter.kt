@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
-import com.sedsoftware.yaptalker.commons.extensions.getShortTime
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.data.model.Topic
 import kotlinx.android.synthetic.main.controller_chosen_forum_item.view.*
@@ -50,7 +49,7 @@ class ChosenForumAdapter(
         with(itemView) {
           topic_name.text = title
           topic_last_post_author.text = lastPostAuthor
-          topic_last_post_time.text = context.getShortTime(lastPostDate)
+          topic_last_post_date.shortDateText = lastPostDate
           topic_answers.text = String.format(Locale.US, commentsTemplate, answers)
           topic_rating.text = rating
 
