@@ -22,7 +22,6 @@ import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.features.base.BaseController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_topic.view.*
-import kotlinx.android.synthetic.main.controller_news.view.*
 import kotlinx.android.synthetic.main.include_navigation_panel.view.*
 import java.util.Locale
 
@@ -56,7 +55,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     topicAdapter = ChosenTopicAdapter()
     topicAdapter.setHasStableIds(true)
 
-    view.refresh_layout.setAppColorScheme()
+    view.topic_refresh_layout.setAppColorScheme()
 
     with(view.topic_posts_list) {
       val linearLayout = LinearLayoutManager(context)
