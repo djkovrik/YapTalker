@@ -95,7 +95,7 @@
       android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
       tools:text="100"/>
 
-    <TextView
+    <com.sedsoftware.yaptalker.commons.views.PostRatingView
       android:id="@+id/news_rating"
       style="@style/NewsTopicRating"
       android:layout_width="wrap_content"

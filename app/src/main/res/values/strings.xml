@@ -18,10 +18,6 @@
     <xliff:g id="bullet">\u25AA</xliff:g> <xliff:g id="forum">%s</xliff:g>
   </string>
 
-  <string name="news_karma_template" translatable="false">
-   +<xliff:g id="karma">%s</xliff:g>
-  </string>
-
   <!-- Forum item -->
   <string name="forum_comments_template" translatable="false">
    Comments: <xliff:g id="answers">%s</xliff:g>

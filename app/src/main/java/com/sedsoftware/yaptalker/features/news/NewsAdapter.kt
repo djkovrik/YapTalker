@@ -81,7 +81,6 @@ class NewsAdapter(
 
     private val forumTitleTemplate: String = itemView.context.getString(
         R.string.news_forum_title_template)
-    private val karmaTemplate: String = itemView.context.getString(R.string.news_karma_template)
     private val commentsTemplate: String = itemView.context.getString(
         R.string.news_comments_template)
 
@@ -91,10 +90,7 @@ class NewsAdapter(
         news_title.text = newsItem.title
         news_forum.text = String.format(Locale.US, forumTitleTemplate, newsItem.forumName)
         news_date.shortDateText = newsItem.date
-
-        if (newsItem.rating.isNotEmpty()) {
-          news_rating.text = String.format(Locale.US, karmaTemplate, newsItem.rating)
-        }
+        news_rating.ratingText = newsItem.rating
 
         news_comments_counter.text = String.format(Locale.US, commentsTemplate, newsItem.comments)
         news_content_text.textFromHtml(newsItem.cleanedDescription)

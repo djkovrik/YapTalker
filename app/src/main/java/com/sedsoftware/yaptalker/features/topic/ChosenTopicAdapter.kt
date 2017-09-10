@@ -87,23 +87,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
         post_author.text = postItem.authorNickname
         post_date.shortDateText = postItem.postDate
         post_author_avatar.loadAvatarFromUrl("http:${postItem.authorAvatar}")
-
-        if (postItem.postRank.isNotEmpty()) {
-          when {
-            postItem.postRank.toInt() > 0 -> {
-              post_rating.text = String.format(Locale.getDefault(), "+%s", postItem.postRank)
-              post_rating.textColor = R.color.colorRatingGreen
-            }
-            postItem.postRank.toInt() < 0 -> {
-              post_rating.text = String.format(Locale.getDefault(), "-%s", postItem.postRank)
-              post_rating.textColor = R.color.colorRatingRed
-            }
-            else -> {
-              post_rating.text = postItem.postRank
-              post_rating.textColor = R.color.colorSupportingText
-            }
-          }
-        }
+        post_rating.ratingText = postItem.postRank
 
         var currentNestingLevel = INITIAL_NESTING_LEVEL
         val links = HashSet<PostLink>()
