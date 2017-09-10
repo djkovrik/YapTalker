@@ -13,7 +13,7 @@ class News {
 
 class NewsHead {
   @Selector(".subtitle", defValue = "Unknown") lateinit var title: String
-  @Selector(".subtitle", attr = "href") lateinit var link: String
+  @Selector(".subtitle", attr = "href", defValue = "") lateinit var link: String
   @Selector(".rating-short-value > a", defValue = "") lateinit var rating: String
 }
 
@@ -30,7 +30,7 @@ class NewsBottom {
   @Selector(".icon-user > a", attr = "href") lateinit var authorLink: String
   @Selector(".icon-date", defValue = "Unknown") lateinit var date: String
   @Selector(".icon-forum > a", defValue = "Unknown") lateinit var forumName: String
-  @Selector(".icon-forum > a", attr="href", defValue = "Unknown") lateinit var forumLink: String
+  @Selector(".icon-forum > a", attr = "href", defValue = "") lateinit var forumLink: String
   @Selector("span", defValue = "0") lateinit var comments: String
 }
 
