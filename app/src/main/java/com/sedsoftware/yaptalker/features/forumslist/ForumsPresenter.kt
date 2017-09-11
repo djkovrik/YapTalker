@@ -3,6 +3,8 @@ package com.sedsoftware.yaptalker.features.forumslist
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.features.base.BasePresenter
+import com.sedsoftware.yaptalker.features.base.BasePresenterLifecycle
+import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -34,6 +36,7 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
         .getForumsList()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
         .subscribe({
           // OnNext
           forumsListItem: ForumItem ->
@@ -43,7 +46,6 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
           throwable ->
           onLoadingError(throwable)
         })
-        .apply { unsubscribeOnDestroy(this) }
   }
 
   fun updateTitle(title: String) {

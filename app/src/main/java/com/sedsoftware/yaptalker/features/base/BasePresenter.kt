@@ -1,6 +1,5 @@
 package com.sedsoftware.yaptalker.features.base
 
-import android.support.annotation.NonNull
 import com.arellomobile.mvp.MvpPresenter
 import com.arellomobile.mvp.MvpView
 import com.github.salomonbrys.kodein.LazyKodein
@@ -10,10 +9,11 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.remote.YapDataManager
 import com.sedsoftware.yaptalker.data.remote.YapRequestState
+import com.uber.autodispose.kotlin.autoDisposeWith
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
+import io.reactivex.subjects.BehaviorSubject
 
 open class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware {
 
@@ -24,11 +24,12 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware
   protected val yapDataManager: YapDataManager by instance()
   protected val titleChannel: BehaviorRelay<String> by instance()
 
-  private val subscriptions by lazy { CompositeDisposable() }
+  // Presenter lifecycle events channel
+  private val lifecycle: BehaviorSubject<Long> = BehaviorSubject.create()
 
   override fun onDestroy() {
     super.onDestroy()
-    subscriptions.clear()
+    lifecycle.onNext(BasePresenterLifecycle.DESTROY)
   }
 
   fun pushAppbarTitle(channel: BehaviorRelay<String>, title: String) {
@@ -37,14 +38,11 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware
         .subscribe(channel)
   }
 
-  protected fun unsubscribeOnDestroy(@NonNull subscription: Disposable) {
-    subscriptions.add(subscription)
-  }
-
   protected fun attachRefreshIndicator(requestState: BehaviorRelay<Long>,
       onLoadingStart: () -> Unit, onLoadingFinish: () -> Unit) {
 
     requestState
+        .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
         .subscribe { state: Long ->
           when (state) {
             YapRequestState.LOADING -> {
@@ -56,6 +54,9 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware
             }
           }
         }
-        .apply { unsubscribeOnDestroy(this) }
+  }
+
+  protected fun event(@BasePresenterLifecycle.Event event: Long): Maybe<*> {
+    return lifecycle.filter({ e -> e == event }).firstElement()
   }
 }

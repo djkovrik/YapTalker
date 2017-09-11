@@ -4,6 +4,8 @@ import android.os.Environment
 import com.arellomobile.mvp.InjectViewState
 import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.features.base.BasePresenter
+import com.sedsoftware.yaptalker.features.base.BasePresenterLifecycle
+import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -39,14 +41,13 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
         .flatMap { response -> saveToDisk(response, url.substringAfterLast("/")) }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
         .subscribe({ file ->
           Timber.d("File saving success: ${file.absolutePath}")
           viewState.updateGallery(file.absolutePath)
         }, { t ->
           Timber.d("File saving failed: ${t.message}")
         })
-        .apply { unsubscribeOnDestroy(this) }
-
   }
 
   private fun loadImageFromUrl(url: String): Single<Response> {
