@@ -19,8 +19,11 @@
   </string>
 
   <!-- Forum item -->
-  <string name="forum_comments_template" translatable="false">
+  <string name="forum_comments_template">
    Comments: <xliff:g id="answers">%s</xliff:g>
+  </string>
+  <string name="forum_pinned_topic_template" translatable="false">
+    <xliff:g id="icon">{cmd-pin}</xliff:g> <xliff:g id="title">%s</xliff:g>
   </string>
 
   <!-- Post item -->

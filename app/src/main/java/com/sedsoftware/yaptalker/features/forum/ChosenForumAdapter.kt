@@ -43,11 +43,16 @@ class ChosenForumAdapter(
       itemView: View, private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     private val commentsTemplate = itemView.context.getString(R.string.forum_comments_template)
+    private val pinnedTopicTemplate = itemView.context.getString(R.string.forum_pinned_topic_template)
 
     fun bindTo(topicItem: Topic) {
       with(topicItem) {
         with(itemView) {
-          topic_name.text = title
+          if (isPinned.isNotEmpty()) {
+            topic_name.text = String.format(Locale.US, pinnedTopicTemplate, title)
+          } else {
+            topic_name.text = title
+          }
           topic_last_post_author.text = lastPostAuthor
           topic_last_post_date.shortDateText = lastPostDate
           topic_answers.text = String.format(Locale.US, commentsTemplate, answers)
