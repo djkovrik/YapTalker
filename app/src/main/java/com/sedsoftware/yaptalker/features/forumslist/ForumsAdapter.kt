@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.data.model.ForumItem
 import kotlinx.android.synthetic.main.controller_forums_list_item.view.*
 
 class ForumsAdapter(
-    val itemClick: (Int) -> Unit) : RecyclerView.Adapter<ForumsAdapter.ForumsViewHolder>() {
+    private val itemClick: (Int) -> Unit) : RecyclerView.Adapter<ForumsAdapter.ForumsViewHolder>() {
 
   private var forumsList: ArrayList<ForumItem> = ArrayList()
 
@@ -40,7 +40,7 @@ class ForumsAdapter(
   }
 
   class ForumsViewHolder(
-      itemView: View, val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+      itemView: View, private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     fun bindTo(forumItem: ForumItem) {
       with(forumItem) {

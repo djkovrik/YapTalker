@@ -1,8 +1,8 @@
 package com.sedsoftware.yaptalker.commons.views
 
 import android.content.Context
+import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
-import android.widget.TextView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.stringQuantityRes
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class ShortDateView : TextView {
+class ShortDateView : AppCompatTextView {
 
   companion object {
     private const val MILLISEC_PER_SECOND = 1000

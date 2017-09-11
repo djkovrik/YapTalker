@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.controller_chosen_forum_item.view.*
 import java.util.Locale
 
 class ChosenForumAdapter(
-    val itemClick: (Int) -> Unit) : RecyclerView.Adapter<ChosenForumAdapter.ForumViewHolder>() {
+    private val itemClick: (Int) -> Unit) : RecyclerView.Adapter<ChosenForumAdapter.ForumViewHolder>() {
 
   private var topics: ArrayList<Topic> = ArrayList()
 
@@ -40,7 +40,7 @@ class ChosenForumAdapter(
   fun getTopics() = topics
 
   inner class ForumViewHolder(
-      itemView: View, val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+      itemView: View, private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     private val commentsTemplate = itemView.context.getString(R.string.forum_comments_template)
 

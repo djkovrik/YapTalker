@@ -1,13 +1,13 @@
 package com.sedsoftware.yaptalker.commons.views
 
 import android.content.Context
+import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
-import android.widget.TextView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import java.util.Locale
 
-class PostRatingView : TextView {
+class PostRatingView : AppCompatTextView {
 
   constructor(context: Context?) : super(context)
   constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
