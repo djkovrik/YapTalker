@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso
 private const val ICON_SIZE = 24
 
 // Fab params
-private const val ANIMATION_DELAY = 150L
+private const val ANIMATION_DELAY_DEFAULT = 150L
 private const val ANIMATION_DURATION = 250L
 private const val DEFAULT_INTERPOLATOR_TENSION = 1.5f
 
@@ -103,17 +103,19 @@ fun SwipeRefreshLayout.setAppColorScheme() {
 /**
  * Hides view beyond bottom screen edge.
  *
- * @param interpolator Animation interpolator.
  * @param offset Y-axis offset for view animation.
+ * @param delay Animation starting delay.
+ * @param interpolator Animation interpolator.
  */
 fun View.hideBeyondScreenEdge(
     offset: Float,
+    delay: Long = ANIMATION_DELAY_DEFAULT,
     interpolator: Interpolator = OvershootInterpolator(DEFAULT_INTERPOLATOR_TENSION)) {
 
   this.animate()
       .translationY(offset)
       .setInterpolator(interpolator)
-      .setStartDelay(ANIMATION_DELAY)
+      .setStartDelay(delay)
       .setDuration(ANIMATION_DURATION)
       .start()
 }
@@ -121,15 +123,17 @@ fun View.hideBeyondScreenEdge(
 /**
  * Returns previously hidden view to position with zero Y-axis offset.
  *
+ * @param delay Animation starting delay.
  * @param interpolator Animation interpolator.
  */
 fun View.showFromScreenEdge(
+    delay: Long = ANIMATION_DELAY_DEFAULT,
     interpolator: Interpolator = OvershootInterpolator(DEFAULT_INTERPOLATOR_TENSION)) {
 
   this.animate()
       .translationY(0f)
       .setInterpolator(interpolator)
-      .setStartDelay(ANIMATION_DELAY)
+      .setStartDelay(delay)
       .setDuration(ANIMATION_DURATION)
       .start()
 }

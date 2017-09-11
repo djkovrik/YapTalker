@@ -91,11 +91,11 @@ class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
   }
 
   override fun hideAppbar() {
-    appbar?.hideBeyondScreenEdge(-appbar.height.toFloat(), AccelerateInterpolator())
+    appbar?.hideBeyondScreenEdge(offset = -appbar.height.toFloat(), interpolator = AccelerateInterpolator())
   }
 
   override fun showAppbar() {
-    appbar?.showFromScreenEdge(AccelerateInterpolator())
+    appbar?.showFromScreenEdge(interpolator = AccelerateInterpolator())
   }
 
   override fun updateGallery(filepath: String) {
