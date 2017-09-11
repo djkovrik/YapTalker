@@ -39,6 +39,7 @@ class ForumPage() : Parcelable {
 class Topic() : Parcelable {
   @Selector("a.subtitle", defValue = "Unknown") lateinit var title: String
   @Selector("a.subtitle", attr = "href") lateinit var link: String
+  @Selector("img[src*=pinned]", attr="src", defValue = "") lateinit var isPinned: String
   @Selector("td[class~=row(2|4)] > a", defValue = "Unknown") lateinit var author: String
   @Selector("td[class~=row(2|4)] > a", attr = "href") lateinit var authorLink: String
   @Selector("div.rating-short-value", defValue = "0") lateinit var rating: String
@@ -49,6 +50,7 @@ class Topic() : Parcelable {
   constructor(parcel: Parcel) : this() {
     title = parcel.readString()
     link = parcel.readString()
+    isPinned = parcel.readString()
     author = parcel.readString()
     authorLink = parcel.readString()
     rating = parcel.readString()
@@ -60,6 +62,7 @@ class Topic() : Parcelable {
   override fun writeToParcel(parcel: Parcel, flags: Int) {
     parcel.writeString(title)
     parcel.writeString(link)
+    parcel.writeString(isPinned)
     parcel.writeString(author)
     parcel.writeString(authorLink)
     parcel.writeString(rating)
