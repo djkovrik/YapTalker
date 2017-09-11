@@ -1,12 +1,10 @@
 package com.sedsoftware.yaptalker.features.imagedisplay
 
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.net.Uri
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Environment
-import android.support.v4.content.FileProvider
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,25 +16,18 @@ import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
-import com.squareup.picasso.Picasso
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.sedsoftware.yaptalker.commons.extensions.toastError
+import com.sedsoftware.yaptalker.commons.extensions.toastSuccess
 import kotlinx.android.synthetic.main.activity_image_display.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import com.squareup.picasso.Target as ImageTarget
+import java.util.Locale
 
 class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
 
-  companion object {
-    private const val ENCODING_IMAGE_QUALITY = 100
-  }
-
   @InjectPresenter
   lateinit var displayPresenter: ImageDisplayPresenter
+
+  private val STORAGE_WRITE_PERMISSION = 0
 
   private val imageUrl: String by lazy {
     intent.getStringExtra("url")
@@ -68,11 +59,11 @@ class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
 
     return when (item.itemId) {
       R.id.action_share -> {
-        shareImage()
+        displayPresenter.shareImage(this, imageUrl)
         true
       }
       R.id.action_save -> {
-        displayPresenter.saveImage(imageUrl)
+        checkPermissionAndSaveImage()
         true
       }
       else -> super.onOptionsItemSelected(item)
@@ -91,78 +82,44 @@ class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
   }
 
   override fun hideAppbar() {
-    appbar?.hideBeyondScreenEdge(offset = -appbar.height.toFloat(), interpolator = AccelerateInterpolator())
+    appbar?.hideBeyondScreenEdge(offset = -appbar.height.toFloat(),
+        interpolator = AccelerateInterpolator())
   }
 
   override fun showAppbar() {
     appbar?.showFromScreenEdge(interpolator = AccelerateInterpolator())
   }
 
-  override fun updateGallery(filepath: String) {
-    val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
-    val f = File(filepath)
-    val contentUri = Uri.fromFile(f)
-    mediaScanIntent.data = contentUri
-    this.sendBroadcast(mediaScanIntent)
-  }
-
-  // TODO () Move all methods below to presenter
-
-  private fun shareImage() {
-    if (imageUrl.isNotEmpty()) {
-      Picasso
-          .with(this)
-          .load(imageUrl)
-          .into(ShareTarget())
+  override fun fileSavedMessage(filepath: String) {
+    String.format(Locale.getDefault(), stringRes(R.string.msg_file_saved), filepath).apply {
+      toastSuccess(this)
     }
   }
 
-  private fun getBitmapUriSingle(bmp: Bitmap): Single<Uri> {
+  override fun fileNotSavedMessage() {
+    toastError(stringRes(R.string.msg_file_not_saved))
+  }
 
-    return Single.create { emitter ->
-      val bmpUri: Uri?
-      try {
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+      grantResults: IntArray) {
 
-        val file = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-            imageUrl.substringAfterLast("/").substringBefore(".") + ".png")
-
-        val out = FileOutputStream(file)
-        bmp.compress(Bitmap.CompressFormat.PNG, ENCODING_IMAGE_QUALITY, out)
-        out.close()
-
-        bmpUri = FileProvider.getUriForFile(this, applicationContext.packageName, file)
-
-        emitter.onSuccess(bmpUri)
-      } catch (e: IOException) {
-        emitter.onError(e)
+    when (requestCode) {
+      STORAGE_WRITE_PERMISSION -> {
+        displayPresenter.saveImage(imageUrl)
       }
     }
   }
 
-  private inner class ShareTarget : ImageTarget {
-    override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-    }
+  private fun checkPermissionAndSaveImage() {
+    if (ContextCompat.checkSelfPermission(this,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-    override fun onBitmapFailed(errorDrawable: Drawable?) {
-    }
-
-    override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom?) {
-
-      // TODO() Manage subscription
-      getBitmapUriSingle(bitmap)
-          .observeOn(Schedulers.io())
-          .subscribeOn(AndroidSchedulers.mainThread())
-          .subscribe({ uri ->
-            // onSuccess
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.type = "image/png"
-            intent.putExtra(Intent.EXTRA_STREAM, uri)
-            startActivity(Intent.createChooser(intent, stringRes(R.string.title_share_image)))
-          }, { _ ->
-            // onError
-
-          }
-          )
+      ActivityCompat.requestPermissions(
+          this,
+          arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+          STORAGE_WRITE_PERMISSION)
+    } else {
+      fileNotSavedMessage()
     }
   }
 }

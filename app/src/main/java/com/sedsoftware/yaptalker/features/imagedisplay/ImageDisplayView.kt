@@ -13,7 +13,7 @@ interface ImageDisplayView : MvpView {
 
   fun showAppbar()
 
-  fun updateGallery(filepath: String)
+  fun fileSavedMessage(filepath: String)
 
-  // TODO() Add file saving toast messages
+  fun fileNotSavedMessage()
 }
