@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.commons.extensions
 import android.support.v4.widget.SwipeRefreshLayout
 import android.text.Html
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Interpolator
 import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
@@ -151,3 +152,12 @@ fun View.hideView() {
 fun View.showView() {
   this.visibility = View.VISIBLE
 }
+
+/**
+ * Extension property to get View bottom margin.
+ */
+val View.bottomMargin: Int
+  get() {
+    val layoutParams = layoutParams as ViewGroup.MarginLayoutParams
+    return layoutParams.bottomMargin
+  }

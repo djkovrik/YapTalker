@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.features.forum
 
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
@@ -90,9 +91,9 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     pushAppbarTitle(titleChannel, title)
   }
 
-  fun handleNavigationVisibility(diff: Int) {
-    when {
-      diff > 0 -> viewState.hideNavigationPanel()
+  fun handleNavigationVisibility(scrollState: Int) {
+    when (scrollState) {
+      RecyclerView.SCROLL_STATE_IDLE -> viewState.hideNavigationPanel()
       else -> viewState.showNavigationPanel()
     }
   }

@@ -11,6 +11,7 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.extensions.bottomMargin
 import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
@@ -29,6 +30,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   companion object {
     private const val NAVIGATION_PANEL_OFFSET = 200f
+    private const val NAVIGATION_PANEL_HIDE_DELAY = 2500L
     private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
     const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
@@ -101,9 +103,9 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
 
     parent.topic_posts_list?.let {
       RxRecyclerView
-          .scrollEvents(parent.topic_posts_list)
+          .scrollStateChanges(parent.topic_posts_list)
           .autoDisposeWith(scopeProvider)
-          .subscribe { event -> topicPresenter.handleNavigationVisibility(diff = event.dy()) }
+          .subscribe { state -> topicPresenter.handleNavigationVisibility(state) }
     }
   }
 
@@ -182,7 +184,11 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun hideNavigationPanel() {
-    view?.navigation_panel?.hideBeyondScreenEdge(NAVIGATION_PANEL_OFFSET)
+    view?.navigation_panel?.apply {
+      hideBeyondScreenEdge(
+          offset = (height + bottomMargin).toFloat(),
+          delay = NAVIGATION_PANEL_HIDE_DELAY)
+    }
   }
 
   override fun hideNavigationPanelWithoutAnimation() {

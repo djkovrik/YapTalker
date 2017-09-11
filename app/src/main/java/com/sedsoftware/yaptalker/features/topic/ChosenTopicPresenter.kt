@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.features.topic
 
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.model.TopicPage
@@ -87,9 +88,9 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     pushAppbarTitle(titleChannel, title)
   }
 
-  fun handleNavigationVisibility(diff: Int) {
-    when {
-      diff > 0 -> viewState.hideNavigationPanel()
+  fun handleNavigationVisibility(scrollState: Int) {
+    when (scrollState) {
+      RecyclerView.SCROLL_STATE_IDLE -> viewState.hideNavigationPanel()
       else -> viewState.showNavigationPanel()
     }
   }
