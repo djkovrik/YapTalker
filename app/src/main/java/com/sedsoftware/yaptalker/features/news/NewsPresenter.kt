@@ -82,7 +82,6 @@ class NewsPresenter : BasePresenter<NewsView>() {
 
   fun scrollToTop() {
     viewState.scrollListToTop()
-    viewState.hideFab()
   }
 
   private fun onLoadingSuccess(newsItem: NewsItem) {

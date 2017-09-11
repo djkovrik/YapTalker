@@ -26,7 +26,7 @@ import java.util.ArrayList
 import java.util.Locale
 
 class NewsAdapter(
-    val itemClick: (String, String) -> Unit) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(), LazyKodeinAware {
+    private val itemClick: (String, String) -> Unit) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(), LazyKodeinAware {
 
   override val kodein: LazyKodein
     get() = LazyKodein { YapTalkerApp.kodeinInstance }
@@ -77,7 +77,7 @@ class NewsAdapter(
   }
 
   inner class NewsViewHolder(
-      itemView: View, val itemClick: (String, String) -> Unit) : RecyclerView.ViewHolder(itemView) {
+      itemView: View, private val itemClick: (String, String) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     private val forumTitleTemplate: String = itemView.context.getString(
         R.string.news_forum_title_template)
