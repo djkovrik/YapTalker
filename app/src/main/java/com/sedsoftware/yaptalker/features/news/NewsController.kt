@@ -90,7 +90,7 @@ class NewsController : BaseController(), NewsView {
       RxRecyclerView
           .scrollEvents(parent.news_list)
           .autoDisposeWith(scopeProvider)
-          .subscribe { event -> newsPresenter.handleFabVisibility(diff = event.dy()) }
+          .subscribe { event -> newsPresenter.handleFabVisibility(isFabShown, event.dy()) }
     }
 
     parent.news_fab?.let {

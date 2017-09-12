@@ -73,10 +73,10 @@ class NewsPresenter : BasePresenter<NewsView>() {
     pushAppbarTitle(titleChannel, title)
   }
 
-  fun handleFabVisibility(diff: Int) {
+  fun handleFabVisibility(isFabShown: Boolean, diff: Int) {
     when {
-      diff > 0 -> viewState.hideFab()
-      else -> viewState.showFab()
+      isFabShown && diff > 0 -> viewState.hideFab()
+      !isFabShown && diff < 0 -> viewState.showFab()
     }
   }
 
