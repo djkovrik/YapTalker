@@ -143,6 +143,7 @@ dependencies {
   implementation "co.zsmb:materialdrawer-kt:$MATERIAL_DRAWER_KT_VERSION"
   implementation "com.afollestad.material-dialogs:core:$MATERIAL_DIALOGUES_VERSION"
   implementation "com.mikepenz:iconics-core:$ICONICS_VERSION"
+  implementation "com.mikepenz:iconics-views:$ICONICS_VERSION"
   implementation "com.afollestad.material-dialogs:commons:$MATERIAL_DIALOGUES_VERSION"
   implementation "com.mikepenz:community-material-typeface:$COMMUNITY_MATERIAL_ICONS_VERSION"
   implementation "com.github.grenderg:toasty:$TOASTY_VERSION"

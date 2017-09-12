@@ -83,7 +83,7 @@
       android:visibility="gone"
       tools:ignore="ContentDescription"/>
 
-    <TextView
+    <com.mikepenz.iconics.view.IconicsTextView
       android:id="@+id/news_comments_counter"
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"

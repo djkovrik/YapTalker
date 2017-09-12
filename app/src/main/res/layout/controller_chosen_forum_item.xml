@@ -22,7 +22,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
+    <com.mikepenz.iconics.view.IconicsTextView
       android:id="@+id/topic_name"
       style="@style/ForumTopicTitle"
       android:layout_width="match_parent"
