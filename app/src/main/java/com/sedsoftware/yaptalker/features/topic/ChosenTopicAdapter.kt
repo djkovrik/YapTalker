@@ -20,6 +20,7 @@ import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
+import com.sedsoftware.yaptalker.commons.extensions.textFromHtmlWithEmoji
 import com.sedsoftware.yaptalker.commons.parseLink
 import com.sedsoftware.yaptalker.data.model.ParsedPost
 import com.sedsoftware.yaptalker.data.model.PostHiddenText
@@ -113,7 +114,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
                 }
                 is PostQuote -> {
                   val quoteText = TextView(context)
-                  quoteText.textFromHtml(it.text)
+                  quoteText.textFromHtmlWithEmoji(it.text)
                   quoteText.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
                   quoteText.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)
                   post_content_text_container.addView(quoteText)
@@ -121,7 +122,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
                 is PostText -> {
                   currentNestingLevel--
                   val postText = TextView(context)
-                  postText.textFromHtml(it.text)
+                  postText.textFromHtmlWithEmoji(it.text)
                   if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
                     postText.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
                     postText.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)

@@ -77,6 +77,22 @@ fun TextView.textFromHtml(html: String) {
 
   this.text =
       if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+        Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
+      } else {
+        Html.fromHtml(html)
+      }
+}
+
+/**
+ * Sets html formatted text to TextView, supports emoji.
+ *
+ * @param html Source html.
+ */
+@Suppress("DEPRECATION")
+fun TextView.textFromHtmlWithEmoji(html: String) {
+
+  this.text =
+      if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
         Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, PicassoImageGetter(context, this), null)
       } else {
         Html.fromHtml(html, PicassoImageGetter(context, this), null)
