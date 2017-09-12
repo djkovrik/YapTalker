@@ -88,10 +88,10 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     pushAppbarTitle(titleChannel, title)
   }
 
-  fun handleNavigationVisibility(scrollState: Int) {
-    when (scrollState) {
-      RecyclerView.SCROLL_STATE_IDLE -> viewState.hideNavigationPanel()
-      else -> viewState.showNavigationPanel()
+  fun handleNavigationVisibility(isNavigationShown: Boolean, scrollState: Int) {
+    when {
+      isNavigationShown && scrollState == RecyclerView.SCROLL_STATE_IDLE -> viewState.hideNavigationPanel()
+      !isNavigationShown && scrollState != RecyclerView.SCROLL_STATE_IDLE -> viewState.showNavigationPanel()
     }
   }
 

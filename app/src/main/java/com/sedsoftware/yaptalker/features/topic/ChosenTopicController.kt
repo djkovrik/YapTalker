@@ -48,6 +48,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   lateinit var topicPresenter: ChosenTopicPresenter
 
   private lateinit var topicAdapter: ChosenTopicAdapter
+  private var isNavigationShown = true
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_chosen_topic
@@ -105,7 +106,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
       RxRecyclerView
           .scrollStateChanges(parent.topic_posts_list)
           .autoDisposeWith(scopeProvider)
-          .subscribe { state -> topicPresenter.handleNavigationVisibility(state) }
+          .subscribe { state -> topicPresenter.handleNavigationVisibility(isNavigationShown, state) }
     }
   }
 
@@ -189,13 +190,16 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
           offset = (height + bottomMargin).toFloat(),
           delay = NAVIGATION_PANEL_HIDE_DELAY)
     }
+    isNavigationShown = false
   }
 
   override fun hideNavigationPanelWithoutAnimation() {
     view?.navigation_panel?.translationY = NAVIGATION_PANEL_OFFSET
+    isNavigationShown = false
   }
 
   override fun showNavigationPanel() {
     view?.navigation_panel?.showFromScreenEdge()
+    isNavigationShown = true
   }
 }

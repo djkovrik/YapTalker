@@ -46,6 +46,7 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
   lateinit var forumPresenter: ChosenForumPresenter
 
   private lateinit var forumAdapter: ChosenForumAdapter
+  private var isNavigationShown = true
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_chosen_forum
@@ -113,7 +114,7 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
       RxRecyclerView
           .scrollStateChanges(parent.forum_topics_list)
           .autoDisposeWith(scopeProvider)
-          .subscribe { state -> forumPresenter.handleNavigationVisibility(state) }
+          .subscribe { state -> forumPresenter.handleNavigationVisibility(isNavigationShown, state) }
     }
   }
 
@@ -198,13 +199,16 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
           offset = (height + bottomMargin).toFloat(),
           delay = NAVIGATION_PANEL_HIDE_DELAY)
     }
+    isNavigationShown = false
   }
 
   override fun hideNavigationPanelWithoutAnimation() {
     view?.navigation_panel?.translationY = NAVIGATION_PANEL_OFFSET
+    isNavigationShown = false
   }
 
   override fun showNavigationPanel() {
     view?.navigation_panel?.showFromScreenEdge()
+    isNavigationShown = true
   }
 }
