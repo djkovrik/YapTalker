@@ -8,15 +8,10 @@ import android.view.animation.Interpolator
 import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextView
-import com.mikepenz.community_material_typeface_library.CommunityMaterial
-import com.mikepenz.iconics.IconicsDrawable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.CircleImageTransformation
 import com.sedsoftware.yaptalker.commons.PicassoImageGetter
 import com.squareup.picasso.Picasso
-
-// Icon params
-private const val ICON_SIZE = 24
 
 // Fab params
 private const val ANIMATION_DELAY_DEFAULT = 150L
@@ -30,12 +25,10 @@ private const val DEFAULT_INTERPOLATOR_TENSION = 1.5f
  */
 fun ImageView.loadFromUrl(url: String) {
 
-  val placeholder = IconicsDrawable(context)
-      .icon(CommunityMaterial.Icon.cmd_image)
-      .color(context.color(R.color.colorPrimaryLight))
-      .sizeDp(ICON_SIZE)
-
-  Picasso.with(context).load(url).error(placeholder).into(this)
+  Picasso
+      .with(context)
+      .load(url)
+      .into(this)
 }
 
 /**
@@ -45,16 +38,10 @@ fun ImageView.loadFromUrl(url: String) {
  */
 fun ImageView.loadAvatarFromUrl(url: String) {
 
-  val placeholder = IconicsDrawable(context)
-      .icon(CommunityMaterial.Icon.cmd_face_profile)
-      .color(context.color(R.color.colorPrimaryLight))
-      .sizeDp(ICON_SIZE)
-
   Picasso
       .with(context)
       .load(url)
       .transform(CircleImageTransformation())
-      .error(placeholder)
       .into(this)
 }
 
