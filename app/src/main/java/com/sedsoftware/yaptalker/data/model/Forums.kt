@@ -1,8 +1,5 @@
 package com.sedsoftware.yaptalker.data.model
 
-import android.os.Parcel
-import android.os.Parcelable
-import com.sedsoftware.yaptalker.commons.extensions.extractDate
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import pl.droidsonroids.jspoon.annotation.Selector
 
@@ -13,15 +10,15 @@ class Forums {
 }
 
 class LastTopic {
-  @Selector(".desc", attr = "innerHtml") lateinit var htmlDesc: String
-  @Selector("a.subtitle") lateinit var title: String
-  @Selector("a ~ a ~ a") lateinit var author: String
+  @Selector("a.subtitle", defValue = "Unknown") lateinit var title: String
+  @Selector("a ~ a ~ a", defValue = "Unknown") lateinit var author: String
+  @Selector(".desc", format = "([0-9\\.]+ - [0-9:]+)", defValue = "Unknown") lateinit var date: String
 }
 
 fun Forums.createForumsList(): List<ForumItem> {
 
-  assert(titles.size == ids.size, { "Titles size should match ids size" })
-  assert(topics.size == ids.size, { "Topics size should match ids size" })
+  check(titles.size == ids.size) { "Titles size should match ids size" }
+  check(topics.size == ids.size) { "Topics size should match ids size" }
 
   val result: MutableList<ForumItem> = ArrayList()
 
@@ -31,7 +28,7 @@ fun Forums.createForumsList(): List<ForumItem> {
         forumId = ids[index].getLastDigits(),
         lastTopicTitle = topics[index].title,
         lastTopicAuthor = topics[index].author,
-        htmlDesc = topics[index].htmlDesc))
+        date = topics[index].date))
   }
 
   return result
@@ -42,33 +39,4 @@ data class ForumItem(
     val forumId: Int,
     val lastTopicTitle: String,
     val lastTopicAuthor: String,
-    val htmlDesc: String) : Parcelable {
-
-  val date
-    get() = htmlDesc.extractDate()
-
-  constructor(parcel: Parcel) : this(
-      parcel.readString(),
-      parcel.readInt(),
-      parcel.readString(),
-      parcel.readString(),
-      parcel.readString())
-
-  override fun writeToParcel(parcel: Parcel, flags: Int) {
-    parcel.writeString(title)
-    parcel.writeInt(forumId)
-    parcel.writeString(lastTopicTitle)
-    parcel.writeString(lastTopicAuthor)
-    parcel.writeString(htmlDesc)
-  }
-
-  override fun describeContents() = 0
-
-  companion object CREATOR : Parcelable.Creator<ForumItem> {
-    override fun createFromParcel(parcel: Parcel): ForumItem {
-      return ForumItem(parcel)
-    }
-
-    override fun newArray(size: Int): Array<ForumItem?> = arrayOfNulls(size)
-  }
-}
+    val date: String)

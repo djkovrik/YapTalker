@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.MvpDelegate
 import com.bluelinelabs.conductor.RestoreViewOnCreateController
 
-
 abstract class BaseController : RestoreViewOnCreateController {
 
   private val mvpDelegate: MvpDelegate<out BaseController> by lazy {
@@ -26,11 +25,14 @@ abstract class BaseController : RestoreViewOnCreateController {
 
   protected abstract fun onViewBound(view: View, savedViewState: Bundle?)
 
+  protected abstract fun subscribeViews(parent: View)
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup,
       savedViewState: Bundle?): View {
 
     val view = inflater.inflate(controllerLayoutId, container, false)
     onViewBound(view, savedViewState)
+    subscribeViews(view)
     return view
   }
 

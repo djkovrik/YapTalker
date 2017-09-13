@@ -5,27 +5,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.LazyKodeinAware
+import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
+import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.parseLink
 import com.sedsoftware.yaptalker.data.model.NewsItem
-import com.sedsoftware.yaptalker.data.remote.thumbnails.ThumbnailsLoader
+import com.sedsoftware.yaptalker.data.remote.ThumbnailsManager
+import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
+import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import kotlinx.android.synthetic.main.controller_news_item.view.*
+import org.jetbrains.anko.startActivity
 import java.util.ArrayList
 import java.util.Locale
-import javax.inject.Inject
 
-class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(
+    private val itemClick: (String, String) -> Unit) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(), LazyKodeinAware {
 
-  init {
-    YapTalkerApp.appComponent.inject(this)
-  }
+  override val kodein: LazyKodein
+    get() = LazyKodein { YapTalkerApp.kodeinInstance }
 
-  @Inject
-  lateinit var thumbnailsLoader: ThumbnailsLoader
+  // Kodein injection
+  private val thumbnailsLoader: ThumbnailsManager by instance()
 
   private var news: ArrayList<NewsItem> = ArrayList()
   private var lastPosition = -1
@@ -37,14 +44,14 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_news_item, parent,
         false)
-    return NewsViewHolder(view)
+    return NewsViewHolder(view, itemClick)
   }
 
   override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
     holder.bindTo(news[position])
 
     val animation = AnimationUtils.loadAnimation(holder.itemView.context,
-        if (position > lastPosition)
+        if (position == 0 || position > lastPosition)
           R.anim.recyclerview_up_from_bottom
         else
           R.anim.recyclerview_down_from_top)
@@ -58,54 +65,62 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     holder?.itemView?.clearAnimation()
   }
 
-  fun addNews(list: List<NewsItem>) {
+  fun addNewsItem(item: NewsItem) {
     val insertPosition = news.size
-    news.addAll(insertPosition, list)
-    notifyItemRangeInserted(insertPosition, news.size)
+    news.add(item)
+    notifyItemInserted(insertPosition)
   }
 
-  fun clearAndAddNews(list: List<NewsItem>) {
+  fun clearNews() {
     notifyItemRangeRemoved(0, news.size)
     news.clear()
-    addNews(list)
   }
 
-  fun getNews() = news
+  inner class NewsViewHolder(
+      itemView: View, private val itemClick: (String, String) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
-  inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-    val forumTitleTemplate: String = itemView.context.getString(R.string.news_forum_title_template)
-    val karmaTemplate: String = itemView.context.getString(R.string.news_karma_template)
-    val dateTemplate: String = itemView.context.getString(R.string.news_date_template)
-    val commentsTemplate: String = itemView.context.getString(R.string.news_comments_template)
+    private val forumTitleTemplate: String = itemView.context.getString(
+        R.string.news_forum_title_template)
+    private val commentsTemplate: String = itemView.context.getString(
+        R.string.news_comments_template)
 
     fun bindTo(newsItem: NewsItem) {
-      with(newsItem) {
-        with(itemView) {
-          news_author.text = author
-          news_title.text = title
-          news_forum.text = String.format(Locale.US, forumTitleTemplate, forumName)
-          news_date.text = String.format(Locale.US, dateTemplate, date)
+      with(itemView) {
+        news_author.text = newsItem.author
+        news_title.text = newsItem.title
+        news_forum.text = String.format(Locale.US, forumTitleTemplate, newsItem.forumName)
+        news_date.shortDateText = newsItem.date
+        news_rating.ratingText = newsItem.rating
 
-          if (rating.isNotEmpty()) {
-            news_rating.text = String.format(Locale.US, karmaTemplate, rating)
+        news_comments_counter.text = String.format(Locale.US, commentsTemplate, newsItem.comments)
+        news_content_text.textFromHtml(newsItem.cleanedDescription)
+
+        // Remove listener before setting the new one
+        news_content_image.setOnClickListener(null)
+
+        when {
+          newsItem.images.isNotEmpty() -> {
+            var url = newsItem.images.first()
+            if (!url.startsWith("http"))
+              url = "http:$url"
+            news_content_image.showView()
+            news_content_image.loadFromUrl(url)
+            news_content_image.setOnClickListener {
+              context.startActivity<ImageDisplayActivity>("url" to url)
+            }
           }
-
-          news_comments_counter.text = String.format(Locale.US, commentsTemplate, comments)
-          news_content_text.textFromHtml(cleanedDescription)
-
-          if (images.isNotEmpty()) {
-            news_content_image.visibility = View.VISIBLE
-            news_content_image.loadFromUrl("http:${images.first()}")
-          } else if (videos.isNotEmpty()) {
-            news_content_image.visibility = View.VISIBLE
-            thumbnailsLoader.loadThumbnail(parseLink(videos.first()), news_content_image)
-          } else {
-            news_content_image.visibility = View.GONE
+          newsItem.videos.isNotEmpty() -> {
+            news_content_image.showView()
+            thumbnailsLoader.loadThumbnail(parseLink(newsItem.videos.first()), news_content_image)
+            news_content_image.setOnClickListener {
+              context.startActivity<VideoDisplayActivity>("video" to newsItem.videosRaw.first())
+            }
           }
+          else -> news_content_image.hideView()
         }
+
+        setOnClickListener { itemClick(newsItem.link, newsItem.forumLink) }
       }
     }
   }
 }
-

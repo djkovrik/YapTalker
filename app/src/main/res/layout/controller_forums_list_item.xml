@@ -5,6 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="@dimen/material_list_two_line_normal_height"
+  android:background="@color/material_color_white"
   android:orientation="horizontal">
 
   <ImageView
@@ -73,7 +74,7 @@
       android:layout_height="wrap_content"
       tools:text="Jus"/>
 
-    <TextView
+    <com.sedsoftware.yaptalker.commons.views.ShortDateView
       android:id="@+id/forum_last_topic_date"
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"

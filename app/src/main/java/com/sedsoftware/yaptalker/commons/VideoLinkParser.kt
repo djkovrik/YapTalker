@@ -13,17 +13,22 @@ object Selectors {
   val YAPFILES_SELECTOR = "yapfiles.ru/get_player"
 }
 
+/**
+ * Parses video link to get video type and id
+ *
+ * @param link Given video link
+ * @return A pair of video type as Int and video id as String
+ */
 fun parseLink(link: String): Pair<Int, String> =
 
-    if (link.contains(COUB_SELECTOR)) {
-      VideoTypes.COUB to link.substringAfterLast("/")
-    } else if (link.contains(YOUTUBE_SELECTOR)) {
-      VideoTypes.YOUTUBE to link.substring(link.lastIndexOf("/") + 1, link.lastIndexOf("?"))
-    } else if (link.contains(RUTUBE_SELECTOR)) {
-      VideoTypes.RUTUBE to link.substringAfterLast("/")
-    } else if (link.contains(YAPFILES_SELECTOR)) {
-      VideoTypes.YAP_FILES to link.substringAfterLast("=")
-    } else {
-      VideoTypes.OTHER to ""
+    when {
+      link.contains(COUB_SELECTOR) -> VideoTypes.COUB to link.substringAfterLast("/")
+      link.contains(YOUTUBE_SELECTOR) ->  {
+        val startPosition = link.lastIndexOf("/")
+        VideoTypes.YOUTUBE to link.substring(startPosition + 1, link.indexOf("?", startPosition))
+      }
+      link.contains(RUTUBE_SELECTOR) -> VideoTypes.RUTUBE to link.substringAfterLast("/")
+      link.contains(YAPFILES_SELECTOR) -> VideoTypes.YAP_FILES to link.substringAfterLast("=")
+      else -> VideoTypes.OTHER to ""
     }
 

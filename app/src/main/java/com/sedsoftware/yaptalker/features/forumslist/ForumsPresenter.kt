@@ -1,56 +1,62 @@
 package com.sedsoftware.yaptalker.features.forumslist
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.data.model.ForumItem
-import com.sedsoftware.yaptalker.data.remote.yap.YapDataManager
 import com.sedsoftware.yaptalker.features.base.BasePresenter
+import com.sedsoftware.yaptalker.features.base.BasePresenterLifecycle
+import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 @InjectViewState
 class ForumsPresenter : BasePresenter<ForumsView>() {
 
-  @Inject
-  lateinit var yapDataManager: YapDataManager
+  override fun onFirstViewAttach() {
+    super.onFirstViewAttach()
 
-  init {
-    YapTalkerApp.appComponent.inject(this)
+    attachRefreshIndicator(yapDataManager.requestState, {
+      // onStart
+      viewState.showRefreshing()
+    }, {
+      // onFinish
+      viewState.hideRefreshing()
+    })
+  }
+
+  override fun attachView(view: ForumsView?) {
+    super.attachView(view)
+    viewState.updateAppbarTitle()
   }
 
   fun loadForumsList() {
 
-    val subscription =
-        yapDataManager
-            .getForumsList()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onLoadingStart() }
-            .subscribe({
-              // onSuccess
-              forumsList: List<ForumItem> ->
-              onLoadingSuccess(forumsList)
-            }, {
-              // onError
-              throwable ->
-              onLoadingError(throwable)
-            })
+    viewState.clearForumsList()
 
-    unsubscribeOnDestroy(subscription)
+    yapDataManager
+        .getForumsList()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
+        .subscribe({
+          // OnNext
+          forumsListItem: ForumItem ->
+          onLoadingSuccess(forumsListItem)
+        }, {
+          // onError
+          throwable ->
+          onLoadingError(throwable)
+        })
   }
 
-  fun onLoadingStart() {
-    viewState.showProgressBar()
+  fun updateTitle(title: String) {
+    pushAppbarTitle(titleChannel, title)
   }
 
-  fun onLoadingSuccess(forums: List<ForumItem>) {
-    viewState.hideProgressBar()
-    viewState.showForums(forums)
+  private fun onLoadingSuccess(item: ForumItem) {
+    viewState.appendForumItem(item)
   }
 
-  fun onLoadingError(error: Throwable) {
-    viewState.hideProgressBar()
+  private fun onLoadingError(error: Throwable) {
     error.message?.let { viewState.showErrorMessage(it) }
   }
 }

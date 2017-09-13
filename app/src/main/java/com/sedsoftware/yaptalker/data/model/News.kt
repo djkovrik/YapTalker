@@ -1,7 +1,5 @@
 package com.sedsoftware.yaptalker.data.model
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.sedsoftware.yaptalker.commons.extensions.chopEdges
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
@@ -14,29 +12,32 @@ class News {
 }
 
 class NewsHead {
-  @Selector(".subtitle") lateinit var title: String
-  @Selector(".subtitle", attr = "href") lateinit var link: String
+  @Selector(".subtitle", defValue = "Unknown") lateinit var title: String
+  @Selector(".subtitle", attr = "href", defValue = "") lateinit var link: String
   @Selector(".rating-short-value > a", defValue = "") lateinit var rating: String
 }
 
 class NewsContent {
-  @Selector("[id~=news_.*]", attr = "innerHtml") lateinit var description: String
+  @Selector("[id~=news_.*]", attr = "innerHtml",
+      defValue = "Unknown") lateinit var description: String
   @Selector("img[src]", attr = "src") lateinit var images: List<String>
   @Selector("iframe[src]", attr = "src") lateinit var videos: List<String>
+  @Selector("iframe[src]", attr = "outerHtml") lateinit var videosRaw: List<String>
 }
 
 class NewsBottom {
-  @Selector(".icon-user > a") lateinit var author: String
+  @Selector(".icon-user > a", defValue = "Unknown") lateinit var author: String
   @Selector(".icon-user > a", attr = "href") lateinit var authorLink: String
-  @Selector(".icon-date") lateinit var date: String
-  @Selector(".icon-forum > a") lateinit var forumName: String
-  @Selector("span") lateinit var comments: String
+  @Selector(".icon-date", defValue = "Unknown") lateinit var date: String
+  @Selector(".icon-forum > a", defValue = "Unknown") lateinit var forumName: String
+  @Selector(".icon-forum > a", attr = "href", defValue = "") lateinit var forumLink: String
+  @Selector("span", defValue = "0") lateinit var comments: String
 }
 
 fun News.createNewsList(): List<NewsItem> {
 
-  assert(headers.size == contents.size, { "Headers size should match contents size" })
-  assert(contents.size == bottoms.size, { "Contents size should match bottoms size" })
+  check(headers.size == contents.size) { "Headers size should match contents size" }
+  check(contents.size == bottoms.size) { "Contents size should match bottoms size" }
 
   val result: MutableList<NewsItem> = ArrayList()
 
@@ -49,10 +50,12 @@ fun News.createNewsList(): List<NewsItem> {
         description = contents[index].description,
         images = contents[index].images,
         videos = contents[index].videos,
+        videosRaw = contents[index].videosRaw,
         author = bottoms[index].author,
         authorLink = bottoms[index].authorLink,
         date = bottoms[index].date,
         forumName = bottoms[index].forumName,
+        forumLink = bottoms[index].forumLink,
         comments = bottoms[index].comments.chopEdges()))
   }
 
@@ -66,56 +69,19 @@ data class NewsItem(
     val description: String,
     val images: List<String>,
     val videos: List<String>,
+    val videosRaw: List<String>,
     val author: String,
     val authorLink: String,
     val date: String,
     val forumName: String,
-    val comments: String) : Parcelable {
+    val forumLink: String,
+    val comments: String) {
 
-  val cleanedDescription: String
-    get() {
+  val cleanedDescription: String =
       with(Jsoup.clean(description, Whitelist().addTags("i", "u", "b", "br"))) {
         if (this.contains("<br>"))
-          return this.substring(0, this.indexOf("<br>"))
+          this.substring(0, this.indexOf("<br>"))
         else
-          return this
+          this
       }
-    }
-
-  constructor(parcel: Parcel) : this(
-      parcel.readString(),
-      parcel.readString(),
-      parcel.readString(),
-      parcel.readString(),
-      parcel.createStringArrayList(),
-      parcel.createStringArrayList(),
-      parcel.readString(),
-      parcel.readString(),
-      parcel.readString(),
-      parcel.readString(),
-      parcel.readString())
-
-  override fun writeToParcel(parcel: Parcel, flags: Int) {
-    parcel.writeString(title)
-    parcel.writeString(link)
-    parcel.writeString(rating)
-    parcel.writeString(description)
-    parcel.writeStringList(images)
-    parcel.writeStringList(videos)
-    parcel.writeString(author)
-    parcel.writeString(authorLink)
-    parcel.writeString(date)
-    parcel.writeString(forumName)
-    parcel.writeString(comments)
-  }
-
-  override fun describeContents() = 0
-
-  companion object CREATOR : Parcelable.Creator<NewsItem> {
-    override fun createFromParcel(parcel: Parcel): NewsItem {
-      return NewsItem(parcel)
-    }
-
-    override fun newArray(size: Int): Array<NewsItem?> = arrayOfNulls(size)
-  }
 }

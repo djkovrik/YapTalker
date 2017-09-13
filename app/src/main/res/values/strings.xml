@@ -1,4 +1,4 @@
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="app_name">YapTalker</string>
 
   <!-- NavigationDrawer  header items -->
@@ -10,16 +10,74 @@
   <string name="nav_drawer_settings">Settings</string>
 
   <!-- News Item -->
+  <string name="news_comments_template">
+   <xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments
+  </string>
+
   <string name="news_forum_title_template" translatable="false">
     <xliff:g id="bullet">\u25AA</xliff:g> <xliff:g id="forum">%s</xliff:g>
   </string>
-  <string name="news_karma_template" translatable="false">
-   +<xliff:g id="karma">%s</xliff:g>
+
+  <!-- Forum item -->
+  <string name="forum_comments_template">
+   Comments: <xliff:g id="answers">%s</xliff:g>
   </string>
-  <string name="news_date_template" translatable="false">
-   <xliff:g id="icon">{cmd-calendar-clock} <xliff:g id="date">%s</xliff:g></xliff:g>
+  <string name="forum_pinned_topic_template" translatable="false">
+    <xliff:g id="icon">{cmd-pin}</xliff:g> <xliff:g id="title">%s</xliff:g>
   </string>
-  <string name="news_comments_template" translatable="false">
-   <xliff:g id="icon">{cmd-comment-multiple-outline} <xliff:g id="comments">%s</xliff:g></xliff:g>
+
+  <!-- Post item -->
+  <string name="post_hidden_text_template">Hidden text: <xliff:g id="spoiler">%s</xliff:g></string>
+  <string name="post_link">Link</string>
+
+  <!-- Navigation panel -->
+  <string name="navigation_pages_template">
+    Page <xliff:g id="page">%d</xliff:g> of <xliff:g id="total_pages">%d</xliff:g>
   </string>
+  <string name="navigation_previous">Back</string>
+  <string name="navigation_next">Next</string>
+  <string name="navigation_go_to_page_title">Go to page</string>
+  <string name="navigation_go_to_page_hint">Enter page number…</string>
+  <string name="navigation_page_not_available">
+    Page <xliff:g id="page">%d</xliff:g> is not available
+  </string>
+
+  <!-- Messages and titles -->
+  <string name="title_share_image">Share Image</string>
+  <string name="msg_file_saved">File saved to <xliff:g id="filepath">%s</xliff:g></string>
+  <string name="msg_file_not_saved">File not saved!</string>
+
+  <!-- Menu items -->
+  <string name="action_save">Save</string>
+  <string name="action_share">Share</string>
+
+  <!-- Short date strings -->
+  <plurals name="short_date_years">
+    <item quantity="one"><xliff:g id="years">%d</xliff:g> year(s)</item>
+    <item quantity="few"><xliff:g id="years">%d</xliff:g> year(s)</item>
+    <item quantity="many"><xliff:g id="years">%d</xliff:g> year(s)</item>
+    <item quantity="other"><xliff:g id="years">%d</xliff:g> year(s)</item>
+  </plurals>
+
+  <string name="short_date_month" tools:ignore="PluralsCandidate">
+    <xliff:g id="month">%d</xliff:g> month(s)
+  </string>
+
+  <plurals name="short_date_days">
+    <item quantity="one"><xliff:g id="days">%d</xliff:g> day(s)</item>
+    <item quantity="few"><xliff:g id="days">%d</xliff:g> day(s)</item>
+    <item quantity="many"><xliff:g id="years">%d</xliff:g> day(s)</item>
+    <item quantity="other"><xliff:g id="days">%d</xliff:g> day(s)</item>
+  </plurals>
+
+  <plurals name="short_date_hours">
+    <item quantity="one"><xliff:g id="days">%d</xliff:g> hour(s)</item>
+    <item quantity="few"><xliff:g id="days">%d</xliff:g> hour(s)</item>
+    <item quantity="many"><xliff:g id="years">%d</xliff:g> hour(s)</item>
+    <item quantity="other"><xliff:g id="days">%d</xliff:g> hour(s)</item>
+  </plurals>
+
+  <string name="short_date_minutes"><xliff:g id="minutes">%d</xliff:g> min(s)</string>
+  <string name="short_date_seconds_now">just now</string>
+
 </resources>

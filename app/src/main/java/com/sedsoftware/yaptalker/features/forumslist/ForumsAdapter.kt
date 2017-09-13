@@ -5,19 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.extensions.getShortTime
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import kotlinx.android.synthetic.main.controller_forums_list_item.view.*
 
-class ForumsAdapter : RecyclerView.Adapter<ForumsAdapter.ForumsViewHolder>() {
+class ForumsAdapter(
+    private val itemClick: (Int) -> Unit) : RecyclerView.Adapter<ForumsAdapter.ForumsViewHolder>() {
 
   private var forumsList: ArrayList<ForumItem> = ArrayList()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForumsViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_forums_list_item,
         parent, false)
-    return ForumsViewHolder(view)
+    return ForumsViewHolder(view, itemClick)
   }
 
   override fun onBindViewHolder(holder: ForumsViewHolder, position: Int) {
@@ -28,15 +28,19 @@ class ForumsAdapter : RecyclerView.Adapter<ForumsAdapter.ForumsViewHolder>() {
 
   override fun getItemId(position: Int) = forumsList[position].forumId.toLong()
 
-  fun addForumsList(list: List<ForumItem>) {
-    forumsList.clear()
-    forumsList.addAll(list)
-    notifyDataSetChanged()
+  fun addForumsListItem(item: ForumItem) {
+    val insertPosition = forumsList.size
+    forumsList.add(item)
+    notifyItemInserted(insertPosition)
   }
 
-  fun getForumsList() = forumsList
+  fun clearForumsList() {
+    notifyItemRangeRemoved(0, forumsList.size)
+    forumsList.clear()
+  }
 
-  class ForumsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+  class ForumsViewHolder(
+      itemView: View, private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     fun bindTo(forumItem: ForumItem) {
       with(forumItem) {
@@ -44,8 +48,10 @@ class ForumsAdapter : RecyclerView.Adapter<ForumsAdapter.ForumsViewHolder>() {
           forum_title.text = title
           forum_last_topic_title.text = lastTopicTitle
           forum_last_topic_author.text = lastTopicAuthor
-          forum_last_topic_date.text = date.getShortTime()
+          forum_last_topic_date.shortDateText = date
           forum_image.loadFromUrl("http://www.yaplakal.com/html/icons/$forumId.gif")
+
+          setOnClickListener { itemClick(forumId) }
         }
       }
     }

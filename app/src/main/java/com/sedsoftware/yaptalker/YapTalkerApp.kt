@@ -6,23 +6,49 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
 import com.facebook.stetho.Stetho
+import com.github.salomonbrys.kodein.Kodein
+import com.github.salomonbrys.kodein.KodeinAware
+import com.github.salomonbrys.kodein.android.autoAndroidModule
+import com.github.salomonbrys.kodein.bind
+import com.github.salomonbrys.kodein.lazy
+import com.github.salomonbrys.kodein.singleton
+import com.jakewharton.rxrelay2.BehaviorRelay
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.sedsoftware.yaptalker.di.ApplicationComponent
-import com.sedsoftware.yaptalker.di.DaggerApplicationComponent
+import com.sedsoftware.yaptalker.commons.extensions.color
+import com.sedsoftware.yaptalker.data.remote.YapRequestState
+import com.sedsoftware.yaptalker.data.remote.remoteDataModule
+import com.sedsoftware.yaptalker.data.remote.requestsModule
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
+import es.dmoral.toasty.Toasty
 import timber.log.Timber
 
-class YapTalkerApp : Application() {
+class YapTalkerApp : Application(), KodeinAware {
 
   companion object {
-    lateinit var appComponent: ApplicationComponent
+    lateinit var kodeinInstance: Kodein
+  }
+
+  override val kodein by Kodein.lazy {
+    // Android auto module import
+    import(autoAndroidModule(this@YapTalkerApp))
+
+    // Custom modules
+    import(requestsModule)
+    import(remoteDataModule)
+
+    // Global rx bus for loading state
+    bind<BehaviorRelay<Long>>() with singleton { BehaviorRelay.createDefault(YapRequestState.IDLE) }
+    // Global rx bus for appbar title handling
+    bind<BehaviorRelay<String>>() with singleton { BehaviorRelay.createDefault("YapTalker") }
   }
 
   override fun onCreate() {
     super.onCreate()
+
+    kodeinInstance = kodein
 
     if (LeakCanary.isInAnalyzerProcess(this)) {
       // This process is dedicated to LeakCanary for heap analysis.
@@ -39,13 +65,17 @@ class YapTalkerApp : Application() {
       Stetho.initializeWithDefaults(this)
       Timber.plant(Timber.DebugTree())
     }
-    // TODO() Else init Timber with Firebase Crash Reporting tree here
 
-    appComponent = DaggerApplicationComponent.builder().build()
+    // Toasty coloring
+    Toasty.Config.getInstance()
+        .setErrorColor(color(R.color.toastyColorError))
+        .setInfoColor(color(R.color.toastyColorInfo))
+        .setSuccessColor(color(R.color.toastyColorSuccess))
+        .setWarningColor(color(R.color.toastyColorWarning))
+        .apply()
 
     // Init MaterialDrawer image loader
-
-    DrawerImageLoader.init(object: AbstractDrawerImageLoader() {
+    DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
       override fun set(imageView: ImageView?, uri: Uri?, placeholder: Drawable?, tag: String?) {
         Picasso.with(imageView?.context).load(uri).placeholder(placeholder).into(imageView)
       }

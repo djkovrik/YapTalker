@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical"
   android:background="@color/colorMaterialBackground"
+  android:orientation="vertical"
   tools:context="com.sedsoftware.yaptalker.features.navigation.NavigationActivity"
   tools:ignore="Overdraw">
 
-  <include layout="@layout/activity_main_appbar"/>
+  <include layout="@layout/include_main_appbar"/>
 
-  <include layout="@layout/activity_main_content"/>
+  <include layout="@layout/include_main_content"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

@@ -8,11 +8,15 @@ import com.sedsoftware.yaptalker.data.model.ForumItem
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface ForumsView : MvpView {
 
-  fun showForums(forums: List<ForumItem>)
+  fun clearForumsList()
+
+  fun appendForumItem(item: ForumItem)
 
   fun showErrorMessage(message: String)
 
-  fun showProgressBar()
+  fun showRefreshing()
 
-  fun hideProgressBar()
+  fun hideRefreshing()
+
+  fun updateAppbarTitle()
 }

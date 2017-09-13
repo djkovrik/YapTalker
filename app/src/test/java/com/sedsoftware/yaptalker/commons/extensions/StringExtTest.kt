@@ -39,15 +39,4 @@ class StringExtTest {
     commentsStringShortened.should.equal(commentsString.chopEdges())
     randomStringShortened.should.equal(randomString.chopEdges())
   }
-
-  @Test
-  fun testStringExtractDateExt() {
-    // Arrange
-    val dateContainingString = "27.07.2017 - 16:51<br /><a href='//www.yaplakal.com/" +
-        "lastpost/forum7/topic1635456.html'>Автор:</a>"
-    val actualDateString = "27.07.2017 - 16:51"
-
-    // Assert
-    actualDateString.should.equal(dateContainingString.extractDate())
-  }
 }

@@ -14,4 +14,6 @@ interface NavigationView : MvpView {
 
   @StateStrategyType(OneExecutionStateStrategy::class)
   fun goToChosenSection(@Navigation.Section section: Long)
+
+  fun setAppbarTitle(text: String)
 }
