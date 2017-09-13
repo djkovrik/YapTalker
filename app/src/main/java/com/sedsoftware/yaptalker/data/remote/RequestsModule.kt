@@ -14,8 +14,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 val requestsModule = Kodein.Module {
 
   constant("YAP_ENDPOINT") with "http://www.yaplakal.com/"
-  constant("COUB_ENDPOINT") with "http://rutube.ru/"
-  constant("RUTUBE_ENDPOINT") with "http://coub.com/"
+  constant("COUB_ENDPOINT") with "http://coub.com/"
+  constant("RUTUBE_ENDPOINT") with "http://rutube.ru/"
 
   // Retrofit bindings
   bind<YapLoader>("YapLoader") with singleton {
