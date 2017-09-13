@@ -43,12 +43,8 @@ import java.util.Locale
 class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolder>(), LazyKodeinAware {
 
   companion object {
-    // TODO() Move some values to dimens?
-    private const val IMAGE_VERTICAL_PADDING = 16
-    private const val TEXT_HORIZONTAL_PADDING = 24
     private const val INITIAL_NESTING_LEVEL = 0
     private const val MAX_LINK_TITLE_LENGTH = 15
-    private const val POSTSCRIPT_TEXT_SIZE = 12f
   }
 
   override val kodein: LazyKodein
@@ -109,6 +105,13 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
     }
 
     private fun fillPostText(post: ParsedPost): ParsedPost {
+
+      val textPadding = itemView.context.resources.getDimension(
+          R.dimen.post_text_horizontal_padding).toInt()
+
+      val textSize = itemView.context.resources.getDimension(
+          R.dimen.post_ps_text_size) / itemView.context.resources.displayMetrics.density
+
       with(itemView) {
         var currentNestingLevel = INITIAL_NESTING_LEVEL
         val links = HashSet<PostLink>()
@@ -124,7 +127,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
                 val quoteAuthor = TextView(context)
                 quoteAuthor.textFromHtml(it.text)
                 if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
-                  quoteAuthor.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)
+                  quoteAuthor.setPadding(textPadding * currentNestingLevel, 0, 0, 0)
                 }
                 quoteAuthor.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
                 post_content_text_container.addView(quoteAuthor)
@@ -133,7 +136,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
                 val quoteText = TextView(context)
                 quoteText.textFromHtmlWithEmoji(it.text)
                 quoteText.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
-                quoteText.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)
+                quoteText.setPadding(textPadding * currentNestingLevel, 0, 0, 0)
                 post_content_text_container.addView(quoteText)
               }
               is PostText -> {
@@ -142,7 +145,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
                 postText.textFromHtmlWithEmoji(it.text)
                 if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
                   postText.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
-                  postText.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)
+                  postText.setPadding(textPadding * currentNestingLevel, 0, 0, 0)
                 }
                 post_content_text_container.addView(postText)
               }
@@ -157,7 +160,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
                 val postScriptText = TextView(context)
                 postScriptText.setTypeface(postScriptText.typeface, Typeface.ITALIC)
                 postScriptText.textColor = R.color.colorPostScriptText
-                postScriptText.textSize = POSTSCRIPT_TEXT_SIZE
+                postScriptText.textSize = textSize
                 postScriptText.textFromHtml(it.text)
                 post_content_text_container.addView(postScriptText)
               }
@@ -193,6 +196,10 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
     }
 
     private fun fillPostMedia(post: ParsedPost) {
+
+      val imagePadding = itemView.context.resources.getDimension(
+          R.dimen.post_image_vertical_padding).toInt()
+
       with(itemView) {
         if (post.images.isNotEmpty()) {
           post_content_image_container.showView()
@@ -200,7 +207,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
           post.images.forEach {
             val image = ImageView(context)
             image.adjustViewBounds = true
-            image.setPadding(0, IMAGE_VERTICAL_PADDING, 0, IMAGE_VERTICAL_PADDING)
+            image.setPadding(0, imagePadding, 0, imagePadding)
             post_content_image_container.addView(image)
             val url = if (it.startsWith("http")) it else "http:$it"
             image.loadFromUrl(url)
@@ -220,7 +227,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
           post.videos.forEachIndexed { index, str ->
             val thumbnail = ImageView(context)
             thumbnail.adjustViewBounds = true
-            thumbnail.setPadding(0, IMAGE_VERTICAL_PADDING, 0, IMAGE_VERTICAL_PADDING)
+            thumbnail.setPadding(0, imagePadding, 0, imagePadding)
             post_content_video_container.addView(thumbnail)
             thumbnailsLoader.loadThumbnail(parseLink(str), thumbnail)
             thumbnail.setOnClickListener {
