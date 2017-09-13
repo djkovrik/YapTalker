@@ -6,6 +6,9 @@ import android.util.AttributeSet
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.stringQuantityRes
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.toSingle
+import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -29,25 +32,34 @@ class ShortDateView : AppCompatTextView {
       return text
     }
     set(value) {
-      setDateString(value)
+      value
+          .toSingle()
+          .observeOn(Schedulers.computation())
+          .map { text -> getDifference(text) }
+          .map { diff -> getCalculatedTime(diff) }
+          .map { calculatedTime -> buildString(calculatedTime) }
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribeOn(Schedulers.io())
+          .subscribe({ str ->
+            // onSuccess
+            text = str
+          }, { _ ->
+            // onError
+          })
     }
 
-  private fun setDateString(date: CharSequence) {
-    text = getShortTime(date.toString())
-  }
-
-  private fun getShortTime(source: String): String {
+  private fun getDifference(source: CharSequence): Int {
 
     val format = SimpleDateFormat("dd.MM.yyyy - HH:mm", Locale.getDefault())
-    val topicDate = format.parse(source)
+    val sourceStr = source.toString()
+    val topicDate = format.parse(sourceStr)
     val currentDate = Calendar.getInstance().time
 
-    val diff = ((currentDate.time - topicDate.time) / MILLISEC_PER_SECOND).toInt()
+    return ((currentDate.time - topicDate.time) / MILLISEC_PER_SECOND).toInt()
 
-    return getSecondsText(diff)
   }
 
-  private fun getSecondsText(diff: Int): String {
+  private fun getCalculatedTime(diff: Int): CalculatedTime {
     var diffInSeconds = diff
 
     // Skip seconds
@@ -62,34 +74,34 @@ class ShortDateView : AppCompatTextView {
     diffInSeconds /= MONTH_PER_YEAR
     val years = diffInSeconds
 
-    return CalculatedTime(min, hrs, days, months, years).buildString()
+    return CalculatedTime(min, hrs, days, months, years)
   }
 
-  private fun CalculatedTime.buildString() =
-
-      when {
-        years > 0 -> {
-          val template = context.stringQuantityRes(R.plurals.short_date_years, years)
-          String.format(Locale.getDefault(), template, years)
-        }
-        months > 0 -> {
-          val template = context.stringRes(R.string.short_date_month)
-          String.format(Locale.getDefault(), template, months)
-        }
-        days > 0 -> {
-          val template = context.stringQuantityRes(R.plurals.short_date_days, days)
-          String.format(Locale.getDefault(), template, days)
-        }
-        hours > 0 -> {
-          val template = context.stringQuantityRes(R.plurals.short_date_hours, hours)
-          String.format(Locale.getDefault(), template, hours)
-        }
-        minutes > 0 -> {
-          val template = context.stringRes(R.string.short_date_minutes)
-          String.format(Locale.getDefault(), template, minutes)
-        }
-        else -> context.stringRes(R.string.short_date_seconds_now)
+  private fun buildString(time: CalculatedTime): String {
+    return when {
+      time.years > 0 -> {
+        val template = context.stringQuantityRes(R.plurals.short_date_years, time.years)
+        String.format(Locale.getDefault(), template, time.years)
       }
+      time.months > 0 -> {
+        val template = context.stringRes(R.string.short_date_month)
+        String.format(Locale.getDefault(), template, time.months)
+      }
+      time.days > 0 -> {
+        val template = context.stringQuantityRes(R.plurals.short_date_days, time.days)
+        String.format(Locale.getDefault(), template, time.days)
+      }
+      time.hours > 0 -> {
+        val template = context.stringQuantityRes(R.plurals.short_date_hours, time.hours)
+        String.format(Locale.getDefault(), template, time.hours)
+      }
+      time.minutes > 0 -> {
+        val template = context.stringRes(R.string.short_date_minutes)
+        String.format(Locale.getDefault(), template, time.minutes)
+      }
+      else -> context.stringRes(R.string.short_date_seconds_now)
+    }
+  }
 
   private inner class CalculatedTime(
       val minutes: Int,

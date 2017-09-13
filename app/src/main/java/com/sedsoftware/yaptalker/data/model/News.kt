@@ -77,13 +77,11 @@ data class NewsItem(
     val forumLink: String,
     val comments: String) {
 
-  val cleanedDescription: String
-    get() {
+  val cleanedDescription: String =
       with(Jsoup.clean(description, Whitelist().addTags("i", "u", "b", "br"))) {
-        return if (this.contains("<br>"))
+        if (this.contains("<br>"))
           this.substring(0, this.indexOf("<br>"))
         else
           this
       }
-    }
 }

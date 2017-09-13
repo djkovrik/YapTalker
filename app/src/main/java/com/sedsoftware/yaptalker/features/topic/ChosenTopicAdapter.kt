@@ -31,8 +31,10 @@ import com.sedsoftware.yaptalker.data.model.PostScript
 import com.sedsoftware.yaptalker.data.model.PostText
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.data.remote.ThumbnailsManager
-import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.toSingle
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.controller_chosen_topic_item.view.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
@@ -80,136 +82,153 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
 
   inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    @Suppress("ComplexMethod", "NestedBlockDepth")
     fun bindTo(postItem: TopicPost) {
+      postItem
+          .toSingle()
+          .observeOn(Schedulers.computation())
+          .map { post -> parsePostContent(post) }
+          .observeOn(AndroidSchedulers.mainThread())
+          .map { parsedPost -> fillPostText(parsedPost) }
+          .map { parsedPost -> fillPostMedia(parsedPost) }
+          .map { _ -> fillPostHeader(postItem) }
+          .subscribeOn(Schedulers.io())
+          .subscribe({ _ -> }, { _ -> })
+    }
 
+    private fun fillPostHeader(post: TopicPost) {
       with(itemView) {
-        // Fill post header
-        post_author.text = postItem.authorNickname
-        post_date.shortDateText = postItem.postDate
-        post_author_avatar.loadAvatarFromUrl("http:${postItem.authorAvatar}")
-        post_rating.ratingText = postItem.postRank
+        post_author.text = post.authorNickname
+        post_date.shortDateText = post.postDate
+        post_author_avatar.loadAvatarFromUrl("http:${post.authorAvatar}")
+        post_rating.ratingText = post.postRank
+      }
+    }
 
+    private fun parsePostContent(item: TopicPost): ParsedPost {
+      return ParsedPost(item.postContent)
+    }
+
+    private fun fillPostText(post: ParsedPost): ParsedPost {
+      with(itemView) {
         var currentNestingLevel = INITIAL_NESTING_LEVEL
         val links = HashSet<PostLink>()
 
-        // Fill post content
-        with(ParsedPost(postItem.postContent)) {
-          // Text
-          if (content.isNotEmpty()) {
-            post_content_text_container.showView()
-            post_content_text_container.removeAllViews()
+        if (post.content.isNotEmpty()) {
+          post_content_text_container.showView()
+          post_content_text_container.removeAllViews()
 
-            content.forEach {
-              when (it) {
-                is PostQuoteAuthor -> {
-                  currentNestingLevel++
-                  val quoteAuthor = TextView(context)
-                  quoteAuthor.textFromHtml(it.text)
-                  if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
-                    quoteAuthor.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)
-                  }
-                  quoteAuthor.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
-                  post_content_text_container.addView(quoteAuthor)
+          post.content.forEach {
+            when (it) {
+              is PostQuoteAuthor -> {
+                currentNestingLevel++
+                val quoteAuthor = TextView(context)
+                quoteAuthor.textFromHtml(it.text)
+                if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
+                  quoteAuthor.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)
                 }
-                is PostQuote -> {
-                  val quoteText = TextView(context)
-                  quoteText.textFromHtmlWithEmoji(it.text)
-                  quoteText.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
-                  quoteText.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)
-                  post_content_text_container.addView(quoteText)
+                quoteAuthor.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
+                post_content_text_container.addView(quoteAuthor)
+              }
+              is PostQuote -> {
+                val quoteText = TextView(context)
+                quoteText.textFromHtmlWithEmoji(it.text)
+                quoteText.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
+                quoteText.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)
+                post_content_text_container.addView(quoteText)
+              }
+              is PostText -> {
+                currentNestingLevel--
+                val postText = TextView(context)
+                postText.textFromHtmlWithEmoji(it.text)
+                if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
+                  postText.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
+                  postText.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)
                 }
-                is PostText -> {
-                  currentNestingLevel--
-                  val postText = TextView(context)
-                  postText.textFromHtmlWithEmoji(it.text)
-                  if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
-                    postText.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
-                    postText.setPadding(TEXT_HORIZONTAL_PADDING * currentNestingLevel, 0, 0, 0)
-                  }
-                  post_content_text_container.addView(postText)
+                post_content_text_container.addView(postText)
+              }
+              is PostHiddenText -> {
+                val template = context.stringRes(R.string.post_hidden_text_template)
+                val hiddenText = TextView(context)
+                hiddenText.textFromHtml(it.text)
+                hiddenText.text = String.format(Locale.getDefault(), template, hiddenText.text)
+                post_content_text_container.addView(hiddenText)
+              }
+              is PostScript -> {
+                val postScriptText = TextView(context)
+                postScriptText.setTypeface(postScriptText.typeface, Typeface.ITALIC)
+                postScriptText.textColor = R.color.colorPostScriptText
+                postScriptText.textSize = POSTSCRIPT_TEXT_SIZE
+                postScriptText.textFromHtml(it.text)
+                post_content_text_container.addView(postScriptText)
+              }
+              is PostLink -> {
+                val targetUrl = when {
+                  it.url.startsWith("/go") -> "http://www.yaplakal.com${it.url}"
+                  else -> it.url
                 }
-                is PostHiddenText -> {
-                  val template = context.stringRes(R.string.post_hidden_text_template)
-                  val hiddenText = TextView(context)
-                  hiddenText.textFromHtml(it.text)
-                  hiddenText.text = String.format(Locale.getDefault(), template, hiddenText.text)
-                  post_content_text_container.addView(hiddenText)
-                }
-                is PostScript -> {
-                  val postScriptText = TextView(context)
-                  postScriptText.setTypeface(postScriptText.typeface, Typeface.ITALIC)
-                  postScriptText.textColor = R.color.colorPostScriptText
-                  postScriptText.textSize = POSTSCRIPT_TEXT_SIZE
-                  postScriptText.textFromHtml(it.text)
-                  post_content_text_container.addView(postScriptText)
-                }
-                is PostLink -> {
-                  val targetUrl = when {
-                    it.url.startsWith("/go") -> "http://www.yaplakal.com${it.url}"
-                    else -> it.url
-                  }
 
-                  val targetTitle = when {
-                    it.title.startsWith("http") ||
-                        it.title.length > MAX_LINK_TITLE_LENGTH -> context.stringRes(
-                        R.string.post_link)
-                    else -> it.title
-                  }
-
-                  links.add(PostLink(url = targetUrl, title = targetTitle))
+                val targetTitle = when {
+                  it.title.startsWith("http") ||
+                      it.title.length > MAX_LINK_TITLE_LENGTH -> context.stringRes(
+                      R.string.post_link)
+                  else -> it.title
                 }
+
+                links.add(PostLink(url = targetUrl, title = targetTitle))
               }
             }
           }
+        }
 
-          // Setup link
-          if (links.isNotEmpty()) {
-            val link = links.last()
-            post_link_button.setOnClickListener { context.browse(url = link.url, newTask = true) }
-            post_link_button.text = link.title
-            post_link_button.showView()
-          } else {
-            post_link_button.hideView()
-          }
+        if (links.isNotEmpty()) {
+          val link = links.last()
+          post_link_button.setOnClickListener { context.browse(url = link.url, newTask = true) }
+          post_link_button.text = link.title
+          post_link_button.showView()
+        } else {
+          post_link_button.hideView()
+        }
+      }
+      return post
+    }
 
-          // TODO() Fix moderators warning image stretching
-          // Images
-          if (images.isNotEmpty()) {
-            post_content_image_container.showView()
-            post_content_image_container.removeAllViews()
-            images.forEach {
-              val image = ImageView(context)
-              image.adjustViewBounds = true
-              image.setPadding(0, IMAGE_VERTICAL_PADDING, 0, IMAGE_VERTICAL_PADDING)
-              post_content_image_container.addView(image)
-              val url = if (it.startsWith("http")) it else "http:$it"
-              image.loadFromUrl(url)
-              image.setOnClickListener {
-                context.startActivity<ImageDisplayActivity>("url" to url)
-              }
+    private fun fillPostMedia(post: ParsedPost) {
+      with(itemView) {
+        if (post.images.isNotEmpty()) {
+          post_content_image_container.showView()
+          post_content_image_container.removeAllViews()
+          post.images.forEach {
+            val image = ImageView(context)
+            image.adjustViewBounds = true
+            image.setPadding(0, IMAGE_VERTICAL_PADDING, 0, IMAGE_VERTICAL_PADDING)
+            post_content_image_container.addView(image)
+            val url = if (it.startsWith("http")) it else "http:$it"
+            image.loadFromUrl(url)
+            image.setOnClickListener {
+              context.startActivity<com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity>(
+                  "url" to url)
             }
-          } else {
-            post_content_image_container.hideView()
           }
+        } else {
+          post_content_image_container.hideView()
+        }
 
-          // Videos
-          if (videos.isNotEmpty() && videosRaw.isNotEmpty()) {
-            post_content_video_container.showView()
-            post_content_video_container.removeAllViews()
-            videos.forEachIndexed { index, str ->
-              val thumbnail = ImageView(context)
-              thumbnail.adjustViewBounds = true
-              thumbnail.setPadding(0, IMAGE_VERTICAL_PADDING, 0, IMAGE_VERTICAL_PADDING)
-              post_content_video_container.addView(thumbnail)
-              thumbnailsLoader.loadThumbnail(parseLink(str), thumbnail)
-              thumbnail.setOnClickListener {
-                context.startActivity<VideoDisplayActivity>("video" to videosRaw[index])
-              }
+        // Videos
+        if (post.videos.isNotEmpty() && post.videosRaw.isNotEmpty()) {
+          post_content_video_container.showView()
+          post_content_video_container.removeAllViews()
+          post.videos.forEachIndexed { index, str ->
+            val thumbnail = ImageView(context)
+            thumbnail.adjustViewBounds = true
+            thumbnail.setPadding(0, IMAGE_VERTICAL_PADDING, 0, IMAGE_VERTICAL_PADDING)
+            post_content_video_container.addView(thumbnail)
+            thumbnailsLoader.loadThumbnail(parseLink(str), thumbnail)
+            thumbnail.setOnClickListener {
+              context.startActivity<VideoDisplayActivity>("video" to post.videosRaw[index])
             }
-          } else {
-            post_content_video_container.hideView()
           }
+        } else {
+          post_content_video_container.hideView()
         }
       }
     }
