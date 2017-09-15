@@ -45,6 +45,16 @@
         android:value=".features.navigation.NavigationActivity"/>
     </activity>
 
+    <activity
+      android:label="@string/nav_drawer_settings"
+      android:name=".features.settings.SettingsActivity"
+      android:parentActivityName=".features.navigation.NavigationActivity"
+      android:theme="@style/AppTheme.Settings">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".features.navigation.NavigationActivity"/>
+    </activity>
+
     <provider
       android:authorities="com.sedsoftware.yaptalker"
       android:exported="false"
