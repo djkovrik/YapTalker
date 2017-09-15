@@ -31,6 +31,7 @@ import com.sedsoftware.yaptalker.data.model.PostScript
 import com.sedsoftware.yaptalker.data.model.PostText
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.data.remote.ThumbnailsManager
+import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.toSingle
@@ -212,8 +213,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
             val url = if (it.startsWith("http")) it else "http:$it"
             image.loadFromUrl(url)
             image.setOnClickListener {
-              context.startActivity<com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity>(
-                  "url" to url)
+              context.startActivity<ImageDisplayActivity>("url" to url)
             }
           }
         } else {

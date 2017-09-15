@@ -1,15 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="app_name">YapTalker</string>
 
-  <!-- NavigationDrawer  header items -->
+  <!-- NAVIGATION DRAWER -->
+  <!-- Header items -->
   <string name="nav_drawer_guest_name">Guest</string>
-
-  <!-- NavigationDrawer items -->
+  <!-- Navigation items -->
   <string name="nav_drawer_main_page">Main page</string>
   <string name="nav_drawer_forums">Forums</string>
   <string name="nav_drawer_settings">Settings</string>
 
-  <!-- News Item -->
+  <!-- NEWS -->
   <string name="news_comments_template">
    <xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments
   </string>
@@ -18,7 +18,7 @@
     <xliff:g id="bullet">\u25AA</xliff:g> <xliff:g id="forum">%s</xliff:g>
   </string>
 
-  <!-- Forum item -->
+  <!-- FORUMS -->
   <string name="forum_comments_template">
    Comments: <xliff:g id="answers">%s</xliff:g>
   </string>
@@ -26,11 +26,11 @@
     <xliff:g id="icon">{cmd-pin}</xliff:g> <xliff:g id="title">%s</xliff:g>
   </string>
 
-  <!-- Post item -->
+  <!-- POSTS -->
   <string name="post_hidden_text_template">Hidden text: <xliff:g id="spoiler">%s</xliff:g></string>
   <string name="post_link">Link</string>
 
-  <!-- Navigation panel -->
+  <!-- NAVIGATION PANEL -->
   <string name="navigation_pages_template">
     Page <xliff:g id="page">%d</xliff:g> of <xliff:g id="total_pages">%d</xliff:g>
   </string>
@@ -42,16 +42,16 @@
     Page <xliff:g id="page">%d</xliff:g> is not available
   </string>
 
-  <!-- Messages and titles -->
+  <!-- MESSAGES AND TITLES -->
   <string name="title_share_image">Share Image</string>
   <string name="msg_file_saved">File saved to <xliff:g id="filepath">%s</xliff:g></string>
   <string name="msg_file_not_saved">File not saved!</string>
 
-  <!-- Menu items -->
+  <!-- MENUS -->
   <string name="action_save">Save</string>
   <string name="action_share">Share</string>
 
-  <!-- Short date strings -->
+  <!-- SHORT DATE STRINGS -->
   <plurals name="short_date_years">
     <item quantity="one"><xliff:g id="years">%d</xliff:g> year(s)</item>
     <item quantity="few"><xliff:g id="years">%d</xliff:g> year(s)</item>
@@ -79,5 +79,81 @@
 
   <string name="short_date_minutes"><xliff:g id="minutes">%d</xliff:g> min(s)</string>
   <string name="short_date_seconds_now">just now</string>
+
+  <!-- PREFERENCES -->
+  <!-- General -->
+  <string name="pref_category_title_general">General</string>
+  <!-- Start page -->
+  <string name="pref_general_start_page_title">Start page</string>
+  <string name="pref_general_start_page_label_main">Main page</string>
+  <string name="pref_general_start_page_value_main" translatable="false">main</string>
+  <string name="pref_general_start_page_label_forums">Forums</string>
+  <string name="pref_general_start_page_value_forums" translatable="false">forums</string>
+
+  <!-- Appearance -->
+  <string name="pref_category_title_appearance">Appearance</string>
+  <!-- Theme -->
+  <string name="pref_appearance_theme_title">Theme</string>
+  <string name="pref_appearance_theme_label_light">Light</string>
+  <string name="pref_appearance_theme_label_dark">Dark</string>
+  <string name="pref_appearance_theme_value_light" translatable="false">light</string>
+  <string name="pref_appearance_theme_value_dark" translatable="false">dark</string>
+  <!-- Font size -->
+  <string name="pref_appearance_font_size_title">Base font size</string>
+  <string name="pref_appearance_font_size_value_12" translatable="false">12</string>
+  <string name="pref_appearance_font_size_value_13" translatable="false">13</string>
+  <string name="pref_appearance_font_size_value_14" translatable="false">14</string>
+  <string name="pref_appearance_font_size_value_15" translatable="false">15</string>
+  <string name="pref_appearance_font_size_value_16" translatable="false">16</string>
+
+  <!-- Content -->
+  <string name="pref_category_title_content">Content</string>
+  <!-- Categorizer -->
+  <string name="pref_content_categorizer_label">Categorizer</string>
+  <string name="pref_content_categorizer_summary">Select news categories which are shown in the main page.</string>
+  <string name="pref_content_categorizer_label_pictures">Pictures</string>
+  <string name="pref_content_categorizer_label_video">Video</string>
+  <string name="pref_content_categorizer_label_events">Events</string>
+  <string name="pref_content_categorizer_label_auto">Auto</string>
+  <string name="pref_content_categorizer_label_animals">Animals</string>
+  <string name="pref_content_categorizer_label_trading">Trading</string>
+  <string name="pref_content_categorizer_label_photo_trav">Photo travelings</string>
+  <string name="pref_content_categorizer_label_text">Writing</string>
+  <string name="pref_content_categorizer_label_photoshop">Photoshop</string>
+  <string name="pref_content_categorizer_label_creative">Creative</string>
+  <string name="pref_content_categorizer_label_yapizdat">Publishing</string>
+  <string name="pref_content_categorizer_label_flash">Flash</string>
+  <string name="pref_content_categorizer_label_poetry">Poetry</string>
+  <string name="pref_content_categorizer_label_rhyme">Rhyme</string>
+  <string name="pref_content_categorizer_label_gold">Gold</string>
+  <string name="pref_content_categorizer_label_collection">Collection</string>
+  <string name="pref_content_categorizer_label_reviews">Reviews</string>
+  <string name="pref_content_categorizer_label_building">Building</string>
+  <string name="pref_content_categorizer_value_pictures" translatable="false">//www.yaplakal.com/forum2/</string>
+  <string name="pref_content_categorizer_value_video" translatable="false">//www.yaplakal.com/forum28/</string>
+  <string name="pref_content_categorizer_value_events" translatable="false">//www.yaplakal.com/forum1/</string>
+  <string name="pref_content_categorizer_value_auto" translatable="false">//www.yaplakal.com/forum11/</string>
+  <string name="pref_content_categorizer_value_animals" translatable="false">//www.yaplakal.com/forum13/</string>
+  <string name="pref_content_categorizer_value_trading" translatable="false">//www.yaplakal.com/forum18/</string>
+  <string name="pref_content_categorizer_value_photo_trav" translatable="false">//www.yaplakal.com/forum43/</string>
+  <string name="pref_content_categorizer_value_text" translatable="false">//www.yaplakal.com/forum7/</string>
+  <string name="pref_content_categorizer_value_photoshop" translatable="false">//www.yaplakal.com/forum27/</string>
+  <string name="pref_content_categorizer_value_creative" translatable="false">//www.yaplakal.com/forum6/</string>
+  <string name="pref_content_categorizer_value_yapizdat" translatable="false">//www.yaplakal.com/forum40/</string>
+  <string name="pref_content_categorizer_value_flash" translatable="false">//www.yaplakal.com/forum8/</string>
+  <string name="pref_content_categorizer_value_poetry" translatable="false">//www.yaplakal.com/forum41/</string>
+  <string name="pref_content_categorizer_value_rhyme" translatable="false">//www.yaplakal.com/forum38/</string>
+  <string name="pref_content_categorizer_value_gold" translatable="false">//www.yaplakal.com/forum9/</string>
+  <string name="pref_content_categorizer_value_collection" translatable="false">//www.yaplakal.com/forum26/</string>
+  <string name="pref_content_categorizer_value_reviews" translatable="false">//www.yaplakal.com/forum16/</string>
+  <string name="pref_content_categorizer_value_building" translatable="false">//www.yaplakal.com/forum46/</string>
+  <!-- nsfw -->
+  <string name="pref_content_nsfw_title">I\'m over 18 years old</string>
+  <string name="pref_content_nsfw_summary">Display forum sections with mature content.</string>
+
+  <!--- MISCELLANIOUS -->
+  <string name="pref_category_title_misc">Misc</string>
+  <string name="pref_misc_send_crash_reports_label">Send crash reports</string>
+  <string name="pref_misc_send_crash_reports_summary">Enable crash statistics reporting.</string>
 
 </resources>
