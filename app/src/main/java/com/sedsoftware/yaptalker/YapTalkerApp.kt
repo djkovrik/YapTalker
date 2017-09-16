@@ -8,7 +8,6 @@ import android.widget.ImageView
 import com.facebook.stetho.Stetho
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.KodeinAware
-import com.github.salomonbrys.kodein.android.autoAndroidModule
 import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.lazy
 import com.github.salomonbrys.kodein.singleton
@@ -20,6 +19,7 @@ import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.data.remote.YapRequestState
 import com.sedsoftware.yaptalker.data.remote.remoteDataModule
 import com.sedsoftware.yaptalker.data.remote.requestsModule
+import com.sedsoftware.yaptalker.features.settings.settingsModule
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
@@ -33,11 +33,15 @@ class YapTalkerApp : Application(), KodeinAware {
 
   override val kodein by Kodein.lazy {
     // Android auto module import
-    import(autoAndroidModule(this@YapTalkerApp))
+    //import(autoAndroidModule(this@YapTalkerApp))
+
+    // App context
+    bind<Context>() with singleton { this@YapTalkerApp }
 
     // Custom modules
     import(requestsModule)
     import(remoteDataModule)
+    import(settingsModule)
 
     // Global rx bus for loading state
     bind<BehaviorRelay<Long>>() with singleton { BehaviorRelay.createDefault(YapRequestState.IDLE) }
