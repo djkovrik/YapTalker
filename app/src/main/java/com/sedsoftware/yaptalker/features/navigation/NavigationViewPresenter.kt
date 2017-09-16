@@ -24,4 +24,6 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
   fun onNavigationClicked(@Navigation.Section section: Long) {
     viewState.goToChosenSection(section)
   }
+
+  fun getFirstLaunchPage() = settings.getStartingPage()
 }

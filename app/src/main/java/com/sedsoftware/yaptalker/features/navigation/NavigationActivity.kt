@@ -40,7 +40,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
     get() = content_frame
 
   override val rootController: Controller
-    get() = NewsController()
+    get() = navigationViewPresenter.getFirstLaunchPage()
 
   // Navigation navDrawer contents
   private lateinit var navDrawer: Drawer
