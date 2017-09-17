@@ -36,12 +36,13 @@ class SettingsReader(val context: Context) {
   fun getNormalFontSize() = getString(R.string.pref_key_font_size).toFloat()
   fun getBigFontSize() = getString(R.string.pref_key_font_size).toFloat() + TEXT_SIZE_OFFSET
   fun getSmallFontSize() = getString(R.string.pref_key_font_size).toFloat() - TEXT_SIZE_OFFSET
+  fun getNewsCategories() = getStringSet(R.string.pref_key_categorizer)
 
   private fun getString(@StringRes key: Int): String {
     return preferences.getString(context.stringRes(key), "")
   }
 
-  private fun getStringSet(@StringRes key: Int): Set<String>? {
+  private fun getStringSet(@StringRes key: Int): Set<String> {
     return preferences.getStringSet(context.stringRes(key), HashSet<String>())
   }
 

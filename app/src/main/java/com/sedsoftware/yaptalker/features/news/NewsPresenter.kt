@@ -18,6 +18,10 @@ class NewsPresenter : BasePresenter<NewsView>() {
   private var currentPage = 0
   private var backToFirstPage = false
 
+  private val newsCategories by lazy {
+    settings.getNewsCategories()
+  }
+
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
@@ -55,6 +59,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
 
     yapDataManager
         .getNews(currentPage)
+        .filter { newsItem -> newsCategories.contains(newsItem.forumLink) }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
