@@ -32,6 +32,7 @@ import com.sedsoftware.yaptalker.data.model.PostText
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.data.remote.ThumbnailsManager
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
+import com.sedsoftware.yaptalker.features.settings.SettingsReader
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.toSingle
@@ -51,7 +52,17 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
   override val kodein: LazyKodein
     get() = LazyKodein { YapTalkerApp.kodeinInstance }
 
+  // Kodein injections
   private val thumbnailsLoader: ThumbnailsManager by instance()
+  private val settings: SettingsReader by instance()
+
+  private val normalFontSize by lazy {
+    settings.getNormalFontSize()
+  }
+
+  private val smallFontSize by lazy {
+    settings.getSmallFontSize()
+  }
 
   private var posts: ArrayList<TopicPost> = ArrayList()
 
@@ -98,6 +109,10 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
         post_date.shortDateText = post.postDate
         post_author_avatar.loadAvatarFromUrl("http:${post.authorAvatar}")
         post_rating.ratingText = post.postRank
+
+        post_author.textSize = normalFontSize
+        post_date.textSize = normalFontSize
+        post_rating.textSize = normalFontSize
       }
     }
 
@@ -110,16 +125,14 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
       val textPadding = itemView.context.resources.getDimension(
           R.dimen.post_text_horizontal_padding).toInt()
 
-      val textSize = itemView.context.resources.getDimension(
-          R.dimen.post_ps_text_size) / itemView.context.resources.displayMetrics.density
-
       with(itemView) {
         var currentNestingLevel = INITIAL_NESTING_LEVEL
         val links = HashSet<PostLink>()
 
+        post_content_text_container.removeAllViews()
+
         if (post.content.isNotEmpty()) {
           post_content_text_container.showView()
-          post_content_text_container.removeAllViews()
 
           post.content.forEach {
             when (it) {
@@ -127,6 +140,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
                 currentNestingLevel++
                 val quoteAuthor = TextView(context)
                 quoteAuthor.textFromHtml(it.text)
+                quoteAuthor.textSize = normalFontSize
                 if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
                   quoteAuthor.setPadding(textPadding * currentNestingLevel, 0, 0, 0)
                 }
@@ -136,6 +150,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
               is PostQuote -> {
                 val quoteText = TextView(context)
                 quoteText.textFromHtmlWithEmoji(it.text)
+                quoteText.textSize = normalFontSize
                 quoteText.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
                 quoteText.setPadding(textPadding * currentNestingLevel, 0, 0, 0)
                 post_content_text_container.addView(quoteText)
@@ -144,6 +159,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
                 currentNestingLevel--
                 val postText = TextView(context)
                 postText.textFromHtmlWithEmoji(it.text)
+                postText.textSize = normalFontSize
                 if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
                   postText.setBackgroundColor(context.color(R.color.colorQuotedTextBackground))
                   postText.setPadding(textPadding * currentNestingLevel, 0, 0, 0)
@@ -155,14 +171,15 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
                 val hiddenText = TextView(context)
                 hiddenText.textFromHtml(it.text)
                 hiddenText.text = String.format(Locale.getDefault(), template, hiddenText.text)
+                hiddenText.textSize = smallFontSize
                 post_content_text_container.addView(hiddenText)
               }
               is PostScript -> {
                 val postScriptText = TextView(context)
                 postScriptText.setTypeface(postScriptText.typeface, Typeface.ITALIC)
-                postScriptText.textColor = R.color.colorPostScriptText
-                postScriptText.textSize = textSize
                 postScriptText.textFromHtml(it.text)
+                postScriptText.textSize = smallFontSize
+                postScriptText.textColor = R.color.colorPostScriptText
                 post_content_text_container.addView(postScriptText)
               }
               is PostLink -> {

@@ -5,15 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.LazyKodeinAware
+import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.data.model.Topic
+import com.sedsoftware.yaptalker.features.settings.SettingsReader
 import kotlinx.android.synthetic.main.controller_chosen_forum_item.view.*
 import java.util.Locale
 
 class ChosenForumAdapter(
-    private val itemClick: (Int) -> Unit) : RecyclerView.Adapter<ChosenForumAdapter.ForumViewHolder>() {
+    private val itemClick: (Int) -> Unit) : RecyclerView.Adapter<ChosenForumAdapter.ForumViewHolder>(), LazyKodeinAware {
+
+  override val kodein: LazyKodein
+    get() = LazyKodein { YapTalkerApp.kodeinInstance }
+
+  // Kodein injection
+  private val settings: SettingsReader by instance()
+
+  private val normalFontSize by lazy {
+    settings.getNormalFontSize()
+  }
 
   private var topics: ArrayList<Topic> = ArrayList()
 
@@ -43,7 +58,8 @@ class ChosenForumAdapter(
       itemView: View, private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     private val commentsTemplate = itemView.context.getString(R.string.forum_comments_template)
-    private val pinnedTopicTemplate = itemView.context.getString(R.string.forum_pinned_topic_template)
+    private val pinnedTopicTemplate = itemView.context.getString(
+        R.string.forum_pinned_topic_template)
 
     fun bindTo(topicItem: Topic) {
       with(topicItem) {
@@ -61,6 +77,9 @@ class ChosenForumAdapter(
           if (rating.isNotEmpty()) {
             topic_rating.loadRatingBackground(rating.toInt())
           }
+
+          topic_name.textSize = normalFontSize
+          topic_rating.textSize = normalFontSize
 
           setOnClickListener { itemClick(link.getLastDigits()) }
         }

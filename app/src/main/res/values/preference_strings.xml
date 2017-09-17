@@ -14,8 +14,6 @@
   <string name="pref_category_title_appearance">Appearance</string>
   <!-- Font size -->
   <string name="pref_appearance_font_size_title">Base font size</string>
-  <string name="pref_appearance_font_size_value_12" translatable="false">12</string>
-  <string name="pref_appearance_font_size_value_13" translatable="false">13</string>
   <string name="pref_appearance_font_size_value_14" translatable="false">14</string>
   <string name="pref_appearance_font_size_value_15" translatable="false">15</string>
   <string name="pref_appearance_font_size_value_16" translatable="false">16</string>

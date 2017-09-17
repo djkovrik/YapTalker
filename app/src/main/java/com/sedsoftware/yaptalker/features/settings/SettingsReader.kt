@@ -15,6 +15,10 @@ import org.jetbrains.anko.defaultSharedPreferences
 
 class SettingsReader(val context: Context) {
 
+  companion object {
+    private const val TEXT_SIZE_OFFSET = 2f
+  }
+
   private val preferences by lazy {
     context.defaultSharedPreferences
   }
@@ -28,6 +32,10 @@ class SettingsReader(val context: Context) {
       else -> ForumsController()
     }
   }
+
+  fun getNormalFontSize() = getString(R.string.pref_key_font_size).toFloat()
+  fun getBigFontSize() = getString(R.string.pref_key_font_size).toFloat() + TEXT_SIZE_OFFSET
+  fun getSmallFontSize() = getString(R.string.pref_key_font_size).toFloat() - TEXT_SIZE_OFFSET
 
   private fun getString(@StringRes key: Int): String {
     return preferences.getString(context.stringRes(key), "")
