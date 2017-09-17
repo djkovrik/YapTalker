@@ -18,14 +18,6 @@
     android:title="@string/pref_category_title_appearance">
 
     <com.afollestad.materialdialogs.prefs.MaterialListPreference
-      android:defaultValue="@string/pref_appearance_theme_value_light"
-      android:entries="@array/pref_theme_labels"
-      android:entryValues="@array/pref_theme_values"
-      android:key="@string/pref_key_theme"
-      android:persistent="true"
-      android:title="@string/pref_appearance_theme_title"/>
-
-    <com.afollestad.materialdialogs.prefs.MaterialListPreference
       android:defaultValue="14"
       android:entries="@array/pref_font_size_values"
       android:entryValues="@array/pref_font_size_values"

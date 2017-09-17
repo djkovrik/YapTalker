@@ -11,17 +11,6 @@
     <item>@string/pref_general_start_page_value_forums</item>
   </string-array>
 
-  <!-- Appearance: Theme -->
-  <string-array name="pref_theme_labels">
-    <item>@string/pref_appearance_theme_label_light</item>
-    <item>@string/pref_appearance_theme_label_dark</item>
-  </string-array>
-
-  <string-array name="pref_theme_values">
-    <item>@string/pref_appearance_theme_value_light</item>
-    <item>@string/pref_appearance_theme_value_dark</item>
-  </string-array>
-
   <!-- Appearance: Font size -->
   <string-array name="pref_font_size_values">
     <item>@string/pref_appearance_font_size_value_12</item>
