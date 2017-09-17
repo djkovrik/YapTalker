@@ -37,6 +37,7 @@ class SettingsReader(val context: Context) {
   fun getBigFontSize() = getString(R.string.pref_key_font_size).toFloat() + TEXT_SIZE_OFFSET
   fun getSmallFontSize() = getString(R.string.pref_key_font_size).toFloat() - TEXT_SIZE_OFFSET
   fun getNewsCategories() = getStringSet(R.string.pref_key_categorizer)
+  fun isNsfwEnabled() = getBoolean(R.string.pref_key_nswf)
 
   private fun getString(@StringRes key: Int): String {
     return preferences.getString(context.stringRes(key), "")
