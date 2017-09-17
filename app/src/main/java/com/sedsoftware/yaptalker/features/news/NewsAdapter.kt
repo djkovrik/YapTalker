@@ -19,6 +19,7 @@ import com.sedsoftware.yaptalker.commons.parseLink
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.data.remote.ThumbnailsManager
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
+import com.sedsoftware.yaptalker.features.settings.SettingsReader
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import kotlinx.android.synthetic.main.controller_news_item.view.*
 import org.jetbrains.anko.startActivity
@@ -33,6 +34,15 @@ class NewsAdapter(
 
   // Kodein injection
   private val thumbnailsLoader: ThumbnailsManager by instance()
+  private val settings: SettingsReader by instance()
+
+  private val normalFontSize by lazy {
+    settings.getNormalFontSize()
+  }
+
+  private val bigFontSize by lazy {
+    settings.getBigFontSize()
+  }
 
   private var news: ArrayList<NewsItem> = ArrayList()
   private var lastPosition = -1
@@ -86,12 +96,21 @@ class NewsAdapter(
 
     fun bindTo(newsItem: NewsItem) {
       with(itemView) {
+        // Font size
+        news_author.textSize = normalFontSize
+        news_title.textSize = bigFontSize
+        news_forum.textSize = normalFontSize
+        news_date.textSize = normalFontSize
+        news_rating.textSize = normalFontSize
+        news_comments_counter.textSize = normalFontSize
+        news_content_text.textSize = normalFontSize
+
+        // Content
         news_author.text = newsItem.author
         news_title.text = newsItem.title
         news_forum.text = String.format(Locale.US, forumTitleTemplate, newsItem.forumName)
         news_date.shortDateText = newsItem.date
         news_rating.ratingText = newsItem.rating
-
         news_comments_counter.text = String.format(Locale.US, commentsTemplate, newsItem.comments)
         news_content_text.textFromHtml(newsItem.cleanedDescription)
 

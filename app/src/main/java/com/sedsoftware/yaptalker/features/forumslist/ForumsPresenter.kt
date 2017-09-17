@@ -11,6 +11,10 @@ import io.reactivex.schedulers.Schedulers
 @InjectViewState
 class ForumsPresenter : BasePresenter<ForumsView>() {
 
+  companion object {
+    private val nsfwForumSections = setOf(4, 33, 36)
+  }
+
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
@@ -34,6 +38,12 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
 
     yapDataManager
         .getForumsList()
+        .filter { forumItem ->
+          if (settings.isNsfwEnabled())
+            true
+          else
+            !nsfwForumSections.contains(forumItem.forumId)
+        }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))

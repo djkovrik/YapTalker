@@ -23,9 +23,10 @@ import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.features.base.BaseActivity
 import com.sedsoftware.yaptalker.features.forumslist.ForumsController
 import com.sedsoftware.yaptalker.features.news.NewsController
+import com.sedsoftware.yaptalker.features.settings.SettingsActivity
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import kotlinx.android.synthetic.main.include_main_content.*
-import timber.log.Timber
+import org.jetbrains.anko.startActivity
 
 class NavigationActivity : BaseActivity(), NavigationView {
 
@@ -39,7 +40,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
     get() = content_frame
 
   override val rootController: Controller
-    get() = NewsController()
+    get() = navigationViewPresenter.getFirstLaunchPage()
 
   // Navigation navDrawer contents
   private lateinit var navDrawer: Drawer
@@ -123,6 +124,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
       primaryItem {
         identifier = Navigation.SETTINGS
         name = stringRes(R.string.nav_drawer_settings)
+        selectable = false
         iicon = CommunityMaterial.Icon.cmd_settings
         textColor = color(R.color.colorNavDefaultText).toLong()
         iconColorRes = R.color.colorNavSettings
@@ -150,7 +152,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
                 .popChangeHandler(FadeChangeHandler()))
       }
       Navigation.SETTINGS -> {
-        Timber.d("Settings click")
+        startActivity<SettingsActivity>()
       }
     }
   }

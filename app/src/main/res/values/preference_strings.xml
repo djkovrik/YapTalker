@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- GENERAL -->
+  <string name="pref_category_title_general">General</string>
+  <!-- Start page -->
+  <string name="pref_general_start_page_title">Start page</string>
+  <string name="pref_general_start_page_label_main">Main page</string>
+  <string name="pref_general_start_page_value_main" translatable="false">main</string>
+  <string name="pref_general_start_page_label_forums">Forums</string>
+  <string name="pref_general_start_page_value_forums" translatable="false">forums</string>
+
+  <!-- APPEARANCE -->
+  <string name="pref_category_title_appearance">Appearance</string>
+  <!-- Font size -->
+  <string name="pref_appearance_font_size_title">Base font size</string>
+  <string name="pref_appearance_font_size_value_14" translatable="false">14</string>
+  <string name="pref_appearance_font_size_value_15" translatable="false">15</string>
+  <string name="pref_appearance_font_size_value_16" translatable="false">16</string>
+
+  <!-- CONTENT -->
+  <string name="pref_category_title_content">Content</string>
+  <!-- Categorizer -->
+  <string name="pref_content_categorizer_label">Categorizer</string>
+  <string name="pref_content_categorizer_summary">Select news categories which are shown in the main page.</string>
+  <string name="pref_content_categorizer_label_pictures">Pictures</string>
+  <string name="pref_content_categorizer_label_video">Video</string>
+  <string name="pref_content_categorizer_label_events">Events</string>
+  <string name="pref_content_categorizer_label_auto">Auto</string>
+  <string name="pref_content_categorizer_label_animals">Animals</string>
+  <string name="pref_content_categorizer_label_trading">Trading</string>
+  <string name="pref_content_categorizer_label_photo_trav">Photo travelings</string>
+  <string name="pref_content_categorizer_label_text">Writing</string>
+  <string name="pref_content_categorizer_label_photoshop">Photoshop</string>
+  <string name="pref_content_categorizer_label_creative">Creative</string>
+  <string name="pref_content_categorizer_label_yapizdat">Publishing</string>
+  <string name="pref_content_categorizer_label_flash">Flash</string>
+  <string name="pref_content_categorizer_label_poetry">Poetry</string>
+  <string name="pref_content_categorizer_label_rhyme">Rhyme</string>
+  <string name="pref_content_categorizer_label_gold">Gold</string>
+  <string name="pref_content_categorizer_label_collection">Collection</string>
+  <string name="pref_content_categorizer_label_reviews">Reviews</string>
+  <string name="pref_content_categorizer_label_building">Building</string>
+  <string name="pref_content_categorizer_value_pictures" translatable="false">//www.yaplakal.com/forum2/</string>
+  <string name="pref_content_categorizer_value_video" translatable="false">//www.yaplakal.com/forum28/</string>
+  <string name="pref_content_categorizer_value_events" translatable="false">//www.yaplakal.com/forum1/</string>
+  <string name="pref_content_categorizer_value_auto" translatable="false">//www.yaplakal.com/forum11/</string>
+  <string name="pref_content_categorizer_value_animals" translatable="false">//www.yaplakal.com/forum13/</string>
+  <string name="pref_content_categorizer_value_trading" translatable="false">//www.yaplakal.com/forum18/</string>
+  <string name="pref_content_categorizer_value_photo_trav" translatable="false">//www.yaplakal.com/forum43/</string>
+  <string name="pref_content_categorizer_value_text" translatable="false">//www.yaplakal.com/forum7/</string>
+  <string name="pref_content_categorizer_value_photoshop" translatable="false">//www.yaplakal.com/forum27/</string>
+  <string name="pref_content_categorizer_value_creative" translatable="false">//www.yaplakal.com/forum6/</string>
+  <string name="pref_content_categorizer_value_yapizdat" translatable="false">//www.yaplakal.com/forum40/</string>
+  <string name="pref_content_categorizer_value_flash" translatable="false">//www.yaplakal.com/forum8/</string>
+  <string name="pref_content_categorizer_value_poetry" translatable="false">//www.yaplakal.com/forum41/</string>
+  <string name="pref_content_categorizer_value_rhyme" translatable="false">//www.yaplakal.com/forum38/</string>
+  <string name="pref_content_categorizer_value_gold" translatable="false">//www.yaplakal.com/forum9/</string>
+  <string name="pref_content_categorizer_value_collection" translatable="false">//www.yaplakal.com/forum26/</string>
+  <string name="pref_content_categorizer_value_reviews" translatable="false">//www.yaplakal.com/forum16/</string>
+  <string name="pref_content_categorizer_value_building" translatable="false">//www.yaplakal.com/forum46/</string>
+  <!-- nsfw -->
+  <string name="pref_content_nsfw_title">I\'m over 18 years old</string>
+  <string name="pref_content_nsfw_summary">Display forum sections with mature content.</string>
+
+  <!--- MISCELLANEOUS -->
+  <string name="pref_category_title_misc">Misc</string>
+  <string name="pref_misc_send_crash_reports_label">Send crash reports</string>
+  <string name="pref_misc_send_crash_reports_summary">Enable crash statistics reporting.</string>
+
+</resources>
