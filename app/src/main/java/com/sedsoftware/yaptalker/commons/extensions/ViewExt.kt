@@ -105,7 +105,7 @@ fun SwipeRefreshLayout.setAppColorScheme() {
 }
 
 /**
- * Hides view beyond bottom screen edge.
+ * Hides view beyond screen edge.
  *
  * @param offset Y-axis offset for view animation.
  * @param delay Animation starting delay.

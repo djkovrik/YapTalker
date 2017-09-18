@@ -11,7 +11,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class YapDataManager(val yapLoader: YapLoader, val requestState: BehaviorRelay<Long>) {
+class YapDataManager(private val yapLoader: YapLoader, val requestState: BehaviorRelay<Long>) {
 
   fun getNews(startNumber: Int = 0): Observable<NewsItem> =
       yapLoader

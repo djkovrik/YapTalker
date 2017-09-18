@@ -24,10 +24,12 @@ import java.util.Locale
 
 class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
 
+  companion object {
+    private const val STORAGE_WRITE_PERMISSION = 0
+  }
+
   @InjectPresenter
   lateinit var displayPresenter: ImageDisplayPresenter
-
-  private val STORAGE_WRITE_PERMISSION = 0
 
   private val imageUrl: String by lazy {
     intent.getStringExtra("url")

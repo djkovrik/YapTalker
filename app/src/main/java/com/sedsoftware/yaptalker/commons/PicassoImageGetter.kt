@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.text.Html
 import android.widget.TextView
+import com.sedsoftware.yaptalker.commons.extensions.currentDensity
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target as DrawableTarget
 
@@ -38,8 +39,8 @@ class PicassoImageGetter(val context: Context, val textView: TextView) : Html.Im
 
     private fun setTargetDrawable(drawable: Drawable) {
       this.drawable = drawable
-      val width = drawable.intrinsicWidth * context.resources.displayMetrics.density.toInt()
-      val height = drawable.intrinsicHeight * context.resources.displayMetrics.density.toInt()
+      val width = drawable.intrinsicWidth * context.currentDensity
+      val height = drawable.intrinsicHeight * context.currentDensity
       drawable.setBounds(0, 0, width, height)
       setBounds(0, 0, width, height)
       textView.text = textView.text

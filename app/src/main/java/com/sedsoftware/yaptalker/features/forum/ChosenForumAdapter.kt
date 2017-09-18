@@ -17,8 +17,8 @@ import com.sedsoftware.yaptalker.features.settings.SettingsReader
 import kotlinx.android.synthetic.main.controller_chosen_forum_item.view.*
 import java.util.Locale
 
-class ChosenForumAdapter(
-    private val itemClick: (Int) -> Unit) : RecyclerView.Adapter<ChosenForumAdapter.ForumViewHolder>(), LazyKodeinAware {
+class ChosenForumAdapter(private val itemClick: (Int) -> Unit) :
+    RecyclerView.Adapter<ChosenForumAdapter.ForumViewHolder>(), LazyKodeinAware {
 
   override val kodein: LazyKodein
     get() = LazyKodein { YapTalkerApp.kodeinInstance }

@@ -11,6 +11,7 @@ import io.reactivex.schedulers.Schedulers
 @InjectViewState
 class ForumsPresenter : BasePresenter<ForumsView>() {
 
+  @Suppress("MagicNumber")
   companion object {
     private val nsfwForumSections = setOf(4, 33, 36)
   }

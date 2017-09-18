@@ -11,3 +11,5 @@ fun Context.stringRes(@StringRes resId: Int): String = resources.getString(resId
 fun Context.stringQuantityRes(@PluralsRes resId: Int, value: Int): String
     = resources.getQuantityString(resId, value)
 
+val Context.currentDensity: Int
+  get() = resources.displayMetrics.density.toInt()

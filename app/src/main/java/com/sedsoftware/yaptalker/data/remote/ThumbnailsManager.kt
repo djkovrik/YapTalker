@@ -11,7 +11,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class ThumbnailsManager(val rutube: RutubeLoader, val coub: CoubLoader) {
+class ThumbnailsManager(private val rutube: RutubeLoader, private val coub: CoubLoader) {
 
   fun loadThumbnail(video: Pair<Int, String>, imageView: ImageView) {
 
@@ -56,7 +56,7 @@ class ThumbnailsManager(val rutube: RutubeLoader, val coub: CoubLoader) {
     }
   }
 
-  fun getImageObserver(imageView: ImageView) =
+  private fun getImageObserver(imageView: ImageView) =
       object : SingleObserver<String?> {
         override fun onError(e: Throwable) {
         }
@@ -69,7 +69,7 @@ class ThumbnailsManager(val rutube: RutubeLoader, val coub: CoubLoader) {
         }
       }
 
-  fun getDrawableObserver(imageView: ImageView) =
+  private fun getDrawableObserver(imageView: ImageView) =
       object : SingleObserver<Int> {
         override fun onError(e: Throwable) {
         }
