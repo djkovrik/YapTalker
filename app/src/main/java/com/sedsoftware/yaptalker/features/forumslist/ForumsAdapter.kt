@@ -43,10 +43,18 @@ class ForumsAdapter(
 
   override fun getItemId(position: Int) = forumsList[position].forumId.toLong()
 
+  fun getForums() = forumsList
+
   fun addForumsListItem(item: ForumItem) {
     val insertPosition = forumsList.size
     forumsList.add(item)
     notifyItemInserted(insertPosition)
+  }
+
+  fun addForumsList(list: List<ForumItem>) {
+    forumsList.clear()
+    forumsList.addAll(list)
+    notifyDataSetChanged()
   }
 
   fun clearForumsList() {

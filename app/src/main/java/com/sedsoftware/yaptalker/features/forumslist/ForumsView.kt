@@ -12,6 +12,8 @@ interface ForumsView : MvpView {
 
   fun appendForumItem(item: ForumItem)
 
+  fun appendForumsList(list: List<ForumItem>)
+
   fun showErrorMessage(message: String)
 
   fun showRefreshing()
