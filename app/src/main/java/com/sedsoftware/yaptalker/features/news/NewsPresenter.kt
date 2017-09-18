@@ -85,16 +85,13 @@ class NewsPresenter : BasePresenter<NewsView>() {
     }
   }
 
-  fun scrollToTop() {
-    viewState.scrollListToTop()
-  }
-
   private fun onLoadingSuccess(newsItem: NewsItem) {
     if (backToFirstPage) {
       viewState.clearNewsList()
       backToFirstPage = false
     }
     viewState.appendNewsItem(newsItem)
+    viewState.hideFab()
   }
 
   private fun onLoadingError(error: Throwable) {

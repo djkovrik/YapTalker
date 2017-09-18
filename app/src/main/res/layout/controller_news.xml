@@ -25,9 +25,9 @@
     android:layout_margin="@dimen/materialize_screen_edge"
     android:layout_gravity="end|bottom"
     android:elevation="@dimen/material_elevation_fab_resting"
-    app:fabSize="mini"
+    app:fabSize="normal"
     app:ico_color="@color/material_color_white"
-    app:ico_icon="cmd-chevron-double-up"
+    app:ico_icon="cmd-refresh"
     app:ico_padding="@dimen/mini_fab_icon_padding"
     tools:targetApi="lollipop"/>
 

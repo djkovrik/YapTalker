@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.controller_news.view.*
 class NewsController : BaseController(), NewsView {
 
   companion object {
-    private const val INITIAL_FAB_OFFSET = 200f
+    private const val INITIAL_FAB_OFFSET = 250f
   }
 
   @InjectPresenter
@@ -97,7 +97,7 @@ class NewsController : BaseController(), NewsView {
       RxView
           .clicks(parent.news_fab)
           .autoDisposeWith(scopeProvider)
-          .subscribe { newsPresenter.scrollToTop() }
+          .subscribe { newsPresenter.loadNews(loadFromFirstPage = true) }
     }
   }
 
@@ -158,9 +158,5 @@ class NewsController : BaseController(), NewsView {
       fab.showFromScreenEdge()
       isFabShown = true
     }
-  }
-
-  override fun scrollListToTop() {
-    view?.news_list?.smoothScrollToPosition(0)
   }
 }

@@ -60,8 +60,9 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
   override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
     holder.bindTo(news[position])
 
+    // TODO() Improve animation
     val animation = AnimationUtils.loadAnimation(holder.itemView.context,
-        if (position == 0 || position > lastPosition)
+        if (position > lastPosition)
           R.anim.recyclerview_up_from_bottom
         else
           R.anim.recyclerview_down_from_top)
