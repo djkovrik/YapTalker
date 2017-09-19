@@ -121,7 +121,7 @@ class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
           arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
           STORAGE_WRITE_PERMISSION)
     } else {
-      fileNotSavedMessage()
+      displayPresenter.saveImage(imageUrl)
     }
   }
 }
