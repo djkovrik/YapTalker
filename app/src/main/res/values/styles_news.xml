@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-  <style name="NewsTitle">
-    <item name="android:textSize">@dimen/card_news_title_font_size</item>
-  </style>
-
   <style name="NewsAuthorNickname">
     <item name="android:textStyle">bold</item>
-    <item name="android:textSize">@dimen/material_card_title_block_small_text_size</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">1</item>
   </style>
 
   <style name="NewsForumTitle">
-    <item name="android:textSize">@dimen/material_card_title_block_small_text_size</item>
     <item name="android:textColor">@color/colorAccent</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">1</item>
@@ -21,14 +14,9 @@
 
   <style name="NewsTopicRating">
     <item name="android:textStyle">bold</item>
-    <item name="android:textSize">@dimen/material_card_title_block_small_text_size</item>
     <item name="android:textColor">@color/colorRatingGreen</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">1</item>
-  </style>
-
-  <style name="NewsContentText">
-    <item name="android:textSize">@dimen/material_card_supporting_text_text_size</item>
   </style>
 
 </resources>
