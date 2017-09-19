@@ -34,7 +34,7 @@ class NewsController : BaseController(), NewsView {
   lateinit var newsPresenter: NewsPresenter
 
   private lateinit var newsAdapter: NewsAdapter
-  private var isFabShown = true
+  private var isFabShown = false
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_news

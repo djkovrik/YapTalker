@@ -25,8 +25,6 @@ class NewsPresenter : BasePresenter<NewsView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-    viewState.showFab()
-
     attachRefreshIndicator(yapDataManager.requestState, {
       // onStart
       viewState.showRefreshing()
