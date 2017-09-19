@@ -60,7 +60,7 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
         .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
         .subscribe({
           // OnNext
-          forumsListItem: ForumItem ->
+          forumsListItem ->
           onLoadingSuccess(forumsListItem)
         }, {
           // onError

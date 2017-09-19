@@ -33,6 +33,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
     }, {
       // onFinish
       viewState.hideRefreshing()
+      viewState.hideFab()
     })
   }
 
@@ -65,7 +66,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
         .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
         .subscribe({
           // onNext
-          newsItem: NewsItem ->
+          newsItem ->
           onLoadingSuccess(newsItem)
         }, {
           // onError
@@ -91,7 +92,6 @@ class NewsPresenter : BasePresenter<NewsView>() {
       backToFirstPage = false
     }
     viewState.appendNewsItem(newsItem)
-    viewState.hideFab()
   }
 
   private fun onLoadingError(error: Throwable) {

@@ -109,8 +109,8 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
         .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
         .subscribe({
           // onSuccess
-          page: ForumPage ->
-          onLoadingSuccess(page)
+          forumPage ->
+          onLoadingSuccess(forumPage)
         }, {
           // onError
           throwable ->

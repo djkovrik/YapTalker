@@ -50,6 +50,7 @@ class NewsController : BaseController(), NewsView {
 
         bundle.putInt(ChosenTopicController.TOPIC_ID_KEY, topicId)
         bundle.putInt(ChosenTopicController.FORUM_ID_KEY, forumId)
+
         router.pushController(
             RouterTransaction.with(ChosenTopicController(bundle))
                 .pushChangeHandler(FadeChangeHandler())

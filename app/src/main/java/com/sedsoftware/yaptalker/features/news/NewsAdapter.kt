@@ -87,9 +87,8 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
     news.clear()
   }
 
-  inner class NewsViewHolder(
-      itemView: View, private val itemClick: (String, String) -> Unit) : RecyclerView.ViewHolder(
-      itemView) {
+  inner class NewsViewHolder(itemView: View, private val itemClick: (String, String) -> Unit) :
+      RecyclerView.ViewHolder(itemView) {
 
     private val forumTitleTemplate: String = itemView.context.getString(
         R.string.news_forum_title_template)

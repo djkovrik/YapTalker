@@ -3,11 +3,13 @@ package com.sedsoftware.yaptalker.commons
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 
-private const val VISIBLE_THRESHOLD = 4
-
 class InfiniteScrollListener(
     private val func: () -> Unit,
     val layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
+
+  companion object {
+    private const val VISIBLE_THRESHOLD = 4
+  }
 
   private var previousTotal = 0
   private var loading = true

@@ -19,6 +19,22 @@ private const val ANIMATION_DURATION = 250L
 private const val DEFAULT_INTERPOLATOR_TENSION = 1.5f
 
 /**
+ * Extension property for TextView text color.
+ */
+var TextView.textColor: Int
+  get() = currentTextColor
+  set(v) = setTextColor(context.color(v))
+
+/**
+ * Extension property to get View bottom margin.
+ */
+val View.bottomMargin: Int
+  get() {
+    val layoutParams = layoutParams as ViewGroup.MarginLayoutParams
+    return layoutParams.bottomMargin
+  }
+
+/**
  * Loads image into ImageView
  *
  * @param url Image url.
@@ -87,13 +103,6 @@ fun TextView.textFromHtmlWithEmoji(html: String) {
 }
 
 /**
- * Text color property for TextView.
- */
-var TextView.textColor: Int
-  get() = currentTextColor
-  set(v) = setTextColor(context.color(v))
-
-/**
  * Sets up SwipeRefreshLayout indicator coloring
  */
 fun SwipeRefreshLayout.setAppColorScheme() {
@@ -155,12 +164,3 @@ fun View.hideView() {
 fun View.showView() {
   this.visibility = View.VISIBLE
 }
-
-/**
- * Extension property to get View bottom margin.
- */
-val View.bottomMargin: Int
-  get() {
-    val layoutParams = layoutParams as ViewGroup.MarginLayoutParams
-    return layoutParams.bottomMargin
-  }
