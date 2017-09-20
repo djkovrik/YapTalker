@@ -16,6 +16,7 @@ val requestsModule = Kodein.Module {
   constant("YAP_ENDPOINT") with "http://www.yaplakal.com/"
   constant("COUB_ENDPOINT") with "http://coub.com/"
   constant("RUTUBE_ENDPOINT") with "http://rutube.ru/"
+  constant("YAP_VIDEO_ENDPOINT") with "http://api.yapfiles.ru/"
 
   // Retrofit bindings
   bind<YapLoader>("YapLoader") with singleton {
@@ -43,6 +44,15 @@ val requestsModule = Kodein.Module {
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
         .create(RutubeLoader::class.java)
+  }
+
+  bind<YapPlayerLoader>("YapPlayerLoader") with singleton {
+    Retrofit.Builder()
+        .baseUrl(instance<String>("YAP_VIDEO_ENDPOINT"))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create())
+        .build()
+        .create(YapPlayerLoader::class.java)
   }
 
   // OkHttp client for file downloading

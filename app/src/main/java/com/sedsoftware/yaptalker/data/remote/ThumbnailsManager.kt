@@ -10,8 +10,17 @@ import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
-class ThumbnailsManager(private val rutube: RutubeLoader, private val coub: CoubLoader) {
+class ThumbnailsManager(
+    private val rutube: RutubeLoader,
+    private val coub: CoubLoader,
+    private val yapVideo: YapPlayerLoader) {
+
+  companion object {
+    private const val YAP_PLAYER_HASH = "1ba6cbdbeb363778645e0b79fa0d79dc"
+    private const val YAP_RESULT_TYPE = "json"
+  }
 
   fun loadThumbnail(video: Pair<Int, String>, imageView: ImageView) {
 
@@ -40,11 +49,12 @@ class ThumbnailsManager(private val rutube: RutubeLoader, private val coub: Coub
             .subscribe(getImageObserver(imageView))
       }
       VideoTypes.YAP_FILES -> {
-        Single
-            .just(R.drawable.ic_yapvideo)
+        yapVideo
+            .loadThumbnail(video.second, YAP_PLAYER_HASH, YAP_RESULT_TYPE)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(getDrawableObserver(imageView))
+            .map { (player) -> player.poster }
+            .subscribe(getImageObserver(imageView))
       }
       VideoTypes.OTHER -> {
         Single
@@ -62,6 +72,7 @@ class ThumbnailsManager(private val rutube: RutubeLoader, private val coub: Coub
         }
 
         override fun onSuccess(url: String) {
+          Timber.d("Got poster url: $url")
           imageView.loadFromUrl(url)
         }
 
