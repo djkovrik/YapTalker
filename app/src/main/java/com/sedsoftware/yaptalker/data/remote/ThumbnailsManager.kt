@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.data.remote
 
 import android.widget.ImageView
+import com.sedsoftware.yaptalker.BuildConfig
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.loadFromDrawable
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
@@ -10,7 +11,6 @@ import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 
 class ThumbnailsManager(
     private val rutube: RutubeLoader,
@@ -18,7 +18,7 @@ class ThumbnailsManager(
     private val yapVideo: YapPlayerLoader) {
 
   companion object {
-    private const val YAP_PLAYER_HASH = "1ba6cbdbeb363778645e0b79fa0d79dc"
+    private const val YAP_PLAYER_HASH = BuildConfig.YAP_PLAYER_HASH
     private const val YAP_RESULT_TYPE = "json"
   }
 
@@ -72,7 +72,6 @@ class ThumbnailsManager(
         }
 
         override fun onSuccess(url: String) {
-          Timber.d("Got poster url: $url")
           imageView.loadFromUrl(url)
         }
 

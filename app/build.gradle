@@ -27,6 +27,9 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+  buildTypes.each {
+    it.buildConfigField 'String', 'YAP_PLAYER_HASH', YAP_PLAYER_HASH
+  }
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
