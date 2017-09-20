@@ -29,6 +29,7 @@ android {
   }
   buildTypes.each {
     it.buildConfigField 'String', 'YAP_PLAYER_HASH', YAP_PLAYER_HASH
+    it.buildConfigField 'String', 'VK_ACCESS_TOKEN', VK_ACCESS_TOKEN
   }
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8

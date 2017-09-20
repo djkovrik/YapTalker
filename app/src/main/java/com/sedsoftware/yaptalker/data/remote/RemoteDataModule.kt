@@ -12,6 +12,10 @@ val remoteDataModule = Kodein.Module {
   }
 
   bind<ThumbnailsManager>() with singleton {
-    ThumbnailsManager(instance("RutubeLoader"), instance("CoubLoader"), instance("YapPlayerLoader"))
+    ThumbnailsManager(
+        instance("CoubLoader"),
+        instance("RutubeLoader"),
+        instance("YapVideoLoader"),
+        instance("VkLoader"))
   }
 }

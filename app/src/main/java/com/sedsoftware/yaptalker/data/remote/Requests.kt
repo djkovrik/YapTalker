@@ -6,6 +6,7 @@ import com.sedsoftware.yaptalker.data.model.News
 import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.data.model.video.CoubData
 import com.sedsoftware.yaptalker.data.model.video.RutubeData
+import com.sedsoftware.yaptalker.data.model.video.VkResponseWrapper
 import com.sedsoftware.yaptalker.data.model.video.YapVideoData
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -75,7 +76,7 @@ interface CoubLoader {
   fun loadThumbnail(@Query("url") url: String): Single<CoubData>
 }
 
-interface YapPlayerLoader {
+interface YapVideoLoader {
   /**
    * Loads thumbnail for new Yap video player.
    *
@@ -88,4 +89,19 @@ interface YapPlayerLoader {
       @Path("id") id: String,
       @Query("md5") md5: String,
       @Query("type") type: String): Single<YapVideoData>
+}
+
+interface VkLoader {
+  /**
+   * Loads thumbnail for vk video.
+   *
+   * @param videos Target video id.
+   * @param access_token Application access token.
+   * @param version API version.
+   */
+  @GET("/method/video.get")
+  fun loadThumbnail(
+      @Query("videos") videos: String,
+      @Query("access_token") access_token: String,
+      @Query("v") version: String): Single<VkResponseWrapper>
 }

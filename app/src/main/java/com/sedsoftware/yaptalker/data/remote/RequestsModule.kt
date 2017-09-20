@@ -13,15 +13,16 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 val requestsModule = Kodein.Module {
 
-  constant("YAP_ENDPOINT") with "http://www.yaplakal.com/"
-  constant("COUB_ENDPOINT") with "http://coub.com/"
-  constant("RUTUBE_ENDPOINT") with "http://rutube.ru/"
+  constant("YAP_SITE_ENDPOINT") with "http://www.yaplakal.com/"
+  constant("COUB_VIDEO_ENDPOINT") with "http://coub.com/"
+  constant("RUTUBE_VIDEO_ENDPOINT") with "http://rutube.ru/"
   constant("YAP_VIDEO_ENDPOINT") with "http://api.yapfiles.ru/"
+  constant("VK_VIDEO_ENDPOINT") with "https://api.vk.com/"
 
   // Retrofit bindings
   bind<YapLoader>("YapLoader") with singleton {
     Retrofit.Builder()
-        .baseUrl(instance<String>("YAP_ENDPOINT"))
+        .baseUrl(instance<String>("YAP_SITE_ENDPOINT"))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(JspoonConverterFactory.create())
         .build()
@@ -30,7 +31,7 @@ val requestsModule = Kodein.Module {
 
   bind<CoubLoader>("CoubLoader") with singleton {
     Retrofit.Builder()
-        .baseUrl(instance<String>("COUB_ENDPOINT"))
+        .baseUrl(instance<String>("COUB_VIDEO_ENDPOINT"))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
@@ -39,20 +40,29 @@ val requestsModule = Kodein.Module {
 
   bind<RutubeLoader>("RutubeLoader") with singleton {
     Retrofit.Builder()
-        .baseUrl(instance<String>("RUTUBE_ENDPOINT"))
+        .baseUrl(instance<String>("RUTUBE_VIDEO_ENDPOINT"))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
         .create(RutubeLoader::class.java)
   }
 
-  bind<YapPlayerLoader>("YapPlayerLoader") with singleton {
+  bind<YapVideoLoader>("YapVideoLoader") with singleton {
     Retrofit.Builder()
         .baseUrl(instance<String>("YAP_VIDEO_ENDPOINT"))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
-        .create(YapPlayerLoader::class.java)
+        .create(YapVideoLoader::class.java)
+  }
+
+  bind<VkLoader>("VkLoader") with singleton {
+    Retrofit.Builder()
+        .baseUrl(instance<String>("VK_VIDEO_ENDPOINT"))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create())
+        .build()
+        .create(VkLoader::class.java)
   }
 
   // OkHttp client for file downloading
