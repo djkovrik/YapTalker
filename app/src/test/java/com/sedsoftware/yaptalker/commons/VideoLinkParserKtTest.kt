@@ -15,6 +15,8 @@ class VideoLinkParserKtTest {
     val rutubeId = "5de38e8f0e4921075e18cd5cc6f492dd"
     val yaplakalLink = "//www.yapfiles.ru/get_player/?v=vMDE3MzcwNjEt835d"
     val yaplakalId = "vMDE3MzcwNjEt835d"
+    val vkVideoLink = "https://vk.com/video_ext.php?oid=-52925039&id=456241155&hash=5e0fd5c0ce1d2723"
+    val vkVideoId = "-52925039_456241155"
   }
 
   @Test
@@ -30,5 +32,8 @@ class VideoLinkParserKtTest {
 
     VideoTypes.YAP_FILES.should.equal(parseLink(yaplakalLink).first)
     yaplakalId.should.equal(parseLink(yaplakalLink).second)
+
+    VideoTypes.VK.should.equal(parseLink(vkVideoLink).first)
+    vkVideoId.should.equal(parseLink(vkVideoLink).second)
   }
 }
