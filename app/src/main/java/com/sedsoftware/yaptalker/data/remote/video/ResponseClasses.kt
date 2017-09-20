@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.model.video
+package com.sedsoftware.yaptalker.data.remote.video
 
 data class RutubeData(val thumbnail_url: String)
 data class CoubData(val thumbnail_url: String)

@@ -6,7 +6,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
 import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.features.base.BasePresenterLifecycle
+import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -106,7 +106,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
         .getChosenForum(currentForumId, startingTopic, currentSorting)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe({
           // onSuccess
           forumPage ->

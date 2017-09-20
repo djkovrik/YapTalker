@@ -15,9 +15,9 @@ import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
-import com.sedsoftware.yaptalker.commons.parseLink
+import com.sedsoftware.yaptalker.data.remote.video.parseLink
 import com.sedsoftware.yaptalker.data.model.NewsItem
-import com.sedsoftware.yaptalker.data.remote.ThumbnailsManager
+import com.sedsoftware.yaptalker.data.remote.video.ThumbnailsManager
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.settings.SettingsReader
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
@@ -131,7 +131,8 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
           }
           newsItem.videos.isNotEmpty() -> {
             news_content_image.showView()
-            thumbnailsLoader.loadThumbnail(parseLink(newsItem.videos.first()), news_content_image)
+            thumbnailsLoader.loadThumbnail(
+                parseLink(newsItem.videos.first()), news_content_image)
             news_content_image.setOnClickListener {
               context.startActivity<VideoDisplayActivity>("video" to newsItem.videosRaw.first())
             }

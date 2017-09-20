@@ -4,10 +4,10 @@ import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Forums
 import com.sedsoftware.yaptalker.data.model.News
 import com.sedsoftware.yaptalker.data.model.TopicPage
-import com.sedsoftware.yaptalker.data.model.video.CoubData
-import com.sedsoftware.yaptalker.data.model.video.RutubeData
-import com.sedsoftware.yaptalker.data.model.video.VkResponseWrapper
-import com.sedsoftware.yaptalker.data.model.video.YapVideoData
+import com.sedsoftware.yaptalker.data.remote.video.CoubData
+import com.sedsoftware.yaptalker.data.remote.video.RutubeData
+import com.sedsoftware.yaptalker.data.remote.video.VkResponseWrapper
+import com.sedsoftware.yaptalker.data.remote.video.YapVideoData
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

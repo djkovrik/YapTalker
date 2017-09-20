@@ -12,7 +12,7 @@ import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.features.base.BasePresenterLifecycle
+import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
 import com.squareup.picasso.Picasso
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Single
@@ -55,7 +55,7 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
         .flatMap { response -> saveToDisk(response, url.substringAfterLast("/")) }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe({ file ->
           viewState.fileSavedMessage(file.absolutePath)
         }, { _ ->
@@ -147,7 +147,7 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
       getBitmapUriSingle(context, bitmap)
           .observeOn(Schedulers.io())
           .subscribeOn(AndroidSchedulers.mainThread())
-          .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
+          .autoDisposeWith(event(PresenterLifecycle.DESTROY))
           .subscribe({ uri ->
             // onSuccess
             val intent = Intent(Intent.ACTION_SEND)

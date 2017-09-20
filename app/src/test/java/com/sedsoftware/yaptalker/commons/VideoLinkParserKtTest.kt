@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.commons
 
-import com.sedsoftware.yaptalker.data.model.video.VideoTypes
+import com.sedsoftware.yaptalker.commons.enums.VideoTypes
+import com.sedsoftware.yaptalker.data.remote.video.parseLink
 import com.winterbe.expekt.should
 import org.junit.Test
 
@@ -24,13 +25,16 @@ class VideoLinkParserKtTest {
     VideoTypes.COUB.should.equal(parseLink(coubLink).first)
     coubId.should.equal(parseLink(coubLink).second)
 
-    VideoTypes.YOUTUBE.should.equal(parseLink(youtubeLink).first)
+    VideoTypes.YOUTUBE.should.equal(
+        parseLink(youtubeLink).first)
     youtubeId.should.equal(parseLink(youtubeLink).second)
 
-    VideoTypes.RUTUBE.should.equal(parseLink(rutubeLink).first)
+    VideoTypes.RUTUBE.should.equal(
+        parseLink(rutubeLink).first)
     rutubeId.should.equal(parseLink(rutubeLink).second)
 
-    VideoTypes.YAP_FILES.should.equal(parseLink(yaplakalLink).first)
+    VideoTypes.YAP_FILES.should.equal(
+        parseLink(yaplakalLink).first)
     yaplakalId.should.equal(parseLink(yaplakalLink).second)
 
     VideoTypes.VK.should.equal(parseLink(vkVideoLink).first)

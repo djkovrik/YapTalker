@@ -7,7 +7,7 @@ import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.features.base.BasePresenterLifecycle
+import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -103,7 +103,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         .getChosenTopic(currentForumId, currentTopicId, startingPost)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe({
           // onSuccess
           page: TopicPage ->

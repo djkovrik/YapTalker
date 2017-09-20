@@ -1,8 +1,8 @@
-package com.sedsoftware.yaptalker.features.base
+package com.sedsoftware.yaptalker.commons.enums
 
 import android.support.annotation.IntDef
 
-class BasePresenterLifecycle {
+class PresenterLifecycle {
 
   companion object {
     const val CREATE = 0L

@@ -1,6 +1,11 @@
 package com.sedsoftware.yaptalker.data.remote
 
+import com.github.salomonbrys.kodein.Kodein
+import com.github.salomonbrys.kodein.bind
+import com.github.salomonbrys.kodein.instance
+import com.github.salomonbrys.kodein.singleton
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.sedsoftware.yaptalker.commons.enums.YapRequestState
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.NewsItem
@@ -73,5 +78,11 @@ class YapDataManager(private val yapLoader: YapLoader, val requestState: Behavio
     Observable.just(currentState)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(requestState)
+  }
+}
+
+val yapDataManagerModule = Kodein.Module {
+  bind<YapDataManager>() with singleton {
+    YapDataManager(instance("YapLoader"), instance())
   }
 }

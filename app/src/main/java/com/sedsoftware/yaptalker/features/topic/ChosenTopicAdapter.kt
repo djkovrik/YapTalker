@@ -21,7 +21,7 @@ import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtmlWithEmoji
-import com.sedsoftware.yaptalker.commons.parseLink
+import com.sedsoftware.yaptalker.data.remote.video.parseLink
 import com.sedsoftware.yaptalker.data.model.ParsedPost
 import com.sedsoftware.yaptalker.data.model.PostHiddenText
 import com.sedsoftware.yaptalker.data.model.PostLink
@@ -30,7 +30,7 @@ import com.sedsoftware.yaptalker.data.model.PostQuoteAuthor
 import com.sedsoftware.yaptalker.data.model.PostScript
 import com.sedsoftware.yaptalker.data.model.PostText
 import com.sedsoftware.yaptalker.data.model.TopicPost
-import com.sedsoftware.yaptalker.data.remote.ThumbnailsManager
+import com.sedsoftware.yaptalker.data.remote.video.ThumbnailsManager
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.settings.SettingsReader
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity

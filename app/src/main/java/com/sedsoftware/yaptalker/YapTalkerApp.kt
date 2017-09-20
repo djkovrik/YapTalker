@@ -15,10 +15,11 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.sedsoftware.yaptalker.commons.enums.YapRequestState
 import com.sedsoftware.yaptalker.commons.extensions.color
-import com.sedsoftware.yaptalker.data.remote.YapRequestState
-import com.sedsoftware.yaptalker.data.remote.remoteDataModule
 import com.sedsoftware.yaptalker.data.remote.requestsModule
+import com.sedsoftware.yaptalker.data.remote.video.thumbnailsManagerModule
+import com.sedsoftware.yaptalker.data.remote.yapDataManagerModule
 import com.sedsoftware.yaptalker.features.settings.settingsModule
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
@@ -40,11 +41,13 @@ class YapTalkerApp : Application(), KodeinAware {
 
     // Custom modules
     import(requestsModule)
-    import(remoteDataModule)
+    import(thumbnailsManagerModule)
+    import(yapDataManagerModule)
     import(settingsModule)
 
     // Global rx bus for loading state
-    bind<BehaviorRelay<Long>>() with singleton { BehaviorRelay.createDefault(YapRequestState.IDLE) }
+    bind<BehaviorRelay<Long>>() with singleton { BehaviorRelay.createDefault(
+        YapRequestState.IDLE) }
     // Global rx bus for appbar title handling
     bind<BehaviorRelay<String>>() with singleton { BehaviorRelay.createDefault("YapTalker") }
   }

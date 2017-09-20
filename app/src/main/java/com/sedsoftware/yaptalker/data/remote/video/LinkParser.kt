@@ -1,11 +1,11 @@
-package com.sedsoftware.yaptalker.commons
+package com.sedsoftware.yaptalker.data.remote.video
 
-import com.sedsoftware.yaptalker.commons.Selectors.COUB_SELECTOR
-import com.sedsoftware.yaptalker.commons.Selectors.RUTUBE_SELECTOR
-import com.sedsoftware.yaptalker.commons.Selectors.VK_SELECTOR
-import com.sedsoftware.yaptalker.commons.Selectors.YAPFILES_SELECTOR
-import com.sedsoftware.yaptalker.commons.Selectors.YOUTUBE_SELECTOR
-import com.sedsoftware.yaptalker.data.model.video.VideoTypes
+import com.sedsoftware.yaptalker.commons.enums.VideoTypes
+import com.sedsoftware.yaptalker.data.remote.video.Selectors.COUB_SELECTOR
+import com.sedsoftware.yaptalker.data.remote.video.Selectors.RUTUBE_SELECTOR
+import com.sedsoftware.yaptalker.data.remote.video.Selectors.VK_SELECTOR
+import com.sedsoftware.yaptalker.data.remote.video.Selectors.YAPFILES_SELECTOR
+import com.sedsoftware.yaptalker.data.remote.video.Selectors.YOUTUBE_SELECTOR
 import java.util.regex.Pattern
 
 object Selectors {

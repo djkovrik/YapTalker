@@ -1,11 +1,19 @@
-package com.sedsoftware.yaptalker.data.remote
+package com.sedsoftware.yaptalker.data.remote.video
 
 import android.widget.ImageView
+import com.github.salomonbrys.kodein.Kodein
+import com.github.salomonbrys.kodein.bind
+import com.github.salomonbrys.kodein.instance
+import com.github.salomonbrys.kodein.singleton
 import com.sedsoftware.yaptalker.BuildConfig
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.enums.VideoTypes
 import com.sedsoftware.yaptalker.commons.extensions.loadFromDrawable
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
-import com.sedsoftware.yaptalker.data.model.video.VideoTypes
+import com.sedsoftware.yaptalker.data.remote.CoubLoader
+import com.sedsoftware.yaptalker.data.remote.RutubeLoader
+import com.sedsoftware.yaptalker.data.remote.VkLoader
+import com.sedsoftware.yaptalker.data.remote.YapVideoLoader
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -53,7 +61,9 @@ class ThumbnailsManager(
       }
       VideoTypes.YAP_FILES -> {
         yapVideo
-            .loadThumbnail(video.second, YAP_PLAYER_HASH, YAP_RESULT_TYPE)
+            .loadThumbnail(video.second,
+                YAP_PLAYER_HASH,
+                YAP_RESULT_TYPE)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { (player) -> player.poster }
@@ -61,7 +71,9 @@ class ThumbnailsManager(
       }
       VideoTypes.VK -> {
         vkVideo
-            .loadThumbnail(video.second, VK_ACCESS_TOKEN, VK_API_VERSION)
+            .loadThumbnail(video.second,
+                VK_ACCESS_TOKEN,
+                VK_API_VERSION)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { (response) -> response.items.first().photo_320 }
@@ -104,4 +116,15 @@ class ThumbnailsManager(
         override fun onSubscribe(d: Disposable) {
         }
       }
+}
+
+val thumbnailsManagerModule = Kodein.Module {
+
+  bind<ThumbnailsManager>() with singleton {
+    ThumbnailsManager(
+        instance("CoubLoader"),
+        instance("RutubeLoader"),
+        instance("YapVideoLoader"),
+        instance("VkLoader"))
+  }
 }

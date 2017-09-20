@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.model.video
+package com.sedsoftware.yaptalker.commons.enums
 
 object VideoTypes {
   const val YOUTUBE = 1

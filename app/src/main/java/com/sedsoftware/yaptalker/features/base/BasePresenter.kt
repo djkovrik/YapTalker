@@ -7,8 +7,9 @@ import com.github.salomonbrys.kodein.LazyKodeinAware
 import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.YapTalkerApp
+import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.remote.YapDataManager
-import com.sedsoftware.yaptalker.data.remote.YapRequestState
+import com.sedsoftware.yaptalker.commons.enums.YapRequestState
 import com.sedsoftware.yaptalker.features.settings.SettingsReader
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Maybe
@@ -31,7 +32,7 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware
 
   override fun onDestroy() {
     super.onDestroy()
-    lifecycle.onNext(BasePresenterLifecycle.DESTROY)
+    lifecycle.onNext(PresenterLifecycle.DESTROY)
   }
 
   fun pushAppbarTitle(channel: BehaviorRelay<String>, title: String) {
@@ -44,7 +45,7 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware
       onLoadingStart: () -> Unit, onLoadingFinish: () -> Unit) {
 
     requestState
-        .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe { state: Long ->
           when (state) {
             YapRequestState.LOADING -> {
@@ -58,7 +59,7 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware
         }
   }
 
-  protected fun event(@BasePresenterLifecycle.Event event: Long): Maybe<*> {
+  protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> {
     return lifecycle.filter({ e -> e == event }).firstElement()
   }
 }
