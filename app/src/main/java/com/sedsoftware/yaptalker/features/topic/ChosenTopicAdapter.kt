@@ -21,7 +21,6 @@ import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtmlWithEmoji
-import com.sedsoftware.yaptalker.data.remote.video.parseLink
 import com.sedsoftware.yaptalker.data.model.ParsedPost
 import com.sedsoftware.yaptalker.data.model.PostHiddenText
 import com.sedsoftware.yaptalker.data.model.PostLink
@@ -31,6 +30,7 @@ import com.sedsoftware.yaptalker.data.model.PostScript
 import com.sedsoftware.yaptalker.data.model.PostText
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.data.remote.video.ThumbnailsManager
+import com.sedsoftware.yaptalker.data.remote.video.parseLink
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.settings.SettingsReader
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
@@ -114,6 +114,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
       val textPadding = itemView.context.resources.getDimension(
           R.dimen.post_text_horizontal_padding).toInt()
       var currentNestingLevel = INITIAL_NESTING_LEVEL
+      val links = HashSet<PostLink>()
 
       itemView.post_content_text_container.removeAllViews()
 
@@ -121,8 +122,6 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
         itemView.post_content_text_container.showView()
 
         post.content.forEach {
-
-          val links = HashSet<PostLink>()
 
           when (it) {
             is PostQuoteAuthor -> {
@@ -181,9 +180,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
               }
 
               val targetTitle = when {
-                it.title.startsWith("http") ||
-                    it.title.length > MAX_LINK_TITLE_LENGTH -> itemView.context.stringRes(
-                    R.string.post_link)
+                it.title.startsWith("http") -> itemView.context.stringRes(R.string.post_link)
                 else -> it.title
               }
 
