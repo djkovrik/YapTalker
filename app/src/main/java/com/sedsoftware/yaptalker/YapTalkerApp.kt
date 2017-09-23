@@ -17,13 +17,13 @@ import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.sedsoftware.yaptalker.commons.enums.YapRequestState
 import com.sedsoftware.yaptalker.commons.extensions.color
-import com.sedsoftware.yaptalker.data.remote.requestsModule
 import com.sedsoftware.yaptalker.data.remote.video.thumbnailsManagerModule
 import com.sedsoftware.yaptalker.data.remote.yapDataManagerModule
-import com.sedsoftware.yaptalker.features.settings.settingsModule
+import com.sedsoftware.yaptalker.features.settings.SettingsReader
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
+import okhttp3.OkHttpClient
 import timber.log.Timber
 
 class YapTalkerApp : Application(), KodeinAware {
@@ -33,23 +33,25 @@ class YapTalkerApp : Application(), KodeinAware {
   }
 
   override val kodein by Kodein.lazy {
-    // Android auto module import
-    //import(autoAndroidModule(this@YapTalkerApp))
 
     // App context
     bind<Context>() with singleton { this@YapTalkerApp }
 
-    // Custom modules
-    import(requestsModule)
-    import(thumbnailsManagerModule)
-    import(yapDataManagerModule)
-    import(settingsModule)
+    // Global settings helper
+    bind<SettingsReader>() with singleton { SettingsReader(this@YapTalkerApp) }
 
-    // Global rx bus for loading state
-    bind<BehaviorRelay<Long>>() with singleton { BehaviorRelay.createDefault(
-        YapRequestState.IDLE) }
+    // Global rx bus for loading state handling
+    bind<BehaviorRelay<Long>>() with singleton { BehaviorRelay.createDefault(YapRequestState.IDLE) }
+
     // Global rx bus for appbar title handling
     bind<BehaviorRelay<String>>() with singleton { BehaviorRelay.createDefault("YapTalker") }
+
+    // OkHttp client instance
+    bind<OkHttpClient>() with singleton { OkHttpClient() }
+
+    // Kodein modules
+    import(yapDataManagerModule)
+    import(thumbnailsManagerModule)
   }
 
   override fun onCreate() {

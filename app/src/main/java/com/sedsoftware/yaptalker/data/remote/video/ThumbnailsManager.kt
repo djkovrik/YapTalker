@@ -1,10 +1,6 @@
 package com.sedsoftware.yaptalker.data.remote.video
 
 import android.widget.ImageView
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.bind
-import com.github.salomonbrys.kodein.instance
-import com.github.salomonbrys.kodein.singleton
 import com.sedsoftware.yaptalker.BuildConfig
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.enums.VideoTypes
@@ -116,15 +112,4 @@ class ThumbnailsManager(
         override fun onSubscribe(d: Disposable) {
         }
       }
-}
-
-val thumbnailsManagerModule = Kodein.Module {
-
-  bind<ThumbnailsManager>() with singleton {
-    ThumbnailsManager(
-        instance("CoubLoader"),
-        instance("RutubeLoader"),
-        instance("YapVideoLoader"),
-        instance("VkLoader"))
-  }
 }

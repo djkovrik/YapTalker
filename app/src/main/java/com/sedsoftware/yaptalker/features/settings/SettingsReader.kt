@@ -2,10 +2,6 @@ package com.sedsoftware.yaptalker.features.settings
 
 import android.content.Context
 import android.support.annotation.StringRes
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.bind
-import com.github.salomonbrys.kodein.instance
-import com.github.salomonbrys.kodein.singleton
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.features.base.BaseController
@@ -53,11 +49,5 @@ class SettingsReader(val context: Context) {
 
   private fun getBoolean(@StringRes key: Int, default: Boolean): Boolean {
     return preferences.getBoolean(context.stringRes(key), default)
-  }
-}
-
-val settingsModule = Kodein.Module {
-  bind<SettingsReader>() with singleton {
-    SettingsReader(instance())
   }
 }

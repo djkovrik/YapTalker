@@ -1,33 +1,24 @@
-package com.sedsoftware.yaptalker.data.remote
+package com.sedsoftware.yaptalker.data.remote.video
 
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.singleton
 import com.github.salomonbrys.kodein.with
-import okhttp3.OkHttpClient
-import pl.droidsonroids.retrofit2.JspoonConverterFactory
+import com.sedsoftware.yaptalker.data.remote.CoubLoader
+import com.sedsoftware.yaptalker.data.remote.RutubeLoader
+import com.sedsoftware.yaptalker.data.remote.VkLoader
+import com.sedsoftware.yaptalker.data.remote.YapVideoLoader
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-val requestsModule = Kodein.Module {
+val thumbnailsManagerModule = Kodein.Module {
 
-  constant("YAP_SITE_ENDPOINT") with "http://www.yaplakal.com/"
   constant("COUB_VIDEO_ENDPOINT") with "http://coub.com/"
   constant("RUTUBE_VIDEO_ENDPOINT") with "http://rutube.ru/"
   constant("YAP_VIDEO_ENDPOINT") with "http://api.yapfiles.ru/"
   constant("VK_VIDEO_ENDPOINT") with "https://api.vk.com/"
-
-  // Retrofit bindings
-  bind<YapLoader>("YapLoader") with singleton {
-    Retrofit.Builder()
-        .baseUrl(instance<String>("YAP_SITE_ENDPOINT"))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(JspoonConverterFactory.create())
-        .build()
-        .create(YapLoader::class.java)
-  }
 
   bind<CoubLoader>("CoubLoader") with singleton {
     Retrofit.Builder()
@@ -65,6 +56,11 @@ val requestsModule = Kodein.Module {
         .create(VkLoader::class.java)
   }
 
-  // OkHttp client for file downloading
-  bind<OkHttpClient>() with singleton { OkHttpClient() }
+  bind<ThumbnailsManager>() with singleton {
+    ThumbnailsManager(
+        instance("CoubLoader"),
+        instance("RutubeLoader"),
+        instance("YapVideoLoader"),
+        instance("VkLoader"))
+  }
 }
