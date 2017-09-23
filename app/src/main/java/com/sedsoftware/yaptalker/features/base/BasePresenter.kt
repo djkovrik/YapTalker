@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.remote.YapDataManager
 import com.sedsoftware.yaptalker.commons.enums.YapRequestState
-import com.sedsoftware.yaptalker.features.settings.SettingsReader
+import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Maybe
 import io.reactivex.Observable
@@ -25,7 +25,7 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware
   // Kodein injections
   protected val yapDataManager: YapDataManager by instance()
   protected val titleChannel: BehaviorRelay<String> by instance()
-  protected val settings: SettingsReader by instance()
+  protected val settings: SettingsHelper by instance()
 
   // Presenter lifecycle events channel
   private val lifecycle: BehaviorSubject<Long> = BehaviorSubject.create()

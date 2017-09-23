@@ -13,7 +13,7 @@ import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.data.model.Topic
-import com.sedsoftware.yaptalker.features.settings.SettingsReader
+import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import kotlinx.android.synthetic.main.controller_chosen_forum_item.view.*
 import java.util.Locale
 
@@ -24,7 +24,7 @@ class ChosenForumAdapter(private val itemClick: (Int) -> Unit) :
     get() = LazyKodein { YapTalkerApp.kodeinInstance }
 
   // Kodein injection
-  private val settings: SettingsReader by instance()
+  private val settings: SettingsHelper by instance()
 
   private val normalFontSize by lazy {
     settings.getNormalFontSize()

@@ -19,7 +19,7 @@ import com.sedsoftware.yaptalker.commons.enums.YapRequestState
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.data.remote.video.thumbnailsManagerModule
 import com.sedsoftware.yaptalker.data.remote.yapDataManagerModule
-import com.sedsoftware.yaptalker.features.settings.SettingsReader
+import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
@@ -38,7 +38,7 @@ class YapTalkerApp : Application(), KodeinAware {
     bind<Context>() with singleton { this@YapTalkerApp }
 
     // Global settings helper
-    bind<SettingsReader>() with singleton { SettingsReader(this@YapTalkerApp) }
+    bind<SettingsHelper>() with singleton { SettingsHelper(this@YapTalkerApp) }
 
     // Global rx bus for loading state handling
     bind<BehaviorRelay<Long>>() with singleton { BehaviorRelay.createDefault(YapRequestState.IDLE) }
