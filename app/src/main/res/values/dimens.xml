@@ -3,18 +3,13 @@
 
   <!-- Cards -->
   <dimen name="card_margin_value_half">@dimen/material_baseline_grid_0.5x</dimen>
-  <dimen name="card_news_title_font_size">16sp</dimen>
 
   <!-- Other -->
-  <dimen name="landscape_drawer_width">280dp</dimen>
   <dimen name="rating_background_padding">3dp</dimen>
   <dimen name="rating_background_corner_radius">1dp</dimen>
   <dimen name="rating_background_width">50dp</dimen>
   <dimen name="avatar_size">36dp</dimen>
-  <dimen name="fab_icon_padding">6dp</dimen>
   <dimen name="mini_fab_icon_padding">4dp</dimen>
-  <dimen name="hidden_view_y_translation">200dp</dimen>
   <dimen name="post_image_vertical_padding">8dp</dimen>
   <dimen name="post_text_horizontal_padding">8dp</dimen>
-  <dimen name="post_ps_text_size">12sp</dimen>
 </resources>
