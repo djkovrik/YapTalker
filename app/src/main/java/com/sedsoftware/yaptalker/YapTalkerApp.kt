@@ -17,13 +17,13 @@ import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.sedsoftware.yaptalker.commons.enums.YapRequestState
 import com.sedsoftware.yaptalker.commons.extensions.color
+import com.sedsoftware.yaptalker.data.remote.requestsClientModule
 import com.sedsoftware.yaptalker.data.remote.video.thumbnailsManagerModule
 import com.sedsoftware.yaptalker.data.remote.yapDataManagerModule
 import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
-import okhttp3.OkHttpClient
 import timber.log.Timber
 
 class YapTalkerApp : Application(), KodeinAware {
@@ -46,10 +46,8 @@ class YapTalkerApp : Application(), KodeinAware {
     // Global rx bus for appbar title handling
     bind<BehaviorRelay<String>>() with singleton { BehaviorRelay.createDefault("YapTalker") }
 
-    // OkHttp client instance
-    bind<OkHttpClient>() with singleton { OkHttpClient() }
-
     // Kodein modules
+    import(requestsClientModule)
     import(yapDataManagerModule)
     import(thumbnailsManagerModule)
   }
