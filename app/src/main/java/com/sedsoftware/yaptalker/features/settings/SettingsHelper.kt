@@ -44,12 +44,6 @@ class SettingsHelper(val context: Context) {
   fun getNewsCategories() = getStringSet(R.string.pref_key_categorizer, defaultCategories)
   fun isNsfwEnabled() = getBoolean(R.string.pref_key_nswf, false)
 
-  fun getCookies() = getStringSet(R.string.pref_key_cookies, defaultCookies).toMutableSet()
-
-  fun setCookies(cookies: MutableSet<String>) {
-    preferences.edit().putStringSet(context.stringRes(R.string.pref_key_cookies), cookies).apply()
-  }
-
   private fun getString(@StringRes key: Int, default: String): String {
     return preferences.getString(context.stringRes(key), default)
   }

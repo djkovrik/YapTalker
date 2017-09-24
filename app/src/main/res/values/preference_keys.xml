@@ -5,5 +5,4 @@
   <string name="pref_key_categorizer" translatable="false">pref_categorizer</string>
   <string name="pref_key_nswf" translatable="false">pref_nswf</string>
   <string name="pref_key_crash_reports" translatable="false">pref_crash_reports</string>
-  <string name="pref_key_cookies" translatable="false">pref_cookies</string>
 </resources>
