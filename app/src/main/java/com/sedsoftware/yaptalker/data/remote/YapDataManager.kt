@@ -70,6 +70,17 @@ class YapDataManager(private val yapLoader: YapLoader, val requestState: Behavio
             publishRequestState(YapRequestState.COMPLETED)
           }
 
+  // TODO() Add unique key generation
+  fun loginToSite(login: String, password: String) =
+      yapLoader
+          .signIn(
+              cookieDate = "1",
+              password = password,
+              userName = login,
+              referer = "http://www.yaplakal.com/forum/",
+              submit = "Вход",
+              userKey = "uniqueUserKeyHere")
+
   private fun publishRequestState(@YapRequestState.State currentState: Long) {
     Observable.just(currentState)
         .observeOn(AndroidSchedulers.mainThread())
