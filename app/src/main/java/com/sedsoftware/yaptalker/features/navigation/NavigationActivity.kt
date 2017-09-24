@@ -131,6 +131,17 @@ class NavigationActivity : BaseActivity(), NavigationView {
         selectedTextColor = color(R.color.colorNavSettings).toLong()
         selectedIconColorRes = R.color.colorNavSettings
       }
+
+      primaryItem {
+        identifier = Navigation.AUTHORIZATION
+        name = stringRes(R.string.nav_drawer_sign_in)
+        selectable = false
+        iicon = CommunityMaterial.Icon.cmd_account
+        textColor = color(R.color.colorNavDefaultText).toLong()
+        iconColorRes = R.color.colorNavSignin
+        selectedTextColor = color(R.color.colorNavSignin).toLong()
+        selectedIconColorRes = R.color.colorNavSignin
+      }
     }
   }
 
@@ -153,6 +164,9 @@ class NavigationActivity : BaseActivity(), NavigationView {
       }
       Navigation.SETTINGS -> {
         startActivity<SettingsActivity>()
+      }
+      Navigation.AUTHORIZATION -> {
+        navigationViewPresenter.loginAttempt()
       }
     }
   }

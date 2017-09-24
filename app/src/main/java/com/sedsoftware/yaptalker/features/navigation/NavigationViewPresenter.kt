@@ -2,9 +2,12 @@ package com.sedsoftware.yaptalker.features.navigation
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.features.base.BasePresenter
 import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
+import com.sedsoftware.yaptalker.features.base.BasePresenter
 import com.uber.autodispose.kotlin.autoDisposeWith
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 @InjectViewState
 class NavigationViewPresenter : BasePresenter<NavigationView>() {
@@ -26,4 +29,21 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
   }
 
   fun getFirstLaunchPage() = settings.getStartingPage()
+
+  fun loginAttempt() {
+    yapDataManager
+        .loginToSite(login = "test", password = "test")
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe({
+          // On Susccess
+          response ->
+          Timber.d("GOT RESPONSE: ${response.body()?.string()}")
+        }, {
+          // On Error
+          error ->
+          Timber.d("GOT ERROR: ${error.message}")
+        })
+  }
 }
