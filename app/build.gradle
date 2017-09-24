@@ -72,6 +72,7 @@ dependencies {
   final JSPOON_VERSION = "1.0.0"
   final ANKO_VERSION = "0.10.1"
   final MOSHI_VERSION = "1.5.0"
+  final PERSISTENT_COOKIE_JAR_VERSION = "v1.0.1"
 
   // App - UI
   final MATERIAL_VALUES_VERSION = "1.1.1"
@@ -143,6 +144,7 @@ dependencies {
   implementation "org.jetbrains.anko:anko-commons:$ANKO_VERSION"
   implementation "org.jetbrains.anko:anko-design:$ANKO_VERSION"
   implementation "com.squareup.moshi:moshi:$MOSHI_VERSION"
+  implementation "com.github.franmontiel:persistentcookiejar:$PERSISTENT_COOKIE_JAR_VERSION"
 
   // UI
   implementation "blue.aodev:material-values:$MATERIAL_VALUES_VERSION"
