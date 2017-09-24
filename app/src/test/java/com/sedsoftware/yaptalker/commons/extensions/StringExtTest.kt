@@ -39,4 +39,24 @@ class StringExtTest {
     commentsStringShortened.should.equal(commentsString.chopEdges())
     randomStringShortened.should.equal(randomString.chopEdges())
   }
+
+  @Test
+  fun testStringMD5HashCreation() {
+    // Arrange
+    val testMap = mapOf(
+        "Admin1506268417166" to "a9878e9d3f77aeff9825808ab6b620b6",
+        "Admin1506268417167" to "2c741da712b127c76fe45527984dd203",
+        "Admin2708268217521" to "1cb1741da29300f33779eaa48a008f6c",
+        "User1506268417166" to "af069489bbe914c40b7b12e92327c374",
+        "User1506268417167" to "e968260d46e1a0a2dd0de853f262c2e9",
+        "Longnickname1506268417167" to "50d6b85ba9de8af82c9b32733544a06e",
+        "Longnickname" to "2197d86978dc3664a15382698a1795b4",
+        "Admin" to "e3afed0047b08059d0fada10f400c1e5",
+        "User" to "8f9bfe9d1345237cb3b2b205864da075")
+
+    // Assert
+    testMap.forEach { string, hash ->
+      string.toMD5().should.equal(hash)
+    }
+  }
 }
