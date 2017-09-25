@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.data.remote
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.commons.enums.YapRequestState
 import com.sedsoftware.yaptalker.commons.extensions.toMD5
+import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.NewsItem
@@ -15,7 +16,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import okhttp3.ResponseBody
 import retrofit2.Response
 
-class YapDataManager(private val yapLoader: YapLoader, val requestState: BehaviorRelay<Long>) {
+class YapDataManager(
+    private val yapLoader: YapLoader,
+    val requestState: BehaviorRelay<Long>) {
 
   companion object {
     private const val LOGIN_REFERER = "http://www.yaplakal.com/forum/"
@@ -93,6 +96,11 @@ class YapDataManager(private val yapLoader: YapLoader, val requestState: Behavio
                   submit = LOGIN_SUBMIT,
                   userKey = hash)
         }
+  }
+
+  fun getAuthorizedUserInfo(): Single<AuthorizedUserInfo> {
+    return yapLoader
+        .loadAuthorizedUserInfo()
   }
 
   private fun publishRequestState(@YapRequestState.State currentState: Long) {

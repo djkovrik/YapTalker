@@ -17,6 +17,7 @@ import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.sedsoftware.yaptalker.commons.enums.YapRequestState
 import com.sedsoftware.yaptalker.commons.extensions.color
+import com.sedsoftware.yaptalker.data.model.UserInfo
 import com.sedsoftware.yaptalker.data.remote.requestsClientModule
 import com.sedsoftware.yaptalker.data.remote.video.thumbnailsManagerModule
 import com.sedsoftware.yaptalker.data.remote.yapDataManagerModule
@@ -40,11 +41,17 @@ class YapTalkerApp : Application(), KodeinAware {
     // Global settings helper
     bind<SettingsHelper>() with singleton { SettingsHelper(this@YapTalkerApp) }
 
+    // TODO() Replace all relays with single event bus
     // Global rx bus for loading state handling
     bind<BehaviorRelay<Long>>() with singleton { BehaviorRelay.createDefault(YapRequestState.IDLE) }
 
     // Global rx bus for appbar title handling
     bind<BehaviorRelay<String>>() with singleton { BehaviorRelay.createDefault("YapTalker") }
+
+    // Global rx bus for nav drawer user info handling
+    bind<BehaviorRelay<UserInfo>>() with singleton {
+      BehaviorRelay.createDefault(UserInfo())
+    }
 
     // Kodein modules
     import(requestsClientModule)

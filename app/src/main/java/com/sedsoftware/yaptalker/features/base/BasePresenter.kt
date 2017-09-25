@@ -8,8 +8,9 @@ import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
-import com.sedsoftware.yaptalker.data.remote.YapDataManager
 import com.sedsoftware.yaptalker.commons.enums.YapRequestState
+import com.sedsoftware.yaptalker.data.model.UserInfo
+import com.sedsoftware.yaptalker.data.remote.YapDataManager
 import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Maybe
@@ -25,6 +26,7 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware
   // Kodein injections
   protected val yapDataManager: YapDataManager by instance()
   protected val titleChannel: BehaviorRelay<String> by instance()
+  protected val authorizationChannel: BehaviorRelay<UserInfo> by instance()
   protected val settings: SettingsHelper by instance()
 
   // Presenter lifecycle events channel
@@ -35,10 +37,16 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware
     lifecycle.onNext(PresenterLifecycle.DESTROY)
   }
 
-  fun pushAppbarTitle(channel: BehaviorRelay<String>, title: String) {
+  fun pushAppbarTitle(relay: BehaviorRelay<String>, title: String) {
     Observable.just(title)
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(channel)
+        .subscribe(relay)
+  }
+
+  fun pushAuthorizationStatus(relay: BehaviorRelay<UserInfo>, info: UserInfo) {
+    Observable.just(info)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(relay)
   }
 
   protected fun attachRefreshIndicator(requestState: BehaviorRelay<Long>,
