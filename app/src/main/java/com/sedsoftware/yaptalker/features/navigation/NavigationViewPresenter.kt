@@ -44,11 +44,14 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
           // On Success
           info ->
           pushAuthorizationStatus(authorizationChannel, info.getUserInfo())
-          Timber.d("GOT USER INFO: ${info.getUserInfo().nickname}, ${info.getUserInfo().avatar}")
         }, {
           // On Error
           t ->
           Timber.d("Can't get authorization status! Error: ${t.message}")
         })
+  }
+
+  fun signOut() {
+    // TODO() Clear cookies
   }
 }

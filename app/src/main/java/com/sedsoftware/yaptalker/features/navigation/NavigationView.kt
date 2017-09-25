@@ -16,7 +16,8 @@ interface NavigationView : MvpView {
   @StateStrategyType(OneExecutionStateStrategy::class)
   fun goToChosenSection(@Navigation.Section section: Long)
 
-  fun setAppbarTitle(text: String)
-
+  @StateStrategyType(OneExecutionStateStrategy::class)
   fun setActiveProfile(userInfo: UserInfo)
+
+  fun setAppbarTitle(text: String)
 }

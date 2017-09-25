@@ -29,7 +29,6 @@ import com.sedsoftware.yaptalker.features.settings.SettingsActivity
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import kotlinx.android.synthetic.main.include_main_content.*
 import org.jetbrains.anko.startActivity
-import timber.log.Timber
 
 class NavigationActivity : BaseActivity(), NavigationView {
 
@@ -66,7 +65,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
     super.attachBaseContext(IconicsContextWrapper.wrap(base))
   }
 
-  override fun onSaveInstanceState(outState: Bundle) {
+  override fun onSaveInstanceState(outState: Bundle?) {
     navDrawer.saveInstanceState(outState)
     navHeader.saveInstanceState(outState)
     super.onSaveInstanceState(outState)
@@ -133,9 +132,10 @@ class NavigationActivity : BaseActivity(), NavigationView {
         .withHeaderBackground(R.drawable.nav_header)
         .withCompactStyle(true)
         .withSelectionListEnabledForSingleProfile(false)
+        .withSavedInstance(savedInstanceState)
         .build()
 
-    val drawerBuilder = DrawerBuilder()
+    navDrawer = DrawerBuilder()
         .withActivity(this)
         .withToolbar(toolbar)
         .withAccountHeader(navHeader)
@@ -149,8 +149,8 @@ class NavigationActivity : BaseActivity(), NavigationView {
           }
           false
         }
-
-    navDrawer = drawerBuilder.build()
+        .withSavedInstance(savedInstanceState)
+        .build()
   }
 
   override fun goToChosenSection(section: Long) {
@@ -180,19 +180,12 @@ class NavigationActivity : BaseActivity(), NavigationView {
                 .popChangeHandler(FadeChangeHandler()))
       }
       Navigation.SIGN_OUT -> {
-
+        navigationViewPresenter.signOut()
       }
     }
   }
 
-  override fun setAppbarTitle(text: String) {
-    supportActionBar?.title = text
-  }
-
   override fun setActiveProfile(userInfo: UserInfo) {
-
-    Timber.d("setActiveProfile call")
-    Timber.d("Got active profile: ${userInfo.nickname}, ${userInfo.title}")
 
     val profile = if (userInfo.nickname.isNotEmpty()) {
       ProfileDrawerItem()
@@ -208,14 +201,18 @@ class NavigationActivity : BaseActivity(), NavigationView {
           .withIdentifier(1L)
     }
 
-    navHeader.removeProfile(0)
-    navHeader.setActiveProfile(profile, false)
+    navHeader.profiles.clear()
+    navHeader.addProfiles(profile)
 
     if (navHeader.activeProfile.name.toString() == stringRes(R.string.nav_drawer_guest_name)) {
       signInItemAvailable()
     } else {
       signOutItemAvailable()
     }
+  }
+
+  override fun setAppbarTitle(text: String) {
+    supportActionBar?.title = text
   }
 
   override fun onControllerChanged(target: Controller?) {
