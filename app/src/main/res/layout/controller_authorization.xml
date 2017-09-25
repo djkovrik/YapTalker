@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:fitsSystemWindows="true"
+  android:gravity="center_vertical|center_horizontal"
+  android:orientation="vertical"
+  tools:context="com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity"
+  tools:ignore="Overdraw">
+
+  <android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/materialize_screen_edge"
+    android:elevation="@dimen/material_card_elevation_resting"
+    tools:targetApi="lollipop">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="@dimen/material_card_supporting_text_padding_top"
+      android:paddingBottom="@dimen/material_card_supporting_text_padding_bottom"
+      android:paddingStart="@dimen/material_card_supporting_text_padding_horizontal"
+      android:paddingEnd="@dimen/material_card_supporting_text_padding_horizontal"
+      android:orientation="vertical">
+
+      <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+          android:id="@+id/authorization_login"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/authorization_login_label"
+          android:inputType="text"
+          android:theme="@style/EditTextStyle"
+          tools:ignore="LabelFor"/>
+
+      </android.support.design.widget.TextInputLayout>
+
+      <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorAccentDark">
+
+        <EditText
+          android:id="@+id/authorization_password"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/authorization_password_label"
+          android:inputType="textWebPassword"
+          android:theme="@style/EditTextStyle"
+          tools:ignore="LabelFor"/>
+
+      </android.support.design.widget.TextInputLayout>
+
+      <Button
+        android:id="@+id/button_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/material_button_flat_elevation"
+        android:text="@string/authorization_button_login"
+        android:theme="@style/SignInButton"/>
+
+    </LinearLayout>
+
+  </android.support.v7.widget.CardView>
+
+</LinearLayout>
