@@ -16,6 +16,7 @@ import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.controller_authorization.view.*
 
+// TODO() FIX EDIT TEXT LEAKS
 class AuthorizationController : BaseController(), AuthorizationView {
 
   @InjectPresenter

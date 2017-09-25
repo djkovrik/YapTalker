@@ -15,7 +15,7 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
 
   companion object {
     private const val ERROR_MESSAGE = "Обнаружены следующие ошибки"
-    private const val SUCCESS_MESSAGE = "Спасибо, вы вошли как"
+    private const val SUCCESS_MESSAGE = "Спасибо"
   }
 
   override fun attachView(view: AuthorizationView?) {
@@ -55,6 +55,7 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
         viewState.loginErrorMessage()
       } else if (str.contains(SUCCESS_MESSAGE)){
         viewState.loginSuccessMessage()
+        // TODO() Back to main page
       }
     }
   }
