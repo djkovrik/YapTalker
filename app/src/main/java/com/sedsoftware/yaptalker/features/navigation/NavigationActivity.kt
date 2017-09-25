@@ -3,10 +3,6 @@ package com.sedsoftware.yaptalker.features.navigation
 import android.content.Context
 import android.os.Bundle
 import android.view.ViewGroup
-import co.zsmb.materialdrawerkt.builders.accountHeader
-import co.zsmb.materialdrawerkt.builders.drawer
-import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
-import co.zsmb.materialdrawerkt.draweritems.divider
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.RouterTransaction
@@ -14,7 +10,10 @@ import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.context.IconicsContextWrapper
 import com.mikepenz.materialdrawer.AccountHeader
+import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
+import com.mikepenz.materialdrawer.DrawerBuilder
+import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
@@ -48,8 +47,11 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
   private lateinit var navDrawer: Drawer
   private lateinit var navHeader: AccountHeader
-  private lateinit var signInItem: PrimaryDrawerItem
-  private lateinit var signOutItem: PrimaryDrawerItem
+  private lateinit var drawerItemMainPage: PrimaryDrawerItem
+  private lateinit var drawerItemForums: PrimaryDrawerItem
+  private lateinit var drawerItemSettings: PrimaryDrawerItem
+  private lateinit var drawerItemSignIn: PrimaryDrawerItem
+  private lateinit var drawerItemSignOut: PrimaryDrawerItem
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -57,37 +59,6 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
     navigationViewPresenter.initLayout(savedInstanceState)
 
-    signInItem = PrimaryDrawerItem()
-        .withIdentifier(Navigation.SIGN_IN)
-        .withName(R.string.nav_drawer_sign_in)
-        .withSelectable(false)
-        .withIcon(CommunityMaterial.Icon.cmd_login)
-        .withTextColor(color(R.color.colorNavDefaultText))
-        .withIconColorRes(R.color.colorNavSignin)
-        .withSelectedTextColor(color(R.color.colorNavSignin))
-        .withSelectedIconColorRes(R.color.colorNavSignin)
-        .withOnDrawerItemClickListener { _, _, drawerItem ->
-          if (drawerItem is Nameable<*>) {
-            navigationViewPresenter.onNavigationClicked(drawerItem.identifier)
-          }
-          false
-        }
-
-    signOutItem = PrimaryDrawerItem()
-        .withIdentifier(Navigation.SIGN_OUT)
-        .withName(R.string.nav_drawer_sign_out)
-        .withSelectable(false)
-        .withIcon(CommunityMaterial.Icon.cmd_logout)
-        .withTextColor(color(R.color.colorNavDefaultText))
-        .withIconColorRes(R.color.colorNavSignin)
-        .withSelectedTextColor(color(R.color.colorNavSignin))
-        .withSelectedIconColorRes(R.color.colorNavSignin)
-        .withOnDrawerItemClickListener { _, _, drawerItem ->
-          if (drawerItem is Nameable<*>) {
-            navigationViewPresenter.onNavigationClicked(drawerItem.identifier)
-          }
-          false
-        }
   }
 
   // Init Iconics here
@@ -110,61 +81,75 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
   override fun initDrawer(savedInstanceState: Bundle?) {
 
-    navDrawer = drawer {
+    drawerItemMainPage = PrimaryDrawerItem()
+        .withIdentifier(Navigation.MAIN_PAGE)
+        .withName(R.string.nav_drawer_main_page)
+        .withIcon(CommunityMaterial.Icon.cmd_home)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavMainPage)
+        .withSelectedTextColor(color(R.color.colorNavMainPage))
+        .withSelectedIconColorRes(R.color.colorNavMainPage)
 
-      toolbar = this@NavigationActivity.toolbar
-      savedInstance = savedInstanceState
-      selectedItem = Navigation.MAIN_PAGE
-      hasStableIds = true
+    drawerItemForums = PrimaryDrawerItem()
+        .withIdentifier(Navigation.FORUMS)
+        .withName(R.string.nav_drawer_forums)
+        .withIcon(CommunityMaterial.Icon.cmd_forum)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavForums)
+        .withSelectedTextColor(color(R.color.colorNavForums))
+        .withSelectedIconColorRes(R.color.colorNavForums)
 
-      navHeader = accountHeader {
+    drawerItemSettings = PrimaryDrawerItem()
+        .withIdentifier(Navigation.SETTINGS)
+        .withIcon(CommunityMaterial.Icon.cmd_settings)
+        .withName(R.string.nav_drawer_settings)
+        .withSelectable(false)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavSettings)
+        .withSelectedTextColor(color(R.color.colorNavSettings))
+        .withSelectedIconColorRes(R.color.colorNavSettings)
 
-        savedInstance = savedInstanceState
-        translucentStatusBar = true
-        background = R.drawable.nav_header
-        selectionListEnabledForSingleProfile = false
-      }
+    drawerItemSignIn = PrimaryDrawerItem()
+        .withIdentifier(Navigation.SIGN_IN)
+        .withName(R.string.nav_drawer_sign_in)
+        .withIcon(CommunityMaterial.Icon.cmd_login)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavSignin)
+        .withSelectedTextColor(color(R.color.colorNavSignin))
+        .withSelectedIconColorRes(R.color.colorNavSignin)
 
-      onItemClick { _, _, drawerItem ->
-        if (drawerItem is Nameable<*>) {
-          navigationViewPresenter.onNavigationClicked(drawerItem.identifier)
+    drawerItemSignOut = PrimaryDrawerItem()
+        .withIdentifier(Navigation.SIGN_OUT)
+        .withName(R.string.nav_drawer_sign_out)
+        .withSelectable(false)
+        .withIcon(CommunityMaterial.Icon.cmd_logout)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavSignin)
+        .withSelectedTextColor(color(R.color.colorNavSignin))
+        .withSelectedIconColorRes(R.color.colorNavSignin)
+
+    navHeader = AccountHeaderBuilder()
+        .withActivity(this)
+        .withHeaderBackground(R.drawable.nav_header)
+        .withSelectionListEnabledForSingleProfile(false)
+        .build()
+
+    val drawerBuilder = DrawerBuilder()
+        .withActivity(this)
+        .withToolbar(toolbar)
+        .withAccountHeader(navHeader)
+        .addDrawerItems(drawerItemMainPage)
+        .addDrawerItems(drawerItemForums)
+        .addDrawerItems(DividerDrawerItem())
+        .addDrawerItems(drawerItemSettings)
+        .withOnDrawerItemClickListener { _, _, drawerItem ->
+          if (drawerItem is Nameable<*>) {
+            navigationViewPresenter.onNavigationClicked(drawerItem.identifier)
+          }
+          false
         }
-        false
-      }
 
-      primaryItem {
-        identifier = Navigation.MAIN_PAGE
-        name = stringRes(R.string.nav_drawer_main_page)
-        iicon = CommunityMaterial.Icon.cmd_home
-        textColor = color(R.color.colorNavDefaultText).toLong()
-        iconColorRes = R.color.colorNavMainPage
-        selectedTextColor = color(R.color.colorNavMainPage).toLong()
-        selectedIconColorRes = R.color.colorNavMainPage
-      }
-
-      primaryItem {
-        identifier = Navigation.FORUMS
-        name = stringRes(R.string.nav_drawer_forums)
-        iicon = CommunityMaterial.Icon.cmd_forum
-        textColor = color(R.color.colorNavDefaultText).toLong()
-        iconColorRes = R.color.colorNavForums
-        selectedTextColor = color(R.color.colorNavForums).toLong()
-        selectedIconColorRes = R.color.colorNavForums
-      }
-
-      divider()
-
-      primaryItem {
-        identifier = Navigation.SETTINGS
-        name = stringRes(R.string.nav_drawer_settings)
-        selectable = false
-        iicon = CommunityMaterial.Icon.cmd_settings
-        textColor = color(R.color.colorNavDefaultText).toLong()
-        iconColorRes = R.color.colorNavSettings
-        selectedTextColor = color(R.color.colorNavSettings).toLong()
-        selectedIconColorRes = R.color.colorNavSettings
-      }
-    }
+    navDrawer = drawerBuilder.build()
   }
 
   override fun goToChosenSection(section: Long) {
@@ -245,12 +230,12 @@ class NavigationActivity : BaseActivity(), NavigationView {
   private fun signInItemAvailable() {
     navDrawer.removeItem(Navigation.SIGN_IN)
     navDrawer.removeItem(Navigation.SIGN_OUT)
-    navDrawer.addItem(signInItem)
+    navDrawer.addItem(drawerItemSignIn)
   }
 
   private fun signOutItemAvailable() {
     navDrawer.removeItem(Navigation.SIGN_IN)
     navDrawer.removeItem(Navigation.SIGN_OUT)
-    navDrawer.addItem(signOutItem)
+    navDrawer.addItem(drawerItemSignOut)
   }
 }
