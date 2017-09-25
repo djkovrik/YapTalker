@@ -131,6 +131,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
     navHeader = AccountHeaderBuilder()
         .withActivity(this)
         .withHeaderBackground(R.drawable.nav_header)
+        .withCompactStyle(true)
         .withSelectionListEnabledForSingleProfile(false)
         .build()
 
