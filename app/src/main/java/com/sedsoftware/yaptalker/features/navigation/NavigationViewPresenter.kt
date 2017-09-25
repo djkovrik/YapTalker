@@ -18,6 +18,10 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
     titleChannel
         .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe { text -> viewState.setAppbarTitle(text) }
+
+    authorizationChannel
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe { info -> viewState.setActiveProfile(info) }
   }
 
   fun initLayout(savedInstanceState: Bundle?) {
@@ -30,20 +34,21 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
 
   fun getFirstLaunchPage() = settings.getStartingPage()
 
-  fun loginAttempt() {
+  fun refreshAuthorization() {
     yapDataManager
-        .loginToSite(login = "test", password = "test")
+        .getAuthorizedUserInfo()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe({
-          // On Susccess
-          response ->
-          Timber.d("GOT RESPONSE: ${response.body()?.string()}")
+          // On Success
+          info ->
+          pushAuthorizationStatus(authorizationChannel, info.getUserInfo())
+          Timber.d("GOT USER INFO: ${info.getUserInfo().nickname}, ${info.getUserInfo().avatar}")
         }, {
           // On Error
-          error ->
-          Timber.d("GOT ERROR: ${error.message}")
+          t ->
+          Timber.d("Can't get authorization status! Error: ${t.message}")
         })
   }
 }

@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
+import com.sedsoftware.yaptalker.data.model.UserInfo
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface NavigationView : MvpView {
@@ -16,4 +17,6 @@ interface NavigationView : MvpView {
   fun goToChosenSection(@Navigation.Section section: Long)
 
   fun setAppbarTitle(text: String)
+
+  fun setActiveProfile(userInfo: UserInfo)
 }
