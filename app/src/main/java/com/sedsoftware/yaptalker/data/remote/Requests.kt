@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.data.remote
 
+import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Forums
 import com.sedsoftware.yaptalker.data.model.News
@@ -79,6 +80,12 @@ interface YapLoader {
       @Field("referer") referer: String,
       @Field("submit") submit: String,
       @Field("user_key") userKey: String): Single<Response<ResponseBody>>
+
+  /**
+   * Request authorized user info.
+   */
+  @GET("/forum")
+  fun loadAuthorizedUserInfo(): Single<AuthorizedUserInfo>
 }
 
 interface RutubeLoader {
