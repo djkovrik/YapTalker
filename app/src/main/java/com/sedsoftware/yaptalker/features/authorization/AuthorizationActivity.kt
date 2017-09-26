@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.features.authorization
 
+import android.app.Activity
 import android.os.Bundle
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -59,6 +60,10 @@ class AuthorizationActivity : MvpAppCompatActivity(), AuthorizationView {
 
   override fun signInButtonEnabled(enabled: Boolean) {
     button_sign_in?.isEnabled = enabled
+  }
+
+  override fun setResultToOk() {
+    setResult(Activity.RESULT_OK)
   }
 
   override fun backToMainScreen() {

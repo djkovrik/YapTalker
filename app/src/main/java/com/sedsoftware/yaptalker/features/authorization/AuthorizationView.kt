@@ -17,5 +17,7 @@ interface AuthorizationView : MvpView {
 
   fun signInButtonEnabled(enabled: Boolean)
 
+  fun setResultToOk()
+
   fun backToMainScreen()
 }

@@ -1,6 +1,8 @@
 package com.sedsoftware.yaptalker.features.navigation
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -30,8 +32,13 @@ import com.sedsoftware.yaptalker.features.settings.SettingsActivity
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import kotlinx.android.synthetic.main.include_main_content.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 
 class NavigationActivity : BaseActivity(), NavigationView {
+
+  companion object {
+    const val SIGN_IN_REQUEST = 1
+  }
 
   @InjectPresenter
   lateinit var navigationViewPresenter: NavigationViewPresenter
@@ -76,6 +83,15 @@ class NavigationActivity : BaseActivity(), NavigationView {
     when {
       navDrawer.isDrawerOpen -> navDrawer.closeDrawer()
       !router.handleBack() -> super.onBackPressed()
+    }
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+    if (resultCode == Activity.RESULT_OK) {
+      when(requestCode) {
+        SIGN_IN_REQUEST -> navigationViewPresenter.refreshAuthorization()
+      }
     }
   }
 
@@ -176,7 +192,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
         startActivity<SettingsActivity>()
       }
       Navigation.SIGN_IN -> {
-        startActivity<AuthorizationActivity>()
+        startActivityForResult<AuthorizationActivity>(SIGN_IN_REQUEST)
       }
       Navigation.SIGN_OUT -> {
         navigationViewPresenter.signOut()
@@ -225,6 +241,10 @@ class NavigationActivity : BaseActivity(), NavigationView {
     navigationViewPresenter.refreshAuthorization()
   }
 
+  override fun showSignOutMessage() {
+    toastInfo(stringRes(R.string.msg_sign_out))
+  }
+
   private fun signInItemAvailable() {
     navDrawer.removeItem(Navigation.SIGN_IN)
     navDrawer.removeItem(Navigation.SIGN_OUT)
@@ -237,7 +257,4 @@ class NavigationActivity : BaseActivity(), NavigationView {
     navDrawer.addItem(drawerItemSignOut)
   }
 
-  override fun showSignOutMessage() {
-    toastInfo(stringRes(R.string.msg_sign_out))
-  }
 }
