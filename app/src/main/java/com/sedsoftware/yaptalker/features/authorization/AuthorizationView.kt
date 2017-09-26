@@ -16,4 +16,6 @@ interface AuthorizationView : MvpView {
   fun showErrorMessage(message: String)
 
   fun signInButtonEnabled(enabled: Boolean)
+
+  fun backToMainScreen()
 }

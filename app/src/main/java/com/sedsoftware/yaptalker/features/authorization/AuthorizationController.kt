@@ -75,4 +75,8 @@ class AuthorizationController : BaseController(), AuthorizationView {
   override fun signInButtonEnabled(enabled: Boolean) {
     view?.button_sign_in?.isEnabled = enabled
   }
+
+  override fun backToMainScreen() {
+    router.popToRoot()
+  }
 }

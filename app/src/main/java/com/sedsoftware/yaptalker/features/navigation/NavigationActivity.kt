@@ -20,6 +20,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
+import com.sedsoftware.yaptalker.commons.extensions.toastInfo
 import com.sedsoftware.yaptalker.data.model.UserInfo
 import com.sedsoftware.yaptalker.features.authorization.AuthorizationController
 import com.sedsoftware.yaptalker.features.base.BaseActivity
@@ -181,6 +182,8 @@ class NavigationActivity : BaseActivity(), NavigationView {
       }
       Navigation.SIGN_OUT -> {
         navigationViewPresenter.signOut()
+        navigationViewPresenter.refreshAuthorization()
+        router.popToRoot()
       }
     }
   }
@@ -235,5 +238,9 @@ class NavigationActivity : BaseActivity(), NavigationView {
     navDrawer.removeItem(Navigation.SIGN_IN)
     navDrawer.removeItem(Navigation.SIGN_OUT)
     navDrawer.addItem(drawerItemSignOut)
+  }
+
+  override fun showSignOutMessage() {
+    toastInfo(stringRes(R.string.msg_sign_out))
   }
 }

@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.data.remote
 
 import android.content.Context
+import com.franmontiel.persistentcookiejar.ClearableCookieJar
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.CookieCache
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
@@ -20,6 +21,8 @@ val requestsClientModule = Kodein.Module {
   bind<CookiePersistor>() with singleton { SharedPrefsCookiePersistor(instance<Context>()) }
 
   bind<CookieJar>() with singleton { PersistentCookieJar(instance(), instance()) }
+
+  bind<ClearableCookieJar>() with singleton { PersistentCookieJar(instance(), instance()) }
 
   // Site requests client instance
   bind<OkHttpClient>("siteClient") with singleton {

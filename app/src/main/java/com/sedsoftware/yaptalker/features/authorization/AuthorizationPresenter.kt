@@ -55,7 +55,7 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
         viewState.loginErrorMessage()
       } else if (str.contains(SUCCESS_MESSAGE)){
         viewState.loginSuccessMessage()
-        // TODO() Back to main page
+        viewState.backToMainScreen()
       }
     }
   }
