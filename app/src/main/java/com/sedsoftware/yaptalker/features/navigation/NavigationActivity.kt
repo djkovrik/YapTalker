@@ -22,7 +22,7 @@ import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
 import com.sedsoftware.yaptalker.data.model.UserInfo
-import com.sedsoftware.yaptalker.features.authorization.AuthorizationController
+import com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity
 import com.sedsoftware.yaptalker.features.base.BaseActivity
 import com.sedsoftware.yaptalker.features.forumslist.ForumsController
 import com.sedsoftware.yaptalker.features.news.NewsController
@@ -112,6 +112,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
     drawerItemSignIn = PrimaryDrawerItem()
         .withIdentifier(Navigation.SIGN_IN)
         .withName(R.string.nav_drawer_sign_in)
+        .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_login)
         .withTextColor(color(R.color.colorNavDefaultText))
         .withIconColorRes(R.color.colorNavSignin)
@@ -175,10 +176,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
         startActivity<SettingsActivity>()
       }
       Navigation.SIGN_IN -> {
-        router.pushController(
-            RouterTransaction.with(AuthorizationController())
-                .pushChangeHandler(FadeChangeHandler())
-                .popChangeHandler(FadeChangeHandler()))
+        startActivity<AuthorizationActivity>()
       }
       Navigation.SIGN_OUT -> {
         navigationViewPresenter.signOut()
@@ -220,7 +218,6 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
   override fun onControllerChanged(target: Controller?) {
     when (target) {
-      is AuthorizationController -> navDrawer.setSelection(Navigation.SIGN_IN, false)
       is NewsController -> navDrawer.setSelection(Navigation.MAIN_PAGE, false)
       else -> navDrawer.setSelection(Navigation.FORUMS, false)
     }
