@@ -8,6 +8,8 @@
   <string name="nav_drawer_main_page">Main page</string>
   <string name="nav_drawer_forums">Forums</string>
   <string name="nav_drawer_settings">Settings</string>
+  <string name="nav_drawer_sign_in">Sign In</string>
+  <string name="nav_drawer_sign_out">Sign Out</string>
 
   <!-- NEWS -->
   <string name="news_comments_template">
@@ -42,10 +44,19 @@
     Page <xliff:g id="page">%d</xliff:g> is not available
   </string>
 
+  <!-- AUTHORIZATION ACTIVITY -->
+  <string name="authorization_login_label">Login</string>
+  <string name="authorization_password_label">Password</string>
+  <string name="authorization_button_login">Sign In</string>
+
   <!-- MESSAGES AND TITLES -->
   <string name="title_share_image">Share Image</string>
   <string name="msg_file_saved">File saved to <xliff:g id="filepath">%s</xliff:g></string>
   <string name="msg_file_not_saved">File not saved!</string>
+  <string name="msg_login_success">Successful login!</string>
+  <string name="msg_login_error">Login error!</string>
+  <string name="msg_login_wait">Login, please wait…</string>
+  <string name="msg_sign_out">Sign out successfull.</string>
 
   <!-- MENUS -->
   <string name="action_save">Save</string>

@@ -16,6 +16,7 @@ val yapDataManagerModule = Kodein.Module {
   bind<YapLoader>("YapLoader") with singleton {
     Retrofit.Builder()
         .baseUrl(instance<String>("YAP_SITE_ENDPOINT"))
+        .client(instance("siteClient"))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(JspoonConverterFactory.create())
         .build()

@@ -32,7 +32,7 @@ import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.data.remote.video.ThumbnailsManager
 import com.sedsoftware.yaptalker.data.remote.video.parseLink
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
-import com.sedsoftware.yaptalker.features.settings.SettingsReader
+import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.toSingle
@@ -54,7 +54,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
 
   // Kodein injections
   private val thumbnailsLoader: ThumbnailsManager by instance()
-  private val settings: SettingsReader by instance()
+  private val settings: SettingsHelper by instance()
 
   private val normalFontSize by lazy {
     settings.getNormalFontSize()

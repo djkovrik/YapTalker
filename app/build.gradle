@@ -72,13 +72,14 @@ dependencies {
   final JSPOON_VERSION = "1.0.0"
   final ANKO_VERSION = "0.10.1"
   final MOSHI_VERSION = "1.5.0"
+  final PERSISTENT_COOKIE_JAR_VERSION = "v1.0.1"
 
   // App - UI
   final MATERIAL_VALUES_VERSION = "1.1.1"
-  final MATERIAL_DRAWER_KT_VERSION = "1.1.1"
-  final MATERIAL_DIALOGUES_VERSION = "0.9.4.7"
-  final COMMUNITY_MATERIAL_ICONS_VERSION = "1.9.32.2@aar"
+  final MATERIAL_DRAWER_VERSION = "5.9.5@aar"
   final ICONICS_VERSION = "2.9.3@aar"
+  final COMMUNITY_MATERIAL_ICONS_VERSION = "1.9.32.2@aar"
+  final MATERIAL_DIALOGUES_VERSION = "0.9.4.7"
   final TOASTY_VERSION = "1.2.5"
   final PHOTOVIEW_VERSION = "2.0.0"
 
@@ -143,15 +144,16 @@ dependencies {
   implementation "org.jetbrains.anko:anko-commons:$ANKO_VERSION"
   implementation "org.jetbrains.anko:anko-design:$ANKO_VERSION"
   implementation "com.squareup.moshi:moshi:$MOSHI_VERSION"
+  implementation "com.github.franmontiel:persistentcookiejar:$PERSISTENT_COOKIE_JAR_VERSION"
 
   // UI
   implementation "blue.aodev:material-values:$MATERIAL_VALUES_VERSION"
-  implementation "co.zsmb:materialdrawer-kt:$MATERIAL_DRAWER_KT_VERSION"
-  implementation "com.afollestad.material-dialogs:core:$MATERIAL_DIALOGUES_VERSION"
+  implementation("com.mikepenz:materialdrawer:$MATERIAL_DRAWER_VERSION") {transitive = true}
   implementation "com.mikepenz:iconics-core:$ICONICS_VERSION"
   implementation "com.mikepenz:iconics-views:$ICONICS_VERSION"
-  implementation "com.afollestad.material-dialogs:commons:$MATERIAL_DIALOGUES_VERSION"
   implementation "com.mikepenz:community-material-typeface:$COMMUNITY_MATERIAL_ICONS_VERSION"
+  implementation "com.afollestad.material-dialogs:core:$MATERIAL_DIALOGUES_VERSION"
+  implementation "com.afollestad.material-dialogs:commons:$MATERIAL_DIALOGUES_VERSION"
   implementation "com.github.grenderg:toasty:$TOASTY_VERSION"
   implementation "com.github.chrisbanes:PhotoView:$PHOTOVIEW_VERSION"
 

@@ -9,7 +9,7 @@ import com.sedsoftware.yaptalker.features.forumslist.ForumsController
 import com.sedsoftware.yaptalker.features.news.NewsController
 import org.jetbrains.anko.defaultSharedPreferences
 
-class SettingsReader(val context: Context) {
+class SettingsHelper(val context: Context) {
 
   companion object {
     private const val TEXT_SIZE_OFFSET = 2f
@@ -21,6 +21,11 @@ class SettingsReader(val context: Context) {
 
   private val defaultCategories by lazy {
     context.resources.getStringArray(R.array.pref_categorizer_values).toSet()
+  }
+
+  private val defaultCookies by lazy {
+    setOf("SID=deleted", "expires=Thu, 01-Jan-1970 00:00:01 GMT", "path=/", "domain=.yaplakal.com",
+        "remote_authorised=deleted")
   }
 
   fun getStartingPage(): BaseController {

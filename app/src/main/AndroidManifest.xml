@@ -55,6 +55,16 @@
         android:value=".features.navigation.NavigationActivity"/>
     </activity>
 
+    <activity
+      android:label="@string/nav_drawer_sign_in"
+      android:launchMode="singleTask"
+      android:name=".features.authorization.AuthorizationActivity"
+      android:parentActivityName=".features.navigation.NavigationActivity">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".features.navigation.NavigationActivity"/>
+    </activity>
+
     <provider
       android:authorities="com.sedsoftware.yaptalker"
       android:exported="false"

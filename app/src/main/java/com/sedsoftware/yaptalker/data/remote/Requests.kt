@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.data.remote
 
+import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Forums
 import com.sedsoftware.yaptalker.data.model.News
@@ -9,7 +10,12 @@ import com.sedsoftware.yaptalker.data.remote.video.RutubeData
 import com.sedsoftware.yaptalker.data.remote.video.VkResponseWrapper
 import com.sedsoftware.yaptalker.data.remote.video.YapVideoData
 import io.reactivex.Single
+import okhttp3.ResponseBody
+import retrofit2.Response
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -54,6 +60,32 @@ interface YapLoader {
       @Path("forumId") forumId: Int,
       @Path("topicId") topicId: Int,
       @Path("startFrom") startPostNumber: Int): Single<TopicPage>
+
+  /**
+   * Site login request.
+   *
+   * @param cookieDate Should be equal to 1 for persistent cookies.
+   * @param password User password.
+   * @param userName User login.
+   * @param referer Site referrer.
+   * @param submit Submit action, should be equal to "Вход".
+   * @param user_key Unique user hash.
+   */
+  @FormUrlEncoded
+  @POST("/act/Login/CODE/01/")
+  fun signIn(
+      @Field("CookieDate") cookieDate: String,
+      @Field("PassWord") password: String,
+      @Field("UserName") userName: String,
+      @Field("referer") referer: String,
+      @Field("submit") submit: String,
+      @Field("user_key") userKey: String): Single<Response<ResponseBody>>
+
+  /**
+   * Request authorized user info.
+   */
+  @GET("/forum")
+  fun loadAuthorizedUserInfo(): Single<AuthorizedUserInfo>
 }
 
 interface RutubeLoader {

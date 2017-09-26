@@ -1,13 +1,10 @@
 package com.sedsoftware.yaptalker.features.navigation
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
-import co.zsmb.materialdrawerkt.builders.accountHeader
-import co.zsmb.materialdrawerkt.builders.drawer
-import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
-import co.zsmb.materialdrawerkt.draweritems.divider
-import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.RouterTransaction
@@ -15,11 +12,19 @@ import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.context.IconicsContextWrapper
 import com.mikepenz.materialdrawer.AccountHeader
+import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
+import com.mikepenz.materialdrawer.DrawerBuilder
+import com.mikepenz.materialdrawer.model.DividerDrawerItem
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
+import com.sedsoftware.yaptalker.commons.extensions.toastInfo
+import com.sedsoftware.yaptalker.data.model.UserInfo
+import com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity
 import com.sedsoftware.yaptalker.features.base.BaseActivity
 import com.sedsoftware.yaptalker.features.forumslist.ForumsController
 import com.sedsoftware.yaptalker.features.news.NewsController
@@ -27,8 +32,13 @@ import com.sedsoftware.yaptalker.features.settings.SettingsActivity
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import kotlinx.android.synthetic.main.include_main_content.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 
 class NavigationActivity : BaseActivity(), NavigationView {
+
+  companion object {
+    const val SIGN_IN_REQUEST = 1
+  }
 
   @InjectPresenter
   lateinit var navigationViewPresenter: NavigationViewPresenter
@@ -42,15 +52,20 @@ class NavigationActivity : BaseActivity(), NavigationView {
   override val rootController: Controller
     get() = navigationViewPresenter.getFirstLaunchPage()
 
-  // Navigation navDrawer contents
   private lateinit var navDrawer: Drawer
   private lateinit var navHeader: AccountHeader
+  private lateinit var drawerItemMainPage: PrimaryDrawerItem
+  private lateinit var drawerItemForums: PrimaryDrawerItem
+  private lateinit var drawerItemSettings: PrimaryDrawerItem
+  private lateinit var drawerItemSignIn: PrimaryDrawerItem
+  private lateinit var drawerItemSignOut: PrimaryDrawerItem
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setSupportActionBar(toolbar)
 
     navigationViewPresenter.initLayout(savedInstanceState)
+
   }
 
   // Init Iconics here
@@ -58,7 +73,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
     super.attachBaseContext(IconicsContextWrapper.wrap(base))
   }
 
-  override fun onSaveInstanceState(outState: Bundle) {
+  override fun onSaveInstanceState(outState: Bundle?) {
     navDrawer.saveInstanceState(outState)
     navHeader.saveInstanceState(outState)
     super.onSaveInstanceState(outState)
@@ -71,67 +86,89 @@ class NavigationActivity : BaseActivity(), NavigationView {
     }
   }
 
-  override fun initDrawer(savedInstanceState: Bundle?) {
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-    navDrawer = drawer {
-
-      toolbar = this@NavigationActivity.toolbar
-      savedInstance = savedInstanceState
-      selectedItem = Navigation.MAIN_PAGE
-      hasStableIds = true
-
-      navHeader = accountHeader {
-
-        savedInstance = savedInstanceState
-        translucentStatusBar = true
-        background = R.drawable.nav_header
-        selectionListEnabledForSingleProfile = false
-
-        profile {
-          name = getString(R.string.nav_drawer_guest_name)
-        }
-      }
-
-      onItemClick { _, _, drawerItem ->
-        if (drawerItem is Nameable<*>) {
-          navigationViewPresenter.onNavigationClicked(drawerItem.identifier)
-        }
-        false
-      }
-
-      primaryItem {
-        identifier = Navigation.MAIN_PAGE
-        name = stringRes(R.string.nav_drawer_main_page)
-        iicon = CommunityMaterial.Icon.cmd_home
-        textColor = color(R.color.colorNavDefaultText).toLong()
-        iconColorRes = R.color.colorNavMainPage
-        selectedTextColor = color(R.color.colorNavMainPage).toLong()
-        selectedIconColorRes = R.color.colorNavMainPage
-      }
-
-      primaryItem {
-        identifier = Navigation.FORUMS
-        name = stringRes(R.string.nav_drawer_forums)
-        iicon = CommunityMaterial.Icon.cmd_forum
-        textColor = color(R.color.colorNavDefaultText).toLong()
-        iconColorRes = R.color.colorNavForums
-        selectedTextColor = color(R.color.colorNavForums).toLong()
-        selectedIconColorRes = R.color.colorNavForums
-      }
-
-      divider()
-
-      primaryItem {
-        identifier = Navigation.SETTINGS
-        name = stringRes(R.string.nav_drawer_settings)
-        selectable = false
-        iicon = CommunityMaterial.Icon.cmd_settings
-        textColor = color(R.color.colorNavDefaultText).toLong()
-        iconColorRes = R.color.colorNavSettings
-        selectedTextColor = color(R.color.colorNavSettings).toLong()
-        selectedIconColorRes = R.color.colorNavSettings
+    if (resultCode == Activity.RESULT_OK) {
+      when(requestCode) {
+        SIGN_IN_REQUEST -> navigationViewPresenter.refreshAuthorization()
       }
     }
+  }
+
+  override fun initDrawer(savedInstanceState: Bundle?) {
+
+    drawerItemMainPage = PrimaryDrawerItem()
+        .withIdentifier(Navigation.MAIN_PAGE)
+        .withName(R.string.nav_drawer_main_page)
+        .withIcon(CommunityMaterial.Icon.cmd_home)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavMainPage)
+        .withSelectedTextColor(color(R.color.colorNavMainPage))
+        .withSelectedIconColorRes(R.color.colorNavMainPage)
+
+    drawerItemForums = PrimaryDrawerItem()
+        .withIdentifier(Navigation.FORUMS)
+        .withName(R.string.nav_drawer_forums)
+        .withIcon(CommunityMaterial.Icon.cmd_forum)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavForums)
+        .withSelectedTextColor(color(R.color.colorNavForums))
+        .withSelectedIconColorRes(R.color.colorNavForums)
+
+    drawerItemSettings = PrimaryDrawerItem()
+        .withIdentifier(Navigation.SETTINGS)
+        .withIcon(CommunityMaterial.Icon.cmd_settings)
+        .withName(R.string.nav_drawer_settings)
+        .withSelectable(false)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavSettings)
+        .withSelectedTextColor(color(R.color.colorNavSettings))
+        .withSelectedIconColorRes(R.color.colorNavSettings)
+
+    drawerItemSignIn = PrimaryDrawerItem()
+        .withIdentifier(Navigation.SIGN_IN)
+        .withName(R.string.nav_drawer_sign_in)
+        .withSelectable(false)
+        .withIcon(CommunityMaterial.Icon.cmd_login)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavSignin)
+        .withSelectedTextColor(color(R.color.colorNavSignin))
+        .withSelectedIconColorRes(R.color.colorNavSignin)
+
+    drawerItemSignOut = PrimaryDrawerItem()
+        .withIdentifier(Navigation.SIGN_OUT)
+        .withName(R.string.nav_drawer_sign_out)
+        .withSelectable(false)
+        .withIcon(CommunityMaterial.Icon.cmd_logout)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavSignin)
+        .withSelectedTextColor(color(R.color.colorNavSignin))
+        .withSelectedIconColorRes(R.color.colorNavSignin)
+
+    navHeader = AccountHeaderBuilder()
+        .withActivity(this)
+        .withHeaderBackground(R.drawable.nav_header)
+        .withCompactStyle(true)
+        .withSelectionListEnabledForSingleProfile(false)
+        .withSavedInstance(savedInstanceState)
+        .build()
+
+    navDrawer = DrawerBuilder()
+        .withActivity(this)
+        .withToolbar(toolbar)
+        .withAccountHeader(navHeader)
+        .addDrawerItems(drawerItemMainPage)
+        .addDrawerItems(drawerItemForums)
+        .addDrawerItems(DividerDrawerItem())
+        .addDrawerItems(drawerItemSettings)
+        .withOnDrawerItemClickListener { _, _, drawerItem ->
+          if (drawerItem is Nameable<*>) {
+            navigationViewPresenter.onNavigationClicked(drawerItem.identifier)
+          }
+          false
+        }
+        .withSavedInstance(savedInstanceState)
+        .build()
   }
 
   override fun goToChosenSection(section: Long) {
@@ -154,6 +191,40 @@ class NavigationActivity : BaseActivity(), NavigationView {
       Navigation.SETTINGS -> {
         startActivity<SettingsActivity>()
       }
+      Navigation.SIGN_IN -> {
+        startActivityForResult<AuthorizationActivity>(SIGN_IN_REQUEST)
+      }
+      Navigation.SIGN_OUT -> {
+        navigationViewPresenter.signOut()
+        navigationViewPresenter.refreshAuthorization()
+        router.popToRoot()
+      }
+    }
+  }
+
+  override fun setActiveProfile(userInfo: UserInfo) {
+
+    val profile = if (userInfo.nickname.isNotEmpty()) {
+      ProfileDrawerItem()
+          .withName(userInfo.nickname)
+          .withEmail(userInfo.title)
+          .withIcon("http:${userInfo.avatar}")
+          .withIdentifier(2L)
+    } else {
+      ProfileDrawerItem()
+          .withName(stringRes(R.string.nav_drawer_guest_name))
+          .withEmail("")
+          .withIcon("http:${userInfo.avatar}")
+          .withIdentifier(1L)
+    }
+
+    navHeader.profiles.clear()
+    navHeader.addProfiles(profile)
+
+    if (navHeader.activeProfile.name.toString() == stringRes(R.string.nav_drawer_guest_name)) {
+      signInItemAvailable()
+    } else {
+      signOutItemAvailable()
     }
   }
 
@@ -166,5 +237,24 @@ class NavigationActivity : BaseActivity(), NavigationView {
       is NewsController -> navDrawer.setSelection(Navigation.MAIN_PAGE, false)
       else -> navDrawer.setSelection(Navigation.FORUMS, false)
     }
+
+    navigationViewPresenter.refreshAuthorization()
   }
+
+  override fun showSignOutMessage() {
+    toastInfo(stringRes(R.string.msg_sign_out))
+  }
+
+  private fun signInItemAvailable() {
+    navDrawer.removeItem(Navigation.SIGN_IN)
+    navDrawer.removeItem(Navigation.SIGN_OUT)
+    navDrawer.addItem(drawerItemSignIn)
+  }
+
+  private fun signOutItemAvailable() {
+    navDrawer.removeItem(Navigation.SIGN_IN)
+    navDrawer.removeItem(Navigation.SIGN_OUT)
+    navDrawer.addItem(drawerItemSignOut)
+  }
+
 }

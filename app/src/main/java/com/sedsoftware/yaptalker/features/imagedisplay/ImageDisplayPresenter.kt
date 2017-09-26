@@ -10,9 +10,9 @@ import android.support.v4.content.FileProvider
 import com.arellomobile.mvp.InjectViewState
 import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
 import com.squareup.picasso.Picasso
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Single
@@ -35,7 +35,7 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
   }
 
   // Kodein injection
-  private val httpClient: OkHttpClient by instance()
+  private val httpClient: OkHttpClient by instance("fileClient")
 
   fun toggleFullscreenView() {
     viewState.toggleSystemUiVisibility()
