@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
+        <com.sedsoftware.yaptalker.commons.views.CustomEditText
           android:id="@+id/authorization_login"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/colorAccentDark">
 
-        <EditText
+        <com.sedsoftware.yaptalker.commons.views.CustomEditText
           android:id="@+id/authorization_password"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
