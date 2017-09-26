@@ -2,6 +2,8 @@ package com.sedsoftware.yaptalker.features.navigation
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
+import com.franmontiel.persistentcookiejar.ClearableCookieJar
+import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -11,6 +13,8 @@ import timber.log.Timber
 
 @InjectViewState
 class NavigationViewPresenter : BasePresenter<NavigationView>() {
+
+  private val cookieStorage: ClearableCookieJar by instance()
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
@@ -52,6 +56,7 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
   }
 
   fun signOut() {
-    // TODO() Clear cookies
+    cookieStorage.clear()
+    viewState.showSignOutMessage()
   }
 }
