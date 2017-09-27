@@ -1,6 +1,5 @@
 package com.sedsoftware.yaptalker.data.remote.video
 
-import com.sedsoftware.yaptalker.commons.enums.VideoTypes
 import com.sedsoftware.yaptalker.data.remote.video.Selectors.COUB_SELECTOR
 import com.sedsoftware.yaptalker.data.remote.video.Selectors.RUTUBE_SELECTOR
 import com.sedsoftware.yaptalker.data.remote.video.Selectors.VK_SELECTOR

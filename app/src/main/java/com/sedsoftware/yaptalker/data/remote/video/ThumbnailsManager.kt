@@ -3,7 +3,6 @@ package com.sedsoftware.yaptalker.data.remote.video
 import android.widget.ImageView
 import com.sedsoftware.yaptalker.BuildConfig
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.enums.VideoTypes
 import com.sedsoftware.yaptalker.commons.extensions.loadFromDrawable
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.data.remote.CoubLoader
