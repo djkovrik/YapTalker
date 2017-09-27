@@ -18,4 +18,6 @@ interface NavigationView : MvpView {
   fun setAppbarTitle(text: String)
 
   fun showSignOutMessage()
+
+  fun goToMainPage()
 }

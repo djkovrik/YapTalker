@@ -66,5 +66,6 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
   fun signOut() {
     cookieStorage.clear()
     viewState.showSignOutMessage()
+    viewState.goToMainPage()
   }
 }

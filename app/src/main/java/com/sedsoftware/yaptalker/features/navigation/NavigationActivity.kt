@@ -245,6 +245,10 @@ class NavigationActivity : BaseActivity(), NavigationView {
     toastInfo(stringRes(R.string.msg_sign_out))
   }
 
+  override fun goToMainPage() {
+    router.popToRoot()
+  }
+
   private fun signInItemAvailable() {
     navDrawer.removeItem(Navigation.SIGN_IN)
     navDrawer.removeItem(Navigation.SIGN_OUT)
@@ -256,5 +260,4 @@ class NavigationActivity : BaseActivity(), NavigationView {
     navDrawer.removeItem(Navigation.SIGN_OUT)
     navDrawer.addItem(drawerItemSignOut)
   }
-
 }
