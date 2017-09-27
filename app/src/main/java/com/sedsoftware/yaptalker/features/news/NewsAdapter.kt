@@ -15,9 +15,9 @@ import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
-import com.sedsoftware.yaptalker.data.remote.video.parseLink
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.data.remote.video.ThumbnailsManager
+import com.sedsoftware.yaptalker.data.remote.video.parseLink
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
@@ -60,12 +60,12 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
   override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
     holder.bindTo(news[position])
 
-    // TODO() Improve animation
     val animation = AnimationUtils.loadAnimation(holder.itemView.context,
-        if (position > lastPosition)
-          R.anim.recyclerview_up_from_bottom
-        else
-          R.anim.recyclerview_down_from_top)
+        when {
+          (lastPosition == -1) -> R.anim.recyclerview_fade_in
+          (position > lastPosition) -> R.anim.recyclerview_up_from_bottom
+          else -> R.anim.recyclerview_down_from_top
+        })
 
     holder.itemView.startAnimation(animation)
     lastPosition = holder.adapterPosition
@@ -85,6 +85,7 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
   fun clearNews() {
     notifyItemRangeRemoved(0, news.size)
     news.clear()
+    lastPosition = -1
   }
 
   inner class NewsViewHolder(itemView: View, private val itemClick: (String, String) -> Unit) :
