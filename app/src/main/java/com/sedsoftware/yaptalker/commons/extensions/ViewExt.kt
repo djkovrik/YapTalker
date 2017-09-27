@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.commons.extensions
 
 import android.support.v4.widget.SwipeRefreshLayout
 import android.text.Html
+import android.text.Spanned
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Interpolator
@@ -12,6 +13,9 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.CircleImageTransformation
 import com.sedsoftware.yaptalker.commons.PicassoImageGetter
 import com.squareup.picasso.Picasso
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 // Fab params
 private const val ANIMATION_DELAY_DEFAULT = 150L
@@ -78,12 +82,18 @@ fun ImageView.loadFromDrawable(resId: Int) {
 @Suppress("DEPRECATION")
 fun TextView.textFromHtml(html: String) {
 
-  this.text =
-      if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-        Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
-      } else {
-        Html.fromHtml(html)
+  Single
+      .just(html)
+      .map { text ->
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+          Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
+        } else {
+          Html.fromHtml(text)
+        }
       }
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribeOn(Schedulers.computation())
+      .subscribe { str: Spanned, _: Throwable? -> this.text = str }
 }
 
 /**
@@ -93,13 +103,11 @@ fun TextView.textFromHtml(html: String) {
  */
 @Suppress("DEPRECATION")
 fun TextView.textFromHtmlWithEmoji(html: String) {
-
-  this.text =
-      if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-        Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, PicassoImageGetter(context, this), null)
-      } else {
-        Html.fromHtml(html, PicassoImageGetter(context, this), null)
-      }
+  this.text = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+    Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, PicassoImageGetter(context, this), null)
+  } else {
+    Html.fromHtml(html, PicassoImageGetter(context, this), null)
+  }
 }
 
 /**
