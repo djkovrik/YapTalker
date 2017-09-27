@@ -1,8 +1,9 @@
 package com.sedsoftware.yaptalker.features.authorization
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
+import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
 import com.sedsoftware.yaptalker.features.base.BasePresenter
+import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -28,7 +29,7 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
   }
 
   fun updateTitle(title: String) {
-    pushAppbarTitle(titleChannel, title)
+    pushAppEvent(UpdateAppbarEvent(title))
   }
 
   fun loginAttempt(userLogin: String, userPassword: String) {

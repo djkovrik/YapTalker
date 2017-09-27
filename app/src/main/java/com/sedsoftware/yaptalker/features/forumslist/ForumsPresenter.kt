@@ -2,9 +2,10 @@ package com.sedsoftware.yaptalker.features.forumslist
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
+import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -20,7 +21,7 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-    attachRefreshIndicator(yapDataManager.requestState, {
+    attachRefreshIndicator({
       // onStart
       viewState.showRefreshing()
     }, {
@@ -70,7 +71,7 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
   }
 
   fun updateTitle(title: String) {
-    pushAppbarTitle(titleChannel, title)
+    pushAppEvent(UpdateAppbarEvent(title))
   }
 
   private fun onLoadingSuccess(item: ForumItem) {

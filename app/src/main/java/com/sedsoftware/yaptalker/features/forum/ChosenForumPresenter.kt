@@ -3,10 +3,11 @@ package com.sedsoftware.yaptalker.features.forum
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
 import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
+import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -32,7 +33,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
     viewState.hideNavigationPanelWithoutAnimation()
 
-    attachRefreshIndicator(yapDataManager.requestState, {
+    attachRefreshIndicator( {
       // onStart
       viewState.showRefreshing()
     }, {
@@ -88,7 +89,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   }
 
   fun setAppbarTitle(title: String) {
-    pushAppbarTitle(titleChannel, title)
+    pushAppEvent(UpdateAppbarEvent(title))
   }
 
   fun handleNavigationVisibility(isNavigationShown: Boolean, scrollState: Int) {

@@ -4,8 +4,10 @@ import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.franmontiel.persistentcookiejar.ClearableCookieJar
 import com.github.salomonbrys.kodein.instance
-import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
+import com.sedsoftware.yaptalker.commons.AppEvent
+import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
 import com.sedsoftware.yaptalker.features.base.BasePresenter
+import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -19,13 +21,15 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-    titleChannel
+    eventBus
+        .filter { event -> event.getType() == AppEvent.UPDATE_APPBAR }
+        .map { event -> event as UpdateAppbarEvent }
         .autoDisposeWith(event(PresenterLifecycle.DESTROY))
-        .subscribe { text -> viewState.setAppbarTitle(text) }
+        .subscribe { event -> viewState.setAppbarTitle(event.title) }
 
-    authorizationChannel
-        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
-        .subscribe { info -> viewState.setActiveProfile(info) }
+//    authorizationChannel
+//        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+//        .subscribe { info -> viewState.setActiveProfile(info) }
   }
 
   fun initLayout(savedInstanceState: Bundle?) {
@@ -46,8 +50,7 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
         .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe({
           // On Success
-          info ->
-          pushAuthorizationStatus(authorizationChannel, info.getUserInfo())
+          //info -> pushAuthorizationStatus(authorizationChannel, info.getUserInfo())
         }, {
           // On Error
           t ->

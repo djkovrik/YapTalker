@@ -1,9 +1,10 @@
 package com.sedsoftware.yaptalker.features.news
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.commons.enums.PresenterLifecycle
+import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -25,7 +26,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-    attachRefreshIndicator(yapDataManager.requestState, {
+    attachRefreshIndicator( {
       // onStart
       viewState.showRefreshing()
     }, {
@@ -74,7 +75,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
   }
 
   fun updateTitle(title: String) {
-    pushAppbarTitle(titleChannel, title)
+    pushAppEvent(UpdateAppbarEvent(title))
   }
 
   fun handleFabVisibility(isFabShown: Boolean, diff: Int) {
