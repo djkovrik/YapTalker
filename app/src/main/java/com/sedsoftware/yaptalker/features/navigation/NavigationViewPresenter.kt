@@ -6,6 +6,7 @@ import com.franmontiel.persistentcookiejar.ClearableCookieJar
 import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.commons.AppEvent
 import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
+import com.sedsoftware.yaptalker.commons.UpdateNavDrawerEvent
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -27,9 +28,11 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
         .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe { event -> viewState.setAppbarTitle(event.title) }
 
-//    authorizationChannel
-//        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
-//        .subscribe { info -> viewState.setActiveProfile(info) }
+    eventBus
+        .filter { event -> event.getType() == AppEvent.UPDATE_NAVDRAWER }
+        .map { event -> event as UpdateNavDrawerEvent }
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe { event -> viewState.setActiveProfile(event) }
   }
 
   fun initLayout(savedInstanceState: Bundle?) {
@@ -50,11 +53,13 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
         .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe({
           // On Success
-          //info -> pushAuthorizationStatus(authorizationChannel, info.getUserInfo())
+          info ->
+          pushAppEvent(
+              UpdateNavDrawerEvent(name = info.nickname, title = info.title, avatar = info.avatar))
         }, {
           // On Error
           t ->
-          Timber.d("Can't get authorization status! Error: ${t.message}")
+          Timber.d("Can't get user info! Error: ${t.message}")
         })
   }
 

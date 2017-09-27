@@ -20,10 +20,10 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.UpdateNavDrawerEvent
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
-import com.sedsoftware.yaptalker.data.model.UserInfo
 import com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity
 import com.sedsoftware.yaptalker.features.base.BaseActivity
 import com.sedsoftware.yaptalker.features.forumslist.ForumsController
@@ -89,7 +89,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
     if (resultCode == Activity.RESULT_OK) {
-      when(requestCode) {
+      when (requestCode) {
         SIGN_IN_REQUEST -> navigationViewPresenter.refreshAuthorization()
       }
     }
@@ -202,19 +202,19 @@ class NavigationActivity : BaseActivity(), NavigationView {
     }
   }
 
-  override fun setActiveProfile(userInfo: UserInfo) {
+  override fun setActiveProfile(event: UpdateNavDrawerEvent) {
 
-    val profile = if (userInfo.nickname.isNotEmpty()) {
+    val profile = if (event.name.isNotEmpty()) {
       ProfileDrawerItem()
-          .withName(userInfo.nickname)
-          .withEmail(userInfo.title)
-          .withIcon("http:${userInfo.avatar}")
+          .withName(event.name)
+          .withEmail(event.title)
+          .withIcon("http:${event.avatar}")
           .withIdentifier(2L)
     } else {
       ProfileDrawerItem()
           .withName(stringRes(R.string.nav_drawer_guest_name))
           .withEmail("")
-          .withIcon("http:${userInfo.avatar}")
+          .withIcon("http:${event.avatar}")
           .withIdentifier(1L)
     }
 

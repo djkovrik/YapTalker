@@ -10,14 +10,6 @@ class AuthorizedUserInfo {
   @Selector("span.user-rank", defValue = "")
   lateinit var uq: String
   @Selector("div[style~=float: left; padding: 10px] > a > img", attr = "src",
-      defValue = "//www.yaplakal.com/html/avatars/noavatar.gif")
+      defValue = "//www.yaplakal.com/html/static/noavatar.gif")
   lateinit var avatar: String
-
-  fun getUserInfo() = UserInfo(nickname, title, uq, avatar)
 }
-
-data class UserInfo(
-    val nickname: String = "Guest",
-    val title: String = "",
-    val uq: String = "",
-    val avatar: String = "//www.yaplakal.com/html/avatars/noavatar.gif")
