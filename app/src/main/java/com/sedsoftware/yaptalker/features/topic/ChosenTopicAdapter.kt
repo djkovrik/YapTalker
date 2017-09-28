@@ -34,8 +34,8 @@ import com.sedsoftware.yaptalker.data.remote.video.parseLink
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.toSingle
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.controller_chosen_topic_item.view.*
 import org.jetbrains.anko.browse
@@ -91,22 +91,18 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
   inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bindTo(postItem: TopicPost) {
-      postItem
-          .toSingle()
-          .observeOn(Schedulers.computation())
-          .map { post -> parsePostContent(post) }
+      getParsedPostSingle(postItem)
           .observeOn(AndroidSchedulers.mainThread())
+          .subscribeOn(Schedulers.computation())
           .map { parsedPost -> fillPostText(parsedPost) }
           .map { parsedPost -> fillPostImages(parsedPost) }
           .map { parsedPost -> fillPostVideos(parsedPost) }
           .map { _ -> fillPostHeader(postItem) }
-          .subscribeOn(Schedulers.io())
           .subscribe({ _ -> }, { _ -> })
     }
 
-    private fun parsePostContent(item: TopicPost): ParsedPost {
-      return ParsedPost(item.postContent)
-    }
+    private fun getParsedPostSingle(item: TopicPost): Single<ParsedPost> =
+        Single.just(ParsedPost(item.postContent))
 
     @Suppress("NestedBlockDepth")
     private fun fillPostText(post: ParsedPost): ParsedPost {
