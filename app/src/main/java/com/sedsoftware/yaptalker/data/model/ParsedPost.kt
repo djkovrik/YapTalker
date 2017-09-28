@@ -77,7 +77,7 @@ class ParsedPost(html: String,
 
           // Quote authors
           if (element.text().contains(QUOTE_AUTHOR_MARKER) &&
-              !element.html().contains(Regex("\\R"))) {
+              !element.html().contains(Regex("[\\r\\n]+"))) {
             content.add(PostQuoteAuthor(text = element.html()))
           } else if (element.text() == QUOTE_MARKER) {
             content.add(PostQuoteAuthor(text = element.html()))
@@ -127,7 +127,7 @@ class ParsedPost(html: String,
         // Replace html spaces
         .replace("&nbsp;", " ")
         // Replace extra <br>
-        .replace(Regex("(<br>(\\s+)?\\R)+", RegexOption.MULTILINE), "<br>")
+        //.replace(Regex("(<br>(\\s+)?\\R)+", RegexOption.MULTILINE), "<br>")
   }
 
   private fun String.trimLinebreakTags(): String {
