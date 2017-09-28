@@ -69,7 +69,7 @@ interface YapLoader {
    * @param userName User login.
    * @param referer Site referrer.
    * @param submit Submit action, should be equal to "Вход".
-   * @param user_key Unique user hash.
+   * @param userKey Unique user hash.
    */
   @FormUrlEncoded
   @POST("/act/Login/CODE/01/")

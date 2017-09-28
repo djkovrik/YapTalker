@@ -25,6 +25,7 @@ fun String.chopEdges() = this.substring(1, this.length - 1)
 /**
  * Generates md5 hash.
  */
+@Suppress("MagicNumber")
 fun String.toMD5(): String {
 
   val digest = java.security.MessageDigest.getInstance("MD5")

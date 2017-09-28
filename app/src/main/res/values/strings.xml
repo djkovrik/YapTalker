@@ -55,8 +55,7 @@
   <string name="msg_file_not_saved">File not saved!</string>
   <string name="msg_login_success">Successful login!</string>
   <string name="msg_login_error">Login error!</string>
-  <string name="msg_login_wait">Login, please wait…</string>
-  <string name="msg_sign_out">Sign out successfull.</string>
+  <string name="msg_sign_out">Sign out successful.</string>
 
   <!-- MENUS -->
   <string name="action_save">Save</string>
