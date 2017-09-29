@@ -113,6 +113,9 @@ dependencies {
   implementation "com.android.support:design:$support_library_version"
   implementation "com.android.support.constraint:constraint-layout:1.0.2"
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+  // Temp workaround for Material Dialogs dependency conflict
+  api "com.android.support:support-v4:$support_library_version"
+  api "com.android.support:support-v13:$support_library_version"
 
   // Rx
   implementation "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION"
