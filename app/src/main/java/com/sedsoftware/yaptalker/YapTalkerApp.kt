@@ -8,7 +8,6 @@ import android.widget.ImageView
 import com.facebook.stetho.Stetho
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.KodeinAware
-import com.github.salomonbrys.kodein.android.autoAndroidModule
 import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.lazy
 import com.github.salomonbrys.kodein.singleton
@@ -16,10 +15,12 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.sedsoftware.yaptalker.commons.AppEvent
 import com.sedsoftware.yaptalker.commons.extensions.color
-import com.sedsoftware.yaptalker.data.remote.YapRequestState
-import com.sedsoftware.yaptalker.data.remote.remoteDataModule
-import com.sedsoftware.yaptalker.data.remote.requestsModule
+import com.sedsoftware.yaptalker.data.remote.requestsClientModule
+import com.sedsoftware.yaptalker.data.remote.video.thumbnailsManagerModule
+import com.sedsoftware.yaptalker.data.remote.yapDataManagerModule
+import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
@@ -32,17 +33,20 @@ class YapTalkerApp : Application(), KodeinAware {
   }
 
   override val kodein by Kodein.lazy {
-    // Android auto module import
-    import(autoAndroidModule(this@YapTalkerApp))
 
-    // Custom modules
-    import(requestsModule)
-    import(remoteDataModule)
+    // App context
+    bind<Context>() with singleton { this@YapTalkerApp }
 
-    // Global rx bus for loading state
-    bind<BehaviorRelay<Long>>() with singleton { BehaviorRelay.createDefault(YapRequestState.IDLE) }
-    // Global rx bus for appbar title handling
-    bind<BehaviorRelay<String>>() with singleton { BehaviorRelay.createDefault("YapTalker") }
+    // Global settings helper
+    bind<SettingsHelper>() with singleton { SettingsHelper(this@YapTalkerApp) }
+
+    // Global rx bus for app events
+    bind<BehaviorRelay<AppEvent>>() with singleton { BehaviorRelay.createDefault(AppEvent()) }
+
+    // Kodein modules
+    import(requestsClientModule)
+    import(yapDataManagerModule)
+    import(thumbnailsManagerModule)
   }
 
   override fun onCreate() {

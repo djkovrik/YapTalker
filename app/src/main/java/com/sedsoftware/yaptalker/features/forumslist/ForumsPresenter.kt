@@ -1,9 +1,11 @@
 package com.sedsoftware.yaptalker.features.forumslist
 
+import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.features.base.BasePresenterLifecycle
+import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -11,16 +13,30 @@ import io.reactivex.schedulers.Schedulers
 @InjectViewState
 class ForumsPresenter : BasePresenter<ForumsView>() {
 
+  @Suppress("MagicNumber")
+  companion object {
+    private val nsfwForumSections = setOf(4, 33, 36)
+  }
+
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-    attachRefreshIndicator(yapDataManager.requestState, {
+    attachRefreshIndicator({
       // onStart
       viewState.showRefreshing()
     }, {
       // onFinish
       viewState.hideRefreshing()
     })
+  }
+
+  fun checkSavedState(savedViewState: Bundle?, key: String) {
+    if (savedViewState != null && savedViewState.containsKey(key)) {
+      val items = savedViewState.getParcelableArrayList<ForumItem>(key)
+      onRestoringSuccess(items)
+    } else {
+      loadForumsList()
+    }
   }
 
   override fun attachView(view: ForumsView?) {
@@ -34,12 +50,18 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
 
     yapDataManager
         .getForumsList()
+        .filter { forumItem ->
+          if (settings.isNsfwEnabled())
+            true
+          else
+            !nsfwForumSections.contains(forumItem.forumId)
+        }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe({
           // OnNext
-          forumsListItem: ForumItem ->
+          forumsListItem ->
           onLoadingSuccess(forumsListItem)
         }, {
           // onError
@@ -49,11 +71,15 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
   }
 
   fun updateTitle(title: String) {
-    pushAppbarTitle(titleChannel, title)
+    pushAppEvent(UpdateAppbarEvent(title))
   }
 
   private fun onLoadingSuccess(item: ForumItem) {
     viewState.appendForumItem(item)
+  }
+
+  private fun onRestoringSuccess(items: List<ForumItem>) {
+    viewState.appendForumsList(items)
   }
 
   private fun onLoadingError(error: Throwable) {

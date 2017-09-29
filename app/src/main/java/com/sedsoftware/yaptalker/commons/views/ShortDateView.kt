@@ -28,9 +28,8 @@ class ShortDateView : AppCompatTextView {
   constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
   var shortDateText: CharSequence
-    get() {
-      return text
-    }
+    get() = text
+
     set(value) {
       value
           .toSingle()
@@ -45,6 +44,7 @@ class ShortDateView : AppCompatTextView {
             text = str
           }, { _ ->
             // onError
+            text = ""
           })
     }
 

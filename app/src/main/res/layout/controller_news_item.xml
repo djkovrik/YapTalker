@@ -48,7 +48,6 @@
 
     <TextView
       android:id="@+id/news_title"
-      style="@style/NewsTitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
@@ -62,7 +61,6 @@
 
     <TextView
       android:id="@+id/news_content_text"
-      style="@style/NewsContentText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/news_title"

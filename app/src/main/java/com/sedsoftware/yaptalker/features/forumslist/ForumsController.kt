@@ -21,6 +21,10 @@ import kotlinx.android.synthetic.main.controller_forums_list.view.*
 
 class ForumsController : BaseController(), ForumsView {
 
+  companion object {
+    private const val FORUMS_LIST_KEY = "FORUMS_LIST"
+  }
+
   @InjectPresenter
   lateinit var forumsPresenter: ForumsPresenter
 
@@ -54,7 +58,7 @@ class ForumsController : BaseController(), ForumsView {
       setHasFixedSize(true)
     }
 
-    forumsPresenter.loadForumsList()
+    forumsPresenter.checkSavedState(savedViewState, FORUMS_LIST_KEY)
   }
 
   override fun subscribeViews(parent: View) {
@@ -64,6 +68,14 @@ class ForumsController : BaseController(), ForumsView {
           .refreshes(parent.forums_list_refresh_layout)
           .autoDisposeWith(scopeProvider)
           .subscribe { forumsPresenter.loadForumsList() }
+    }
+  }
+
+  override fun onSaveViewState(view: View, outState: Bundle) {
+    super.onSaveViewState(view, outState)
+    val forums = forumsAdapter.getForums()
+    if (forums.isNotEmpty()) {
+      outState.putParcelableArrayList(FORUMS_LIST_KEY, forums)
     }
   }
 
@@ -78,6 +90,10 @@ class ForumsController : BaseController(), ForumsView {
 
   override fun appendForumItem(item: ForumItem) {
     forumsAdapter.addForumsListItem(item)
+  }
+
+  override fun appendForumsList(list: List<ForumItem>) {
+    forumsAdapter.addForumsList(list)
   }
 
   override fun showErrorMessage(message: String) {

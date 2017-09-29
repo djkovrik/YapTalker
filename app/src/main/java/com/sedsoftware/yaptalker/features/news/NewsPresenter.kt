@@ -1,9 +1,10 @@
 package com.sedsoftware.yaptalker.features.news
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.features.base.BasePresenterLifecycle
+import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,17 +19,20 @@ class NewsPresenter : BasePresenter<NewsView>() {
   private var currentPage = 0
   private var backToFirstPage = false
 
+  private val newsCategories by lazy {
+    settings.getNewsCategories()
+  }
+
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-    viewState.showFab()
-
-    attachRefreshIndicator(yapDataManager.requestState, {
+    attachRefreshIndicator( {
       // onStart
       viewState.showRefreshing()
     }, {
       // onFinish
       viewState.hideRefreshing()
+      viewState.hideFab()
     })
   }
 
@@ -55,12 +59,13 @@ class NewsPresenter : BasePresenter<NewsView>() {
 
     yapDataManager
         .getNews(currentPage)
+        .filter { newsItem -> newsCategories.contains(newsItem.forumLink) }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe({
           // onNext
-          newsItem: NewsItem ->
+          newsItem ->
           onLoadingSuccess(newsItem)
         }, {
           // onError
@@ -70,7 +75,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
   }
 
   fun updateTitle(title: String) {
-    pushAppbarTitle(titleChannel, title)
+    pushAppEvent(UpdateAppbarEvent(title))
   }
 
   fun handleFabVisibility(isFabShown: Boolean, diff: Int) {
@@ -78,10 +83,6 @@ class NewsPresenter : BasePresenter<NewsView>() {
       isFabShown && diff > 0 -> viewState.hideFab()
       !isFabShown && diff < 0 -> viewState.showFab()
     }
-  }
-
-  fun scrollToTop() {
-    viewState.scrollListToTop()
   }
 
   private fun onLoadingSuccess(newsItem: NewsItem) {

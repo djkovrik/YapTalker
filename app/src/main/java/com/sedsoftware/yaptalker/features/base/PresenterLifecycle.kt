@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.features.base
 
 import android.support.annotation.IntDef
 
-class BasePresenterLifecycle {
+class PresenterLifecycle {
 
   companion object {
     const val CREATE = 0L

@@ -7,8 +7,10 @@ import com.github.salomonbrys.kodein.LazyKodeinAware
 import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.YapTalkerApp
+import com.sedsoftware.yaptalker.commons.AppEvent
+import com.sedsoftware.yaptalker.commons.RequestStateEvent
 import com.sedsoftware.yaptalker.data.remote.YapDataManager
-import com.sedsoftware.yaptalker.data.remote.YapRequestState
+import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Maybe
 import io.reactivex.Observable
@@ -22,41 +24,39 @@ open class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware
 
   // Kodein injections
   protected val yapDataManager: YapDataManager by instance()
-  protected val titleChannel: BehaviorRelay<String> by instance()
+  protected val settings: SettingsHelper by instance()
+  protected val eventBus: BehaviorRelay<AppEvent> by instance()
 
   // Presenter lifecycle events channel
   private val lifecycle: BehaviorSubject<Long> = BehaviorSubject.create()
 
   override fun onDestroy() {
     super.onDestroy()
-    lifecycle.onNext(BasePresenterLifecycle.DESTROY)
+    lifecycle.onNext(PresenterLifecycle.DESTROY)
   }
 
-  fun pushAppbarTitle(channel: BehaviorRelay<String>, title: String) {
-    Observable.just(title)
+  fun pushAppEvent(event: AppEvent) {
+    Observable.just(event)
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(channel)
+        .subscribe(eventBus)
   }
 
-  protected fun attachRefreshIndicator(requestState: BehaviorRelay<Long>,
-      onLoadingStart: () -> Unit, onLoadingFinish: () -> Unit) {
+  protected fun attachRefreshIndicator(onLoadingStart: () -> Unit, onLoadingFinish: () -> Unit) {
 
-    requestState
-        .autoDisposeWith(event(BasePresenterLifecycle.DESTROY))
-        .subscribe { state: Long ->
-          when (state) {
-            YapRequestState.LOADING -> {
-              onLoadingStart()
-            }
-            YapRequestState.COMPLETED,
-            YapRequestState.ERROR -> {
-              onLoadingFinish()
-            }
+    eventBus
+        .filter { event -> event.getType() == AppEvent.REQUEST_STATE }
+        .map { event -> event as RequestStateEvent }
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe { event ->
+          if (event.connected) {
+            onLoadingStart()
+          } else {
+            onLoadingFinish()
           }
         }
   }
 
-  protected fun event(@BasePresenterLifecycle.Event event: Long): Maybe<*> {
+  protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> {
     return lifecycle.filter({ e -> e == event }).firstElement()
   }
 }

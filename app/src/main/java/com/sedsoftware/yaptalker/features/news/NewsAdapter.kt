@@ -15,24 +15,34 @@ import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
-import com.sedsoftware.yaptalker.commons.parseLink
 import com.sedsoftware.yaptalker.data.model.NewsItem
-import com.sedsoftware.yaptalker.data.remote.ThumbnailsManager
+import com.sedsoftware.yaptalker.data.remote.video.ThumbnailsManager
+import com.sedsoftware.yaptalker.data.remote.video.parseLink
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
+import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import kotlinx.android.synthetic.main.controller_news_item.view.*
 import org.jetbrains.anko.startActivity
 import java.util.ArrayList
 import java.util.Locale
 
-class NewsAdapter(
-    private val itemClick: (String, String) -> Unit) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(), LazyKodeinAware {
+class NewsAdapter(private val itemClick: (String, String) -> Unit) :
+    RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(), LazyKodeinAware {
 
   override val kodein: LazyKodein
     get() = LazyKodein { YapTalkerApp.kodeinInstance }
 
   // Kodein injection
   private val thumbnailsLoader: ThumbnailsManager by instance()
+  private val settings: SettingsHelper by instance()
+
+  private val normalFontSize by lazy {
+    settings.getNormalFontSize()
+  }
+
+  private val bigFontSize by lazy {
+    settings.getBigFontSize()
+  }
 
   private var news: ArrayList<NewsItem> = ArrayList()
   private var lastPosition = -1
@@ -51,10 +61,11 @@ class NewsAdapter(
     holder.bindTo(news[position])
 
     val animation = AnimationUtils.loadAnimation(holder.itemView.context,
-        if (position == 0 || position > lastPosition)
-          R.anim.recyclerview_up_from_bottom
-        else
-          R.anim.recyclerview_down_from_top)
+        when {
+          (lastPosition == -1) -> R.anim.recyclerview_fade_in
+          (position > lastPosition) -> R.anim.recyclerview_up_from_bottom
+          else -> R.anim.recyclerview_down_from_top
+        })
 
     holder.itemView.startAnimation(animation)
     lastPosition = holder.adapterPosition
@@ -74,10 +85,11 @@ class NewsAdapter(
   fun clearNews() {
     notifyItemRangeRemoved(0, news.size)
     news.clear()
+    lastPosition = -1
   }
 
-  inner class NewsViewHolder(
-      itemView: View, private val itemClick: (String, String) -> Unit) : RecyclerView.ViewHolder(itemView) {
+  inner class NewsViewHolder(itemView: View, private val itemClick: (String, String) -> Unit) :
+      RecyclerView.ViewHolder(itemView) {
 
     private val forumTitleTemplate: String = itemView.context.getString(
         R.string.news_forum_title_template)
@@ -86,12 +98,21 @@ class NewsAdapter(
 
     fun bindTo(newsItem: NewsItem) {
       with(itemView) {
+        // Font size
+        news_author.textSize = normalFontSize
+        news_title.textSize = bigFontSize
+        news_forum.textSize = normalFontSize
+        news_date.textSize = normalFontSize
+        news_rating.textSize = normalFontSize
+        news_comments_counter.textSize = normalFontSize
+        news_content_text.textSize = normalFontSize
+
+        // Content
         news_author.text = newsItem.author
         news_title.text = newsItem.title
         news_forum.text = String.format(Locale.US, forumTitleTemplate, newsItem.forumName)
         news_date.shortDateText = newsItem.date
         news_rating.ratingText = newsItem.rating
-
         news_comments_counter.text = String.format(Locale.US, commentsTemplate, newsItem.comments)
         news_content_text.textFromHtml(newsItem.cleanedDescription)
 
@@ -111,7 +132,8 @@ class NewsAdapter(
           }
           newsItem.videos.isNotEmpty() -> {
             news_content_image.showView()
-            thumbnailsLoader.loadThumbnail(parseLink(newsItem.videos.first()), news_content_image)
+            thumbnailsLoader.loadThumbnail(
+                parseLink(newsItem.videos.first()), news_content_image)
             news_content_image.setOnClickListener {
               context.startActivity<VideoDisplayActivity>("video" to newsItem.videosRaw.first())
             }
