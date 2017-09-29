@@ -7,6 +7,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+// Versioning convention from ribot:
+// Major -> Millions, Minor -> Thousands, Bugfix -> Hundreds. E.g 1.3.72 == 1,003,072
+// Current: 0.2.0 (000,002,000)
+def versionMajor = 0
+def versionMinor = 2
+def versionPatch = 0
+
 android {
   compileSdkVersion 26
   buildToolsVersion "26.0.0"
@@ -14,11 +21,8 @@ android {
     applicationId "com.sedsoftware.yaptalker"
     minSdkVersion 19
     targetSdkVersion 26
-    // Versioning convention from ribot:
-    // Major -> Millions, Minor -> Thousands, Bugfix -> Hundreds. E.g 1.3.72 == 1,003,072
-    // Current: 000,002,000
-    versionCode 2000
-    versionName "0.2.0"
+    versionCode versionMajor * 1000000 + versionMinor * 1000 + versionPatch
+    versionName "${versionMajor}.${versionMinor}.${versionPatch}"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
   buildTypes {
