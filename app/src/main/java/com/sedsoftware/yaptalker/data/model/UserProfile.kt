@@ -3,6 +3,12 @@ package com.sedsoftware.yaptalker.data.model
 import pl.droidsonroids.jspoon.annotation.Selector
 
 class UserProfile {
+  @Selector("div[id=profilename]")
+  lateinit var nickname: String
+  @Selector("td:containsOwn(Аватар) + td", attr = "src", defValue = "//www.yaplakal.com/html/static/noavatar.gif")
+  lateinit var avatar: String
+  @Selector("img:has([alt=User Photo])", attr = "src", defValue = "")
+  lateinit var photo: String
   @Selector("td:containsOwn(Группа) + td", defValue = "")
   lateinit var group: String
   @Selector("td:containsOwn(Статус) + td", defValue = "")
