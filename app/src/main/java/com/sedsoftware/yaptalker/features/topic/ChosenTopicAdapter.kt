@@ -13,6 +13,7 @@ import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.commons.extensions.color
+import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.loadAvatarFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
@@ -42,11 +43,11 @@ import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
 import java.util.Locale
 
-class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolder>(), LazyKodeinAware {
+class ChosenTopicAdapter(private val itemClick: (Int) -> Unit) :
+    RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolder>(), LazyKodeinAware {
 
   companion object {
     private const val INITIAL_NESTING_LEVEL = 0
-    private const val MAX_LINK_TITLE_LENGTH = 15
   }
 
   override val kodein: LazyKodein
@@ -69,7 +70,7 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_chosen_topic_item,
         parent, false)
-    return PostViewHolder(view)
+    return PostViewHolder(view, itemClick)
   }
 
   override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -88,7 +89,8 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
 
   fun getPosts() = posts
 
-  inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+  inner class PostViewHolder(itemView: View,
+      private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     fun bindTo(postItem: TopicPost) {
       getParsedPostSingle(postItem)
@@ -253,12 +255,15 @@ class ChosenTopicAdapter : RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolde
       with(itemView) {
         post_author.text = post.authorNickname
         post_date.shortDateText = post.postDate
-        post_author_avatar.loadAvatarFromUrl("http:${post.authorAvatar}")
         post_rating.ratingText = post.postRank
 
         post_author.textSize = normalFontSize
         post_date.textSize = normalFontSize
         post_rating.textSize = normalFontSize
+
+        post_author_avatar.loadAvatarFromUrl("http:${post.authorAvatar}")
+        // TODO() Set click listener only for authorized user
+        post_author_avatar.setOnClickListener { itemClick(post.authorProfile.getLastDigits()) }
       }
     }
   }
