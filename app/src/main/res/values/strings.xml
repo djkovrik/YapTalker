@@ -38,14 +38,14 @@
 
   <!-- USER PROFILE -->
   <!-- Personal data -->
-  <string name="profile_label_personal_data"><xliff:g id="icon">{cmd-account}</xliff:g> Personal data</string>
+  <string name="profile_label_personal_data"> Personal data</string>
   <string name="profile_group">Group: <xliff:g id="forum_group">%s</xliff:g></string>
   <string name="profile_status">Status: <xliff:g id="status">%s</xliff:g></string>
   <string name="profile_uq">User quality:</string>
   <string name="profile_sign">Signature:</string>
   <string name="profile_rewards">Rewards:</string>
   <!-- User info -->
-  <string name="profile_label_info"><xliff:g id="icon">{cmd-face-profile}</xliff:g> User info</string>
+  <string name="profile_label_info"> User info</string>
   <string name="profile_registered">Registered: <xliff:g id="date">%s</xliff:g></string>
   <string name="profile_time_zone">Time zone: <xliff:g id="time_zone">%s</xliff:g></string>
   <string name="profile_web_site"><![CDATA[<a href="%s">Web site</a>]]></string>
@@ -54,13 +54,13 @@
   <string name="profile_interests">Interests: <xliff:g id="list">%s</xliff:g></string>
   <string name="profile_sex">Sex: <xliff:g id="gender">%s</xliff:g></string>
   <!-- Statistics -->
-  <string name="profile_label_statistics"><xliff:g id="icon">{cmd-chart-areaspline}</xliff:g> Forum statistics</string>
+  <string name="profile_label_statistics"> Forum statistics</string>
   <string name="profile_messages">Messages: <xliff:g id="messages">%s</xliff:g></string>
   <string name="profile_messages_day">Message per day: <xliff:g id="messages">%s</xliff:g></string>
   <string name="profile_bayans">Outdated news: <xliff:g id="news">%s</xliff:g></string>
   <string name="profile_topics_today">Created topics today: <xliff:g id="topics">%s</xliff:g></string>
   <!-- Contacts -->
-  <string name="profile_label_contacts"><xliff:g id="icon">{cmd-contact-mail}</xliff:g> Contacts</string>
+  <string name="profile_label_contacts"> Contacts</string>
   <string name="profile_email">Email: <xliff:g id="email">%s</xliff:g></string>
   <string name="profile_icq">ICQ: <xliff:g id="icq">%s</xliff:g></string>
 
