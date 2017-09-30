@@ -46,6 +46,7 @@ class UserProfilePresenter : BasePresenter<UserProfileView>() {
   }
 
   private fun onLoadingSuccess(profile: UserProfile) {
+    viewState.setAppbarTitle(profile.nickname)
     viewState.displayProfile(profile)
   }
 

@@ -29,7 +29,7 @@ class UserProfile {
   lateinit var birthDate: String
   @Selector("td:contains(Место жительства) + td", defValue = "")
   lateinit var location: String
-  @Selector("td:contains(Увлечения) + td", defValue = "", attr = "innerHtml")
+  @Selector("td:contains(Увлечения) + td", defValue = "")
   lateinit var interests: String
   @Selector("td:contains(Половая принадлежность) + td", defValue = "")
   lateinit var sex: String
@@ -39,10 +39,10 @@ class UserProfile {
   lateinit var messsagesPerDay: String
   @Selector("td:contains(Всего баянов) + td", defValue = "0")
   lateinit var bayans: String
-  @Selector("td:contains(Создано тем сегодня) + td", defValue = "0")
+  @Selector("td:contains(Создано тем сегодня) + td", defValue = "0", format = "(\\d+)")
   lateinit var todayTopics: String
-  @Selector("td:contains(E-mail + td)", defValue = "-")
+  @Selector("td:contains(E-mail + td)", defValue = "")
   lateinit var email: String
-  @Selector("td:contains(Номер ICQ) + td", defValue = "-")
+  @Selector("td:contains(Номер ICQ) + td", defValue = "")
   lateinit var icq: String
 }
