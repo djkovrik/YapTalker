@@ -3,46 +3,46 @@ package com.sedsoftware.yaptalker.data.model
 import pl.droidsonroids.jspoon.annotation.Selector
 
 class UserProfile {
-  @Selector("div[id=profilename]")
+  @Selector("div[id=profilename]", defValue = "")
   lateinit var nickname: String
-  @Selector("td:containsOwn(Аватар) + td", attr = "src", defValue = "//www.yaplakal.com/html/static/noavatar.gif")
+  @Selector(".row1 > img", attr = "src", defValue = "//www.yaplakal.com/html/static/noavatar.gif")
   lateinit var avatar: String
-  @Selector("img:has([alt=User Photo])", attr = "src", defValue = "")
+  @Selector(".tablebasic img", attr = "src", defValue = "")
   lateinit var photo: String
-  @Selector("td:containsOwn(Группа) + td", defValue = "")
+  @Selector("td:contains(Группа) + td", defValue = "")
   lateinit var group: String
-  @Selector("td:containsOwn(Статус) + td", defValue = "")
+  @Selector("td:contains(Статус) + td", defValue = "")
   lateinit var status: String
-  @Selector(".uq > span")
+  @Selector(".uq > span", defValue = "0")
   lateinit var uq: String
-  @Selector("td:containsOwn(Подпись) + td", defValue = "", attr = "innerHtml")
+  @Selector("td:contains(Подпись) + td", defValue = "", attr = "innerHtml")
   lateinit var signature: String
-  @Selector("td:containsOwn(Награды) + td", defValue = "", attr = "innerHtml")
+  @Selector("td:contains(Награды) + td", defValue = "", attr = "innerHtml")
   lateinit var rewards: String
-  @Selector("td:containsOwn(Регистрация) + td", defValue = "")
+  @Selector("td:contains(Регистрация) + td", defValue = "")
   lateinit var registerDate: String
-  @Selector("td:containsOwn(Часовой пояс) + td", defValue = "")
+  @Selector("td:contains(Часовой пояс) + td", defValue = "")
   lateinit var timeZone: String
-  @Selector("td:containsOwn(Вебсайт) + td", defValue = "")
+  @Selector("td:contains(Вебсайт) + td", defValue = "")
   lateinit var website: String
-  @Selector("td:containsOwn(Дата рождения) + td", defValue = "")
+  @Selector("td:contains(Дата рождения) + td", defValue = "")
   lateinit var birthDate: String
-  @Selector("td:containsOwn(Место жительства) + td", defValue = "")
+  @Selector("td:contains(Место жительства) + td", defValue = "")
   lateinit var location: String
-  @Selector("td:containsOwn(Увлечения) + td", defValue = "", attr = "innerHtml")
+  @Selector("td:contains(Увлечения) + td", defValue = "", attr = "innerHtml")
   lateinit var interests: String
-  @Selector("td:containsOwn(Половая принадлежность) + td", defValue = "")
+  @Selector("td:contains(Половая принадлежность) + td", defValue = "")
   lateinit var sex: String
-  @Selector("td:containsOwn(Всего полезных сообщений) + td", defValue = "0")
+  @Selector("td:contains(Всего полезных сообщений) + td", defValue = "0", format = "(\\d+)")
   lateinit var messagesCount: String
-  @Selector("td:containsOwn(Сообщений в день) + td", defValue = "0")
+  @Selector("td:contains(Сообщений в день) + td", defValue = "0")
   lateinit var messsagesPerDay: String
-  @Selector("td:containsOwn(Всего баянов) + td", defValue = "0")
+  @Selector("td:contains(Всего баянов) + td", defValue = "0")
   lateinit var bayans: String
-  @Selector("td:containsOwn(Создано тем сегодня) + td", defValue = "0")
+  @Selector("td:contains(Создано тем сегодня) + td", defValue = "0")
   lateinit var todayTopics: String
-  @Selector("td:containsOwn(E-mail + td", defValue = "-")
+  @Selector("td:contains(E-mail + td)", defValue = "-")
   lateinit var email: String
-  @Selector("td:containsOwn(Номер ICQ) + td", defValue = "-")
+  @Selector("td:contains(Номер ICQ) + td", defValue = "-")
   lateinit var icq: String
 }
