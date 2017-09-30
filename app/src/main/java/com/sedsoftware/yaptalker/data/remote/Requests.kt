@@ -5,6 +5,7 @@ import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Forums
 import com.sedsoftware.yaptalker.data.model.News
 import com.sedsoftware.yaptalker.data.model.TopicPage
+import com.sedsoftware.yaptalker.data.model.UserProfile
 import com.sedsoftware.yaptalker.data.remote.video.CoubData
 import com.sedsoftware.yaptalker.data.remote.video.RutubeData
 import com.sedsoftware.yaptalker.data.remote.video.VkResponseWrapper
@@ -60,6 +61,15 @@ interface YapLoader {
       @Path("forumId") forumId: Int,
       @Path("topicId") topicId: Int,
       @Path("startFrom") startPostNumber: Int): Single<TopicPage>
+
+  /**
+   * Load user profile.
+   *
+   * @param profileId User id.
+   */
+  @GET("/members/member{profileId}.html")
+  fun loadUserProfile(
+      @Path("profileId") profileId: Int): Single<UserProfile>
 
   /**
    * Site login request.
