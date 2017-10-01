@@ -34,9 +34,9 @@ class ThumbnailsManager(
       VideoTypes.RUTUBE -> {
         rutubeVideo
             .loadThumbnail(video.second, "json")
+            .map { (thumbnail_url) -> thumbnail_url }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .map { (thumbnail_url) -> thumbnail_url }
             .subscribe(getImageObserver(imageView))
       }
       VideoTypes.YOUTUBE -> {
@@ -49,9 +49,9 @@ class ThumbnailsManager(
       VideoTypes.COUB -> {
         coubVideo
             .loadThumbnail("http://coub.com/view/${video.second}")
+            .map { (thumbnail_url) -> thumbnail_url }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .map { (thumbnail_url) -> thumbnail_url }
             .subscribe(getImageObserver(imageView))
       }
       VideoTypes.YAP_FILES -> {
@@ -59,9 +59,9 @@ class ThumbnailsManager(
             .loadThumbnail(video.second,
                 YAP_PLAYER_HASH,
                 YAP_RESULT_TYPE)
+            .map { (player) -> player.poster }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .map { (player) -> player.poster }
             .subscribe(getImageObserver(imageView))
       }
       VideoTypes.VK -> {
@@ -69,9 +69,9 @@ class ThumbnailsManager(
             .loadThumbnail(video.second,
                 VK_ACCESS_TOKEN,
                 VK_API_VERSION)
+            .map { (response) -> response.items.first().photo_320 }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .map { (response) -> response.items.first().photo_320 }
             .subscribe(getImageObserver(imageView))
       }
       VideoTypes.OTHER -> {

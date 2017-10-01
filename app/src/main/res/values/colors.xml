@@ -14,7 +14,6 @@
   <color name="colorNavSignin">@color/material_color_grey_700</color>
 
   <!-- Misc UI colors -->
-  <color name="colorMaterialBackground">@color/material_color_grey_200</color>
   <color name="colorSupportingText">@color/material_color_grey_500</color>
   <color name="colorSupportingTextLight">@color/material_color_grey_400</color>
   <color name="colorQuotedTextBackground">@color/material_color_grey_200</color>

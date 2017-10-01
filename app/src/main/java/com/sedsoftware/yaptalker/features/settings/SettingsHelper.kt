@@ -23,11 +23,6 @@ class SettingsHelper(val context: Context) {
     context.resources.getStringArray(R.array.pref_categorizer_values).toSet()
   }
 
-  private val defaultCookies by lazy {
-    setOf("SID=deleted", "expires=Thu, 01-Jan-1970 00:00:01 GMT", "path=/", "domain=.yaplakal.com",
-        "remote_authorised=deleted")
-  }
-
   fun getStartingPage(): BaseController {
     val current = getString(R.string.pref_key_start_page, "")
     val forums = context.stringRes(R.string.pref_general_start_page_value_forums)
