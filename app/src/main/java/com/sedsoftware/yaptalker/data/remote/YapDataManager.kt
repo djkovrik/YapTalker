@@ -9,6 +9,7 @@ import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.data.model.TopicPage
+import com.sedsoftware.yaptalker.data.model.UserProfile
 import com.sedsoftware.yaptalker.data.model.createForumsList
 import com.sedsoftware.yaptalker.data.model.createNewsList
 import io.reactivex.Observable
@@ -72,6 +73,19 @@ class YapDataManager(
   fun getChosenTopic(forumId: Int, topicId: Int, startPostNumber: Int): Single<TopicPage> =
       yapLoader
           .loadTopicPage(forumId, topicId, startPostNumber)
+          .doOnSubscribe {
+            publishConnectionState(state = true)
+          }
+          .doOnError {
+            publishConnectionState(state = false)
+          }
+          .doOnSuccess {
+            publishConnectionState(state = false)
+          }
+
+  fun getUserProfile(profileId: Int): Single<UserProfile> =
+      yapLoader
+          .loadUserProfile(profileId)
           .doOnSubscribe {
             publishConnectionState(state = true)
           }

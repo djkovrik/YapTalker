@@ -7,6 +7,8 @@ import android.text.InputType
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.bluelinelabs.conductor.RouterTransaction
+import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
@@ -21,6 +23,7 @@ import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.features.base.BaseController
+import com.sedsoftware.yaptalker.features.userprofile.UserProfileController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_topic.view.*
 import kotlinx.android.synthetic.main.include_navigation_panel.view.*
@@ -55,7 +58,15 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
-    topicAdapter = ChosenTopicAdapter()
+    topicAdapter = ChosenTopicAdapter { userId ->
+      val bundle = Bundle()
+      bundle.putInt(UserProfileController.USER_ID_KEY, userId)
+      router.pushController(
+          RouterTransaction.with(UserProfileController(bundle))
+              .pushChangeHandler(FadeChangeHandler())
+              .popChangeHandler(FadeChangeHandler()))
+    }
+
     topicAdapter.setHasStableIds(true)
 
     view.topic_refresh_layout.setAppColorScheme()
@@ -106,7 +117,9 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
       RxRecyclerView
           .scrollStateChanges(parent.topic_posts_list)
           .autoDisposeWith(scopeProvider)
-          .subscribe { state -> topicPresenter.handleNavigationVisibility(isNavigationShown, state) }
+          .subscribe { state ->
+            topicPresenter.handleNavigationVisibility(isNavigationShown, state)
+          }
     }
   }
 
