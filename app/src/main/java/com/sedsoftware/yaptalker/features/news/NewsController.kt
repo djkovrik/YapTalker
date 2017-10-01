@@ -14,7 +14,7 @@ import com.sedsoftware.yaptalker.commons.InfiniteScrollListener
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
-import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
@@ -60,7 +60,7 @@ class NewsController : BaseController(), NewsView {
 
     newsAdapter.setHasStableIds(true)
 
-    view.refresh_layout.setAppColorScheme()
+    view.refresh_layout.setIndicatorColorScheme()
 
     with(view.news_list) {
       val linearLayout = LinearLayoutManager(context)

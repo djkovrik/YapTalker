@@ -16,7 +16,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.bottomMargin
 import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
-import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
@@ -65,7 +65,7 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
 
     forumAdapter.setHasStableIds(true)
 
-    view.forum_refresh_layout.setAppColorScheme()
+    view.forum_refresh_layout.setIndicatorColorScheme()
 
     with(view.forum_topics_list) {
       val linearLayout = LinearLayoutManager(context)

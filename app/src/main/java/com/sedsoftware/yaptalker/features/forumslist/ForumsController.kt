@@ -10,7 +10,7 @@ import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
-import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.ForumItem
@@ -47,7 +47,7 @@ class ForumsController : BaseController(), ForumsView {
 
     forumsAdapter.setHasStableIds(true)
 
-    view.forums_list_refresh_layout.setAppColorScheme()
+    view.forums_list_refresh_layout.setIndicatorColorScheme()
 
     with(view.forums_list) {
       val linearLayout = LinearLayoutManager(context)

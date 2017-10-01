@@ -2,9 +2,8 @@ package com.sedsoftware.yaptalker.commons.extensions
 
 import java.util.regex.Pattern
 
-/**
- * Extracts and returns id from yaplakal.com link
- */
+fun String.chopEdges() = this.substring(1, this.length - 1)
+
 fun String.getLastDigits(): Int {
 
   val regex = Pattern.compile("(\\d+)(?!.*\\d)")
@@ -17,14 +16,6 @@ fun String.getLastDigits(): Int {
   return 0
 }
 
-/**
- * Removes first and last symbols from string and returns result string.
- */
-fun String.chopEdges() = this.substring(1, this.length - 1)
-
-/**
- * Generates md5 hash.
- */
 @Suppress("MagicNumber")
 fun String.toMD5(): String {
 

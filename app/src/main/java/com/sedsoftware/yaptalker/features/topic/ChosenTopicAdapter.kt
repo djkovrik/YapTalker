@@ -210,12 +210,11 @@ class ChosenTopicAdapter(private val itemClick: (Int) -> Unit) :
       if (post.images.isNotEmpty()) {
         itemView.post_content_image_container.showView()
         itemView.post_content_image_container.removeAllViews()
-        post.images.forEach {
+        post.images.forEach { url ->
           val image = ImageView(itemView.context)
           image.adjustViewBounds = true
           image.setPadding(0, imagePadding, 0, imagePadding)
           itemView.post_content_image_container.addView(image)
-          val url = if (it.startsWith("http")) it else "http:$it"
           image.loadFromUrl(url)
           image.setOnClickListener {
             itemView.context.startActivity<ImageDisplayActivity>("url" to url)
