@@ -126,8 +126,6 @@ class ParsedPost(html: String,
         .clean(this, contentWhitelist)
         // Replace html spaces
         .replace("&nbsp;", " ")
-        // Replace extra <br>
-        //.replace(Regex("(<br>(\\s+)?\\R)+", RegexOption.MULTILINE), "<br>")
   }
 
   private fun String.trimLinebreakTags(): String {

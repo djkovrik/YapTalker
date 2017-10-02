@@ -18,6 +18,7 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.sedsoftware.yaptalker.commons.AppEvent
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.data.remote.requestsClientModule
+import com.sedsoftware.yaptalker.data.remote.requestsCookieModule
 import com.sedsoftware.yaptalker.data.remote.video.thumbnailsManagerModule
 import com.sedsoftware.yaptalker.data.remote.yapDataManagerModule
 import com.sedsoftware.yaptalker.features.settings.SettingsHelper
@@ -45,6 +46,7 @@ class YapTalkerApp : Application(), KodeinAware {
 
     // Kodein modules
     import(requestsClientModule)
+    import(requestsCookieModule)
     import(yapDataManagerModule)
     import(thumbnailsManagerModule)
   }

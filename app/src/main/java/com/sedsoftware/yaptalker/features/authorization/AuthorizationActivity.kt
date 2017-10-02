@@ -10,6 +10,8 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastSuccess
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.activity_authorization.*
@@ -31,10 +33,12 @@ class AuthorizationActivity : MvpAppCompatActivity(), AuthorizationView {
             RxTextView.textChanges(authorization_login),
             RxTextView.textChanges(authorization_password),
             BiFunction { login: CharSequence, password: CharSequence -> login.isNotEmpty() && password.isNotEmpty() })
+        .autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
         .subscribe { enabled -> authorizationPresenter.handleSignInButton(enabled) }
 
     RxView
         .clicks(button_sign_in)
+        .autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
         .subscribe {
           authorizationPresenter.loginAttempt(
               authorization_login.text.toString(),
