@@ -118,6 +118,17 @@ interface CoubLoader {
   fun loadThumbnail(@Query("url") url: String): Single<CoubData>
 }
 
+interface YapFileLoader {
+  /**
+   * Loads video hash.
+   *
+   * @param v Target video id.
+   */
+  @GET("/get_player")
+  fun loadHash(
+      @Query("v") v: String): Single<String>
+}
+
 interface YapVideoLoader {
   /**
    * Loads thumbnail for new Yap video player.
