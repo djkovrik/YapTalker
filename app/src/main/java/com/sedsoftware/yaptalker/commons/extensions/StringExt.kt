@@ -32,3 +32,6 @@ fun String.toMD5(): String {
   }
   return hexString.toString()
 }
+
+fun String.valideateURL(): String = if (startsWith("http")) this else "http:$this"
+
