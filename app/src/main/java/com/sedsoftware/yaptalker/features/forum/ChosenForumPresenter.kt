@@ -41,6 +41,11 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     })
   }
 
+  override fun detachView(view: ChosenForumView?) {
+    super.detachView(view)
+    viewState.hideNavigationPanelWithoutAnimation()
+  }
+
   fun checkSavedState(forumId: Int, savedViewState: Bundle?, key: String) {
     if (savedViewState != null && savedViewState.containsKey(key)) {
       val topics = savedViewState.getParcelableArrayList<Topic>(key)
