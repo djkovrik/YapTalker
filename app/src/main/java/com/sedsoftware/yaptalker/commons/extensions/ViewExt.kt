@@ -36,7 +36,7 @@ fun ImageView.loadFromUrl(url: String) {
 
   Picasso
       .with(context)
-      .load(url.valideateURL())
+      .load(url.validateURL())
       .into(this)
 }
 
@@ -44,7 +44,7 @@ fun ImageView.loadAvatarFromUrl(url: String) {
 
   Picasso
       .with(context)
-      .load(url.valideateURL())
+      .load(url.validateURL())
       .transform(CircleImageTransformation())
       .into(this)
 }
