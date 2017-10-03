@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical">
@@ -12,32 +11,17 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true">
 
-    <android.support.v7.widget.CardView
-      android:id="@+id/topics_list_card"
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/forum_topics_list"
+      android:scrollbarStyle="outsideOverlay"
       android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      android:layout_marginBottom="@dimen/material_card_edge_margin"
-      android:elevation="@dimen/material_card_elevation_resting"
-      tools:targetApi="lollipop">
-
-      <android.support.v7.widget.RecyclerView
-        android:id="@+id/forum_topics_list"
-        android:scrollbarStyle="outsideOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"/>
-
-    </android.support.v7.widget.CardView>
+      android:layout_height="wrap_content"
+      android:scrollbars="vertical"/>
 
   </android.support.v4.widget.SwipeRefreshLayout>
 
   <include
     android:id="@+id/navigation_panel"
-    layout="@layout/include_navigation_panel"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/material_card_edge_margin"
-    android:layout_gravity="bottom|center_horizontal"/>
+    layout="@layout/include_navigation_panel"/>
 
 </FrameLayout>
