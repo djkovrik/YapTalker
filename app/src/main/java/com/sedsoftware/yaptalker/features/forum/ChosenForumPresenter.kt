@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.features.forum
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
 import com.sedsoftware.yaptalker.data.model.ForumPage
@@ -33,7 +32,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
     viewState.hideNavigationPanelWithoutAnimation()
 
-    attachRefreshIndicator( {
+    attachRefreshIndicator({
       // onStart
       viewState.showRefreshing()
     }, {
@@ -92,10 +91,10 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     pushAppEvent(UpdateAppbarEvent(title))
   }
 
-  fun handleNavigationVisibility(isNavigationShown: Boolean, scrollState: Int) {
+  fun handleNavigationVisibility(isNavigationShown: Boolean, diff: Int) {
     when {
-      isNavigationShown && scrollState == RecyclerView.SCROLL_STATE_IDLE -> viewState.hideNavigationPanel()
-      !isNavigationShown && scrollState != RecyclerView.SCROLL_STATE_IDLE -> viewState.showNavigationPanel()
+      isNavigationShown && diff > 0 -> viewState.hideNavigationPanel()
+      !isNavigationShown && diff < 0 -> viewState.showNavigationPanel()
     }
   }
 

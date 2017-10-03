@@ -24,7 +24,7 @@
   <string name="post_link">Link</string>
 
   <!-- NAVIGATION PANEL -->
-  <string name="navigation_pages_template">Page <xliff:g id="page">%d</xliff:g> of <xliff:g id="total_pages">%d</xliff:g></string>
+  <string name="navigation_pages_template"><xliff:g id="page">%d</xliff:g> of <xliff:g id="total_pages">%d</xliff:g></string>
   <string name="navigation_previous">Back</string>
   <string name="navigation_next">Next</string>
   <string name="navigation_go_to_page_title">Go to page</string>

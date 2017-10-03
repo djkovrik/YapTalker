@@ -33,7 +33,6 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   companion object {
     private const val NAVIGATION_PANEL_OFFSET = 200f
-    private const val NAVIGATION_PANEL_HIDE_DELAY = 2500L
     private const val TOPICS_LIST_KEY = "TOPICS_LIST"
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
   }
@@ -112,9 +111,11 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
 
     parent.forum_topics_list?.let {
       RxRecyclerView
-          .scrollStateChanges(parent.forum_topics_list)
+          .scrollEvents(parent.forum_topics_list)
           .autoDisposeWith(scopeProvider)
-          .subscribe { state -> forumPresenter.handleNavigationVisibility(isNavigationShown, state) }
+          .subscribe { event ->
+            forumPresenter.handleNavigationVisibility(isNavigationShown, event.dy())
+          }
     }
   }
 
@@ -194,21 +195,19 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun hideNavigationPanel() {
-    view?.navigation_panel?.apply {
-      hideBeyondScreenEdge(
-          offset = (height + bottomMargin).toFloat(),
-          delay = NAVIGATION_PANEL_HIDE_DELAY)
-    }
     isNavigationShown = false
+    view?.navigation_panel?.apply {
+      hideBeyondScreenEdge(offset = (height + bottomMargin).toFloat())
+    }
   }
 
   override fun hideNavigationPanelWithoutAnimation() {
-    view?.navigation_panel?.translationY = NAVIGATION_PANEL_OFFSET
     isNavigationShown = false
+    view?.navigation_panel?.translationY = NAVIGATION_PANEL_OFFSET
   }
 
   override fun showNavigationPanel() {
-    view?.navigation_panel?.showFromScreenEdge()
     isNavigationShown = true
+    view?.navigation_panel?.showFromScreenEdge()
   }
 }

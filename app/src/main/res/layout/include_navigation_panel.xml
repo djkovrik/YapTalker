@@ -32,7 +32,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical|center_horizontal"
       android:theme="@style/NavigationText"
-      tools:text="Page 1 of 1000"/>
+      tools:text="1 of 1000"/>
 
     <Button
       android:id="@+id/navigation_go_next"
