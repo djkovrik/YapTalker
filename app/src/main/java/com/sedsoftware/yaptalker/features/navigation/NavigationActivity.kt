@@ -208,13 +208,12 @@ class NavigationActivity : BaseActivity(), NavigationView {
       ProfileDrawerItem()
           .withName(event.name)
           .withEmail(event.title)
-          .withIcon("http:${event.avatar}")
+          .withIcon(event.avatar)
           .withIdentifier(2L)
     } else {
       ProfileDrawerItem()
           .withName(stringRes(R.string.nav_drawer_guest_name))
           .withEmail("")
-          .withIcon("http:${event.avatar}")
           .withIdentifier(1L)
     }
 

@@ -7,6 +7,7 @@ import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.commons.AppEvent
 import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
 import com.sedsoftware.yaptalker.commons.UpdateNavDrawerEvent
+import com.sedsoftware.yaptalker.commons.extensions.validateURL
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -55,7 +56,7 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
           // On Success
           info ->
           pushAppEvent(
-              UpdateNavDrawerEvent(name = info.nickname, title = info.title, avatar = info.avatar))
+              UpdateNavDrawerEvent(name = info.nickname, title = info.title, avatar = info.avatar.validateURL()))
         }, {
           // On Error
           t ->
