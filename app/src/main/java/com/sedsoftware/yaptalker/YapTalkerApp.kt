@@ -56,8 +56,6 @@ class YapTalkerApp : Application(), KodeinAware {
   override fun onCreate() {
     super.onCreate()
 
-    kodeinInstance = kodein
-
     if (LeakCanary.isInAnalyzerProcess(this)) {
       // This process is dedicated to LeakCanary for heap analysis.
       // You should not init your app in this process.
@@ -66,6 +64,16 @@ class YapTalkerApp : Application(), KodeinAware {
 
     LeakCanary.install(this)
 
+    // Normal app init code below
+
+    kodeinInstance = kodein
+
+    initTimber()
+    initToasty()
+    initMaterialDrawerImageLoader()
+  }
+
+  private fun initTimber() {
     Timber.uprootAll()
 
     if (BuildConfig.DEBUG) {
@@ -73,16 +81,18 @@ class YapTalkerApp : Application(), KodeinAware {
       Stetho.initializeWithDefaults(this)
       Timber.plant(Timber.DebugTree())
     }
+  }
 
-    // Toasty coloring
+  private fun initToasty() {
     Toasty.Config.getInstance()
         .setErrorColor(color(R.color.toastyColorError))
         .setInfoColor(color(R.color.toastyColorInfo))
         .setSuccessColor(color(R.color.toastyColorSuccess))
         .setWarningColor(color(R.color.toastyColorWarning))
         .apply()
+  }
 
-    // Init MaterialDrawer image loader
+  private fun initMaterialDrawerImageLoader() {
     DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
       override fun set(imageView: ImageView?, uri: Uri?, placeholder: Drawable?, tag: String?) {
         Picasso.with(imageView?.context).load(uri).placeholder(placeholder).into(imageView)
@@ -104,7 +114,6 @@ class YapTalkerApp : Application(), KodeinAware {
 
           else -> super.placeholder(ctx, tag)
         }
-
       }
     })
   }
