@@ -41,6 +41,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   override fun attachView(view: ChosenTopicView?) {
     super.attachView(view)
     viewState.hideNavigationPanel()
+    viewState.hideFabWithoutAnimation()
   }
 
   fun checkSavedState(forumId: Int, topicId: Int, savedViewState: Bundle?, key: String) {
@@ -91,10 +92,13 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     pushAppEvent(UpdateAppbarEvent(title))
   }
 
-  fun handleNavigationVisibility(isNavigationShown: Boolean, diff: Int) {
+  // TODO() Show fab for authorized user only
+  fun handleNavigationVisibility(isFabShown: Boolean, isNavigationShown: Boolean, diff: Int) {
     when {
       isNavigationShown && diff > 0 -> viewState.hideNavigationPanel()
       !isNavigationShown && diff < 0 -> viewState.showNavigationPanel()
+      isFabShown && diff < 0 -> viewState.hideFab()
+      !isFabShown && diff > 0 -> viewState.showFab()
     }
   }
 

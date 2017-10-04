@@ -14,8 +14,10 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
@@ -30,9 +32,10 @@ import java.util.Locale
 class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), ChosenTopicView {
 
   companion object {
-    private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
     const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
+    private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
+    private const val INITIAL_FAB_OFFSET = 250f
   }
 
   private val currentForumId: Int by lazy {
@@ -49,6 +52,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   private lateinit var topicAdapter: ChosenTopicAdapter
   private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
   private var isNavigationShown = true
+  private var isFabShown = true
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_chosen_topic
@@ -117,7 +121,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
           .scrollEvents(parent.topic_posts_list)
           .autoDisposeWith(scopeProvider)
           .subscribe { event ->
-            topicPresenter.handleNavigationVisibility(isNavigationShown, event.dy())
+            topicPresenter.handleNavigationVisibility(isFabShown, isNavigationShown, event.dy())
           }
     }
   }
@@ -204,5 +208,33 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   override fun showNavigationPanel() {
     isNavigationShown = true
     bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+  }
+
+  override fun hideFab() {
+    if (!isFabShown) {
+      return
+    }
+
+    view?.new_post_fab?.let { fab ->
+      val offset = fab.height + fab.paddingTop + fab.paddingBottom
+      fab.hideBeyondScreenEdge(offset.toFloat())
+      isFabShown = false
+    }
+  }
+
+  override fun hideFabWithoutAnimation() {
+    view?.new_post_fab?.translationY = INITIAL_FAB_OFFSET
+    isFabShown = false
+  }
+
+  override fun showFab() {
+    if (isFabShown) {
+      return
+    }
+
+    view?.new_post_fab?.let { fab ->
+      fab.showFromScreenEdge()
+      isFabShown = true
+    }
   }
 }

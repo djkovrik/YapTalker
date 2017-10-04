@@ -33,4 +33,10 @@ interface ChosenTopicView : MvpView {
   fun hideNavigationPanel()
 
   fun showNavigationPanel()
+
+  fun hideFab()
+
+  fun hideFabWithoutAnimation()
+
+  fun showFab()
 }
