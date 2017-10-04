@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical">
@@ -21,5 +23,18 @@
   </android.support.v4.widget.SwipeRefreshLayout>
 
   <include layout="@layout/include_navigation_panel"/>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/new_post_fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/materialize_screen_edge"
+    android:layout_gravity="end|bottom"
+    android:elevation="@dimen/material_elevation_fab_resting"
+    app:fabSize="normal"
+    app:ico_color="@color/material_color_white"
+    app:ico_icon="cmd-plus"
+    app:ico_padding="@dimen/mini_fab_icon_padding"
+    tools:targetApi="lollipop"/>
 
 </android.support.design.widget.CoordinatorLayout>
