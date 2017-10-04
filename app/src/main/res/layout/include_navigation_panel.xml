@@ -1,47 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/navigation_card"
+  android:id="@+id/navigation_panel"
+  style="@style/NavigationPanel"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:layout_margin="@dimen/material_card_edge_margin"
-  android:layout_gravity="bottom|center_horizontal"
-  android:elevation="@dimen/material_card_elevation_resting"
-  tools:targetApi="lollipop">
+  android:layout_gravity="center_horizontal"
+  android:orientation="horizontal"
+  app:behavior_hideable="true"
+  app:layout_behavior="@string/bottom_sheet_behavior">
 
-  <LinearLayout
-    style="@style/NavigationPanel"
+  <Button
+    android:id="@+id/navigation_go_previous"
+    style="@style/Widget.AppCompat.Button.Borderless"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="horizontal">
+    android:text="@string/navigation_previous"
+    android:theme="@style/NavigationText"/>
 
-    <Button
-      android:id="@+id/navigation_go_previous"
-      style="@style/Widget.AppCompat.Button.Borderless"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/navigation_previous"
-      android:theme="@style/NavigationText"/>
+  <TextView
+    android:id="@+id/navigation_pages_label"
+    style="@style/NavigationText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:theme="@style/NavigationText"
+    tools:text="1 of 1000"/>
 
-    <TextView
-      android:id="@+id/navigation_pages_label"
-      style="@style/NavigationText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_vertical|center_horizontal"
-      android:theme="@style/NavigationText"
-      tools:text="1 of 1000"/>
+  <Button
+    android:id="@+id/navigation_go_next"
+    style="@style/Widget.AppCompat.Button.Borderless"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/navigation_next"
+    android:theme="@style/NavigationText"/>
 
-    <Button
-      android:id="@+id/navigation_go_next"
-      style="@style/Widget.AppCompat.Button.Borderless"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/navigation_next"
-      android:theme="@style/NavigationText"/>
-
-  </LinearLayout>
-
-</android.support.v7.widget.CardView>
+</LinearLayout>

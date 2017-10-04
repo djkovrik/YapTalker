@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.features.topic
 
 import android.os.Bundle
+import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
@@ -13,11 +14,8 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.extensions.bottomMargin
-import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
@@ -32,7 +30,6 @@ import java.util.Locale
 class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), ChosenTopicView {
 
   companion object {
-    private const val NAVIGATION_PANEL_OFFSET = 200f
     private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
     const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
@@ -50,6 +47,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   lateinit var topicPresenter: ChosenTopicPresenter
 
   private lateinit var topicAdapter: ChosenTopicAdapter
+  private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
   private var isNavigationShown = true
 
   override val controllerLayoutId: Int
@@ -81,6 +79,8 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     }
 
     topicPresenter.checkSavedState(currentForumId, currentTopicId, savedViewState, POSTS_LIST_KEY)
+
+    bottomSheetBehavior = BottomSheetBehavior.from(view.navigation_panel)
   }
 
   override fun subscribeViews(parent: View) {
@@ -198,19 +198,11 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun hideNavigationPanel() {
     isNavigationShown = false
-    view?.navigation_panel?.apply {
-      hideBeyondScreenEdge(
-          offset = (height + bottomMargin).toFloat())
-    }
-  }
-
-  override fun hideNavigationPanelWithoutAnimation() {
-    isNavigationShown = false
-    view?.navigation_panel?.translationY = NAVIGATION_PANEL_OFFSET
+    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
   }
 
   override fun showNavigationPanel() {
     isNavigationShown = true
-    view?.navigation_panel?.showFromScreenEdge()
+    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
   }
 }

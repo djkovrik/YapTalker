@@ -32,7 +32,5 @@ interface ChosenTopicView : MvpView {
 
   fun hideNavigationPanel()
 
-  fun hideNavigationPanelWithoutAnimation()
-
   fun showNavigationPanel()
 }

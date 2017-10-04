@@ -30,8 +30,6 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-    viewState.hideNavigationPanelWithoutAnimation()
-
     attachRefreshIndicator({
       // onStart
       viewState.showRefreshing()
@@ -41,9 +39,9 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     })
   }
 
-  override fun detachView(view: ChosenForumView?) {
-    super.detachView(view)
-    viewState.hideNavigationPanelWithoutAnimation()
+  override fun attachView(view: ChosenForumView?) {
+    super.attachView(view)
+    viewState.hideNavigationPanel()
   }
 
   fun checkSavedState(forumId: Int, savedViewState: Bundle?, key: String) {
