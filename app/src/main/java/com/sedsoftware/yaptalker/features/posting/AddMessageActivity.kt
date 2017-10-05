@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.features.posting
 
 import android.os.Bundle
+import android.view.Menu
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
@@ -13,5 +14,10 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_new_post)
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_post_editor, menu)
+    return true
   }
 }
