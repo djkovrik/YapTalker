@@ -40,8 +40,13 @@
   <string name="post_message_activity_title">Add post:</string>
   <string name="post_message_send">Send</string>
   <string name="post_message_cancel">Cancel</string>
+  <string name="post_message_hint">Enter your message…</string>
   <string name="post_message_link_dialog">Insert link</string>
   <string name="post_message_video_dialog">Insert video</string>
+  <!-- Editor buttons -->
+  <string name="cmd_format_bold" translatable="false">{cmd-format-bold}</string>
+  <string name="cmd_format_italic" translatable="false">{cmd-format-italic}</string>
+  <string name="cmd_format_underline" translatable="false">{cmd-format-underline}</string>
 
   <!-- USER PROFILE -->
   <!-- Personal data -->
