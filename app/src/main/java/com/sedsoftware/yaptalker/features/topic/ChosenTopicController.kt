@@ -23,10 +23,12 @@ import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.features.base.BaseController
+import com.sedsoftware.yaptalker.features.posting.AddMessageActivity
 import com.sedsoftware.yaptalker.features.userprofile.UserProfileController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_topic.view.*
 import kotlinx.android.synthetic.main.include_navigation_panel.view.*
+import org.jetbrains.anko.startActivity
 import java.util.Locale
 
 class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), ChosenTopicView {
@@ -122,6 +124,17 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
           .autoDisposeWith(scopeProvider)
           .subscribe { event ->
             topicPresenter.handleNavigationVisibility(isFabShown, isNavigationShown, event.dy())
+          }
+    }
+
+    parent.new_post_fab?.let {
+      RxView
+          .clicks(parent.new_post_fab)
+          .autoDisposeWith(scopeProvider)
+          .subscribe {
+            view?.context?.startActivity<AddMessageActivity>(
+                FORUM_ID_KEY to currentForumId,
+                TOPIC_ID_KEY to currentTopicId)
           }
     }
   }
