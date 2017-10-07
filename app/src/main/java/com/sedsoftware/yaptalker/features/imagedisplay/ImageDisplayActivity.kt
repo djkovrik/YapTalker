@@ -103,7 +103,7 @@ class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
   }
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
-      grantResults: IntArray) {
+                                          grantResults: IntArray) {
 
     when (requestCode) {
       STORAGE_WRITE_PERMISSION -> {

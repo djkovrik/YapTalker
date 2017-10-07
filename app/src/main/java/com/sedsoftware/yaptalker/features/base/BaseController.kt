@@ -28,7 +28,7 @@ abstract class BaseController : RestoreViewOnCreateController {
   protected abstract fun subscribeViews(parent: View)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup,
-      savedViewState: Bundle?): View {
+                            savedViewState: Bundle?): View {
 
     val view = inflater.inflate(controllerLayoutId, container, false)
     onViewBound(view, savedViewState)

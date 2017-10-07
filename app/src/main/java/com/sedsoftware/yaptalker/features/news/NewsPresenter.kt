@@ -26,7 +26,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-    attachRefreshIndicator( {
+    attachRefreshIndicator({
       // onStart
       viewState.showRefreshing()
     }, {

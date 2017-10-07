@@ -12,7 +12,7 @@ class YapFileConverterFactory : Converter.Factory() {
   }
 
   override fun responseBodyConverter(type: Type?, annotations: Array<out Annotation>?,
-      retrofit: Retrofit?): Converter<ResponseBody, String>? {
+                                     retrofit: Retrofit?): Converter<ResponseBody, String>? {
 
     return YapFileResponseBodyConverter()
   }
