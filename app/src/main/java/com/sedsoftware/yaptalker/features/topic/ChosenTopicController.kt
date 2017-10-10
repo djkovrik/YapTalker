@@ -36,6 +36,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   companion object {
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
     const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
+    const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
     private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
     private const val INITIAL_FAB_OFFSET = 250f
   }
@@ -131,11 +132,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
       RxView
           .clicks(parent.new_post_fab)
           .autoDisposeWith(scopeProvider)
-          .subscribe {
-            view?.context?.startActivity<AddMessageActivity>(
-                FORUM_ID_KEY to currentForumId,
-                TOPIC_ID_KEY to currentTopicId)
-          }
+          .subscribe { topicPresenter.onFabClicked(currentForumId, currentTopicId) }
     }
   }
 
@@ -249,5 +246,12 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
       fab.showFromScreenEdge()
       isFabShown = true
     }
+  }
+
+  override fun showAddMessageActivity(title: String, forumId: Int, topicId: Int) {
+    view?.context?.startActivity<AddMessageActivity>(
+        TOPIC_TITLE_KEY to title,
+        FORUM_ID_KEY to forumId,
+        TOPIC_ID_KEY to topicId)
   }
 }

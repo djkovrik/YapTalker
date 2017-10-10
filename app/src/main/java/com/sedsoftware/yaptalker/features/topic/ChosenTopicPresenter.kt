@@ -102,6 +102,10 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     }
   }
 
+  fun onFabClicked(currentForumId: Int, currentTopicId: Int) {
+    viewState.showAddMessageActivity(currentTitle, currentForumId, currentTopicId)
+  }
+
   private fun loadTopicCurrentPage() {
 
     val startingPost = currentPage * POSTS_PER_PAGE

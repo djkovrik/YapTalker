@@ -39,4 +39,6 @@ interface ChosenTopicView : MvpView {
   fun hideFabWithoutAnimation()
 
   fun showFab()
+
+  fun showAddMessageActivity(title: String, forumId: Int, topicId: Int)
 }

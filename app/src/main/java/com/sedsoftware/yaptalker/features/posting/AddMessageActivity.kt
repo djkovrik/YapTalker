@@ -6,8 +6,8 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
+import kotlinx.android.synthetic.main.activity_new_post.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
-import timber.log.Timber
 
 // TODO() EditText leaks AGAIN
 // Investigate or replace with some custom view
@@ -24,13 +24,20 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
     intent.getIntExtra(ChosenTopicController.TOPIC_ID_KEY, 0)
   }
 
+  private val currentTopicTitle: String by lazy {
+    intent.getStringExtra(ChosenTopicController.TOPIC_TITLE_KEY)
+  }
+
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_new_post)
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-    Timber.d("currentForumId = $currentForumId, currentTopicId = $currentTopicId")
+    if (currentTopicTitle.isNotEmpty()) {
+      new_post_topic_title.text = currentTopicTitle
+    }
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
