@@ -2,10 +2,12 @@ package com.sedsoftware.yaptalker.features.posting
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.features.base.BasePresenter
+import com.sedsoftware.yaptalker.features.posting.MessageTags.Tag
 
 @InjectViewState
 class AddMessagePresenter : BasePresenter<AddMessageView>() {
 
+  // TODO() Add tags for image and video insertion
   companion object {
     private const val B_OPEN = "[b]"
     private const val B_CLOSE = "[/b]"
@@ -19,30 +21,54 @@ class AddMessagePresenter : BasePresenter<AddMessageView>() {
     private var isUOpened = false
   }
 
-  fun onBoldTagClick() {
-    if (isBOpened) {
-      viewState.insertTag(B_CLOSE)
+  fun onTagClicked(selectionStart: Int, selectionEnd: Int, @Tag tag: Long) {
+    if (selectionStart != selectionEnd) {
+      onTagClickedWithSelection(tag)
     } else {
-      viewState.insertTag(B_OPEN)
+      onTagClickedWithNoSelection(tag)
     }
-    isBOpened = !isBOpened
   }
 
-  fun onItalicTagClick() {
-    if (isIOpened) {
-      viewState.insertTag(I_CLOSE)
-    } else {
-      viewState.insertTag(I_OPEN)
+  private fun onTagClickedWithSelection(@Tag tag: Long) {
+    when (tag) {
+      MessageTags.TAG_B -> {
+        viewState.insertTags(B_OPEN, B_CLOSE)
+      }
+      MessageTags.TAG_I -> {
+        viewState.insertTags(I_OPEN, I_CLOSE)
+      }
+      MessageTags.TAG_U -> {
+        viewState.insertTags(U_OPEN, U_CLOSE)
+      }
     }
-    isIOpened = !isIOpened
   }
 
-  fun onUnderlineTagClick() {
-    if (isUOpened) {
-      viewState.insertTag(U_CLOSE)
-    } else {
-      viewState.insertTag(U_OPEN)
+  private fun onTagClickedWithNoSelection(@Tag tag: Long) {
+    when (tag) {
+      MessageTags.TAG_B -> {
+        if (isBOpened) {
+          viewState.insertTag(B_CLOSE)
+        } else {
+          viewState.insertTag(B_OPEN)
+        }
+        isBOpened = !isBOpened
+      }
+      MessageTags.TAG_I -> {
+        if (isIOpened) {
+          viewState.insertTag(I_CLOSE)
+        } else {
+          viewState.insertTag(I_OPEN)
+        }
+        isIOpened = !isIOpened
+      }
+      MessageTags.TAG_U -> {
+        if (isUOpened) {
+          viewState.insertTag(U_CLOSE)
+        } else {
+          viewState.insertTag(U_OPEN)
+        }
+        isUOpened = !isUOpened
+      }
     }
-    isUOpened = !isUOpened
   }
 }

@@ -46,19 +46,31 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
     RxView
         .clicks(new_post_button_bold)
         .autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
-        .subscribe { messagingPresenter.onBoldTagClick() }
+        .subscribe {
+          with(new_post_edit_text) {
+            messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_B)
+          }
+        }
 
     // I
     RxView
         .clicks(new_post_button_italic)
         .autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
-        .subscribe { messagingPresenter.onItalicTagClick() }
+        .subscribe {
+          with(new_post_edit_text) {
+            messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_I)
+          }
+        }
 
     // U
     RxView
         .clicks(new_post_button_underlined)
         .autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
-        .subscribe { messagingPresenter.onUnderlineTagClick() }
+        .subscribe {
+          with(new_post_edit_text) {
+            messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_U)
+          }
+        }
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -67,6 +79,11 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
   }
 
   override fun insertTag(tag: String) {
-    new_post_edit_text.append(tag)
+    new_post_edit_text.text.insert(new_post_edit_text.selectionStart, tag)
+  }
+
+  override fun insertTags(openingTag: String, closingTag: String) {
+    new_post_edit_text.text.insert(new_post_edit_text.selectionStart, openingTag)
+    new_post_edit_text.text.insert(new_post_edit_text.selectionEnd, closingTag)
   }
 }
