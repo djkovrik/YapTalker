@@ -31,6 +31,9 @@ import kotlinx.android.synthetic.main.include_navigation_panel.view.*
 import org.jetbrains.anko.startActivity
 import java.util.Locale
 
+
+// TODO() Add share command
+// TODO() Check if navigation can be replaced with fabs
 class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), ChosenTopicView {
 
   companion object {

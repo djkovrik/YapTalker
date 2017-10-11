@@ -34,6 +34,7 @@ import kotlinx.android.synthetic.main.include_main_content.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 
+// TODO() Register app to open yaplakal.com links
 class NavigationActivity : BaseActivity(), NavigationView {
 
   companion object {
