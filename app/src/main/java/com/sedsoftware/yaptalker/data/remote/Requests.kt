@@ -16,7 +16,9 @@ import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -56,6 +58,21 @@ interface YapLoader {
       @Field("referer") referer: String,
       @Field("submit") submit: String,
       @Field("user_key") userKey: String): Single<Response<ResponseBody>>
+
+  @Multipart
+  @POST("/")
+  fun postMessage(
+      @Part("act") act: String,
+      @Part("CODE") code: String,
+      @Part("f") forum: String,
+      @Part("t") topic: String,
+      @Part("st") st: String,
+      @Part("enableemo") enableemo: Boolean,
+      @Part("enablesig") enablesig: Boolean,
+      @Part("auth_key") authKey: String,
+      @Part("Post") postContent: String,
+      @Part("MAX_FILE_SIZE") maxFileSize: Int,
+      @Part("enabletag") enabletag: Int): Single<Response<ResponseBody>>
 }
 
 interface RutubeLoader {
