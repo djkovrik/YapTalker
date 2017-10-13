@@ -11,6 +11,8 @@ class TopicPage {
   lateinit var totalPages: String
   @Selector("table[id~=p_row_\\d+]:has(.normalname)")
   lateinit var posts: List<TopicPost>
+  @Selector("input[name~=auth_key]", attr = "outerHtml", format = "value=\"([a-z0-9]+)\"", defValue = "")
+  lateinit var authKey: String
 }
 
 class TopicPost() : Parcelable {
