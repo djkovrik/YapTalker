@@ -64,9 +64,9 @@ interface YapLoader {
   fun postMessage(
       @Part("act") act: String,
       @Part("CODE") code: String,
-      @Part("f") forum: String,
-      @Part("t") topic: String,
-      @Part("st") st: String,
+      @Part("f") forum: Int,
+      @Part("t") topic: Int,
+      @Part("st") st: Int,
       @Part("enableemo") enableemo: Boolean,
       @Part("enablesig") enablesig: Boolean,
       @Part("auth_key") authKey: String,
