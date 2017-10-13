@@ -116,7 +116,7 @@ class YapDataManager(
         }
   }
 
-  fun sendMessageToSite(forumId: Int, topicId: Int, page: Int, authKey: String, message: String) =
+  fun sendMessageToSite(forumId: Int, topicId: Int, page: Int, authKey: String, message: String): Single<TopicPage> =
       yapLoader
           .postMessage(
               act = POST_ACT,

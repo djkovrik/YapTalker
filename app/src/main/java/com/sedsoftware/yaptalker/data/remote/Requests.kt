@@ -72,7 +72,7 @@ interface YapLoader {
       @Part("auth_key") authKey: String,
       @Part("Post") postContent: String,
       @Part("MAX_FILE_SIZE") maxFileSize: Int,
-      @Part("enabletag") enabletag: Int): Single<Response<ResponseBody>>
+      @Part("enabletag") enabletag: Int): Single<TopicPage>
 }
 
 interface RutubeLoader {
