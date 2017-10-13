@@ -4,10 +4,10 @@ import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
 
 class ParsedPost(html: String,
-    val content: MutableList<Content> = ArrayList(),
-    val images: MutableList<String> = ArrayList(),
-    val videos: MutableList<String> = ArrayList(),
-    val videosRaw: MutableList<String> = ArrayList()) {
+                 val content: MutableList<Content> = ArrayList(),
+                 val images: MutableList<String> = ArrayList(),
+                 val videos: MutableList<String> = ArrayList(),
+                 val videosRaw: MutableList<String> = ArrayList()) {
 
   companion object {
     private const val TEXT_SELECTOR = "postcolor"

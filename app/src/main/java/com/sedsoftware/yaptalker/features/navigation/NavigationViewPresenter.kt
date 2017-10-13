@@ -46,6 +46,7 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
 
   fun getFirstLaunchPage() = settings.getStartingPage()
 
+  // TODO() Check missed nav header state after app first run on Android 5
   fun refreshAuthorization() {
     yapDataManager
         .getAuthorizedUserInfo()

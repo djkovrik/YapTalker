@@ -54,7 +54,7 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
     response.body()?.string()?.let { str ->
       if (str.contains(ERROR_MESSAGE)) {
         viewState.loginErrorMessage()
-      } else if (str.contains(SUCCESS_MESSAGE)){
+      } else if (str.contains(SUCCESS_MESSAGE)) {
         viewState.loginSuccessMessage()
         viewState.setResultToOk()
         viewState.backToMainScreen()

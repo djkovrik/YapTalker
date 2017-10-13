@@ -10,8 +10,13 @@ val requestsClientModule = Kodein.Module {
 
   // Site requests client instance
   bind<OkHttpClient>("siteClient") with singleton {
-    OkHttpClient.Builder()
+    OkHttpClient
+        .Builder()
         .cookieJar(instance())
+        .addInterceptor { chain ->
+          val request = chain.request().newBuilder().addHeader("User-Agent", "YapTalker").build()
+          chain.proceed(request)
+        }
         .build()
   }
 

@@ -90,7 +90,7 @@ class ChosenTopicAdapter(private val itemClick: (Int) -> Unit) :
   fun getPosts() = posts
 
   inner class PostViewHolder(itemView: View,
-      private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+                             private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     fun bindTo(postItem: TopicPost) {
       getParsedPostSingle(postItem)

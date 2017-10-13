@@ -37,11 +37,11 @@ abstract class BaseActivity : MvpAppCompatActivity(), ControllerChangeHandler.Co
   }
 
   override fun onChangeStarted(to: Controller?, from: Controller?, isPush: Boolean,
-      container: ViewGroup, handler: ControllerChangeHandler) {
+                               container: ViewGroup, handler: ControllerChangeHandler) {
   }
 
   override fun onChangeCompleted(to: Controller?, from: Controller?, isPush: Boolean,
-      container: ViewGroup, handler: ControllerChangeHandler) {
+                                 container: ViewGroup, handler: ControllerChangeHandler) {
     onControllerChanged(to)
   }
 }

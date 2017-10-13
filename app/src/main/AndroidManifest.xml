@@ -65,6 +65,15 @@
         android:value=".features.navigation.NavigationActivity"/>
     </activity>
 
+    <activity
+      android:label="@string/post_message_activity_title"
+      android:name=".features.posting.AddMessageActivity"
+      android:parentActivityName=".features.navigation.NavigationActivity">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".features.navigation.NavigationActivity"/>
+    </activity>
+
     <provider
       android:authorities="com.sedsoftware.yaptalker"
       android:exported="false"

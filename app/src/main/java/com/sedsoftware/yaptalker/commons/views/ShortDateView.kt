@@ -29,7 +29,6 @@ class ShortDateView : AppCompatTextView {
 
   var shortDateText: CharSequence
     get() = text
-
     set(value) {
       value
           .toSingle()

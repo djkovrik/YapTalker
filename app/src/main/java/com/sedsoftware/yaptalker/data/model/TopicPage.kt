@@ -11,6 +11,8 @@ class TopicPage {
   lateinit var totalPages: String
   @Selector("table[id~=p_row_\\d+]:has(.normalname)")
   lateinit var posts: List<TopicPost>
+  @Selector("input[name~=auth_key]", attr = "outerHtml", format = "value=\"([a-z0-9]+)\"", defValue = "")
+  lateinit var authKey: String
 }
 
 class TopicPost() : Parcelable {
@@ -20,7 +22,7 @@ class TopicPost() : Parcelable {
   lateinit var authorProfile: String
   @Selector("a[title=Профиль] img", attr = "src", defValue = "//www.yaplakal.com/html/static/noavatar.gif")
   lateinit var authorAvatar: String
-  @Selector("div[align=left][style=padding-left:5px]", format = "(Сообщений: \\d+)", defValue = "0")
+  @Selector("div[align=left][style=padding-left:5px]", format = "Сообщений: (\\d+)", defValue = "0")
   lateinit var authorMessagesCount: String
   @Selector("a.anchor", defValue = "")
   lateinit var postDate: String
@@ -28,6 +30,8 @@ class TopicPost() : Parcelable {
   lateinit var postRank: String
   @Selector("td[width*=100%][valign*=top]", attr = "innerHtml", defValue = "")
   lateinit var postContent: String
+  @Selector("a[name~=entry]", attr = "outerHtml", format = "entry(\\d+)", defValue = "0")
+  lateinit var postId: String
 
   constructor(parcel: Parcel) : this() {
     authorNickname = parcel.readString()

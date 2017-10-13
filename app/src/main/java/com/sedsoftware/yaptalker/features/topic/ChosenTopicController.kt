@@ -1,5 +1,7 @@
 package com.sedsoftware.yaptalker.features.topic
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.DividerItemDecoration
@@ -14,25 +16,35 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.features.base.BaseController
+import com.sedsoftware.yaptalker.features.posting.AddMessageActivity
 import com.sedsoftware.yaptalker.features.userprofile.UserProfileController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_topic.view.*
 import kotlinx.android.synthetic.main.include_navigation_panel.view.*
 import java.util.Locale
 
+
+// TODO() Add share command
+// TODO() Check if navigation can be replaced with fabs
 class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), ChosenTopicView {
 
   companion object {
-    private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
     const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
+    const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
+    const val MESSAGE_TEXT_KEY = "MESSAGE_TEXT_KEY"
+    private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
+    private const val INITIAL_FAB_OFFSET = 250f
+    private const val MESSAGE_TEXT_REQUEST = 321
   }
 
   private val currentForumId: Int by lazy {
@@ -49,6 +61,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   private lateinit var topicAdapter: ChosenTopicAdapter
   private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
   private var isNavigationShown = true
+  private var isFabShown = true
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_chosen_topic
@@ -117,8 +130,15 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
           .scrollEvents(parent.topic_posts_list)
           .autoDisposeWith(scopeProvider)
           .subscribe { event ->
-            topicPresenter.handleNavigationVisibility(isNavigationShown, event.dy())
+            topicPresenter.handleNavigationVisibility(isFabShown, isNavigationShown, event.dy())
           }
+    }
+
+    parent.new_post_fab?.let {
+      RxView
+          .clicks(parent.new_post_fab)
+          .autoDisposeWith(scopeProvider)
+          .subscribe { topicPresenter.onFabClicked() }
     }
   }
 
@@ -133,6 +153,16 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   override fun onDestroyView(view: View) {
     super.onDestroyView(view)
     view.topic_posts_list.adapter = null
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    if (requestCode == MESSAGE_TEXT_REQUEST && resultCode == Activity.RESULT_OK) {
+      data?.getStringExtra(MESSAGE_TEXT_KEY)?.let { message ->
+        if (message.isNotEmpty()) {
+          topicPresenter.sendMessage(message)
+        }
+      }
+    }
   }
 
   override fun showRefreshing() {
@@ -204,5 +234,41 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   override fun showNavigationPanel() {
     isNavigationShown = true
     bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+  }
+
+  override fun hideFab() {
+    if (!isFabShown) {
+      return
+    }
+
+    view?.new_post_fab?.let { fab ->
+      val offset = fab.height + fab.paddingTop + fab.paddingBottom
+      fab.hideBeyondScreenEdge(offset.toFloat())
+      isFabShown = false
+    }
+  }
+
+  override fun hideFabWithoutAnimation() {
+    view?.new_post_fab?.translationY = INITIAL_FAB_OFFSET
+    isFabShown = false
+  }
+
+  override fun showFab() {
+    if (isFabShown) {
+      return
+    }
+
+    view?.new_post_fab?.let { fab ->
+      fab.showFromScreenEdge()
+      isFabShown = true
+    }
+  }
+
+  override fun showAddMessageActivity(title: String) {
+    view?.context?.let { ctx ->
+      val activityIntent = Intent(ctx, AddMessageActivity::class.java)
+      activityIntent.putExtra(TOPIC_TITLE_KEY, title)
+      startActivityForResult(activityIntent, MESSAGE_TEXT_REQUEST)
+    }
   }
 }

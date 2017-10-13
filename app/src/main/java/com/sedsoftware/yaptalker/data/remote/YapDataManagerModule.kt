@@ -8,6 +8,7 @@ import com.github.salomonbrys.kodein.with
 import pl.droidsonroids.retrofit2.JspoonConverterFactory
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 val yapDataManagerModule = Kodein.Module {
 
@@ -19,6 +20,7 @@ val yapDataManagerModule = Kodein.Module {
         .client(instance("siteClient"))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(JspoonConverterFactory.create())
+        .addConverterFactory(ScalarsConverterFactory.create())
         .build()
         .create(YapLoader::class.java)
   }

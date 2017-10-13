@@ -25,6 +25,9 @@ class YapDataManager(
   companion object {
     private const val LOGIN_REFERER = "http://www.yaplakal.com/forum/"
     private const val LOGIN_SUBMIT = "Вход"
+    private const val POST_ACT = "Post"
+    private const val POST_CODE = "03"
+    private const val POST_MAX_FILE_SIZE = 512000
   }
 
   fun getNews(startNumber: Int = 0): Observable<NewsItem> =
@@ -112,6 +115,22 @@ class YapDataManager(
                   userKey = hash)
         }
   }
+
+  fun sendMessageToSite(forumId: Int, topicId: Int, page: Int, authKey: String, message: String): Single<TopicPage> =
+      yapLoader
+          .postMessage(
+              act = POST_ACT,
+              code = POST_CODE,
+              forum = forumId,
+              topic = topicId,
+              st = page,
+              enableemo = true,
+              enablesig = true,
+              authKey = authKey,
+              postContent = message,
+              maxFileSize = POST_MAX_FILE_SIZE,
+              enabletag = 1)
+
 
   fun getAuthorizedUserInfo(): Single<AuthorizedUserInfo> {
     return yapLoader

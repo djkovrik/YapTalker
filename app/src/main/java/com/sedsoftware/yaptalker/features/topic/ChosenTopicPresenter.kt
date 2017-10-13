@@ -25,6 +25,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   private var currentPage = 0
   private var totalPages = -1
   private var currentTitle = ""
+  private var authKey = ""
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
@@ -41,6 +42,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   override fun attachView(view: ChosenTopicView?) {
     super.attachView(view)
     viewState.hideNavigationPanel()
+    viewState.hideFabWithoutAnimation()
   }
 
   fun checkSavedState(forumId: Int, topicId: Int, savedViewState: Bundle?, key: String) {
@@ -91,11 +93,46 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     pushAppEvent(UpdateAppbarEvent(title))
   }
 
-  fun handleNavigationVisibility(isNavigationShown: Boolean, diff: Int) {
+  // TODO() Show fab for authorized user only
+  fun handleNavigationVisibility(isFabShown: Boolean, isNavigationShown: Boolean, diff: Int) {
     when {
       isNavigationShown && diff > 0 -> viewState.hideNavigationPanel()
       !isNavigationShown && diff < 0 -> viewState.showNavigationPanel()
+      isFabShown && diff < 0 -> viewState.hideFab()
+      !isFabShown && diff > 0 -> viewState.showFab()
     }
+  }
+
+  fun onFabClicked() {
+    viewState.showAddMessageActivity(currentTitle)
+  }
+
+  // TODO() Add closed topics detection
+  fun sendMessage(message: String) {
+
+    if (authKey.isEmpty()) {
+      return
+    }
+
+    val topicPage = currentPage * POSTS_PER_PAGE
+
+    yapDataManager
+        .sendMessageToSite(currentForumId, currentTopicId, topicPage, authKey, message)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe({ page ->
+          // onSuccess
+          onPostSuccess(page)
+        }, {
+          // onError
+          throwable ->
+          onLoadingError(throwable)
+        })
+  }
+
+  private fun onPostSuccess(page: TopicPage) {
+    loadTopicCurrentPage()
   }
 
   private fun loadTopicCurrentPage() {
@@ -121,6 +158,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   private fun onLoadingSuccess(topicPage: TopicPage) {
     totalPages = topicPage.totalPages.getLastDigits()
     currentTitle = topicPage.topicTitle
+    authKey = topicPage.authKey
     viewState.refreshPosts(topicPage.posts)
     viewState.scrollToViewTop()
     viewState.setAppbarTitle(currentTitle)

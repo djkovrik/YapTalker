@@ -36,6 +36,18 @@
   <string name="authorization_password_label">Password</string>
   <string name="authorization_button_login">Sign In</string>
 
+  <!-- ADD MESSAGE ACTIVITY -->
+  <string name="post_message_activity_title">Add post:</string>
+  <string name="post_message_send">Send</string>
+  <string name="post_message_cancel">Cancel</string>
+  <string name="post_message_hint">Enter your message…</string>
+  <string name="post_message_link_dialog">Insert link</string>
+  <string name="post_message_video_dialog">Insert video</string>
+  <!-- Editor buttons -->
+  <string name="cmd_format_bold" translatable="false">{cmd-format-bold}</string>
+  <string name="cmd_format_italic" translatable="false">{cmd-format-italic}</string>
+  <string name="cmd_format_underline" translatable="false">{cmd-format-underline}</string>
+
   <!-- USER PROFILE -->
   <!-- Personal data -->
   <string name="profile_label_personal_data"> Personal data</string>
@@ -75,6 +87,7 @@
   <!-- MENUS -->
   <string name="action_save">Save</string>
   <string name="action_share">Share</string>
+  <string name="action_send">Send</string>
 
   <!-- SHORT DATE STRINGS -->
   <plurals name="short_date_years">
