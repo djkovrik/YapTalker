@@ -40,6 +40,8 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
     const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
     const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
+    const val START_POST_NUMBER_KEY = "START_POST_NUMBER_KEY"
+    const val AUTH_KEY = "AUTH_KEY"
     private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
     private const val INITIAL_FAB_OFFSET = 250f
   }
@@ -251,10 +253,12 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     }
   }
 
-  override fun showAddMessageActivity(title: String, forumId: Int, topicId: Int) {
+  override fun showAddMessageActivity(title: String, forumId: Int, topicId: Int, startingPost: Int, authKey: String) {
     view?.context?.startActivity<AddMessageActivity>(
         TOPIC_TITLE_KEY to title,
         FORUM_ID_KEY to forumId,
-        TOPIC_ID_KEY to topicId)
+        TOPIC_ID_KEY to topicId,
+        START_POST_NUMBER_KEY to startingPost,
+        AUTH_KEY to authKey)
   }
 }

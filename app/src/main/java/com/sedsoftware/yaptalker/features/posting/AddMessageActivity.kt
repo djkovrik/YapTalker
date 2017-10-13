@@ -11,6 +11,7 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.activity_new_post.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
+import timber.log.Timber
 
 // TODO() EditText leaks AGAIN
 // Investigate or replace with some custom view
@@ -31,6 +32,13 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
     intent.getStringExtra(ChosenTopicController.TOPIC_TITLE_KEY)
   }
 
+  private val currentStartingPost: Int by lazy {
+    intent.getIntExtra(ChosenTopicController.START_POST_NUMBER_KEY, 0)
+  }
+
+  private val currentAuthKey: String by lazy {
+    intent.getStringExtra(ChosenTopicController.AUTH_KEY)
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -41,6 +49,10 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
     if (currentTopicTitle.isNotEmpty()) {
       new_post_topic_title.text = currentTopicTitle
     }
+
+    Timber.d("currentForumId = $currentForumId, currentTopicId = $currentTopicId")
+    Timber.d("currentTopicTitle = $currentTopicTitle, currentStartingPost = $currentStartingPost")
+    Timber.d("currentAuthKey = $currentAuthKey")
 
     // B
     RxView

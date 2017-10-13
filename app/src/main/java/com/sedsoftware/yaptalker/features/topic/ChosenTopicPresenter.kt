@@ -11,8 +11,6 @@ import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import okhttp3.ResponseBody
-import retrofit2.Response
 
 @InjectViewState
 class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
@@ -106,26 +104,8 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   }
 
   fun onFabClicked(currentForumId: Int, currentTopicId: Int) {
-    viewState.showAddMessageActivity(currentTitle, currentForumId, currentTopicId)
-  }
-
-  fun sendMessage(message: String) {
-
-    val topicPage = currentPage * POSTS_PER_PAGE
-
-    yapDataManager
-        .sendMessageToSite(currentForumId, currentTopicId, topicPage, authKey, message)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
-        .subscribe({ result ->
-          // onSuccess
-          onPostSuccess(result)
-        }, {
-          // onError
-          throwable ->
-          onLoadingError(throwable)
-        })
+    val startingPost = currentPage * POSTS_PER_PAGE
+    viewState.showAddMessageActivity(currentTitle, currentForumId, currentTopicId, startingPost, authKey)
   }
 
   private fun loadTopicCurrentPage() {
@@ -164,10 +144,6 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     viewState.setAppbarTitle(currentTitle)
     setNavigationLabel()
     setNavigationAvailability()
-  }
-
-  private fun onPostSuccess(result: Response<ResponseBody>) {
-
   }
 
   private fun onLoadingError(error: Throwable) {

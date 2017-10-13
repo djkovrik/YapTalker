@@ -40,5 +40,5 @@ interface ChosenTopicView : MvpView {
 
   fun showFab()
 
-  fun showAddMessageActivity(title: String, forumId: Int, topicId: Int)
+  fun showAddMessageActivity(title: String, forumId: Int, topicId: Int, startingPost: Int, authKey: String)
 }
