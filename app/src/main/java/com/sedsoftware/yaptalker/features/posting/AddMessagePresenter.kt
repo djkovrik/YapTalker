@@ -1,8 +1,14 @@
 package com.sedsoftware.yaptalker.features.posting
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.features.base.BasePresenter
+import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.sedsoftware.yaptalker.features.posting.MessageTags.Tag
+import com.uber.autodispose.kotlin.autoDisposeWith
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 @InjectViewState
 class AddMessagePresenter : BasePresenter<AddMessageView>() {
@@ -27,6 +33,31 @@ class AddMessagePresenter : BasePresenter<AddMessageView>() {
     } else {
       onTagClickedWithNoSelection(tag)
     }
+  }
+
+  fun sendMessage(forumId: Int, topicId: Int, startingPost: Int, authKey: String, message: String) {
+
+    yapDataManager
+        .sendMessageToSite(forumId, topicId, startingPost, authKey, message)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe({ page ->
+          // onSuccess
+          onPostSuccess(page)
+        }, {
+          // onError
+          throwable ->
+          onLoadingError(throwable)
+        })
+  }
+
+  private fun onPostSuccess(page: TopicPage) {
+    Timber.d("Current topic: ${page.topicTitle}")
+  }
+
+  private fun onLoadingError(error: Throwable) {
+    error.message?.let { viewState.showErrorMessage(it) }
   }
 
   private fun onTagClickedWithSelection(@Tag tag: Long) {

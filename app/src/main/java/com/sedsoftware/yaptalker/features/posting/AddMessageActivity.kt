@@ -2,16 +2,17 @@ package com.sedsoftware.yaptalker.features.posting
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.activity_new_post.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
-import timber.log.Timber
 
 // TODO() EditText leaks AGAIN
 // Investigate or replace with some custom view
@@ -50,10 +51,6 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
       new_post_topic_title.text = currentTopicTitle
     }
 
-    Timber.d("currentForumId = $currentForumId, currentTopicId = $currentTopicId")
-    Timber.d("currentTopicTitle = $currentTopicTitle, currentStartingPost = $currentStartingPost")
-    Timber.d("currentAuthKey = $currentAuthKey")
-
     // B
     RxView
         .clicks(new_post_button_bold)
@@ -90,6 +87,20 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
     return true
   }
 
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return when (item.itemId) {
+      R.id.action_send -> {
+        val message = new_post_edit_text.text.toString()
+        if (message.isNotEmpty()) {
+          messagingPresenter.sendMessage(currentForumId, currentTopicId, currentStartingPost, currentAuthKey, message)
+        }
+        finish()
+        true
+      }
+      else -> super.onOptionsItemSelected(item)
+    }
+  }
+
   override fun insertTag(tag: String) {
     new_post_edit_text.text.insert(new_post_edit_text.selectionStart, tag)
   }
@@ -97,5 +108,9 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
   override fun insertTags(openingTag: String, closingTag: String) {
     new_post_edit_text.text.insert(new_post_edit_text.selectionStart, openingTag)
     new_post_edit_text.text.insert(new_post_edit_text.selectionEnd, closingTag)
+  }
+
+  override fun showErrorMessage(message: String) {
+    toastError(message)
   }
 }
