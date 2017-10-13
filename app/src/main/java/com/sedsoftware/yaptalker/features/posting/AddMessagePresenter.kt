@@ -8,6 +8,7 @@ import com.sedsoftware.yaptalker.features.posting.MessageTags.Tag
 class AddMessagePresenter : BasePresenter<AddMessageView>() {
 
   // TODO() Add tags for image and video insertion
+  // TODO() Add not closed tags detection
   companion object {
     private const val B_OPEN = "[b]"
     private const val B_CLOSE = "[/b]"

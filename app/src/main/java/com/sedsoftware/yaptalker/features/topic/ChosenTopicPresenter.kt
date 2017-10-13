@@ -103,9 +103,36 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     }
   }
 
-  fun onFabClicked(currentForumId: Int, currentTopicId: Int) {
-    val startingPost = currentPage * POSTS_PER_PAGE
-    viewState.showAddMessageActivity(currentTitle, currentForumId, currentTopicId, startingPost, authKey)
+  fun onFabClicked() {
+    viewState.showAddMessageActivity(currentTitle)
+  }
+
+  // TODO() Add closed topics detection
+  fun sendMessage(message: String) {
+
+    if (authKey.isEmpty()) {
+      return
+    }
+
+    val topicPage = currentPage * POSTS_PER_PAGE
+
+    yapDataManager
+        .sendMessageToSite(currentForumId, currentTopicId, topicPage, authKey, message)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe({ page ->
+          // onSuccess
+          onPostSuccess(page)
+        }, {
+          // onError
+          throwable ->
+          onLoadingError(throwable)
+        })
+  }
+
+  private fun onPostSuccess(page: TopicPage) {
+    loadTopicCurrentPage()
   }
 
   private fun loadTopicCurrentPage() {

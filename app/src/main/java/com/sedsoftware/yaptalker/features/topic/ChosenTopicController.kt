@@ -1,5 +1,7 @@
 package com.sedsoftware.yaptalker.features.topic
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.DividerItemDecoration
@@ -28,7 +30,6 @@ import com.sedsoftware.yaptalker.features.userprofile.UserProfileController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_topic.view.*
 import kotlinx.android.synthetic.main.include_navigation_panel.view.*
-import org.jetbrains.anko.startActivity
 import java.util.Locale
 
 
@@ -40,10 +41,10 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
     const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
     const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
-    const val START_POST_NUMBER_KEY = "START_POST_NUMBER_KEY"
-    const val AUTH_KEY = "AUTH_KEY"
+    const val MESSAGE_TEXT_KEY = "MESSAGE_TEXT_KEY"
     private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
     private const val INITIAL_FAB_OFFSET = 250f
+    private const val MESSAGE_TEXT_REQUEST = 321
   }
 
   private val currentForumId: Int by lazy {
@@ -137,7 +138,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
       RxView
           .clicks(parent.new_post_fab)
           .autoDisposeWith(scopeProvider)
-          .subscribe { topicPresenter.onFabClicked(currentForumId, currentTopicId) }
+          .subscribe { topicPresenter.onFabClicked() }
     }
   }
 
@@ -152,6 +153,16 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   override fun onDestroyView(view: View) {
     super.onDestroyView(view)
     view.topic_posts_list.adapter = null
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    if (requestCode == MESSAGE_TEXT_REQUEST && resultCode == Activity.RESULT_OK) {
+      data?.getStringExtra(MESSAGE_TEXT_KEY)?.let { message ->
+        if (message.isNotEmpty()) {
+          topicPresenter.sendMessage(message)
+        }
+      }
+    }
   }
 
   override fun showRefreshing() {
@@ -253,12 +264,11 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     }
   }
 
-  override fun showAddMessageActivity(title: String, forumId: Int, topicId: Int, startingPost: Int, authKey: String) {
-    view?.context?.startActivity<AddMessageActivity>(
-        TOPIC_TITLE_KEY to title,
-        FORUM_ID_KEY to forumId,
-        TOPIC_ID_KEY to topicId,
-        START_POST_NUMBER_KEY to startingPost,
-        AUTH_KEY to authKey)
+  override fun showAddMessageActivity(title: String) {
+    view?.context?.let { ctx ->
+      val activityIntent = Intent(ctx, AddMessageActivity::class.java)
+      activityIntent.putExtra(TOPIC_TITLE_KEY, title)
+      startActivityForResult(activityIntent, MESSAGE_TEXT_REQUEST)
+    }
   }
 }
