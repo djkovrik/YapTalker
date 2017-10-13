@@ -38,7 +38,7 @@ import org.jetbrains.anko.startActivityForResult
 class NavigationActivity : BaseActivity(), NavigationView {
 
   companion object {
-    const val SIGN_IN_REQUEST = 1
+    const val SIGN_IN_REQUEST = 123
   }
 
   @InjectPresenter
