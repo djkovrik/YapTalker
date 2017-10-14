@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -12,23 +11,23 @@
     android:id="@+id/forum_image"
     android:layout_width="@dimen/material_list_avatar_size"
     android:layout_height="@dimen/material_list_avatar_size"
-    android:layout_marginTop="@dimen/material_list_avatar_margin_start"
     android:layout_marginBottom="@dimen/material_list_avatar_margin_start"
     android:layout_marginStart="@dimen/material_list_avatar_margin_start"
+    android:layout_marginTop="@dimen/material_list_avatar_margin_start"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     tools:ignore="ContentDescription"
-    tools:src="@mipmap/ic_launcher"/>
+    tools:src="@mipmap/ic_launcher" />
 
   <LinearLayout
     android:id="@+id/linearLayoutMain"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    android:layout_marginTop="@dimen/material_list_avatar_margin_start"
     android:layout_marginBottom="@dimen/material_list_avatar_margin_start"
-    android:layout_marginStart="@dimen/material_list_avatar_margin_start"
     android:layout_marginEnd="0dp"
+    android:layout_marginStart="@dimen/material_list_avatar_margin_start"
+    android:layout_marginTop="@dimen/material_list_avatar_margin_start"
     android:gravity="center_vertical"
     android:orientation="vertical"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -41,14 +40,14 @@
       style="@style/ForumsForumTitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:text="Forum title"/>
+      tools:text="Forum title" />
 
     <TextView
       android:id="@+id/forum_last_topic_title"
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:text="Forum long long long long long long long title"/>
+      tools:text="Forum long long long long long long long title" />
 
   </LinearLayout>
 
@@ -56,10 +55,10 @@
     android:id="@+id/linearLayoutRight"
     android:layout_width="wrap_content"
     android:layout_height="0dp"
-    android:layout_marginTop="@dimen/material_list_avatar_margin_start"
     android:layout_marginBottom="@dimen/material_list_avatar_margin_start"
-    android:layout_marginStart="@dimen/material_list_normal_padding_vertical"
     android:layout_marginEnd="@dimen/material_list_avatar_margin_start"
+    android:layout_marginStart="@dimen/material_list_normal_padding_vertical"
+    android:layout_marginTop="@dimen/material_list_avatar_margin_start"
     android:gravity="end"
     android:orientation="vertical"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -72,14 +71,14 @@
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:text="Jus"/>
+      tools:text="Jus" />
 
     <com.sedsoftware.yaptalker.commons.views.ShortDateView
       android:id="@+id/forum_last_topic_date"
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:text="5 min"/>
+      tools:text="5 min" />
 
   </LinearLayout>
 

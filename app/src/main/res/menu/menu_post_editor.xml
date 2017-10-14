@@ -5,6 +5,6 @@
   <item
     android:id="@+id/action_send"
     android:title="@string/action_send"
-    app:showAsAction="always"/>
+    app:showAsAction="always" />
 
 </menu>

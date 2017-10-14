@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -16,26 +15,26 @@
       android:id="@+id/post_author_avatar"
       android:layout_width="@dimen/avatar_size"
       android:layout_height="@dimen/avatar_size"
-      android:layout_marginTop="@dimen/material_card_title_block_small_padding_vertical"
-      android:layout_marginBottom="@dimen/material_card_title_block_small_padding_vertical"
-      android:layout_marginStart="@dimen/material_list_avatar_margin_start"
-      android:layout_marginEnd="@dimen/material_card_gutter"
       android:layout_alignParentStart="true"
+      android:layout_marginBottom="@dimen/material_card_title_block_small_padding_vertical"
+      android:layout_marginEnd="@dimen/material_card_gutter"
+      android:layout_marginStart="@dimen/material_list_avatar_margin_start"
+      android:layout_marginTop="@dimen/material_card_title_block_small_padding_vertical"
       tools:ignore="ContentDescription"
-      tools:src="@mipmap/ic_launcher"/>
+      tools:src="@mipmap/ic_launcher" />
 
     <TextView
       android:id="@+id/post_author"
       style="@style/PostAuthorNickname"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/material_card_gutter"
-      android:layout_marginEnd="@dimen/material_card_gutter"
       android:layout_alignBottom="@id/post_author_avatar"
       android:layout_alignTop="@+id/post_author_avatar"
+      android:layout_marginEnd="@dimen/material_card_gutter"
+      android:layout_marginStart="@dimen/material_card_gutter"
       android:layout_toEndOf="@+id/post_author_avatar"
       android:gravity="center_vertical"
-      tools:text="Administrator"/>
+      tools:text="Administrator" />
 
     <com.sedsoftware.yaptalker.commons.views.PostRatingView
       android:id="@+id/post_rating"
@@ -46,49 +45,49 @@
       android:layout_alignTop="@+id/post_author_avatar"
       android:layout_toEndOf="@+id/post_author"
       android:gravity="center_vertical"
-      tools:text="+100"/>
+      tools:text="+100" />
 
     <com.sedsoftware.yaptalker.commons.views.ShortDateView
       android:id="@+id/post_date"
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/material_card_gutter"
-      android:layout_marginEnd="@dimen/material_list_avatar_margin_start"
       android:layout_alignBottom="@id/post_author_avatar"
       android:layout_alignParentEnd="true"
       android:layout_alignTop="@+id/post_author_avatar"
+      android:layout_marginEnd="@dimen/material_list_avatar_margin_start"
+      android:layout_marginStart="@dimen/material_card_gutter"
       android:layout_toEndOf="@+id/post_rating"
       android:gravity="center_vertical|end"
-      tools:text="20 min"/>
+      tools:text="20 min" />
 
     <LinearLayout
       android:id="@+id/post_content"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/post_author_avatar"
+      android:orientation="vertical"
       android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
-      android:paddingStart="@dimen/materialize_screen_edge"
       android:paddingEnd="@dimen/materialize_screen_edge"
-      android:orientation="vertical">
+      android:paddingStart="@dimen/materialize_screen_edge">
 
       <LinearLayout
         android:id="@+id/post_content_text_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        android:orientation="vertical" />
 
       <LinearLayout
         android:id="@+id/post_content_image_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        android:orientation="vertical" />
 
       <LinearLayout
         android:id="@+id/post_content_video_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        android:orientation="vertical" />
 
     </LinearLayout>
 
@@ -98,12 +97,12 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_below="@id/post_content"
-      android:paddingBottom="@dimen/materialize_screen_edge"
-      android:paddingStart="@dimen/materialize_screen_edge"
-      android:paddingEnd="@dimen/materialize_screen_edge"
       android:drawableStart="@drawable/ic_link"
+      android:paddingBottom="@dimen/materialize_screen_edge"
+      android:paddingEnd="@dimen/materialize_screen_edge"
+      android:paddingStart="@dimen/materialize_screen_edge"
       android:text="@string/post_link"
-      android:visibility="gone"/>
+      android:visibility="gone" />
 
   </RelativeLayout>
 

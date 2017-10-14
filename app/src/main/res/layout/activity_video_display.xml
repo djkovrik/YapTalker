@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
@@ -10,11 +9,11 @@
   tools:context="com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity"
   tools:ignore="Overdraw">
 
-  <include layout="@layout/include_main_appbar"/>
+  <include layout="@layout/include_main_appbar" />
 
   <WebView
     android:id="@+id/video_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content" />
 
 </LinearLayout>

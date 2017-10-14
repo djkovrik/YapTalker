@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -13,10 +12,10 @@
     android:id="@+id/linearLayoutTopic"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    android:layout_marginTop="@dimen/material_list_normal_padding_vertical"
     android:layout_marginBottom="@dimen/material_list_normal_padding_vertical"
-    android:layout_marginStart="@dimen/materialize_screen_edge"
     android:layout_marginEnd="@dimen/materialize_screen_edge"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/material_list_normal_padding_vertical"
     android:orientation="vertical"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toStartOf="@+id/topic_rating"
@@ -28,7 +27,7 @@
       style="@style/ForumTopicTitle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      tools:text="Very very very very very very very long title here"/>
+      tools:text="Very very very very very very very long title here" />
 
     <LinearLayout
       android:id="@+id/linearLayoutLastPost"
@@ -44,16 +43,16 @@
         style="@style/ForumTopicAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Administration"/>
+        tools:text="Administration" />
 
       <com.sedsoftware.yaptalker.commons.views.ShortDateView
         android:id="@+id/topic_last_post_date"
         style="@style/CommonSupportingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/materialize_screen_edge"
         android:paddingEnd="@dimen/materialize_screen_edge"
-        tools:text="minute ago"/>
+        android:paddingStart="@dimen/materialize_screen_edge"
+        tools:text="minute ago" />
 
     </LinearLayout>
 
@@ -62,7 +61,7 @@
       style="@style/ForumTopicAnswers"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:text="Answers: 1000"/>
+      tools:text="Answers: 1000" />
 
   </LinearLayout>
 
@@ -71,13 +70,13 @@
     style="@style/RatingGrey"
     android:layout_width="@dimen/rating_background_width"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/material_list_normal_padding_vertical"
     android:layout_marginBottom="@dimen/material_list_normal_padding_vertical"
     android:layout_marginEnd="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/material_list_normal_padding_vertical"
     android:gravity="center_vertical|center_horizontal"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    tools:text="+1000"/>
+    tools:text="+1000" />
 
 </android.support.constraint.ConstraintLayout>
