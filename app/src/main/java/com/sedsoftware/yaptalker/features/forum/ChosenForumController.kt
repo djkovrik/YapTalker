@@ -20,7 +20,7 @@ import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.data.model.Topic
-import com.sedsoftware.yaptalker.features.base.BaseController
+import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_forum.view.*

@@ -18,7 +18,7 @@ import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.NewsItem
-import com.sedsoftware.yaptalker.features.base.BaseController
+import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_news.view.*

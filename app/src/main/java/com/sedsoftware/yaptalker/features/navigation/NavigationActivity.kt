@@ -23,7 +23,7 @@ import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
 import com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity
-import com.sedsoftware.yaptalker.features.base.BaseActivity
+import com.sedsoftware.yaptalker.base.BaseActivity
 import com.sedsoftware.yaptalker.features.forumslist.ForumsController
 import com.sedsoftware.yaptalker.features.news.NewsController
 import com.sedsoftware.yaptalker.features.settings.SettingsActivity

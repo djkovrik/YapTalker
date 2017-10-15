@@ -10,8 +10,8 @@ import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.data.model.UserProfile
 import com.sedsoftware.yaptalker.data.model.createForumsList
 import com.sedsoftware.yaptalker.data.model.createNewsList
-import com.sedsoftware.yaptalker.features.base.events.ConnectionState
-import com.sedsoftware.yaptalker.features.base.events.ConnectionState.ConnectionEvent
+import com.sedsoftware.yaptalker.base.events.ConnectionState
+import com.sedsoftware.yaptalker.base.events.ConnectionState.ConnectionEvent
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

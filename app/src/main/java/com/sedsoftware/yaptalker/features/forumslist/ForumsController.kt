@@ -13,7 +13,7 @@ import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.ForumItem
-import com.sedsoftware.yaptalker.features.base.BaseController
+import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.features.forum.ChosenForumController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_forums_list.view.*

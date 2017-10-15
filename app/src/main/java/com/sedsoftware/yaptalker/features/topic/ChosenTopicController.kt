@@ -24,7 +24,7 @@ import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.data.model.TopicPost
-import com.sedsoftware.yaptalker.features.base.BaseController
+import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.features.posting.AddMessageActivity
 import com.sedsoftware.yaptalker.features.userprofile.UserProfileController
 import com.uber.autodispose.kotlin.autoDisposeWith

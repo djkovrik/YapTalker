@@ -12,8 +12,8 @@ import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.validateURL
-import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.features.base.events.PresenterLifecycle
+import com.sedsoftware.yaptalker.base.BasePresenter
+import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.squareup.picasso.Picasso
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Single

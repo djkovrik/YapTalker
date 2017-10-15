@@ -6,7 +6,7 @@ import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.singleton
 import com.github.salomonbrys.kodein.with
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.features.base.events.ConnectionState
+import com.sedsoftware.yaptalker.base.events.ConnectionState
 import pl.droidsonroids.retrofit2.JspoonConverterFactory
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.UserProfile
-import com.sedsoftware.yaptalker.features.base.BaseController
+import com.sedsoftware.yaptalker.base.BaseController
 import kotlinx.android.synthetic.main.controller_user_profile.view.*
 import java.util.Locale
 
