@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.features.authorization
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
+import com.sedsoftware.yaptalker.features.base.events.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
