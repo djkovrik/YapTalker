@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.data.model
 import pl.droidsonroids.jspoon.annotation.Selector
 
 class AuthorizedUserInfo {
-  @Selector("div.user-name > a", defValue = "Guest")
+  @Selector("div.user-name > a", defValue = "")
   lateinit var nickname: String
   @Selector("div.user-title", defValue = "")
   lateinit var title: String

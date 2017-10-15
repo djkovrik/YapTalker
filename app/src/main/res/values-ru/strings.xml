@@ -1,0 +1,122 @@
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+  <!-- NAVIGATION DRAWER -->
+  <!-- Header items -->
+  <string name="nav_drawer_guest_name">Гость</string>
+  <!-- Navigation items -->
+  <string name="nav_drawer_main_page">Главная страница</string>
+  <string name="nav_drawer_forums">Форумы</string>
+  <string name="nav_drawer_settings">Настройки</string>
+  <string name="nav_drawer_sign_in">Войти</string>
+  <string name="nav_drawer_sign_out">Выйти</string>
+
+  <!-- NEWS -->
+  <plurals name="news_comments_template">
+    <item quantity="one"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> комментарий</item>
+    <item quantity="two"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> комментария</item>
+    <item quantity="few"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> комментария</item>
+    <item quantity="many"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> комментариев</item>
+    <item quantity="other"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> комментариев</item>
+  </plurals>
+
+  <!-- FORUMS -->
+  <string name="forum_comments_template">Комментариев: <xliff:g id="answers">%s</xliff:g></string>
+
+  <!-- POSTS -->
+  <string name="post_hidden_text_template">Скрытый текст: <xliff:g id="spoiler">%s</xliff:g></string>
+  <string name="post_link">Ссылка</string>
+
+  <!-- NAVIGATION PANEL -->
+  <string name="navigation_pages_template"><xliff:g id="page">%d</xliff:g> из <xliff:g id="total_pages">%d</xliff:g></string>
+  <string name="navigation_previous">Назад</string>
+  <string name="navigation_next">Вперед</string>
+  <string name="navigation_go_to_page_title">Перейти на страницу</string>
+  <string name="navigation_go_to_page_hint">Введите номер страницы…</string>
+  <string name="navigation_page_not_available">Страница <xliff:g id="page">%d</xliff:g> недоступна</string>
+
+  <!-- AUTHORIZATION ACTIVITY -->
+  <string name="authorization_login_label">Логин</string>
+  <string name="authorization_password_label">Пароль</string>
+  <string name="authorization_button_login">Войти</string>
+
+  <!-- ADD MESSAGE ACTIVITY -->
+  <string name="post_message_send">Отправить</string>
+  <string name="post_message_cancel">Отмена</string>
+  <string name="post_message_hint">Введите сообщение…</string>
+  <string name="post_message_link_dialog">Вставьте ссылку</string>
+  <string name="post_message_video_dialog">Вставьте видео</string>
+
+  <!-- USER PROFILE -->
+  <!-- Personal data -->
+  <string name="profile_label_personal_data"> Личные данные</string>
+  <string name="profile_group">Группа: <xliff:g id="forum_group">%s</xliff:g></string>
+  <string name="profile_status">Статус: <xliff:g id="status">%s</xliff:g></string>
+  <string name="profile_uq">UQ:</string>
+  <string name="profile_sign">Подпись:</string>
+  <string name="profile_rewards">Награды:</string>
+  <!-- User info -->
+  <string name="profile_label_info"> Информация</string>
+  <string name="profile_registered">Регистрация: <xliff:g id="date">%s</xliff:g></string>
+  <string name="profile_time_zone">Часовой пояс: <xliff:g id="time_zone">%s</xliff:g></string>
+  <string name="profile_web_site"><![CDATA[<a href="%s">Вебсайт</a>]]></string>
+  <string name="profile_birth_date">Дата рождения: <xliff:g id="date">%s</xliff:g></string>
+  <string name="profile_location">Место жительства: <xliff:g id="place">%s</xliff:g></string>
+  <string name="profile_interests">Увлечения: <xliff:g id="list">%s</xliff:g></string>
+  <string name="profile_sex">Пол: <xliff:g id="gender">%s</xliff:g></string>
+  <!-- Statistics -->
+  <string name="profile_label_statistics"> Статистика активности</string>
+  <string name="profile_messages">Сообщений: <xliff:g id="messages">%s</xliff:g></string>
+  <string name="profile_messages_day">Сообщений в день: <xliff:g id="messages">%s</xliff:g></string>
+  <string name="profile_bayans">Баянов: <xliff:g id="news">%s</xliff:g></string>
+  <string name="profile_topics_today">Создано тем сегодня: <xliff:g id="topics">%s</xliff:g></string>
+  <!-- Contacts -->
+  <string name="profile_label_contacts"> Связь</string>
+  <string name="profile_email">Email: <xliff:g id="email">%s</xliff:g></string>
+  <string name="profile_icq">ICQ: <xliff:g id="icq">%s</xliff:g></string>
+
+  <!-- MESSAGES AND TITLES -->
+  <string name="title_share_image">Поделиться изображением</string>
+  <string name="msg_file_saved">Файл сохранен в <xliff:g id="filepath">%s</xliff:g></string>
+  <string name="msg_file_not_saved">Не удалось сохранить файл!</string>
+  <string name="msg_login_success">Успешный вход!</string>
+  <string name="msg_login_error">Ошибка входа!</string>
+  <string name="msg_sign_out">Вы успешно вышли из аккаунта.</string>
+
+  <!-- MENUS -->
+  <string name="action_save">Сохранить</string>
+  <string name="action_share">Поделиться</string>
+  <string name="action_send">Отправить</string>
+
+  <!-- SHORT DATE STRINGS -->
+  <plurals name="short_date_years">
+    <item quantity="one"><xliff:g id="years">%d</xliff:g> год</item>
+    <item quantity="two"><xliff:g id="years">%d</xliff:g> года</item>
+    <item quantity="few"><xliff:g id="years">%d</xliff:g> года</item>
+    <item quantity="many"><xliff:g id="years">%d</xliff:g> лет</item>
+    <item quantity="other"><xliff:g id="years">%d</xliff:g> лет</item>
+  </plurals>
+
+  <string name="short_date_month" tools:ignore="PluralsCandidate">
+    <xliff:g id="month">%d</xliff:g> мес.
+  </string>
+
+  <plurals name="short_date_days">
+    <item quantity="one"><xliff:g id="days">%d</xliff:g> день</item>
+    <item quantity="two"><xliff:g id="days">%d</xliff:g> дня</item>
+    <item quantity="few"><xliff:g id="days">%d</xliff:g> дня</item>
+    <item quantity="many"><xliff:g id="years">%d</xliff:g> дней</item>
+    <item quantity="other"><xliff:g id="days">%d</xliff:g> дней</item>
+  </plurals>
+
+  <plurals name="short_date_hours">
+    <item quantity="one"><xliff:g id="days">%d</xliff:g> час</item>
+    <item quantity="two"><xliff:g id="days">%d</xliff:g> часа</item>
+    <item quantity="few"><xliff:g id="days">%d</xliff:g> часа</item>
+    <item quantity="many"><xliff:g id="years">%d</xliff:g> часов</item>
+    <item quantity="other"><xliff:g id="days">%d</xliff:g> часов</item>
+  </plurals>
+
+  <string name="short_date_minutes"><xliff:g id="minutes">%d</xliff:g> мин.</string>
+  <string name="short_date_seconds_now">только что</string>
+
+</resources>

@@ -14,6 +14,8 @@ import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.showView
+import com.sedsoftware.yaptalker.commons.extensions.stringQuantityRes
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.data.remote.video.ThumbnailsManager
@@ -89,13 +91,14 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
   inner class NewsViewHolder(itemView: View, private val itemClick: (String, String) -> Unit) :
       RecyclerView.ViewHolder(itemView) {
 
-    private val forumTitleTemplate: String = itemView.context.getString(
+    private val forumTitleTemplate: String = itemView.context.stringRes(
         R.string.news_forum_title_template)
-    private val commentsTemplate: String = itemView.context.getString(
-        R.string.news_comments_template)
 
     fun bindTo(newsItem: NewsItem) {
       with(itemView) {
+        val commentsTemplate: String = context.stringQuantityRes(
+            R.plurals.news_comments_template, newsItem.comments.getLastDigits())
+
         // Font size
         news_author.textSize = normalFontSize
         news_title.textSize = bigFontSize

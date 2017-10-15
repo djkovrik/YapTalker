@@ -12,7 +12,13 @@
   <string name="nav_drawer_sign_out">Sign Out</string>
 
   <!-- NEWS -->
-  <string name="news_comments_template"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</string>
+  <plurals name="news_comments_template">
+    <item quantity="one"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comment</item>
+    <item quantity="few"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
+    <item quantity="many"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
+    <item quantity="other"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
+  </plurals>
+
   <string name="news_forum_title_template" translatable="false"><xliff:g id="bullet">\u25AA</xliff:g> <xliff:g id="forum">%s</xliff:g></string>
 
   <!-- FORUMS -->
@@ -37,7 +43,6 @@
   <string name="authorization_button_login">Sign In</string>
 
   <!-- ADD MESSAGE ACTIVITY -->
-  <string name="post_message_activity_title">Add post:</string>
   <string name="post_message_send">Send</string>
   <string name="post_message_cancel">Cancel</string>
   <string name="post_message_hint">Enter your message…</string>
