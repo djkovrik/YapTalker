@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.data.remote
 
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.sedsoftware.yaptalker.base.events.ConnectionState
 import com.sedsoftware.yaptalker.commons.extensions.toMD5
 import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.data.model.ForumItem
@@ -10,8 +11,6 @@ import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.data.model.UserProfile
 import com.sedsoftware.yaptalker.data.model.createForumsList
 import com.sedsoftware.yaptalker.data.model.createNewsList
-import com.sedsoftware.yaptalker.base.events.ConnectionState
-import com.sedsoftware.yaptalker.base.events.ConnectionState.ConnectionEvent
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -135,7 +134,7 @@ class YapDataManager(private val yapLoader: YapLoader, private val connectionRel
         .loadAuthorizedUserInfo()
   }
 
-  private fun publishConnectionState(@ConnectionEvent event: Long) {
+  private fun publishConnectionState(@ConnectionState.Event event: Long) {
     Observable
         .just(event)
         .observeOn(AndroidSchedulers.mainThread())
