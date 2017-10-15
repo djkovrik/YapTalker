@@ -41,9 +41,6 @@ class YapTalkerApp : Application(), KodeinAware {
     // Global settings helper
     bind<SettingsHelper>() with singleton { SettingsHelper(this@YapTalkerApp) }
 
-    // Global rx bus for app events
-    //bind<BehaviorRelay<AppEvent>>() with singleton { BehaviorRelay.createDefault(AppEvent()) }
-
     // Kodein modules
     import(requestsClientModule)
     import(requestsCookieModule)

@@ -12,7 +12,7 @@ import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import io.reactivex.Maybe
 import io.reactivex.subjects.BehaviorSubject
 
-open class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware {
+abstract class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware {
 
   override val kodein: LazyKodein
     get() = LazyKodein { YapTalkerApp.kodeinInstance }

@@ -5,6 +5,8 @@ import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.singleton
 import com.github.salomonbrys.kodein.with
+import com.jakewharton.rxrelay2.BehaviorRelay
+import com.sedsoftware.yaptalker.features.base.events.ConnectionState
 import pl.droidsonroids.retrofit2.JspoonConverterFactory
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -25,7 +27,10 @@ val yapDataManagerModule = Kodein.Module {
         .create(YapLoader::class.java)
   }
 
+  // Rx bus for connection events
+  bind<BehaviorRelay<Long>>() with singleton { BehaviorRelay.createDefault(ConnectionState.IDLE) }
+
   bind<YapDataManager>() with singleton {
-    YapDataManager(instance("YapLoader"))
+    YapDataManager(instance("YapLoader"), instance())
   }
 }
