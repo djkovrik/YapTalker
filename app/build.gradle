@@ -132,8 +132,6 @@ dependencies {
   implementation "com.jakewharton.rxrelay2:rxrelay:$RX_RELAY_VERSION"
   implementation "nl.littlerobots.rxlint:rxlint:$RX_LINT_VERSION"
   implementation "com.uber.autodispose:autodispose:$AUTO_DISPOSE_VERSION"
-  implementation "com.uber.autodispose:autodispose-android:$AUTO_DISPOSE_VERSION"
-  implementation "com.uber.autodispose:autodispose-android-archcomponents:$AUTO_DISPOSE_VERSION"
   implementation "com.uber.autodispose:autodispose-kotlin:$AUTO_DISPOSE_VERSION"
 
   // Core

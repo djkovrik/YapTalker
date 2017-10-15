@@ -6,8 +6,8 @@ import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.LazyKodeinAware
 import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.YapTalkerApp
-import com.sedsoftware.yaptalker.data.remote.YapDataManager
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
+import com.sedsoftware.yaptalker.data.remote.YapDataManager
 import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import io.reactivex.Maybe
 import io.reactivex.subjects.BehaviorSubject
@@ -29,7 +29,7 @@ abstract class BasePresenter<View : MvpView> : MvpPresenter<View>(), LazyKodeinA
     lifecycle.onNext(PresenterLifecycle.DESTROY)
   }
 
-  protected fun event(@PresenterLifecycle.LifecycleEvent event: Long): Maybe<*> {
+  protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> {
     return lifecycle.filter({ e -> e == event }).firstElement()
   }
 }
