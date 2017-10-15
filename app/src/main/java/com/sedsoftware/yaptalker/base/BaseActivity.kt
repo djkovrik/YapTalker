@@ -2,16 +2,15 @@ package com.sedsoftware.yaptalker.base
 
 import android.os.Bundle
 import com.arellomobile.mvp.MvpAppCompatActivity
-import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.sedsoftware.yaptalker.base.events.ActivityLifecycle
 import io.reactivex.Maybe
 import io.reactivex.subjects.BehaviorSubject
 
-abstract class BaseActivity : MvpAppCompatActivity(), ControllerChangeHandler.ControllerChangeListener {
+abstract class BaseActivity : MvpAppCompatActivity() {
 
   protected abstract val layoutId: Int
 
-  // Presenter lifecycle events channel
+  // Activity lifecycle events channel
   private val lifecycle: BehaviorSubject<Long> = BehaviorSubject.create()
 
   override fun onCreate(savedInstanceState: Bundle?) {

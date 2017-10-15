@@ -20,10 +20,10 @@ abstract class BaseControllerActivity : MvpAppCompatActivity(), ControllerChange
   protected abstract val contentFrame: ViewGroup
   protected abstract val rootController: Controller
 
-  protected abstract fun onControllerChanged(target: Controller?)
-
-  // Presenter lifecycle events channel
+  // Activity lifecycle events channel
   private val lifecycle: BehaviorSubject<Long> = BehaviorSubject.create()
+
+  protected abstract fun onControllerChanged(target: Controller?)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
