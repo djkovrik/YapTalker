@@ -2,7 +2,6 @@ package com.sedsoftware.yaptalker.features.topic
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.data.model.TopicPost
@@ -26,18 +25,6 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   private var totalPages = -1
   private var currentTitle = ""
   private var authKey = ""
-
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
-
-    attachRefreshIndicator({
-      // onStart
-      viewState.showRefreshing()
-    }, {
-      // onFinish
-      viewState.hideRefreshing()
-    })
-  }
 
   override fun attachView(view: ChosenTopicView?) {
     super.attachView(view)
@@ -87,10 +74,6 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     } else {
       viewState.showCantLoadPageMessage(chosenPage)
     }
-  }
-
-  fun setAppbarTitle(title: String) {
-    pushAppEvent(UpdateAppbarEvent(title))
   }
 
   // TODO() Show fab for authorized user only
@@ -161,14 +144,12 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     authKey = topicPage.authKey
     viewState.refreshPosts(topicPage.posts)
     viewState.scrollToViewTop()
-    viewState.setAppbarTitle(currentTitle)
     setNavigationLabel()
     setNavigationAvailability()
   }
 
   private fun onRestoringSuccess(list: List<TopicPost>) {
     viewState.refreshPosts(list)
-    viewState.setAppbarTitle(currentTitle)
     setNavigationLabel()
     setNavigationAvailability()
   }

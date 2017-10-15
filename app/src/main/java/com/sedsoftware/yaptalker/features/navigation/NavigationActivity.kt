@@ -17,10 +17,8 @@ import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.UpdateNavDrawerEvent
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
@@ -203,34 +201,34 @@ class NavigationActivity : BaseActivity(), NavigationView {
     }
   }
 
-  override fun setActiveProfile(event: UpdateNavDrawerEvent) {
+//  override fun setActiveProfile(event: UpdateNavDrawerEvent) {
+//
+//    val profile = if (event.name.isNotEmpty()) {
+//      ProfileDrawerItem()
+//          .withName(event.name)
+//          .withEmail(event.title)
+//          .withIcon(event.avatar)
+//          .withIdentifier(2L)
+//    } else {
+//      ProfileDrawerItem()
+//          .withName(stringRes(R.string.nav_drawer_guest_name))
+//          .withEmail("")
+//          .withIdentifier(1L)
+//    }
+//
+//    navHeader.profiles.clear()
+//    navHeader.addProfiles(profile)
+//
+//    if (navHeader.activeProfile.name.toString() == stringRes(R.string.nav_drawer_guest_name)) {
+//      signInItemAvailable()
+//    } else {
+//      signOutItemAvailable()
+//    }
+//  }
 
-    val profile = if (event.name.isNotEmpty()) {
-      ProfileDrawerItem()
-          .withName(event.name)
-          .withEmail(event.title)
-          .withIcon(event.avatar)
-          .withIdentifier(2L)
-    } else {
-      ProfileDrawerItem()
-          .withName(stringRes(R.string.nav_drawer_guest_name))
-          .withEmail("")
-          .withIdentifier(1L)
-    }
-
-    navHeader.profiles.clear()
-    navHeader.addProfiles(profile)
-
-    if (navHeader.activeProfile.name.toString() == stringRes(R.string.nav_drawer_guest_name)) {
-      signInItemAvailable()
-    } else {
-      signOutItemAvailable()
-    }
-  }
-
-  override fun setAppbarTitle(text: String) {
-    supportActionBar?.title = text
-  }
+//  override fun setAppbarTitle(text: String) {
+//    supportActionBar?.title = text
+//  }
 
   override fun onControllerChanged(target: Controller?) {
     when (target) {

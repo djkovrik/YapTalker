@@ -1,8 +1,5 @@
 package com.sedsoftware.yaptalker.data.remote
 
-import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.commons.AppEvent
-import com.sedsoftware.yaptalker.commons.RequestStateEvent
 import com.sedsoftware.yaptalker.commons.extensions.toMD5
 import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.data.model.ForumItem
@@ -14,13 +11,10 @@ import com.sedsoftware.yaptalker.data.model.createForumsList
 import com.sedsoftware.yaptalker.data.model.createNewsList
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import okhttp3.ResponseBody
 import retrofit2.Response
 
-class YapDataManager(
-    private val yapLoader: YapLoader,
-    private val eventBus: BehaviorRelay<AppEvent>) {
+class YapDataManager(private val yapLoader: YapLoader) {
 
   companion object {
     private const val LOGIN_REFERER = "http://www.yaplakal.com/forum/"
@@ -138,9 +132,9 @@ class YapDataManager(
   }
 
   private fun publishConnectionState(state: Boolean) {
-    Observable
-        .just(RequestStateEvent(connected = state))
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(eventBus)
+//    Observable
+//        .just(RequestStateEvent(connected = state))
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .subscribe(eventBus)
   }
 }

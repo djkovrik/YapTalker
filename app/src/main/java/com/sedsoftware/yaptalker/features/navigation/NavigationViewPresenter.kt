@@ -4,10 +4,6 @@ import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.franmontiel.persistentcookiejar.ClearableCookieJar
 import com.github.salomonbrys.kodein.instance
-import com.sedsoftware.yaptalker.commons.AppEvent
-import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
-import com.sedsoftware.yaptalker.commons.UpdateNavDrawerEvent
-import com.sedsoftware.yaptalker.commons.extensions.validateURL
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -23,17 +19,17 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-    eventBus
-        .filter { event -> event.getType() == AppEvent.UPDATE_APPBAR }
-        .map { event -> event as UpdateAppbarEvent }
-        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
-        .subscribe { event -> viewState.setAppbarTitle(event.title) }
-
-    eventBus
-        .filter { event -> event.getType() == AppEvent.UPDATE_NAVDRAWER }
-        .map { event -> event as UpdateNavDrawerEvent }
-        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
-        .subscribe { event -> viewState.setActiveProfile(event) }
+//    eventBus
+//        .filter { event -> event.getType() == AppEvent.UPDATE_APPBAR }
+//        .map { event -> event as UpdateAppbarEvent }
+//        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+//        .subscribe { event -> viewState.setAppbarTitle(event.title) }
+//
+//    eventBus
+//        .filter { event -> event.getType() == AppEvent.UPDATE_NAVDRAWER }
+//        .map { event -> event as UpdateNavDrawerEvent }
+//        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+//        .subscribe { event -> viewState.setActiveProfile(event) }
   }
 
   fun initLayout(savedInstanceState: Bundle?) {
@@ -56,8 +52,8 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
         .subscribe({
           // On Success
           info ->
-          pushAppEvent(
-              UpdateNavDrawerEvent(name = info.nickname, title = info.title, avatar = info.avatar.validateURL()))
+//          pushAppEvent(
+//              UpdateNavDrawerEvent(name = info.nickname, title = info.title, avatar = info.avatar.validateURL()))
         }, {
           // On Error
           t ->

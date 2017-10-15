@@ -19,6 +19,4 @@ interface ForumsView : MvpView {
   fun showRefreshing()
 
   fun hideRefreshing()
-
-  fun updateAppbarTitle()
 }

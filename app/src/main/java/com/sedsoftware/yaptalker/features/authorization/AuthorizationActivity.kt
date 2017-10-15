@@ -46,10 +46,6 @@ class AuthorizationActivity : MvpAppCompatActivity(), AuthorizationView {
         }
   }
 
-  override fun updateAppbarTitle() {
-    authorizationPresenter.updateTitle(stringRes(R.string.nav_drawer_sign_in))
-  }
-
   override fun loginSuccessMessage() {
     toastSuccess(stringRes(R.string.msg_login_success))
   }

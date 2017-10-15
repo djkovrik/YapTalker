@@ -222,10 +222,6 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     view?.topic_posts_list?.layoutManager?.scrollToPosition(0)
   }
 
-  override fun setAppbarTitle(title: String) {
-    topicPresenter.setAppbarTitle(title)
-  }
-
   override fun hideNavigationPanel() {
     isNavigationShown = false
     bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN

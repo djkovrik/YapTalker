@@ -7,8 +7,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 @StateStrategyType(OneExecutionStateStrategy::class)
 interface AuthorizationView : MvpView {
 
-  fun updateAppbarTitle()
-
   fun loginSuccessMessage()
 
   fun loginErrorMessage()

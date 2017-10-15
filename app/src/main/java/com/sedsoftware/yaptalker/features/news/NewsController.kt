@@ -16,7 +16,6 @@ import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
-import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.features.base.BaseController
@@ -125,12 +124,6 @@ class NewsController : BaseController(), NewsView {
 
   override fun appendNewsItem(item: NewsItem) {
     newsAdapter.addNewsItem(item)
-  }
-
-  override fun updateAppbarTitle() {
-    view?.context?.let {
-      newsPresenter.updateTitle(it.stringRes(R.string.nav_drawer_main_page))
-    }
   }
 
   override fun hideFab() {

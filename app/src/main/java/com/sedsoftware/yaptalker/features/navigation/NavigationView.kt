@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
-import com.sedsoftware.yaptalker.commons.UpdateNavDrawerEvent
 
 @StateStrategyType(OneExecutionStateStrategy::class)
 interface NavigationView : MvpView {
@@ -13,9 +12,9 @@ interface NavigationView : MvpView {
 
   fun goToChosenSection(@Navigation.Section section: Long)
 
-  fun setActiveProfile(event: UpdateNavDrawerEvent)
+  //fun setActiveProfile(event: UpdateNavDrawerEvent)
 
-  fun setAppbarTitle(text: String)
+  //fun setAppbarTitle(text: String)
 
   fun showSignOutMessage()
 

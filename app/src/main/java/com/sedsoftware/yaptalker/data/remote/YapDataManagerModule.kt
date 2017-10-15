@@ -26,6 +26,6 @@ val yapDataManagerModule = Kodein.Module {
   }
 
   bind<YapDataManager>() with singleton {
-    YapDataManager(instance("YapLoader"), instance())
+    YapDataManager(instance("YapLoader"))
   }
 }

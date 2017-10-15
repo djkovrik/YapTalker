@@ -14,7 +14,5 @@ interface UserProfileView : MvpView {
 
   fun showErrorMessage(message: String)
 
-  fun setAppbarTitle(title: String)
-
   fun displayProfile(profile: UserProfile)
 }

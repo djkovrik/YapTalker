@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.features.authorization
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -19,17 +18,8 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
     private const val SUCCESS_MESSAGE = "Спасибо"
   }
 
-  override fun attachView(view: AuthorizationView?) {
-    super.attachView(view)
-    viewState.updateAppbarTitle()
-  }
-
   fun handleSignInButton(enabled: Boolean) {
     viewState.signInButtonEnabled(enabled)
-  }
-
-  fun updateTitle(title: String) {
-    pushAppEvent(UpdateAppbarEvent(title))
   }
 
   fun loginAttempt(userLogin: String, userPassword: String) {

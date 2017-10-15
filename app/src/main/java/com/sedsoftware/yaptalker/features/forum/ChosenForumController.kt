@@ -190,10 +190,6 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     view?.forum_topics_list?.layoutManager?.scrollToPosition(0)
   }
 
-  override fun setAppbarTitle(title: String) {
-    forumPresenter.setAppbarTitle(title)
-  }
-
   override fun hideNavigationPanel() {
     isNavigationShown = false
     bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN

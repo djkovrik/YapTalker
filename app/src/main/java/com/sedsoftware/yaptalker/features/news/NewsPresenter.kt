@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.features.news
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.features.base.BasePresenter
 import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
@@ -23,22 +22,8 @@ class NewsPresenter : BasePresenter<NewsView>() {
     settings.getNewsCategories()
   }
 
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
-
-    attachRefreshIndicator({
-      // onStart
-      viewState.showRefreshing()
-    }, {
-      // onFinish
-      viewState.hideRefreshing()
-      viewState.hideFab()
-    })
-  }
-
   override fun attachView(view: NewsView?) {
     super.attachView(view)
-    viewState.updateAppbarTitle()
     viewState.hideFabWithoutAnimation()
   }
 
@@ -72,10 +57,6 @@ class NewsPresenter : BasePresenter<NewsView>() {
           throwable ->
           onLoadingError(throwable)
         })
-  }
-
-  fun updateTitle(title: String) {
-    pushAppEvent(UpdateAppbarEvent(title))
   }
 
   fun handleFabVisibility(isFabShown: Boolean, diff: Int) {

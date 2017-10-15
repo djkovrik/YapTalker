@@ -2,7 +2,6 @@ package com.sedsoftware.yaptalker.features.forum
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
 import com.sedsoftware.yaptalker.features.base.BasePresenter
@@ -26,18 +25,6 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   private var currentPage = 0
   private var totalPages = -1
   private var currentTitle = ""
-
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
-
-    attachRefreshIndicator({
-      // onStart
-      viewState.showRefreshing()
-    }, {
-      // onFinish
-      viewState.hideRefreshing()
-    })
-  }
 
   override fun attachView(view: ChosenForumView?) {
     super.attachView(view)
@@ -90,10 +77,6 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     }
   }
 
-  fun setAppbarTitle(title: String) {
-    pushAppEvent(UpdateAppbarEvent(title))
-  }
-
   fun handleNavigationVisibility(isNavigationShown: Boolean, diff: Int) {
     when {
       isNavigationShown && diff > 0 -> viewState.hideNavigationPanel()
@@ -144,14 +127,12 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     currentTitle = forumPage.forumTitle
     viewState.refreshTopics(forumPage.topics)
     viewState.scrollToViewTop()
-    viewState.setAppbarTitle(currentTitle)
     setNavigationLabel()
     setNavigationAvailability()
   }
 
   private fun onRestoringSuccess(topics: List<Topic>) {
     viewState.refreshTopics(topics)
-    viewState.setAppbarTitle(currentTitle)
     setNavigationLabel()
     setNavigationAvailability()
   }

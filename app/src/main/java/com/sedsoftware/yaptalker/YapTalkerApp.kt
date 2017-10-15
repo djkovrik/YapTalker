@@ -11,12 +11,10 @@ import com.github.salomonbrys.kodein.KodeinAware
 import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.lazy
 import com.github.salomonbrys.kodein.singleton
-import com.jakewharton.rxrelay2.BehaviorRelay
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
-import com.sedsoftware.yaptalker.commons.AppEvent
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.data.remote.requestsClientModule
 import com.sedsoftware.yaptalker.data.remote.requestsCookieModule
@@ -44,7 +42,7 @@ class YapTalkerApp : Application(), KodeinAware {
     bind<SettingsHelper>() with singleton { SettingsHelper(this@YapTalkerApp) }
 
     // Global rx bus for app events
-    bind<BehaviorRelay<AppEvent>>() with singleton { BehaviorRelay.createDefault(AppEvent()) }
+    //bind<BehaviorRelay<AppEvent>>() with singleton { BehaviorRelay.createDefault(AppEvent()) }
 
     // Kodein modules
     import(requestsClientModule)

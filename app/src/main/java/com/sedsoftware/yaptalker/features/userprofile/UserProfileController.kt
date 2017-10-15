@@ -47,10 +47,6 @@ class UserProfileController(val bundle: Bundle) : BaseController(bundle), UserPr
     toastError(message)
   }
 
-  override fun setAppbarTitle(title: String) {
-    userProfilePresenter.setAppbarTitle(title)
-  }
-
   override fun displayProfile(profile: UserProfile) {
 
     view?.let {
