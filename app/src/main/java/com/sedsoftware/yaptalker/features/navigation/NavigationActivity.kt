@@ -19,7 +19,7 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.base.BaseControllerActivity
+import com.sedsoftware.yaptalker.base.BaseActivityWithController
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
@@ -33,7 +33,7 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 
 // TODO() Register app to open yaplakal.com links
-class NavigationActivity : BaseControllerActivity(), NavigationView {
+class NavigationActivity : BaseActivityWithController(), NavigationView {
 
   companion object {
     const val SIGN_IN_REQUEST = 123
