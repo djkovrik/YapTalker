@@ -29,9 +29,9 @@ abstract class BasePresenterWithLoading<View : MvpView> : MvpPresenter<View>(), 
   // Local presenter lifecycle events channel
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
 
-  abstract fun onLoadingStarted()
-  abstract fun onLoadingCompleted()
-  abstract fun onLoadingError()
+  // Connection state events
+  abstract fun onLoadingStart()
+  abstract fun onLoadingFinish()
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
@@ -40,9 +40,9 @@ abstract class BasePresenterWithLoading<View : MvpView> : MvpPresenter<View>(), 
         .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe { event ->
           when (event) {
-            ConnectionState.LOADING -> onLoadingStarted()
-            ConnectionState.COMPLETED -> onLoadingCompleted()
-            ConnectionState.ERROR -> onLoadingError()
+            ConnectionState.LOADING -> onLoadingStart()
+            ConnectionState.COMPLETED -> onLoadingFinish()
+            ConnectionState.ERROR -> onLoadingFinish()
           }
         }
   }
