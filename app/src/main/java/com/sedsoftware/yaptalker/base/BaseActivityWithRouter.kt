@@ -12,7 +12,7 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.base.events.ActivityLifecycle
 import io.reactivex.Maybe
 
-abstract class BaseActivityWithController : MvpAppCompatActivity(), ControllerChangeHandler.ControllerChangeListener {
+abstract class BaseActivityWithRouter : MvpAppCompatActivity(), ControllerChangeHandler.ControllerChangeListener {
 
   protected lateinit var router: Router
 
