@@ -13,7 +13,6 @@ import com.sedsoftware.yaptalker.data.remote.YapDataManager
 import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Maybe
-import io.reactivex.subjects.BehaviorSubject
 
 abstract class BasePresenterWithLoading<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware {
 
@@ -24,11 +23,11 @@ abstract class BasePresenterWithLoading<View : MvpView> : MvpPresenter<View>(), 
   protected val yapDataManager: YapDataManager by instance()
   protected val settings: SettingsHelper by instance()
 
-  // Connection events channel
+  // Global connection events channel
   private val connectionRelay: BehaviorRelay<Long> by instance()
 
-  // Presenter lifecycle events channel
-  private val lifecycle: BehaviorSubject<Long> = BehaviorSubject.create()
+  // Local presenter lifecycle events channel
+  private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
 
   abstract fun onLoadingStarted()
   abstract fun onLoadingCompleted()
@@ -50,7 +49,7 @@ abstract class BasePresenterWithLoading<View : MvpView> : MvpPresenter<View>(), 
 
   override fun onDestroy() {
     super.onDestroy()
-    lifecycle.onNext(PresenterLifecycle.DESTROY)
+    lifecycle.accept(PresenterLifecycle.DESTROY)
   }
 
   protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> {

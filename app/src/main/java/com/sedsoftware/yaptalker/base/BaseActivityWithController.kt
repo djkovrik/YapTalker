@@ -8,9 +8,9 @@ import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
+import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.base.events.ActivityLifecycle
 import io.reactivex.Maybe
-import io.reactivex.subjects.BehaviorSubject
 
 abstract class BaseActivityWithController : MvpAppCompatActivity(), ControllerChangeHandler.ControllerChangeListener {
 
@@ -20,8 +20,8 @@ abstract class BaseActivityWithController : MvpAppCompatActivity(), ControllerCh
   protected abstract val contentFrame: ViewGroup
   protected abstract val rootController: Controller
 
-  // Activity lifecycle events channel
-  private val lifecycle: BehaviorSubject<Long> = BehaviorSubject.create()
+  // Local activity lifecycle events channel
+  private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
 
   protected abstract fun onControllerChanged(target: Controller?)
 
@@ -36,33 +36,33 @@ abstract class BaseActivityWithController : MvpAppCompatActivity(), ControllerCh
 
     router.addChangeListener(this)
 
-    lifecycle.onNext(ActivityLifecycle.CREATE)
+    lifecycle.accept(ActivityLifecycle.CREATE)
   }
 
   override fun onDestroy() {
     super.onDestroy()
     router.removeChangeListener(this)
-    lifecycle.onNext(ActivityLifecycle.DESTROY)
+    lifecycle.accept(ActivityLifecycle.DESTROY)
   }
 
   override fun onStart() {
     super.onStart()
-    lifecycle.onNext(ActivityLifecycle.START)
+    lifecycle.accept(ActivityLifecycle.START)
   }
 
   override fun onStop() {
     super.onStop()
-    lifecycle.onNext(ActivityLifecycle.STOP)
+    lifecycle.accept(ActivityLifecycle.STOP)
   }
 
   override fun onResume() {
     super.onResume()
-    lifecycle.onNext(ActivityLifecycle.RESUME)
+    lifecycle.accept(ActivityLifecycle.RESUME)
   }
 
   override fun onPause() {
     super.onPause()
-    lifecycle.onNext(ActivityLifecycle.PAUSE)
+    lifecycle.accept(ActivityLifecycle.PAUSE)
   }
 
   override fun onChangeStarted(to: Controller?, from: Controller?, isPush: Boolean,
