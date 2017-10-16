@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.features.news
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.RouterTransaction
@@ -34,6 +35,9 @@ class NewsController : BaseController(), NewsView {
 
   private lateinit var newsAdapter: NewsAdapter
   private var isFabShown = false
+
+  override val controllerToolbar: Toolbar?
+    get() = view?.news_toolbar
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_news
@@ -152,5 +156,9 @@ class NewsController : BaseController(), NewsView {
       fab.showFromScreenEdge()
       isFabShown = true
     }
+  }
+
+  override fun setAppbarTitle(title: String) {
+    controllerToolbar?.title = title
   }
 }

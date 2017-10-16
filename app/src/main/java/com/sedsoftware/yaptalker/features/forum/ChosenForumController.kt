@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.text.InputType
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
@@ -44,6 +45,9 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
   private lateinit var forumAdapter: ChosenForumAdapter
   private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
   private var isNavigationShown = true
+
+  override val controllerToolbar: Toolbar?
+    get() = view?.forum_toolbar
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_chosen_forum

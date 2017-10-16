@@ -23,4 +23,6 @@ interface NewsView : MvpView {
   fun hideFabWithoutAnimation()
 
   fun showFab()
+
+  fun setAppbarTitle(title: String)
 }

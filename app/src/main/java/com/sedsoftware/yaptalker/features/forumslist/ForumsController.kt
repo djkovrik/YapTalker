@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.features.forumslist
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.RouterTransaction
@@ -28,6 +29,9 @@ class ForumsController : BaseController(), ForumsView {
   lateinit var forumsPresenter: ForumsPresenter
 
   private lateinit var forumsAdapter: ForumsAdapter
+
+  override val controllerToolbar: Toolbar?
+    get() = view?.forums_list_toolbar
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_forums_list

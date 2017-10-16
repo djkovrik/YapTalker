@@ -20,6 +20,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseActivityWithController
+import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
@@ -27,7 +28,6 @@ import com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity
 import com.sedsoftware.yaptalker.features.forumslist.ForumsController
 import com.sedsoftware.yaptalker.features.news.NewsController
 import com.sedsoftware.yaptalker.features.settings.SettingsActivity
-import kotlinx.android.synthetic.main.include_main_appbar.*
 import kotlinx.android.synthetic.main.include_main_content.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
@@ -61,7 +61,6 @@ class NavigationActivity : BaseActivityWithController(), NavigationView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setSupportActionBar(toolbar)
 
     navigationViewPresenter.initLayout(savedInstanceState)
 
@@ -154,7 +153,6 @@ class NavigationActivity : BaseActivityWithController(), NavigationView {
 
     navDrawer = DrawerBuilder()
         .withActivity(this)
-        .withToolbar(toolbar)
         .withAccountHeader(navHeader)
         .addDrawerItems(drawerItemMainPage)
         .addDrawerItems(drawerItemForums)
@@ -237,6 +235,10 @@ class NavigationActivity : BaseActivityWithController(), NavigationView {
     }
 
     navigationViewPresenter.refreshAuthorization()
+
+    if (target is BaseController) {
+      target.controllerToolbar?.let { navDrawer.setToolbar(this, it, true) }
+    }
   }
 
   override fun showSignOutMessage() {

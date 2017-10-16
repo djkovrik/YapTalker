@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.text.InputType
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
@@ -62,6 +63,9 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
   private var isNavigationShown = true
   private var isFabShown = true
+
+  override val controllerToolbar: Toolbar?
+    get() = view?.topic_toolbar
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_chosen_topic
