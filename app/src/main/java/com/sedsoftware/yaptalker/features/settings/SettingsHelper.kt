@@ -3,8 +3,8 @@ package com.sedsoftware.yaptalker.features.settings
 import android.content.Context
 import android.support.annotation.StringRes
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.base.BaseController
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.features.forumslist.ForumsController
 import com.sedsoftware.yaptalker.features.news.NewsController
 import org.jetbrains.anko.defaultSharedPreferences
