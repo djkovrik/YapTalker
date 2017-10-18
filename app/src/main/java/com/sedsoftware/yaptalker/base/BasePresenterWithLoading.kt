@@ -28,11 +28,6 @@ abstract class BasePresenterWithLoading<View : BaseViewWithLoading> : MvpPresent
   // Local presenter lifecycle events channel
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
 
-  // Connection state events
-  protected abstract fun onLoadingStart()
-
-  protected abstract fun onLoadingFinish()
-
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
@@ -58,5 +53,14 @@ abstract class BasePresenterWithLoading<View : BaseViewWithLoading> : MvpPresent
 
   protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> {
     return lifecycle.filter({ e -> e == event }).firstElement()
+  }
+
+  // Connection state events
+  private fun onLoadingStart() {
+    viewState.showLoadingIndicator(shouldShow = true)
+  }
+
+  private fun onLoadingFinish() {
+    viewState.showLoadingIndicator(shouldShow = false)
   }
 }

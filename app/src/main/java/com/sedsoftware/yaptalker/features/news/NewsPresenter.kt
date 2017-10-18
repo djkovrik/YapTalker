@@ -27,14 +27,6 @@ class NewsPresenter : BasePresenterWithLoading<NewsView>() {
     viewState.hideFabWithoutAnimation()
   }
 
-  override fun onLoadingStart() {
-    viewState.showLoadingIndicator(true)
-  }
-
-  override fun onLoadingFinish() {
-    viewState.showLoadingIndicator(false)
-  }
-
   fun handleFabVisibility(isFabShown: Boolean, diff: Int) {
     when {
       isFabShown && diff > 0 -> viewState.showFab(false)

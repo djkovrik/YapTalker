@@ -28,13 +28,6 @@ class UserProfilePresenter : BasePresenterWithLoading<UserProfileView>() {
         })
   }
 
-  override fun onLoadingStart() {
-
-  }
-
-  override fun onLoadingFinish() {
-
-  }
 
   private fun onLoadingSuccess(profile: UserProfile) {
     viewState.displayProfile(profile)

@@ -31,14 +31,6 @@ class ChosenForumPresenter : BasePresenterWithLoading<ChosenForumView>() {
     viewState.hideNavigationPanel()
   }
 
-  override fun onLoadingStart() {
-
-  }
-
-  override fun onLoadingFinish() {
-
-  }
-
   fun checkSavedState(forumId: Int, savedViewState: Bundle?, key: String) {
     if (savedViewState != null && savedViewState.containsKey(key)) {
       val topics = savedViewState.getParcelableArrayList<Topic>(key)

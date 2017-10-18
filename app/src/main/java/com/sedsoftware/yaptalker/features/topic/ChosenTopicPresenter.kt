@@ -41,14 +41,6 @@ class ChosenTopicPresenter : BasePresenterWithLoading<ChosenTopicView>() {
     }
   }
 
-  override fun onLoadingStart() {
-
-  }
-
-  override fun onLoadingFinish() {
-
-  }
-
   fun goToNextPage() {
     if (currentPage in 0 until totalPages - 1) {
       currentPage++
