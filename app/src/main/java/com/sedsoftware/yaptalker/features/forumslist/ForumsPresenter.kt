@@ -27,11 +27,11 @@ class ForumsPresenter : BasePresenterWithLoading<ForumsView>() {
   }
 
   override fun onLoadingStart() {
-
+    viewState.showLoadingIndicator(true)
   }
 
   override fun onLoadingFinish() {
-
+    viewState.showLoadingIndicator(false)
   }
 
   fun loadForumsList() {

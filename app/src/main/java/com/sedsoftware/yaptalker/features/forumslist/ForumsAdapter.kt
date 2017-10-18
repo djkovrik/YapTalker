@@ -30,8 +30,7 @@ class ForumsAdapter(
   private var forumsList: ArrayList<ForumItem> = ArrayList()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForumsViewHolder {
-    val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_forums_list_item,
-        parent, false)
+    val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_forums_list_item, parent, false)
     return ForumsViewHolder(view, itemClick)
   }
 

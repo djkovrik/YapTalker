@@ -13,6 +13,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.features.forum.ChosenForumController
@@ -62,6 +63,7 @@ class ForumsController : BaseController(), ForumsView {
     }
 
     forumsPresenter.checkSavedState(savedViewState, FORUMS_LIST_KEY)
+    forumsPresenter.setAppbarTitle(view.context.stringRes(R.string.nav_drawer_forums))
   }
 
   override fun subscribeViews(parent: View) {
@@ -72,14 +74,6 @@ class ForumsController : BaseController(), ForumsView {
           .autoDisposeWith(scopeProvider)
           .subscribe { forumsPresenter.loadForumsList() }
     }
-  }
-
-  override fun updateAppbarTitle(title: String) {
-
-  }
-
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-
   }
 
   override fun onSaveViewState(view: View, outState: Bundle) {
@@ -95,6 +89,19 @@ class ForumsController : BaseController(), ForumsView {
     view.forums_list.adapter = null
   }
 
+
+  override fun updateAppbarTitle(title: String) {
+    controllerToolbar?.title = title
+  }
+
+  override fun showErrorMessage(message: String) {
+    toastError(message)
+  }
+
+  override fun showLoadingIndicator(shouldShow: Boolean) {
+    view?.forums_list_refresh_layout?.isRefreshing = shouldShow
+  }
+
   override fun clearForumsList() {
     forumsAdapter.clearForumsList()
   }
@@ -105,17 +112,5 @@ class ForumsController : BaseController(), ForumsView {
 
   override fun appendForumsList(list: List<ForumItem>) {
     forumsAdapter.addForumsList(list)
-  }
-
-  override fun showErrorMessage(message: String) {
-    toastError(message)
-  }
-
-  override fun showRefreshing() {
-    view?.forums_list_refresh_layout?.isRefreshing = true
-  }
-
-  override fun hideRefreshing() {
-    view?.forums_list_refresh_layout?.isRefreshing = false
   }
 }

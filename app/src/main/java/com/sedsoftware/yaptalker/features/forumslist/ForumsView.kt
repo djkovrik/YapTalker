@@ -13,8 +13,4 @@ interface ForumsView : BaseViewWithLoading {
   fun appendForumItem(item: ForumItem)
 
   fun appendForumsList(list: List<ForumItem>)
-
-  fun showRefreshing()
-
-  fun hideRefreshing()
 }

@@ -90,14 +90,12 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
     private val forumTitleTemplate: String = itemView.context.stringRes(R.string.news_forum_title_template)
 
     fun bindTo(newsItem: NewsItem) {
-
       setViewsTextSize(itemView)
       setViewsContent(itemView, newsItem)
       setMediaContent(itemView, newsItem)
     }
 
     private fun setViewsTextSize(itemView: View) {
-
       with(itemView) {
         news_author.textSize = normalFontSize
         news_title.textSize = bigFontSize
@@ -126,7 +124,6 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
     }
 
     private fun setMediaContent(itemView: View, newsItem: NewsItem) {
-
       with(itemView) {
 
         news_content_image.setOnClickListener(null)
