@@ -33,6 +33,7 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 
 // TODO() Register app to open yaplakal.com links
+// TODO() Investigate app crash when in paused state
 class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
   companion object {

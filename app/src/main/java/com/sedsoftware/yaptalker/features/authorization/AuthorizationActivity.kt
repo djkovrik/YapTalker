@@ -15,6 +15,7 @@ import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.activity_authorization.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 
+// TODO () Fix EditText leak
 class AuthorizationActivity : MvpAppCompatActivity(), AuthorizationView {
 
   @InjectPresenter
