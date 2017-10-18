@@ -34,7 +34,7 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
   override val kodein: LazyKodein
     get() = LazyKodein { YapTalkerApp.kodeinInstance }
 
-  // Kodein injection
+  // Kodein injections
   private val thumbnailsLoader: ThumbnailsManager by instance()
   private val settings: SettingsHelper by instance()
 
@@ -47,15 +47,13 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
   }
 
   private var news: ArrayList<NewsItem> = ArrayList()
-  private var lastPosition = -1
 
   override fun getItemCount() = news.size
 
   override fun getItemId(position: Int) = news[position].link.getLastDigits().toLong()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-    val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_news_item, parent,
-        false)
+    val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_news_item, parent, false)
     return NewsViewHolder(view, itemClick)
   }
 
@@ -64,11 +62,10 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
     holder.bindTo(news[position])
 
     with(holder.itemView) {
-      val animation = AnimationUtils.loadAnimation(context, R.anim.recyclerview_fade_in)
-      startAnimation(animation)
+      AnimationUtils.loadAnimation(context, R.anim.recyclerview_fade_in).apply {
+        startAnimation(this)
+      }
     }
-
-    lastPosition = holder.adapterPosition
   }
 
   override fun onViewDetachedFromWindow(holder: NewsViewHolder?) {
@@ -85,21 +82,23 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
   fun clearNews() {
     notifyItemRangeRemoved(0, news.size)
     news.clear()
-    lastPosition = -1
   }
 
   inner class NewsViewHolder(itemView: View, private val itemClick: (String, String) -> Unit) :
       RecyclerView.ViewHolder(itemView) {
 
-    private val forumTitleTemplate: String = itemView.context.stringRes(
-        R.string.news_forum_title_template)
+    private val forumTitleTemplate: String = itemView.context.stringRes(R.string.news_forum_title_template)
 
     fun bindTo(newsItem: NewsItem) {
-      with(itemView) {
-        val commentsTemplate: String = context.stringQuantityRes(
-            R.plurals.news_comments_template, newsItem.comments.getLastDigits())
 
-        // Font size
+      setViewsTextSize(itemView)
+      setViewsContent(itemView, newsItem)
+      setMediaContent(itemView, newsItem)
+    }
+
+    private fun setViewsTextSize(itemView: View) {
+
+      with(itemView) {
         news_author.textSize = normalFontSize
         news_title.textSize = bigFontSize
         news_forum.textSize = normalFontSize
@@ -107,8 +106,15 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
         news_rating.textSize = normalFontSize
         news_comments_counter.textSize = normalFontSize
         news_content_text.textSize = normalFontSize
+      }
+    }
 
-        // Content
+    private fun setViewsContent(itemView: View, newsItem: NewsItem) {
+
+      val commentsTemplate: String = itemView.context.stringQuantityRes(
+          R.plurals.news_comments_template, newsItem.comments.getLastDigits())
+
+      with(itemView) {
         news_author.text = newsItem.author
         news_title.text = newsItem.title
         news_forum.text = String.format(Locale.US, forumTitleTemplate, newsItem.forumName)
@@ -116,8 +122,13 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
         news_rating.ratingText = newsItem.rating
         news_comments_counter.text = String.format(Locale.US, commentsTemplate, newsItem.comments)
         news_content_text.textFromHtml(newsItem.cleanedDescription)
+      }
+    }
 
-        // Remove listener before setting the new one
+    private fun setMediaContent(itemView: View, newsItem: NewsItem) {
+
+      with(itemView) {
+
         news_content_image.setOnClickListener(null)
 
         when {
@@ -130,11 +141,11 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
             }
           }
           newsItem.videos.isNotEmpty() -> {
+            val url = newsItem.videos.first()
             news_content_image.showView()
-            thumbnailsLoader.loadThumbnail(
-                parseLink(newsItem.videos.first()), news_content_image)
+            thumbnailsLoader.loadThumbnail(video = parseLink(url), imageView = news_content_image)
             news_content_image.setOnClickListener {
-              context.startActivity<VideoDisplayActivity>("video" to newsItem.videosRaw.first())
+              context.startActivity<VideoDisplayActivity>("video" to url)
             }
           }
           else -> news_content_image.hideView()

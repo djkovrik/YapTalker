@@ -18,6 +18,7 @@ import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
@@ -47,12 +48,9 @@ class NewsController : BaseController(), NewsView {
     newsAdapter = NewsAdapter { link, forumLink ->
 
       if (link.contains("yaplakal.com")) {
-        val topicId = link.getLastDigits()
-        val forumId = forumLink.getLastDigits()
         val bundle = Bundle()
-
-        bundle.putInt(ChosenTopicController.TOPIC_ID_KEY, topicId)
-        bundle.putInt(ChosenTopicController.FORUM_ID_KEY, forumId)
+        bundle.putInt(ChosenTopicController.TOPIC_ID_KEY, link.getLastDigits())
+        bundle.putInt(ChosenTopicController.FORUM_ID_KEY, forumLink.getLastDigits())
 
         router.pushController(
             RouterTransaction.with(ChosenTopicController(bundle))
@@ -62,8 +60,6 @@ class NewsController : BaseController(), NewsView {
     }
 
     newsAdapter.setHasStableIds(true)
-
-    view.refresh_layout.setIndicatorColorScheme()
 
     with(view.news_list) {
       val linearLayout = LinearLayoutManager(context)
@@ -78,7 +74,10 @@ class NewsController : BaseController(), NewsView {
       }, linearLayout))
     }
 
+    view.refresh_layout.setIndicatorColorScheme()
+
     newsPresenter.loadNews(true)
+    newsPresenter.setAppbarTitle(view.context.stringRes(R.string.nav_drawer_main_page))
   }
 
   override fun subscribeViews(parent: View) {
@@ -105,21 +104,16 @@ class NewsController : BaseController(), NewsView {
     }
   }
 
-  override fun onDestroyView(view: View) {
-    super.onDestroyView(view)
-    view.news_list.adapter = null
-  }
-
-  override fun showRefreshing() {
-    view?.refresh_layout?.isRefreshing = true
-  }
-
-  override fun hideRefreshing() {
-    view?.refresh_layout?.isRefreshing = false
+  override fun updateAppbarTitle(title: String) {
+    controllerToolbar?.title = title
   }
 
   override fun showErrorMessage(message: String) {
     toastError(message)
+  }
+
+  override fun showLoadingIndicator(shouldShow: Boolean) {
+    view?.refresh_layout?.isRefreshing = shouldShow
   }
 
   override fun clearNewsList() {
@@ -130,35 +124,34 @@ class NewsController : BaseController(), NewsView {
     newsAdapter.addNewsItem(item)
   }
 
-  override fun hideFab() {
-    if (!isFabShown) {
-      return
-    }
+  override fun showFab(shouldShow: Boolean) {
 
-    view?.news_fab?.let { fab ->
-      val offset = fab.height + fab.paddingTop + fab.paddingBottom
-      fab.hideBeyondScreenEdge(offset.toFloat())
-      isFabShown = false
+    if (shouldShow) {
+
+      if (isFabShown) {
+        return
+      }
+
+      view?.news_fab?.let { fab ->
+        fab.showFromScreenEdge()
+        isFabShown = true
+      }
+
+    } else {
+      if (!isFabShown) {
+        return
+      }
+
+      view?.news_fab?.let { fab ->
+        val offset = fab.height + fab.paddingTop + fab.paddingBottom
+        fab.hideBeyondScreenEdge(offset.toFloat())
+        isFabShown = false
+      }
     }
   }
 
   override fun hideFabWithoutAnimation() {
     view?.news_fab?.translationY = INITIAL_FAB_OFFSET
     isFabShown = false
-  }
-
-  override fun showFab() {
-    if (isFabShown) {
-      return
-    }
-
-    view?.news_fab?.let { fab ->
-      fab.showFromScreenEdge()
-      isFabShown = true
-    }
-  }
-
-  override fun setAppbarTitle(title: String) {
-    controllerToolbar?.title = title
   }
 }

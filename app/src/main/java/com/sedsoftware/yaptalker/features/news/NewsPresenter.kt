@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.features.news
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.base.BasePresenter
+import com.sedsoftware.yaptalker.base.BasePresenterWithLoading
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
-class NewsPresenter : BasePresenter<NewsView>() {
+class NewsPresenter : BasePresenterWithLoading<NewsView>() {
 
   companion object {
     private const val NEWS_PER_PAGE = 50
@@ -25,6 +25,21 @@ class NewsPresenter : BasePresenter<NewsView>() {
   override fun attachView(view: NewsView?) {
     super.attachView(view)
     viewState.hideFabWithoutAnimation()
+  }
+
+  override fun onLoadingStart() {
+    viewState.showLoadingIndicator(true)
+  }
+
+  override fun onLoadingFinish() {
+    viewState.showLoadingIndicator(false)
+  }
+
+  fun handleFabVisibility(isFabShown: Boolean, diff: Int) {
+    when {
+      isFabShown && diff > 0 -> viewState.showFab(false)
+      !isFabShown && diff < 0 -> viewState.showFab(true)
+    }
   }
 
   fun loadNews(loadFromFirstPage: Boolean) {
@@ -57,13 +72,6 @@ class NewsPresenter : BasePresenter<NewsView>() {
           throwable ->
           onLoadingError(throwable)
         })
-  }
-
-  fun handleFabVisibility(isFabShown: Boolean, diff: Int) {
-    when {
-      isFabShown && diff > 0 -> viewState.hideFab()
-      !isFabShown && diff < 0 -> viewState.showFab()
-    }
   }
 
   private fun onLoadingSuccess(newsItem: NewsItem) {
