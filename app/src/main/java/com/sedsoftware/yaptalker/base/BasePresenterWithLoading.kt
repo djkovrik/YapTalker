@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.base
 
 import com.arellomobile.mvp.MvpPresenter
-import com.arellomobile.mvp.MvpView
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.LazyKodeinAware
 import com.github.salomonbrys.kodein.instance
@@ -14,7 +13,7 @@ import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Maybe
 
-abstract class BasePresenterWithLoading<View : MvpView> : MvpPresenter<View>(), LazyKodeinAware {
+abstract class BasePresenterWithLoading<View : BaseViewWithLoading> : MvpPresenter<View>(), LazyKodeinAware {
 
   override val kodein: LazyKodein
     get() = LazyKodein { YapTalkerApp.kodeinInstance }
@@ -30,8 +29,9 @@ abstract class BasePresenterWithLoading<View : MvpView> : MvpPresenter<View>(), 
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
 
   // Connection state events
-  abstract fun onLoadingStart()
-  abstract fun onLoadingFinish()
+  protected abstract fun onLoadingStart()
+
+  protected abstract fun onLoadingFinish()
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
@@ -50,6 +50,10 @@ abstract class BasePresenterWithLoading<View : MvpView> : MvpPresenter<View>(), 
   override fun onDestroy() {
     super.onDestroy()
     lifecycle.accept(PresenterLifecycle.DESTROY)
+  }
+
+  fun setAppbarTitle(title: String) {
+    viewState.updateAppbarTitle(title)
   }
 
   protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> {

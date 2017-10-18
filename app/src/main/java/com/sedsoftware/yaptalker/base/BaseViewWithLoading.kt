@@ -4,9 +4,9 @@ import com.arellomobile.mvp.MvpView
 
 interface BaseViewWithLoading : MvpView {
 
-  fun setAppbarTitle(title: String)
+  fun updateAppbarTitle(title: String)
 
   fun showErrorMessage(message: String)
 
-  fun showLoadingIndicator(isShown: Boolean)
+  fun showLoadingIndicator(shouldShow: Boolean)
 }
