@@ -80,6 +80,12 @@ class NewsController : BaseController(), NewsView {
     newsPresenter.setAppbarTitle(view.context.stringRes(R.string.nav_drawer_main_page))
   }
 
+  override fun onDestroyView(view: View) {
+    super.onDestroyView(view)
+    // Temp fix for InputMethodManager leak
+    view.news_list.adapter = null
+  }
+
   override fun subscribeViews(parent: View) {
 
     parent.refresh_layout?.let {

@@ -83,6 +83,14 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     bottomSheetBehavior = BottomSheetBehavior.from(view.navigation_panel)
   }
 
+  override fun updateAppbarTitle(title: String) {
+
+  }
+
+  override fun showLoadingIndicator(shouldShow: Boolean) {
+
+  }
+
   override fun subscribeViews(parent: View) {
 
     parent.forum_refresh_layout?.let {

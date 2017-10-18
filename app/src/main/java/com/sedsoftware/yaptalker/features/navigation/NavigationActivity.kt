@@ -229,6 +229,14 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 //    supportActionBar?.title = text
 //  }
 
+  override fun updateAppbarTitle(title: String) {
+
+  }
+
+  override fun showErrorMessage(message: String) {
+
+  }
+
   override fun onControllerChanged(target: Controller?) {
     when (target) {
       is NewsController -> navDrawer.setSelection(Navigation.MAIN_PAGE, false)

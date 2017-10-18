@@ -74,6 +74,14 @@ class ForumsController : BaseController(), ForumsView {
     }
   }
 
+  override fun updateAppbarTitle(title: String) {
+
+  }
+
+  override fun showLoadingIndicator(shouldShow: Boolean) {
+
+  }
+
   override fun onSaveViewState(view: View, outState: Bundle) {
     super.onSaveViewState(view, outState)
     val forums = forumsAdapter.getForums()

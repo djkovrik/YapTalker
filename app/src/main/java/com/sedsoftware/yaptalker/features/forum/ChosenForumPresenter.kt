@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.features.forum
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.base.BasePresenter
+import com.sedsoftware.yaptalker.base.BasePresenterWithLoading
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
@@ -11,7 +11,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
-class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
+class ChosenForumPresenter : BasePresenterWithLoading<ChosenForumView>() {
 
   companion object {
     private const val LAST_UPDATE_SORTER = "last_post"
@@ -29,6 +29,14 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   override fun attachView(view: ChosenForumView?) {
     super.attachView(view)
     viewState.hideNavigationPanel()
+  }
+
+  override fun onLoadingStart() {
+
+  }
+
+  override fun onLoadingFinish() {
+
   }
 
   fun checkSavedState(forumId: Int, savedViewState: Bundle?, key: String) {

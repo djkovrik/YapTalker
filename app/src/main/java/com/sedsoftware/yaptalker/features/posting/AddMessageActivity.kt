@@ -72,6 +72,14 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
     return true
   }
 
+  override fun updateAppbarTitle(title: String) {
+
+  }
+
+  override fun showErrorMessage(message: String) {
+
+  }
+
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
       R.id.action_send -> {

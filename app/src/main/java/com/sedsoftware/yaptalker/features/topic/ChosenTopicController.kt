@@ -154,6 +154,14 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     }
   }
 
+  override fun updateAppbarTitle(title: String) {
+
+  }
+
+  override fun showLoadingIndicator(shouldShow: Boolean) {
+
+  }
+
   override fun onDestroyView(view: View) {
     super.onDestroyView(view)
     view.topic_posts_list.adapter = null

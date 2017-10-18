@@ -41,14 +41,16 @@ class UserProfileController(val bundle: Bundle) : BaseController(bundle), UserPr
   override fun subscribeViews(parent: View) {
   }
 
-  override fun showLoading() {
-  }
-
-  override fun showContent() {
-  }
-
   override fun showErrorMessage(message: String) {
     toastError(message)
+  }
+
+  override fun updateAppbarTitle(title: String) {
+
+  }
+
+  override fun showLoadingIndicator(shouldShow: Boolean) {
+
   }
 
   override fun displayProfile(profile: UserProfile) {
