@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.features.userprofile
 
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
@@ -25,9 +24,6 @@ class UserProfileController(val bundle: Bundle) : BaseController(bundle), UserPr
     bundle.getInt(USER_ID_KEY)
   }
 
-  override val controllerToolbar: Toolbar?
-    get() = view?.profile_toolbar
-
   override val controllerLayoutId: Int
     get() = R.layout.controller_user_profile
 
@@ -43,10 +39,6 @@ class UserProfileController(val bundle: Bundle) : BaseController(bundle), UserPr
 
   override fun showErrorMessage(message: String) {
     toastError(message)
-  }
-
-  override fun updateAppbarTitle(title: String) {
-
   }
 
   override fun showLoadingIndicator(shouldShow: Boolean) {

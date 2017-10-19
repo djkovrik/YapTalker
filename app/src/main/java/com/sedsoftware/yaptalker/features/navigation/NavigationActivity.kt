@@ -21,7 +21,6 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseActivityWithRouter
-import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
@@ -32,6 +31,7 @@ import com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity
 import com.sedsoftware.yaptalker.features.forumslist.ForumsController
 import com.sedsoftware.yaptalker.features.news.NewsController
 import com.sedsoftware.yaptalker.features.settings.SettingsActivity
+import kotlinx.android.synthetic.main.include_main_appbar.*
 import kotlinx.android.synthetic.main.include_main_content.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
@@ -93,10 +93,8 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-    if (resultCode == Activity.RESULT_OK) {
-      when (requestCode) {
-        SIGN_IN_REQUEST -> navigationViewPresenter.refreshAuthorization()
-      }
+    if (resultCode == Activity.RESULT_OK && requestCode == SIGN_IN_REQUEST) {
+      navigationViewPresenter.refreshAuthorization()
     }
   }
 
@@ -104,10 +102,6 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
     when (target) {
       is NewsController -> navDrawer.setSelection(Navigation.MAIN_PAGE, false)
       else -> navDrawer.setSelection(Navigation.FORUMS, false)
-    }
-
-    if (target is BaseController) {
-      target.controllerToolbar?.let { navDrawer.setToolbar(this, it, true) }
     }
   }
 
@@ -180,6 +174,7 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
     navDrawer = DrawerBuilder()
         .withActivity(this)
         .withAccountHeader(navHeader)
+        .withToolbar(toolbar)
         .addDrawerItems(drawerItemMainPage)
         .addDrawerItems(drawerItemForums)
         .addDrawerItems(DividerDrawerItem())

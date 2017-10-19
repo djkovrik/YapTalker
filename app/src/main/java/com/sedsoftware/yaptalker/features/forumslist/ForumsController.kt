@@ -3,7 +3,6 @@ package com.sedsoftware.yaptalker.features.forumslist
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.RouterTransaction
@@ -13,7 +12,6 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.features.forum.ChosenForumController
@@ -30,9 +28,6 @@ class ForumsController : BaseController(), ForumsView {
   lateinit var forumsPresenter: ForumsPresenter
 
   private lateinit var forumsAdapter: ForumsAdapter
-
-  override val controllerToolbar: Toolbar?
-    get() = view?.forums_list_toolbar
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_forums_list
@@ -63,7 +58,6 @@ class ForumsController : BaseController(), ForumsView {
     }
 
     forumsPresenter.checkSavedState(savedViewState, FORUMS_LIST_KEY)
-    forumsPresenter.setAppbarTitle(view.context.stringRes(R.string.nav_drawer_forums))
   }
 
   override fun subscribeViews(parent: View) {
@@ -87,11 +81,6 @@ class ForumsController : BaseController(), ForumsView {
   override fun onDestroyView(view: View) {
     super.onDestroyView(view)
     view.forums_list.adapter = null
-  }
-
-
-  override fun updateAppbarTitle(title: String) {
-    controllerToolbar?.title = title
   }
 
   override fun showErrorMessage(message: String) {

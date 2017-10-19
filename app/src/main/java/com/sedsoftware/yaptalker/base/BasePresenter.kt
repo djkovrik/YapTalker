@@ -28,10 +28,6 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
     lifecycle.accept(PresenterLifecycle.DESTROY)
   }
 
-  fun setAppbarTitle(title: String) {
-    viewState.updateAppbarTitle(title)
-  }
-
   protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> {
     return lifecycle.filter({ e -> e == event }).firstElement()
   }

@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.base
 
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,9 +20,7 @@ abstract class BaseController : RestoreViewOnCreateController {
   constructor(args: Bundle?) : super(args) {
     mvpDelegate.onCreate(args)
   }
-
-  abstract val controllerToolbar: Toolbar?
-
+  
   protected abstract val controllerLayoutId: Int
 
   protected abstract fun onViewBound(view: View, savedViewState: Bundle?)

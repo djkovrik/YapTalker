@@ -2,7 +2,6 @@ package com.sedsoftware.yaptalker.features.news
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.RouterTransaction
@@ -18,7 +17,6 @@ import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
-import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
@@ -36,9 +34,6 @@ class NewsController : BaseController(), NewsView {
 
   private lateinit var newsAdapter: NewsAdapter
   private var isFabShown = false
-
-  override val controllerToolbar: Toolbar?
-    get() = view?.news_toolbar
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_news
@@ -77,7 +72,6 @@ class NewsController : BaseController(), NewsView {
     view.refresh_layout.setIndicatorColorScheme()
 
     newsPresenter.loadNews(true)
-    newsPresenter.setAppbarTitle(view.context.stringRes(R.string.nav_drawer_main_page))
   }
 
   override fun onDestroyView(view: View) {
@@ -108,10 +102,6 @@ class NewsController : BaseController(), NewsView {
           .autoDisposeWith(scopeProvider)
           .subscribe { newsPresenter.loadNews(loadFromFirstPage = true) }
     }
-  }
-
-  override fun updateAppbarTitle(title: String) {
-    controllerToolbar?.title = title
   }
 
   override fun showErrorMessage(message: String) {
