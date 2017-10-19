@@ -12,6 +12,8 @@ import com.sedsoftware.yaptalker.data.remote.YapDataManager
 import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Maybe
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 abstract class BasePresenterWithLoading<View : BaseViewWithLoading> : MvpPresenter<View>(), LazyKodeinAware {
 
@@ -21,6 +23,7 @@ abstract class BasePresenterWithLoading<View : BaseViewWithLoading> : MvpPresent
   // Kodein injections
   protected val yapDataManager: YapDataManager by instance()
   protected val settings: SettingsHelper by instance()
+  private val appbarBus: BehaviorRelay<String> by instance()
 
   // Global connection events channel
   private val connectionRelay: BehaviorRelay<Long> by instance()
@@ -45,6 +48,13 @@ abstract class BasePresenterWithLoading<View : BaseViewWithLoading> : MvpPresent
   override fun onDestroy() {
     super.onDestroy()
     lifecycle.accept(PresenterLifecycle.DESTROY)
+  }
+
+  fun updateAppbarTitle(title: String) {
+    Observable
+        .just(title)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(appbarBus)
   }
 
   protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> {

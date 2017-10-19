@@ -68,6 +68,7 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    setSupportActionBar(toolbar)
 
     navigationViewPresenter.initLayout(savedInstanceState)
     navigationViewPresenter.refreshAuthorization()
@@ -103,10 +104,6 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
       is NewsController -> navDrawer.setSelection(Navigation.MAIN_PAGE, false)
       else -> navDrawer.setSelection(Navigation.FORUMS, false)
     }
-  }
-
-  override fun updateAppbarTitle(title: String) {
-
   }
 
   override fun showErrorMessage(message: String) {
@@ -227,6 +224,10 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
   override fun goToMainPage() {
     router.popToRoot()
+  }
+
+  override fun setAppbarTitle(title: String) {
+    supportActionBar?.title = title
   }
 
   override fun updateNavDrawer(userInfo: AuthorizedUserInfo) {

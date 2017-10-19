@@ -12,6 +12,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.features.forum.ChosenForumController
@@ -58,6 +59,7 @@ class ForumsController : BaseController(), ForumsView {
     }
 
     forumsPresenter.checkSavedState(savedViewState, FORUMS_LIST_KEY)
+    forumsPresenter.updateAppbarTitle(view.context.stringRes(R.string.nav_drawer_forums))
   }
 
   override fun subscribeViews(parent: View) {

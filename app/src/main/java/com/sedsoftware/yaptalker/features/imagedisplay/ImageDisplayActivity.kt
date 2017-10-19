@@ -72,10 +72,6 @@ class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
     }
   }
 
-  override fun updateAppbarTitle(title: String) {
-
-  }
-
   override fun showErrorMessage(message: String) {
 
   }

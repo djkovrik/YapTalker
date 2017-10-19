@@ -17,6 +17,7 @@ import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
@@ -72,6 +73,7 @@ class NewsController : BaseController(), NewsView {
     view.refresh_layout.setIndicatorColorScheme()
 
     newsPresenter.loadNews(true)
+    newsPresenter.updateAppbarTitle(view.context.stringRes(R.string.nav_drawer_main_page))
   }
 
   override fun onDestroyView(view: View) {

@@ -15,6 +15,14 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
 
   private val cookieStorage: ClearableCookieJar by instance()
 
+  override fun onFirstViewAttach() {
+    super.onFirstViewAttach()
+
+    appbarBus
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe { title -> viewState.setAppbarTitle(title)}
+  }
+
   fun initLayout(savedInstanceState: Bundle?) {
     viewState.initDrawer(savedInstanceState)
   }

@@ -52,10 +52,6 @@ class AuthorizationActivity : BaseActivity(), AuthorizationView {
         }
   }
 
-  override fun updateAppbarTitle(title: String) {
-
-  }
-
   override fun showErrorMessage(message: String) {
     toastError(message)
   }

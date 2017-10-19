@@ -17,5 +17,7 @@ interface NavigationView : BaseView {
 
   fun goToMainPage()
 
+  fun setAppbarTitle(title: String)
+
   fun updateNavDrawer(userInfo: AuthorizedUserInfo)
 }
