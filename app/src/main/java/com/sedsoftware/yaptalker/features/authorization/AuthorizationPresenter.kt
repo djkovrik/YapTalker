@@ -8,7 +8,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
 import retrofit2.Response
-import timber.log.Timber
 
 @InjectViewState
 class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
@@ -35,7 +34,7 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
         }, {
           // On Error
           error ->
-          Timber.d("Login error: ${error.message}")
+          error.message?.let { viewState.showErrorMessage(it) }
         })
   }
 
