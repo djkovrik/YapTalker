@@ -24,12 +24,8 @@ class ChosenForumPresenter : BasePresenterWithLoading<ChosenForumView>() {
   private var currentSorting = LAST_UPDATE_SORTER
   private var currentPage = 0
   private var totalPages = -1
+  // TODO(0) Move global title saving to base presenter mb (or nav activity)
   private var currentTitle = ""
-
-  override fun attachView(view: ChosenForumView?) {
-    super.attachView(view)
-    viewState.hideNavigationPanel()
-  }
 
   fun checkSavedState(forumId: Int, savedViewState: Bundle?, key: String) {
     if (savedViewState != null && savedViewState.containsKey(key)) {
@@ -74,13 +70,6 @@ class ChosenForumPresenter : BasePresenterWithLoading<ChosenForumView>() {
       loadForumCurrentPage()
     } else {
       viewState.showCantLoadPageMessage(chosenPage)
-    }
-  }
-
-  fun handleNavigationVisibility(isNavigationShown: Boolean, diff: Int) {
-    when {
-      isNavigationShown && diff > 0 -> viewState.hideNavigationPanel()
-      !isNavigationShown && diff < 0 -> viewState.showNavigationPanel()
     }
   }
 

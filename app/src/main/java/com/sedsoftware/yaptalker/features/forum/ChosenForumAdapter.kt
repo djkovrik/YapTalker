@@ -33,8 +33,7 @@ class ChosenForumAdapter(private val itemClick: (Int) -> Unit) :
   private var topics: ArrayList<Topic> = ArrayList()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForumViewHolder {
-    val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_chosen_forum_item,
-        parent, false)
+    val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_chosen_forum_item, parent, false)
     return ForumViewHolder(view, itemClick)
   }
 
@@ -65,13 +64,13 @@ class ChosenForumAdapter(private val itemClick: (Int) -> Unit) :
       with(topicItem) {
         with(itemView) {
           if (isPinned.isNotEmpty()) {
-            topic_name.text = String.format(Locale.US, pinnedTopicTemplate, title)
+            topic_name.text = String.format(Locale.getDefault(), pinnedTopicTemplate, title)
           } else {
             topic_name.text = title
           }
           topic_last_post_author.text = lastPostAuthor
           topic_last_post_date.shortDateText = lastPostDate
-          topic_answers.text = String.format(Locale.US, commentsTemplate, answers)
+          topic_answers.text = String.format(Locale.getDefault(), commentsTemplate, answers)
           topic_rating.text = rating
 
           if (rating.isNotEmpty()) {

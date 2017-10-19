@@ -8,10 +8,6 @@ import com.sedsoftware.yaptalker.data.model.Topic
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface ChosenForumView : BaseViewWithLoading {
 
-  fun showRefreshing()
-
-  fun hideRefreshing()
-
   fun refreshTopics(topics: List<Topic>)
 
   fun setNavigationPagesLabel(page: Int, totalPages: Int)
@@ -20,13 +16,9 @@ interface ChosenForumView : BaseViewWithLoading {
 
   fun setIfNavigationForwardEnabled(isEnabled: Boolean)
 
+  fun scrollToViewTop()
+
   fun showGoToPageDialog(maxPages: Int)
 
   fun showCantLoadPageMessage(page: Int)
-
-  fun scrollToViewTop()
-
-  fun hideNavigationPanel()
-
-  fun showNavigationPanel()
 }

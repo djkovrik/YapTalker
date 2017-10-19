@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.features.forum
 
 import android.os.Bundle
-import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
@@ -11,7 +10,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
-import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseController
@@ -42,8 +40,6 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
   lateinit var forumPresenter: ChosenForumPresenter
 
   private lateinit var forumAdapter: ChosenForumAdapter
-  private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
-  private var isNavigationShown = true
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_chosen_forum
@@ -75,12 +71,6 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     }
 
     forumPresenter.checkSavedState(currentForumId, savedViewState, TOPICS_LIST_KEY)
-
-    bottomSheetBehavior = BottomSheetBehavior.from(view.navigation_panel)
-  }
-
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-
   }
 
   override fun subscribeViews(parent: View) {
@@ -112,15 +102,6 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
           .autoDisposeWith(scopeProvider)
           .subscribe { forumPresenter.goToChosenPage() }
     }
-
-    parent.forum_topics_list?.let {
-      RxRecyclerView
-          .scrollEvents(parent.forum_topics_list)
-          .autoDisposeWith(scopeProvider)
-          .subscribe { event ->
-            forumPresenter.handleNavigationVisibility(isNavigationShown, event.dy())
-          }
-    }
   }
 
   override fun onSaveViewState(view: View, outState: Bundle) {
@@ -136,16 +117,12 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     view.forum_topics_list.adapter = null
   }
 
-  override fun showRefreshing() {
-    view?.forum_refresh_layout?.isRefreshing = true
-  }
-
-  override fun hideRefreshing() {
-    view?.forum_refresh_layout?.isRefreshing = false
-  }
-
   override fun showErrorMessage(message: String) {
     toastError(message)
+  }
+
+  override fun showLoadingIndicator(shouldShow: Boolean) {
+    view?.forum_refresh_layout?.isRefreshing = shouldShow
   }
 
   override fun refreshTopics(topics: List<Topic>) {
@@ -153,11 +130,10 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun setNavigationPagesLabel(page: Int, totalPages: Int) {
-
     val template = view?.context?.stringRes(R.string.navigation_pages_template) ?: ""
 
     if (template.isNotEmpty()) {
-      view?.navigation_pages_label?.text = String.format(Locale.US, template, page, totalPages)
+      view?.navigation_pages_label?.text = String.format(Locale.getDefault(), template, page, totalPages)
     }
   }
 
@@ -169,8 +145,11 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     view?.navigation_go_next?.isEnabled = isEnabled
   }
 
-  override fun showGoToPageDialog(maxPages: Int) {
+  override fun scrollToViewTop() {
+    view?.forum_topics_list?.layoutManager?.scrollToPosition(0)
+  }
 
+  override fun showGoToPageDialog(maxPages: Int) {
     view?.context?.let {
       MaterialDialog.Builder(it)
           .title(R.string.navigation_go_to_page_title)
@@ -188,19 +167,5 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     messageTemplate?.let {
       toastWarning(String.format(Locale.US, it, page))
     }
-  }
-
-  override fun scrollToViewTop() {
-    view?.forum_topics_list?.layoutManager?.scrollToPosition(0)
-  }
-
-  override fun hideNavigationPanel() {
-    isNavigationShown = false
-    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-  }
-
-  override fun showNavigationPanel() {
-    isNavigationShown = true
-    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
   }
 }
