@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.base.BaseView
+import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
 
 @StateStrategyType(OneExecutionStateStrategy::class)
 interface NavigationView : BaseView {
@@ -15,4 +16,6 @@ interface NavigationView : BaseView {
   fun showSignOutMessage()
 
   fun goToMainPage()
+
+  fun updateNavDrawer(userInfo: AuthorizedUserInfo)
 }

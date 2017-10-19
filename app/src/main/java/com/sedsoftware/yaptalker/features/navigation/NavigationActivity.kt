@@ -17,13 +17,17 @@ import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseActivityWithRouter
 import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
+import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
+import com.sedsoftware.yaptalker.commons.extensions.validateURL
+import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity
 import com.sedsoftware.yaptalker.features.forumslist.ForumsController
 import com.sedsoftware.yaptalker.features.news.NewsController
@@ -32,7 +36,6 @@ import kotlinx.android.synthetic.main.include_main_content.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 
-// TODO() Register app to open yaplakal.com links
 // TODO() Investigate app crash when in paused state
 class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
@@ -60,11 +63,14 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
   private lateinit var drawerItemSignIn: PrimaryDrawerItem
   private lateinit var drawerItemSignOut: PrimaryDrawerItem
 
+  private var isSignInAvailable = false
+  private var isSignInDisplayed = false
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     navigationViewPresenter.initLayout(savedInstanceState)
-
+    navigationViewPresenter.refreshAuthorization()
   }
 
   // Init Iconics here
@@ -92,6 +98,25 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
         SIGN_IN_REQUEST -> navigationViewPresenter.refreshAuthorization()
       }
     }
+  }
+
+  override fun onControllerChanged(target: Controller?) {
+    when (target) {
+      is NewsController -> navDrawer.setSelection(Navigation.MAIN_PAGE, false)
+      else -> navDrawer.setSelection(Navigation.FORUMS, false)
+    }
+
+    if (target is BaseController) {
+      target.controllerToolbar?.let { navDrawer.setToolbar(this, it, true) }
+    }
+  }
+
+  override fun updateAppbarTitle(title: String) {
+
+  }
+
+  override fun showErrorMessage(message: String) {
+    toastError(message)
   }
 
   override fun initDrawer(savedInstanceState: Bundle?) {
@@ -194,60 +219,11 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
       }
       Navigation.SIGN_OUT -> {
         navigationViewPresenter.signOut()
-        navigationViewPresenter.refreshAuthorization()
         router.popToRoot()
       }
     }
-  }
-
-//  override fun setActiveProfile(event: UpdateNavDrawerEvent) {
-//
-//    val profile = if (event.name.isNotEmpty()) {
-//      ProfileDrawerItem()
-//          .withName(event.name)
-//          .withEmail(event.title)
-//          .withIcon(event.avatar)
-//          .withIdentifier(2L)
-//    } else {
-//      ProfileDrawerItem()
-//          .withName(stringRes(R.string.nav_drawer_guest_name))
-//          .withEmail("")
-//          .withIdentifier(1L)
-//    }
-//
-//    navHeader.profiles.clear()
-//    navHeader.addProfiles(profile)
-//
-//    if (navHeader.activeProfile.name.toString() == stringRes(R.string.nav_drawer_guest_name)) {
-//      signInItemAvailable()
-//    } else {
-//      signOutItemAvailable()
-//    }
-//  }
-
-//  override fun setAppbarTitle(text: String) {
-//    supportActionBar?.title = text
-//  }
-
-  override fun updateAppbarTitle(title: String) {
-
-  }
-
-  override fun showErrorMessage(message: String) {
-
-  }
-
-  override fun onControllerChanged(target: Controller?) {
-    when (target) {
-      is NewsController -> navDrawer.setSelection(Navigation.MAIN_PAGE, false)
-      else -> navDrawer.setSelection(Navigation.FORUMS, false)
-    }
 
     navigationViewPresenter.refreshAuthorization()
-
-    if (target is BaseController) {
-      target.controllerToolbar?.let { navDrawer.setToolbar(this, it, true) }
-    }
   }
 
   override fun showSignOutMessage() {
@@ -258,15 +234,46 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
     router.popToRoot()
   }
 
-  private fun signInItemAvailable() {
+  override fun updateNavDrawer(userInfo: AuthorizedUserInfo) {
+
+    val guestName = stringRes(R.string.nav_drawer_guest_name)
+    val currentName = userInfo.nickname
+
+    isSignInAvailable = currentName.isEmpty()
+
+    val profile = if (userInfo.nickname.isNotEmpty()) {
+      ProfileDrawerItem()
+          .withName(userInfo.nickname)
+          .withEmail(userInfo.title)
+          .withIcon(userInfo.avatar.validateURL())
+          .withIdentifier(1L)
+    } else {
+      ProfileDrawerItem()
+          .withName(guestName)
+          .withEmail("")
+          .withIdentifier(2L)
+    }
+
+    navHeader.profiles.clear()
+    navHeader.addProfiles(profile)
+
+    when {
+      isSignInAvailable && !isSignInDisplayed -> displaySignIn()
+      !isSignInAvailable && isSignInDisplayed -> displaySignOut()
+    }
+  }
+
+  private fun displaySignIn() {
     navDrawer.removeItem(Navigation.SIGN_IN)
     navDrawer.removeItem(Navigation.SIGN_OUT)
     navDrawer.addItem(drawerItemSignIn)
+    isSignInDisplayed = true
   }
 
-  private fun signOutItemAvailable() {
+  private fun displaySignOut() {
     navDrawer.removeItem(Navigation.SIGN_IN)
     navDrawer.removeItem(Navigation.SIGN_OUT)
     navDrawer.addItem(drawerItemSignOut)
+    isSignInDisplayed = false
   }
 }
