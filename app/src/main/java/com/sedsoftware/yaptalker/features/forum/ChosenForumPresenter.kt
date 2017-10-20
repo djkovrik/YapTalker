@@ -20,6 +20,7 @@ class ChosenForumPresenter : BasePresenterWithLoading<ChosenForumView>() {
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
 
+  private var currentTitle = ""
   private var currentForumId = 0
   private var currentSorting = LAST_UPDATE_SORTER
   private var currentPage = 0
@@ -115,13 +116,15 @@ class ChosenForumPresenter : BasePresenterWithLoading<ChosenForumView>() {
     viewState.scrollToViewTop()
     setNavigationLabel()
     setNavigationAvailability()
-    updateAppbarTitle(forumPage.forumTitle)
+    currentTitle = forumPage.forumTitle
+    updateAppbarTitle(currentTitle)
   }
 
   private fun onRestoringSuccess(topics: List<Topic>) {
     viewState.refreshTopics(topics)
     setNavigationLabel()
     setNavigationAvailability()
+    updateAppbarTitle(currentTitle)
   }
 
   private fun onLoadingError(error: Throwable) {
