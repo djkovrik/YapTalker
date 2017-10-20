@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.features.news
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.base.BasePresenterWithLoading
+import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.model.NewsItem
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
-class NewsPresenter : BasePresenterWithLoading<NewsView>() {
+class NewsPresenter : BasePresenter<NewsView>() {
 
   companion object {
     private const val NEWS_PER_PAGE = 50

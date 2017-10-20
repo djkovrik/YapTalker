@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.features.topic
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.base.BasePresenterWithLoading
+import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.model.TopicPage
@@ -12,7 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
-class ChosenTopicPresenter : BasePresenterWithLoading<ChosenTopicView>() {
+class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   companion object {
     private const val POSTS_PER_PAGE = 25

@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.features.forumslist
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.base.BasePresenterWithLoading
+import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
-class ForumsPresenter : BasePresenterWithLoading<ForumsView>() {
+class ForumsPresenter : BasePresenter<ForumsView>() {
 
   @Suppress("MagicNumber")
   companion object {
