@@ -40,7 +40,8 @@ import org.jetbrains.anko.startActivityForResult
 class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
   companion object {
-    const val SIGN_IN_REQUEST = 123
+    private const val APPBAR_TITLE_KEY = "APPBAR_TITLE_KEY"
+    private const val SIGN_IN_REQUEST = 123
   }
 
   @InjectPresenter
@@ -72,6 +73,7 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
     navigationViewPresenter.initLayout(savedInstanceState)
     navigationViewPresenter.refreshAuthorization()
+    navigationViewPresenter.restoreCurrentTitle(APPBAR_TITLE_KEY, savedInstanceState)
   }
 
   // Init Iconics here
@@ -80,6 +82,7 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
   }
 
   override fun onSaveInstanceState(outState: Bundle?) {
+    navigationViewPresenter.saveCurrentTitle(APPBAR_TITLE_KEY, outState)
     navDrawer.saveInstanceState(outState)
     navHeader.saveInstanceState(outState)
     super.onSaveInstanceState(outState)

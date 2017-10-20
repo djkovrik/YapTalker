@@ -15,12 +15,29 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
 
   private val cookieStorage: ClearableCookieJar by instance()
 
+  private var currentTitle: String = ""
+
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
     appbarBus
         .autoDisposeWith(event(PresenterLifecycle.DESTROY))
-        .subscribe { title -> viewState.setAppbarTitle(title)}
+        .subscribe { title ->
+          viewState.setAppbarTitle(title)
+          currentTitle = title
+        }
+  }
+
+  fun saveCurrentTitle(key: String, outState: Bundle?) {
+    outState?.putString(key, currentTitle)
+  }
+
+  fun restoreCurrentTitle(key: String, savedInstanceState: Bundle?) {
+    savedInstanceState?.let {
+      if (savedInstanceState.containsKey(key)) {
+        updateAppbarTitle(savedInstanceState.getString(key))
+      }
+    }
   }
 
   fun initLayout(savedInstanceState: Bundle?) {

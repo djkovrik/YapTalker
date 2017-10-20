@@ -24,8 +24,6 @@ class ChosenForumPresenter : BasePresenterWithLoading<ChosenForumView>() {
   private var currentSorting = LAST_UPDATE_SORTER
   private var currentPage = 0
   private var totalPages = -1
-  // TODO(0) Move global title saving to base presenter mb (or nav activity)
-  private var currentTitle = ""
 
   fun checkSavedState(forumId: Int, savedViewState: Bundle?, key: String) {
     if (savedViewState != null && savedViewState.containsKey(key)) {
@@ -113,11 +111,11 @@ class ChosenForumPresenter : BasePresenterWithLoading<ChosenForumView>() {
 
   private fun onLoadingSuccess(forumPage: ForumPage) {
     totalPages = forumPage.totalPages.toInt()
-    currentTitle = forumPage.forumTitle
     viewState.refreshTopics(forumPage.topics)
     viewState.scrollToViewTop()
     setNavigationLabel()
     setNavigationAvailability()
+    updateAppbarTitle(forumPage.forumTitle)
   }
 
   private fun onRestoringSuccess(topics: List<Topic>) {

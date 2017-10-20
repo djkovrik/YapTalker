@@ -23,7 +23,6 @@ class ChosenTopicPresenter : BasePresenterWithLoading<ChosenTopicView>() {
   private var currentTopicId = 0
   private var currentPage = 0
   private var totalPages = -1
-  private var currentTitle = ""
   private var authKey = ""
 
   override fun attachView(view: ChosenTopicView?) {
@@ -87,7 +86,7 @@ class ChosenTopicPresenter : BasePresenterWithLoading<ChosenTopicView>() {
   }
 
   fun onFabClicked() {
-    viewState.showAddMessageActivity(currentTitle)
+    viewState.showAddMessageActivity("")
   }
 
   // TODO() Add closed topics detection
@@ -140,7 +139,6 @@ class ChosenTopicPresenter : BasePresenterWithLoading<ChosenTopicView>() {
 
   private fun onLoadingSuccess(topicPage: TopicPage) {
     totalPages = topicPage.totalPages.getLastDigits()
-    currentTitle = topicPage.topicTitle
     authKey = topicPage.authKey
     viewState.refreshPosts(topicPage.posts)
     viewState.scrollToViewTop()
