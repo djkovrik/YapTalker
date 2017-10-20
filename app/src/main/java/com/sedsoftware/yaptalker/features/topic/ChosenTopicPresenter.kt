@@ -15,6 +15,8 @@ import io.reactivex.schedulers.Schedulers
 class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   companion object {
+    private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
+    private const val CURRENT_TITLE_KEY = "CURRENT_TITLE_KEY"
     private const val POSTS_PER_PAGE = 25
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
@@ -31,12 +33,23 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     viewState.hideFabWithoutAnimation()
   }
 
-  fun checkSavedState(forumId: Int, topicId: Int, savedViewState: Bundle?, key: String) {
-    if (savedViewState != null && savedViewState.containsKey(key)) {
-      val posts = savedViewState.getParcelableArrayList<TopicPost>(key)
-      onRestoringSuccess(posts)
+  fun checkSavedState(forumId: Int, topicId: Int, savedViewState: Bundle?) {
+    if (savedViewState != null &&
+        savedViewState.containsKey(POSTS_LIST_KEY) &&
+        savedViewState.containsKey(CURRENT_TITLE_KEY)) {
+
+      with (savedViewState) {
+        onRestoringSuccess(getParcelableArrayList(POSTS_LIST_KEY), getString(CURRENT_TITLE_KEY))
+      }
     } else {
       loadTopic(forumId, topicId)
+    }
+  }
+
+  fun saveCurrentState(outState: Bundle, posts: ArrayList<TopicPost>) {
+    with(outState) {
+      putParcelableArrayList(POSTS_LIST_KEY, posts)
+      putString(CURRENT_TITLE_KEY, currentTitle)
     }
   }
 
@@ -138,16 +151,17 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   private fun onLoadingSuccess(topicPage: TopicPage) {
     totalPages = topicPage.totalPages.getLastDigits()
     authKey = topicPage.authKey
+    currentTitle = topicPage.topicTitle
+    updateAppbarTitle(currentTitle)
     viewState.refreshPosts(topicPage.posts)
     viewState.scrollToViewTop()
     setNavigationLabel()
     setNavigationAvailability()
-    currentTitle = topicPage.topicTitle
-    updateAppbarTitle(currentTitle)
   }
 
-  private fun onRestoringSuccess(list: List<TopicPost>) {
+  private fun onRestoringSuccess(list: List<TopicPost>, title: String) {
     viewState.refreshPosts(list)
+    updateAppbarTitle(title)
     setNavigationLabel()
     setNavigationAvailability()
     updateAppbarTitle(currentTitle)

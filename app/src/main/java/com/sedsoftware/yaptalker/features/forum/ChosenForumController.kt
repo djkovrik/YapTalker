@@ -28,7 +28,6 @@ import java.util.Locale
 class ChosenForumController(val bundle: Bundle) : BaseController(bundle), ChosenForumView {
 
   companion object {
-    private const val TOPICS_LIST_KEY = "TOPICS_LIST"
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
   }
 
@@ -70,7 +69,7 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
       setHasFixedSize(true)
     }
 
-    forumPresenter.checkSavedState(currentForumId, savedViewState, TOPICS_LIST_KEY)
+    forumPresenter.checkSavedState(currentForumId, savedViewState)
   }
 
   override fun subscribeViews(parent: View) {
@@ -108,7 +107,7 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     super.onSaveViewState(view, outState)
     val topics = forumAdapter.getTopics()
     if (topics.isNotEmpty()) {
-      outState.putParcelableArrayList(TOPICS_LIST_KEY, topics)
+      forumPresenter.saveCurrentState(outState, topics)
     }
   }
 

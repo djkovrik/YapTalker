@@ -9,11 +9,14 @@ import com.sedsoftware.yaptalker.data.model.Topic
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 @InjectViewState
 class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
   companion object {
+    private const val TOPICS_LIST_KEY = "TOPICS_LIST_KEY"
+    private const val CURRENT_TITLE_KEY = "CURRENT_TITLE_KEY"
     private const val LAST_UPDATE_SORTER = "last_post"
     private const val RATING_SORTER = "rank"
     private const val TOPICS_PER_PAGE = 30
@@ -26,12 +29,23 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   private var currentPage = 0
   private var totalPages = -1
 
-  fun checkSavedState(forumId: Int, savedViewState: Bundle?, key: String) {
-    if (savedViewState != null && savedViewState.containsKey(key)) {
-      val topics = savedViewState.getParcelableArrayList<Topic>(key)
-      onRestoringSuccess(topics)
+  fun checkSavedState(forumId: Int, savedViewState: Bundle?) {
+    if (savedViewState != null &&
+        savedViewState.containsKey(TOPICS_LIST_KEY) &&
+        savedViewState.containsKey(CURRENT_TITLE_KEY)) {
+
+      with (savedViewState) {
+        onRestoringSuccess(getParcelableArrayList(TOPICS_LIST_KEY), getString(CURRENT_TITLE_KEY))
+      }
     } else {
       loadForum(forumId)
+    }
+  }
+
+  fun saveCurrentState(outState: Bundle, topics: ArrayList<Topic>) {
+    with(outState) {
+      putParcelableArrayList(TOPICS_LIST_KEY, topics)
+      putString(CURRENT_TITLE_KEY, currentTitle)
     }
   }
 
@@ -112,19 +126,24 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
   private fun onLoadingSuccess(forumPage: ForumPage) {
     totalPages = forumPage.totalPages.toInt()
+    currentTitle = forumPage.forumTitle
+    updateAppbarTitle(currentTitle)
+
+    Timber.tag("xxxx").d("onLoadingSuccess")
+    Timber.tag("xxxx").d("currentTitle = $currentTitle")
+    Timber.tag("xxxx").d("totalPages = $totalPages")
+
     viewState.refreshTopics(forumPage.topics)
     viewState.scrollToViewTop()
     setNavigationLabel()
     setNavigationAvailability()
-    currentTitle = forumPage.forumTitle
-    updateAppbarTitle(currentTitle)
   }
 
-  private fun onRestoringSuccess(topics: List<Topic>) {
+  private fun onRestoringSuccess(topics: List<Topic>, title: String) {
     viewState.refreshTopics(topics)
+    updateAppbarTitle(title)
     setNavigationLabel()
     setNavigationAvailability()
-    updateAppbarTitle(currentTitle)
   }
 
   private fun onLoadingError(error: Throwable) {

@@ -3,7 +3,6 @@ package com.sedsoftware.yaptalker.features.topic
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
@@ -42,7 +41,6 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
     const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
     const val MESSAGE_TEXT_KEY = "MESSAGE_TEXT_KEY"
-    private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
     private const val INITIAL_FAB_OFFSET = 250f
     private const val MESSAGE_TEXT_REQUEST = 321
   }
@@ -59,7 +57,6 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   lateinit var topicPresenter: ChosenTopicPresenter
 
   private lateinit var topicAdapter: ChosenTopicAdapter
-  private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
   private var isFabShown = true
 
   override val controllerLayoutId: Int
@@ -90,9 +87,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
       setHasFixedSize(true)
     }
 
-    topicPresenter.checkSavedState(currentForumId, currentTopicId, savedViewState, POSTS_LIST_KEY)
-
-    bottomSheetBehavior = BottomSheetBehavior.from(view.navigation_panel)
+    topicPresenter.checkSavedState(currentForumId, currentTopicId, savedViewState)
   }
 
   override fun subscribeViews(parent: View) {
@@ -145,7 +140,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     super.onSaveViewState(view, outState)
     val posts = topicAdapter.getPosts()
     if (posts.isNotEmpty()) {
-      outState.putParcelableArrayList(POSTS_LIST_KEY, posts)
+      topicPresenter.saveCurrentState(outState, posts)
     }
   }
 
