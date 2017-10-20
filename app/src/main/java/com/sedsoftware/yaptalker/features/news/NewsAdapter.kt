@@ -110,15 +110,15 @@ class NewsAdapter(private val itemClick: (String, String) -> Unit) :
     private fun setViewsContent(itemView: View, newsItem: NewsItem) {
 
       val commentsTemplate: String = itemView.context.stringQuantityRes(
-          R.plurals.news_comments_template, newsItem.comments.getLastDigits())
+          R.plurals.news_comments_template, newsItem.comments.toInt())
 
       with(itemView) {
         news_author.text = newsItem.author
         news_title.text = newsItem.title
-        news_forum.text = String.format(Locale.US, forumTitleTemplate, newsItem.forumName)
+        news_forum.text = String.format(Locale.getDefault(), forumTitleTemplate, newsItem.forumName)
         news_date.shortDateText = newsItem.date
         news_rating.ratingText = newsItem.rating
-        news_comments_counter.text = String.format(Locale.US, commentsTemplate, newsItem.comments)
+        news_comments_counter.text = String.format(Locale.getDefault(), commentsTemplate, newsItem.comments)
         news_content_text.textFromHtml(newsItem.cleanedDescription)
       }
     }

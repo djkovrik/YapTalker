@@ -124,22 +124,16 @@ class NewsController : BaseController(), NewsView {
 
   override fun showFab(shouldShow: Boolean) {
 
+    if (shouldShow == isFabShown) {
+      return
+    }
+
     if (shouldShow) {
-
-      if (isFabShown) {
-        return
-      }
-
       view?.news_fab?.let { fab ->
         fab.showFromScreenEdge()
         isFabShown = true
       }
-
     } else {
-      if (!isFabShown) {
-        return
-      }
-
       view?.news_fab?.let { fab ->
         val offset = fab.height + fab.paddingTop + fab.paddingBottom
         fab.hideBeyondScreenEdge(offset.toFloat())

@@ -235,10 +235,7 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
   override fun updateNavDrawer(userInfo: AuthorizedUserInfo) {
 
-    val guestName = stringRes(R.string.nav_drawer_guest_name)
-    val currentName = userInfo.nickname
-
-    isSignInAvailable = currentName.isEmpty()
+    isSignInAvailable = userInfo.nickname.isEmpty()
 
     val profile = if (userInfo.nickname.isNotEmpty()) {
       ProfileDrawerItem()
@@ -248,7 +245,7 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
           .withIdentifier(1L)
     } else {
       ProfileDrawerItem()
-          .withName(guestName)
+          .withName(stringRes(R.string.nav_drawer_guest_name))
           .withEmail("")
           .withIdentifier(2L)
     }

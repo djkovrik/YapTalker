@@ -130,9 +130,7 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun setNavigationPagesLabel(page: Int, totalPages: Int) {
-    val template = view?.context?.stringRes(R.string.navigation_pages_template) ?: ""
-
-    if (template.isNotEmpty()) {
+    view?.context?.stringRes(R.string.navigation_pages_template)?.let { template ->
       view?.navigation_pages_label?.text = String.format(Locale.getDefault(), template, page, totalPages)
     }
   }
@@ -150,8 +148,8 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun showGoToPageDialog(maxPages: Int) {
-    view?.context?.let {
-      MaterialDialog.Builder(it)
+    view?.context?.let { context ->
+      MaterialDialog.Builder(context)
           .title(R.string.navigation_go_to_page_title)
           .inputType(InputType.TYPE_CLASS_NUMBER)
           .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
@@ -162,10 +160,8 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun showCantLoadPageMessage(page: Int) {
-    val messageTemplate = view?.context?.stringRes(R.string.navigation_page_not_available)
-
-    messageTemplate?.let {
-      toastWarning(String.format(Locale.US, it, page))
+    view?.context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
+      toastWarning(String.format(Locale.getDefault(), template, page))
     }
   }
 }

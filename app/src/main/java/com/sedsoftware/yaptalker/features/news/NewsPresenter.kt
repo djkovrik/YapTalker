@@ -71,6 +71,7 @@ class NewsPresenter : BasePresenterWithLoading<NewsView>() {
       viewState.clearNewsList()
       backToFirstPage = false
     }
+    viewState.showFab(false)
     viewState.appendNewsItem(newsItem)
   }
 
