@@ -68,8 +68,7 @@ class ChosenTopicAdapter(private val itemClick: (Int) -> Unit) :
   private var posts: ArrayList<TopicPost> = ArrayList()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-    val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_chosen_topic_item,
-        parent, false)
+    val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_chosen_topic_item, parent, false)
     return PostViewHolder(view, itemClick)
   }
 

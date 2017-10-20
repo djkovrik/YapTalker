@@ -60,7 +60,6 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   private lateinit var topicAdapter: ChosenTopicAdapter
   private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
-  private var isNavigationShown = true
   private var isFabShown = true
 
   override val controllerLayoutId: Int
@@ -130,7 +129,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
           .scrollEvents(parent.topic_posts_list)
           .autoDisposeWith(scopeProvider)
           .subscribe { event ->
-            topicPresenter.handleNavigationVisibility(isFabShown, isNavigationShown, event.dy())
+            topicPresenter.handleNavigationVisibility(isFabShown, event.dy())
           }
     }
 
@@ -150,10 +149,6 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     }
   }
 
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-
-  }
-
   override fun onDestroyView(view: View) {
     super.onDestroyView(view)
     view.topic_posts_list.adapter = null
@@ -169,16 +164,12 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     }
   }
 
-  override fun showRefreshing() {
-    view?.topic_refresh_layout?.isRefreshing = true
-  }
-
-  override fun hideRefreshing() {
-    view?.topic_refresh_layout?.isRefreshing = false
-  }
-
   override fun showErrorMessage(message: String) {
     toastError(message)
+  }
+
+  override fun showLoadingIndicator(shouldShow: Boolean) {
+    view?.topic_refresh_layout?.isRefreshing = shouldShow
   }
 
   override fun refreshPosts(posts: List<TopicPost>) {
@@ -186,10 +177,8 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun setNavigationPagesLabel(page: Int, totalPages: Int) {
-    val template = view?.context?.stringRes(R.string.navigation_pages_template) ?: ""
-
-    if (template.isNotEmpty()) {
-      view?.navigation_pages_label?.text = String.format(Locale.US, template, page, totalPages)
+    view?.context?.stringRes(R.string.navigation_pages_template)?.let { template ->
+      view?.navigation_pages_label?.text = String.format(Locale.getDefault(), template, page, totalPages)
     }
   }
 
@@ -201,10 +190,13 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     view?.navigation_go_next?.isEnabled = isEnabled
   }
 
-  override fun showGoToPageDialog(maxPages: Int) {
+  override fun scrollToViewTop() {
+    view?.topic_posts_list?.layoutManager?.scrollToPosition(0)
+  }
 
-    view?.context?.let {
-      MaterialDialog.Builder(it)
+  override fun showGoToPageDialog(maxPages: Int) {
+    view?.context?.let { context ->
+      MaterialDialog.Builder(context)
           .title(R.string.navigation_go_to_page_title)
           .inputType(InputType.TYPE_CLASS_NUMBER)
           .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
@@ -215,53 +207,39 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun showCantLoadPageMessage(page: Int) {
-    val messageTemplate = view?.context?.stringRes(R.string.navigation_page_not_available)
-
-    messageTemplate?.let {
-      toastWarning(String.format(Locale.US, it, page))
+    view?.context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
+      toastWarning(String.format(Locale.getDefault(), template, page))
     }
   }
 
-  override fun scrollToViewTop() {
-    view?.topic_posts_list?.layoutManager?.scrollToPosition(0)
-  }
+  override fun showFab(shouldShow: Boolean) {
+    if (shouldShow) {
 
-  override fun hideNavigationPanel() {
-    isNavigationShown = false
-    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-  }
+      if (isFabShown) {
+        return
+      }
 
-  override fun showNavigationPanel() {
-    isNavigationShown = true
-    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-  }
+      view?.new_post_fab?.let { fab ->
+        fab.showFromScreenEdge()
+        isFabShown = true
+      }
 
-  override fun hideFab() {
-    if (!isFabShown) {
-      return
-    }
+    } else {
+      if (!isFabShown) {
+        return
+      }
 
-    view?.new_post_fab?.let { fab ->
-      val offset = fab.height + fab.paddingTop + fab.paddingBottom
-      fab.hideBeyondScreenEdge(offset.toFloat())
-      isFabShown = false
+      view?.new_post_fab?.let { fab ->
+        val offset = fab.height + fab.paddingTop + fab.paddingBottom
+        fab.hideBeyondScreenEdge(offset.toFloat())
+        isFabShown = false
+      }
     }
   }
 
   override fun hideFabWithoutAnimation() {
     view?.new_post_fab?.translationY = INITIAL_FAB_OFFSET
     isFabShown = false
-  }
-
-  override fun showFab() {
-    if (isFabShown) {
-      return
-    }
-
-    view?.new_post_fab?.let { fab ->
-      fab.showFromScreenEdge()
-      isFabShown = true
-    }
   }
 
   override fun showAddMessageActivity(title: String) {

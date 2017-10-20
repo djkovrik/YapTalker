@@ -19,6 +19,7 @@ class ChosenTopicPresenter : BasePresenterWithLoading<ChosenTopicView>() {
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
 
+  private var currentTitle = ""
   private var currentForumId = 0
   private var currentTopicId = 0
   private var currentPage = 0
@@ -27,7 +28,6 @@ class ChosenTopicPresenter : BasePresenterWithLoading<ChosenTopicView>() {
 
   override fun attachView(view: ChosenTopicView?) {
     super.attachView(view)
-    viewState.hideNavigationPanel()
     viewState.hideFabWithoutAnimation()
   }
 
@@ -75,18 +75,16 @@ class ChosenTopicPresenter : BasePresenterWithLoading<ChosenTopicView>() {
     }
   }
 
-  // TODO() Show fab for authorized user only
-  fun handleNavigationVisibility(isFabShown: Boolean, isNavigationShown: Boolean, diff: Int) {
+  fun handleNavigationVisibility(isFabShown: Boolean, diff: Int) {
     when {
-      isNavigationShown && diff > 0 -> viewState.hideNavigationPanel()
-      !isNavigationShown && diff < 0 -> viewState.showNavigationPanel()
-      isFabShown && diff < 0 -> viewState.hideFab()
-      !isFabShown && diff > 0 -> viewState.showFab()
+      authKey.isEmpty() -> viewState.hideFabWithoutAnimation()
+      isFabShown && diff < 0 -> viewState.showFab(shouldShow = false)
+      !isFabShown && diff > 0 -> viewState.showFab(shouldShow = true)
     }
   }
 
   fun onFabClicked() {
-    viewState.showAddMessageActivity("")
+    viewState.showAddMessageActivity(currentTitle)
   }
 
   // TODO() Add closed topics detection
@@ -144,12 +142,15 @@ class ChosenTopicPresenter : BasePresenterWithLoading<ChosenTopicView>() {
     viewState.scrollToViewTop()
     setNavigationLabel()
     setNavigationAvailability()
+    currentTitle = topicPage.topicTitle
+    updateAppbarTitle(currentTitle)
   }
 
   private fun onRestoringSuccess(list: List<TopicPost>) {
     viewState.refreshPosts(list)
     setNavigationLabel()
     setNavigationAvailability()
+    updateAppbarTitle(currentTitle)
   }
 
   private fun onLoadingError(error: Throwable) {
