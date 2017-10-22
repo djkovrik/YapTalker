@@ -5,9 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.text.InputType
 import android.view.View
-import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
@@ -20,16 +18,12 @@ import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
-import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
-import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.features.posting.AddMessageActivity
 import com.sedsoftware.yaptalker.features.userprofile.UserProfileController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_topic.view.*
-import kotlinx.android.synthetic.main.include_navigation_panel.view.*
-import java.util.Locale
 
 
 // TODO() Add share command
@@ -98,33 +92,12 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
           .subscribe { topicPresenter.loadTopic(currentForumId, currentTopicId) }
     }
 
-    parent.navigation_go_previous?.let {
-      RxView
-          .clicks(parent.navigation_go_previous)
-          .autoDisposeWith(scopeProvider)
-          .subscribe { topicPresenter.goToPreviousPage() }
-    }
-
-    parent.navigation_go_next?.let {
-      RxView
-          .clicks(parent.navigation_go_next)
-          .autoDisposeWith(scopeProvider)
-          .subscribe { topicPresenter.goToNextPage() }
-    }
-
-    parent.navigation_pages_label?.let {
-      RxView
-          .clicks(parent.navigation_pages_label)
-          .autoDisposeWith(scopeProvider)
-          .subscribe { topicPresenter.goToChosenPage() }
-    }
-
     parent.topic_posts_list?.let {
       RxRecyclerView
           .scrollEvents(parent.topic_posts_list)
           .autoDisposeWith(scopeProvider)
           .subscribe { event ->
-            topicPresenter.handleNavigationVisibility(isFabShown, event.dy())
+            topicPresenter.handleFabVisibility(isFabShown, event.dy())
           }
     }
 
@@ -171,59 +144,22 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     topicAdapter.setPosts(posts)
   }
 
-  override fun setNavigationPagesLabel(page: Int, totalPages: Int) {
-    view?.context?.stringRes(R.string.navigation_pages_template)?.let { template ->
-      view?.navigation_pages_label?.text = String.format(Locale.getDefault(), template, page, totalPages)
-    }
-  }
-
-  override fun setIfNavigationBackEnabled(isEnabled: Boolean) {
-    view?.navigation_go_previous?.isEnabled = isEnabled
-  }
-
-  override fun setIfNavigationForwardEnabled(isEnabled: Boolean) {
-    view?.navigation_go_next?.isEnabled = isEnabled
-  }
-
   override fun scrollToViewTop() {
     view?.topic_posts_list?.layoutManager?.scrollToPosition(0)
   }
 
-  override fun showGoToPageDialog(maxPages: Int) {
-    view?.context?.let { context ->
-      MaterialDialog.Builder(context)
-          .title(R.string.navigation_go_to_page_title)
-          .inputType(InputType.TYPE_CLASS_NUMBER)
-          .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
-            topicPresenter.loadChosenTopicPage(input.toString().toInt())
-          })
-          .show()
-    }
-  }
-
-  override fun showCantLoadPageMessage(page: Int) {
-    view?.context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
-      toastWarning(String.format(Locale.getDefault(), template, page))
-    }
-  }
-
   override fun showFab(shouldShow: Boolean) {
+
+    if (shouldShow == isFabShown) {
+      return
+    }
+
     if (shouldShow) {
-
-      if (isFabShown) {
-        return
-      }
-
       view?.new_post_fab?.let { fab ->
         fab.showFromScreenEdge()
         isFabShown = true
       }
-
     } else {
-      if (!isFabShown) {
-        return
-      }
-
       view?.new_post_fab?.let { fab ->
         val offset = fab.height + fab.paddingTop + fab.paddingBottom
         fab.hideBeyondScreenEdge(offset.toFloat())

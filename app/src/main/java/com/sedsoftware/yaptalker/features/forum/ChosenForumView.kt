@@ -10,15 +10,5 @@ interface ChosenForumView : BaseView {
 
   fun refreshTopics(topics: List<Topic>)
 
-  fun setNavigationPagesLabel(page: Int, totalPages: Int)
-
-  fun setIfNavigationBackEnabled(isEnabled: Boolean)
-
-  fun setIfNavigationForwardEnabled(isEnabled: Boolean)
-
   fun scrollToViewTop()
-
-  fun showGoToPageDialog(maxPages: Int)
-
-  fun showCantLoadPageMessage(page: Int)
 }

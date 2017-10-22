@@ -1,32 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/forum_refresh_layout"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical">
+  android:animateLayoutChanges="true"
+  android:background="@color/material_color_white">
 
-  <android.support.design.widget.CoordinatorLayout
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/forum_topics_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:scrollbarStyle="outsideOverlay"
+    android:scrollbars="vertical" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-      android:id="@+id/forum_refresh_layout"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:animateLayoutChanges="true"
-      android:background="@color/material_color_white">
-
-      <android.support.v7.widget.RecyclerView
-        android:id="@+id/forum_topics_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical" />
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <include layout="@layout/include_navigation_panel" />
-
-  </android.support.design.widget.CoordinatorLayout>
-
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

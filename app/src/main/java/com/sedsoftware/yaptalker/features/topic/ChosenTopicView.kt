@@ -10,17 +10,7 @@ interface ChosenTopicView : BaseView {
 
   fun refreshPosts(posts: List<TopicPost>)
 
-  fun setNavigationPagesLabel(page: Int, totalPages: Int)
-
-  fun setIfNavigationBackEnabled(isEnabled: Boolean)
-
-  fun setIfNavigationForwardEnabled(isEnabled: Boolean)
-
   fun scrollToViewTop()
-
-  fun showGoToPageDialog(maxPages: Int)
-
-  fun showCantLoadPageMessage(page: Int)
 
   fun showFab(shouldShow: Boolean)
 

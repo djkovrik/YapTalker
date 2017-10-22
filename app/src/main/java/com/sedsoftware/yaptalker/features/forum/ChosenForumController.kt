@@ -3,27 +3,20 @@ package com.sedsoftware.yaptalker.features.forum
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.text.InputType
 import android.view.View
-import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
-import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
-import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.data.model.Topic
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_forum.view.*
-import kotlinx.android.synthetic.main.include_navigation_panel.view.*
-import java.util.Locale
 
 class ChosenForumController(val bundle: Bundle) : BaseController(bundle), ChosenForumView {
 
@@ -80,27 +73,6 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
           .autoDisposeWith(scopeProvider)
           .subscribe { forumPresenter.loadForum(currentForumId) }
     }
-
-    parent.navigation_go_previous?.let {
-      RxView
-          .clicks(parent.navigation_go_previous)
-          .autoDisposeWith(scopeProvider)
-          .subscribe { forumPresenter.goToPreviousPage() }
-    }
-
-    parent.navigation_go_next?.let {
-      RxView
-          .clicks(parent.navigation_go_next)
-          .autoDisposeWith(scopeProvider)
-          .subscribe { forumPresenter.goToNextPage() }
-    }
-
-    parent.navigation_pages_label?.let {
-      RxView
-          .clicks(parent.navigation_pages_label)
-          .autoDisposeWith(scopeProvider)
-          .subscribe { forumPresenter.goToChosenPage() }
-    }
   }
 
   override fun onSaveViewState(view: View, outState: Bundle) {
@@ -128,39 +100,8 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     forumAdapter.setTopics(topics)
   }
 
-  override fun setNavigationPagesLabel(page: Int, totalPages: Int) {
-    view?.context?.stringRes(R.string.navigation_pages_template)?.let { template ->
-      view?.navigation_pages_label?.text = String.format(Locale.getDefault(), template, page, totalPages)
-    }
-  }
-
-  override fun setIfNavigationBackEnabled(isEnabled: Boolean) {
-    view?.navigation_go_previous?.isEnabled = isEnabled
-  }
-
-  override fun setIfNavigationForwardEnabled(isEnabled: Boolean) {
-    view?.navigation_go_next?.isEnabled = isEnabled
-  }
 
   override fun scrollToViewTop() {
     view?.forum_topics_list?.layoutManager?.scrollToPosition(0)
-  }
-
-  override fun showGoToPageDialog(maxPages: Int) {
-    view?.context?.let { context ->
-      MaterialDialog.Builder(context)
-          .title(R.string.navigation_go_to_page_title)
-          .inputType(InputType.TYPE_CLASS_NUMBER)
-          .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
-            forumPresenter.loadChosenForumPage(input.toString().toInt())
-          })
-          .show()
-    }
-  }
-
-  override fun showCantLoadPageMessage(page: Int) {
-    view?.context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
-      toastWarning(String.format(Locale.getDefault(), template, page))
-    }
   }
 }

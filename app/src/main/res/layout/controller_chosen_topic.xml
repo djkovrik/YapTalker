@@ -1,46 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
 
-  <android.support.design.widget.CoordinatorLayout
+  <android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/topic_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-      android:id="@+id/topic_refresh_layout"
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/topic_posts_list"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:animateLayoutChanges="true">
-
-      <android.support.v7.widget.RecyclerView
-        android:id="@+id/topic_posts_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical" />
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <include layout="@layout/include_navigation_panel" />
-
-    <android.support.design.widget.FloatingActionButton
-      android:id="@+id/new_post_fab"
-      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="end|bottom"
-      android:layout_margin="@dimen/materialize_screen_edge"
-      android:elevation="@dimen/material_elevation_fab_resting"
-      app:fabSize="normal"
-      app:ico_color="@color/material_color_white"
-      app:ico_icon="cmd-plus"
-      app:ico_padding="@dimen/mini_fab_icon_padding"
-      tools:targetApi="lollipop" />
+      android:scrollbarStyle="outsideOverlay"
+      android:scrollbars="vertical" />
 
-  </android.support.design.widget.CoordinatorLayout>
+  </android.support.v4.widget.SwipeRefreshLayout>
 
-</LinearLayout>
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/new_post_fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end|bottom"
+    android:layout_margin="@dimen/materialize_screen_edge"
+    android:elevation="@dimen/material_elevation_fab_resting"
+    app:fabSize="normal"
+    app:ico_color="@color/material_color_white"
+    app:ico_icon="cmd-plus"
+    app:ico_padding="@dimen/mini_fab_icon_padding"
+    tools:targetApi="lollipop" />
+
+</FrameLayout>
