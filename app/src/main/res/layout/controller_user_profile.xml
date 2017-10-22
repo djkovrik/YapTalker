@@ -328,7 +328,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        tools:ignore="ContentDescription"
         tools:srcCompat="@drawable/dummy_photo" />
 
     </android.support.v7.widget.CardView>
