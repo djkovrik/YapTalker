@@ -16,6 +16,7 @@ import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.features.forum.ChosenForumController
+import com.sedsoftware.yaptalker.features.forumslist.adapter.ForumsAdapter
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_forums_list.view.*
 
@@ -36,7 +37,6 @@ class ForumsController : BaseController(), ForumsView {
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
     forumsAdapter = ForumsAdapter {
-      // Load chosen forum
       val bundle = Bundle()
       bundle.putInt(ChosenForumController.FORUM_ID_KEY, it)
       router.pushController(
@@ -76,7 +76,7 @@ class ForumsController : BaseController(), ForumsView {
     super.onSaveViewState(view, outState)
     val forums = forumsAdapter.getForums()
     if (forums.isNotEmpty()) {
-      outState.putParcelableArrayList(FORUMS_LIST_KEY, forums)
+      outState.putParcelableArrayList(FORUMS_LIST_KEY, ArrayList(forums))
     }
   }
 
