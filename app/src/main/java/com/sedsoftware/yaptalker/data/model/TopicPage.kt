@@ -2,22 +2,76 @@ package com.sedsoftware.yaptalker.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.os.Parcelable.Creator
+import com.sedsoftware.yaptalker.commons.adapter.ContentTypes
+import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import pl.droidsonroids.jspoon.annotation.Selector
 
-class TopicPage {
+class TopicPage() : Parcelable {
   @Selector("h1.subpage > a.subtitle", defValue = "Unknown")
   lateinit var topicTitle: String
+  @Selector("input[name~=auth_key]", attr = "outerHtml", format = "value=\"([a-z0-9]+)\"", defValue = "")
+  lateinit var authKey: String
+  @Selector("table.row3")
+  lateinit var navigation: TopicNavigationPanel
+  @Selector("table[id~=p_row_\\d+]:has(.normalname)")
+  lateinit var posts: List<TopicPost>
+
+  constructor(parcel: Parcel) : this() {
+    topicTitle = parcel.readString()
+    authKey = parcel.readString()
+    navigation = parcel.readParcelable(TopicNavigationPanel::class.java.classLoader)
+    posts = parcel.createTypedArrayList(TopicPost)
+  }
+
+  override fun writeToParcel(parcel: Parcel, flags: Int) {
+    parcel.writeString(topicTitle)
+    parcel.writeString(authKey)
+    parcel.writeParcelable(navigation, flags)
+    parcel.writeTypedList(posts)
+  }
+
+  override fun describeContents() = 0
+
+  companion object CREATOR : Creator<TopicPage> {
+    override fun createFromParcel(parcel: Parcel): TopicPage {
+      return TopicPage(parcel)
+    }
+
+    override fun newArray(size: Int): Array<TopicPage?> = arrayOfNulls(size)
+  }
+}
+
+class TopicNavigationPanel() : Parcelable, ViewType {
   @Selector("td[nowrap=nowrap]:has(a[onclick])", format = "\\[(\\d+)\\]", defValue = "1")
   lateinit var currentPage: String
   @Selector("td[nowrap=nowrap]:has(a[onclick])", format = "(\\d+)", defValue = "1")
   lateinit var totalPages: String
-  @Selector("table[id~=p_row_\\d+]:has(.normalname)")
-  lateinit var posts: List<TopicPost>
-  @Selector("input[name~=auth_key]", attr = "outerHtml", format = "value=\"([a-z0-9]+)\"", defValue = "")
-  lateinit var authKey: String
+
+  constructor(parcel: Parcel) : this() {
+    currentPage = parcel.readString()
+    totalPages = parcel.readString()
+  }
+
+  override fun writeToParcel(parcel: Parcel, flags: Int) {
+    parcel.writeString(currentPage)
+    parcel.writeString(totalPages)
+  }
+
+  override fun describeContents() = 0
+
+  companion object CREATOR : Creator<TopicNavigationPanel> {
+    override fun createFromParcel(parcel: Parcel): TopicNavigationPanel {
+      return TopicNavigationPanel(parcel)
+    }
+
+    override fun newArray(size: Int): Array<TopicNavigationPanel?> = arrayOfNulls(size)
+  }
+
+  override fun getViewType() = ContentTypes.NAVIGATION_PANEL
 }
 
-class TopicPost() : Parcelable {
+class TopicPost() : Parcelable, ViewType {
   @Selector(".normalname", defValue = "Unknown")
   lateinit var authorNickname: String
   @Selector("a[title=Профиль]", attr = "href", defValue = "")
@@ -43,6 +97,7 @@ class TopicPost() : Parcelable {
     postDate = parcel.readString()
     postRank = parcel.readString()
     postContent = parcel.readString()
+    postId = parcel.readString()
   }
 
   override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -53,15 +108,18 @@ class TopicPost() : Parcelable {
     parcel.writeString(postDate)
     parcel.writeString(postRank)
     parcel.writeString(postContent)
+    parcel.writeString(postId)
   }
 
   override fun describeContents() = 0
 
-  companion object CREATOR : Parcelable.Creator<TopicPost> {
+  companion object CREATOR : Creator<TopicPost> {
     override fun createFromParcel(parcel: Parcel): TopicPost {
       return TopicPost(parcel)
     }
 
     override fun newArray(size: Int): Array<TopicPost?> = arrayOfNulls(size)
   }
+
+  override fun getViewType() = ContentTypes.POST
 }
