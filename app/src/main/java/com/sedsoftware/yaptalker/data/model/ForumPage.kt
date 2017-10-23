@@ -9,6 +9,8 @@ class ForumPage() : Parcelable {
   lateinit var forumTitle: String
   @Selector("a[href~=.*/forum\\d+/].title", attr = "href", defValue = "0")
   lateinit var forumId: String
+  @Selector("td[nowrap=nowrap]", format = "\\[(\\d+)\\]", defValue = "0")
+  lateinit var currentPage: String
   @Selector("td[nowrap=nowrap]", format = "(\\d+)", defValue = "0")
   lateinit var totalPages: String
   @Selector("table tr:has(td.row4)")

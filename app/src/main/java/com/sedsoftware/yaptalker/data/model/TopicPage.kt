@@ -7,7 +7,9 @@ import pl.droidsonroids.jspoon.annotation.Selector
 class TopicPage {
   @Selector("h1.subpage > a.subtitle", defValue = "Unknown")
   lateinit var topicTitle: String
-  @Selector("td[nowrap=nowrap]:has(a[onclick~=multi_page_jump])", format = "(\\d+)", defValue = "1")
+  @Selector("td[nowrap=nowrap]:has(a[onclick])", format = "\\[(\\d+)\\]", defValue = "1")
+  lateinit var currentPage: String
+  @Selector("td[nowrap=nowrap]:has(a[onclick])", format = "(\\d+)", defValue = "1")
   lateinit var totalPages: String
   @Selector("table[id~=p_row_\\d+]:has(.normalname)")
   lateinit var posts: List<TopicPost>
