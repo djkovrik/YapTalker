@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
-import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -24,7 +23,6 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   private var currentForumId = 0
   private var currentTopicId = 0
   private var currentPage = 0
-  private var totalPages = -1
   private var authKey = ""
 
   override fun attachView(view: ChosenTopicView?) {
@@ -121,7 +119,6 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   }
 
   private fun onLoadingSuccess(topicPage: TopicPage) {
-    totalPages = topicPage.totalPages.getLastDigits()
     authKey = topicPage.authKey
     currentTitle = topicPage.topicTitle
     updateAppbarTitle(currentTitle)

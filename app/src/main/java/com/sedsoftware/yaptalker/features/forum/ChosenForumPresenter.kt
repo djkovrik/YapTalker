@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
+import com.sedsoftware.yaptalker.data.model.ForumNavigationPanel
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -14,8 +15,7 @@ import io.reactivex.schedulers.Schedulers
 class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
   companion object {
-    private const val TOPICS_LIST_KEY = "TOPICS_LIST_KEY"
-    private const val CURRENT_TITLE_KEY = "CURRENT_TITLE_KEY"
+    private const val FORUM_PAGE_KEY = "FORUM_PAGE_KEY"
     private const val LAST_UPDATE_SORTER = "last_post"
     private const val RATING_SORTER = "rank"
     private const val TOPICS_PER_PAGE = 30
@@ -25,28 +25,31 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   private var currentForumId = 0
   private var currentSorting = LAST_UPDATE_SORTER
   private var currentPage = 0
-  private var totalPages = -1
 
   fun checkSavedState(forumId: Int, savedViewState: Bundle?) {
     if (savedViewState != null &&
-        savedViewState.containsKey(TOPICS_LIST_KEY) &&
-        savedViewState.containsKey(CURRENT_TITLE_KEY)) {
+        savedViewState.containsKey(FORUM_PAGE_KEY)) {
 
       with(savedViewState) {
-        onRestoringSuccess(getParcelableArrayList(TOPICS_LIST_KEY), getString(CURRENT_TITLE_KEY))
+        onRestoringSuccess(getParcelable(FORUM_PAGE_KEY))
       }
     } else {
       loadForum(forumId)
     }
   }
 
-  fun saveCurrentState(outState: Bundle, topics: ArrayList<Topic>) {
+  fun saveCurrentState(outState: Bundle, currentForumId: Int, panel: ForumNavigationPanel, topics: List<Topic>) {
+    val forumPage = ForumPage(
+        title = currentTitle,
+        id = currentForumId.toString(),
+        navigationPanel = panel,
+        topicsList = topics)
+
     with(outState) {
-      putParcelableArrayList(TOPICS_LIST_KEY, topics)
-      putString(CURRENT_TITLE_KEY, currentTitle)
+      putParcelable(FORUM_PAGE_KEY, forumPage)
     }
   }
-  
+
   fun loadForum(forumId: Int, page: Int = 0, sortByRank: Boolean = false) {
     currentForumId = forumId
     currentPage = page
@@ -77,19 +80,15 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
         })
   }
 
-
-  private fun onLoadingSuccess(forumPage: ForumPage) {
-    totalPages = forumPage.totalPages.toInt()
-    currentTitle = forumPage.forumTitle
+  private fun onRestoringSuccess(page: ForumPage) {
+    currentTitle = page.forumTitle
     updateAppbarTitle(currentTitle)
-
-    viewState.refreshTopics(forumPage.topics)
-    viewState.scrollToViewTop()
+    viewState.displayForumPage(page)
   }
 
-  private fun onRestoringSuccess(topics: List<Topic>, title: String) {
-    viewState.refreshTopics(topics)
-    updateAppbarTitle(title)
+  private fun onLoadingSuccess(page: ForumPage) {
+    onRestoringSuccess(page)
+    viewState.scrollToViewTop()
   }
 
   private fun onLoadingError(error: Throwable) {

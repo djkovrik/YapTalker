@@ -13,12 +13,14 @@ import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.toastError
-import com.sedsoftware.yaptalker.data.model.Topic
+import com.sedsoftware.yaptalker.data.model.ForumPage
+import com.sedsoftware.yaptalker.features.forum.adapter.ChosenForumAdapter
+import com.sedsoftware.yaptalker.features.forum.adapter.TopicItemClickListener
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_forum.view.*
 
-class ChosenForumController(val bundle: Bundle) : BaseController(bundle), ChosenForumView {
+class ChosenForumController(val bundle: Bundle) : BaseController(bundle), ChosenForumView, TopicItemClickListener {
 
   companion object {
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
@@ -38,15 +40,7 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
-    forumAdapter = ChosenForumAdapter {
-      val bundle = Bundle()
-      bundle.putInt(ChosenTopicController.FORUM_ID_KEY, currentForumId)
-      bundle.putInt(ChosenTopicController.TOPIC_ID_KEY, it)
-      router.pushController(
-          RouterTransaction.with(ChosenTopicController(bundle))
-              .pushChangeHandler(FadeChangeHandler())
-              .popChangeHandler(FadeChangeHandler()))
-    }
+    forumAdapter = ChosenForumAdapter(this)
 
     forumAdapter.setHasStableIds(true)
 
@@ -65,27 +59,28 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     forumPresenter.checkSavedState(currentForumId, savedViewState)
   }
 
-  override fun subscribeViews(parent: View) {
+  override fun onDestroyView(view: View) {
+    super.onDestroyView(view)
+    view.forum_topics_list.adapter = null
+  }
 
+  override fun onSaveViewState(view: View, outState: Bundle) {
+    super.onSaveViewState(view, outState)
+    val panel = forumAdapter.getNavigationPanel()
+    val topics = forumAdapter.getTopics()
+
+    if (topics.isNotEmpty()) {
+      forumPresenter.saveCurrentState(outState, currentForumId, panel, topics)
+    }
+  }
+
+  override fun subscribeViews(parent: View) {
     parent.forum_refresh_layout?.let {
       RxSwipeRefreshLayout
           .refreshes(parent.forum_refresh_layout)
           .autoDisposeWith(scopeProvider)
           .subscribe { forumPresenter.loadForum(currentForumId) }
     }
-  }
-
-  override fun onSaveViewState(view: View, outState: Bundle) {
-    super.onSaveViewState(view, outState)
-    val topics = forumAdapter.getTopics()
-    if (topics.isNotEmpty()) {
-      forumPresenter.saveCurrentState(outState, topics)
-    }
-  }
-
-  override fun onDestroyView(view: View) {
-    super.onDestroyView(view)
-    view.forum_topics_list.adapter = null
   }
 
   override fun showErrorMessage(message: String) {
@@ -96,12 +91,21 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     view?.forum_refresh_layout?.isRefreshing = shouldShow
   }
 
-  override fun refreshTopics(topics: List<Topic>) {
-    forumAdapter.setTopics(topics)
+  override fun displayForumPage(page: ForumPage) {
+    forumAdapter.refreshForumPage(page)
   }
-
 
   override fun scrollToViewTop() {
     view?.forum_topics_list?.layoutManager?.scrollToPosition(0)
+  }
+
+  override fun onTopicClick(topicId: Int) {
+    val bundle = Bundle()
+    bundle.putInt(ChosenTopicController.FORUM_ID_KEY, currentForumId)
+    bundle.putInt(ChosenTopicController.TOPIC_ID_KEY, topicId)
+    router.pushController(
+        RouterTransaction.with(ChosenTopicController(bundle))
+            .pushChangeHandler(FadeChangeHandler())
+            .popChangeHandler(FadeChangeHandler()))
   }
 }
