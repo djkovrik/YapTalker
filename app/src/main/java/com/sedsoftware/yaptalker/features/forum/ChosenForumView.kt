@@ -11,4 +11,6 @@ interface ChosenForumView : BaseView {
   fun displayForumPage(page: ForumPage)
 
   fun scrollToViewTop()
+
+  fun showCantLoadPageMessage(page: Int)
 }

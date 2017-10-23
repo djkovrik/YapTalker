@@ -11,14 +11,15 @@ import com.sedsoftware.yaptalker.data.model.ForumNavigationPanel
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
 
-class ChosenForumAdapter(itemClickListener: TopicItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChosenForumAdapter(itemClickListener: TopicItemClickListener, navigationClickListener: NavigationItemClickListener) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<ViewType>
   private var delegateAdapters = SparseArrayCompat<ViewTypeDelegateAdapter>()
 
   init {
-    delegateAdapters.put(ContentTypes.NAVIGATION_PANEL, NavigationDelegateAdapter())
     delegateAdapters.put(ContentTypes.TOPIC, ChosenForumDelegateAdapter(itemClickListener))
+    delegateAdapters.put(ContentTypes.NAVIGATION_PANEL, NavigationDelegateAdapter(navigationClickListener))
     items = ArrayList()
   }
 
@@ -51,10 +52,9 @@ class ChosenForumAdapter(itemClickListener: TopicItemClickListener) : RecyclerVi
         .map { it as Topic }
   }
 
-  fun getNavigationPanel(): ForumNavigationPanel {
+  fun getNavigationPanel(): List<ForumNavigationPanel> {
     return items
         .filter { it.getViewType() == ContentTypes.NAVIGATION_PANEL }
         .map { it as ForumNavigationPanel }
-        .first()
   }
 }

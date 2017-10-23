@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.data.model.ForumNavigationPanel
 import kotlinx.android.synthetic.main.controller_item_navigation_panel.view.*
 import java.util.Locale
 
-class NavigationDelegateAdapter : ViewTypeDelegateAdapter {
+class NavigationDelegateAdapter(val navigationClickListener: NavigationItemClickListener) : ViewTypeDelegateAdapter {
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
     return NavigationViewHolder(parent)
@@ -39,6 +39,12 @@ class NavigationDelegateAdapter : ViewTypeDelegateAdapter {
         navigation_go_previous.isEnabled = (currentPage != 1)
         navigation_go_next.isEnabled = (currentPage < totalPages)
         navigation_go_last.isEnabled = (currentPage != totalPages)
+
+        navigation_pages_label.setOnClickListener { navigationClickListener.onGoToSelectedPageClick() }
+        navigation_go_first.setOnClickListener { navigationClickListener.onGoToFirstPageClick() }
+        navigation_go_previous.setOnClickListener { navigationClickListener.onGoToPreviousPageClick() }
+        navigation_go_next.setOnClickListener { navigationClickListener.onGoToNextPageClick() }
+        navigation_go_last.setOnClickListener { navigationClickListener.onGoToLastPageClick() }
       }
     }
   }

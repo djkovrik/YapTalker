@@ -3,7 +3,9 @@ package com.sedsoftware.yaptalker.features.forum
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.text.InputType
 import android.view.View
+import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
@@ -12,15 +14,20 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
+import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.features.forum.adapter.ChosenForumAdapter
+import com.sedsoftware.yaptalker.features.forum.adapter.NavigationItemClickListener
 import com.sedsoftware.yaptalker.features.forum.adapter.TopicItemClickListener
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_forum.view.*
+import java.util.Locale
 
-class ChosenForumController(val bundle: Bundle) : BaseController(bundle), ChosenForumView, TopicItemClickListener {
+class ChosenForumController(val bundle: Bundle) :
+    BaseController(bundle), ChosenForumView, TopicItemClickListener, NavigationItemClickListener {
 
   companion object {
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
@@ -40,7 +47,7 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
-    forumAdapter = ChosenForumAdapter(this)
+    forumAdapter = ChosenForumAdapter(this, this)
 
     forumAdapter.setHasStableIds(true)
 
@@ -69,8 +76,8 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     val panel = forumAdapter.getNavigationPanel()
     val topics = forumAdapter.getTopics()
 
-    if (topics.isNotEmpty()) {
-      forumPresenter.saveCurrentState(outState, currentForumId, panel, topics)
+    if (panel.isNotEmpty() && topics.isNotEmpty()) {
+      forumPresenter.saveCurrentState(outState, currentForumId, panel.first(), topics)
     }
   }
 
@@ -99,6 +106,12 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
     view?.forum_topics_list?.layoutManager?.scrollToPosition(0)
   }
 
+  override fun showCantLoadPageMessage(page: Int) {
+    view?.context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
+      toastWarning(String.format(Locale.getDefault(), template, page))
+    }
+  }
+
   override fun onTopicClick(topicId: Int) {
     val bundle = Bundle()
     bundle.putInt(ChosenTopicController.FORUM_ID_KEY, currentForumId)
@@ -107,5 +120,33 @@ class ChosenForumController(val bundle: Bundle) : BaseController(bundle), Chosen
         RouterTransaction.with(ChosenTopicController(bundle))
             .pushChangeHandler(FadeChangeHandler())
             .popChangeHandler(FadeChangeHandler()))
+  }
+
+  override fun onGoToFirstPageClick() {
+    forumPresenter.goToFirstPage()
+  }
+
+  override fun onGoToLastPageClick() {
+    forumPresenter.goToLastPage()
+  }
+
+  override fun onGoToPreviousPageClick() {
+    forumPresenter.goToPreviousPage()
+  }
+
+  override fun onGoToNextPageClick() {
+    forumPresenter.goToNextPage()
+  }
+
+  override fun onGoToSelectedPageClick() {
+    view?.context?.let { ctx ->
+      MaterialDialog.Builder(ctx)
+          .title(R.string.navigation_go_to_page_title)
+          .inputType(InputType.TYPE_CLASS_NUMBER)
+          .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
+            forumPresenter.goToChosenPage(input.toString().toInt())
+          })
+          .show()
+    }
   }
 }
