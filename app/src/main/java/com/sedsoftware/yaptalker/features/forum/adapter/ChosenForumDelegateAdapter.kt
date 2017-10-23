@@ -1,64 +1,36 @@
-package com.sedsoftware.yaptalker.features.forum
+package com.sedsoftware.yaptalker.features.forum.adapter
 
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
+import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 import android.widget.TextView
-import com.github.salomonbrys.kodein.LazyKodein
-import com.github.salomonbrys.kodein.LazyKodeinAware
-import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.YapTalkerApp
+import com.sedsoftware.yaptalker.base.BaseAdapterInjections
+import com.sedsoftware.yaptalker.commons.adapter.ViewType
+import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
+import com.sedsoftware.yaptalker.commons.extensions.inflate
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.data.model.Topic
-import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import kotlinx.android.synthetic.main.controller_chosen_forum_item.view.*
 import java.util.Locale
 
-class ChosenForumAdapter(private val itemClick: (Int) -> Unit) :
-    RecyclerView.Adapter<ChosenForumAdapter.ForumViewHolder>(), LazyKodeinAware {
+class ChosenForumDelegateAdapter(val itemClickListener: TopicItemClickListener) : BaseAdapterInjections(), ViewTypeDelegateAdapter {
 
-  override val kodein: LazyKodein
-    get() = LazyKodein { YapTalkerApp.kodeinInstance }
-
-  // Kodein injection
-  private val settings: SettingsHelper by instance()
-
-  private val normalFontSize by lazy {
-    settings.getNormalFontSize()
+  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
+    return TopicViewHolder(parent)
   }
 
-  private var topics: ArrayList<Topic> = ArrayList()
-
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForumViewHolder {
-    val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_chosen_forum_item, parent, false)
-    return ForumViewHolder(view, itemClick)
+  override fun onBindViewHolder(holder: ViewHolder, item: ViewType) {
+    holder as TopicViewHolder
+    holder.bindTo(item as Topic)
   }
 
-  override fun onBindViewHolder(holder: ForumViewHolder, position: Int) {
-    holder.bindTo(topics[position])
-  }
+  inner class TopicViewHolder(parent: ViewGroup) :
+      RecyclerView.ViewHolder(parent.inflate(R.layout.controller_chosen_forum_item)) {
 
-  override fun getItemCount() = topics.size
-
-  override fun getItemId(position: Int) = topics[position].link.getLastDigits().toLong()
-
-  fun setTopics(list: List<Topic>) {
-    topics.clear()
-    topics.addAll(list)
-    notifyDataSetChanged()
-  }
-
-  fun getTopics() = topics
-
-  inner class ForumViewHolder(
-      itemView: View, private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
-
-    private val commentsTemplate = itemView.context.getString(R.string.forum_comments_template)
-    private val pinnedTopicTemplate = itemView.context.getString(
-        R.string.forum_pinned_topic_template)
+    private val commentsTemplate = parent.context.getString(R.string.forum_comments_template)
+    private val pinnedTopicTemplate = parent.context.getString(R.string.forum_pinned_topic_template)
 
     fun bindTo(topicItem: Topic) {
       with(topicItem) {
@@ -80,7 +52,7 @@ class ChosenForumAdapter(private val itemClick: (Int) -> Unit) :
           topic_name.textSize = normalFontSize
           topic_rating.textSize = normalFontSize
 
-          setOnClickListener { itemClick(link.getLastDigits()) }
+          setOnClickListener { itemClickListener.onTopicClick(link.getLastDigits()) }
         }
       }
     }
