@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.text.InputType
 import android.view.View
+import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
@@ -18,17 +20,23 @@ import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
-import com.sedsoftware.yaptalker.data.model.TopicPost
+import com.sedsoftware.yaptalker.commons.extensions.toastWarning
+import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.features.posting.AddMessageActivity
+import com.sedsoftware.yaptalker.features.topic.adapter.ChosenTopicAdapter
+import com.sedsoftware.yaptalker.features.topic.adapter.TopicNavigationClickListener
+import com.sedsoftware.yaptalker.features.topic.adapter.UserProfileClickListener
 import com.sedsoftware.yaptalker.features.userprofile.UserProfileController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_topic.view.*
+import java.util.Locale
 
 
 // TODO() Add share command
-// TODO() Check if navigation can be replaced with fabs
-class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), ChosenTopicView {
+class ChosenTopicController(val bundle: Bundle) :
+    BaseController(bundle), ChosenTopicView, UserProfileClickListener, TopicNavigationClickListener {
 
   companion object {
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
@@ -57,16 +65,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     get() = R.layout.controller_chosen_topic
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
-
-    topicAdapter = ChosenTopicAdapter { userId ->
-      val bundle = Bundle()
-      bundle.putInt(UserProfileController.USER_ID_KEY, userId)
-      router.pushController(
-          RouterTransaction.with(UserProfileController(bundle))
-              .pushChangeHandler(FadeChangeHandler())
-              .popChangeHandler(FadeChangeHandler()))
-    }
-
+    topicAdapter = ChosenTopicAdapter(this, this)
     topicAdapter.setHasStableIds(true)
 
     view.topic_refresh_layout.setIndicatorColorScheme()
@@ -111,9 +110,11 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
 
   override fun onSaveViewState(view: View, outState: Bundle) {
     super.onSaveViewState(view, outState)
+    val panel = topicAdapter.getNavigationPanel()
     val posts = topicAdapter.getPosts()
-    if (posts.isNotEmpty()) {
-      topicPresenter.saveCurrentState(outState, posts)
+
+    if (panel.isNotEmpty() && posts.isNotEmpty()) {
+      topicPresenter.saveCurrentState(outState, panel.first(), posts)
     }
   }
 
@@ -136,12 +137,8 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     toastError(message)
   }
 
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-    view?.topic_refresh_layout?.isRefreshing = shouldShow
-  }
-
-  override fun refreshPosts(posts: List<TopicPost>) {
-    topicAdapter.setPosts(posts)
+  override fun displayTopicPage(page: TopicPage) {
+    topicAdapter.refreshTopicPage(page)
   }
 
   override fun scrollToViewTop() {
@@ -149,7 +146,6 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   }
 
   override fun showFab(shouldShow: Boolean) {
-
     if (shouldShow == isFabShown) {
       return
     }
@@ -178,6 +174,53 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
       val activityIntent = Intent(ctx, AddMessageActivity::class.java)
       activityIntent.putExtra(TOPIC_TITLE_KEY, title)
       startActivityForResult(activityIntent, MESSAGE_TEXT_REQUEST)
+    }
+  }
+
+  override fun showCantLoadPageMessage(page: Int) {
+    view?.context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
+      toastWarning(String.format(Locale.getDefault(), template, page))
+    }
+  }
+
+  override fun showUserProfile(userId: Int) {
+    val bundle = Bundle()
+    bundle.putInt(UserProfileController.USER_ID_KEY, userId)
+    router.pushController(
+        RouterTransaction.with(UserProfileController(bundle))
+            .pushChangeHandler(FadeChangeHandler())
+            .popChangeHandler(FadeChangeHandler()))
+  }
+
+  override fun onUserAvatarClick(userId: Int) {
+    topicPresenter.loadProfileIfAvailable(userId)
+  }
+
+  override fun onGoToFirstPageClick() {
+    topicPresenter.goToFirstPage()
+  }
+
+  override fun onGoToLastPageClick() {
+    topicPresenter.goToLastPage()
+  }
+
+  override fun onGoToPreviousPageClick() {
+    topicPresenter.goToPreviousPage()
+  }
+
+  override fun onGoToNextPageClick() {
+    topicPresenter.goToNextPage()
+  }
+
+  override fun onGoToSelectedPageClick() {
+    view?.context?.let { ctx ->
+      MaterialDialog.Builder(ctx)
+          .title(R.string.navigation_go_to_page_title)
+          .inputType(InputType.TYPE_CLASS_NUMBER)
+          .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
+            topicPresenter.goToChosenPage(input.toString().toInt())
+          })
+          .show()
     }
   }
 }

@@ -24,6 +24,13 @@ class TopicPage() : Parcelable {
     posts = parcel.createTypedArrayList(TopicPost)
   }
 
+  constructor(title: String, key: String, navigationPanel: TopicNavigationPanel, postsList: List<TopicPost>) : this() {
+    topicTitle = title
+    authKey = key
+    navigation = navigationPanel
+    posts = postsList
+  }
+
   override fun writeToParcel(parcel: Parcel, flags: Int) {
     parcel.writeString(topicTitle)
     parcel.writeString(authKey)
