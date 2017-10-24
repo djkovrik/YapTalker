@@ -23,7 +23,8 @@ import kotlinx.android.synthetic.main.controller_news_item.view.*
 import org.jetbrains.anko.startActivity
 import java.util.Locale
 
-class NewsDelegateAdapter(val clickListener: (String, String) -> Unit) : BaseAdapterInjections(), ViewTypeDelegateAdapter {
+class NewsDelegateAdapter(val newsClick: (String, String) -> Unit) :
+    BaseAdapterInjections(), ViewTypeDelegateAdapter {
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
     return NewsViewHolder(parent)
@@ -98,7 +99,7 @@ class NewsDelegateAdapter(val clickListener: (String, String) -> Unit) : BaseAda
           else -> news_content_image.hideView()
         }
 
-        setOnClickListener { clickListener(newsItem.link, newsItem.forumLink) }
+        setOnClickListener { newsClick(newsItem.link, newsItem.forumLink) }
       }
     }
   }

@@ -11,15 +11,15 @@ import com.sedsoftware.yaptalker.data.model.TopicNavigationPanel
 import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.data.model.TopicPost
 
-class ChosenTopicAdapter(profileClickListener: UserProfileClickListener, navigationClickListener: TopicNavigationClickListener) :
+class ChosenTopicAdapter(profileClick: UserProfileClickListener, navigationClick: TopicNavigationClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<ViewType>
   private var delegateAdapters = SparseArrayCompat<ViewTypeDelegateAdapter>()
 
   init {
-    delegateAdapters.put(ContentTypes.POST, ChosenTopicDelegateAdapter(profileClickListener))
-    delegateAdapters.put(ContentTypes.NAVIGATION_PANEL, TopicNavigationDelegateAdapter(navigationClickListener))
+    delegateAdapters.put(ContentTypes.POST, ChosenTopicDelegateAdapter(profileClick))
+    delegateAdapters.put(ContentTypes.NAVIGATION_PANEL, TopicNavigationDelegateAdapter(navigationClick))
     items = ArrayList()
   }
 

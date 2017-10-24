@@ -41,7 +41,8 @@ import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
 import java.util.Locale
 
-class ChosenTopicDelegateAdapter(val profileClickListener: UserProfileClickListener) : BaseAdapterInjections(), ViewTypeDelegateAdapter {
+class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
+    BaseAdapterInjections(), ViewTypeDelegateAdapter {
 
   companion object {
     private const val INITIAL_NESTING_LEVEL = 0
@@ -229,7 +230,7 @@ class ChosenTopicDelegateAdapter(val profileClickListener: UserProfileClickListe
 
         post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateURL())
         post_author_avatar.setOnClickListener {
-          profileClickListener.onUserAvatarClick(post.authorProfile.getLastDigits())
+          profileClick.onUserAvatarClick(post.authorProfile.getLastDigits())
         }
       }
     }

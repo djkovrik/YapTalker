@@ -15,7 +15,8 @@ import com.sedsoftware.yaptalker.data.model.Topic
 import kotlinx.android.synthetic.main.controller_chosen_forum_item.view.*
 import java.util.Locale
 
-class ChosenForumDelegateAdapter(val itemClickListener: TopicItemClickListener) : BaseAdapterInjections(), ViewTypeDelegateAdapter {
+class ChosenForumDelegateAdapter(val itemClick: TopicItemClickListener) :
+    BaseAdapterInjections(), ViewTypeDelegateAdapter {
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
     return TopicViewHolder(parent)
@@ -52,7 +53,7 @@ class ChosenForumDelegateAdapter(val itemClickListener: TopicItemClickListener) 
           topic_name.textSize = normalFontSize
           topic_rating.textSize = normalFontSize
 
-          setOnClickListener { itemClickListener.onTopicClick(link.getLastDigits()) }
+          setOnClickListener { itemClick.onTopicClick(link.getLastDigits()) }
         }
       }
     }

@@ -59,6 +59,7 @@ interface YapLoader {
       @Field("submit") submit: String,
       @Field("user_key") userKey: String): Single<Response<ResponseBody>>
 
+  @Suppress("LongParameterList")
   @Multipart
   @POST("/")
   fun postMessage(

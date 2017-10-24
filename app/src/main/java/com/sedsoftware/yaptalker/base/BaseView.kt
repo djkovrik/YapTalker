@@ -6,6 +6,7 @@ interface BaseView : MvpView {
 
   fun showErrorMessage(message: String)
 
+  @Suppress("EmptyFunctionBlock")
   fun showLoadingIndicator(shouldShow: Boolean) {
     // Default empty implementation
   }
