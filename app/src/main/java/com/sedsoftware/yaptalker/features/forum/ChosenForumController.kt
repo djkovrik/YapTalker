@@ -19,7 +19,7 @@ import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.features.forum.adapter.ChosenForumAdapter
-import com.sedsoftware.yaptalker.features.forum.adapter.NavigationItemClickListener
+import com.sedsoftware.yaptalker.features.forum.adapter.ForumNavigationClickListener
 import com.sedsoftware.yaptalker.features.forum.adapter.TopicItemClickListener
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.controller_chosen_forum.view.*
 import java.util.Locale
 
 class ChosenForumController(val bundle: Bundle) :
-    BaseController(bundle), ChosenForumView, TopicItemClickListener, NavigationItemClickListener {
+    BaseController(bundle), ChosenForumView, TopicItemClickListener, ForumNavigationClickListener {
 
   companion object {
     const val FORUM_ID_KEY = "FORUM_ID_KEY"

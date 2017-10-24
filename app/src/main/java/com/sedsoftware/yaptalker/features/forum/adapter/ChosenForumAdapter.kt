@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.data.model.ForumNavigationPanel
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
 
-class ChosenForumAdapter(itemClickListener: TopicItemClickListener, navigationClickListener: NavigationItemClickListener) :
+class ChosenForumAdapter(itemClickListener: TopicItemClickListener, navigationClickListener: ForumNavigationClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<ViewType>
@@ -19,7 +19,7 @@ class ChosenForumAdapter(itemClickListener: TopicItemClickListener, navigationCl
 
   init {
     delegateAdapters.put(ContentTypes.TOPIC, ChosenForumDelegateAdapter(itemClickListener))
-    delegateAdapters.put(ContentTypes.NAVIGATION_PANEL, NavigationDelegateAdapter(navigationClickListener))
+    delegateAdapters.put(ContentTypes.NAVIGATION_PANEL, ForumNavigationDelegateAdapter(navigationClickListener))
     items = ArrayList()
   }
 

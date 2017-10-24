@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.data.model.ForumNavigationPanel
 import kotlinx.android.synthetic.main.controller_item_navigation_panel.view.*
 import java.util.Locale
 
-class NavigationDelegateAdapter(val navigationClickListener: NavigationItemClickListener) : ViewTypeDelegateAdapter {
+class ForumNavigationDelegateAdapter(val navigationClickListener: ForumNavigationClickListener) : ViewTypeDelegateAdapter {
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
     return NavigationViewHolder(parent)
