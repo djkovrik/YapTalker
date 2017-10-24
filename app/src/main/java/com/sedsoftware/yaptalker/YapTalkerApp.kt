@@ -16,7 +16,6 @@ import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
-import com.sedsoftware.yaptalker.commons.AppEvent
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.data.remote.requestsClientModule
 import com.sedsoftware.yaptalker.data.remote.requestsCookieModule
@@ -43,8 +42,8 @@ class YapTalkerApp : Application(), KodeinAware {
     // Global settings helper
     bind<SettingsHelper>() with singleton { SettingsHelper(this@YapTalkerApp) }
 
-    // Global rx bus for app events
-    bind<BehaviorRelay<AppEvent>>() with singleton { BehaviorRelay.createDefault(AppEvent()) }
+    // Global rx bus for appbar title changing events
+    bind<BehaviorRelay<String>>() with singleton { BehaviorRelay.createDefault("") }
 
     // Kodein modules
     import(requestsClientModule)

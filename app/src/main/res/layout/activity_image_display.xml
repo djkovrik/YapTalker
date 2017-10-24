@@ -6,8 +6,7 @@
   android:background="@color/material_color_black"
   android:fitsSystemWindows="true"
   android:orientation="vertical"
-  tools:context="com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity"
-  tools:ignore="Overdraw">
+  tools:context="com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity">
 
   <include layout="@layout/include_main_appbar" />
 

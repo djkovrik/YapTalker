@@ -1,20 +1,19 @@
-package com.sedsoftware.yaptalker.features.topic
+package com.sedsoftware.yaptalker.features.topic.adapter
 
 import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
+import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.github.salomonbrys.kodein.LazyKodein
-import com.github.salomonbrys.kodein.LazyKodeinAware
-import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.YapTalkerApp
+import com.sedsoftware.yaptalker.base.BaseAdapterInjections
+import com.sedsoftware.yaptalker.commons.adapter.ViewType
+import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.hideView
+import com.sedsoftware.yaptalker.commons.extensions.inflate
 import com.sedsoftware.yaptalker.commons.extensions.loadAvatarFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.showView
@@ -22,6 +21,7 @@ import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtmlWithEmoji
+import com.sedsoftware.yaptalker.commons.extensions.validateURL
 import com.sedsoftware.yaptalker.data.model.ParsedPost
 import com.sedsoftware.yaptalker.data.model.PostHiddenText
 import com.sedsoftware.yaptalker.data.model.PostLink
@@ -30,10 +30,8 @@ import com.sedsoftware.yaptalker.data.model.PostQuoteAuthor
 import com.sedsoftware.yaptalker.data.model.PostScript
 import com.sedsoftware.yaptalker.data.model.PostText
 import com.sedsoftware.yaptalker.data.model.TopicPost
-import com.sedsoftware.yaptalker.data.remote.video.ThumbnailsManager
 import com.sedsoftware.yaptalker.data.remote.video.parseLink
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
-import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -43,59 +41,28 @@ import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
 import java.util.Locale
 
-class ChosenTopicAdapter(private val itemClick: (Int) -> Unit) :
-    RecyclerView.Adapter<ChosenTopicAdapter.PostViewHolder>(), LazyKodeinAware {
+class ChosenTopicDelegateAdapter(val profileClickListener: UserProfileClickListener) : BaseAdapterInjections(), ViewTypeDelegateAdapter {
 
   companion object {
     private const val INITIAL_NESTING_LEVEL = 0
   }
 
-  override val kodein: LazyKodein
-    get() = LazyKodein { YapTalkerApp.kodeinInstance }
-
-  // Kodein injections
-  private val thumbnailsLoader: ThumbnailsManager by instance()
-  private val settings: SettingsHelper by instance()
-
-  private val normalFontSize by lazy {
-    settings.getNormalFontSize()
+  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
+    return PostViewHolder(parent)
   }
 
-  private val smallFontSize by lazy {
-    settings.getSmallFontSize()
+  override fun onBindViewHolder(holder: ViewHolder, item: ViewType) {
+    holder as PostViewHolder
+    holder.bindTo(item as TopicPost)
   }
 
-  private var posts: ArrayList<TopicPost> = ArrayList()
-
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-    val view = LayoutInflater.from(parent.context).inflate(R.layout.controller_chosen_topic_item,
-        parent, false)
-    return PostViewHolder(view, itemClick)
-  }
-
-  override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-    holder.bindTo(posts[position])
-  }
-
-  override fun getItemCount() = posts.size
-
-  override fun getItemId(position: Int) = position.toLong()
-
-  fun setPosts(list: List<TopicPost>) {
-    posts.clear()
-    posts.addAll(list)
-    notifyDataSetChanged()
-  }
-
-  fun getPosts() = posts
-
-  inner class PostViewHolder(itemView: View,
-                             private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+  inner class PostViewHolder(parent: ViewGroup) :
+      RecyclerView.ViewHolder(parent.inflate(R.layout.controller_chosen_topic_item)) {
 
     fun bindTo(postItem: TopicPost) {
       getParsedPostSingle(postItem)
-          .observeOn(AndroidSchedulers.mainThread())
           .subscribeOn(Schedulers.computation())
+          .observeOn(AndroidSchedulers.mainThread())
           .map { parsedPost -> fillPostText(parsedPost) }
           .map { parsedPost -> fillPostImages(parsedPost) }
           .map { parsedPost -> fillPostVideos(parsedPost) }
@@ -260,9 +227,10 @@ class ChosenTopicAdapter(private val itemClick: (Int) -> Unit) :
         post_date.textSize = normalFontSize
         post_rating.textSize = normalFontSize
 
-        post_author_avatar.loadAvatarFromUrl("http:${post.authorAvatar}")
-        // TODO() Set click listener only for authorized user
-        post_author_avatar.setOnClickListener { itemClick(post.authorProfile.getLastDigits()) }
+        post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateURL())
+        post_author_avatar.setOnClickListener {
+          profileClickListener.onUserAvatarClick(post.authorProfile.getLastDigits())
+        }
       }
     }
   }

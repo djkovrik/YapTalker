@@ -31,11 +31,13 @@
 
   <!-- NAVIGATION PANEL -->
   <string name="navigation_pages_template"><xliff:g id="page">%d</xliff:g> of <xliff:g id="total_pages">%d</xliff:g></string>
-  <string name="navigation_previous">Back</string>
-  <string name="navigation_next">Next</string>
   <string name="navigation_go_to_page_title">Go to page</string>
   <string name="navigation_go_to_page_hint">Enter page number…</string>
   <string name="navigation_page_not_available">Page <xliff:g id="page">%d</xliff:g> is not available</string>
+  <string name="navigation_previous" translatable="false">&lt;</string>
+  <string name="navigation_next" translatable="false">&gt;</string>
+  <string name="navigation_first" translatable="false">&lt;&lt;</string>
+  <string name="navigation_last" translatable="false">&gt;&gt;</string>
 
   <!-- AUTHORIZATION ACTIVITY -->
   <string name="authorization_login_label">Login</string>

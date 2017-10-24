@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.features.posting
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.features.base.BasePresenter
+import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.features.posting.MessageTags.Tag
 
 @InjectViewState

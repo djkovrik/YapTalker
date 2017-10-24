@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.features.base
+package com.sedsoftware.yaptalker.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +20,7 @@ abstract class BaseController : RestoreViewOnCreateController {
   constructor(args: Bundle?) : super(args) {
     mvpDelegate.onCreate(args)
   }
-
+  
   protected abstract val controllerLayoutId: Int
 
   protected abstract fun onViewBound(view: View, savedViewState: Bundle?)

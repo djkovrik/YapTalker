@@ -2,11 +2,11 @@ package com.sedsoftware.yaptalker.features.forum
 
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
+import com.sedsoftware.yaptalker.base.BasePresenter
+import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
+import com.sedsoftware.yaptalker.data.model.ForumNavigationPanel
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
-import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -15,63 +15,44 @@ import io.reactivex.schedulers.Schedulers
 class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
   companion object {
+    private const val FORUM_PAGE_KEY = "FORUM_PAGE_KEY"
     private const val LAST_UPDATE_SORTER = "last_post"
     private const val RATING_SORTER = "rank"
     private const val TOPICS_PER_PAGE = 30
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
 
+  private var currentTitle = ""
   private var currentForumId = 0
   private var currentSorting = LAST_UPDATE_SORTER
-  private var currentPage = 0
-  private var totalPages = -1
-  private var currentTitle = ""
+  private var currentPage = 1
+  private var totalPages = 1
 
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
+  fun checkSavedState(forumId: Int, savedViewState: Bundle?) {
+    if (savedViewState != null &&
+        savedViewState.containsKey(FORUM_PAGE_KEY)) {
 
-    attachRefreshIndicator({
-      // onStart
-      viewState.showRefreshing()
-    }, {
-      // onFinish
-      viewState.hideRefreshing()
-    })
-  }
-
-  override fun attachView(view: ChosenForumView?) {
-    super.attachView(view)
-    viewState.hideNavigationPanel()
-  }
-
-  fun checkSavedState(forumId: Int, savedViewState: Bundle?, key: String) {
-    if (savedViewState != null && savedViewState.containsKey(key)) {
-      val topics = savedViewState.getParcelableArrayList<Topic>(key)
-      onRestoringSuccess(topics)
+      with(savedViewState) {
+        onRestoringSuccess(getParcelable(FORUM_PAGE_KEY))
+      }
     } else {
       loadForum(forumId)
     }
   }
 
-  fun goToNextPage() {
-    if (currentPage in 0 until totalPages - 1) {
-      currentPage++
-      loadForumCurrentPage()
+  fun saveCurrentState(outState: Bundle, currentForumId: Int, panel: ForumNavigationPanel, topics: List<Topic>) {
+    val forumPage = ForumPage(
+        title = currentTitle,
+        id = currentForumId.toString(),
+        navigationPanel = panel,
+        topicsList = topics)
+
+    with(outState) {
+      putParcelable(FORUM_PAGE_KEY, forumPage)
     }
   }
 
-  fun goToPreviousPage() {
-    if (currentPage in 1 until totalPages) {
-      currentPage--
-      loadForumCurrentPage()
-    }
-  }
-
-  fun goToChosenPage() {
-    viewState.showGoToPageDialog(totalPages)
-  }
-
-  fun loadForum(forumId: Int, page: Int = 0, sortByRank: Boolean = false) {
+  fun loadForum(forumId: Int, page: Int = 1, sortByRank: Boolean = false) {
     currentForumId = forumId
     currentPage = page
     currentSorting =
@@ -81,29 +62,38 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     loadForumCurrentPage()
   }
 
-  fun loadChosenForumPage(chosenPage: Int) {
+  fun goToFirstPage() {
+    currentPage = 1
+    loadForumCurrentPage()
+  }
+
+  fun goToLastPage() {
+    currentPage = totalPages
+    loadForumCurrentPage()
+  }
+
+  fun goToPreviousPage() {
+    currentPage--
+    loadForumCurrentPage()
+  }
+
+  fun goToNextPage() {
+    currentPage++
+    loadForumCurrentPage()
+  }
+
+  fun goToChosenPage(chosenPage: Int) {
     if (chosenPage in 1..totalPages) {
-      currentPage = chosenPage - OFFSET_FOR_PAGE_NUMBER
+      currentPage = chosenPage
       loadForumCurrentPage()
     } else {
       viewState.showCantLoadPageMessage(chosenPage)
     }
   }
 
-  fun setAppbarTitle(title: String) {
-    pushAppEvent(UpdateAppbarEvent(title))
-  }
-
-  fun handleNavigationVisibility(isNavigationShown: Boolean, diff: Int) {
-    when {
-      isNavigationShown && diff > 0 -> viewState.hideNavigationPanel()
-      !isNavigationShown && diff < 0 -> viewState.showNavigationPanel()
-    }
-  }
-
   private fun loadForumCurrentPage() {
 
-    val startingTopic = currentPage * TOPICS_PER_PAGE
+    val startingTopic = (currentPage - OFFSET_FOR_PAGE_NUMBER) * TOPICS_PER_PAGE
 
     yapDataManager
         .getChosenForum(currentForumId, startingTopic, currentSorting)
@@ -121,39 +111,17 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
         })
   }
 
-  private fun setNavigationLabel() {
-    viewState.setNavigationPagesLabel(currentPage + OFFSET_FOR_PAGE_NUMBER, totalPages)
+  private fun onRestoringSuccess(page: ForumPage) {
+    currentTitle = page.forumTitle
+    currentPage = page.navigation.currentPage.toInt()
+    totalPages = page.navigation.totalPages.toInt()
+    updateAppbarTitle(currentTitle)
+    viewState.displayForumPage(page)
   }
 
-  private fun setNavigationAvailability() {
-
-    var backNavigationAvailable = true
-    var forwardNavigationAvailable = true
-
-    when (currentPage) {
-      0 -> backNavigationAvailable = false
-      totalPages - OFFSET_FOR_PAGE_NUMBER -> forwardNavigationAvailable = false
-    }
-
-    viewState.setIfNavigationBackEnabled(backNavigationAvailable)
-    viewState.setIfNavigationForwardEnabled(forwardNavigationAvailable)
-  }
-
-  private fun onLoadingSuccess(forumPage: ForumPage) {
-    totalPages = forumPage.totalPages.toInt()
-    currentTitle = forumPage.forumTitle
-    viewState.refreshTopics(forumPage.topics)
+  private fun onLoadingSuccess(page: ForumPage) {
+    onRestoringSuccess(page)
     viewState.scrollToViewTop()
-    viewState.setAppbarTitle(currentTitle)
-    setNavigationLabel()
-    setNavigationAvailability()
-  }
-
-  private fun onRestoringSuccess(topics: List<Topic>) {
-    viewState.refreshTopics(topics)
-    viewState.setAppbarTitle(currentTitle)
-    setNavigationLabel()
-    setNavigationAvailability()
   }
 
   private fun onLoadingError(error: Throwable) {

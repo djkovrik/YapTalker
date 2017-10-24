@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.features.base
+package com.sedsoftware.yaptalker.base.events
 
 import android.support.annotation.IntDef
 
@@ -10,8 +10,6 @@ class PresenterLifecycle {
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @IntDef(
-      CREATE,
-      DESTROY)
+  @IntDef(CREATE, DESTROY)
   annotation class Event
 }

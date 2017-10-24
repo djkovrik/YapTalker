@@ -1,8 +1,7 @@
 package com.sedsoftware.yaptalker.data.remote
 
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.commons.AppEvent
-import com.sedsoftware.yaptalker.commons.RequestStateEvent
+import com.sedsoftware.yaptalker.base.events.ConnectionState
 import com.sedsoftware.yaptalker.commons.extensions.toMD5
 import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.data.model.ForumItem
@@ -18,9 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import okhttp3.ResponseBody
 import retrofit2.Response
 
-class YapDataManager(
-    private val yapLoader: YapLoader,
-    private val eventBus: BehaviorRelay<AppEvent>) {
+class YapDataManager(private val yapLoader: YapLoader, private val connectionRelay: BehaviorRelay<Long>) {
 
   companion object {
     private const val LOGIN_REFERER = "http://www.yaplakal.com/forum/"
@@ -36,13 +33,13 @@ class YapDataManager(
           .map { news -> news.createNewsList() }
           .flatMapObservable { list -> Observable.fromIterable(list) }
           .doOnSubscribe {
-            publishConnectionState(state = true)
+            publishConnectionState(ConnectionState.LOADING)
           }
           .doOnError {
-            publishConnectionState(state = false)
+            publishConnectionState(ConnectionState.ERROR)
           }
           .doOnComplete {
-            publishConnectionState(state = false)
+            publishConnectionState(ConnectionState.COMPLETED)
           }
 
   fun getForumsList(): Observable<ForumItem> =
@@ -51,52 +48,52 @@ class YapDataManager(
           .map { forums -> forums.createForumsList() }
           .flatMapObservable { list -> Observable.fromIterable(list) }
           .doOnSubscribe {
-            publishConnectionState(state = true)
+            publishConnectionState(ConnectionState.LOADING)
           }
           .doOnError {
-            publishConnectionState(state = false)
+            publishConnectionState(ConnectionState.ERROR)
           }
           .doOnComplete {
-            publishConnectionState(state = false)
+            publishConnectionState(ConnectionState.COMPLETED)
           }
 
   fun getChosenForum(forumId: Int, startNumber: Int, sortingMode: String): Single<ForumPage> =
       yapLoader
           .loadForumPage(forumId, startNumber, sortingMode)
           .doOnSubscribe {
-            publishConnectionState(state = true)
+            publishConnectionState(ConnectionState.LOADING)
           }
           .doOnError {
-            publishConnectionState(state = false)
+            publishConnectionState(ConnectionState.ERROR)
           }
           .doOnSuccess {
-            publishConnectionState(state = false)
+            publishConnectionState(ConnectionState.COMPLETED)
           }
 
   fun getChosenTopic(forumId: Int, topicId: Int, startPostNumber: Int): Single<TopicPage> =
       yapLoader
           .loadTopicPage(forumId, topicId, startPostNumber)
           .doOnSubscribe {
-            publishConnectionState(state = true)
+            publishConnectionState(ConnectionState.LOADING)
           }
           .doOnError {
-            publishConnectionState(state = false)
+            publishConnectionState(ConnectionState.ERROR)
           }
           .doOnSuccess {
-            publishConnectionState(state = false)
+            publishConnectionState(ConnectionState.COMPLETED)
           }
 
   fun getUserProfile(profileId: Int): Single<UserProfile> =
       yapLoader
           .loadUserProfile(profileId)
           .doOnSubscribe {
-            publishConnectionState(state = true)
+            publishConnectionState(ConnectionState.LOADING)
           }
           .doOnError {
-            publishConnectionState(state = false)
+            publishConnectionState(ConnectionState.ERROR)
           }
           .doOnSuccess {
-            publishConnectionState(state = false)
+            publishConnectionState(ConnectionState.COMPLETED)
           }
 
   fun loginToSite(login: String, password: String): Single<Response<ResponseBody>> {
@@ -137,10 +134,10 @@ class YapDataManager(
         .loadAuthorizedUserInfo()
   }
 
-  private fun publishConnectionState(state: Boolean) {
+  private fun publishConnectionState(@ConnectionState.Event event: Long) {
     Observable
-        .just(RequestStateEvent(connected = state))
+        .just(event)
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(eventBus)
+        .subscribe(connectionRelay)
   }
 }

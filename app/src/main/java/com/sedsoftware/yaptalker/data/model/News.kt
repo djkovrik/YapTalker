@@ -1,5 +1,7 @@
 package com.sedsoftware.yaptalker.data.model
 
+import com.sedsoftware.yaptalker.commons.adapter.ContentTypes
+import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.extensions.chopEdges
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
@@ -74,7 +76,7 @@ data class NewsItem(
     val date: String,
     val forumName: String,
     val forumLink: String,
-    val comments: String) {
+    val comments: String) : ViewType {
 
   val cleanedDescription: String =
       with(Jsoup.clean(description, Whitelist().addTags("i", "u", "b", "br"))) {
@@ -83,4 +85,6 @@ data class NewsItem(
         else
           this
       }
+
+  override fun getViewType() = ContentTypes.NEWS
 }

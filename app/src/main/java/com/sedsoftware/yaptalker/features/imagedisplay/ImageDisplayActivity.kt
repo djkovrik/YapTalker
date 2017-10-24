@@ -72,6 +72,10 @@ class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
     }
   }
 
+  override fun showErrorMessage(message: String) {
+
+  }
+
   override fun toggleSystemUiVisibility() {
     val uiOptions = window.decorView.systemUiVisibility
     var newUiOptions = uiOptions

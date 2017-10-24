@@ -2,6 +2,8 @@ package com.sedsoftware.yaptalker.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.sedsoftware.yaptalker.commons.adapter.ContentTypes
+import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import pl.droidsonroids.jspoon.annotation.Selector
 
@@ -41,7 +43,7 @@ data class ForumItem(
     val forumId: Int,
     val lastTopicTitle: String,
     val lastTopicAuthor: String,
-    val date: String) : Parcelable {
+    val date: String) : ViewType, Parcelable {
 
   constructor(parcel: Parcel) : this(
       parcel.readString(),
@@ -67,4 +69,6 @@ data class ForumItem(
 
     override fun newArray(size: Int): Array<ForumItem?> = arrayOfNulls(size)
   }
+
+  override fun getViewType() = ContentTypes.FORUM
 }

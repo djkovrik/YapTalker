@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.UserProfile
-import com.sedsoftware.yaptalker.features.base.BaseController
 import kotlinx.android.synthetic.main.controller_user_profile.view.*
 import java.util.Locale
 
@@ -37,18 +37,12 @@ class UserProfileController(val bundle: Bundle) : BaseController(bundle), UserPr
   override fun subscribeViews(parent: View) {
   }
 
-  override fun showLoading() {
-  }
-
-  override fun showContent() {
-  }
-
   override fun showErrorMessage(message: String) {
     toastError(message)
   }
 
-  override fun setAppbarTitle(title: String) {
-    userProfilePresenter.setAppbarTitle(title)
+  override fun showLoadingIndicator(shouldShow: Boolean) {
+
   }
 
   override fun displayProfile(profile: UserProfile) {

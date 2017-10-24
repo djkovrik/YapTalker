@@ -1,8 +1,10 @@
 package com.sedsoftware.yaptalker.commons.extensions
 
+import android.support.annotation.LayoutRes
 import android.support.v4.widget.SwipeRefreshLayout
 import android.text.Html
 import android.text.Spanned
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Interpolator
@@ -118,4 +120,8 @@ fun View.hideView() {
 
 fun View.showView() {
   this.visibility = View.VISIBLE
+}
+
+fun ViewGroup.inflate(@LayoutRes layoutId: Int, attachToRoot: Boolean = false) : View {
+  return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
 }

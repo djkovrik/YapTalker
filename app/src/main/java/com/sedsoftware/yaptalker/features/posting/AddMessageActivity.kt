@@ -10,8 +10,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
-import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.activity_new_post.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 
@@ -41,7 +39,7 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
     // B
     RxView
         .clicks(new_post_button_bold)
-        .autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
+        //.autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
         .subscribe {
           with(new_post_edit_text) {
             messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_B)
@@ -51,7 +49,7 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
     // I
     RxView
         .clicks(new_post_button_italic)
-        .autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
+        //.autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
         .subscribe {
           with(new_post_edit_text) {
             messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_I)
@@ -61,7 +59,7 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
     // U
     RxView
         .clicks(new_post_button_underlined)
-        .autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
+        //.autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
         .subscribe {
           with(new_post_edit_text) {
             messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_U)
@@ -72,6 +70,10 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
     menuInflater.inflate(R.menu.menu_post_editor, menu)
     return true
+  }
+
+  override fun showErrorMessage(message: String) {
+
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

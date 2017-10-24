@@ -20,12 +20,14 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.UpdateNavDrawerEvent
+import com.sedsoftware.yaptalker.base.BaseActivityWithRouter
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
+import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
+import com.sedsoftware.yaptalker.commons.extensions.validateURL
+import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity
-import com.sedsoftware.yaptalker.features.base.BaseActivity
 import com.sedsoftware.yaptalker.features.forumslist.ForumsController
 import com.sedsoftware.yaptalker.features.news.NewsController
 import com.sedsoftware.yaptalker.features.settings.SettingsActivity
@@ -34,11 +36,12 @@ import kotlinx.android.synthetic.main.include_main_content.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 
-// TODO() Register app to open yaplakal.com links
-class NavigationActivity : BaseActivity(), NavigationView {
+// TODO() Investigate app crash when in paused state
+class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
   companion object {
-    const val SIGN_IN_REQUEST = 123
+    private const val APPBAR_TITLE_KEY = "APPBAR_TITLE_KEY"
+    private const val SIGN_IN_REQUEST = 123
   }
 
   @InjectPresenter
@@ -61,12 +64,16 @@ class NavigationActivity : BaseActivity(), NavigationView {
   private lateinit var drawerItemSignIn: PrimaryDrawerItem
   private lateinit var drawerItemSignOut: PrimaryDrawerItem
 
+  private var isSignInAvailable = false
+  private var isSignInDisplayed = false
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setSupportActionBar(toolbar)
 
     navigationViewPresenter.initLayout(savedInstanceState)
-
+    navigationViewPresenter.refreshAuthorization()
+    navigationViewPresenter.restoreCurrentTitle(APPBAR_TITLE_KEY, savedInstanceState)
   }
 
   // Init Iconics here
@@ -75,6 +82,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
   }
 
   override fun onSaveInstanceState(outState: Bundle?) {
+    navigationViewPresenter.saveCurrentTitle(APPBAR_TITLE_KEY, outState)
     navDrawer.saveInstanceState(outState)
     navHeader.saveInstanceState(outState)
     super.onSaveInstanceState(outState)
@@ -89,11 +97,20 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-    if (resultCode == Activity.RESULT_OK) {
-      when (requestCode) {
-        SIGN_IN_REQUEST -> navigationViewPresenter.refreshAuthorization()
-      }
+    if (resultCode == Activity.RESULT_OK && requestCode == SIGN_IN_REQUEST) {
+      navigationViewPresenter.refreshAuthorization()
     }
+  }
+
+  override fun onControllerChanged(target: Controller?) {
+    when (target) {
+      is NewsController -> navDrawer.setSelection(Navigation.MAIN_PAGE, false)
+      else -> navDrawer.setSelection(Navigation.FORUMS, false)
+    }
+  }
+
+  override fun showErrorMessage(message: String) {
+    toastError(message)
   }
 
   override fun initDrawer(savedInstanceState: Bundle?) {
@@ -156,8 +173,8 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
     navDrawer = DrawerBuilder()
         .withActivity(this)
-        .withToolbar(toolbar)
         .withAccountHeader(navHeader)
+        .withToolbar(toolbar)
         .addDrawerItems(drawerItemMainPage)
         .addDrawerItems(drawerItemForums)
         .addDrawerItems(DividerDrawerItem())
@@ -197,45 +214,8 @@ class NavigationActivity : BaseActivity(), NavigationView {
       }
       Navigation.SIGN_OUT -> {
         navigationViewPresenter.signOut()
-        navigationViewPresenter.refreshAuthorization()
         router.popToRoot()
       }
-    }
-  }
-
-  override fun setActiveProfile(event: UpdateNavDrawerEvent) {
-
-    val profile = if (event.name.isNotEmpty()) {
-      ProfileDrawerItem()
-          .withName(event.name)
-          .withEmail(event.title)
-          .withIcon(event.avatar)
-          .withIdentifier(2L)
-    } else {
-      ProfileDrawerItem()
-          .withName(stringRes(R.string.nav_drawer_guest_name))
-          .withEmail("")
-          .withIdentifier(1L)
-    }
-
-    navHeader.profiles.clear()
-    navHeader.addProfiles(profile)
-
-    if (navHeader.activeProfile.name.toString() == stringRes(R.string.nav_drawer_guest_name)) {
-      signInItemAvailable()
-    } else {
-      signOutItemAvailable()
-    }
-  }
-
-  override fun setAppbarTitle(text: String) {
-    supportActionBar?.title = text
-  }
-
-  override fun onControllerChanged(target: Controller?) {
-    when (target) {
-      is NewsController -> navDrawer.setSelection(Navigation.MAIN_PAGE, false)
-      else -> navDrawer.setSelection(Navigation.FORUMS, false)
     }
 
     navigationViewPresenter.refreshAuthorization()
@@ -249,15 +229,47 @@ class NavigationActivity : BaseActivity(), NavigationView {
     router.popToRoot()
   }
 
-  private fun signInItemAvailable() {
+  override fun setAppbarTitle(title: String) {
+    supportActionBar?.title = title
+  }
+
+  override fun updateNavDrawer(userInfo: AuthorizedUserInfo) {
+
+    isSignInAvailable = userInfo.nickname.isEmpty()
+
+    val profile = if (userInfo.nickname.isNotEmpty()) {
+      ProfileDrawerItem()
+          .withName(userInfo.nickname)
+          .withEmail(userInfo.title)
+          .withIcon(userInfo.avatar.validateURL())
+          .withIdentifier(1L)
+    } else {
+      ProfileDrawerItem()
+          .withName(stringRes(R.string.nav_drawer_guest_name))
+          .withEmail("")
+          .withIdentifier(2L)
+    }
+
+    navHeader.profiles.clear()
+    navHeader.addProfiles(profile)
+
+    when {
+      isSignInAvailable && !isSignInDisplayed -> displaySignIn()
+      !isSignInAvailable && isSignInDisplayed -> displaySignOut()
+    }
+  }
+
+  private fun displaySignIn() {
     navDrawer.removeItem(Navigation.SIGN_IN)
     navDrawer.removeItem(Navigation.SIGN_OUT)
     navDrawer.addItem(drawerItemSignIn)
+    isSignInDisplayed = true
   }
 
-  private fun signOutItemAvailable() {
+  private fun displaySignOut() {
     navDrawer.removeItem(Navigation.SIGN_IN)
     navDrawer.removeItem(Navigation.SIGN_OUT)
     navDrawer.addItem(drawerItemSignOut)
+    isSignInDisplayed = false
   }
 }

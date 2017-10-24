@@ -9,13 +9,14 @@ import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.data.model.ForumItem
-import com.sedsoftware.yaptalker.features.base.BaseController
 import com.sedsoftware.yaptalker.features.forum.ChosenForumController
+import com.sedsoftware.yaptalker.features.forumslist.adapter.ForumsAdapter
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_forums_list.view.*
 
@@ -36,7 +37,6 @@ class ForumsController : BaseController(), ForumsView {
   override fun onViewBound(view: View, savedViewState: Bundle?) {
 
     forumsAdapter = ForumsAdapter {
-      // Load chosen forum
       val bundle = Bundle()
       bundle.putInt(ChosenForumController.FORUM_ID_KEY, it)
       router.pushController(
@@ -59,6 +59,7 @@ class ForumsController : BaseController(), ForumsView {
     }
 
     forumsPresenter.checkSavedState(savedViewState, FORUMS_LIST_KEY)
+    forumsPresenter.updateAppbarTitle(view.context.stringRes(R.string.nav_drawer_forums))
   }
 
   override fun subscribeViews(parent: View) {
@@ -75,13 +76,21 @@ class ForumsController : BaseController(), ForumsView {
     super.onSaveViewState(view, outState)
     val forums = forumsAdapter.getForums()
     if (forums.isNotEmpty()) {
-      outState.putParcelableArrayList(FORUMS_LIST_KEY, forums)
+      outState.putParcelableArrayList(FORUMS_LIST_KEY, ArrayList(forums))
     }
   }
 
   override fun onDestroyView(view: View) {
     super.onDestroyView(view)
     view.forums_list.adapter = null
+  }
+
+  override fun showErrorMessage(message: String) {
+    toastError(message)
+  }
+
+  override fun showLoadingIndicator(shouldShow: Boolean) {
+    view?.forums_list_refresh_layout?.isRefreshing = shouldShow
   }
 
   override fun clearForumsList() {
@@ -94,23 +103,5 @@ class ForumsController : BaseController(), ForumsView {
 
   override fun appendForumsList(list: List<ForumItem>) {
     forumsAdapter.addForumsList(list)
-  }
-
-  override fun showErrorMessage(message: String) {
-    toastError(message)
-  }
-
-  override fun showRefreshing() {
-    view?.forums_list_refresh_layout?.isRefreshing = true
-  }
-
-  override fun hideRefreshing() {
-    view?.forums_list_refresh_layout?.isRefreshing = false
-  }
-
-  override fun updateAppbarTitle() {
-    view?.context?.let {
-      forumsPresenter.updateTitle(it.stringRes(R.string.nav_drawer_forums))
-    }
   }
 }

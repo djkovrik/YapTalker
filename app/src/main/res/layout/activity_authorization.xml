@@ -7,8 +7,7 @@
   android:background="@color/colorMaterialBackground"
   android:fitsSystemWindows="true"
   android:orientation="vertical"
-  tools:context="com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity"
-  tools:ignore="Overdraw">
+  tools:context="com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity">
 
   <include layout="@layout/include_main_appbar" />
 

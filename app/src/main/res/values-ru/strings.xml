@@ -28,8 +28,6 @@
 
   <!-- NAVIGATION PANEL -->
   <string name="navigation_pages_template"><xliff:g id="page">%d</xliff:g> из <xliff:g id="total_pages">%d</xliff:g></string>
-  <string name="navigation_previous">Назад</string>
-  <string name="navigation_next">Вперед</string>
   <string name="navigation_go_to_page_title">Перейти на страницу</string>
   <string name="navigation_go_to_page_hint">Введите номер страницы…</string>
   <string name="navigation_page_not_available">Страница <xliff:g id="page">%d</xliff:g> недоступна</string>
