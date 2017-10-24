@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
+import android.widget.ImageView.ScaleType.CENTER_CROP
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.RouterTransaction
@@ -65,7 +66,6 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
   private lateinit var drawerItemSignOut: PrimaryDrawerItem
 
   private var isSignInAvailable = false
-  private var isSignInDisplayed = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -165,7 +165,8 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
     navHeader = AccountHeaderBuilder()
         .withActivity(this)
-        .withHeaderBackground(R.drawable.nav_header)
+        .withHeaderBackground(R.drawable.nav_header_simple)
+        .withHeaderBackgroundScaleType(CENTER_CROP)
         .withCompactStyle(true)
         .withSelectionListEnabledForSingleProfile(false)
         .withSavedInstance(savedInstanceState)
@@ -254,8 +255,8 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
     navHeader.addProfiles(profile)
 
     when {
-      isSignInAvailable && !isSignInDisplayed -> displaySignIn()
-      !isSignInAvailable && isSignInDisplayed -> displaySignOut()
+      isSignInAvailable -> displaySignIn()
+      !isSignInAvailable -> displaySignOut()
     }
   }
 
@@ -263,13 +264,11 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
     navDrawer.removeItem(Navigation.SIGN_IN)
     navDrawer.removeItem(Navigation.SIGN_OUT)
     navDrawer.addItem(drawerItemSignIn)
-    isSignInDisplayed = true
   }
 
   private fun displaySignOut() {
     navDrawer.removeItem(Navigation.SIGN_IN)
     navDrawer.removeItem(Navigation.SIGN_OUT)
     navDrawer.addItem(drawerItemSignOut)
-    isSignInDisplayed = false
   }
 }

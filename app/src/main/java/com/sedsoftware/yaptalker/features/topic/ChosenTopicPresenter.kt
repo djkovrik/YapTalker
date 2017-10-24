@@ -10,6 +10,7 @@ import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 @InjectViewState
 class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
@@ -161,8 +162,11 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   private fun onRestoringSuccess(page: TopicPage) {
     currentTitle = page.topicTitle
-    currentPage = page.navigation.currentPage.toInt()
-    totalPages = page.navigation.totalPages.toInt()
+    // TODO() Fix pages parsing for signed in user
+//    currentPage = page.navigation.currentPage.toInt()
+//    totalPages = page.navigation.totalPages.toInt()
+    Timber.d("currentPage = ${page.navigation.currentPage}")
+    Timber.d("totalPages = ${page.navigation.totalPages}")
     updateAppbarTitle(currentTitle)
     viewState.displayTopicPage(page)
   }

@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="app_name">YapTalker</string>
 
   <!-- NAVIGATION DRAWER -->
   <!-- Header items -->
@@ -13,7 +14,6 @@
   <!-- NEWS -->
   <plurals name="news_comments_template">
     <item quantity="one"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> комментарий</item>
-    <item quantity="two"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> комментария</item>
     <item quantity="few"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> комментария</item>
     <item quantity="many"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> комментариев</item>
     <item quantity="other"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> комментариев</item>
@@ -88,7 +88,6 @@
   <!-- SHORT DATE STRINGS -->
   <plurals name="short_date_years">
     <item quantity="one"><xliff:g id="years">%d</xliff:g> год</item>
-    <item quantity="two"><xliff:g id="years">%d</xliff:g> года</item>
     <item quantity="few"><xliff:g id="years">%d</xliff:g> года</item>
     <item quantity="many"><xliff:g id="years">%d</xliff:g> лет</item>
     <item quantity="other"><xliff:g id="years">%d</xliff:g> лет</item>
@@ -100,7 +99,6 @@
 
   <plurals name="short_date_days">
     <item quantity="one"><xliff:g id="days">%d</xliff:g> день</item>
-    <item quantity="two"><xliff:g id="days">%d</xliff:g> дня</item>
     <item quantity="few"><xliff:g id="days">%d</xliff:g> дня</item>
     <item quantity="many"><xliff:g id="years">%d</xliff:g> дней</item>
     <item quantity="other"><xliff:g id="days">%d</xliff:g> дней</item>
@@ -108,7 +106,6 @@
 
   <plurals name="short_date_hours">
     <item quantity="one"><xliff:g id="days">%d</xliff:g> час</item>
-    <item quantity="two"><xliff:g id="days">%d</xliff:g> часа</item>
     <item quantity="few"><xliff:g id="days">%d</xliff:g> часа</item>
     <item quantity="many"><xliff:g id="years">%d</xliff:g> часов</item>
     <item quantity="other"><xliff:g id="days">%d</xliff:g> часов</item>
@@ -116,5 +113,11 @@
 
   <string name="short_date_minutes"><xliff:g id="minutes">%d</xliff:g> мин.</string>
   <string name="short_date_seconds_now">только что</string>
+
+  <!-- A11Y -->
+  <string name="a11y_avatar">Аватар пользователя</string>
+  <string name="a11y_photo">Фото пользователя</string>
+  <string name="a11y_forum_image">Картинка форума</string>
+  <string name="a11y_news_image">Фото содержимого новости</string>
 
 </resources>

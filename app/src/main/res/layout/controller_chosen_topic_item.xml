@@ -20,6 +20,7 @@
       android:layout_marginEnd="@dimen/material_card_gutter"
       android:layout_marginStart="@dimen/material_list_avatar_margin_start"
       android:layout_marginTop="@dimen/material_card_title_block_small_padding_vertical"
+      android:contentDescription="@string/a11y_avatar"
       tools:src="@mipmap/ic_launcher" />
 
     <TextView

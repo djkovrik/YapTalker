@@ -125,4 +125,10 @@
   <string name="short_date_minutes"><xliff:g id="minutes">%d</xliff:g> min(s)</string>
   <string name="short_date_seconds_now">just now</string>
 
+  <!-- A11Y -->
+  <string name="a11y_avatar">User avatar</string>
+  <string name="a11y_photo">User photo</string>
+  <string name="a11y_forum_image">Forum image</string>
+  <string name="a11y_news_image">News content image</string>
+
 </resources>
