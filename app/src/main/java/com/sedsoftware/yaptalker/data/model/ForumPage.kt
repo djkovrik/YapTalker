@@ -82,6 +82,7 @@ class Topic() : ViewType, Parcelable {
   @Selector("a.subtitle", defValue = "Unknown") lateinit var title: String
   @Selector("a.subtitle", attr = "href") lateinit var link: String
   @Selector("img[src*=pinned]", attr = "src", defValue = "") lateinit var isPinned: String
+  @Selector("img[src*=closed]", attr = "src", defValue = "") lateinit var isClosed: String
   @Selector("td[class~=row(2|4)] > a", defValue = "Unknown") lateinit var author: String
   @Selector("td[class~=row(2|4)] > a", attr = "href") lateinit var authorLink: String
   @Selector("div.rating-short-value", defValue = "0") lateinit var rating: String

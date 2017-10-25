@@ -24,6 +24,8 @@
   <!-- FORUMS -->
   <string name="forum_comments_template">Comments: <xliff:g id="answers">%s</xliff:g></string>
   <string name="forum_pinned_topic_template" translatable="false"><xliff:g id="icon">{cmd-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
+  <string name="forum_closed_topic_template" translatable="false"><xliff:g id="icon">{cmd-lock}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
+  <string name="forum_pinned_and_closed_topic_template" translatable="false"><xliff:g id="icons">{cmd-lock} {cmd-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
 
   <!-- POSTS -->
   <string name="post_hidden_text_template">Hidden text: <xliff:g id="spoiler">%s</xliff:g></string>
