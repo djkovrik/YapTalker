@@ -37,7 +37,6 @@ import kotlinx.android.synthetic.main.include_main_content.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 
-// TODO() Investigate app crash when in paused state
 class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
   companion object {
