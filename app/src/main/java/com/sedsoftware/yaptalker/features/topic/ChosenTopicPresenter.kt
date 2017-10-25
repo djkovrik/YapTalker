@@ -10,7 +10,6 @@ import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 
 @InjectViewState
 class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
@@ -38,7 +37,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         savedViewState.containsKey(TOPIC_PAGE_KEY)) {
 
       with(savedViewState) {
-        onRestoringSuccess(getParcelable(TOPIC_PAGE_KEY))
+        onLoadingSuccess(page = getParcelable(TOPIC_PAGE_KEY), restored = true)
       }
     } else {
       loadTopic(forumId, topicId)
@@ -160,20 +159,24 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         })
   }
 
-  private fun onRestoringSuccess(page: TopicPage) {
-    currentTitle = page.topicTitle
-    // TODO() Fix pages parsing for signed in user
-//    currentPage = page.navigation.currentPage.toInt()
-//    totalPages = page.navigation.totalPages.toInt()
-    Timber.d("currentPage = ${page.navigation.currentPage}")
-    Timber.d("totalPages = ${page.navigation.totalPages}")
-    updateAppbarTitle(currentTitle)
-    viewState.displayTopicPage(page)
-  }
 
-  private fun onLoadingSuccess(page: TopicPage) {
-    onRestoringSuccess(page)
-    viewState.scrollToViewTop()
+  private fun onLoadingSuccess(page: TopicPage, restored: Boolean = false) {
+    currentTitle = page.topicTitle
+    updateAppbarTitle(currentTitle)
+
+    val pageString = page.navigation.currentPage
+    val totalPageString = page.navigation.totalPages
+
+    if (pageString.isNotEmpty() && totalPageString.isNotEmpty()) {
+      currentPage = pageString.toInt()
+      totalPages = totalPageString.toInt()
+    }
+
+    viewState.displayTopicPage(page)
+
+    if (restored) {
+      viewState.scrollToViewTop()
+    }
   }
 
   private fun onLoadingError(error: Throwable) {

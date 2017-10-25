@@ -33,7 +33,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
         savedViewState.containsKey(FORUM_PAGE_KEY)) {
 
       with(savedViewState) {
-        onRestoringSuccess(getParcelable(FORUM_PAGE_KEY))
+        onLoadingSuccess(page = getParcelable(FORUM_PAGE_KEY), restored = true)
       }
     } else {
       loadForum(forumId)
@@ -111,17 +111,24 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
         })
   }
 
-  private fun onRestoringSuccess(page: ForumPage) {
-    currentTitle = page.forumTitle
-    currentPage = page.navigation.currentPage.toInt()
-    totalPages = page.navigation.totalPages.toInt()
-    updateAppbarTitle(currentTitle)
-    viewState.displayForumPage(page)
-  }
+  private fun onLoadingSuccess(page: ForumPage, restored: Boolean = false) {
 
-  private fun onLoadingSuccess(page: ForumPage) {
-    onRestoringSuccess(page)
-    viewState.scrollToViewTop()
+    currentTitle = page.forumTitle
+    updateAppbarTitle(currentTitle)
+
+    val pageString = page.navigation.currentPage
+    val totalPageString = page.navigation.totalPages
+
+    if (pageString.isNotEmpty() && totalPageString.isNotEmpty()) {
+      currentPage = pageString.toInt()
+      totalPages = totalPageString.toInt()
+    }
+
+    viewState.displayForumPage(page)
+
+    if (restored) {
+      viewState.scrollToViewTop()
+    }
   }
 
   private fun onLoadingError(error: Throwable) {
