@@ -10,9 +10,10 @@ import android.support.v4.content.FileProvider
 import com.arellomobile.mvp.InjectViewState
 import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.base.BasePresenter
+import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
-import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
+import com.sedsoftware.yaptalker.commons.extensions.validateURL
 import com.squareup.picasso.Picasso
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Single
@@ -51,7 +52,7 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
 
   fun saveImage(url: String) {
 
-    loadImageFromUrl(url)
+    loadImageFromUrl(url.validateURL())
         .flatMap { response -> saveToDisk(response, url.substringAfterLast("/")) }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -67,7 +68,7 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
     if (url.isNotEmpty()) {
       Picasso
           .with(context)
-          .load(url)
+          .load(url.validateURL())
           .into(ShareTarget(context))
     }
   }

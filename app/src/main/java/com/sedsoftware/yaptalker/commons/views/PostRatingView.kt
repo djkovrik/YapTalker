@@ -4,6 +4,8 @@ import android.content.Context
 import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.extensions.hideView
+import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import java.util.Locale
 
@@ -22,6 +24,8 @@ class PostRatingView : AppCompatTextView {
 
   private fun setPostRank(postRank: String) {
 
+    showView()
+
     if (postRank.isNotEmpty()) {
       val rank = postRank.toInt()
 
@@ -34,10 +38,7 @@ class PostRatingView : AppCompatTextView {
           text = String.format(Locale.getDefault(), "%d", rank)
           textColor = R.color.colorRatingRed
         }
-        else -> {
-          text = postRank
-          textColor = R.color.colorSupportingText
-        }
+        else -> hideView()
       }
     }
   }

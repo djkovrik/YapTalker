@@ -25,9 +25,13 @@ class VideoDisplayActivity : MvpAppCompatActivity(), VideoDisplayView {
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
   }
 
-  override fun onResumeFragments() {
-    super.onResumeFragments()
+  override fun onResume() {
+    super.onResume()
     displayPresenter.loadVideoContent()
+  }
+
+  override fun showErrorMessage(message: String) {
+
   }
 
   @SuppressLint("SetJavaScriptEnabled")

@@ -72,6 +72,10 @@ class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
     }
   }
 
+  override fun showErrorMessage(message: String) {
+
+  }
+
   override fun toggleSystemUiVisibility() {
     val uiOptions = window.decorView.systemUiVisibility
     var newUiOptions = uiOptions
@@ -103,7 +107,7 @@ class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
   }
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
-      grantResults: IntArray) {
+                                          grantResults: IntArray) {
 
     when (requestCode) {
       STORAGE_WRITE_PERMISSION -> {

@@ -1,14 +1,12 @@
 package com.sedsoftware.yaptalker.features.topic
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
-import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
+import com.sedsoftware.yaptalker.base.BasePresenter
+import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
+import com.sedsoftware.yaptalker.data.model.TopicNavigationPanel
 import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.data.model.TopicPost
-import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -17,58 +15,48 @@ import io.reactivex.schedulers.Schedulers
 class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   companion object {
+    private const val TOPIC_PAGE_KEY = "TOPIC_PAGE_KEY"
     private const val POSTS_PER_PAGE = 25
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
 
+  private var currentTitle = ""
   private var currentForumId = 0
   private var currentTopicId = 0
-  private var currentPage = 0
-  private var totalPages = -1
-  private var currentTitle = ""
+  private var currentPage = 1
+  private var totalPages = 1
+  private var authKey = ""
 
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
-
-    viewState.hideNavigationPanelWithoutAnimation()
-
-    attachRefreshIndicator( {
-      // onStart
-      viewState.showRefreshing()
-    }, {
-      // onFinish
-      viewState.hideRefreshing()
-    })
+  override fun attachView(view: ChosenTopicView?) {
+    super.attachView(view)
+    viewState.hideFabWithoutAnimation()
   }
 
-  fun checkSavedState(forumId: Int, topicId: Int, savedViewState: Bundle?, key: String) {
-    if (savedViewState != null && savedViewState.containsKey(key)) {
-      val posts = savedViewState.getParcelableArrayList<TopicPost>(key)
-      onRestoringSuccess(posts)
+  fun checkSavedState(forumId: Int, topicId: Int, savedViewState: Bundle?) {
+    if (savedViewState != null &&
+        savedViewState.containsKey(TOPIC_PAGE_KEY)) {
+
+      with(savedViewState) {
+        onLoadingSuccess(getParcelable(TOPIC_PAGE_KEY))
+      }
     } else {
       loadTopic(forumId, topicId)
     }
   }
 
-  fun goToNextPage() {
-    if (currentPage in 0 until totalPages - 1) {
-      currentPage++
-      loadTopicCurrentPage()
+  fun saveCurrentState(outState: Bundle, panel: TopicNavigationPanel, posts: List<TopicPost>) {
+    val topicPage = TopicPage(
+        title = currentTitle,
+        navigationPanel = panel,
+        key = authKey,
+        postsList = posts)
+
+    with(outState) {
+      putParcelable(TOPIC_PAGE_KEY, topicPage)
     }
   }
 
-  fun goToPreviousPage() {
-    if (currentPage in 1 until totalPages) {
-      currentPage--
-      loadTopicCurrentPage()
-    }
-  }
-
-  fun goToChosenPage() {
-    viewState.showGoToPageDialog(totalPages)
-  }
-
-  fun loadTopic(forumId: Int, topicId: Int, page: Int = 0) {
+  fun loadTopic(forumId: Int, topicId: Int, page: Int = 1) {
     currentForumId = forumId
     currentTopicId = topicId
     currentPage = page
@@ -76,29 +64,84 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     loadTopicCurrentPage()
   }
 
-  fun loadChosenTopicPage(chosenPage: Int) {
+  fun goToFirstPage() {
+    currentPage = 1
+    loadTopicCurrentPage()
+  }
+
+  fun goToLastPage() {
+    currentPage = totalPages
+    loadTopicCurrentPage()
+  }
+
+  fun goToPreviousPage() {
+    currentPage--
+    loadTopicCurrentPage()
+  }
+
+  fun goToNextPage() {
+    currentPage++
+    loadTopicCurrentPage()
+  }
+
+  fun goToChosenPage(chosenPage: Int) {
     if (chosenPage in 1..totalPages) {
-      currentPage = chosenPage - OFFSET_FOR_PAGE_NUMBER
+      currentPage = chosenPage
       loadTopicCurrentPage()
     } else {
       viewState.showCantLoadPageMessage(chosenPage)
     }
   }
 
-  fun setAppbarTitle(title: String) {
-    pushAppEvent(UpdateAppbarEvent(title))
+  fun handleFabVisibility(isFabShown: Boolean, diff: Int) {
+    when {
+      authKey.isEmpty() -> viewState.hideFabWithoutAnimation()
+      isFabShown && diff < 0 -> viewState.showFab(shouldShow = false)
+      !isFabShown && diff > 0 -> viewState.showFab(shouldShow = true)
+    }
   }
 
-  fun handleNavigationVisibility(isNavigationShown: Boolean, scrollState: Int) {
-    when {
-      isNavigationShown && scrollState == RecyclerView.SCROLL_STATE_IDLE -> viewState.hideNavigationPanel()
-      !isNavigationShown && scrollState != RecyclerView.SCROLL_STATE_IDLE -> viewState.showNavigationPanel()
+  fun onFabClicked() {
+    viewState.showAddMessageActivity(currentTitle)
+  }
+
+  fun loadProfileIfAvailable(userId: Int) {
+    if (authKey.isNotEmpty()) {
+      viewState.showUserProfile(userId)
     }
+  }
+
+  // TODO() Add closed topics detection
+  fun sendMessage(message: String) {
+
+    if (authKey.isEmpty()) {
+      return
+    }
+
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
+
+    yapDataManager
+        .sendMessageToSite(currentForumId, currentTopicId, startingPost, authKey, message)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe({
+          // onSuccess
+          onPostSuccess()
+        }, {
+          // onError
+          throwable ->
+          onLoadingError(throwable)
+        })
+  }
+
+  private fun onPostSuccess() {
+    loadTopicCurrentPage()
   }
 
   private fun loadTopicCurrentPage() {
 
-    val startingPost = currentPage * POSTS_PER_PAGE
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
 
     yapDataManager
         .getChosenTopic(currentForumId, currentTopicId, startingPost)
@@ -116,46 +159,24 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         })
   }
 
-  private fun onLoadingSuccess(topicPage: TopicPage) {
-    totalPages = topicPage.totalPages.getLastDigits()
-    currentTitle = topicPage.topicTitle
-    viewState.refreshPosts(topicPage.posts)
-    viewState.scrollToViewTop()
-    viewState.setAppbarTitle(currentTitle)
-    setNavigationLabel()
-    setNavigationAvailability()
-  }
 
-  private fun onRestoringSuccess(list: List<TopicPost>) {
-    viewState.refreshPosts(list)
-    viewState.setAppbarTitle(currentTitle)
-    setNavigationLabel()
-    setNavigationAvailability()
+  private fun onLoadingSuccess(page: TopicPage) {
+    currentTitle = page.topicTitle
+    updateAppbarTitle(currentTitle)
+
+    val pageString = page.navigation.currentPage
+    val totalPageString = page.navigation.totalPages
+
+    if (pageString.isNotEmpty() && totalPageString.isNotEmpty()) {
+      currentPage = pageString.toInt()
+      totalPages = totalPageString.toInt()
+    }
+
+    viewState.displayTopicPage(page)
+    viewState.scrollToViewTop()
   }
 
   private fun onLoadingError(error: Throwable) {
     error.message?.let { viewState.showErrorMessage(it) }
-  }
-
-  private fun setNavigationLabel() {
-    viewState.setNavigationPagesLabel(currentPage + OFFSET_FOR_PAGE_NUMBER, totalPages)
-  }
-
-  private fun setNavigationAvailability() {
-
-    var backNavigationAvailable = true
-    var forwardNavigationAvailable = true
-
-    when (currentPage) {
-      0 -> {
-        backNavigationAvailable = false
-      }
-      totalPages - OFFSET_FOR_PAGE_NUMBER -> {
-        forwardNavigationAvailable = false
-      }
-    }
-
-    viewState.setIfNavigationBackEnabled(backNavigationAvailable)
-    viewState.setIfNavigationForwardEnabled(forwardNavigationAvailable)
   }
 }

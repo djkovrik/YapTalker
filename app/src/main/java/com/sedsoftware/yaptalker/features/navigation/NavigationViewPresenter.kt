@@ -4,35 +4,40 @@ import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.franmontiel.persistentcookiejar.ClearableCookieJar
 import com.github.salomonbrys.kodein.instance
-import com.sedsoftware.yaptalker.commons.AppEvent
-import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
-import com.sedsoftware.yaptalker.commons.UpdateNavDrawerEvent
-import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
+import com.sedsoftware.yaptalker.base.BasePresenter
+import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 
 @InjectViewState
 class NavigationViewPresenter : BasePresenter<NavigationView>() {
 
   private val cookieStorage: ClearableCookieJar by instance()
 
+  private var currentTitle: String = ""
+
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-    eventBus
-        .filter { event -> event.getType() == AppEvent.UPDATE_APPBAR }
-        .map { event -> event as UpdateAppbarEvent }
+    appbarBus
         .autoDisposeWith(event(PresenterLifecycle.DESTROY))
-        .subscribe { event -> viewState.setAppbarTitle(event.title) }
+        .subscribe { title ->
+          viewState.setAppbarTitle(title)
+          currentTitle = title
+        }
+  }
 
-    eventBus
-        .filter { event -> event.getType() == AppEvent.UPDATE_NAVDRAWER }
-        .map { event -> event as UpdateNavDrawerEvent }
-        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
-        .subscribe { event -> viewState.setActiveProfile(event) }
+  fun saveCurrentTitle(key: String, outState: Bundle?) {
+    outState?.putString(key, currentTitle)
+  }
+
+  fun restoreCurrentTitle(key: String, savedInstanceState: Bundle?) {
+    savedInstanceState?.let {
+      if (savedInstanceState.containsKey(key)) {
+        updateAppbarTitle(savedInstanceState.getString(key))
+      }
+    }
   }
 
   fun initLayout(savedInstanceState: Bundle?) {
@@ -54,12 +59,11 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
         .subscribe({
           // On Success
           info ->
-          pushAppEvent(
-              UpdateNavDrawerEvent(name = info.nickname, title = info.title, avatar = info.avatar))
+          viewState.updateNavDrawer(info)
         }, {
           // On Error
-          t ->
-          Timber.d("Can't get user info! Error: ${t.message}")
+          throwable ->
+          throwable.message?.let { viewState.showErrorMessage(it) }
         })
   }
 

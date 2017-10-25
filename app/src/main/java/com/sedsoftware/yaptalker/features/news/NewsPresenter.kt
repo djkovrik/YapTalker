@@ -1,10 +1,9 @@
 package com.sedsoftware.yaptalker.features.news
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
+import com.sedsoftware.yaptalker.base.BasePresenter
+import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.model.NewsItem
-import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -23,23 +22,16 @@ class NewsPresenter : BasePresenter<NewsView>() {
     settings.getNewsCategories()
   }
 
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
-
-    attachRefreshIndicator( {
-      // onStart
-      viewState.showRefreshing()
-    }, {
-      // onFinish
-      viewState.hideRefreshing()
-      viewState.hideFab()
-    })
-  }
-
   override fun attachView(view: NewsView?) {
     super.attachView(view)
-    viewState.updateAppbarTitle()
     viewState.hideFabWithoutAnimation()
+  }
+
+  fun handleFabVisibility(isFabShown: Boolean, diff: Int) {
+    when {
+      isFabShown && diff > 0 -> viewState.showFab(false)
+      !isFabShown && diff < 0 -> viewState.showFab(true)
+    }
   }
 
   fun loadNews(loadFromFirstPage: Boolean) {
@@ -74,22 +66,12 @@ class NewsPresenter : BasePresenter<NewsView>() {
         })
   }
 
-  fun updateTitle(title: String) {
-    pushAppEvent(UpdateAppbarEvent(title))
-  }
-
-  fun handleFabVisibility(isFabShown: Boolean, diff: Int) {
-    when {
-      isFabShown && diff > 0 -> viewState.hideFab()
-      !isFabShown && diff < 0 -> viewState.showFab()
-    }
-  }
-
   private fun onLoadingSuccess(newsItem: NewsItem) {
     if (backToFirstPage) {
       viewState.clearNewsList()
       backToFirstPage = false
     }
+    viewState.showFab(false)
     viewState.appendNewsItem(newsItem)
   }
 

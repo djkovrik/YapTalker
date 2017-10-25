@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:fitsSystemWindows="true"
   android:orientation="vertical"
-  tools:context="com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity"
-  tools:ignore="Overdraw">
+  tools:context="com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity">
 
-  <include layout="@layout/include_main_appbar"/>
+  <include layout="@layout/include_main_appbar" />
 
   <android.support.v7.widget.CardView
     android:layout_width="match_parent"
@@ -22,11 +20,11 @@
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingTop="@dimen/material_card_supporting_text_padding_top"
+      android:orientation="vertical"
       android:paddingBottom="@dimen/material_card_supporting_text_padding_bottom"
-      android:paddingStart="@dimen/material_card_supporting_text_padding_horizontal"
       android:paddingEnd="@dimen/material_card_supporting_text_padding_horizontal"
-      android:orientation="vertical">
+      android:paddingStart="@dimen/material_card_supporting_text_padding_horizontal"
+      android:paddingTop="@dimen/material_card_supporting_text_padding_top">
 
       <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -39,7 +37,7 @@
           android:hint="@string/authorization_login_label"
           android:inputType="text"
           android:theme="@style/EditTextStyle"
-          tools:ignore="LabelFor"/>
+          tools:ignore="LabelFor" />
 
       </android.support.design.widget.TextInputLayout>
 
@@ -56,7 +54,7 @@
           android:hint="@string/authorization_password_label"
           android:inputType="textWebPassword"
           android:theme="@style/EditTextStyle"
-          tools:ignore="LabelFor"/>
+          tools:ignore="LabelFor" />
 
       </android.support.design.widget.TextInputLayout>
 
@@ -66,7 +64,7 @@
         android:layout_height="wrap_content"
         android:elevation="@dimen/material_button_flat_elevation"
         android:text="@string/authorization_button_login"
-        android:theme="@style/SignInButton"/>
+        android:theme="@style/SignInButton" />
 
     </LinearLayout>
 

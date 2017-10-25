@@ -1,5 +1,7 @@
 package com.sedsoftware.yaptalker.features.topic
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -7,33 +9,42 @@ import android.text.InputType
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.bluelinelabs.conductor.RouterTransaction
+import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.extensions.bottomMargin
+import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
-import com.sedsoftware.yaptalker.commons.extensions.setAppColorScheme
+import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
-import com.sedsoftware.yaptalker.data.model.TopicPost
-import com.sedsoftware.yaptalker.features.base.BaseController
+import com.sedsoftware.yaptalker.data.model.TopicPage
+import com.sedsoftware.yaptalker.features.posting.AddMessageActivity
+import com.sedsoftware.yaptalker.features.topic.adapter.ChosenTopicAdapter
+import com.sedsoftware.yaptalker.features.topic.adapter.TopicNavigationClickListener
+import com.sedsoftware.yaptalker.features.topic.adapter.UserProfileClickListener
+import com.sedsoftware.yaptalker.features.userprofile.UserProfileController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_topic.view.*
-import kotlinx.android.synthetic.main.include_navigation_panel.view.*
 import java.util.Locale
 
-class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), ChosenTopicView {
+
+// TODO() Add share command
+class ChosenTopicController(val bundle: Bundle) :
+    BaseController(bundle), ChosenTopicView, UserProfileClickListener, TopicNavigationClickListener {
 
   companion object {
-    private const val NAVIGATION_PANEL_OFFSET = 200f
-    private const val NAVIGATION_PANEL_HIDE_DELAY = 2500L
-    private const val POSTS_LIST_KEY = "POSTS_LIST_KEY"
     const val FORUM_ID_KEY = "FORUM_ID_KEY"
     const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
+    const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
+    const val MESSAGE_TEXT_KEY = "MESSAGE_TEXT_KEY"
+    private const val INITIAL_FAB_OFFSET = 250f
+    private const val MESSAGE_TEXT_REQUEST = 321
   }
 
   private val currentForumId: Int by lazy {
@@ -48,17 +59,16 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
   lateinit var topicPresenter: ChosenTopicPresenter
 
   private lateinit var topicAdapter: ChosenTopicAdapter
-  private var isNavigationShown = true
+  private var isFabShown = true
 
   override val controllerLayoutId: Int
     get() = R.layout.controller_chosen_topic
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
-
-    topicAdapter = ChosenTopicAdapter()
+    topicAdapter = ChosenTopicAdapter(this, this)
     topicAdapter.setHasStableIds(true)
 
-    view.topic_refresh_layout.setAppColorScheme()
+    view.topic_refresh_layout.setIndicatorColorScheme()
 
     with(view.topic_posts_list) {
       val linearLayout = LinearLayoutManager(context)
@@ -70,7 +80,7 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
       setHasFixedSize(true)
     }
 
-    topicPresenter.checkSavedState(currentForumId, currentTopicId, savedViewState, POSTS_LIST_KEY)
+    topicPresenter.checkSavedState(currentForumId, currentTopicId, savedViewState)
   }
 
   override fun subscribeViews(parent: View) {
@@ -81,40 +91,30 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
           .subscribe { topicPresenter.loadTopic(currentForumId, currentTopicId) }
     }
 
-    parent.navigation_go_previous?.let {
-      RxView
-          .clicks(parent.navigation_go_previous)
-          .autoDisposeWith(scopeProvider)
-          .subscribe { topicPresenter.goToPreviousPage() }
-    }
-
-    parent.navigation_go_next?.let {
-      RxView
-          .clicks(parent.navigation_go_next)
-          .autoDisposeWith(scopeProvider)
-          .subscribe { topicPresenter.goToNextPage() }
-    }
-
-    parent.navigation_pages_label?.let {
-      RxView
-          .clicks(parent.navigation_pages_label)
-          .autoDisposeWith(scopeProvider)
-          .subscribe { topicPresenter.goToChosenPage() }
-    }
-
     parent.topic_posts_list?.let {
       RxRecyclerView
-          .scrollStateChanges(parent.topic_posts_list)
+          .scrollEvents(parent.topic_posts_list)
           .autoDisposeWith(scopeProvider)
-          .subscribe { state -> topicPresenter.handleNavigationVisibility(isNavigationShown, state) }
+          .subscribe { event ->
+            topicPresenter.handleFabVisibility(isFabShown, event.dy())
+          }
+    }
+
+    parent.new_post_fab?.let {
+      RxView
+          .clicks(parent.new_post_fab)
+          .autoDisposeWith(scopeProvider)
+          .subscribe { topicPresenter.onFabClicked() }
     }
   }
 
   override fun onSaveViewState(view: View, outState: Bundle) {
     super.onSaveViewState(view, outState)
+    val panel = topicAdapter.getNavigationPanel()
     val posts = topicAdapter.getPosts()
-    if (posts.isNotEmpty()) {
-      outState.putParcelableArrayList(POSTS_LIST_KEY, posts)
+
+    if (panel.isNotEmpty() && posts.isNotEmpty()) {
+      topicPresenter.saveCurrentState(outState, panel.first(), posts)
     }
   }
 
@@ -123,83 +123,108 @@ class ChosenTopicController(val bundle: Bundle) : BaseController(bundle), Chosen
     view.topic_posts_list.adapter = null
   }
 
-  override fun showRefreshing() {
-    view?.topic_refresh_layout?.isRefreshing = true
-  }
-
-  override fun hideRefreshing() {
-    view?.topic_refresh_layout?.isRefreshing = false
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    if (requestCode == MESSAGE_TEXT_REQUEST && resultCode == Activity.RESULT_OK) {
+      data?.getStringExtra(MESSAGE_TEXT_KEY)?.let { message ->
+        if (message.isNotEmpty()) {
+          topicPresenter.sendMessage(message)
+        }
+      }
+    }
   }
 
   override fun showErrorMessage(message: String) {
     toastError(message)
   }
 
-  override fun refreshPosts(posts: List<TopicPost>) {
-    topicAdapter.setPosts(posts)
+  override fun showLoadingIndicator(shouldShow: Boolean) {
+    view?.topic_refresh_layout?.isRefreshing = shouldShow
   }
 
-  override fun setNavigationPagesLabel(page: Int, totalPages: Int) {
-    val template = view?.context?.stringRes(R.string.navigation_pages_template) ?: ""
-
-    if (template.isNotEmpty()) {
-      view?.navigation_pages_label?.text = String.format(Locale.US, template, page, totalPages)
-    }
-  }
-
-  override fun setIfNavigationBackEnabled(isEnabled: Boolean) {
-    view?.navigation_go_previous?.isEnabled = isEnabled
-  }
-
-  override fun setIfNavigationForwardEnabled(isEnabled: Boolean) {
-    view?.navigation_go_next?.isEnabled = isEnabled
-  }
-
-  override fun showGoToPageDialog(maxPages: Int) {
-
-    view?.context?.let {
-      MaterialDialog.Builder(it)
-          .title(R.string.navigation_go_to_page_title)
-          .inputType(InputType.TYPE_CLASS_NUMBER)
-          .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
-            topicPresenter.loadChosenTopicPage(input.toString().toInt())
-          })
-          .show()
-    }
-  }
-
-  override fun showCantLoadPageMessage(page: Int) {
-    val messageTemplate = view?.context?.stringRes(R.string.navigation_page_not_available)
-
-    messageTemplate?.let {
-      toastWarning(String.format(Locale.US, it, page))
-    }
+  override fun displayTopicPage(page: TopicPage) {
+    topicAdapter.refreshTopicPage(page)
   }
 
   override fun scrollToViewTop() {
     view?.topic_posts_list?.layoutManager?.scrollToPosition(0)
   }
 
-  override fun setAppbarTitle(title: String) {
-    topicPresenter.setAppbarTitle(title)
-  }
-
-  override fun hideNavigationPanel() {
-    view?.navigation_panel?.apply {
-      hideBeyondScreenEdge(
-          offset = (height + bottomMargin).toFloat(),
-          delay = NAVIGATION_PANEL_HIDE_DELAY)
+  override fun showFab(shouldShow: Boolean) {
+    if (shouldShow == isFabShown) {
+      return
     }
-    isNavigationShown = false
+
+    if (shouldShow) {
+      view?.new_post_fab?.let { fab ->
+        fab.showFromScreenEdge()
+        isFabShown = true
+      }
+    } else {
+      view?.new_post_fab?.let { fab ->
+        val offset = fab.height + fab.paddingTop + fab.paddingBottom
+        fab.hideBeyondScreenEdge(offset.toFloat())
+        isFabShown = false
+      }
+    }
   }
 
-  override fun hideNavigationPanelWithoutAnimation() {
-    view?.navigation_panel?.translationY = NAVIGATION_PANEL_OFFSET
-    isNavigationShown = false
+  override fun hideFabWithoutAnimation() {
+    view?.new_post_fab?.translationY = INITIAL_FAB_OFFSET
+    isFabShown = false
   }
 
-  override fun showNavigationPanel() {
-    view?.navigation_panel?.showFromScreenEdge()
-    isNavigationShown = true
+  override fun showAddMessageActivity(title: String) {
+    view?.context?.let { ctx ->
+      val activityIntent = Intent(ctx, AddMessageActivity::class.java)
+      activityIntent.putExtra(TOPIC_TITLE_KEY, title)
+      startActivityForResult(activityIntent, MESSAGE_TEXT_REQUEST)
+    }
+  }
+
+  override fun showCantLoadPageMessage(page: Int) {
+    view?.context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
+      toastWarning(String.format(Locale.getDefault(), template, page))
+    }
+  }
+
+  override fun showUserProfile(userId: Int) {
+    val bundle = Bundle()
+    bundle.putInt(UserProfileController.USER_ID_KEY, userId)
+    router.pushController(
+        RouterTransaction.with(UserProfileController(bundle))
+            .pushChangeHandler(FadeChangeHandler())
+            .popChangeHandler(FadeChangeHandler()))
+  }
+
+  override fun onUserAvatarClick(userId: Int) {
+    topicPresenter.loadProfileIfAvailable(userId)
+  }
+
+  override fun onGoToFirstPageClick() {
+    topicPresenter.goToFirstPage()
+  }
+
+  override fun onGoToLastPageClick() {
+    topicPresenter.goToLastPage()
+  }
+
+  override fun onGoToPreviousPageClick() {
+    topicPresenter.goToPreviousPage()
+  }
+
+  override fun onGoToNextPageClick() {
+    topicPresenter.goToNextPage()
+  }
+
+  override fun onGoToSelectedPageClick() {
+    view?.context?.let { ctx ->
+      MaterialDialog.Builder(ctx)
+          .title(R.string.navigation_go_to_page_title)
+          .inputType(InputType.TYPE_CLASS_NUMBER)
+          .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
+            topicPresenter.goToChosenPage(input.toString().toInt())
+          })
+          .show()
+    }
   }
 }

@@ -7,6 +7,9 @@ import com.bluelinelabs.conductor.autodispose.ControllerScopeProvider
 import com.uber.autodispose.LifecycleScopeProvider
 import es.dmoral.toasty.Toasty
 
+val Controller.scopeProvider: LifecycleScopeProvider<ControllerEvent>
+  get() = ControllerScopeProvider.from(this)
+
 fun Controller.toastError(message: String) {
   view?.let {
     Toasty.error(it.context, message, Toast.LENGTH_SHORT, true).show()
@@ -30,6 +33,3 @@ fun Controller.toastWarning(message: String) {
     Toasty.warning(it.context, message, Toast.LENGTH_SHORT, true).show()
   }
 }
-
-val Controller.scopeProvider: LifecycleScopeProvider<ControllerEvent>
-  get() = ControllerScopeProvider.from(this)

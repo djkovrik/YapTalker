@@ -4,10 +4,10 @@ import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
 
 class ParsedPost(html: String,
-    val content: MutableList<Content> = ArrayList(),
-    val images: MutableList<String> = ArrayList(),
-    val videos: MutableList<String> = ArrayList(),
-    val videosRaw: MutableList<String> = ArrayList()) {
+                 val content: MutableList<Content> = ArrayList(),
+                 val images: MutableList<String> = ArrayList(),
+                 val videos: MutableList<String> = ArrayList(),
+                 val videosRaw: MutableList<String> = ArrayList()) {
 
   companion object {
     private const val TEXT_SELECTOR = "postcolor"
@@ -126,8 +126,6 @@ class ParsedPost(html: String,
         .clean(this, contentWhitelist)
         // Replace html spaces
         .replace("&nbsp;", " ")
-        // Replace extra <br>
-        //.replace(Regex("(<br>(\\s+)?\\R)+", RegexOption.MULTILINE), "<br>")
   }
 
   private fun String.trimLinebreakTags(): String {

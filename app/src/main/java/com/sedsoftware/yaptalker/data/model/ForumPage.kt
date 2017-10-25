@@ -2,6 +2,9 @@ package com.sedsoftware.yaptalker.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.os.Parcelable.Creator
+import com.sedsoftware.yaptalker.commons.adapter.ContentTypes
+import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import pl.droidsonroids.jspoon.annotation.Selector
 
 class ForumPage() : Parcelable {
@@ -9,37 +12,76 @@ class ForumPage() : Parcelable {
   lateinit var forumTitle: String
   @Selector("a[href~=.*/forum\\d+/].title", attr = "href", defValue = "0")
   lateinit var forumId: String
-  @Selector("td[nowrap=nowrap]", format = "(\\d+)", defValue = "0")
-  lateinit var totalPages: String
+  @Selector("table[width=100%]")
+  lateinit var navigation: ForumNavigationPanel
   @Selector("table tr:has(td.row4)")
   lateinit var topics: List<Topic>
 
   constructor(parcel: Parcel) : this() {
     forumTitle = parcel.readString()
     forumId = parcel.readString()
-    totalPages = parcel.readString()
+    navigation = parcel.readParcelable(ForumNavigationPanel::class.java.classLoader)
     topics = parcel.createTypedArrayList(Topic)
+  }
+
+  constructor(title: String, id: String, navigationPanel: ForumNavigationPanel, topicsList: List<Topic>) : this() {
+    forumTitle = title
+    forumId = id
+    navigation = navigationPanel
+    topics = topicsList
   }
 
   override fun writeToParcel(parcel: Parcel, flags: Int) {
     parcel.writeString(forumTitle)
     parcel.writeString(forumId)
-    parcel.writeString(totalPages)
+    parcel.writeParcelable(navigation, flags)
     parcel.writeTypedList(topics)
   }
 
   override fun describeContents() = 0
 
-  companion object CREATOR : Parcelable.Creator<ForumPage> {
-    override fun createFromParcel(parcel: Parcel): ForumPage = ForumPage(parcel)
+  companion object CREATOR : Creator<ForumPage> {
+    override fun createFromParcel(parcel: Parcel): ForumPage {
+      return ForumPage(parcel)
+    }
+
     override fun newArray(size: Int): Array<ForumPage?> = arrayOfNulls(size)
   }
 }
 
-class Topic() : Parcelable {
+class ForumNavigationPanel() : ViewType, Parcelable {
+  @Selector("td[nowrap=nowrap]", format = "\\[(\\d+)\\]", defValue = "0")
+  lateinit var currentPage: String
+  @Selector("td[nowrap=nowrap]", format = "(\\d+)", defValue = "0")
+  lateinit var totalPages: String
+
+  constructor(parcel: Parcel) : this() {
+    currentPage = parcel.readString()
+    totalPages = parcel.readString()
+  }
+
+  override fun writeToParcel(parcel: Parcel, flags: Int) {
+    parcel.writeString(currentPage)
+    parcel.writeString(totalPages)
+  }
+
+  override fun describeContents() = 0
+
+  companion object CREATOR : Creator<ForumNavigationPanel> {
+    override fun createFromParcel(parcel: Parcel): ForumNavigationPanel {
+      return ForumNavigationPanel(parcel)
+    }
+
+    override fun newArray(size: Int): Array<ForumNavigationPanel?> = arrayOfNulls(size)
+  }
+
+  override fun getViewType() = ContentTypes.NAVIGATION_PANEL
+}
+
+class Topic() : ViewType, Parcelable {
   @Selector("a.subtitle", defValue = "Unknown") lateinit var title: String
   @Selector("a.subtitle", attr = "href") lateinit var link: String
-  @Selector("img[src*=pinned]", attr="src", defValue = "") lateinit var isPinned: String
+  @Selector("img[src*=pinned]", attr = "src", defValue = "") lateinit var isPinned: String
   @Selector("td[class~=row(2|4)] > a", defValue = "Unknown") lateinit var author: String
   @Selector("td[class~=row(2|4)] > a", attr = "href") lateinit var authorLink: String
   @Selector("div.rating-short-value", defValue = "0") lateinit var rating: String
@@ -73,8 +115,13 @@ class Topic() : Parcelable {
 
   override fun describeContents() = 0
 
-  companion object CREATOR : Parcelable.Creator<Topic> {
-    override fun createFromParcel(parcel: Parcel): Topic = Topic(parcel)
+  companion object CREATOR : Creator<Topic> {
+    override fun createFromParcel(parcel: Parcel): Topic {
+      return Topic(parcel)
+    }
+
     override fun newArray(size: Int): Array<Topic?> = arrayOfNulls(size)
   }
+
+  override fun getViewType() = ContentTypes.TOPIC
 }

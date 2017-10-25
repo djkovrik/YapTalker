@@ -1,15 +1,13 @@
 package com.sedsoftware.yaptalker.features.authorization
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.commons.UpdateAppbarEvent
-import com.sedsoftware.yaptalker.features.base.BasePresenter
-import com.sedsoftware.yaptalker.features.base.PresenterLifecycle
+import com.sedsoftware.yaptalker.base.BasePresenter
+import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
 import retrofit2.Response
-import timber.log.Timber
 
 @InjectViewState
 class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
@@ -19,17 +17,8 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
     private const val SUCCESS_MESSAGE = "Спасибо"
   }
 
-  override fun attachView(view: AuthorizationView?) {
-    super.attachView(view)
-    viewState.updateAppbarTitle()
-  }
-
   fun handleSignInButton(enabled: Boolean) {
     viewState.signInButtonEnabled(enabled)
-  }
-
-  fun updateTitle(title: String) {
-    pushAppEvent(UpdateAppbarEvent(title))
   }
 
   fun loginAttempt(userLogin: String, userPassword: String) {
@@ -45,7 +34,7 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
         }, {
           // On Error
           error ->
-          Timber.d("Login error: ${error.message}")
+          error.message?.let { viewState.showErrorMessage(it) }
         })
   }
 
@@ -54,7 +43,7 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
     response.body()?.string()?.let { str ->
       if (str.contains(ERROR_MESSAGE)) {
         viewState.loginErrorMessage()
-      } else if (str.contains(SUCCESS_MESSAGE)){
+      } else if (str.contains(SUCCESS_MESSAGE)) {
         viewState.loginSuccessMessage()
         viewState.setResultToOk()
         viewState.backToMainScreen()

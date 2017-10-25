@@ -2,77 +2,87 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.sedsoftware.yaptalker">
 
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
   <application
+    android:name=".YapTalkerApp"
     android:allowBackup="true"
+    android:fullBackupContent="@xml/backup_descriptor"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
-    android:name=".YapTalkerApp"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
 
     <activity
-      android:launchMode="singleTop"
       android:name=".features.navigation.NavigationActivity"
+      android:launchMode="singleTop"
       android:theme="@style/AppTheme.NoActionBar">
       <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
+        <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER"/>
+        <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
 
     <activity
-      android:label="@string/app_name"
       android:name=".features.imagedisplay.ImageDisplayActivity"
-      android:parentActivityName=".features.navigation.NavigationActivity"
-      android:theme="@style/AppTheme.NoActionBar">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".features.navigation.NavigationActivity"/>
-    </activity>
-
-    <activity
       android:label="@string/app_name"
-      android:name=".features.videodisplay.VideoDisplayActivity"
       android:parentActivityName=".features.navigation.NavigationActivity"
-      android:theme="@style/AppTheme.NoActionBar">
+      android:theme="@style/AppTheme.DarkBackground">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value=".features.navigation.NavigationActivity"/>
+        android:value=".features.navigation.NavigationActivity" />
     </activity>
 
     <activity
-      android:label="@string/nav_drawer_settings"
+      android:name=".features.videodisplay.VideoDisplayActivity"
+      android:label="@string/app_name"
+      android:parentActivityName=".features.navigation.NavigationActivity"
+      android:theme="@style/AppTheme.DarkBackground">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".features.navigation.NavigationActivity" />
+    </activity>
+
+    <activity
       android:name=".features.settings.SettingsActivity"
+      android:label="@string/nav_drawer_settings"
       android:parentActivityName=".features.navigation.NavigationActivity"
       android:theme="@style/AppTheme.Settings">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value=".features.navigation.NavigationActivity"/>
+        android:value=".features.navigation.NavigationActivity" />
     </activity>
 
     <activity
+      android:name=".features.authorization.AuthorizationActivity"
       android:label="@string/nav_drawer_sign_in"
       android:launchMode="singleTask"
-      android:name=".features.authorization.AuthorizationActivity"
       android:parentActivityName=".features.navigation.NavigationActivity">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value=".features.navigation.NavigationActivity"/>
+        android:value=".features.navigation.NavigationActivity" />
+    </activity>
+
+    <activity
+      android:name=".features.posting.AddMessageActivity"
+      android:label=""
+      android:parentActivityName=".features.navigation.NavigationActivity">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".features.navigation.NavigationActivity" />
     </activity>
 
     <provider
+      android:name="android.support.v4.content.FileProvider"
       android:authorities="com.sedsoftware.yaptalker"
       android:exported="false"
-      android:grantUriPermissions="true"
-      android:name="android.support.v4.content.FileProvider">
+      android:grantUriPermissions="true">
       <meta-data
         android:name="android.support.FILE_PROVIDER_PATHS"
-        android:resource="@xml/fileprovider"/>
+        android:resource="@xml/fileprovider" />
     </provider>
 
   </application>

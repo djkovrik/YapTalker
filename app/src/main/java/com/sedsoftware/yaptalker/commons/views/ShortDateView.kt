@@ -29,7 +29,6 @@ class ShortDateView : AppCompatTextView {
 
   var shortDateText: CharSequence
     get() = text
-
     set(value) {
       value
           .toSingle()
@@ -38,7 +37,7 @@ class ShortDateView : AppCompatTextView {
           .map { diff -> getCalculatedTime(diff) }
           .map { calculatedTime -> buildString(calculatedTime) }
           .observeOn(AndroidSchedulers.mainThread())
-          .subscribeOn(Schedulers.io())
+          .subscribeOn(Schedulers.computation())
           .subscribe({ str ->
             // onSuccess
             text = str
