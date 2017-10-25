@@ -38,11 +38,7 @@
   <string name="authorization_button_login">Войти</string>
 
   <!-- ADD MESSAGE ACTIVITY -->
-  <string name="post_message_send">Отправить</string>
-  <string name="post_message_cancel">Отмена</string>
   <string name="post_message_hint">Введите сообщение…</string>
-  <string name="post_message_link_dialog">Вставьте ссылку</string>
-  <string name="post_message_video_dialog">Вставьте видео</string>
 
   <!-- USER PROFILE -->
   <!-- Personal data -->
