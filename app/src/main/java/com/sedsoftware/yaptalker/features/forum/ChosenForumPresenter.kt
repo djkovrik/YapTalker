@@ -33,7 +33,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
         savedViewState.containsKey(FORUM_PAGE_KEY)) {
 
       with(savedViewState) {
-        onLoadingSuccess(page = getParcelable(FORUM_PAGE_KEY), restored = true)
+        onLoadingSuccess(getParcelable(FORUM_PAGE_KEY))
       }
     } else {
       loadForum(forumId)
@@ -111,7 +111,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
         })
   }
 
-  private fun onLoadingSuccess(page: ForumPage, restored: Boolean = false) {
+  private fun onLoadingSuccess(page: ForumPage) {
 
     currentTitle = page.forumTitle
     updateAppbarTitle(currentTitle)
@@ -125,10 +125,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     }
 
     viewState.displayForumPage(page)
-
-    if (restored) {
-      viewState.scrollToViewTop()
-    }
+    viewState.scrollToViewTop()
   }
 
   private fun onLoadingError(error: Throwable) {

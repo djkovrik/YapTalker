@@ -37,7 +37,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         savedViewState.containsKey(TOPIC_PAGE_KEY)) {
 
       with(savedViewState) {
-        onLoadingSuccess(page = getParcelable(TOPIC_PAGE_KEY), restored = true)
+        onLoadingSuccess(getParcelable(TOPIC_PAGE_KEY))
       }
     } else {
       loadTopic(forumId, topicId)
@@ -160,7 +160,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   }
 
 
-  private fun onLoadingSuccess(page: TopicPage, restored: Boolean = false) {
+  private fun onLoadingSuccess(page: TopicPage) {
     currentTitle = page.topicTitle
     updateAppbarTitle(currentTitle)
 
@@ -173,10 +173,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     }
 
     viewState.displayTopicPage(page)
-
-    if (restored) {
-      viewState.scrollToViewTop()
-    }
+    viewState.scrollToViewTop()
   }
 
   private fun onLoadingError(error: Throwable) {
