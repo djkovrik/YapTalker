@@ -137,6 +137,10 @@ class ChosenTopicController(val bundle: Bundle) :
     toastError(message)
   }
 
+  override fun showLoadingIndicator(shouldShow: Boolean) {
+    view?.topic_refresh_layout?.isRefreshing = shouldShow
+  }
+
   override fun displayTopicPage(page: TopicPage) {
     topicAdapter.refreshTopicPage(page)
   }
