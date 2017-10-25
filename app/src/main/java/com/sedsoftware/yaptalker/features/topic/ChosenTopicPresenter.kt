@@ -26,6 +26,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   private var currentPage = 1
   private var totalPages = 1
   private var authKey = ""
+  private var isClosed = false
 
   override fun attachView(view: ChosenTopicView?) {
     super.attachView(view)
@@ -95,7 +96,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   fun handleFabVisibility(isFabShown: Boolean, diff: Int) {
     when {
-      authKey.isEmpty() -> viewState.hideFabWithoutAnimation()
+      authKey.isEmpty() || isClosed -> viewState.hideFabWithoutAnimation()
       isFabShown && diff < 0 -> viewState.showFab(shouldShow = false)
       !isFabShown && diff > 0 -> viewState.showFab(shouldShow = true)
     }
@@ -111,7 +112,6 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     }
   }
 
-  // TODO() Add closed topics detection
   fun sendMessage(message: String) {
 
     if (authKey.isEmpty()) {
@@ -159,8 +159,9 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         })
   }
 
-
   private fun onLoadingSuccess(page: TopicPage) {
+    authKey = page.authKey
+    isClosed = page.isClosed.isNotEmpty()
     currentTitle = page.topicTitle
     updateAppbarTitle(currentTitle)
 

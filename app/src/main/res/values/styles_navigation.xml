@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="NavigationButton">
+    <item name="android:textSize">@dimen/navigation_panel_text_size</item>
+  </style>
+
+  <style name="NavigationText">
+    <item name="android:textStyle">bold</item>
+  </style>
+
+</resources>

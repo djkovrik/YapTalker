@@ -10,6 +10,8 @@ import pl.droidsonroids.jspoon.annotation.Selector
 class TopicPage() : Parcelable {
   @Selector("h1.subpage > a.subtitle", defValue = "Unknown")
   lateinit var topicTitle: String
+  @Selector("td.bottommenu > font", defValue = "")
+  lateinit var isClosed: String
   @Selector("input[name~=auth_key]", attr = "outerHtml", format = "value=\"([a-z0-9]+)\"", defValue = "")
   lateinit var authKey: String
   @Selector("table.row3")

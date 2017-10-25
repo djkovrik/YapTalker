@@ -32,15 +32,29 @@ class ChosenForumDelegateAdapter(val itemClick: TopicItemClickListener) :
 
     private val commentsTemplate = parent.context.getString(R.string.forum_comments_template)
     private val pinnedTopicTemplate = parent.context.getString(R.string.forum_pinned_topic_template)
+    private val closedTopicTemplate = parent.context.getString(R.string.forum_closed_topic_template)
+    private val pinnedAndClosedTopicTemplate = parent.context.getString(R.string.forum_pinned_and_closed_topic_template)
 
     fun bindTo(topicItem: Topic) {
       with(topicItem) {
         with(itemView) {
-          if (isPinned.isNotEmpty()) {
-            topic_name.text = String.format(Locale.getDefault(), pinnedTopicTemplate, title)
-          } else {
-            topic_name.text = title
+
+          val topicPinned = isPinned.isNotEmpty()
+          val topicClosed = isClosed.isNotEmpty()
+
+          when {
+            topicPinned && topicClosed -> topic_name.text = String.format(Locale.getDefault(),
+                pinnedAndClosedTopicTemplate, title)
+
+            topicPinned && !topicClosed -> topic_name.text = String.format(Locale.getDefault(),
+                pinnedTopicTemplate, title)
+
+            !topicPinned && topicClosed -> topic_name.text = String.format(Locale.getDefault(),
+                closedTopicTemplate, title)
+
+            else -> topic_name.text = title
           }
+
           topic_last_post_author.text = lastPostAuthor
           topic_last_post_date.shortDateText = lastPostDate
           topic_answers.text = String.format(Locale.getDefault(), commentsTemplate, answers)
