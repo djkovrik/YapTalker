@@ -32,10 +32,13 @@ import com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity
 import com.sedsoftware.yaptalker.features.forumslist.ForumsController
 import com.sedsoftware.yaptalker.features.news.NewsController
 import com.sedsoftware.yaptalker.features.settings.SettingsActivity
+import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import kotlinx.android.synthetic.main.include_main_content.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
+import java.util.regex.Pattern
+
 
 class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
@@ -73,6 +76,14 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
     navigationViewPresenter.initLayout(savedInstanceState)
     navigationViewPresenter.refreshAuthorization()
     navigationViewPresenter.restoreCurrentTitle(APPBAR_TITLE_KEY, savedInstanceState)
+
+    handleLinkIntent()
+  }
+
+  override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    setIntent(intent)
+    handleLinkIntent()
   }
 
   // Init Iconics here
@@ -269,5 +280,27 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
     navDrawer.removeItem(Navigation.SIGN_IN)
     navDrawer.removeItem(Navigation.SIGN_OUT)
     navDrawer.addItem(drawerItemSignOut)
+  }
+
+  private fun handleLinkIntent() {
+    val appLinkIntent = intent
+    val appLinkAction = appLinkIntent.action
+    val appLinkData = appLinkIntent.data
+
+    if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
+      val regex = Pattern.compile("yaplakal.com/forum(\\d+)/topic(\\d+)\\.html")
+      val matcher = regex.matcher(appLinkData.toString())
+
+      if (matcher.find()) {
+        val bundle = Bundle()
+        bundle.putInt(ChosenTopicController.FORUM_ID_KEY, matcher.group(1).toInt())
+        bundle.putInt(ChosenTopicController.TOPIC_ID_KEY, matcher.group(2).toInt())
+
+        router.pushController(
+            RouterTransaction.with(ChosenTopicController(bundle))
+                .pushChangeHandler(FadeChangeHandler())
+                .popChangeHandler(FadeChangeHandler()))
+      }
+    }
   }
 }
