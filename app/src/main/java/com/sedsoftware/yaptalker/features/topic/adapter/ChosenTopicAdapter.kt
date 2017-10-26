@@ -41,6 +41,7 @@ class ChosenTopicAdapter(profileClick: UserProfileClickListener, navigationClick
 
   fun refreshTopicPage(page: TopicPage) {
     items.clear()
+    items.add(page.navigation)
     items.addAll(page.posts)
     items.add(page.navigation)
     notifyDataSetChanged()

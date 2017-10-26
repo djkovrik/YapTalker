@@ -12,7 +12,8 @@
   <dimen name="mini_fab_icon_padding">4dp</dimen>
   <dimen name="post_image_vertical_padding">8dp</dimen>
   <dimen name="post_text_horizontal_padding">8dp</dimen>
-  <dimen name="flat_button_size_square">54dp</dimen>
+  <dimen name="flat_button_size_square">48dp</dimen>
+  <dimen name="flat_navigation_button_width">54dp</dimen>
   <dimen name="post_editor_margin">8dp</dimen>
   <dimen name="navigation_panel_text_size">20sp</dimen>
 </resources>

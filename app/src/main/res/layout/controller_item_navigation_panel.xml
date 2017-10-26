@@ -14,18 +14,16 @@
     <Button
       android:id="@+id/navigation_go_first"
       style="@style/Widget.AppCompat.Button.Borderless"
-      android:layout_width="@dimen/flat_button_size_square"
+      android:layout_width="@dimen/flat_navigation_button_width"
       android:layout_height="wrap_content"
-      android:text="@string/navigation_first"
-      android:theme="@style/NavigationButton" />
+      android:text="@string/navigation_first" />
 
     <Button
       android:id="@+id/navigation_go_previous"
       style="@style/Widget.AppCompat.Button.Borderless"
-      android:layout_width="@dimen/flat_button_size_square"
+      android:layout_width="@dimen/flat_navigation_button_width"
       android:layout_height="wrap_content"
-      android:text="@string/navigation_previous"
-      android:theme="@style/NavigationButton" />
+      android:text="@string/navigation_previous" />
 
     <TextView
       android:id="@+id/navigation_pages_label"
@@ -33,24 +31,21 @@
       android:layout_height="wrap_content"
       android:paddingEnd="@dimen/material_card_edge_margin"
       android:paddingStart="@dimen/material_card_edge_margin"
-      android:theme="@style/NavigationText"
       tools:text="1 of 1000" />
 
     <Button
       android:id="@+id/navigation_go_next"
       style="@style/Widget.AppCompat.Button.Borderless"
-      android:layout_width="@dimen/flat_button_size_square"
+      android:layout_width="@dimen/flat_navigation_button_width"
       android:layout_height="wrap_content"
-      android:text="@string/navigation_next"
-      android:theme="@style/NavigationButton" />
+      android:text="@string/navigation_next" />
 
     <Button
       android:id="@+id/navigation_go_last"
       style="@style/Widget.AppCompat.Button.Borderless"
-      android:layout_width="@dimen/flat_button_size_square"
+      android:layout_width="@dimen/flat_navigation_button_width"
       android:layout_height="wrap_content"
-      android:text="@string/navigation_last"
-      android:theme="@style/NavigationButton" />
+      android:text="@string/navigation_last" />
 
   </LinearLayout>
 
