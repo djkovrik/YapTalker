@@ -39,7 +39,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.controller_chosen_topic_item.view.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
-import java.util.Locale
 
 class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
     BaseAdapterInjections(), ViewTypeDelegateAdapter {
@@ -124,10 +123,8 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
               itemView.post_content_text_container.addView(postText)
             }
             is PostHiddenText -> {
-              val template = itemView.context.stringRes(R.string.post_hidden_text_template)
               val hiddenText = TextView(itemView.context)
-              hiddenText.textFromHtml(it.text)
-              hiddenText.text = String.format(Locale.getDefault(), template, hiddenText.text)
+              hiddenText.textFromHtmlWithEmoji(it.text)
               hiddenText.textSize = smallFontSize
               itemView.post_content_text_container.addView(hiddenText)
             }

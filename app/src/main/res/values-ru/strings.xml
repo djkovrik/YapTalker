@@ -23,7 +23,6 @@
   <string name="forum_comments_template">Комментариев: <xliff:g id="answers">%s</xliff:g></string>
 
   <!-- POSTS -->
-  <string name="post_hidden_text_template">Скрытый текст: <xliff:g id="spoiler">%s</xliff:g></string>
   <string name="post_link">Ссылка</string>
 
   <!-- NAVIGATION PANEL -->
