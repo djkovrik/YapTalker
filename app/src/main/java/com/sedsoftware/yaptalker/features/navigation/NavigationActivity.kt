@@ -4,12 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.ViewGroup
 import android.widget.ImageView.ScaleType.CENTER_CROP
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.bluelinelabs.conductor.Controller
-import com.bluelinelabs.conductor.RouterTransaction
-import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.context.IconicsContextWrapper
 import com.mikepenz.materialdrawer.AccountHeader
@@ -21,26 +17,17 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.base.BaseActivityWithRouter
+import com.sedsoftware.yaptalker.base.BaseActivity
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
 import com.sedsoftware.yaptalker.commons.extensions.validateURL
 import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
-import com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity
-import com.sedsoftware.yaptalker.features.forumslist.ForumsController
-import com.sedsoftware.yaptalker.features.news.NewsController
-import com.sedsoftware.yaptalker.features.settings.SettingsActivity
-import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import kotlinx.android.synthetic.main.include_main_appbar.*
-import kotlinx.android.synthetic.main.include_main_content.*
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
-import java.util.regex.Pattern
 
 
-class NavigationActivity : BaseActivityWithRouter(), NavigationView {
+class NavigationActivity : BaseActivity(), NavigationView {
 
   companion object {
     private const val APPBAR_TITLE_KEY = "APPBAR_TITLE_KEY"
@@ -52,12 +39,6 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
   override val layoutId: Int
     get() = R.layout.activity_main
-
-  override val contentFrame: ViewGroup
-    get() = content_frame
-
-  override val rootController: Controller
-    get() = navigationViewPresenter.getFirstLaunchPage()
 
   private lateinit var navDrawer: Drawer
   private lateinit var navHeader: AccountHeader
@@ -98,24 +79,11 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
     super.onSaveInstanceState(outState)
   }
 
-  override fun onBackPressed() {
-    when {
-      navDrawer.isDrawerOpen -> navDrawer.closeDrawer()
-      !router.handleBack() -> super.onBackPressed()
-    }
-  }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
     if (resultCode == Activity.RESULT_OK && requestCode == SIGN_IN_REQUEST) {
       navigationViewPresenter.refreshAuthorization()
-    }
-  }
-
-  override fun onControllerChanged(target: Controller?) {
-    when (target) {
-      is NewsController -> navDrawer.setSelection(Navigation.MAIN_PAGE, false)
-      else -> navDrawer.setSelection(Navigation.FORUMS, false)
     }
   }
 
@@ -202,34 +170,6 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
   override fun goToChosenSection(section: Long) {
 
-    router.popToRoot()
-
-    when (section) {
-      Navigation.MAIN_PAGE -> {
-        router.pushController(
-            RouterTransaction.with(NewsController())
-                .pushChangeHandler(FadeChangeHandler())
-                .popChangeHandler(FadeChangeHandler()))
-      }
-      Navigation.FORUMS -> {
-        router.pushController(
-            RouterTransaction.with(ForumsController())
-                .pushChangeHandler(FadeChangeHandler())
-                .popChangeHandler(FadeChangeHandler()))
-      }
-      Navigation.SETTINGS -> {
-        startActivity<SettingsActivity>()
-      }
-      Navigation.SIGN_IN -> {
-        startActivityForResult<AuthorizationActivity>(SIGN_IN_REQUEST)
-      }
-      Navigation.SIGN_OUT -> {
-        navigationViewPresenter.signOut()
-        router.popToRoot()
-      }
-    }
-
-    navigationViewPresenter.refreshAuthorization()
   }
 
   override fun showSignOutMessage() {
@@ -237,7 +177,7 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
   }
 
   override fun goToMainPage() {
-    router.popToRoot()
+
   }
 
   override fun setAppbarTitle(title: String) {
@@ -287,20 +227,20 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
     val appLinkAction = appLinkIntent.action
     val appLinkData = appLinkIntent.data
 
-    if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
-      val regex = Pattern.compile("yaplakal.com/forum(\\d+)/topic(\\d+)\\.html")
-      val matcher = regex.matcher(appLinkData.toString())
-
-      if (matcher.find()) {
-        val bundle = Bundle()
-        bundle.putInt(ChosenTopicController.FORUM_ID_KEY, matcher.group(1).toInt())
-        bundle.putInt(ChosenTopicController.TOPIC_ID_KEY, matcher.group(2).toInt())
-
-        router.pushController(
-            RouterTransaction.with(ChosenTopicController(bundle))
-                .pushChangeHandler(FadeChangeHandler())
-                .popChangeHandler(FadeChangeHandler()))
-      }
-    }
+//    if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
+//      val regex = Pattern.compile("yaplakal.com/forum(\\d+)/topic(\\d+)\\.html")
+//      val matcher = regex.matcher(appLinkData.toString())
+//
+//      if (matcher.find()) {
+//        val bundle = Bundle()
+//        bundle.putInt(ChosenTopicController.FORUM_ID_KEY, matcher.group(1).toInt())
+//        bundle.putInt(ChosenTopicController.TOPIC_ID_KEY, matcher.group(2).toInt())
+//
+//        router.pushController(
+//            RouterTransaction.with(ChosenTopicController(bundle))
+//                .pushChangeHandler(FadeChangeHandler())
+//                .popChangeHandler(FadeChangeHandler()))
+//      }
+//    }
   }
 }

@@ -48,7 +48,7 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
     viewState.goToChosenSection(section)
   }
 
-  fun getFirstLaunchPage() = settings.getStartingPage()
+//  fun getFirstLaunchPage() = settings.getStartingPage()
 
   fun refreshAuthorization() {
     yapDataManager

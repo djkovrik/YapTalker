@@ -1,7 +1,5 @@
 package com.sedsoftware.yaptalker.features.posting
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
@@ -13,9 +11,6 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseActivity
 import com.sedsoftware.yaptalker.base.events.ActivityLifecycle
-import com.sedsoftware.yaptalker.commons.extensions.stringRes
-import com.sedsoftware.yaptalker.commons.extensions.toastWarning
-import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.activity_new_post.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
@@ -31,9 +26,9 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
   override val layoutId: Int
     get() = R.layout.activity_new_post
 
-  private val currentTopicTitle: String by lazy {
-    intent.getStringExtra(ChosenTopicController.TOPIC_TITLE_KEY)
-  }
+//  private val currentTopicTitle: String by lazy {
+//    intent.getStringExtra(ChosenTopicController.TOPIC_TITLE_KEY)
+//  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -41,9 +36,9 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-    if (currentTopicTitle.isNotEmpty()) {
-      new_post_topic_title.text = currentTopicTitle
-    }
+//    if (currentTopicTitle.isNotEmpty()) {
+//      new_post_topic_title.text = currentTopicTitle
+//    }
   }
 
   override fun subscribeViews() {
@@ -157,17 +152,17 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
 
   private fun returnMessageText() {
 
-    if (messagingPresenter.isAnyTagNotClosed()) {
-      toastWarning(stringRes(R.string.msg_unclosed_tag))
-      return
-    }
-
-    val message = new_post_edit_text.text.toString()
-    if (message.isNotEmpty()) {
-      val returnIntent = Intent()
-      returnIntent.putExtra(ChosenTopicController.MESSAGE_TEXT_KEY, message)
-      setResult(Activity.RESULT_OK, returnIntent)
-    }
-    finish()
+//    if (messagingPresenter.isAnyTagNotClosed()) {
+//      toastWarning(stringRes(R.string.msg_unclosed_tag))
+//      return
+//    }
+//
+//    val message = new_post_edit_text.text.toString()
+//    if (message.isNotEmpty()) {
+//      val returnIntent = Intent()
+//      returnIntent.putExtra(ChosenTopicController.MESSAGE_TEXT_KEY, message)
+//      setResult(Activity.RESULT_OK, returnIntent)
+//    }
+//    finish()
   }
 }

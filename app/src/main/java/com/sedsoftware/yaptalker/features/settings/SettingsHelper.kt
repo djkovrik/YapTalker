@@ -3,10 +3,7 @@ package com.sedsoftware.yaptalker.features.settings
 import android.content.Context
 import android.support.annotation.StringRes
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.base.BaseController
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
-import com.sedsoftware.yaptalker.features.forumslist.ForumsController
-import com.sedsoftware.yaptalker.features.news.NewsController
 import org.jetbrains.anko.defaultSharedPreferences
 
 class SettingsHelper(val context: Context) {
@@ -23,15 +20,15 @@ class SettingsHelper(val context: Context) {
     context.resources.getStringArray(R.array.pref_categorizer_values).toSet()
   }
 
-  fun getStartingPage(): BaseController {
-    val current = getString(R.string.pref_key_start_page, "")
-    val forums = context.stringRes(R.string.pref_general_start_page_value_forums)
-
-    return when (current) {
-      forums -> ForumsController()
-      else -> NewsController()
-    }
-  }
+//  fun getStartingPage(): BaseController {
+//    val current = getString(R.string.pref_key_start_page, "")
+//    val forums = context.stringRes(R.string.pref_general_start_page_value_forums)
+//
+//    return when (current) {
+//      forums -> ForumsController()
+//      else -> NewsController()
+//    }
+//  }
 
   fun getNormalFontSize() = getString(R.string.pref_key_font_size, "14").toFloat()
   fun getBigFontSize() = getString(R.string.pref_key_font_size, "16").toFloat() + TEXT_SIZE_OFFSET
