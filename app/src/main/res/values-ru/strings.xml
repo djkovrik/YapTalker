@@ -80,6 +80,7 @@
   <string name="msg_login_success">Успешный вход!</string>
   <string name="msg_login_error">Ошибка входа!</string>
   <string name="msg_sign_out">Вы успешно вышли из аккаунта.</string>
+  <string name="msg_unclosed_tag">Обнаружен незакрытый тег!</string>
 
   <!-- MENUS -->
   <string name="action_save">Сохранить</string>

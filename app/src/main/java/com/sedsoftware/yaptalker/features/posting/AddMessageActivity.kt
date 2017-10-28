@@ -13,6 +13,8 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseActivity
 import com.sedsoftware.yaptalker.base.events.ActivityLifecycle
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
+import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.activity_new_post.*
@@ -154,6 +156,12 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
   }
 
   private fun returnMessageText() {
+
+    if (messagingPresenter.isAnyTagNotClosed()) {
+      toastWarning(stringRes(R.string.msg_unclosed_tag))
+      return
+    }
+
     val message = new_post_edit_text.text.toString()
     if (message.isNotEmpty()) {
       val returnIntent = Intent()

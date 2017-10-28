@@ -8,7 +8,6 @@ import java.util.Locale
 @InjectViewState
 class AddMessagePresenter : BasePresenter<AddMessageView>() {
 
-  // TODO() Add not closed tags detection
   companion object {
     private const val B_OPEN = "[b]"
     private const val B_CLOSE = "[/b]"
@@ -35,6 +34,8 @@ class AddMessagePresenter : BasePresenter<AddMessageView>() {
     val result = String.format(Locale.getDefault(), LINK_BLOCK, url, title)
     viewState.insertTag(result)
   }
+
+  fun isAnyTagNotClosed() = isBOpened || isIOpened || isUOpened
 
   private fun onTagClickedWithSelection(@Tag tag: Long) {
     when (tag) {

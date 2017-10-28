@@ -96,6 +96,7 @@
   <string name="msg_login_success">Successful login!</string>
   <string name="msg_login_error">Login error!</string>
   <string name="msg_sign_out">Sign out successful.</string>
+  <string name="msg_unclosed_tag">Unclosed tag detected!</string>
 
   <!-- MENUS -->
   <string name="action_save">Save</string>
