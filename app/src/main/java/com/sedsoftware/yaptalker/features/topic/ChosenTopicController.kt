@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -31,10 +34,9 @@ import com.sedsoftware.yaptalker.features.topic.adapter.UserProfileClickListener
 import com.sedsoftware.yaptalker.features.userprofile.UserProfileController
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.controller_chosen_topic.view.*
+import org.jetbrains.anko.share
 import java.util.Locale
 
-
-// TODO() Add share command
 class ChosenTopicController(val bundle: Bundle) :
     BaseController(bundle), ChosenTopicView, UserProfileClickListener, TopicNavigationClickListener {
 
@@ -65,6 +67,9 @@ class ChosenTopicController(val bundle: Bundle) :
     get() = R.layout.controller_chosen_topic
 
   override fun onViewBound(view: View, savedViewState: Bundle?) {
+
+    setHasOptionsMenu(true)
+
     topicAdapter = ChosenTopicAdapter(this, this)
     topicAdapter.setHasStableIds(true)
 
@@ -133,6 +138,21 @@ class ChosenTopicController(val bundle: Bundle) :
     }
   }
 
+  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    super.onCreateOptionsMenu(menu, inflater)
+    inflater.inflate(R.menu.menu_chosen_topic, menu)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return when (item.itemId) {
+      R.id.action_share -> {
+        topicPresenter.onShareItemClicked()
+        true
+      }
+      else -> super.onOptionsItemSelected(item)
+    }
+  }
+
   override fun showErrorMessage(message: String) {
     toastError(message)
   }
@@ -194,6 +214,10 @@ class ChosenTopicController(val bundle: Bundle) :
         RouterTransaction.with(UserProfileController(bundle))
             .pushChangeHandler(FadeChangeHandler())
             .popChangeHandler(FadeChangeHandler()))
+  }
+
+  override fun shareTopic(title: String) {
+    view?.context?.share("http://www.yaplakal.com/forum$currentForumId/topic$currentTopicId.html", title)
   }
 
   override fun onUserAvatarClick(userId: Int) {

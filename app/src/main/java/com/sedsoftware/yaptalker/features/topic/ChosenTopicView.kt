@@ -21,4 +21,6 @@ interface ChosenTopicView : BaseView {
   fun showCantLoadPageMessage(page: Int)
 
   fun showUserProfile(userId: Int)
+
+  fun shareTopic(title: String)
 }

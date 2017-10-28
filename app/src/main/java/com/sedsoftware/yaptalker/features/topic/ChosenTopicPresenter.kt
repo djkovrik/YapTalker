@@ -135,6 +135,10 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         })
   }
 
+  fun onShareItemClicked() {
+    viewState.shareTopic(currentTitle)
+  }
+
   private fun onPostSuccess() {
     loadTopicCurrentPage()
   }
