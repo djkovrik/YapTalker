@@ -7,9 +7,9 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
-import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.base.BaseActivity
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_image_display.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import java.util.Locale
 
-class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
+class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
 
   companion object {
     private const val STORAGE_WRITE_PERMISSION = 0
@@ -27,13 +27,16 @@ class ImageDisplayActivity : MvpAppCompatActivity(), ImageDisplayView {
   @InjectPresenter
   lateinit var displayPresenter: ImageDisplayPresenter
 
+  override val layoutId: Int
+    get() = R.layout.activity_image_display
+
   private val imageUrl: String by lazy {
     intent.getStringExtra("url")
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_image_display)
+
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

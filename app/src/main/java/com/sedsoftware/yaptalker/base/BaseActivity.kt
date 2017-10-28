@@ -18,6 +18,12 @@ abstract class BaseActivity : MvpAppCompatActivity() {
     setContentView(layoutId)
 
     lifecycle.accept(ActivityLifecycle.CREATE)
+
+    subscribeViews()
+  }
+
+  open protected fun subscribeViews() {
+
   }
 
   override fun onDestroy() {

@@ -2,16 +2,19 @@ package com.sedsoftware.yaptalker.features.videodisplay
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_video_display.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 
-class VideoDisplayActivity : MvpAppCompatActivity(), VideoDisplayView {
+class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
 
   @InjectPresenter
   lateinit var displayPresenter: VideoDisplayPresenter
+
+  override val layoutId: Int
+    get() = R.layout.activity_video_display
 
   private val videoHtml: String by lazy {
     intent.getStringExtra("video")
@@ -20,7 +23,7 @@ class VideoDisplayActivity : MvpAppCompatActivity(), VideoDisplayView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     // TODO() Activity view requires styling
-    setContentView(R.layout.activity_video_display)
+
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
   }

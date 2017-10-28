@@ -42,6 +42,9 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
     if (currentTopicTitle.isNotEmpty()) {
       new_post_topic_title.text = currentTopicTitle
     }
+  }
+
+  override fun subscribeViews() {
 
     // B
     RxView
