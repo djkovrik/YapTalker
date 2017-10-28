@@ -38,6 +38,12 @@
 
   <!-- ADD MESSAGE ACTIVITY -->
   <string name="post_message_hint">Введите сообщение…</string>
+  <string name="post_insert_link">Ссылка</string>
+  <string name="post_insert_link_hint">Вставьте ссылку…</string>
+  <string name="post_insert_link_title">Заголовок</string>
+  <string name="post_insert_link_title_hint">Введите заголовок для ссылки…</string>
+  <string name="post_button_submit">Ок</string>
+  <string name="post_button_dismiss">Отмена</string>
 
   <!-- USER PROFILE -->
   <!-- Personal data -->
