@@ -7,7 +7,7 @@
   tools:layout_editor_absoluteY="25dp">
 
   <include
-    android:id="@+id/include"
+    android:id="@+id/appbar_include"
     layout="@layout/include_main_appbar"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
     android:layout_marginTop="@dimen/post_editor_margin"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/include"
+    app:layout_constraintTop_toBottomOf="@+id/appbar_include"
     tools:text="Topic title" />
 
   <EditText
@@ -51,9 +51,12 @@
     android:layout_height="@dimen/flat_button_size_square"
     android:layout_marginStart="8dp"
     android:layout_marginTop="@dimen/post_editor_margin"
+    android:stateListAnimator="@null"
     android:text="@string/cmd_format_bold"
+    android:theme="@style/TagButton"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
+    tools:targetApi="lollipop"
     tools:text="B" />
 
   <com.mikepenz.iconics.view.IconicsButton
@@ -62,9 +65,12 @@
     android:layout_height="@dimen/flat_button_size_square"
     android:layout_marginStart="@dimen/post_editor_margin"
     android:layout_marginTop="@dimen/post_editor_margin"
+    android:stateListAnimator="@null"
     android:text="@string/cmd_format_italic"
+    android:theme="@style/TagButton"
     app:layout_constraintStart_toEndOf="@+id/new_post_button_bold"
     app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
+    tools:targetApi="lollipop"
     tools:text="I" />
 
   <com.mikepenz.iconics.view.IconicsButton
@@ -73,9 +79,26 @@
     android:layout_height="@dimen/flat_button_size_square"
     android:layout_marginStart="@dimen/post_editor_margin"
     android:layout_marginTop="@dimen/post_editor_margin"
+    android:stateListAnimator="@null"
     android:text="@string/cmd_format_underline"
+    android:theme="@style/TagButton"
     app:layout_constraintStart_toEndOf="@+id/new_post_button_italic"
     app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
+    tools:targetApi="lollipop"
     tools:text="U" />
+
+  <com.mikepenz.iconics.view.IconicsButton
+    android:id="@+id/new_post_button_link"
+    android:layout_width="@dimen/flat_button_size_square"
+    android:layout_height="@dimen/flat_button_size_square"
+    android:layout_marginStart="@dimen/post_editor_margin"
+    android:layout_marginTop="@dimen/post_editor_margin"
+    android:stateListAnimator="@null"
+    android:text="@string/cmd_insert_link"
+    android:theme="@style/TagButton"
+    app:layout_constraintStart_toEndOf="@+id/new_post_button_underlined"
+    app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
+    tools:targetApi="lollipop"
+    tools:text="LN" />
 
 </android.support.constraint.ConstraintLayout>

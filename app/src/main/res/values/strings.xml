@@ -47,10 +47,19 @@
 
   <!-- ADD MESSAGE ACTIVITY -->
   <string name="post_message_hint">Enter your message…</string>
+  <string name="post_insert_link">Link</string>
+  <string name="post_insert_link_hint">Insert link here…</string>
+  <string name="post_insert_link_title">Link title</string>
+  <string name="post_insert_link_title_hint">Enter link title…</string>
+  <string name="post_button_submit">OK</string>
+  <string name="post_button_dismiss">Cancel</string>
+
   <!-- Editor buttons -->
   <string name="cmd_format_bold" translatable="false">{cmd-format-bold}</string>
   <string name="cmd_format_italic" translatable="false">{cmd-format-italic}</string>
   <string name="cmd_format_underline" translatable="false">{cmd-format-underline}</string>
+  <string name="cmd_insert_link" translatable="false">{cmd-link}</string>
+  <string name="cmd_insert_video" translatable="false">{cmd-video}</string>
 
   <!-- USER PROFILE -->
   <!-- Personal data -->

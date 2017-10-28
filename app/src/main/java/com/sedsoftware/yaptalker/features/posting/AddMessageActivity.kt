@@ -3,24 +3,31 @@ package com.sedsoftware.yaptalker.features.posting
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
-import com.arellomobile.mvp.MvpAppCompatActivity
+import com.afollestad.materialdialogs.DialogAction
+import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.base.BaseActivity
+import com.sedsoftware.yaptalker.base.events.ActivityLifecycle
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
+import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.activity_new_post.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 
 // TODO() EditText leaks AGAIN
 // Investigate or replace with some custom view
 
-// TODO() Improve editor layout
-class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
+class AddMessageActivity : BaseActivity(), AddMessageView {
 
   @InjectPresenter
   lateinit var messagingPresenter: AddMessagePresenter
+
+  override val layoutId: Int
+    get() = R.layout.activity_new_post
 
   private val currentTopicTitle: String by lazy {
     intent.getStringExtra(ChosenTopicController.TOPIC_TITLE_KEY)
@@ -28,7 +35,7 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_new_post)
+
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -39,7 +46,7 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
     // B
     RxView
         .clicks(new_post_button_bold)
-        //.autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
+        .autoDisposeWith(event(ActivityLifecycle.DESTROY))
         .subscribe {
           with(new_post_edit_text) {
             messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_B)
@@ -49,7 +56,7 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
     // I
     RxView
         .clicks(new_post_button_italic)
-        //.autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
+        .autoDisposeWith(event(ActivityLifecycle.DESTROY))
         .subscribe {
           with(new_post_edit_text) {
             messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_I)
@@ -59,10 +66,20 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
     // U
     RxView
         .clicks(new_post_button_underlined)
-        //.autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
+        .autoDisposeWith(event(ActivityLifecycle.DESTROY))
         .subscribe {
           with(new_post_edit_text) {
             messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_U)
+          }
+        }
+
+    // Link
+    RxView
+        .clicks(new_post_button_link)
+        .autoDisposeWith(event(ActivityLifecycle.DESTROY))
+        .subscribe {
+          with(new_post_edit_text) {
+            messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_LINK)
           }
         }
   }
@@ -94,6 +111,43 @@ class AddMessageActivity : MvpAppCompatActivity(), AddMessageView {
   override fun insertTags(openingTag: String, closingTag: String) {
     new_post_edit_text.text.insert(new_post_edit_text.selectionStart, openingTag)
     new_post_edit_text.text.insert(new_post_edit_text.selectionEnd, closingTag)
+  }
+
+  override fun showLinkParametersDialogs() {
+
+    var url: String
+    var title: String
+
+    MaterialDialog.Builder(this)
+        .title(R.string.post_insert_link)
+        .positiveText(R.string.post_button_submit)
+        .negativeText(R.string.post_button_dismiss)
+        .inputType(InputType.TYPE_CLASS_TEXT)
+        .alwaysCallInputCallback()
+        .input(R.string.post_insert_link_hint, 0, false, { firstDialog, firstInput ->
+          firstDialog.getActionButton(DialogAction.POSITIVE).isEnabled = firstInput.toString().startsWith("http")
+        })
+        .onPositive { firstDialog, _ ->
+          url = firstDialog.inputEditText?.text.toString()
+
+          MaterialDialog.Builder(this)
+              .title(R.string.post_insert_link_title)
+              .positiveText(R.string.post_button_submit)
+              .negativeText(R.string.post_button_dismiss)
+              .inputType(InputType.TYPE_CLASS_TEXT)
+              .alwaysCallInputCallback()
+              .input(R.string.post_insert_link_title_hint, 0, false, { _, _ -> })
+              .onPositive { secondDialog, _ ->
+                title = secondDialog.inputEditText?.text.toString()
+
+                if (url.isNotEmpty() || title.isNotEmpty()) {
+                  messagingPresenter.insertVideoTag(url, title)
+                }
+              }
+              .show()
+        }
+        .show()
+
   }
 
   private fun returnMessageText() {
