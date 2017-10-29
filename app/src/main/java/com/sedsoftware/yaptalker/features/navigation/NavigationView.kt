@@ -11,13 +11,9 @@ interface NavigationView : BaseView {
 
   fun initDrawer(savedInstanceState: Bundle?)
 
-  fun goToChosenSection(@Navigation.Section section: Long)
-
-  fun showSignOutMessage()
-
-  fun goToMainPage()
+  fun updateNavDrawer(userInfo: AuthorizedUserInfo)
 
   fun setAppbarTitle(title: String)
 
-  fun updateNavDrawer(userInfo: AuthorizedUserInfo)
+  fun showSignOutMessage()
 }
