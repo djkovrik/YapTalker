@@ -35,11 +35,11 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     }
   }
 
-  override val layoutId: Int
-    get() = R.layout.fragment_new_post
-
   @InjectPresenter
   lateinit var messagingPresenter: AddMessagePresenter
+
+  override val layoutId: Int
+    get() = R.layout.fragment_new_post
 
   private val currentTopicTitle: String by lazy {
     arguments.getString(TOPIC_TITLE_KEY)

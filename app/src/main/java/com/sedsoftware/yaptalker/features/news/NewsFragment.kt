@@ -31,11 +31,11 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
     fun getNewInstance() = NewsFragment()
   }
 
-  override val layoutId: Int
-    get() = R.layout.fragment_news
-
   @InjectPresenter
   lateinit var newsPresenter: NewsPresenter
+
+  override val layoutId: Int
+    get() = R.layout.fragment_news
 
   private lateinit var newsAdapter: NewsAdapter
   private var isFabShown = false

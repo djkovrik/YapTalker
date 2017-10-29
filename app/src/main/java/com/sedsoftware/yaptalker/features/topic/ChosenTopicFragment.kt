@@ -52,6 +52,12 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     }
   }
 
+  @InjectPresenter
+  lateinit var topicPresenter: ChosenTopicPresenter
+
+  override val layoutId: Int
+    get() = R.layout.fragment_chosen_topic
+
   private val currentForumId: Int by lazy {
     arguments.getInt(FORUM_ID_KEY)
   }
@@ -60,14 +66,8 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     arguments.getInt(TOPIC_ID_KEY)
   }
 
-  @InjectPresenter
-  lateinit var topicPresenter: ChosenTopicPresenter
-
   private lateinit var topicAdapter: ChosenTopicAdapter
   private var isFabShown = true
-
-  override val layoutId: Int
-    get() = R.layout.fragment_chosen_topic
 
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

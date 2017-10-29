@@ -37,15 +37,15 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListe
     }
   }
 
-  private val currentForumId: Int by lazy {
-    arguments.getInt(FORUM_ID_KEY)
-  }
+  @InjectPresenter
+  lateinit var forumPresenter: ChosenForumPresenter
 
   override val layoutId: Int
     get() = R.layout.fragment_chosen_forum
 
-  @InjectPresenter
-  lateinit var forumPresenter: ChosenForumPresenter
+  private val currentForumId: Int by lazy {
+    arguments.getInt(FORUM_ID_KEY)
+  }
 
   private lateinit var forumAdapter: ChosenForumAdapter
 

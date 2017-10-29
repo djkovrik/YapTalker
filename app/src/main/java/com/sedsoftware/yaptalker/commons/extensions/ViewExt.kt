@@ -122,6 +122,6 @@ fun View.showView() {
   this.visibility = View.VISIBLE
 }
 
-fun ViewGroup.inflate(@LayoutRes layoutId: Int, attachToRoot: Boolean = false) : View {
+fun ViewGroup.inflate(@LayoutRes layoutId: Int, attachToRoot: Boolean = false): View {
   return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
 }

@@ -28,15 +28,15 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
     }
   }
 
-  private val userId by lazy {
-    arguments.getInt(USER_ID_KEY)
-  }
+  @InjectPresenter
+  lateinit var userProfilePresenter: UserProfilePresenter
 
   override val layoutId: Int
     get() = R.layout.fragment_user_profile
 
-  @InjectPresenter
-  lateinit var userProfilePresenter: UserProfilePresenter
+  private val userId by lazy {
+    arguments.getInt(USER_ID_KEY)
+  }
 
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

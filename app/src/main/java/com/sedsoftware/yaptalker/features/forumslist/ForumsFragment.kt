@@ -29,10 +29,10 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
   @InjectPresenter
   lateinit var forumsPresenter: ForumsPresenter
 
-  private lateinit var forumsAdapter: ForumsAdapter
-
   override val layoutId: Int
     get() = R.layout.fragment_forums_list
+
+  private lateinit var forumsAdapter: ForumsAdapter
 
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
