@@ -16,7 +16,6 @@ import com.sedsoftware.yaptalker.base.events.FragmentLifecycle
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
-import com.sedsoftware.yaptalker.features.topic.ChosenTopicFragment
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.fragment_new_post.*
 
@@ -26,8 +25,8 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     const val MESSAGE_TEXT_REQUEST = 321
     private const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
 
-    fun getNewInstance(title: String): ChosenTopicFragment {
-      val fragment = ChosenTopicFragment()
+    fun getNewInstance(title: String): AddMessageFragment {
+      val fragment = AddMessageFragment()
       val args = Bundle()
       args.putString(TOPIC_TITLE_KEY, title)
       fragment.arguments = args
