@@ -21,6 +21,7 @@ import com.sedsoftware.yaptalker.data.remote.requestsClientModule
 import com.sedsoftware.yaptalker.data.remote.requestsCookieModule
 import com.sedsoftware.yaptalker.data.remote.video.thumbnailsManagerModule
 import com.sedsoftware.yaptalker.data.remote.yapDataManagerModule
+import com.sedsoftware.yaptalker.features.navigationModule
 import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
@@ -46,6 +47,7 @@ class YapTalkerApp : Application(), KodeinAware {
     bind<BehaviorRelay<String>>() with singleton { BehaviorRelay.createDefault("") }
 
     // Kodein modules
+    import(navigationModule)
     import(requestsClientModule)
     import(requestsCookieModule)
     import(yapDataManagerModule)
