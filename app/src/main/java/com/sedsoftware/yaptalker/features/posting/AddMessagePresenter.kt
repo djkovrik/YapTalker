@@ -37,6 +37,10 @@ class AddMessagePresenter : BasePresenter<AddMessageView>() {
 
   fun isAnyTagNotClosed() = isBOpened || isIOpened || isUOpened
 
+  fun sendMessageTextBackToView(message: String) {
+    router.exitWithResult(AddMessageFragment.MESSAGE_TEXT_REQUEST, message)
+  }
+
   private fun onTagClickedWithSelection(@Tag tag: Long) {
     when (tag) {
       MessageTags.TAG_B -> {

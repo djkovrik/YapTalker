@@ -7,6 +7,7 @@ import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.model.ForumNavigationPanel
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Topic
+import com.sedsoftware.yaptalker.features.NavigationScreens
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -130,5 +131,9 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
   private fun onLoadingError(error: Throwable) {
     error.message?.let { viewState.showErrorMessage(it) }
+  }
+
+  fun navigateToChosenTopic(pair: Pair<Int, Int>) {
+    router.navigateTo(NavigationScreens.CHOSEN_TOPIC_SCREEN, pair)
   }
 }

@@ -7,6 +7,8 @@ import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.model.TopicNavigationPanel
 import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.data.model.TopicPost
+import com.sedsoftware.yaptalker.features.NavigationScreens
+import com.sedsoftware.yaptalker.features.posting.AddMessageFragment
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -31,6 +33,12 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   override fun attachView(view: ChosenTopicView?) {
     super.attachView(view)
     viewState.hideFabWithoutAnimation()
+    router.setResultListener(AddMessageFragment.MESSAGE_TEXT_REQUEST, { message -> sendMessage(message as String) })
+  }
+
+  override fun detachView(view: ChosenTopicView?) {
+    super.detachView(view)
+    router.removeResultListener(AddMessageFragment.MESSAGE_TEXT_REQUEST)
   }
 
   fun checkSavedState(forumId: Int, topicId: Int, savedViewState: Bundle?) {
@@ -103,7 +111,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   }
 
   fun onFabClicked() {
-    viewState.showAddMessageActivity(currentTitle)
+    viewState.showAddMessageView(currentTitle)
   }
 
   fun loadProfileIfAvailable(userId: Int) {
@@ -137,6 +145,14 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   fun onShareItemClicked() {
     viewState.shareTopic(currentTitle)
+  }
+
+  fun navigateToUserProfile(userId: Int) {
+    router.navigateTo(NavigationScreens.USER_PROFILE_SCREEN, userId)
+  }
+
+  fun navigateToAddMessageView(title: String) {
+    router.navigateTo(NavigationScreens.ADD_MESSAGE_SCREEN, title)
   }
 
   private fun onPostSuccess() {

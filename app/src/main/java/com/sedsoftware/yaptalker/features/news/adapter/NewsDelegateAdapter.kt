@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_news_item.view.*
 import org.jetbrains.anko.startActivity
 import java.util.Locale
 
-class NewsDelegateAdapter(val newsClick: (String, String) -> Unit) :
+class NewsDelegateAdapter(val newsClick: NewsItemClickListener) :
     BaseAdapterInjections(), ViewTypeDelegateAdapter {
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
@@ -88,18 +88,18 @@ class NewsDelegateAdapter(val newsClick: (String, String) -> Unit) :
               context.startActivity<ImageDisplayActivity>("url" to url)
             }
           }
-          newsItem.videos.isNotEmpty() -> {
+          newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty() -> {
             val url = newsItem.videos.first()
             news_content_image.showView()
             thumbnailsLoader.loadThumbnail(video = parseLink(url), imageView = news_content_image)
             news_content_image.setOnClickListener {
-              context.startActivity<VideoDisplayActivity>("video" to url)
+              context.startActivity<VideoDisplayActivity>("video" to newsItem.videosRaw.first())
             }
           }
           else -> news_content_image.hideView()
         }
 
-        setOnClickListener { newsClick(newsItem.link, newsItem.forumLink) }
+        setOnClickListener { newsClick.onNewsItemClick(newsItem.link, newsItem.forumLink) }
       }
     }
   }

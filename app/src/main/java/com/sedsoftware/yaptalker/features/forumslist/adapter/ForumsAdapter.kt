@@ -9,7 +9,7 @@ import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
 import com.sedsoftware.yaptalker.data.model.ForumItem
 
-class ForumsAdapter(itemClick: (Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ForumsAdapter(itemClick: ForumsItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<ViewType>
   private var delegateAdapters = SparseArrayCompat<ViewTypeDelegateAdapter>()
