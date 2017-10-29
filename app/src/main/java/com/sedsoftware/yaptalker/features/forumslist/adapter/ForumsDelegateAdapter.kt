@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
 import com.sedsoftware.yaptalker.commons.extensions.inflate
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.data.model.ForumItem
-import kotlinx.android.synthetic.main.controller_forums_list_item.view.*
+import kotlinx.android.synthetic.main.fragment_forums_list_item.view.*
 
 class ForumsDelegateAdapter(val clickListener: (Int) -> Unit) : BaseAdapterInjections(), ViewTypeDelegateAdapter {
 
@@ -24,7 +24,7 @@ class ForumsDelegateAdapter(val clickListener: (Int) -> Unit) : BaseAdapterInjec
   }
 
   inner class ForumsViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.controller_forums_list_item)) {
+      RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_forums_list_item)) {
 
     fun bindTo(forumItem: ForumItem) {
       with(forumItem) {

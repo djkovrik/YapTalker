@@ -36,7 +36,7 @@ import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.controller_chosen_topic_item.view.*
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
 
@@ -57,7 +57,7 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
   }
 
   inner class PostViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.controller_chosen_topic_item)) {
+      RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_chosen_topic_item)) {
 
     fun bindTo(postItem: TopicPost) {
       getParsedPostSingle(postItem)
