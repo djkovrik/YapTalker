@@ -6,13 +6,6 @@
   android:layout_height="match_parent"
   tools:layout_editor_absoluteY="25dp">
 
-  <include
-    android:id="@+id/appbar_include"
-    layout="@layout/include_main_appbar"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
-
   <TextView
     android:id="@+id/new_post_topic_title"
     style="@style/NewPostTopicTitle"
@@ -23,7 +16,7 @@
     android:layout_marginTop="@dimen/post_editor_margin"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/appbar_include"
+    app:layout_constraintTop_toTopOf="parent"
     tools:text="Topic title" />
 
   <EditText

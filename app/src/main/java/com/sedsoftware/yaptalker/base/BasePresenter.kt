@@ -14,6 +14,7 @@ import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import ru.terrakok.cicerone.Router
 
 abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodeinAware {
 
@@ -21,6 +22,7 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
     get() = LazyKodein { YapTalkerApp.kodeinInstance }
 
   // Kodein injections
+  protected val router: Router by instance()
   protected val yapDataManager: YapDataManager by instance()
   protected val settings: SettingsHelper by instance()
   protected val appbarBus: BehaviorRelay<String> by instance()

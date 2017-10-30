@@ -1,15 +1,11 @@
 package com.sedsoftware.yaptalker.features.navigation
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.ViewGroup
+import android.support.v4.app.Fragment
 import android.widget.ImageView.ScaleType.CENTER_CROP
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.bluelinelabs.conductor.Controller
-import com.bluelinelabs.conductor.RouterTransaction
-import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.context.IconicsContextWrapper
 import com.mikepenz.materialdrawer.AccountHeader
@@ -21,30 +17,30 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.base.BaseActivityWithRouter
+import com.sedsoftware.yaptalker.base.BaseActivity
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
 import com.sedsoftware.yaptalker.commons.extensions.validateURL
 import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
-import com.sedsoftware.yaptalker.features.authorization.AuthorizationActivity
-import com.sedsoftware.yaptalker.features.forumslist.ForumsController
-import com.sedsoftware.yaptalker.features.news.NewsController
+import com.sedsoftware.yaptalker.features.NavigationScreens
+import com.sedsoftware.yaptalker.features.authorization.AuthorizationFragment
+import com.sedsoftware.yaptalker.features.forum.ChosenForumFragment
+import com.sedsoftware.yaptalker.features.forumslist.ForumsFragment
+import com.sedsoftware.yaptalker.features.news.NewsFragment
+import com.sedsoftware.yaptalker.features.posting.AddMessageFragment
 import com.sedsoftware.yaptalker.features.settings.SettingsActivity
-import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
+import com.sedsoftware.yaptalker.features.topic.ChosenTopicFragment
+import com.sedsoftware.yaptalker.features.userprofile.UserProfileFragment
 import kotlinx.android.synthetic.main.include_main_appbar.*
-import kotlinx.android.synthetic.main.include_main_content.*
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
-import java.util.regex.Pattern
+import ru.terrakok.cicerone.android.SupportAppNavigator
 
-
-class NavigationActivity : BaseActivityWithRouter(), NavigationView {
+class NavigationActivity : BaseActivity(), NavigationView {
 
   companion object {
+    const val SIGN_IN_REQUEST = 123
     private const val APPBAR_TITLE_KEY = "APPBAR_TITLE_KEY"
-    private const val SIGN_IN_REQUEST = 123
   }
 
   @InjectPresenter
@@ -52,12 +48,6 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
   override val layoutId: Int
     get() = R.layout.activity_main
-
-  override val contentFrame: ViewGroup
-    get() = content_frame
-
-  override val rootController: Controller
-    get() = navigationViewPresenter.getFirstLaunchPage()
 
   private lateinit var navDrawer: Drawer
   private lateinit var navHeader: AccountHeader
@@ -69,21 +59,31 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
 
   private var isSignInAvailable = false
 
+  private val navigator = object : SupportAppNavigator(this, supportFragmentManager, R.id.content_frame) {
+
+    override fun createActivityIntent(screenKey: String?, data: Any?): Intent? = when (screenKey) {
+      NavigationScreens.SETTINGS_SCREEN -> SettingsActivity.getIntent(this@NavigationActivity)
+      else -> null
+    }
+
+    override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
+      NavigationScreens.NEWS_SCREEN -> NewsFragment.getNewInstance()
+      NavigationScreens.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
+      NavigationScreens.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Int)
+      NavigationScreens.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Pair<Int, Int>)
+      NavigationScreens.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
+      NavigationScreens.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()
+      NavigationScreens.ADD_MESSAGE_SCREEN -> AddMessageFragment.getNewInstance(data as String)
+      else -> null
+    }
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setSupportActionBar(toolbar)
 
     navigationViewPresenter.initLayout(savedInstanceState)
-    navigationViewPresenter.refreshAuthorization()
     navigationViewPresenter.restoreCurrentTitle(APPBAR_TITLE_KEY, savedInstanceState)
-
-    handleLinkIntent()
-  }
-
-  override fun onNewIntent(intent: Intent?) {
-    super.onNewIntent(intent)
-    setIntent(intent)
-    handleLinkIntent()
   }
 
   // Init Iconics here
@@ -98,25 +98,14 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
     super.onSaveInstanceState(outState)
   }
 
-  override fun onBackPressed() {
-    when {
-      navDrawer.isDrawerOpen -> navDrawer.closeDrawer()
-      !router.handleBack() -> super.onBackPressed()
-    }
+  override fun onPause() {
+    super.onPause()
+    navigatorHolder.removeNavigator()
   }
 
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-    if (resultCode == Activity.RESULT_OK && requestCode == SIGN_IN_REQUEST) {
-      navigationViewPresenter.refreshAuthorization()
-    }
-  }
-
-  override fun onControllerChanged(target: Controller?) {
-    when (target) {
-      is NewsController -> navDrawer.setSelection(Navigation.MAIN_PAGE, false)
-      else -> navDrawer.setSelection(Navigation.FORUMS, false)
-    }
+  override fun onResume() {
+    super.onResume()
+    navigatorHolder.setNavigator(navigator)
   }
 
   override fun showErrorMessage(message: String) {
@@ -126,7 +115,7 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
   override fun initDrawer(savedInstanceState: Bundle?) {
 
     drawerItemMainPage = PrimaryDrawerItem()
-        .withIdentifier(Navigation.MAIN_PAGE)
+        .withIdentifier(NavigationDrawerItems.MAIN_PAGE)
         .withName(R.string.nav_drawer_main_page)
         .withIcon(CommunityMaterial.Icon.cmd_home)
         .withTextColor(color(R.color.colorNavDefaultText))
@@ -135,7 +124,7 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
         .withSelectedIconColorRes(R.color.colorNavMainPage)
 
     drawerItemForums = PrimaryDrawerItem()
-        .withIdentifier(Navigation.FORUMS)
+        .withIdentifier(NavigationDrawerItems.FORUMS)
         .withName(R.string.nav_drawer_forums)
         .withIcon(CommunityMaterial.Icon.cmd_forum)
         .withTextColor(color(R.color.colorNavDefaultText))
@@ -144,7 +133,7 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
         .withSelectedIconColorRes(R.color.colorNavForums)
 
     drawerItemSettings = PrimaryDrawerItem()
-        .withIdentifier(Navigation.SETTINGS)
+        .withIdentifier(NavigationDrawerItems.SETTINGS)
         .withIcon(CommunityMaterial.Icon.cmd_settings)
         .withName(R.string.nav_drawer_settings)
         .withSelectable(false)
@@ -154,7 +143,7 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
         .withSelectedIconColorRes(R.color.colorNavSettings)
 
     drawerItemSignIn = PrimaryDrawerItem()
-        .withIdentifier(Navigation.SIGN_IN)
+        .withIdentifier(NavigationDrawerItems.SIGN_IN)
         .withName(R.string.nav_drawer_sign_in)
         .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_login)
@@ -164,7 +153,7 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
         .withSelectedIconColorRes(R.color.colorNavSignin)
 
     drawerItemSignOut = PrimaryDrawerItem()
-        .withIdentifier(Navigation.SIGN_OUT)
+        .withIdentifier(NavigationDrawerItems.SIGN_OUT)
         .withName(R.string.nav_drawer_sign_out)
         .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_logout)
@@ -192,56 +181,12 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
         .addDrawerItems(drawerItemSettings)
         .withOnDrawerItemClickListener { _, _, drawerItem ->
           if (drawerItem is Nameable<*>) {
-            navigationViewPresenter.onNavigationClicked(drawerItem.identifier)
+            navigationViewPresenter.onNavigationDrawerClicked(drawerItem.identifier)
           }
           false
         }
         .withSavedInstance(savedInstanceState)
         .build()
-  }
-
-  override fun goToChosenSection(section: Long) {
-
-    router.popToRoot()
-
-    when (section) {
-      Navigation.MAIN_PAGE -> {
-        router.pushController(
-            RouterTransaction.with(NewsController())
-                .pushChangeHandler(FadeChangeHandler())
-                .popChangeHandler(FadeChangeHandler()))
-      }
-      Navigation.FORUMS -> {
-        router.pushController(
-            RouterTransaction.with(ForumsController())
-                .pushChangeHandler(FadeChangeHandler())
-                .popChangeHandler(FadeChangeHandler()))
-      }
-      Navigation.SETTINGS -> {
-        startActivity<SettingsActivity>()
-      }
-      Navigation.SIGN_IN -> {
-        startActivityForResult<AuthorizationActivity>(SIGN_IN_REQUEST)
-      }
-      Navigation.SIGN_OUT -> {
-        navigationViewPresenter.signOut()
-        router.popToRoot()
-      }
-    }
-
-    navigationViewPresenter.refreshAuthorization()
-  }
-
-  override fun showSignOutMessage() {
-    toastInfo(stringRes(R.string.msg_sign_out))
-  }
-
-  override fun goToMainPage() {
-    router.popToRoot()
-  }
-
-  override fun setAppbarTitle(title: String) {
-    supportActionBar?.title = title
   }
 
   override fun updateNavDrawer(userInfo: AuthorizedUserInfo) {
@@ -270,37 +215,23 @@ class NavigationActivity : BaseActivityWithRouter(), NavigationView {
     }
   }
 
+  override fun setAppbarTitle(title: String) {
+    supportActionBar?.title = title
+  }
+
+  override fun showSignOutMessage() {
+    toastInfo(stringRes(R.string.msg_sign_out))
+  }
+
   private fun displaySignIn() {
-    navDrawer.removeItem(Navigation.SIGN_IN)
-    navDrawer.removeItem(Navigation.SIGN_OUT)
+    navDrawer.removeItem(NavigationDrawerItems.SIGN_IN)
+    navDrawer.removeItem(NavigationDrawerItems.SIGN_OUT)
     navDrawer.addItem(drawerItemSignIn)
   }
 
   private fun displaySignOut() {
-    navDrawer.removeItem(Navigation.SIGN_IN)
-    navDrawer.removeItem(Navigation.SIGN_OUT)
+    navDrawer.removeItem(NavigationDrawerItems.SIGN_IN)
+    navDrawer.removeItem(NavigationDrawerItems.SIGN_OUT)
     navDrawer.addItem(drawerItemSignOut)
-  }
-
-  private fun handleLinkIntent() {
-    val appLinkIntent = intent
-    val appLinkAction = appLinkIntent.action
-    val appLinkData = appLinkIntent.data
-
-    if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
-      val regex = Pattern.compile("yaplakal.com/forum(\\d+)/topic(\\d+)\\.html")
-      val matcher = regex.matcher(appLinkData.toString())
-
-      if (matcher.find()) {
-        val bundle = Bundle()
-        bundle.putInt(ChosenTopicController.FORUM_ID_KEY, matcher.group(1).toInt())
-        bundle.putInt(ChosenTopicController.TOPIC_ID_KEY, matcher.group(2).toInt())
-
-        router.pushController(
-            RouterTransaction.with(ChosenTopicController(bundle))
-                .pushChangeHandler(FadeChangeHandler())
-                .popChangeHandler(FadeChangeHandler()))
-      }
-    }
   }
 }

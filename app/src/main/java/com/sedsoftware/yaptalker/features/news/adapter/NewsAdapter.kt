@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
 import com.sedsoftware.yaptalker.data.model.NewsItem
 
-class NewsAdapter(itemClick: (String, String) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NewsAdapter(itemClick: NewsItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<ViewType>
   private var delegateAdapters = SparseArrayCompat<ViewTypeDelegateAdapter>()

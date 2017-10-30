@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.features.navigation
 
 import android.support.annotation.IntDef
 
-class Navigation {
+class NavigationDrawerItems {
   companion object {
     const val MAIN_PAGE = 0L
     const val FORUMS = 1L

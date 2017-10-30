@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.features.posting
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.features.posting.MessageTags.Tag
+import com.sedsoftware.yaptalker.features.topic.ChosenTopicFragment
 import java.util.Locale
 
 @InjectViewState
@@ -22,6 +23,11 @@ class AddMessagePresenter : BasePresenter<AddMessageView>() {
     private var isUOpened = false
   }
 
+  override fun detachView(view: AddMessageView?) {
+    viewState.hideKeyboard()
+    super.detachView(view)
+  }
+
   fun onTagClicked(selectionStart: Int, selectionEnd: Int, @Tag tag: Long) {
     when {
       tag == MessageTags.TAG_LINK -> onLinkTagClicked()
@@ -36,6 +42,10 @@ class AddMessagePresenter : BasePresenter<AddMessageView>() {
   }
 
   fun isAnyTagNotClosed() = isBOpened || isIOpened || isUOpened
+
+  fun sendMessageTextBackToView(message: String) {
+    router.exitWithResult(ChosenTopicFragment.MESSAGE_TEXT_REQUEST, message)
+  }
 
   private fun onTagClickedWithSelection(@Tag tag: Long) {
     when (tag) {

@@ -31,9 +31,9 @@
         <category android:name="android.intent.category.BROWSABLE" />
 
         <data
-          android:scheme="http"
           android:host="www.yaplakal.com"
-          android:pathPattern="/forum.*/topic.*\.html" />
+          android:pathPattern="/forum.*/topic.*\.html"
+          android:scheme="http" />
       </intent-filter>
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
@@ -42,9 +42,9 @@
         <category android:name="android.intent.category.BROWSABLE" />
 
         <data
-          android:scheme="https"
           android:host="www.yaplakal.com"
-          android:pathPattern="/forum.*/topic.*\.html" />
+          android:pathPattern="/forum.*/topic.*\.html"
+          android:scheme="https" />
       </intent-filter>
     </activity>
 
@@ -73,25 +73,6 @@
       android:label="@string/nav_drawer_settings"
       android:parentActivityName=".features.navigation.NavigationActivity"
       android:theme="@style/AppTheme.Settings">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".features.navigation.NavigationActivity" />
-    </activity>
-
-    <activity
-      android:name=".features.authorization.AuthorizationActivity"
-      android:label="@string/nav_drawer_sign_in"
-      android:launchMode="singleTask"
-      android:parentActivityName=".features.navigation.NavigationActivity">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".features.navigation.NavigationActivity" />
-    </activity>
-
-    <activity
-      android:name=".features.posting.AddMessageActivity"
-      android:label=""
-      android:parentActivityName=".features.navigation.NavigationActivity">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
         android:value=".features.navigation.NavigationActivity" />

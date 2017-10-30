@@ -1,45 +1,55 @@
 package com.sedsoftware.yaptalker.features.posting
 
-import android.app.Activity
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.base.BaseActivity
-import com.sedsoftware.yaptalker.base.events.ActivityLifecycle
+import com.sedsoftware.yaptalker.base.BaseFragment
+import com.sedsoftware.yaptalker.base.events.FragmentLifecycle
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
+import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
-import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import com.uber.autodispose.kotlin.autoDisposeWith
-import kotlinx.android.synthetic.main.activity_new_post.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.fragment_new_post.*
 
-// TODO() EditText leaks AGAIN
-// Investigate or replace with some custom view
+class AddMessageFragment : BaseFragment(), AddMessageView {
 
-class AddMessageActivity : BaseActivity(), AddMessageView {
+  companion object {
+    const val MESSAGE_TEXT_REQUEST = 321
+    private const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
+
+    fun getNewInstance(title: String): AddMessageFragment {
+      val fragment = AddMessageFragment()
+      val args = Bundle()
+      args.putString(TOPIC_TITLE_KEY, title)
+      fragment.arguments = args
+      return fragment
+    }
+  }
 
   @InjectPresenter
   lateinit var messagingPresenter: AddMessagePresenter
 
   override val layoutId: Int
-    get() = R.layout.activity_new_post
+    get() = R.layout.fragment_new_post
 
   private val currentTopicTitle: String by lazy {
-    intent.getStringExtra(ChosenTopicController.TOPIC_TITLE_KEY)
+    arguments.getString(TOPIC_TITLE_KEY)
   }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    setSupportActionBar(toolbar)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    setHasOptionsMenu(true)
+    messagingPresenter.updateAppbarTitle("")
 
     if (currentTopicTitle.isNotEmpty()) {
       new_post_topic_title.text = currentTopicTitle
@@ -47,11 +57,10 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
   }
 
   override fun subscribeViews() {
-
     // B
     RxView
         .clicks(new_post_button_bold)
-        .autoDisposeWith(event(ActivityLifecycle.DESTROY))
+        .autoDisposeWith(event(FragmentLifecycle.STOP))
         .subscribe {
           with(new_post_edit_text) {
             messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_B)
@@ -61,7 +70,7 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
     // I
     RxView
         .clicks(new_post_button_italic)
-        .autoDisposeWith(event(ActivityLifecycle.DESTROY))
+        .autoDisposeWith(event(FragmentLifecycle.STOP))
         .subscribe {
           with(new_post_edit_text) {
             messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_I)
@@ -71,7 +80,7 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
     // U
     RxView
         .clicks(new_post_button_underlined)
-        .autoDisposeWith(event(ActivityLifecycle.DESTROY))
+        .autoDisposeWith(event(FragmentLifecycle.STOP))
         .subscribe {
           with(new_post_edit_text) {
             messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_U)
@@ -81,7 +90,7 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
     // Link
     RxView
         .clicks(new_post_button_link)
-        .autoDisposeWith(event(ActivityLifecycle.DESTROY))
+        .autoDisposeWith(event(FragmentLifecycle.STOP))
         .subscribe {
           with(new_post_edit_text) {
             messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_LINK)
@@ -89,13 +98,12 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
         }
   }
 
-  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-    menuInflater.inflate(R.menu.menu_post_editor, menu)
-    return true
+  override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
+    inflater.inflate(R.menu.menu_post_editor, menu)
   }
 
   override fun showErrorMessage(message: String) {
-
+    toastError(message)
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -106,7 +114,6 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
       }
       else -> super.onOptionsItemSelected(item)
     }
-
   }
 
   override fun insertTag(tag: String) {
@@ -123,7 +130,7 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
     var url: String
     var title: String
 
-    MaterialDialog.Builder(this)
+    MaterialDialog.Builder(context)
         .title(R.string.post_insert_link)
         .positiveText(R.string.post_button_submit)
         .negativeText(R.string.post_button_dismiss)
@@ -135,7 +142,7 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
         .onPositive { firstDialog, _ ->
           url = firstDialog.inputEditText?.text.toString()
 
-          MaterialDialog.Builder(this)
+          MaterialDialog.Builder(context)
               .title(R.string.post_insert_link_title)
               .positiveText(R.string.post_button_submit)
               .negativeText(R.string.post_button_dismiss)
@@ -152,22 +159,22 @@ class AddMessageActivity : BaseActivity(), AddMessageView {
               .show()
         }
         .show()
+  }
 
+  override fun hideKeyboard() {
+    val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view?.windowToken, 0)
   }
 
   private fun returnMessageText() {
-
     if (messagingPresenter.isAnyTagNotClosed()) {
-      toastWarning(stringRes(R.string.msg_unclosed_tag))
+      toastWarning(context.stringRes(R.string.msg_unclosed_tag))
       return
     }
 
     val message = new_post_edit_text.text.toString()
     if (message.isNotEmpty()) {
-      val returnIntent = Intent()
-      returnIntent.putExtra(ChosenTopicController.MESSAGE_TEXT_KEY, message)
-      setResult(Activity.RESULT_OK, returnIntent)
+      messagingPresenter.sendMessageTextBackToView(message)
     }
-    finish()
   }
 }

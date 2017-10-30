@@ -7,12 +7,10 @@ import android.text.InputType
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.bluelinelabs.conductor.RouterTransaction
-import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.base.BaseController
-import com.sedsoftware.yaptalker.commons.extensions.scopeProvider
+import com.sedsoftware.yaptalker.base.BaseFragment
+import com.sedsoftware.yaptalker.base.events.FragmentLifecycle
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
@@ -21,39 +19,46 @@ import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.features.forum.adapter.ChosenForumAdapter
 import com.sedsoftware.yaptalker.features.forum.adapter.ForumNavigationClickListener
 import com.sedsoftware.yaptalker.features.forum.adapter.TopicItemClickListener
-import com.sedsoftware.yaptalker.features.topic.ChosenTopicController
 import com.uber.autodispose.kotlin.autoDisposeWith
-import kotlinx.android.synthetic.main.controller_chosen_forum.view.*
+import kotlinx.android.synthetic.main.fragment_chosen_forum.*
 import java.util.Locale
 
-class ChosenForumController(val bundle: Bundle) :
-    BaseController(bundle), ChosenForumView, TopicItemClickListener, ForumNavigationClickListener {
+class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListener, ForumNavigationClickListener {
 
   companion object {
-    const val FORUM_ID_KEY = "FORUM_ID_KEY"
-  }
+    private const val FORUM_ID_KEY = "FORUM_ID_KEY"
 
-  private val currentForumId: Int by lazy {
-    bundle.getInt(FORUM_ID_KEY)
+    fun getNewInstance(forumId: Int): ChosenForumFragment {
+      val fragment = ChosenForumFragment()
+      val args = Bundle()
+      args.putInt(FORUM_ID_KEY, forumId)
+      fragment.arguments = args
+      return fragment
+    }
   }
 
   @InjectPresenter
   lateinit var forumPresenter: ChosenForumPresenter
 
+  override val layoutId: Int
+    get() = R.layout.fragment_chosen_forum
+
+  private val currentForumId: Int by lazy {
+    arguments.getInt(FORUM_ID_KEY)
+  }
+
   private lateinit var forumAdapter: ChosenForumAdapter
 
-  override val controllerLayoutId: Int
-    get() = R.layout.controller_chosen_forum
-
-  override fun onViewBound(view: View, savedViewState: Bundle?) {
+  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
 
     forumAdapter = ChosenForumAdapter(this, this)
 
     forumAdapter.setHasStableIds(true)
 
-    view.forum_refresh_layout.setIndicatorColorScheme()
+    forum_refresh_layout.setIndicatorColorScheme()
 
-    with(view.forum_topics_list) {
+    with(forum_topics_list) {
       val linearLayout = LinearLayoutManager(context)
       layoutManager = linearLayout
       adapter = forumAdapter
@@ -63,16 +68,12 @@ class ChosenForumController(val bundle: Bundle) :
       setHasFixedSize(true)
     }
 
-    forumPresenter.checkSavedState(currentForumId, savedViewState)
+    forumPresenter.checkSavedState(currentForumId, savedInstanceState)
   }
 
-  override fun onDestroyView(view: View) {
-    super.onDestroyView(view)
-    view.forum_topics_list.adapter = null
-  }
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
 
-  override fun onSaveViewState(view: View, outState: Bundle) {
-    super.onSaveViewState(view, outState)
     val panel = forumAdapter.getNavigationPanel()
     val topics = forumAdapter.getTopics()
 
@@ -81,13 +82,11 @@ class ChosenForumController(val bundle: Bundle) :
     }
   }
 
-  override fun subscribeViews(parent: View) {
-    parent.forum_refresh_layout?.let {
-      RxSwipeRefreshLayout
-          .refreshes(parent.forum_refresh_layout)
-          .autoDisposeWith(scopeProvider)
-          .subscribe { forumPresenter.loadForum(currentForumId) }
-    }
+  override fun subscribeViews() {
+    RxSwipeRefreshLayout
+        .refreshes(forum_refresh_layout)
+        .autoDisposeWith(event(FragmentLifecycle.STOP))
+        .subscribe { forumPresenter.loadForum(currentForumId) }
   }
 
   override fun showErrorMessage(message: String) {
@@ -95,7 +94,7 @@ class ChosenForumController(val bundle: Bundle) :
   }
 
   override fun showLoadingIndicator(shouldShow: Boolean) {
-    view?.forum_refresh_layout?.isRefreshing = shouldShow
+    forum_refresh_layout.isRefreshing = shouldShow
   }
 
   override fun displayForumPage(page: ForumPage) {
@@ -103,23 +102,17 @@ class ChosenForumController(val bundle: Bundle) :
   }
 
   override fun scrollToViewTop() {
-    view?.forum_topics_list?.layoutManager?.scrollToPosition(0)
+    forum_topics_list?.layoutManager?.scrollToPosition(0)
   }
 
   override fun showCantLoadPageMessage(page: Int) {
-    view?.context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
+    context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
       toastWarning(String.format(Locale.getDefault(), template, page))
     }
   }
 
   override fun onTopicClick(topicId: Int) {
-    val bundle = Bundle()
-    bundle.putInt(ChosenTopicController.FORUM_ID_KEY, currentForumId)
-    bundle.putInt(ChosenTopicController.TOPIC_ID_KEY, topicId)
-    router.pushController(
-        RouterTransaction.with(ChosenTopicController(bundle))
-            .pushChangeHandler(FadeChangeHandler())
-            .popChangeHandler(FadeChangeHandler()))
+    forumPresenter.navigateToChosenTopic(Pair(currentForumId, topicId))
   }
 
   override fun onGoToFirstPageClick() {
@@ -139,7 +132,7 @@ class ChosenForumController(val bundle: Bundle) :
   }
 
   override fun onGoToSelectedPageClick() {
-    view?.context?.let { ctx ->
+    context?.let { ctx ->
       MaterialDialog.Builder(ctx)
           .title(R.string.navigation_go_to_page_title)
           .inputType(InputType.TYPE_CLASS_NUMBER)
