@@ -1,7 +1,5 @@
 package com.sedsoftware.yaptalker.features.topic
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -36,11 +34,10 @@ import java.util.Locale
 class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickListener, TopicNavigationClickListener {
 
   companion object {
-    const val MESSAGE_TEXT_KEY = "MESSAGE_TEXT_KEY"
+    const val MESSAGE_TEXT_REQUEST = 321
     private const val FORUM_ID_KEY = "FORUM_ID_KEY"
     private const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
     private const val INITIAL_FAB_OFFSET = 250f
-    private const val MESSAGE_TEXT_REQUEST = 321
 
     fun getNewInstance(pair: Pair<Int, Int>): ChosenTopicFragment {
       val fragment = ChosenTopicFragment()
@@ -135,17 +132,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     RxView
         .clicks(new_post_fab)
         .autoDisposeWith(event(FragmentLifecycle.STOP))
-        .subscribe { topicPresenter.onFabClicked() }
-  }
-
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    if (requestCode == MESSAGE_TEXT_REQUEST && resultCode == Activity.RESULT_OK) {
-      data?.getStringExtra(MESSAGE_TEXT_KEY)?.let { message ->
-        if (message.isNotEmpty()) {
-          topicPresenter.sendMessage(message)
-        }
-      }
-    }
+        .subscribe { topicPresenter.navigateToAddMessageView() }
   }
 
   override fun showErrorMessage(message: String) {
@@ -186,10 +173,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
   override fun hideFabWithoutAnimation() {
     new_post_fab?.translationY = INITIAL_FAB_OFFSET
     isFabShown = false
-  }
-
-  override fun showAddMessageView(title: String) {
-    topicPresenter.navigateToAddMessageView(title)
   }
 
   override fun showCantLoadPageMessage(page: Int) {

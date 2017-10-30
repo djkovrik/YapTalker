@@ -8,13 +8,16 @@ import com.sedsoftware.yaptalker.data.model.TopicNavigationPanel
 import com.sedsoftware.yaptalker.data.model.TopicPage
 import com.sedsoftware.yaptalker.data.model.TopicPost
 import com.sedsoftware.yaptalker.features.NavigationScreens
-import com.sedsoftware.yaptalker.features.posting.AddMessageFragment
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
 class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
+
+  init {
+    router.setResultListener(ChosenTopicFragment.MESSAGE_TEXT_REQUEST, { message -> sendMessage(message as String) })
+  }
 
   companion object {
     private const val TOPIC_PAGE_KEY = "TOPIC_PAGE_KEY"
@@ -28,17 +31,16 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   private var currentPage = 1
   private var totalPages = 1
   private var authKey = ""
-  private var isClosed = false
+  private var isClosed = ""
 
   override fun attachView(view: ChosenTopicView?) {
     super.attachView(view)
     viewState.hideFabWithoutAnimation()
-    router.setResultListener(AddMessageFragment.MESSAGE_TEXT_REQUEST, { message -> sendMessage(message as String) })
   }
 
-  override fun detachView(view: ChosenTopicView?) {
-    super.detachView(view)
-    router.removeResultListener(AddMessageFragment.MESSAGE_TEXT_REQUEST)
+  override fun onDestroy() {
+    super.onDestroy()
+    router.removeResultListener(ChosenTopicFragment.MESSAGE_TEXT_REQUEST)
   }
 
   fun checkSavedState(forumId: Int, topicId: Int, savedViewState: Bundle?) {
@@ -53,16 +55,10 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     }
   }
 
-  fun saveCurrentState(outState: Bundle, panel: TopicNavigationPanel, posts: List<TopicPost>) {
-    val topicPage = TopicPage(
-        title = currentTitle,
-        navigationPanel = panel,
-        key = authKey,
-        postsList = posts)
+  fun saveCurrentState(outState: Bundle, panel: TopicNavigationPanel, list: List<TopicPost>) {
 
-    with(outState) {
-      putParcelable(TOPIC_PAGE_KEY, topicPage)
-    }
+    val topicPage = TopicPage(currentTitle, isClosed, authKey, panel, list)
+    outState.putParcelable(TOPIC_PAGE_KEY, topicPage)
   }
 
   fun loadTopic(forumId: Int, topicId: Int, page: Int = 1) {
@@ -104,14 +100,10 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   fun handleFabVisibility(isFabShown: Boolean, diff: Int) {
     when {
-      authKey.isEmpty() || isClosed -> viewState.hideFabWithoutAnimation()
+      authKey.isEmpty() || isClosed.isNotEmpty() -> viewState.hideFabWithoutAnimation()
       isFabShown && diff < 0 -> viewState.showFab(shouldShow = false)
       !isFabShown && diff > 0 -> viewState.showFab(shouldShow = true)
     }
-  }
-
-  fun onFabClicked() {
-    viewState.showAddMessageView(currentTitle)
   }
 
   fun loadProfileIfAvailable(userId: Int) {
@@ -120,7 +112,23 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     }
   }
 
-  fun sendMessage(message: String) {
+  fun onShareItemClicked() {
+    viewState.shareTopic(currentTitle)
+  }
+
+  fun navigateToUserProfile(userId: Int) {
+    router.navigateTo(NavigationScreens.USER_PROFILE_SCREEN, userId)
+  }
+
+  fun navigateToAddMessageView() {
+    router.navigateTo(NavigationScreens.ADD_MESSAGE_SCREEN, currentTitle)
+  }
+
+  private fun onPostSuccess() {
+    loadTopicCurrentPage()
+  }
+
+  private fun sendMessage(message: String) {
 
     if (authKey.isEmpty()) {
       return
@@ -141,22 +149,6 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
           throwable ->
           onLoadingError(throwable)
         })
-  }
-
-  fun onShareItemClicked() {
-    viewState.shareTopic(currentTitle)
-  }
-
-  fun navigateToUserProfile(userId: Int) {
-    router.navigateTo(NavigationScreens.USER_PROFILE_SCREEN, userId)
-  }
-
-  fun navigateToAddMessageView(title: String) {
-    router.navigateTo(NavigationScreens.ADD_MESSAGE_SCREEN, title)
-  }
-
-  private fun onPostSuccess() {
-    loadTopicCurrentPage()
   }
 
   private fun loadTopicCurrentPage() {
@@ -181,7 +173,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   private fun onLoadingSuccess(page: TopicPage) {
     authKey = page.authKey
-    isClosed = page.isClosed.isNotEmpty()
+    isClosed = page.isClosed
     currentTitle = page.topicTitle
     updateAppbarTitle(currentTitle)
 

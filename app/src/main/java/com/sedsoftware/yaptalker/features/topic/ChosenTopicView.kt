@@ -16,8 +16,6 @@ interface ChosenTopicView : BaseView {
 
   fun hideFabWithoutAnimation()
 
-  fun showAddMessageView(title: String)
-
   fun showCantLoadPageMessage(page: Int)
 
   fun showUserProfile(userId: Int)

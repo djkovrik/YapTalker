@@ -1,11 +1,13 @@
 package com.sedsoftware.yaptalker.features.posting
 
+import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -46,6 +48,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
 
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setHasOptionsMenu(true)
     messagingPresenter.updateAppbarTitle("")
 
     if (currentTopicTitle.isNotEmpty()) {
@@ -158,6 +161,10 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
         .show()
   }
 
+  override fun hideKeyboard() {
+    val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view?.windowToken, 0)
+  }
 
   private fun returnMessageText() {
     if (messagingPresenter.isAnyTagNotClosed()) {

@@ -83,7 +83,6 @@ class NavigationActivity : BaseActivity(), NavigationView {
     setSupportActionBar(toolbar)
 
     navigationViewPresenter.initLayout(savedInstanceState)
-    navigationViewPresenter.refreshAuthorization()
     navigationViewPresenter.restoreCurrentTitle(APPBAR_TITLE_KEY, savedInstanceState)
   }
 
@@ -146,6 +145,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
     drawerItemSignIn = PrimaryDrawerItem()
         .withIdentifier(NavigationDrawerItems.SIGN_IN)
         .withName(R.string.nav_drawer_sign_in)
+        .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_login)
         .withTextColor(color(R.color.colorNavDefaultText))
         .withIconColorRes(R.color.colorNavSignin)

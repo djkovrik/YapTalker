@@ -14,6 +14,13 @@ import io.reactivex.schedulers.Schedulers
 @InjectViewState
 class NavigationViewPresenter : BasePresenter<NavigationView>() {
 
+  init {
+    router.setResultListener(NavigationActivity.SIGN_IN_REQUEST, {
+      refreshAuthorization()
+      goToDefaultMainPage()
+    })
+  }
+
   private val cookieStorage: ClearableCookieJar by instance()
 
   private var currentTitle: String = ""
@@ -33,11 +40,11 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
 
   override fun attachView(view: NavigationView?) {
     super.attachView(view)
-    router.setResultListener(NavigationActivity.SIGN_IN_REQUEST, { refreshAuthorization() })
+    refreshAuthorization()
   }
 
-  override fun detachView(view: NavigationView?) {
-    super.detachView(view)
+  override fun onDestroy() {
+    super.onDestroy()
     router.removeResultListener(NavigationActivity.SIGN_IN_REQUEST)
   }
 
@@ -57,7 +64,18 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
     viewState.initDrawer(savedInstanceState)
   }
 
-  fun refreshAuthorization() {
+  fun onNavigationDrawerClicked(@NavigationDrawerItems.Section identifier: Long) {
+    when (identifier) {
+      NavigationDrawerItems.MAIN_PAGE -> router.newRootScreen(NavigationScreens.NEWS_SCREEN)
+      NavigationDrawerItems.FORUMS -> router.newRootScreen(NavigationScreens.FORUMS_LIST_SCREEN)
+      NavigationDrawerItems.SETTINGS -> router.navigateTo(NavigationScreens.SETTINGS_SCREEN)
+      NavigationDrawerItems.SIGN_IN -> router.navigateTo(NavigationScreens.AUTHORIZATION_SCREEN)
+      NavigationDrawerItems.SIGN_OUT -> signOut()
+    }
+  }
+
+  private fun refreshAuthorization() {
+
     yapDataManager
         .getAuthorizedUserInfo()
         .subscribeOn(Schedulers.io())
@@ -74,23 +92,14 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
         })
   }
 
-  fun onNavigationDrawerClicked(@NavigationDrawerItems.Section identifier: Long) {
-    when (identifier) {
-      NavigationDrawerItems.MAIN_PAGE -> router.navigateTo(NavigationScreens.NEWS_SCREEN)
-      NavigationDrawerItems.FORUMS -> router.navigateTo(NavigationScreens.FORUMS_LIST_SCREEN)
-      NavigationDrawerItems.SETTINGS -> router.navigateTo(NavigationScreens.SETTINGS_SCREEN)
-      NavigationDrawerItems.SIGN_IN -> router.navigateTo(NavigationScreens.AUTHORIZATION_SCREEN)
-      NavigationDrawerItems.SIGN_OUT -> signOut()
-    }
+  private fun goToDefaultMainPage() {
+    router.newRootScreen(settings.getStartingPage())
   }
 
   private fun signOut() {
     cookieStorage.clear()
     viewState.showSignOutMessage()
+    refreshAuthorization()
     goToDefaultMainPage()
-  }
-
-  private fun goToDefaultMainPage() {
-    router.newRootScreen(settings.getStartingPage())
   }
 }
