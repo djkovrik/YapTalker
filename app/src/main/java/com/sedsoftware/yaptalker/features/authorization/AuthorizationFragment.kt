@@ -1,7 +1,9 @@
 package com.sedsoftware.yaptalker.features.authorization
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -70,5 +72,10 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
 
   override fun signInButtonEnabled(enabled: Boolean) {
     button_sign_in?.isEnabled = enabled
+  }
+
+  override fun hideKeyboard() {
+    val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view?.windowToken, 0)
   }
 }
