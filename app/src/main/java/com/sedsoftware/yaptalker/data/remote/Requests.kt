@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.data.remote
 
+import com.sedsoftware.yaptalker.data.model.ActiveTopicsPage
 import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.data.model.ForumPage
 import com.sedsoftware.yaptalker.data.model.Forums
@@ -74,6 +75,13 @@ interface YapLoader {
       @Part("Post") postContent: String,
       @Part("MAX_FILE_SIZE") maxFileSize: Int,
       @Part("enabletag") enabletag: Int): Single<TopicPage>
+
+  @GET("/")
+  fun loadActiveTopics(
+      @Query("act") act: String,
+      @Query("CODE") code: String,
+      @Query("searchid") searchid: String,
+      @Query("st") startTopicNumber: Int): Single<ActiveTopicsPage>
 }
 
 interface RutubeLoader {
@@ -90,6 +98,11 @@ interface YapFileLoader {
   @GET("/get_player")
   fun loadHash(
       @Query("v") v: String): Single<String>
+}
+
+interface YapSearchIdLoader {
+  @GET("/act/Search/CODE/getactive")
+  fun loadSearchIdHash(): Single<String>
 }
 
 interface YapVideoLoader {

@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.data.remote
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.base.events.ConnectionState
 import com.sedsoftware.yaptalker.commons.extensions.toMD5
+import com.sedsoftware.yaptalker.data.model.ActiveTopicsPage
 import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.data.model.ForumPage
@@ -17,7 +18,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import okhttp3.ResponseBody
 import retrofit2.Response
 
-class YapDataManager(private val yapLoader: YapLoader, private val connectionRelay: BehaviorRelay<Long>) {
+class YapDataManager(
+    private val yapLoader: YapLoader,
+    private val searchIdLoader: YapSearchIdLoader,
+    private val connectionRelay: BehaviorRelay<Long>) {
 
   companion object {
     private const val LOGIN_REFERER = "http://www.yaplakal.com/forum/"
@@ -133,6 +137,24 @@ class YapDataManager(private val yapLoader: YapLoader, private val connectionRel
     return yapLoader
         .loadAuthorizedUserInfo()
   }
+
+  fun getSearchId(): Single<String> =
+      searchIdLoader
+          .loadSearchIdHash()
+
+  fun getActiveTopics(action: String, code: String, searchid: String, topicNumber: Int): Single<ActiveTopicsPage> =
+      yapLoader
+          .loadActiveTopics(action, code, searchid, topicNumber)
+          .doOnSubscribe {
+            publishConnectionState(ConnectionState.LOADING)
+          }
+          .doOnError {
+            publishConnectionState(ConnectionState.ERROR)
+          }
+          .doOnSuccess {
+            publishConnectionState(ConnectionState.COMPLETED)
+          }
+
 
   private fun publishConnectionState(@ConnectionState.Event event: Long) {
     Observable
