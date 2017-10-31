@@ -5,7 +5,7 @@ import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.singleton
 import com.github.salomonbrys.kodein.with
-import com.sedsoftware.yaptalker.commons.converters.YapFileConverterFactory
+import com.sedsoftware.yaptalker.commons.converters.HashSearchConverterFactory
 import com.sedsoftware.yaptalker.data.remote.CoubLoader
 import com.sedsoftware.yaptalker.data.remote.RutubeLoader
 import com.sedsoftware.yaptalker.data.remote.VkLoader
@@ -22,6 +22,7 @@ val thumbnailsManagerModule = Kodein.Module {
   constant("YAP_FILES_ENDPOINT") with "http://www.yapfiles.ru/"
   constant("YAP_API_ENDPOINT") with "http://api.yapfiles.ru/"
   constant("VK_VIDEO_ENDPOINT") with "https://api.vk.com/"
+  constant("YAP_FILE_HASH_MARKER") with "md5="
 
   bind<CoubLoader>("CoubLoader") with singleton {
     Retrofit.Builder()
@@ -45,7 +46,7 @@ val thumbnailsManagerModule = Kodein.Module {
     Retrofit.Builder()
         .baseUrl(instance<String>("YAP_FILES_ENDPOINT"))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(YapFileConverterFactory.create())
+        .addConverterFactory(HashSearchConverterFactory.create(instance("YAP_FILE_HASH_MARKER")))
         .build()
         .create(YapFileLoader::class.java)
   }

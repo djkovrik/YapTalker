@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.data.remote
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.base.events.ConnectionState
 import com.sedsoftware.yaptalker.commons.extensions.toMD5
+import com.sedsoftware.yaptalker.data.model.ActiveTopicsPage
 import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.data.model.ForumItem
 import com.sedsoftware.yaptalker.data.model.ForumPage
@@ -17,7 +18,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import okhttp3.ResponseBody
 import retrofit2.Response
 
-class YapDataManager(private val yapLoader: YapLoader, private val connectionRelay: BehaviorRelay<Long>) {
+class YapDataManager(
+    private val yapLoader: YapLoader,
+    private val searchIdLoader: YapSearchIdLoader,
+    private val connectionRelay: BehaviorRelay<Long>) {
 
   companion object {
     private const val LOGIN_REFERER = "http://www.yaplakal.com/forum/"
@@ -25,6 +29,9 @@ class YapDataManager(private val yapLoader: YapLoader, private val connectionRel
     private const val POST_ACT = "Post"
     private const val POST_CODE = "03"
     private const val POST_MAX_FILE_SIZE = 512000
+
+    private const val ACTIVE_TOPICS_ACT = "Search"
+    private const val ACTIVE_TOPICS_CODE = "getactive"
   }
 
   fun getNews(startNumber: Int = 0): Observable<NewsItem> =
@@ -133,6 +140,24 @@ class YapDataManager(private val yapLoader: YapLoader, private val connectionRel
     return yapLoader
         .loadAuthorizedUserInfo()
   }
+
+  fun getSearchId(): Single<String> =
+      searchIdLoader
+          .loadSearchIdHash()
+
+  fun getActiveTopics(searchId: String, topicNumber: Int): Single<ActiveTopicsPage> =
+      yapLoader
+          .loadActiveTopics(ACTIVE_TOPICS_ACT, ACTIVE_TOPICS_CODE, searchId, topicNumber)
+          .doOnSubscribe {
+            publishConnectionState(ConnectionState.LOADING)
+          }
+          .doOnError {
+            publishConnectionState(ConnectionState.ERROR)
+          }
+          .doOnSuccess {
+            publishConnectionState(ConnectionState.COMPLETED)
+          }
+
 
   private fun publishConnectionState(@ConnectionState.Event event: Long) {
     Observable

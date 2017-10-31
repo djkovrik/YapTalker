@@ -5,15 +5,15 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import java.lang.reflect.Type
 
-class YapFileConverterFactory : Converter.Factory() {
+class HashSearchConverterFactory(private val marker: String) : Converter.Factory() {
 
   companion object {
-    fun create() = YapFileConverterFactory()
+    fun create(hashMarker: String) = HashSearchConverterFactory(hashMarker)
   }
 
   override fun responseBodyConverter(type: Type?, annotations: Array<out Annotation>?,
                                      retrofit: Retrofit?): Converter<ResponseBody, String>? {
 
-    return YapFileResponseBodyConverter()
+    return HashSearchResponseBodyConverter(marker)
   }
 }

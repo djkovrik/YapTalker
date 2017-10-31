@@ -7,6 +7,7 @@
   <!-- Navigation items -->
   <string name="nav_drawer_main_page">Главная страница</string>
   <string name="nav_drawer_forums">Форумы</string>
+  <string name="nav_drawer_active_topics">Активные темы</string>
   <string name="nav_drawer_settings">Настройки</string>
   <string name="nav_drawer_sign_in">Войти</string>
   <string name="nav_drawer_sign_out">Выйти</string>
