@@ -8,9 +8,7 @@
     <item name="android:singleLine">true</item>
   </style>
 
-  <style name="ActiveTopicForum" parent="NewsForumTitle">
-    <item name="android:textStyle">bold</item>
-  </style>
+  <style name="ActiveTopicForum" parent="NewsForumTitle" />
 
   <style name="ActiveTopicAnswers" parent="CommonSupportingText">
     <item name="android:textStyle">italic</item>
