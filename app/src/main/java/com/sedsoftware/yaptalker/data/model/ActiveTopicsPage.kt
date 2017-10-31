@@ -18,6 +18,11 @@ class ActiveTopicsPage() : Parcelable {
     topics = parcel.createTypedArrayList(ActiveTopic)
   }
 
+  constructor(navigation: ActiveTopicsNavigationPanel, topics: List<ActiveTopic>) : this() {
+    this.navigation = navigation
+    this.topics = topics
+  }
+
   override fun writeToParcel(parcel: Parcel, flags: Int) {
     parcel.writeParcelable(navigation, flags)
     parcel.writeTypedList(topics)
