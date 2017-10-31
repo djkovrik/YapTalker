@@ -84,9 +84,9 @@ dependencies {
 
   // App - UI
   final MATERIAL_VALUES_VERSION = "1.1.1"
-  final MATERIAL_DRAWER_VERSION = "5.9.5@aar"
-  final ICONICS_VERSION = "2.9.3@aar"
-  final COMMUNITY_MATERIAL_ICONS_VERSION = "1.9.32.2@aar"
+  final MATERIAL_DRAWER_VERSION = "6.0.0@aar"
+  final ICONICS_VERSION = "2.9.5@aar"
+  final COMMUNITY_MATERIAL_ICONS_VERSION = "2.0.46.1@aar"
   final MATERIAL_DIALOGUES_VERSION = "0.9.4.7"
   final TOASTY_VERSION = "1.2.5"
   final PHOTOVIEW_VERSION = "2.0.0"
