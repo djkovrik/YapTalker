@@ -6,12 +6,13 @@ class NavigationDrawerItems {
   companion object {
     const val MAIN_PAGE = 0L
     const val FORUMS = 1L
-    const val SETTINGS = 2L
-    const val SIGN_IN = 3L
-    const val SIGN_OUT = 4L
+    const val ACTIVE_TOPICS = 2L
+    const val SETTINGS = 3L
+    const val SIGN_IN = 4L
+    const val SIGN_OUT = 5L
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @IntDef(MAIN_PAGE, FORUMS, SETTINGS, SIGN_IN, SIGN_OUT)
+  @IntDef(MAIN_PAGE, FORUMS, ACTIVE_TOPICS, SETTINGS, SIGN_IN, SIGN_OUT)
   annotation class Section
 }

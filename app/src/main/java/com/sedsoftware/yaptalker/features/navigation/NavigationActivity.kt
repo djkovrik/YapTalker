@@ -53,6 +53,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
   private lateinit var navHeader: AccountHeader
   private lateinit var drawerItemMainPage: PrimaryDrawerItem
   private lateinit var drawerItemForums: PrimaryDrawerItem
+  private lateinit var drawerItemActiveTopics: PrimaryDrawerItem
   private lateinit var drawerItemSettings: PrimaryDrawerItem
   private lateinit var drawerItemSignIn: PrimaryDrawerItem
   private lateinit var drawerItemSignOut: PrimaryDrawerItem
@@ -132,6 +133,15 @@ class NavigationActivity : BaseActivity(), NavigationView {
         .withSelectedTextColor(color(R.color.colorNavForums))
         .withSelectedIconColorRes(R.color.colorNavForums)
 
+    drawerItemActiveTopics = PrimaryDrawerItem()
+        .withIdentifier(NavigationDrawerItems.ACTIVE_TOPICS)
+        .withName(R.string.nav_drawer_active_topics)
+        .withIcon(CommunityMaterial.Icon.cmd_bulletin_board)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavActiveTopics)
+        .withSelectedTextColor(color(R.color.colorNavActiveTopics))
+        .withSelectedIconColorRes(R.color.colorNavActiveTopics)
+
     drawerItemSettings = PrimaryDrawerItem()
         .withIdentifier(NavigationDrawerItems.SETTINGS)
         .withIcon(CommunityMaterial.Icon.cmd_settings)
@@ -177,6 +187,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
         .withToolbar(toolbar)
         .addDrawerItems(drawerItemMainPage)
         .addDrawerItems(drawerItemForums)
+        .addDrawerItems(drawerItemActiveTopics)
         .addDrawerItems(DividerDrawerItem())
         .addDrawerItems(drawerItemSettings)
         .withOnDrawerItemClickListener { _, _, drawerItem ->
