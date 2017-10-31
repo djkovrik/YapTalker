@@ -29,6 +29,9 @@ class YapDataManager(
     private const val POST_ACT = "Post"
     private const val POST_CODE = "03"
     private const val POST_MAX_FILE_SIZE = 512000
+
+    private const val ACTIVE_TOPICS_ACT = "Search"
+    private const val ACTIVE_TOPICS_CODE = "getactive"
   }
 
   fun getNews(startNumber: Int = 0): Observable<NewsItem> =
@@ -142,9 +145,9 @@ class YapDataManager(
       searchIdLoader
           .loadSearchIdHash()
 
-  fun getActiveTopics(action: String, code: String, searchid: String, topicNumber: Int): Single<ActiveTopicsPage> =
+  fun getActiveTopics(searchId: String, topicNumber: Int): Single<ActiveTopicsPage> =
       yapLoader
-          .loadActiveTopics(action, code, searchid, topicNumber)
+          .loadActiveTopics(ACTIVE_TOPICS_ACT, ACTIVE_TOPICS_CODE, searchId, topicNumber)
           .doOnSubscribe {
             publishConnectionState(ConnectionState.LOADING)
           }
