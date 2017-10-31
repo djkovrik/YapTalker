@@ -3,7 +3,6 @@ package com.sedsoftware.yaptalker.data.remote.video
 import android.widget.ImageView
 import com.sedsoftware.yaptalker.BuildConfig
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.extensions.loadFromDrawable
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.data.remote.CoubLoader
 import com.sedsoftware.yaptalker.data.remote.RutubeLoader
@@ -115,7 +114,7 @@ class ThumbnailsManager(
         }
 
         override fun onSuccess(resId: Int) {
-          imageView.loadFromDrawable(resId)
+          imageView.setImageResource(resId)
         }
 
         override fun onSubscribe(d: Disposable) {
