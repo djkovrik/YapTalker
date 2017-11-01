@@ -28,8 +28,7 @@ fun parseLink(link: String): Pair<Int, String> =
         VideoTypes.COUB to link.substringAfterLast("/")
 
       link.contains(YOUTUBE_SELECTOR) -> {
-        val startPosition = link.lastIndexOf("/")
-        VideoTypes.YOUTUBE to link.substring(startPosition + 1, link.indexOf("?", startPosition))
+        VideoTypes.YOUTUBE to getYoutubeVideoId(link)
       }
 
       link.contains(RUTUBE_SELECTOR) ->
@@ -54,3 +53,13 @@ fun parseLink(link: String): Pair<Int, String> =
       else -> VideoTypes.OTHER to ""
     }
 
+/**
+ * Parse youtube video link to get id.
+ *
+ * @param embedded video link.
+ * @return video id string.
+ */
+fun getYoutubeVideoId(link: String): String {
+  val startPosition = link.lastIndexOf("/")
+  return link.substring(startPosition + 1, link.indexOf("?", startPosition))
+}

@@ -26,7 +26,7 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
 
   private val videoHtml: String by lazy {
     val iframe = intent
-        .getStringExtra("video")
+        .getStringExtra("videoHtml")
         .replace(Regex("width=\"\\d+\" height=\"\\d+\""), "")
         .replace("src=\"//", "src=\"http://")
 

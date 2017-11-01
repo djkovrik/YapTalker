@@ -30,6 +30,7 @@ import com.sedsoftware.yaptalker.data.model.PostQuoteAuthor
 import com.sedsoftware.yaptalker.data.model.PostScript
 import com.sedsoftware.yaptalker.data.model.PostText
 import com.sedsoftware.yaptalker.data.model.TopicPost
+import com.sedsoftware.yaptalker.data.remote.video.getYoutubeVideoId
 import com.sedsoftware.yaptalker.data.remote.video.parseLink
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
@@ -200,14 +201,20 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
       if (post.videos.isNotEmpty() && post.videosRaw.isNotEmpty()) {
         itemView.post_content_video_container.showView()
         itemView.post_content_video_container.removeAllViews()
-        post.videos.forEachIndexed { index, str ->
+        post.videos.forEachIndexed { index, url ->
+          val rawHtml = post.videosRaw[index]
           val thumbnail = ImageView(itemView.context)
           thumbnail.adjustViewBounds = true
           thumbnail.setPadding(0, imagePadding, 0, imagePadding)
           itemView.post_content_video_container.addView(thumbnail)
-          thumbnailsLoader.loadThumbnail(parseLink(str), thumbnail)
+          thumbnailsLoader.loadThumbnail(parseLink(url), thumbnail)
+
           thumbnail.setOnClickListener {
-            itemView.context.startActivity<VideoDisplayActivity>("video" to post.videosRaw[index])
+            if (url.contains("youtube")) {
+              itemView.context.browse("http://www.youtube.com/watch?v=${getYoutubeVideoId(url)}")
+            } else {
+              itemView.context.startActivity<VideoDisplayActivity>("videoHtml" to rawHtml)
+            }
           }
         }
       } else {
