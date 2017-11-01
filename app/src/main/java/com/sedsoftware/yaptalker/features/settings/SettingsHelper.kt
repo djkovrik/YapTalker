@@ -37,6 +37,12 @@ class SettingsHelper(val context: Context) {
   fun getNewsCategories() = getStringSet(R.string.pref_key_categorizer, defaultCategories)
   fun isNsfwEnabled() = getBoolean(R.string.pref_key_nswf, false)
 
+  fun isEulaAccepted() = getBoolean(R.string.pref_key_eula_accepted, false)
+
+  fun markEulaAccepted() {
+    preferences.edit().putBoolean(context.stringRes(R.string.pref_key_eula_accepted), true).apply()
+  }
+
   private fun getString(@StringRes key: Int, default: String): String {
     return preferences.getString(context.stringRes(key), default)
   }

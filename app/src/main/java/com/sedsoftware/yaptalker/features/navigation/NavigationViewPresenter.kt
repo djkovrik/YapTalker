@@ -36,6 +36,10 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
         }
 
     goToDefaultMainPage()
+
+    if (!settings.isEulaAccepted()) {
+      viewState.showEula()
+    }
   }
 
   override fun attachView(view: NavigationView?) {
@@ -73,6 +77,10 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
       NavigationDrawerItems.SIGN_IN -> router.navigateTo(NavigationScreens.AUTHORIZATION_SCREEN)
       NavigationDrawerItems.SIGN_OUT -> signOut()
     }
+  }
+
+  fun onEulaAccept() {
+    settings.markEulaAccepted()
   }
 
   private fun refreshAuthorization() {

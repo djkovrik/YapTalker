@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.widget.ImageView.ScaleType.CENTER_CROP
+import android.widget.TextView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.context.IconicsContextWrapper
@@ -20,6 +22,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseActivity
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
+import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
 import com.sedsoftware.yaptalker.commons.extensions.validateURL
@@ -234,6 +237,19 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
   override fun showSignOutMessage() {
     toastInfo(stringRes(R.string.msg_sign_out))
+  }
+
+  override fun showEula() {
+    val dialog = MaterialDialog.Builder(this)
+        .title(R.string.eula_title)
+        .customView(R.layout.custom_view_eula, true)
+        .positiveText(R.string.eula_button_ok)
+        .onPositive { _, _ -> navigationViewPresenter.onEulaAccept() }
+        .build()
+
+    dialog.customView?.findViewById<TextView>(R.id.eula_text_view)?.textFromHtml(getString(R.string.eula_text))
+
+    dialog.show()
   }
 
   private fun displaySignIn() {

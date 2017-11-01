@@ -16,4 +16,6 @@ interface NavigationView : BaseView {
   fun setAppbarTitle(title: String)
 
   fun showSignOutMessage()
+
+  fun showEula()
 }

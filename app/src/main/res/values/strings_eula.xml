@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="eula_text">
+    <![CDATA[
+    <html>
+    <body>
+      <b>Terms and definitions:</b><br>
+      <br>
+      <b>Site</b> - yaplakal.com web portal.<br>
+      <b>Application</b> - YapTalker application for Android OS devices.<br>
+      <b>Content</b> - text, pictures and videos published on the Site and displayed with the Application.<br>
+      <b>User</b> - individual who has joined this Agreement and who accesses the Site Content using a mobile device.<br>
+      <b>Developer</b> - author of the Application.<br>
+      <b>Agreement</b> - this agreement with all additions and annexes.<br>
+      <br>
+      <b>General rules:</b><br>
+      <br>
+      1. By installing the Application User automatically confirms that he fully agrees with the terms of this Agreement.<br>
+      <br>
+      2. The Developer is not responsible for the user Content published on the Site and displayed in the Application.<br>
+      <br>
+      3. The Developer do not claim any rights to the materials published on the Site and displayed in the Application.<br>
+      <br>
+      4. The Developer reserves the right to collect anonymous usage statistics for the Application.<br>
+      <br>
+      5. The Agreement (including any of its parts) can be changed by the Developer without any special notification.
+       The new version of the Agreement comes into force from the moment of its publication in the Application.<br>
+      <br>
+      <b>If you do not agree to the terms of this Agreement, you should immediately uninstall the Application.</b>
+    </body>
+    </html>
+    ]]>
+  </string>
+
+  <string name="eula_title">End-User License Agreement</string>
+  <string name="eula_button_ok">I understand</string>
+
+</resources>

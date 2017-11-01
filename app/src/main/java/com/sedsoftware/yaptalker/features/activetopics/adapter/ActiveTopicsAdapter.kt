@@ -11,7 +11,8 @@ import com.sedsoftware.yaptalker.data.model.ActiveTopic
 import com.sedsoftware.yaptalker.data.model.ActiveTopicsNavigationPanel
 import com.sedsoftware.yaptalker.data.model.ActiveTopicsPage
 
-class ActiveTopicsAdapter(itemClick: ActiveTopicsItemClickListener, navigationClick: ActiveTopicsNavigationClickListener) :
+class ActiveTopicsAdapter(
+    itemClick: ActiveTopicsItemClickListener, navigationClick: ActiveTopicsNavigationClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<ViewType>

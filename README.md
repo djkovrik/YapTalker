@@ -14,6 +14,6 @@ Features
 * Watch videos (supports yapfiles and embedded video clips from vk.com, coub etc.)
 * Authorization and message posting
 
-Downloading
------------
-Google Play publication planned soon.
+Download
+--------
+Google Play publication planned for version 1.0.0
