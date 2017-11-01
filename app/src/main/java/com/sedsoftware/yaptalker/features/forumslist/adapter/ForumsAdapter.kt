@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.commons.adapter.ContentTypes
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
-import com.sedsoftware.yaptalker.data.model.ForumItem
+import com.sedsoftware.yaptalker.data.parsing.ForumItem
 
 class ForumsAdapter(itemClick: ForumsItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

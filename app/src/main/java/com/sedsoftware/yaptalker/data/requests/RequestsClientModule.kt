@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.remote
+package com.sedsoftware.yaptalker.data.requests
 
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind

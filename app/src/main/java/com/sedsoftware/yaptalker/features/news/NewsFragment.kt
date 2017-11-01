@@ -17,7 +17,7 @@ import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
-import com.sedsoftware.yaptalker.data.model.NewsItem
+import com.sedsoftware.yaptalker.data.parsing.NewsItem
 import com.sedsoftware.yaptalker.features.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.features.news.adapter.NewsItemClickListener
 import com.uber.autodispose.kotlin.autoDisposeWith

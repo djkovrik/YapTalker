@@ -1,16 +1,12 @@
-package com.sedsoftware.yaptalker.data.remote
+package com.sedsoftware.yaptalker.data.requests.site
 
-import com.sedsoftware.yaptalker.data.model.ActiveTopicsPage
-import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
-import com.sedsoftware.yaptalker.data.model.ForumPage
-import com.sedsoftware.yaptalker.data.model.Forums
-import com.sedsoftware.yaptalker.data.model.News
-import com.sedsoftware.yaptalker.data.model.TopicPage
-import com.sedsoftware.yaptalker.data.model.UserProfile
-import com.sedsoftware.yaptalker.data.remote.video.CoubData
-import com.sedsoftware.yaptalker.data.remote.video.RutubeData
-import com.sedsoftware.yaptalker.data.remote.video.VkResponseWrapper
-import com.sedsoftware.yaptalker.data.remote.video.YapVideoData
+import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPage
+import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
+import com.sedsoftware.yaptalker.data.parsing.ForumPage
+import com.sedsoftware.yaptalker.data.parsing.Forums
+import com.sedsoftware.yaptalker.data.parsing.News
+import com.sedsoftware.yaptalker.data.parsing.TopicPage
+import com.sedsoftware.yaptalker.data.parsing.UserProfile
 import io.reactivex.Single
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -82,41 +78,4 @@ interface YapLoader {
       @Query("CODE") code: String,
       @Query("searchid") searchid: String,
       @Query("st") startTopicNumber: Int): Single<ActiveTopicsPage>
-}
-
-interface RutubeLoader {
-  @GET("/api/video/{id}")
-  fun loadThumbnail(@Path("id") id: String, @Query("format") format: String): Single<RutubeData>
-}
-
-interface CoubLoader {
-  @GET("/api/oembed.json")
-  fun loadThumbnail(@Query("url") url: String): Single<CoubData>
-}
-
-interface YapFileLoader {
-  @GET("/get_player")
-  fun loadHash(
-      @Query("v") v: String): Single<String>
-}
-
-interface YapSearchIdLoader {
-  @GET("/act/Search/CODE/getactive")
-  fun loadSearchIdHash(): Single<String>
-}
-
-interface YapVideoLoader {
-  @GET("/load/{id}")
-  fun loadThumbnail(
-      @Path("id") id: String,
-      @Query("md5") md5: String,
-      @Query("type") type: String): Single<YapVideoData>
-}
-
-interface VkLoader {
-  @GET("/method/video.get")
-  fun loadThumbnail(
-      @Query("videos") videos: String,
-      @Query("access_token") access_token: String,
-      @Query("v") version: String): Single<VkResponseWrapper>
 }

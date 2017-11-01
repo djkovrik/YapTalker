@@ -15,9 +15,9 @@ import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.stringQuantityRes
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
-import com.sedsoftware.yaptalker.data.model.NewsItem
-import com.sedsoftware.yaptalker.data.remote.video.getYoutubeVideoId
-import com.sedsoftware.yaptalker.data.remote.video.parseLink
+import com.sedsoftware.yaptalker.data.parsing.NewsItem
+import com.sedsoftware.yaptalker.data.video.getYoutubeVideoId
+import com.sedsoftware.yaptalker.data.video.parseLink
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import kotlinx.android.synthetic.main.fragment_news_item.view.*

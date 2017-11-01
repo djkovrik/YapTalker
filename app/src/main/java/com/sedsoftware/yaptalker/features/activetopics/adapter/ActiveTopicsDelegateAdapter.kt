@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.inflate
 import com.sedsoftware.yaptalker.commons.extensions.textColor
-import com.sedsoftware.yaptalker.data.model.ActiveTopic
+import com.sedsoftware.yaptalker.data.parsing.ActiveTopic
 import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.*
 import java.util.Locale
 

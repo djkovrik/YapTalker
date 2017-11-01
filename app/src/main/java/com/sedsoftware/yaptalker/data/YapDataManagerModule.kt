@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.remote
+package com.sedsoftware.yaptalker.data
 
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind
@@ -8,6 +8,8 @@ import com.github.salomonbrys.kodein.with
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.base.events.ConnectionState
 import com.sedsoftware.yaptalker.commons.converters.HashSearchConverterFactory
+import com.sedsoftware.yaptalker.data.requests.site.YapLoader
+import com.sedsoftware.yaptalker.data.requests.site.YapSearchIdLoader
 import pl.droidsonroids.retrofit2.JspoonConverterFactory
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

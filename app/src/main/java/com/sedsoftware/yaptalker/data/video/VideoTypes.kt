@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.remote.video
+package com.sedsoftware.yaptalker.data.video
 
 object VideoTypes {
   const val YOUTUBE = 1

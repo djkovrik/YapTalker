@@ -9,7 +9,7 @@ import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
 import com.sedsoftware.yaptalker.commons.extensions.inflate
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
-import com.sedsoftware.yaptalker.data.model.ForumItem
+import com.sedsoftware.yaptalker.data.parsing.ForumItem
 import kotlinx.android.synthetic.main.fragment_forums_list_item.view.*
 
 class ForumsDelegateAdapter(val clickListener: ForumsItemClickListener) :

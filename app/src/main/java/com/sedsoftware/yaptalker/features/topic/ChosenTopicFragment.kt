@@ -22,7 +22,7 @@ import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
-import com.sedsoftware.yaptalker.data.model.TopicPage
+import com.sedsoftware.yaptalker.data.parsing.TopicPage
 import com.sedsoftware.yaptalker.features.topic.adapter.ChosenTopicAdapter
 import com.sedsoftware.yaptalker.features.topic.adapter.TopicNavigationClickListener
 import com.sedsoftware.yaptalker.features.topic.adapter.UserProfileClickListener

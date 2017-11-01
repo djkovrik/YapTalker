@@ -17,10 +17,10 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.sedsoftware.yaptalker.commons.extensions.color
-import com.sedsoftware.yaptalker.data.remote.requestsClientModule
-import com.sedsoftware.yaptalker.data.remote.requestsCookieModule
-import com.sedsoftware.yaptalker.data.remote.video.thumbnailsManagerModule
-import com.sedsoftware.yaptalker.data.remote.yapDataManagerModule
+import com.sedsoftware.yaptalker.data.requests.requestsClientModule
+import com.sedsoftware.yaptalker.data.requests.requestsCookieModule
+import com.sedsoftware.yaptalker.data.thumbnailsManagerModule
+import com.sedsoftware.yaptalker.data.yapDataManagerModule
 import com.sedsoftware.yaptalker.features.navigationModule
 import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.squareup.leakcanary.LeakCanary

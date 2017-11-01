@@ -1,8 +1,8 @@
 package com.sedsoftware.yaptalker
 
-import com.sedsoftware.yaptalker.data.model.ForumItem
-import com.sedsoftware.yaptalker.data.model.News
-import com.sedsoftware.yaptalker.data.model.NewsItem
+import com.sedsoftware.yaptalker.data.parsing.ForumItem
+import com.sedsoftware.yaptalker.data.parsing.News
+import com.sedsoftware.yaptalker.data.parsing.NewsItem
 
 fun getDummyForumsList(): List<ForumItem> {
   return listOf(

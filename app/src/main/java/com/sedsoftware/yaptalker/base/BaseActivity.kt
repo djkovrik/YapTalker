@@ -13,13 +13,13 @@ import ru.terrakok.cicerone.NavigatorHolder
 
 abstract class BaseActivity : MvpAppCompatActivity(), LazyKodeinAware {
 
-  protected abstract val layoutId: Int
-
   override val kodein: LazyKodein
     get() = LazyKodein { YapTalkerApp.kodeinInstance }
 
+  protected abstract val layoutId: Int
+
   // Kodein injections
-  val navigatorHolder: NavigatorHolder by instance()
+  protected val navigatorHolder: NavigatorHolder by instance()
 
   // Local activity lifecycle events channel
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()

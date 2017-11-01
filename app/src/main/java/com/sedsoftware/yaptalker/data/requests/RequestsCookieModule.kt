@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.remote
+package com.sedsoftware.yaptalker.data.requests
 
 import android.content.Context
 import com.franmontiel.persistentcookiejar.ClearableCookieJar

@@ -7,7 +7,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
 import com.sedsoftware.yaptalker.commons.extensions.inflate
-import com.sedsoftware.yaptalker.data.model.ForumNavigationPanel
+import com.sedsoftware.yaptalker.data.parsing.ForumNavigationPanel
 import kotlinx.android.synthetic.main.item_navigation_panel.view.*
 import java.util.Locale
 

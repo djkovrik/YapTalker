@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.model
+package com.sedsoftware.yaptalker.data.parsing
 
 import com.sedsoftware.yaptalker.commons.adapter.ContentTypes
 import com.sedsoftware.yaptalker.commons.adapter.ViewType

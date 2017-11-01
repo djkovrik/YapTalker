@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.fragment_new_post.*
 class AddMessageFragment : BaseFragment(), AddMessageView {
 
   companion object {
-    const val MESSAGE_TEXT_REQUEST = 321
     private const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
 
     fun getNewInstance(title: String): AddMessageFragment {

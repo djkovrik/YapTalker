@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.commons.adapter.ContentTypes
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
-import com.sedsoftware.yaptalker.data.model.ForumNavigationPanel
-import com.sedsoftware.yaptalker.data.model.ForumPage
-import com.sedsoftware.yaptalker.data.model.Topic
+import com.sedsoftware.yaptalker.data.parsing.ForumNavigationPanel
+import com.sedsoftware.yaptalker.data.parsing.ForumPage
+import com.sedsoftware.yaptalker.data.parsing.Topic
 
 class ChosenForumAdapter(itemClick: TopicItemClickListener, navigationClick: ForumNavigationClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

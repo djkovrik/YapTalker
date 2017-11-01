@@ -8,7 +8,7 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.base.events.ConnectionState
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
-import com.sedsoftware.yaptalker.data.remote.YapDataManager
+import com.sedsoftware.yaptalker.data.YapDataManager
 import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Maybe

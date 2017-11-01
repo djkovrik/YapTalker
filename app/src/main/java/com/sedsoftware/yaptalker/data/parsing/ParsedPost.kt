@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.model
+package com.sedsoftware.yaptalker.data.parsing
 
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist

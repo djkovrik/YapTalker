@@ -4,9 +4,9 @@ import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
-import com.sedsoftware.yaptalker.data.model.TopicNavigationPanel
-import com.sedsoftware.yaptalker.data.model.TopicPage
-import com.sedsoftware.yaptalker.data.model.TopicPost
+import com.sedsoftware.yaptalker.data.parsing.TopicNavigationPanel
+import com.sedsoftware.yaptalker.data.parsing.TopicPage
+import com.sedsoftware.yaptalker.data.parsing.TopicPost
 import com.sedsoftware.yaptalker.features.NavigationScreens
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers

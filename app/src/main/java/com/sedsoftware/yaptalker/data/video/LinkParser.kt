@@ -1,10 +1,10 @@
-package com.sedsoftware.yaptalker.data.remote.video
+package com.sedsoftware.yaptalker.data.video
 
-import com.sedsoftware.yaptalker.data.remote.video.Selectors.COUB_SELECTOR
-import com.sedsoftware.yaptalker.data.remote.video.Selectors.RUTUBE_SELECTOR
-import com.sedsoftware.yaptalker.data.remote.video.Selectors.VK_SELECTOR
-import com.sedsoftware.yaptalker.data.remote.video.Selectors.YAPFILES_SELECTOR
-import com.sedsoftware.yaptalker.data.remote.video.Selectors.YOUTUBE_SELECTOR
+import com.sedsoftware.yaptalker.data.video.Selectors.COUB_SELECTOR
+import com.sedsoftware.yaptalker.data.video.Selectors.RUTUBE_SELECTOR
+import com.sedsoftware.yaptalker.data.video.Selectors.VK_SELECTOR
+import com.sedsoftware.yaptalker.data.video.Selectors.YAPFILES_SELECTOR
+import com.sedsoftware.yaptalker.data.video.Selectors.YOUTUBE_SELECTOR
 import java.util.regex.Pattern
 
 object Selectors {
@@ -56,7 +56,7 @@ fun parseLink(link: String): Pair<Int, String> =
 /**
  * Parse youtube video link to get id.
  *
- * @param embedded video link.
+ * @param link embedded video link.
  * @return video id string.
  */
 fun getYoutubeVideoId(link: String): String {

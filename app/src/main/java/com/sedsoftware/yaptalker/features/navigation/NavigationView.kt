@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.base.BaseView
-import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
+import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
 
 @StateStrategyType(OneExecutionStateStrategy::class)
 interface NavigationView : BaseView {

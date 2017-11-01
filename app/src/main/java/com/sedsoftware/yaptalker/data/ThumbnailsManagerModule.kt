@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.remote.video
+package com.sedsoftware.yaptalker.data
 
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind
@@ -6,11 +6,11 @@ import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.singleton
 import com.github.salomonbrys.kodein.with
 import com.sedsoftware.yaptalker.commons.converters.HashSearchConverterFactory
-import com.sedsoftware.yaptalker.data.remote.CoubLoader
-import com.sedsoftware.yaptalker.data.remote.RutubeLoader
-import com.sedsoftware.yaptalker.data.remote.VkLoader
-import com.sedsoftware.yaptalker.data.remote.YapFileLoader
-import com.sedsoftware.yaptalker.data.remote.YapVideoLoader
+import com.sedsoftware.yaptalker.data.requests.thumbnails.CoubLoader
+import com.sedsoftware.yaptalker.data.requests.thumbnails.RutubeLoader
+import com.sedsoftware.yaptalker.data.requests.thumbnails.VkLoader
+import com.sedsoftware.yaptalker.data.requests.thumbnails.YapFileLoader
+import com.sedsoftware.yaptalker.data.requests.thumbnails.YapVideoLoader
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory

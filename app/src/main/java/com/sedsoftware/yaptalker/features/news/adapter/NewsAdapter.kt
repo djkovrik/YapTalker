@@ -9,7 +9,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.adapter.ContentTypes
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
-import com.sedsoftware.yaptalker.data.model.NewsItem
+import com.sedsoftware.yaptalker.data.parsing.NewsItem
 
 class NewsAdapter(itemClick: NewsItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

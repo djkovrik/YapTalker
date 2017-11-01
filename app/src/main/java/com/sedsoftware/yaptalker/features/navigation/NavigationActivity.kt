@@ -26,7 +26,7 @@ import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
 import com.sedsoftware.yaptalker.commons.extensions.validateURL
-import com.sedsoftware.yaptalker.data.model.AuthorizedUserInfo
+import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.features.NavigationScreens
 import com.sedsoftware.yaptalker.features.activetopics.ActiveTopicsFragment
 import com.sedsoftware.yaptalker.features.authorization.AuthorizationFragment

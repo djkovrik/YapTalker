@@ -12,7 +12,7 @@ import com.sedsoftware.yaptalker.base.events.FragmentLifecycle
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
-import com.sedsoftware.yaptalker.data.model.ForumItem
+import com.sedsoftware.yaptalker.data.parsing.ForumItem
 import com.sedsoftware.yaptalker.features.forumslist.adapter.ForumsAdapter
 import com.sedsoftware.yaptalker.features.forumslist.adapter.ForumsItemClickListener
 import com.uber.autodispose.kotlin.autoDisposeWith

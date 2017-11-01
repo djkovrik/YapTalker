@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.features.news
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
-import com.sedsoftware.yaptalker.data.model.NewsItem
+import com.sedsoftware.yaptalker.data.parsing.NewsItem
 import com.sedsoftware.yaptalker.features.NavigationScreens
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers

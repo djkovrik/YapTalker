@@ -15,7 +15,7 @@ import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
-import com.sedsoftware.yaptalker.data.model.ActiveTopicsPage
+import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPage
 import com.sedsoftware.yaptalker.features.activetopics.adapter.ActiveTopicsAdapter
 import com.sedsoftware.yaptalker.features.activetopics.adapter.ActiveTopicsItemClickListener
 import com.sedsoftware.yaptalker.features.activetopics.adapter.ActiveTopicsNavigationClickListener

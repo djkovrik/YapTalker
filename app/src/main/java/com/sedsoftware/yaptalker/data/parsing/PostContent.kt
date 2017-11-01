@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.model
+package com.sedsoftware.yaptalker.data.parsing
 
 interface Content
 

@@ -1,14 +1,15 @@
-package com.sedsoftware.yaptalker.data.remote.video
+package com.sedsoftware.yaptalker.data
 
 import android.widget.ImageView
 import com.sedsoftware.yaptalker.BuildConfig
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
-import com.sedsoftware.yaptalker.data.remote.CoubLoader
-import com.sedsoftware.yaptalker.data.remote.RutubeLoader
-import com.sedsoftware.yaptalker.data.remote.VkLoader
-import com.sedsoftware.yaptalker.data.remote.YapFileLoader
-import com.sedsoftware.yaptalker.data.remote.YapVideoLoader
+import com.sedsoftware.yaptalker.data.requests.thumbnails.CoubLoader
+import com.sedsoftware.yaptalker.data.requests.thumbnails.RutubeLoader
+import com.sedsoftware.yaptalker.data.requests.thumbnails.VkLoader
+import com.sedsoftware.yaptalker.data.requests.thumbnails.YapFileLoader
+import com.sedsoftware.yaptalker.data.requests.thumbnails.YapVideoLoader
+import com.sedsoftware.yaptalker.data.video.VideoTypes
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
