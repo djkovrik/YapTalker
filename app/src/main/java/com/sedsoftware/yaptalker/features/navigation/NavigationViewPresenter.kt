@@ -73,7 +73,7 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
       NavigationDrawerItems.MAIN_PAGE -> router.newRootScreen(NavigationScreens.NEWS_SCREEN)
       NavigationDrawerItems.FORUMS -> router.newRootScreen(NavigationScreens.FORUMS_LIST_SCREEN)
       NavigationDrawerItems.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreens.ACTIVE_TOPICS_SCREEN)
-      NavigationDrawerItems.BOOKMARKS -> router.navigateTo(NavigationScreens.BOOKMARKS_SCREEN)
+      NavigationDrawerItems.BOOKMARKS -> router.newRootScreen(NavigationScreens.BOOKMARKS_SCREEN)
       NavigationDrawerItems.SETTINGS -> router.navigateTo(NavigationScreens.SETTINGS_SCREEN)
       NavigationDrawerItems.SIGN_IN -> router.navigateTo(NavigationScreens.AUTHORIZATION_SCREEN)
       NavigationDrawerItems.SIGN_OUT -> signOut()
@@ -82,6 +82,10 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
 
   fun onEulaAccept() {
     settings.markEulaAccepted()
+  }
+
+  fun navigateWithIntentLink(triple: Triple<Int, Int, Int>) {
+    router.navigateTo(NavigationScreens.CHOSEN_TOPIC_SCREEN, triple)
   }
 
   private fun refreshAuthorization() {

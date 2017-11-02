@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   package="com.sedsoftware.yaptalker">
 
   <uses-permission android:name="android.permission.INTERNET" />
@@ -19,6 +20,7 @@
       android:name=".features.navigation.NavigationActivity"
       android:launchMode="singleTop"
       android:theme="@style/AppTheme.NoActionBar">
+
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
@@ -44,6 +46,29 @@
         <data
           android:host="www.yaplakal.com"
           android:pathPattern="/forum.*/topic.*\.html"
+          android:scheme="https" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data
+          android:host="www.yaplakal.com"
+          android:pathPattern="/forum.*/st/.*/topic.*\.html"
+          android:scheme="http" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data
+          android:host="www.yaplakal.com"
+          android:pathPattern="/forum.*/st/.*/topic.*\.html"
           android:scheme="https" />
       </intent-filter>
     </activity>

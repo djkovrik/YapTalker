@@ -22,6 +22,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseActivity
 import com.sedsoftware.yaptalker.commons.extensions.color
+import com.sedsoftware.yaptalker.commons.extensions.extractYapIds
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.toastError
@@ -43,7 +44,6 @@ import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 
-// TODO() Reimplement missed App Links
 class NavigationActivity : BaseActivity(), NavigationView {
 
   companion object {
@@ -104,6 +104,14 @@ class NavigationActivity : BaseActivity(), NavigationView {
 
     navigationViewPresenter.initLayout(savedInstanceState)
     navigationViewPresenter.restoreCurrentTitle(APPBAR_TITLE_KEY, savedInstanceState)
+
+    handleLinkIntent()
+  }
+
+  override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    setIntent(intent)
+    handleLinkIntent()
   }
 
   // Init Iconics here
@@ -290,5 +298,20 @@ class NavigationActivity : BaseActivity(), NavigationView {
   private fun displaySignedInNavigation() {
     navDrawer.addItemAtPosition(drawerItemBookmarks, 4)
     navDrawer.addItem(drawerItemSignOut)
+  }
+
+  private fun handleLinkIntent() {
+    val appLinkIntent = intent
+    val appLinkAction = appLinkIntent.action
+    val appLinkData = appLinkIntent.data
+
+    if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
+
+      val navigateTo = appLinkData.toString().extractYapIds()
+
+      if (navigateTo.first != 0) {
+        navigationViewPresenter.navigateWithIntentLink(navigateTo)
+      }
+    }
   }
 }
