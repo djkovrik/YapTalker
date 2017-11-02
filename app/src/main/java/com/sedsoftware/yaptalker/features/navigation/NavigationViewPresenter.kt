@@ -73,6 +73,7 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
       NavigationDrawerItems.MAIN_PAGE -> router.newRootScreen(NavigationScreens.NEWS_SCREEN)
       NavigationDrawerItems.FORUMS -> router.newRootScreen(NavigationScreens.FORUMS_LIST_SCREEN)
       NavigationDrawerItems.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreens.ACTIVE_TOPICS_SCREEN)
+      NavigationDrawerItems.BOOKMARKS -> router.navigateTo(NavigationScreens.BOOKMARKS_SCREEN)
       NavigationDrawerItems.SETTINGS -> router.navigateTo(NavigationScreens.SETTINGS_SCREEN)
       NavigationDrawerItems.SIGN_IN -> router.navigateTo(NavigationScreens.AUTHORIZATION_SCREEN)
       NavigationDrawerItems.SIGN_OUT -> signOut()

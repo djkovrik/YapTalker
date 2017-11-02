@@ -31,6 +31,7 @@ import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.features.NavigationScreens
 import com.sedsoftware.yaptalker.features.activetopics.ActiveTopicsFragment
 import com.sedsoftware.yaptalker.features.authorization.AuthorizationFragment
+import com.sedsoftware.yaptalker.features.bookmarks.BookmarksFragment
 import com.sedsoftware.yaptalker.features.forum.ChosenForumFragment
 import com.sedsoftware.yaptalker.features.forumslist.ForumsFragment
 import com.sedsoftware.yaptalker.features.news.NewsFragment
@@ -42,6 +43,7 @@ import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 
+// TODO() Reimplement missed App Links
 class NavigationActivity : BaseActivity(), NavigationView {
 
   companion object {
@@ -60,6 +62,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
   private lateinit var drawerItemMainPage: PrimaryDrawerItem
   private lateinit var drawerItemForums: PrimaryDrawerItem
   private lateinit var drawerItemActiveTopics: PrimaryDrawerItem
+  private lateinit var drawerItemBookmarks: PrimaryDrawerItem
   private lateinit var drawerItemSettings: PrimaryDrawerItem
   private lateinit var drawerItemSignIn: PrimaryDrawerItem
   private lateinit var drawerItemSignOut: PrimaryDrawerItem
@@ -78,6 +81,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
       NavigationScreens.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
       NavigationScreens.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Int)
       NavigationScreens.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
+      NavigationScreens.BOOKMARKS_SCREEN -> BookmarksFragment.getNewInstance()
       NavigationScreens.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Pair<Int, Int>)
       NavigationScreens.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
       NavigationScreens.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()
@@ -157,6 +161,15 @@ class NavigationActivity : BaseActivity(), NavigationView {
         .withSelectedTextColor(color(R.color.colorNavActiveTopics))
         .withSelectedIconColorRes(R.color.colorNavActiveTopics)
 
+    drawerItemBookmarks = PrimaryDrawerItem()
+        .withIdentifier(NavigationDrawerItems.BOOKMARKS)
+        .withName(R.string.nav_drawer_bookmarks)
+        .withIcon(CommunityMaterial.Icon.cmd_bookmark_outline)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavBookmarks)
+        .withSelectedTextColor(color(R.color.colorNavBookmarks))
+        .withSelectedIconColorRes(R.color.colorNavBookmarks)
+
     drawerItemSettings = PrimaryDrawerItem()
         .withIdentifier(NavigationDrawerItems.SETTINGS)
         .withIcon(CommunityMaterial.Icon.cmd_settings)
@@ -235,9 +248,11 @@ class NavigationActivity : BaseActivity(), NavigationView {
     navHeader.profiles.clear()
     navHeader.addProfiles(profile)
 
+    clearDynamicNavigationItems()
+
     when {
-      isSignInAvailable -> displaySignIn()
-      !isSignInAvailable -> displaySignOut()
+      isSignInAvailable -> displaySignedOutNavigation()
+      !isSignInAvailable -> displaySignedInNavigation()
     }
   }
 
@@ -262,15 +277,18 @@ class NavigationActivity : BaseActivity(), NavigationView {
     dialog.show()
   }
 
-  private fun displaySignIn() {
+  private fun clearDynamicNavigationItems() {
     navDrawer.removeItem(NavigationDrawerItems.SIGN_IN)
     navDrawer.removeItem(NavigationDrawerItems.SIGN_OUT)
+    navDrawer.removeItem(NavigationDrawerItems.BOOKMARKS)
+  }
+
+  private fun displaySignedOutNavigation() {
     navDrawer.addItem(drawerItemSignIn)
   }
 
-  private fun displaySignOut() {
-    navDrawer.removeItem(NavigationDrawerItems.SIGN_IN)
-    navDrawer.removeItem(NavigationDrawerItems.SIGN_OUT)
+  private fun displaySignedInNavigation() {
+    navDrawer.addItemAtPosition(drawerItemBookmarks, 4)
     navDrawer.addItem(drawerItemSignOut)
   }
 }

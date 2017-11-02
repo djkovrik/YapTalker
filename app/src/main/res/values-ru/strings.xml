@@ -9,8 +9,9 @@
   <string name="nav_drawer_forums">Форумы</string>
   <string name="nav_drawer_active_topics">Активные темы</string>
   <string name="nav_drawer_settings">Настройки</string>
-  <string name="nav_drawer_sign_in">Войти</string>
-  <string name="nav_drawer_sign_out">Выйти</string>
+  <string name="nav_drawer_bookmarks">Закладки</string>
+  <string name="nav_drawer_sign_in">Вход</string>
+  <string name="nav_drawer_sign_out">Выход</string>
 
   <!-- NEWS -->
   <plurals name="news_comments_template">
@@ -82,6 +83,10 @@
   <string name="msg_login_error">Ошибка входа!</string>
   <string name="msg_sign_out">Вы успешно вышли из аккаунта.</string>
   <string name="msg_unclosed_tag">Обнаружен незакрытый тег!</string>
+  <string name="msg_bookmark_confirm_action">Удалить тему из закладок?</string>
+  <string name="msg_bookmark_confirm_yes">Удалить</string>
+  <string name="msg_bookmark_confirm_No">Отмена</string>
+  <string name="msg_bookmark_topic_deleted">Тема успешно удалена из закладок.</string>
 
   <!-- MENUS -->
   <string name="action_save">Сохранить</string>
@@ -122,5 +127,6 @@
   <string name="a11y_photo">Фото пользователя</string>
   <string name="a11y_forum_image">Картинка форума</string>
   <string name="a11y_news_image">Фото содержимого новости</string>
+  <string name="a11y_bookmark_delete">Удаление темы из закладок</string>
 
 </resources>

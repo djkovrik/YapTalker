@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/material_list_single_line_without_avatar_normal_height">
+
+  <ImageView
+    android:id="@+id/bookmark_delete_icon"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@+id/bookmark_title"
+    android:layout_alignParentEnd="true"
+    android:layout_marginEnd="16dp"
+    android:contentDescription="@string/a11y_bookmark_delete"
+    android:src="@drawable/ic_delete" />
+
+  <TextView
+    android:id="@+id/bookmark_title"
+    style="@style/BookmarkTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:layout_centerVertical="true"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_toStartOf="@id/bookmark_delete_icon"
+    tools:text="Bookmarked topic title..." />
+
+</RelativeLayout>
