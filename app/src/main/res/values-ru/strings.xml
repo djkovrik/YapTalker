@@ -83,6 +83,10 @@
   <string name="msg_login_error">Ошибка входа!</string>
   <string name="msg_sign_out">Вы успешно вышли из аккаунта.</string>
   <string name="msg_unclosed_tag">Обнаружен незакрытый тег!</string>
+  <string name="msg_bookmark_confirm_action">Удалить тему из закладок?</string>
+  <string name="msg_bookmark_confirm_yes">Удалить</string>
+  <string name="msg_bookmark_confirm_No">Отмена</string>
+  <string name="msg_bookmark_topic_deleted">Тема успешно удалена из закладок.</string>
 
   <!-- MENUS -->
   <string name="action_save">Сохранить</string>

@@ -31,6 +31,7 @@ import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.features.NavigationScreens
 import com.sedsoftware.yaptalker.features.activetopics.ActiveTopicsFragment
 import com.sedsoftware.yaptalker.features.authorization.AuthorizationFragment
+import com.sedsoftware.yaptalker.features.bookmarks.BookmarksFragment
 import com.sedsoftware.yaptalker.features.forum.ChosenForumFragment
 import com.sedsoftware.yaptalker.features.forumslist.ForumsFragment
 import com.sedsoftware.yaptalker.features.news.NewsFragment
@@ -80,7 +81,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
       NavigationScreens.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
       NavigationScreens.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Int)
       NavigationScreens.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
-    //NavigationScreens.BOOKMARKS_SCREEN -> ActiveTopicsFragment.getNewInstance()
+      NavigationScreens.BOOKMARKS_SCREEN -> BookmarksFragment.getNewInstance()
       NavigationScreens.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Pair<Int, Int>)
       NavigationScreens.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
       NavigationScreens.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()
