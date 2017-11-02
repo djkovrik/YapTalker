@@ -38,60 +38,53 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/new_post_button_bold" />
 
-  <com.mikepenz.iconics.view.IconicsButton
+  <Button
     android:id="@+id/new_post_button_bold"
     android:layout_width="@dimen/flat_button_size_square"
     android:layout_height="@dimen/flat_button_size_square"
     android:layout_marginStart="8dp"
     android:layout_marginTop="@dimen/post_editor_margin"
+    android:drawablePadding="5dp"
+    android:drawableStart="@drawable/ic_bb_bold"
     android:stateListAnimator="@null"
-    android:text="@string/cmd_format_bold"
-    android:theme="@style/TagButton"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
-    tools:targetApi="lollipop"
-    tools:text="B" />
+    tools:targetApi="lollipop" />
 
-  <com.mikepenz.iconics.view.IconicsButton
+  <Button
     android:id="@+id/new_post_button_italic"
     android:layout_width="@dimen/flat_button_size_square"
     android:layout_height="@dimen/flat_button_size_square"
     android:layout_marginStart="@dimen/post_editor_margin"
     android:layout_marginTop="@dimen/post_editor_margin"
+    android:drawableStart="@drawable/ic_bb_italic"
     android:stateListAnimator="@null"
-    android:text="@string/cmd_format_italic"
-    android:theme="@style/TagButton"
     app:layout_constraintStart_toEndOf="@+id/new_post_button_bold"
     app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
-    tools:targetApi="lollipop"
-    tools:text="I" />
+    tools:targetApi="lollipop" />
 
-  <com.mikepenz.iconics.view.IconicsButton
+  <Button
     android:id="@+id/new_post_button_underlined"
     android:layout_width="@dimen/flat_button_size_square"
     android:layout_height="@dimen/flat_button_size_square"
     android:layout_marginStart="@dimen/post_editor_margin"
     android:layout_marginTop="@dimen/post_editor_margin"
+    android:drawableStart="@drawable/ic_bb_underline"
     android:stateListAnimator="@null"
-    android:text="@string/cmd_format_underline"
-    android:theme="@style/TagButton"
     app:layout_constraintStart_toEndOf="@+id/new_post_button_italic"
     app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
-    tools:targetApi="lollipop"
-    tools:text="U" />
+    tools:targetApi="lollipop" />
 
-  <com.mikepenz.iconics.view.IconicsButton
+  <Button
     android:id="@+id/new_post_button_link"
     android:layout_width="@dimen/flat_button_size_square"
     android:layout_height="@dimen/flat_button_size_square"
     android:layout_marginStart="@dimen/post_editor_margin"
     android:layout_marginTop="@dimen/post_editor_margin"
+    android:drawableStart="@drawable/ic_bb_link"
     android:stateListAnimator="@null"
-    android:text="@string/cmd_insert_link"
-    android:theme="@style/TagButton"
     app:layout_constraintStart_toEndOf="@+id/new_post_button_underlined"
     app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
-    tools:targetApi="lollipop"
-    tools:text="LN" />
+    tools:targetApi="lollipop" />
 
 </android.support.constraint.ConstraintLayout>
