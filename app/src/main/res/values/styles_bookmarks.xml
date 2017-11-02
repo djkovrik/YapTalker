@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="BookmarkTitle" parent="ForumTopicTitle">
+    <item name="android:textStyle">normal</item>
+  </style>
+
+</resources>

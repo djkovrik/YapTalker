@@ -123,5 +123,6 @@
   <string name="a11y_photo">Фото пользователя</string>
   <string name="a11y_forum_image">Картинка форума</string>
   <string name="a11y_news_image">Фото содержимого новости</string>
+  <string name="a11y_bookmark_delete">Удаление темы из закладок</string>
 
 </resources>
