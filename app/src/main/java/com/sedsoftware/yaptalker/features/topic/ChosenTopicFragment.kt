@@ -31,6 +31,8 @@ import kotlinx.android.synthetic.main.fragment_chosen_topic.*
 import org.jetbrains.anko.share
 import java.util.Locale
 
+// TODO() Add bookmark icon
+// TODO() Add page number handling to load chosen page from intents
 class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickListener, TopicNavigationClickListener {
 
   companion object {
