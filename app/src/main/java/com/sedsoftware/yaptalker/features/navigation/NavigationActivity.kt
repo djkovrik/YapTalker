@@ -42,6 +42,7 @@ import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 
+// TODO() Reimplement missed App Links
 class NavigationActivity : BaseActivity(), NavigationView {
 
   companion object {

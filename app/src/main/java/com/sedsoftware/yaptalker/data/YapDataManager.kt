@@ -5,6 +5,7 @@ import com.sedsoftware.yaptalker.base.events.ConnectionState
 import com.sedsoftware.yaptalker.commons.extensions.toMD5
 import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPage
 import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
+import com.sedsoftware.yaptalker.data.parsing.Bookmarks
 import com.sedsoftware.yaptalker.data.parsing.ForumItem
 import com.sedsoftware.yaptalker.data.parsing.ForumPage
 import com.sedsoftware.yaptalker.data.parsing.NewsItem
@@ -26,14 +27,21 @@ class YapDataManager(
     private val connectionRelay: BehaviorRelay<Long>) {
 
   companion object {
+    // Login
     private const val LOGIN_REFERER = "http://www.yaplakal.com/forum/"
     private const val LOGIN_SUBMIT = "Вход"
+    // Message posting
     private const val POST_ACT = "Post"
     private const val POST_CODE = "03"
     private const val POST_MAX_FILE_SIZE = 512000
-
+    // Active topics
     private const val ACTIVE_TOPICS_ACT = "Search"
     private const val ACTIVE_TOPICS_CODE = "getactive"
+    // Bookmarks
+    private const val BOOKMARKS_ACT = "UserCP"
+    private const val BOOKMARKS_CODE_LOAD = "10"
+    private const val BOOKMARKS_CODE_ADD = "11"
+    private const val BOOKMARKS_CODE_REMOVE = "12"
   }
 
   fun getNews(startNumber: Int = 0): Observable<NewsItem> =
@@ -160,6 +168,36 @@ class YapDataManager(
             publishConnectionState(ConnectionState.COMPLETED)
           }
 
+  fun getBookmarks(): Single<Bookmarks> =
+      yapLoader
+          .loadBookmarks(
+              act = BOOKMARKS_ACT,
+              code = BOOKMARKS_CODE_LOAD)
+          .doOnSubscribe {
+            publishConnectionState(ConnectionState.LOADING)
+          }
+          .doOnError {
+            publishConnectionState(ConnectionState.ERROR)
+          }
+          .doOnSuccess {
+            publishConnectionState(ConnectionState.COMPLETED)
+          }
+
+  fun addTopicToBookmarks(topicId: Int, startPostNumber: Int): Single<Response<ResponseBody>> =
+      yapLoader
+          .addToBookmarks(
+              act = BOOKMARKS_ACT,
+              code = BOOKMARKS_CODE_ADD,
+              item = topicId,
+              startPostNumber = startPostNumber,
+              type = 1)
+
+  fun removeTopicFromBookmarks(bookmarkId: Int): Single<Response<ResponseBody>> =
+      yapLoader
+          .removeFromBookmarks(
+              act = BOOKMARKS_ACT,
+              code = BOOKMARKS_CODE_REMOVE,
+              id = bookmarkId)
 
   private fun publishConnectionState(@ConnectionState.Event event: Long) {
     Observable

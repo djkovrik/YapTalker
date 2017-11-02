@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.data.requests.site
 
 import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPage
 import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
+import com.sedsoftware.yaptalker.data.parsing.Bookmarks
 import com.sedsoftware.yaptalker.data.parsing.ForumPage
 import com.sedsoftware.yaptalker.data.parsing.Forums
 import com.sedsoftware.yaptalker.data.parsing.News
@@ -13,6 +14,7 @@ import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -76,6 +78,28 @@ interface YapLoader {
   fun loadActiveTopics(
       @Query("act") act: String,
       @Query("CODE") code: String,
-      @Query("searchid") searchid: String,
+      @Query("searchid") searchId: String,
       @Query("st") startTopicNumber: Int): Single<ActiveTopicsPage>
+
+  @Headers("X-Requested-With:XMLHttpRequest")
+  @GET("/")
+  fun loadBookmarks(
+      @Query("act") act: String,
+      @Query("CODE") code: String): Single<Bookmarks>
+
+  @Headers("X-Requested-With:XMLHttpRequest")
+  @GET("/")
+  fun addToBookmarks(
+      @Query("act") act: String,
+      @Query("CODE") code: String,
+      @Query("item") item: Int,
+      @Query("st") startPostNumber: Int,
+      @Query("type") type: Int): Single<Response<ResponseBody>>
+
+  @Headers("X-Requested-With:XMLHttpRequest")
+  @GET("/")
+  fun removeFromBookmarks(
+      @Query("act") act: String,
+      @Query("CODE") code: String,
+      @Query("id") id: Int): Single<Response<ResponseBody>>
 }
