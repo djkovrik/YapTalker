@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.parsing.Bookmarks
+import com.sedsoftware.yaptalker.features.NavigationScreens
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -14,6 +15,10 @@ class BookmarksPresenter : BasePresenter<BookmarksView>() {
   override fun attachView(view: BookmarksView?) {
     super.attachView(view)
     loadBookmarks()
+  }
+
+  fun navigateToBookmarkedTopic(triple: Triple<Int, Int, Int>) {
+    router.navigateTo(NavigationScreens.CHOSEN_TOPIC_SCREEN, triple)
   }
 
   fun onDeleteIconClicked(bookmarkId: Int) {

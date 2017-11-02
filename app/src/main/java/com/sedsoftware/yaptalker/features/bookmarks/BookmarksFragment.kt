@@ -8,6 +8,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseFragment
+import com.sedsoftware.yaptalker.commons.extensions.extractYapIds
 import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
@@ -85,7 +86,10 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListe
   }
 
   override fun onTopicClick(link: String) {
-    // TODO() Launch browse from here after App Links reimplementation
+    val triple = link.extractYapIds()
+    if (triple.first != 0) {
+      bookmarksPresenter.navigateToBookmarkedTopic(triple)
+    }
   }
 
   override fun onDeleteIconClick(bookmarkId: String) {
