@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.widget.ImageView.ScaleType.CENTER_CROP
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
@@ -39,6 +40,7 @@ import com.sedsoftware.yaptalker.features.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.features.userprofile.UserProfileFragment
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.android.SupportAppNavigator
+import ru.terrakok.cicerone.commands.Command
 
 class NavigationActivity : BaseActivity(), NavigationView {
 
@@ -81,6 +83,14 @@ class NavigationActivity : BaseActivity(), NavigationView {
       NavigationScreens.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()
       NavigationScreens.ADD_MESSAGE_SCREEN -> AddMessageFragment.getNewInstance(data as String)
       else -> null
+    }
+
+    override fun setupFragmentTransactionAnimation(command: Command?,
+                                                   currentFragment: Fragment?,
+                                                   nextFragment: Fragment?,
+                                                   fragmentTransaction: FragmentTransaction?) {
+
+      fragmentTransaction?.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
     }
   }
 
