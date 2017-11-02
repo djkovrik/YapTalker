@@ -60,6 +60,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
   private lateinit var drawerItemMainPage: PrimaryDrawerItem
   private lateinit var drawerItemForums: PrimaryDrawerItem
   private lateinit var drawerItemActiveTopics: PrimaryDrawerItem
+  private lateinit var drawerItemBookmarks: PrimaryDrawerItem
   private lateinit var drawerItemSettings: PrimaryDrawerItem
   private lateinit var drawerItemSignIn: PrimaryDrawerItem
   private lateinit var drawerItemSignOut: PrimaryDrawerItem
@@ -78,6 +79,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
       NavigationScreens.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
       NavigationScreens.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Int)
       NavigationScreens.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
+    //NavigationScreens.BOOKMARKS_SCREEN -> ActiveTopicsFragment.getNewInstance()
       NavigationScreens.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Pair<Int, Int>)
       NavigationScreens.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
       NavigationScreens.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()
@@ -156,6 +158,15 @@ class NavigationActivity : BaseActivity(), NavigationView {
         .withIconColorRes(R.color.colorNavActiveTopics)
         .withSelectedTextColor(color(R.color.colorNavActiveTopics))
         .withSelectedIconColorRes(R.color.colorNavActiveTopics)
+
+    drawerItemBookmarks = PrimaryDrawerItem()
+        .withIdentifier(NavigationDrawerItems.BOOKMARKS)
+        .withName(R.string.nav_drawer_bookmarks)
+        .withIcon(CommunityMaterial.Icon.cmd_bookmark_outline)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavBookmarks)
+        .withSelectedTextColor(color(R.color.colorNavBookmarks))
+        .withSelectedIconColorRes(R.color.colorNavBookmarks)
 
     drawerItemSettings = PrimaryDrawerItem()
         .withIdentifier(NavigationDrawerItems.SETTINGS)
@@ -236,8 +247,8 @@ class NavigationActivity : BaseActivity(), NavigationView {
     navHeader.addProfiles(profile)
 
     when {
-      isSignInAvailable -> displaySignIn()
-      !isSignInAvailable -> displaySignOut()
+      isSignInAvailable -> displaySignedOutNavigation()
+      !isSignInAvailable -> displaySignedInNavigation()
     }
   }
 
@@ -262,15 +273,15 @@ class NavigationActivity : BaseActivity(), NavigationView {
     dialog.show()
   }
 
-  private fun displaySignIn() {
-    navDrawer.removeItem(NavigationDrawerItems.SIGN_IN)
+  private fun displaySignedOutNavigation() {
     navDrawer.removeItem(NavigationDrawerItems.SIGN_OUT)
+    navDrawer.removeItem(NavigationDrawerItems.BOOKMARKS)
     navDrawer.addItem(drawerItemSignIn)
   }
 
-  private fun displaySignOut() {
+  private fun displaySignedInNavigation() {
     navDrawer.removeItem(NavigationDrawerItems.SIGN_IN)
-    navDrawer.removeItem(NavigationDrawerItems.SIGN_OUT)
+    navDrawer.addItemAtPosition(drawerItemBookmarks, 4)
     navDrawer.addItem(drawerItemSignOut)
   }
 }
