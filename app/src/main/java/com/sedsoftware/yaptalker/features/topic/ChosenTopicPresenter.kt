@@ -43,7 +43,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     router.removeResultListener(ChosenTopicFragment.MESSAGE_TEXT_REQUEST)
   }
 
-  fun checkSavedState(forumId: Int, topicId: Int, savedViewState: Bundle?) {
+  fun checkSavedState(forumId: Int, topicId: Int, startingPost: Int, savedViewState: Bundle?) {
     if (savedViewState != null &&
         savedViewState.containsKey(TOPIC_PAGE_KEY)) {
 
@@ -51,7 +51,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         onLoadingSuccess(getParcelable(TOPIC_PAGE_KEY))
       }
     } else {
-      loadTopic(forumId, topicId)
+      loadTopic(forumId, topicId, startingPost)
     }
   }
 
@@ -61,10 +61,14 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     outState.putParcelable(TOPIC_PAGE_KEY, topicPage)
   }
 
-  fun loadTopic(forumId: Int, topicId: Int, page: Int = 1) {
+  fun loadTopic(forumId: Int, topicId: Int, startingPost: Int = 0) {
     currentForumId = forumId
     currentTopicId = topicId
-    currentPage = page
+
+    currentPage = when {
+      startingPost != 0 -> startingPost / POSTS_PER_PAGE + 1
+      else -> 1
+    }
 
     loadTopicCurrentPage()
   }

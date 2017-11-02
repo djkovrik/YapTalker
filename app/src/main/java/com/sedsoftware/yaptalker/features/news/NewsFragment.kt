@@ -127,7 +127,7 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
 
   override fun onNewsItemClick(link: String, forumLink: String) {
     if (link.contains("yaplakal.com")) {
-      newsPresenter.navigateToChosenTopic(Pair(forumLink.getLastDigits(), link.getLastDigits()))
+      newsPresenter.navigateToChosenTopic(Triple(forumLink.getLastDigits(), link.getLastDigits(), 0))
     }
   }
 }

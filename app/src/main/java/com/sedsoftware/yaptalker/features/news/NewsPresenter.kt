@@ -48,8 +48,8 @@ class NewsPresenter : BasePresenter<NewsView>() {
     loadDataForCurrentPage()
   }
 
-  fun navigateToChosenTopic(pair: Pair<Int, Int>) {
-    router.navigateTo(NavigationScreens.CHOSEN_TOPIC_SCREEN, pair)
+  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
+    router.navigateTo(NavigationScreens.CHOSEN_TOPIC_SCREEN, triple)
   }
 
   private fun loadDataForCurrentPage() {

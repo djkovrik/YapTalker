@@ -82,7 +82,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
       NavigationScreens.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Int)
       NavigationScreens.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
       NavigationScreens.BOOKMARKS_SCREEN -> BookmarksFragment.getNewInstance()
-      NavigationScreens.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Pair<Int, Int>)
+      NavigationScreens.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
       NavigationScreens.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
       NavigationScreens.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()
       NavigationScreens.ADD_MESSAGE_SCREEN -> AddMessageFragment.getNewInstance(data as String)

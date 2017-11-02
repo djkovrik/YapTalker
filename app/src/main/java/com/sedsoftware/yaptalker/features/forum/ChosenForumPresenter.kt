@@ -133,7 +133,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     error.message?.let { viewState.showErrorMessage(it) }
   }
 
-  fun navigateToChosenTopic(pair: Pair<Int, Int>) {
-    router.navigateTo(NavigationScreens.CHOSEN_TOPIC_SCREEN, pair)
+  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
+    router.navigateTo(NavigationScreens.CHOSEN_TOPIC_SCREEN, triple)
   }
 }

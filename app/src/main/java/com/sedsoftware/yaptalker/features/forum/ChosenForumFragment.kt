@@ -112,7 +112,7 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListe
   }
 
   override fun onTopicClick(topicId: Int) {
-    forumPresenter.navigateToChosenTopic(Pair(currentForumId, topicId))
+    forumPresenter.navigateToChosenTopic(Triple(currentForumId, topicId, 0))
   }
 
   override fun onGoToFirstPageClick() {

@@ -32,20 +32,21 @@ import org.jetbrains.anko.share
 import java.util.Locale
 
 // TODO() Add bookmark icon
-// TODO() Add page number handling to load chosen page from intents
 class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickListener, TopicNavigationClickListener {
 
   companion object {
     const val MESSAGE_TEXT_REQUEST = 321
     private const val FORUM_ID_KEY = "FORUM_ID_KEY"
     private const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
+    private const val STARTING_POST_KEY = "STARTING_POST_KEY"
     private const val INITIAL_FAB_OFFSET = 250f
 
-    fun getNewInstance(pair: Pair<Int, Int>): ChosenTopicFragment {
+    fun getNewInstance(triple: Triple<Int, Int, Int>): ChosenTopicFragment {
       val fragment = ChosenTopicFragment()
       val args = Bundle()
-      args.putInt(FORUM_ID_KEY, pair.first)
-      args.putInt(TOPIC_ID_KEY, pair.second)
+      args.putInt(FORUM_ID_KEY, triple.first)
+      args.putInt(TOPIC_ID_KEY, triple.second)
+      args.putInt(STARTING_POST_KEY, triple.third)
       fragment.arguments = args
       return fragment
     }
@@ -57,12 +58,16 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
   override val layoutId: Int
     get() = R.layout.fragment_chosen_topic
 
-  private val currentForumId: Int by lazy {
+  private val forumId: Int by lazy {
     arguments.getInt(FORUM_ID_KEY)
   }
 
-  private val currentTopicId: Int by lazy {
+  private val topicId: Int by lazy {
     arguments.getInt(TOPIC_ID_KEY)
+  }
+
+  private val startingPost: Int by lazy {
+    arguments.getInt(STARTING_POST_KEY)
   }
 
   private lateinit var topicAdapter: ChosenTopicAdapter
@@ -88,7 +93,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
       setHasFixedSize(true)
     }
 
-    topicPresenter.checkSavedState(currentForumId, currentTopicId, savedInstanceState)
+    topicPresenter.checkSavedState(forumId, topicId, startingPost, savedInstanceState)
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -122,7 +127,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     RxSwipeRefreshLayout
         .refreshes(topic_refresh_layout)
         .autoDisposeWith(event(FragmentLifecycle.STOP))
-        .subscribe { topicPresenter.loadTopic(currentForumId, currentTopicId) }
+        .subscribe { topicPresenter.loadTopic(forumId, topicId) }
 
     RxRecyclerView
         .scrollEvents(topic_posts_list)
@@ -188,7 +193,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
   }
 
   override fun shareTopic(title: String) {
-    context?.share("http://www.yaplakal.com/forum$currentForumId/topic$currentTopicId.html", title)
+    context?.share("http://www.yaplakal.com/forum$forumId/topic$topicId.html", title)
   }
 
   override fun onUserAvatarClick(userId: Int) {
