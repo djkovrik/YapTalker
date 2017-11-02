@@ -248,6 +248,8 @@ class NavigationActivity : BaseActivity(), NavigationView {
     navHeader.profiles.clear()
     navHeader.addProfiles(profile)
 
+    clearDynamicNavigationItems()
+
     when {
       isSignInAvailable -> displaySignedOutNavigation()
       !isSignInAvailable -> displaySignedInNavigation()
@@ -275,14 +277,17 @@ class NavigationActivity : BaseActivity(), NavigationView {
     dialog.show()
   }
 
-  private fun displaySignedOutNavigation() {
+  private fun clearDynamicNavigationItems() {
+    navDrawer.removeItem(NavigationDrawerItems.SIGN_IN)
     navDrawer.removeItem(NavigationDrawerItems.SIGN_OUT)
     navDrawer.removeItem(NavigationDrawerItems.BOOKMARKS)
+  }
+
+  private fun displaySignedOutNavigation() {
     navDrawer.addItem(drawerItemSignIn)
   }
 
   private fun displaySignedInNavigation() {
-    navDrawer.removeItem(NavigationDrawerItems.SIGN_IN)
     navDrawer.addItemAtPosition(drawerItemBookmarks, 4)
     navDrawer.addItem(drawerItemSignOut)
   }
