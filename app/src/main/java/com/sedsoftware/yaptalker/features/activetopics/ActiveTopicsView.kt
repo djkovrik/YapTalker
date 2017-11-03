@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.features.activetopics
 
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
+import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.base.BaseView
 import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPage
@@ -12,5 +13,6 @@ interface ActiveTopicsView : BaseView {
 
   fun scrollToViewTop()
 
+  @StateStrategyType(SkipStrategy::class)
   fun showCantLoadPageMessage(page: Int)
 }
