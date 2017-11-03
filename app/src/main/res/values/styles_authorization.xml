@@ -2,16 +2,17 @@
 <resources>
 
   <style name="SignInButton" parent="Theme.AppCompat.Light">
-    <item name="colorControlHighlight">@color/colorAccentDark</item>
-    <item name="colorButtonNormal">@color/colorAccent</item>
+    <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+    <item name="colorButtonNormal">@color/colorPrimary</item>
     <item name="android:textColor">@color/material_color_white</item>
   </style>
 
   <style name="EditTextStyle">
-    <item name="android:textColor">@color/colorAccentDark</item>
-    <item name="android:textColorHint">@color/colorSupportingTextLight</item>
+    <item name="android:textColor">@color/colorPrimary</item>
+    <item name="android:textColorHint">@color/colorSupportingText</item>
+    <item name="colorAccent">@color/colorPrimary</item>
     <item name="colorControlNormal">@color/colorSupportingText</item>
-    <item name="colorControlActivated">@color/colorAccentDark</item>
+    <item name="colorControlActivated">@color/colorPrimary</item>
   </style>
 
 </resources>

@@ -22,24 +22,25 @@ import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtmlWithEmoji
 import com.sedsoftware.yaptalker.commons.extensions.validateURL
-import com.sedsoftware.yaptalker.data.model.ParsedPost
-import com.sedsoftware.yaptalker.data.model.PostHiddenText
-import com.sedsoftware.yaptalker.data.model.PostLink
-import com.sedsoftware.yaptalker.data.model.PostQuote
-import com.sedsoftware.yaptalker.data.model.PostQuoteAuthor
-import com.sedsoftware.yaptalker.data.model.PostScript
-import com.sedsoftware.yaptalker.data.model.PostText
-import com.sedsoftware.yaptalker.data.model.TopicPost
-import com.sedsoftware.yaptalker.data.remote.video.parseLink
+import com.sedsoftware.yaptalker.data.parsing.ParsedPost
+import com.sedsoftware.yaptalker.data.parsing.PostHiddenText
+import com.sedsoftware.yaptalker.data.parsing.PostLink
+import com.sedsoftware.yaptalker.data.parsing.PostQuote
+import com.sedsoftware.yaptalker.data.parsing.PostQuoteAuthor
+import com.sedsoftware.yaptalker.data.parsing.PostScript
+import com.sedsoftware.yaptalker.data.parsing.PostText
+import com.sedsoftware.yaptalker.data.parsing.PostWarning
+import com.sedsoftware.yaptalker.data.parsing.TopicPost
+import com.sedsoftware.yaptalker.data.video.getYoutubeVideoId
+import com.sedsoftware.yaptalker.data.video.parseLink
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.controller_chosen_topic_item.view.*
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
-import java.util.Locale
 
 class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
     BaseAdapterInjections(), ViewTypeDelegateAdapter {
@@ -58,7 +59,7 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
   }
 
   inner class PostViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.controller_chosen_topic_item)) {
+      RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_chosen_topic_item)) {
 
     fun bindTo(postItem: TopicPost) {
       getParsedPostSingle(postItem)
@@ -81,6 +82,7 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
           R.dimen.post_text_horizontal_padding).toInt()
       var currentNestingLevel = INITIAL_NESTING_LEVEL
       val links = HashSet<PostLink>()
+      val warnings = ArrayList<PostWarning>()
 
       itemView.post_content_text_container.removeAllViews()
 
@@ -124,10 +126,8 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
               itemView.post_content_text_container.addView(postText)
             }
             is PostHiddenText -> {
-              val template = itemView.context.stringRes(R.string.post_hidden_text_template)
               val hiddenText = TextView(itemView.context)
-              hiddenText.textFromHtml(it.text)
-              hiddenText.text = String.format(Locale.getDefault(), template, hiddenText.text)
+              hiddenText.textFromHtmlWithEmoji(it.text)
               hiddenText.textSize = smallFontSize
               itemView.post_content_text_container.addView(hiddenText)
             }
@@ -152,18 +152,30 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
 
               links.add(PostLink(url = targetUrl, title = targetTitle))
             }
-          }
 
-          if (links.isNotEmpty()) {
-            val link = links.last()
-            itemView.post_link_button.setOnClickListener {
-              itemView.context.browse(url = link.url, newTask = true)
+            is PostWarning -> {
+              warnings.add(it)
             }
-            itemView.post_link_button.text = link.title
-            itemView.post_link_button.showView()
-          } else {
-            itemView.post_link_button.hideView()
           }
+        }
+
+        if (links.isNotEmpty()) {
+          val link = links.last()
+          itemView.post_link_button.setOnClickListener {
+            itemView.context.browse(url = link.url, newTask = true)
+          }
+          itemView.post_link_button.text = link.title
+          itemView.post_link_button.showView()
+        } else {
+          itemView.post_link_button.hideView()
+        }
+
+        if (warnings.isNotEmpty()) {
+          val warning = warnings.last()
+          val warningText = TextView(itemView.context)
+          warningText.textFromHtml(warning.text)
+          warningText.textSize = smallFontSize
+          itemView.post_content_text_container.addView(warningText)
         }
       }
 
@@ -203,14 +215,20 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
       if (post.videos.isNotEmpty() && post.videosRaw.isNotEmpty()) {
         itemView.post_content_video_container.showView()
         itemView.post_content_video_container.removeAllViews()
-        post.videos.forEachIndexed { index, str ->
+        post.videos.forEachIndexed { index, url ->
+          val rawHtml = post.videosRaw[index]
           val thumbnail = ImageView(itemView.context)
           thumbnail.adjustViewBounds = true
           thumbnail.setPadding(0, imagePadding, 0, imagePadding)
           itemView.post_content_video_container.addView(thumbnail)
-          thumbnailsLoader.loadThumbnail(parseLink(str), thumbnail)
+          thumbnailsLoader.loadThumbnail(parseLink(url), thumbnail)
+
           thumbnail.setOnClickListener {
-            itemView.context.startActivity<VideoDisplayActivity>("video" to post.videosRaw[index])
+            if (url.contains("youtube")) {
+              itemView.context.browse("http://www.youtube.com/watch?v=${getYoutubeVideoId(url)}")
+            } else {
+              itemView.context.startActivity<VideoDisplayActivity>("videoHtml" to rawHtml)
+            }
           }
         }
       } else {

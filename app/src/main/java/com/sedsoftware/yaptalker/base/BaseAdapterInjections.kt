@@ -4,7 +4,7 @@ import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.LazyKodeinAware
 import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.YapTalkerApp
-import com.sedsoftware.yaptalker.data.remote.video.ThumbnailsManager
+import com.sedsoftware.yaptalker.data.ThumbnailsManager
 import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 
 abstract class BaseAdapterInjections : LazyKodeinAware {

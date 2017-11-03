@@ -7,12 +7,6 @@ import com.sedsoftware.yaptalker.base.BaseView
 @StateStrategyType(SkipStrategy::class)
 interface ImageDisplayView : BaseView {
 
-  fun toggleSystemUiVisibility()
-
-  fun hideAppbar()
-
-  fun showAppbar()
-
   fun fileSavedMessage(filepath: String)
 
   fun fileNotSavedMessage()

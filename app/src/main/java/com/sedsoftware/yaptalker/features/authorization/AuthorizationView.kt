@@ -13,7 +13,5 @@ interface AuthorizationView : BaseView {
 
   fun signInButtonEnabled(enabled: Boolean)
 
-  fun setResultToOk()
-
-  fun backToMainScreen()
+  fun hideKeyboard()
 }

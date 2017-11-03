@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.commons
 
-import com.sedsoftware.yaptalker.data.remote.video.VideoTypes
-import com.sedsoftware.yaptalker.data.remote.video.parseLink
+import com.sedsoftware.yaptalker.data.video.VideoTypes
+import com.sedsoftware.yaptalker.data.video.parseLink
 import com.winterbe.expekt.should
 import org.junit.Test
 

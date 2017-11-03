@@ -4,20 +4,28 @@ import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
-import com.sedsoftware.yaptalker.data.model.TopicNavigationPanel
-import com.sedsoftware.yaptalker.data.model.TopicPage
-import com.sedsoftware.yaptalker.data.model.TopicPost
+import com.sedsoftware.yaptalker.data.parsing.TopicNavigationPanel
+import com.sedsoftware.yaptalker.data.parsing.TopicPage
+import com.sedsoftware.yaptalker.data.parsing.TopicPost
+import com.sedsoftware.yaptalker.features.NavigationScreens
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
+import retrofit2.Response
 
 @InjectViewState
 class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
+
+  init {
+    router.setResultListener(ChosenTopicFragment.MESSAGE_TEXT_REQUEST, { message -> sendMessage(message as String) })
+  }
 
   companion object {
     private const val TOPIC_PAGE_KEY = "TOPIC_PAGE_KEY"
     private const val POSTS_PER_PAGE = 25
     private const val OFFSET_FOR_PAGE_NUMBER = 1
+    private const val BOOKMARK_SUCCESS_MARKER = "Закладка добавлена"
   }
 
   private var currentTitle = ""
@@ -26,14 +34,19 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   private var currentPage = 1
   private var totalPages = 1
   private var authKey = ""
-  private var isClosed = false
+  private var isClosed = ""
 
   override fun attachView(view: ChosenTopicView?) {
     super.attachView(view)
     viewState.hideFabWithoutAnimation()
   }
 
-  fun checkSavedState(forumId: Int, topicId: Int, savedViewState: Bundle?) {
+  override fun onDestroy() {
+    super.onDestroy()
+    router.removeResultListener(ChosenTopicFragment.MESSAGE_TEXT_REQUEST)
+  }
+
+  fun checkSavedState(forumId: Int, topicId: Int, startingPost: Int, savedViewState: Bundle?) {
     if (savedViewState != null &&
         savedViewState.containsKey(TOPIC_PAGE_KEY)) {
 
@@ -41,26 +54,24 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         onLoadingSuccess(getParcelable(TOPIC_PAGE_KEY))
       }
     } else {
-      loadTopic(forumId, topicId)
+      loadTopic(forumId, topicId, startingPost)
     }
   }
 
-  fun saveCurrentState(outState: Bundle, panel: TopicNavigationPanel, posts: List<TopicPost>) {
-    val topicPage = TopicPage(
-        title = currentTitle,
-        navigationPanel = panel,
-        key = authKey,
-        postsList = posts)
+  fun saveCurrentState(outState: Bundle, panel: TopicNavigationPanel, list: List<TopicPost>) {
 
-    with(outState) {
-      putParcelable(TOPIC_PAGE_KEY, topicPage)
-    }
+    val topicPage = TopicPage(currentTitle, isClosed, authKey, panel, list)
+    outState.putParcelable(TOPIC_PAGE_KEY, topicPage)
   }
 
-  fun loadTopic(forumId: Int, topicId: Int, page: Int = 1) {
+  fun loadTopic(forumId: Int, topicId: Int, startingPost: Int = 0) {
     currentForumId = forumId
     currentTopicId = topicId
-    currentPage = page
+
+    currentPage = when {
+      startingPost != 0 -> startingPost / POSTS_PER_PAGE + 1
+      else -> 1
+    }
 
     loadTopicCurrentPage()
   }
@@ -96,14 +107,10 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   fun handleFabVisibility(isFabShown: Boolean, diff: Int) {
     when {
-      authKey.isEmpty() || isClosed -> viewState.hideFabWithoutAnimation()
+      authKey.isEmpty() || isClosed.isNotEmpty() -> viewState.hideFabWithoutAnimation()
       isFabShown && diff < 0 -> viewState.showFab(shouldShow = false)
       !isFabShown && diff > 0 -> viewState.showFab(shouldShow = true)
     }
-  }
-
-  fun onFabClicked() {
-    viewState.showAddMessageActivity(currentTitle)
   }
 
   fun loadProfileIfAvailable(userId: Int) {
@@ -112,7 +119,43 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     }
   }
 
-  fun sendMessage(message: String) {
+  fun onShareItemClicked() {
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
+    viewState.shareTopic(currentTitle, startingPost)
+  }
+
+  fun onBookmarkItemClicked() {
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
+
+    yapDataManager
+        .addTopicToBookmarks(currentTopicId, startingPost)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe({
+          // On Success
+          response ->
+          onResponseReceived(response)
+        }, {
+          // On Error
+          error ->
+          error.message?.let { viewState.showErrorMessage(it) }
+        })
+  }
+
+  fun navigateToUserProfile(userId: Int) {
+    router.navigateTo(NavigationScreens.USER_PROFILE_SCREEN, userId)
+  }
+
+  fun navigateToAddMessageView() {
+    router.navigateTo(NavigationScreens.ADD_MESSAGE_SCREEN, currentTitle)
+  }
+
+  private fun onPostSuccess() {
+    loadTopicCurrentPage()
+  }
+
+  private fun sendMessage(message: String) {
 
     if (authKey.isEmpty()) {
       return
@@ -133,10 +176,6 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
           throwable ->
           onLoadingError(throwable)
         })
-  }
-
-  private fun onPostSuccess() {
-    loadTopicCurrentPage()
   }
 
   private fun loadTopicCurrentPage() {
@@ -161,7 +200,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   private fun onLoadingSuccess(page: TopicPage) {
     authKey = page.authKey
-    isClosed = page.isClosed.isNotEmpty()
+    isClosed = page.isClosed
     currentTitle = page.topicTitle
     updateAppbarTitle(currentTitle)
 
@@ -173,8 +212,19 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
       totalPages = totalPageString.toInt()
     }
 
+    viewState.handleBookmarkButtonVisibility(authKey.isNotEmpty())
     viewState.displayTopicPage(page)
     viewState.scrollToViewTop()
+  }
+
+  private fun onResponseReceived(response: Response<ResponseBody>) {
+    response.body()?.string()?.let { str ->
+      if (str.contains(BOOKMARK_SUCCESS_MARKER)) {
+        viewState.showBookmarkAddedMessage()
+      } else {
+        viewState.showUnknownErrorMessage()
+      }
+    }
   }
 
   private fun onLoadingError(error: Throwable) {

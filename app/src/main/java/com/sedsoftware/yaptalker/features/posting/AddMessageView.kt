@@ -10,4 +10,8 @@ interface AddMessageView : BaseView {
   fun insertTag(tag: String)
 
   fun insertTags(openingTag: String, closingTag: String)
+
+  fun showLinkParametersDialogs()
+
+  fun hideKeyboard()
 }

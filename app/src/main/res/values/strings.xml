@@ -7,7 +7,9 @@
   <!-- Navigation items -->
   <string name="nav_drawer_main_page">Main page</string>
   <string name="nav_drawer_forums">Forums</string>
+  <string name="nav_drawer_active_topics">Active topics</string>
   <string name="nav_drawer_settings">Settings</string>
+  <string name="nav_drawer_bookmarks">Bookmarks</string>
   <string name="nav_drawer_sign_in">Sign In</string>
   <string name="nav_drawer_sign_out">Sign Out</string>
 
@@ -28,7 +30,6 @@
   <string name="forum_pinned_and_closed_topic_template" translatable="false"><xliff:g id="icons">{cmd-lock} {cmd-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
 
   <!-- POSTS -->
-  <string name="post_hidden_text_template">Hidden text: <xliff:g id="spoiler">%s</xliff:g></string>
   <string name="post_link">Link</string>
 
   <!-- NAVIGATION PANEL -->
@@ -48,10 +49,12 @@
 
   <!-- ADD MESSAGE ACTIVITY -->
   <string name="post_message_hint">Enter your message…</string>
-  <!-- Editor buttons -->
-  <string name="cmd_format_bold" translatable="false">{cmd-format-bold}</string>
-  <string name="cmd_format_italic" translatable="false">{cmd-format-italic}</string>
-  <string name="cmd_format_underline" translatable="false">{cmd-format-underline}</string>
+  <string name="post_insert_link">Link</string>
+  <string name="post_insert_link_hint">Insert link here…</string>
+  <string name="post_insert_link_title">Link title</string>
+  <string name="post_insert_link_title_hint">Enter link title…</string>
+  <string name="post_button_submit">OK</string>
+  <string name="post_button_dismiss">Cancel</string>
 
   <!-- USER PROFILE -->
   <!-- Personal data -->
@@ -88,11 +91,19 @@
   <string name="msg_login_success">Successful login!</string>
   <string name="msg_login_error">Login error!</string>
   <string name="msg_sign_out">Sign out successful.</string>
+  <string name="msg_unknown_error">Unknown error!</string>
+  <string name="msg_unclosed_tag">Unclosed tag detected!</string>
+  <string name="msg_bookmark_confirm_action">Delete topic from bookmarks?</string>
+  <string name="msg_bookmark_confirm_yes">Delete</string>
+  <string name="msg_bookmark_confirm_No">Cancel</string>
+  <string name="msg_bookmark_topic_deleted">Topic successfully deleted from bookmarks.</string>
+  <string name="msg_bookmark_topic_added">Topic added to bookmarks.</string>
 
   <!-- MENUS -->
   <string name="action_save">Save</string>
   <string name="action_share">Share</string>
   <string name="action_send">Send</string>
+  <string name="action_bookmark">Bookmark</string>
 
   <!-- SHORT DATE STRINGS -->
   <plurals name="short_date_years">
@@ -128,5 +139,6 @@
   <string name="a11y_photo">User photo</string>
   <string name="a11y_forum_image">Forum image</string>
   <string name="a11y_news_image">News content image</string>
+  <string name="a11y_bookmark_delete">Delete topic from bookmarks</string>
 
 </resources>

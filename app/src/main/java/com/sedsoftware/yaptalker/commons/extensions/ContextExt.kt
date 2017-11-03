@@ -13,5 +13,4 @@ fun Context.color(@ColorRes colorId: Int) = ContextCompat.getColor(this, colorId
 
 fun Context.stringRes(@StringRes resId: Int): String = resources.getString(resId)
 
-fun Context.stringQuantityRes(@PluralsRes resId: Int, value: Int): String
-    = resources.getQuantityString(resId, value)
+fun Context.stringQuantityRes(@PluralsRes resId: Int, value: Int): String = resources.getQuantityString(resId, value)

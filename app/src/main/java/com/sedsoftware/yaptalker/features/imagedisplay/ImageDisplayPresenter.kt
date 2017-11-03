@@ -38,18 +38,6 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
   // Kodein injection
   private val httpClient: OkHttpClient by instance("fileClient")
 
-  fun toggleFullscreenView() {
-    viewState.toggleSystemUiVisibility()
-  }
-
-  fun toggleAppbarVisibility(visible: Boolean) {
-    if (visible) {
-      viewState.showAppbar()
-    } else {
-      viewState.hideAppbar()
-    }
-  }
-
   fun saveImage(url: String) {
 
     loadImageFromUrl(url.validateURL())
@@ -159,8 +147,7 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
           }, { _ ->
             // onError
 
-          }
-          )
+          })
     }
   }
 }

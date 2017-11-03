@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.commons.adapter.ContentTypes
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
-import com.sedsoftware.yaptalker.data.model.TopicNavigationPanel
-import com.sedsoftware.yaptalker.data.model.TopicPage
-import com.sedsoftware.yaptalker.data.model.TopicPost
+import com.sedsoftware.yaptalker.data.parsing.TopicNavigationPanel
+import com.sedsoftware.yaptalker.data.parsing.TopicPage
+import com.sedsoftware.yaptalker.data.parsing.TopicPost
 
 class ChosenTopicAdapter(profileClick: UserProfileClickListener, navigationClick: TopicNavigationClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -41,6 +41,7 @@ class ChosenTopicAdapter(profileClick: UserProfileClickListener, navigationClick
 
   fun refreshTopicPage(page: TopicPage) {
     items.clear()
+    items.add(page.navigation)
     items.addAll(page.posts)
     items.add(page.navigation)
     notifyDataSetChanged()

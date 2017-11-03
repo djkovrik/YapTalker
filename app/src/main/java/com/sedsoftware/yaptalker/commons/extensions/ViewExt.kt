@@ -28,14 +28,7 @@ var TextView.textColor: Int
   get() = currentTextColor
   set(v) = setTextColor(context.color(v))
 
-val View.bottomMargin: Int
-  get() {
-    val layoutParams = layoutParams as ViewGroup.MarginLayoutParams
-    return layoutParams.bottomMargin
-  }
-
 fun ImageView.loadFromUrl(url: String) {
-
   Picasso
       .with(context)
       .load(url.validateURL())
@@ -43,16 +36,11 @@ fun ImageView.loadFromUrl(url: String) {
 }
 
 fun ImageView.loadAvatarFromUrl(url: String) {
-
   Picasso
       .with(context)
       .load(url.validateURL())
       .transform(CircleImageTransformation())
       .into(this)
-}
-
-fun ImageView.loadFromDrawable(resId: Int) {
-  Picasso.with(context).load(resId).into(this)
 }
 
 @Suppress("DEPRECATION")
@@ -122,6 +110,6 @@ fun View.showView() {
   this.visibility = View.VISIBLE
 }
 
-fun ViewGroup.inflate(@LayoutRes layoutId: Int, attachToRoot: Boolean = false) : View {
+fun ViewGroup.inflate(@LayoutRes layoutId: Int, attachToRoot: Boolean = false): View {
   return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
 }

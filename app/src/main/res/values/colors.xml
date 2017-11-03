@@ -10,6 +10,8 @@
   <color name="colorNavDefaultText">@color/material_color_grey_600</color>
   <color name="colorNavMainPage">@color/colorPrimary</color>
   <color name="colorNavForums">@color/material_color_purple_600</color>
+  <color name="colorNavActiveTopics">@color/material_color_green_600</color>
+  <color name="colorNavBookmarks">@color/material_color_orange_800</color>
   <color name="colorNavSettings">@color/material_color_grey_700</color>
   <color name="colorNavSignin">@color/material_color_grey_700</color>
 

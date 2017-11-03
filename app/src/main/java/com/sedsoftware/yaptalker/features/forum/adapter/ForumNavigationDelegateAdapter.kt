@@ -7,8 +7,8 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
 import com.sedsoftware.yaptalker.commons.extensions.inflate
-import com.sedsoftware.yaptalker.data.model.ForumNavigationPanel
-import kotlinx.android.synthetic.main.controller_item_navigation_panel.view.*
+import com.sedsoftware.yaptalker.data.parsing.ForumNavigationPanel
+import kotlinx.android.synthetic.main.item_navigation_panel.view.*
 import java.util.Locale
 
 class ForumNavigationDelegateAdapter(val navigationClick: ForumNavigationClickListener) : ViewTypeDelegateAdapter {
@@ -23,7 +23,7 @@ class ForumNavigationDelegateAdapter(val navigationClick: ForumNavigationClickLi
   }
 
   inner class NavigationViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.controller_item_navigation_panel)) {
+      RecyclerView.ViewHolder(parent.inflate(R.layout.item_navigation_panel)) {
 
     private val pagesLabelTemplate = parent.context.getString(R.string.navigation_pages_template)
 

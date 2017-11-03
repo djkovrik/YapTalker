@@ -3,12 +3,12 @@ package com.sedsoftware.yaptalker.features.posting
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.features.posting.MessageTags.Tag
+import com.sedsoftware.yaptalker.features.topic.ChosenTopicFragment
+import java.util.Locale
 
 @InjectViewState
 class AddMessagePresenter : BasePresenter<AddMessageView>() {
 
-  // TODO() Add tags for image and video insertion
-  // TODO() Add not closed tags detection
   companion object {
     private const val B_OPEN = "[b]"
     private const val B_CLOSE = "[/b]"
@@ -16,18 +16,35 @@ class AddMessagePresenter : BasePresenter<AddMessageView>() {
     private const val I_CLOSE = "[/i]"
     private const val U_OPEN = "[u]"
     private const val U_CLOSE = "[/u]"
+    private const val LINK_BLOCK = "[url=%s]%s[/url]"
 
     private var isBOpened = false
     private var isIOpened = false
     private var isUOpened = false
   }
 
+  override fun detachView(view: AddMessageView?) {
+    viewState.hideKeyboard()
+    super.detachView(view)
+  }
+
   fun onTagClicked(selectionStart: Int, selectionEnd: Int, @Tag tag: Long) {
-    if (selectionStart != selectionEnd) {
-      onTagClickedWithSelection(tag)
-    } else {
-      onTagClickedWithNoSelection(tag)
+    when {
+      tag == MessageTags.TAG_LINK -> onLinkTagClicked()
+      selectionStart != selectionEnd -> onTagClickedWithSelection(tag)
+      else -> onTagClickedWithNoSelection(tag)
     }
+  }
+
+  fun insertVideoTag(url: String, title: String) {
+    val result = String.format(Locale.getDefault(), LINK_BLOCK, url, title)
+    viewState.insertTag(result)
+  }
+
+  fun isAnyTagNotClosed() = isBOpened || isIOpened || isUOpened
+
+  fun sendMessageTextBackToView(message: String) {
+    router.exitWithResult(ChosenTopicFragment.MESSAGE_TEXT_REQUEST, message)
   }
 
   private fun onTagClickedWithSelection(@Tag tag: Long) {
@@ -71,5 +88,9 @@ class AddMessagePresenter : BasePresenter<AddMessageView>() {
         isUOpened = !isUOpened
       }
     }
+  }
+
+  private fun onLinkTagClicked() {
+    viewState.showLinkParametersDialogs()
   }
 }

@@ -16,9 +16,9 @@ import java.util.Locale
 class ShortDateView : AppCompatTextView {
 
   companion object {
-    private const val MILLISEC_PER_SECOND = 1000
-    private const val MINUTES_PER_HOUR = 60
+    private const val MILLISECONDS_PER_SECOND = 1000
     private const val SECONDS_PER_MINUTE = 60
+    private const val MINUTES_PER_HOUR = 60
     private const val HOURS_PER_DAY = 24
     private const val DAYS_PER_MONTH = 30
     private const val MONTH_PER_YEAR = 12
@@ -54,7 +54,7 @@ class ShortDateView : AppCompatTextView {
     val topicDate = format.parse(sourceStr)
     val currentDate = Calendar.getInstance().time
 
-    return ((currentDate.time - topicDate.time) / MILLISEC_PER_SECOND).toInt()
+    return ((currentDate.time - topicDate.time) / MILLISECONDS_PER_SECOND).toInt()
 
   }
 

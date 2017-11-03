@@ -11,8 +11,8 @@ import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.inflate
 import com.sedsoftware.yaptalker.commons.extensions.textColor
-import com.sedsoftware.yaptalker.data.model.Topic
-import kotlinx.android.synthetic.main.controller_chosen_forum_item.view.*
+import com.sedsoftware.yaptalker.data.parsing.Topic
+import kotlinx.android.synthetic.main.fragment_chosen_forum_item.view.*
 import java.util.Locale
 
 class ChosenForumDelegateAdapter(val itemClick: TopicItemClickListener) :
@@ -28,7 +28,7 @@ class ChosenForumDelegateAdapter(val itemClick: TopicItemClickListener) :
   }
 
   inner class TopicViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.controller_chosen_forum_item)) {
+      RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_chosen_forum_item)) {
 
     private val commentsTemplate = parent.context.getString(R.string.forum_comments_template)
     private val pinnedTopicTemplate = parent.context.getString(R.string.forum_pinned_topic_template)
