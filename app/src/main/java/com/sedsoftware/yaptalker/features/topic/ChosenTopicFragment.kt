@@ -21,6 +21,7 @@ import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
+import com.sedsoftware.yaptalker.commons.extensions.toastSuccess
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.data.parsing.TopicPage
 import com.sedsoftware.yaptalker.features.topic.adapter.ChosenTopicAdapter
@@ -31,7 +32,6 @@ import kotlinx.android.synthetic.main.fragment_chosen_topic.*
 import org.jetbrains.anko.share
 import java.util.Locale
 
-// TODO() Add bookmark icon
 class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickListener, TopicNavigationClickListener {
 
   companion object {
@@ -118,6 +118,10 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
         topicPresenter.onShareItemClicked()
         true
       }
+      R.id.action_bookmark -> {
+        topicPresenter.onBookmarkItemClicked()
+        true
+      }
       else -> super.onOptionsItemSelected(item)
     }
   }
@@ -192,8 +196,20 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     topicPresenter.navigateToUserProfile(userId)
   }
 
-  override fun shareTopic(title: String) {
-    context?.share("http://www.yaplakal.com/forum$forumId/topic$topicId.html", title)
+  override fun shareTopic(title: String, topicPage: Int) {
+    context?.share("http://www.yaplakal.com/forum$forumId/st/$topicPage/topic$topicId.html", title)
+  }
+
+  override fun showBookmarkAddedMessage() {
+    context?.stringRes(R.string.msg_bookmark_topic_added)?.let { message ->
+      toastSuccess(message)
+    }
+  }
+
+  override fun showUnknownErrorMessage() {
+    context?.stringRes(R.string.msg_unknown_error)?.let { message ->
+      toastError(message)
+    }
   }
 
   override fun onUserAvatarClick(userId: Int) {

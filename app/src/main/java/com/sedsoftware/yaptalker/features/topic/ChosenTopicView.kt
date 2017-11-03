@@ -20,5 +20,9 @@ interface ChosenTopicView : BaseView {
 
   fun showUserProfile(userId: Int)
 
-  fun shareTopic(title: String)
+  fun shareTopic(title: String, topicPage: Int)
+
+  fun showBookmarkAddedMessage()
+
+  fun showUnknownErrorMessage()
 }

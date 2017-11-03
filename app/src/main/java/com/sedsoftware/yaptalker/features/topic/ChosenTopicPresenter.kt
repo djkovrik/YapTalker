@@ -11,6 +11,8 @@ import com.sedsoftware.yaptalker.features.NavigationScreens
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
+import retrofit2.Response
 
 @InjectViewState
 class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
@@ -23,6 +25,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     private const val TOPIC_PAGE_KEY = "TOPIC_PAGE_KEY"
     private const val POSTS_PER_PAGE = 25
     private const val OFFSET_FOR_PAGE_NUMBER = 1
+    private const val BOOKMARK_SUCCESS_MARKER = "Закладка добавлена"
   }
 
   private var currentTitle = ""
@@ -117,7 +120,27 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   }
 
   fun onShareItemClicked() {
-    viewState.shareTopic(currentTitle)
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
+    viewState.shareTopic(currentTitle, startingPost)
+  }
+
+  fun onBookmarkItemClicked() {
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
+
+    yapDataManager
+        .addTopicToBookmarks(currentTopicId, startingPost)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe({
+          // On Success
+          response ->
+          onResponseReceived(response)
+        }, {
+          // On Error
+          error ->
+          error.message?.let { viewState.showErrorMessage(it) }
+        })
   }
 
   fun navigateToUserProfile(userId: Int) {
@@ -191,6 +214,16 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
     viewState.displayTopicPage(page)
     viewState.scrollToViewTop()
+  }
+
+  private fun onResponseReceived(response: Response<ResponseBody>) {
+    response.body()?.string()?.let { str ->
+      if (str.contains(BOOKMARK_SUCCESS_MARKER)) {
+        viewState.showBookmarkAddedMessage()
+      } else {
+        viewState.showUnknownErrorMessage()
+      }
+    }
   }
 
   private fun onLoadingError(error: Throwable) {

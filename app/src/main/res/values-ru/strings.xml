@@ -82,16 +82,19 @@
   <string name="msg_login_success">Успешный вход!</string>
   <string name="msg_login_error">Ошибка входа!</string>
   <string name="msg_sign_out">Вы успешно вышли из аккаунта.</string>
+  <string name="msg_unknown_error">Неизвестная ошибка!</string>
   <string name="msg_unclosed_tag">Обнаружен незакрытый тег!</string>
   <string name="msg_bookmark_confirm_action">Удалить тему из закладок?</string>
   <string name="msg_bookmark_confirm_yes">Удалить</string>
   <string name="msg_bookmark_confirm_No">Отмена</string>
   <string name="msg_bookmark_topic_deleted">Тема успешно удалена из закладок.</string>
+  <string name="msg_bookmark_topic_added">Тема добавлена в закладки.</string>
 
   <!-- MENUS -->
   <string name="action_save">Сохранить</string>
   <string name="action_share">Поделиться</string>
   <string name="action_send">Отправить</string>
+  <string name="action_bookmark">В закладки</string>
 
   <!-- SHORT DATE STRINGS -->
   <plurals name="short_date_years">
