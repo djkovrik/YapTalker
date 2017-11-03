@@ -2,6 +2,12 @@
 
 # Changelog
 
+## [WIP] - 2017-xx-xx
+### Added
+
+### Fixed
+- Crash after click on chosen active topic
+
 ## [0.5.0] - 2017-11-03
 ### Added
 - Active topics browsing
