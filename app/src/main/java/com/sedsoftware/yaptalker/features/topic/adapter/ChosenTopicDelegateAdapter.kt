@@ -29,6 +29,7 @@ import com.sedsoftware.yaptalker.data.parsing.PostQuote
 import com.sedsoftware.yaptalker.data.parsing.PostQuoteAuthor
 import com.sedsoftware.yaptalker.data.parsing.PostScript
 import com.sedsoftware.yaptalker.data.parsing.PostText
+import com.sedsoftware.yaptalker.data.parsing.PostWarning
 import com.sedsoftware.yaptalker.data.parsing.TopicPost
 import com.sedsoftware.yaptalker.data.video.getYoutubeVideoId
 import com.sedsoftware.yaptalker.data.video.parseLink
@@ -81,6 +82,7 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
           R.dimen.post_text_horizontal_padding).toInt()
       var currentNestingLevel = INITIAL_NESTING_LEVEL
       val links = HashSet<PostLink>()
+      val warnings = ArrayList<PostWarning>()
 
       itemView.post_content_text_container.removeAllViews()
 
@@ -150,18 +152,30 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
 
               links.add(PostLink(url = targetUrl, title = targetTitle))
             }
-          }
 
-          if (links.isNotEmpty()) {
-            val link = links.last()
-            itemView.post_link_button.setOnClickListener {
-              itemView.context.browse(url = link.url, newTask = true)
+            is PostWarning -> {
+              warnings.add(it)
             }
-            itemView.post_link_button.text = link.title
-            itemView.post_link_button.showView()
-          } else {
-            itemView.post_link_button.hideView()
           }
+        }
+
+        if (links.isNotEmpty()) {
+          val link = links.last()
+          itemView.post_link_button.setOnClickListener {
+            itemView.context.browse(url = link.url, newTask = true)
+          }
+          itemView.post_link_button.text = link.title
+          itemView.post_link_button.showView()
+        } else {
+          itemView.post_link_button.hideView()
+        }
+
+        if (warnings.isNotEmpty()) {
+          val warning = warnings.last()
+          val warningText = TextView(itemView.context)
+          warningText.textFromHtml(warning.text)
+          warningText.textSize = smallFontSize
+          itemView.post_content_text_container.addView(warningText)
         }
       }
 

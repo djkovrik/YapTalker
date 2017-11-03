@@ -12,6 +12,8 @@ class PostHiddenText(val text: String) : Content
 
 class PostScript(val text: String) : Content
 
+class PostWarning(val text: String) : Content
+
 class PostLink(val url: String, val title: String) : Content {
 
   override fun equals(other: Any?): Boolean {
