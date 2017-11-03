@@ -1,7 +1,15 @@
-Current version: 0.4.1
+### Current version: 0.5.0
 
 # Changelog
-All notable changes to this project will be documented in this file.
+
+## [0.5.0] - 2017-11-03
+### Added
+- Active topics browsing
+- Bookmarks loading and management
+
+### Fixed
+- Incorrect moderator warning displaying
+
 
 ## [0.4.1] - 2017-10-25
 ### Added
