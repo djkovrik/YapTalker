@@ -6,13 +6,15 @@ Keep in mind that it is still under development so bugs are possible.
 
 Features
 --------
-* Read news and forums
+With this app you can:
+* Read news, forums and topics
 * Customize main news page to filter news with chosen categories
 * Browse active topics forum section
 * Browse user profiles
 * Browse, save and share images
-* Watch videos (supports yapfiles and embedded video clips from vk.com, coub etc.)
-* Authorization and message posting
+* Watch videos (including yapfiles and embedded video clips from vk.com, coub etc.)
+* Manage bookmarks
+* Sign In and post messages
 
 Download
 --------
