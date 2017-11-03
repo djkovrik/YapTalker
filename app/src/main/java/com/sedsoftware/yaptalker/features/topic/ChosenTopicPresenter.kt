@@ -212,6 +212,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
       totalPages = totalPageString.toInt()
     }
 
+    viewState.handleBookmarkButtonVisibility(authKey.isNotEmpty())
     viewState.displayTopicPage(page)
     viewState.scrollToViewTop()
   }

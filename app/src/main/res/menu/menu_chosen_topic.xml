@@ -5,7 +5,8 @@
   <item
     android:id="@+id/action_bookmark"
     android:icon="@drawable/ic_bookmark"
-    android:title="@string/action_share"
+    android:title="@string/action_bookmark"
+    android:visible="false"
     app:showAsAction="ifRoom" />
 
   <item

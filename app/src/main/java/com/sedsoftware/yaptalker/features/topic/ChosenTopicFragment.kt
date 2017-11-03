@@ -71,6 +71,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
   }
 
   private lateinit var topicAdapter: ChosenTopicAdapter
+  private lateinit var currentMenu: Menu
   private var isFabShown = true
 
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -110,6 +111,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
     super.onCreateOptionsMenu(menu, inflater)
     inflater.inflate(R.menu.menu_chosen_topic, menu)
+    currentMenu = menu
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -184,6 +186,10 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
   override fun hideFabWithoutAnimation() {
     new_post_fab?.translationY = INITIAL_FAB_OFFSET
     isFabShown = false
+  }
+
+  override fun handleBookmarkButtonVisibility(shouldShow: Boolean) {
+    currentMenu.findItem(R.id.action_bookmark).isVisible = shouldShow
   }
 
   override fun showCantLoadPageMessage(page: Int) {

@@ -16,6 +16,8 @@ interface ChosenTopicView : BaseView {
 
   fun hideFabWithoutAnimation()
 
+  fun handleBookmarkButtonVisibility(shouldShow: Boolean)
+
   fun showCantLoadPageMessage(page: Int)
 
   fun showUserProfile(userId: Int)
