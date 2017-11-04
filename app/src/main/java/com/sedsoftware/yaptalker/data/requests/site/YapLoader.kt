@@ -102,4 +102,14 @@ interface YapLoader {
       @Query("act") act: String,
       @Query("CODE") code: String,
       @Query("id") id: Int): Single<Response<ResponseBody>>
+
+  @Headers("X-Requested-With:XMLHttpRequest")
+  @GET("/")
+  fun changeKarma(
+      @Query("act") act: String,
+      @Query("CODE") code: String,
+      @Query("rank") rank: Int,
+      @Query("p") p: Int,
+      @Query("t") t: Int,
+      @Query("n") n: Int): Single<Response<ResponseBody>>
 }
