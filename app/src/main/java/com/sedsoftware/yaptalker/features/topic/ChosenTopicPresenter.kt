@@ -28,13 +28,18 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     private const val BOOKMARK_SUCCESS_MARKER = "Закладка добавлена"
   }
 
-  private var currentTitle = ""
   private var currentForumId = 0
   private var currentTopicId = 0
   private var currentPage = 1
   private var totalPages = 1
+  private var rating = ""
+  private var ratingPlusAvailable = ""
+  private var ratingMinusAvailable = ""
+  private var ratingPlusClicked = ""
+  private var ratingMinusClicked = ""
   private var authKey = ""
   private var isClosed = ""
+  private var currentTitle = ""
 
   override fun attachView(view: ChosenTopicView?) {
     super.attachView(view)
@@ -60,7 +65,9 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   fun saveCurrentState(outState: Bundle, panel: TopicNavigationPanel, list: List<TopicPost>) {
 
-    val topicPage = TopicPage(currentTitle, isClosed, authKey, panel, list)
+    val topicPage = TopicPage(currentTitle, isClosed, authKey, rating, ratingPlusAvailable, ratingMinusAvailable,
+        ratingPlusClicked, ratingMinusClicked, panel, list)
+
     outState.putParcelable(TOPIC_PAGE_KEY, topicPage)
   }
 
@@ -199,9 +206,15 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   }
 
   private fun onLoadingSuccess(page: TopicPage, scrollToTop: Boolean) {
+    rating = page.topicRating
+    ratingPlusAvailable = page.topicRatingPlusAvailable
+    ratingMinusAvailable = page.topicRatingMinusAvailable
+    ratingPlusClicked = page.topicRatingPlusClicked
+    ratingMinusClicked = page.topicRatingMinusClicked
     authKey = page.authKey
     isClosed = page.isClosed
     currentTitle = page.topicTitle
+
     updateAppbarTitle(currentTitle)
 
     val pageString = page.navigation.currentPage
