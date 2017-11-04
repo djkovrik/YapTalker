@@ -21,8 +21,6 @@ import kotlinx.android.synthetic.main.fragment_forums_list.*
 class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
 
   companion object {
-    private const val FORUMS_LIST_KEY = "FORUMS_LIST"
-
     fun getNewInstance() = ForumsFragment()
   }
 
@@ -52,7 +50,7 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
       setHasFixedSize(true)
     }
 
-    forumsPresenter.checkSavedState(savedInstanceState, FORUMS_LIST_KEY)
+    forumsPresenter.loadForumsList()
     forumsPresenter.updateAppbarTitle(context.stringRes(R.string.nav_drawer_forums))
   }
 
@@ -61,14 +59,6 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
         .refreshes(forums_list_refresh_layout)
         .autoDisposeWith(event(FragmentLifecycle.STOP))
         .subscribe { forumsPresenter.loadForumsList() }
-  }
-
-  override fun onSaveInstanceState(outState: Bundle?) {
-    super.onSaveInstanceState(outState)
-    val forums = forumsAdapter.getForums()
-    if (forums.isNotEmpty()) {
-      outState?.putParcelableArrayList(FORUMS_LIST_KEY, ArrayList(forums))
-    }
   }
 
   override fun showErrorMessage(message: String) {

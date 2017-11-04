@@ -1,6 +1,5 @@
 package com.sedsoftware.yaptalker.features.forumslist
 
-import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
@@ -16,15 +15,6 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
   @Suppress("MagicNumber")
   companion object {
     private val nsfwForumSections = setOf(4, 33, 36)
-  }
-
-  fun checkSavedState(savedViewState: Bundle?, key: String) {
-    if (savedViewState != null && savedViewState.containsKey(key)) {
-      val items = savedViewState.getParcelableArrayList<ForumItem>(key)
-      onRestoringSuccess(items)
-    } else {
-      loadForumsList()
-    }
   }
 
   fun loadForumsList() {
@@ -59,10 +49,6 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
 
   private fun onLoadingSuccess(item: ForumItem) {
     viewState.appendForumItem(item)
-  }
-
-  private fun onRestoringSuccess(items: List<ForumItem>) {
-    viewState.appendForumsList(items)
   }
 
   private fun onLoadingError(error: Throwable) {
