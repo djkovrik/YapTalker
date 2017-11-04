@@ -37,6 +37,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   private var ratingMinusAvailable = ""
   private var ratingPlusClicked = ""
   private var ratingMinusClicked = ""
+  private var ratingTargetId = ""
   private var authKey = ""
   private var isClosed = ""
   private var currentTitle = ""
@@ -66,7 +67,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   fun saveCurrentState(outState: Bundle, panel: TopicNavigationPanel, list: List<TopicPost>) {
 
     val topicPage = TopicPage(currentTitle, isClosed, authKey, rating, ratingPlusAvailable, ratingMinusAvailable,
-        ratingPlusClicked, ratingMinusClicked, panel, list)
+        ratingPlusClicked, ratingMinusClicked, ratingTargetId, panel, list)
 
     outState.putParcelable(TOPIC_PAGE_KEY, topicPage)
   }
@@ -211,6 +212,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     ratingMinusAvailable = page.topicRatingMinusAvailable
     ratingPlusClicked = page.topicRatingPlusClicked
     ratingMinusClicked = page.topicRatingMinusClicked
+    ratingTargetId = page.topicRatingTargetId
     authKey = page.authKey
     isClosed = page.isClosed
     currentTitle = page.topicTitle

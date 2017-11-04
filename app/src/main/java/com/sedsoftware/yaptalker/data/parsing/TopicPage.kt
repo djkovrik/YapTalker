@@ -24,6 +24,8 @@ class TopicPage() : Parcelable {
   lateinit var topicRatingPlusClicked: String
   @Selector("div[rel=rating] img[src$=rating-cell-minus-clicked.gif]", attr = "src", defValue = "")
   lateinit var topicRatingMinusClicked: String
+  @Selector("div[rel=rating] a[onclick~=doRatePost]", format = "(?<=\\d{2}, )(\\d+)((?=, ))", attr = "outerHtml", defValue = "")
+  lateinit var topicRatingTargetId: String
   @Selector("table.row3")
   lateinit var navigation: TopicNavigationPanel
   @Selector("table[id~=p_row_\\d+]:has(.normalname)")
@@ -38,13 +40,14 @@ class TopicPage() : Parcelable {
     topicRatingMinusAvailable = parcel.readString()
     topicRatingPlusClicked = parcel.readString()
     topicRatingMinusClicked = parcel.readString()
+    topicRatingTargetId = parcel.readString()
     navigation = parcel.readParcelable(TopicNavigationPanel::class.java.classLoader)
     posts = parcel.createTypedArrayList(TopicPost)
   }
 
   constructor(title: String, closed: String, key: String, rating: String, plusAvailable: String,
-              minusAvailable: String, plusClicked: String, minusClicked: String, navigation: TopicNavigationPanel,
-              posts: List<TopicPost>) : this() {
+              minusAvailable: String, plusClicked: String, minusClicked: String, targetId: String,
+              navigation: TopicNavigationPanel, posts: List<TopicPost>) : this() {
 
     this.topicTitle = title
     this.isClosed = closed
@@ -54,6 +57,7 @@ class TopicPage() : Parcelable {
     this.topicRatingMinusAvailable = minusAvailable
     this.topicRatingPlusClicked = plusClicked
     this.topicRatingMinusClicked = minusClicked
+    this.topicRatingTargetId = targetId
     this.navigation = navigation
     this.posts = posts
   }
@@ -67,6 +71,7 @@ class TopicPage() : Parcelable {
     parcel.writeString(topicRatingMinusAvailable)
     parcel.writeString(topicRatingPlusClicked)
     parcel.writeString(topicRatingMinusClicked)
+    parcel.writeString(topicRatingTargetId)
     parcel.writeParcelable(navigation, flags)
     parcel.writeTypedList(posts)
   }
