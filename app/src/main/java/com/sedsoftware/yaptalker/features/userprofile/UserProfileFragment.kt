@@ -96,5 +96,7 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
     } else {
       profile_photo_card.hideView()
     }
+
+    userProfilePresenter.updateAppbarTitle(profile.nickname)
   }
 }
