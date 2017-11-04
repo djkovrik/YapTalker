@@ -6,13 +6,13 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.base.BaseView
 import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPage
 
-@StateStrategyType(AddToEndSingleStrategy::class)
+@StateStrategyType(SkipStrategy::class)
 interface ActiveTopicsView : BaseView {
 
+  @StateStrategyType(AddToEndSingleStrategy::class)
   fun displayActiveTopicsPage(page: ActiveTopicsPage)
 
   fun scrollToViewTop()
 
-  @StateStrategyType(SkipStrategy::class)
   fun showCantLoadPageMessage(page: Int)
 }

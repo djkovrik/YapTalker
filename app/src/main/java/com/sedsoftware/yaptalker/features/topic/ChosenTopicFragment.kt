@@ -160,10 +160,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     topicAdapter.refreshTopicPage(page)
   }
 
-  override fun scrollToViewTop() {
-    topic_posts_list?.layoutManager?.scrollToPosition(0)
-  }
-
   override fun showFab(shouldShow: Boolean) {
     if (shouldShow == isFabShown) {
       return
@@ -188,6 +184,14 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     isFabShown = false
   }
 
+  override fun showUserProfile(userId: Int) {
+    topicPresenter.navigateToUserProfile(userId)
+  }
+
+  override fun shareTopic(title: String, topicPage: Int) {
+    context?.share("http://www.yaplakal.com/forum$forumId/st/$topicPage/topic$topicId.html", title)
+  }
+
   override fun handleBookmarkButtonVisibility(shouldShow: Boolean) {
     currentMenu.findItem(R.id.action_bookmark).isVisible = shouldShow
   }
@@ -198,12 +202,8 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     }
   }
 
-  override fun showUserProfile(userId: Int) {
-    topicPresenter.navigateToUserProfile(userId)
-  }
-
-  override fun shareTopic(title: String, topicPage: Int) {
-    context?.share("http://www.yaplakal.com/forum$forumId/st/$topicPage/topic$topicId.html", title)
+  override fun scrollToViewTop() {
+    topic_posts_list?.layoutManager?.scrollToPosition(0)
   }
 
   override fun showBookmarkAddedMessage() {

@@ -33,7 +33,7 @@ class ActiveTopicsPresenter : BasePresenter<ActiveTopicsView>() {
         savedViewState.containsKey(SEARCH_ID_KEY)) {
 
       searchIdKey = savedViewState.getString(SEARCH_ID_KEY)
-      onLoadingSuccess(savedViewState.getParcelable(ACTIVE_TOPICS_PAGE_KEY))
+      onLoadingSuccess(page = savedViewState.getParcelable(ACTIVE_TOPICS_PAGE_KEY), scrollToTop = false)
     } else {
       refreshTopicsList()
     }
@@ -58,7 +58,7 @@ class ActiveTopicsPresenter : BasePresenter<ActiveTopicsView>() {
         .subscribe({
           // onSuccess
           activeTopicsPage ->
-          onLoadingSuccess(activeTopicsPage)
+          onLoadingSuccess(activeTopicsPage, scrollToTop = false)
         }, {
           // onError
           throwable ->
@@ -73,34 +73,34 @@ class ActiveTopicsPresenter : BasePresenter<ActiveTopicsView>() {
 
   fun goToFirstPage() {
     currentPage = 1
-    loadActiveTopicsForCurrentPage()
+    loadActiveTopicsForCurrentPage(scrollToTop = true)
   }
 
   fun goToLastPage() {
     currentPage = totalPages
-    loadActiveTopicsForCurrentPage()
+    loadActiveTopicsForCurrentPage(scrollToTop = true)
   }
 
   fun goToPreviousPage() {
     currentPage--
-    loadActiveTopicsForCurrentPage()
+    loadActiveTopicsForCurrentPage(scrollToTop = true)
   }
 
   fun goToNextPage() {
     currentPage++
-    loadActiveTopicsForCurrentPage()
+    loadActiveTopicsForCurrentPage(scrollToTop = true)
   }
 
   fun goToChosenPage(chosenPage: Int) {
     if (chosenPage in 1..totalPages) {
       currentPage = chosenPage
-      loadActiveTopicsForCurrentPage()
+      loadActiveTopicsForCurrentPage(scrollToTop = true)
     } else {
       viewState.showCantLoadPageMessage(chosenPage)
     }
   }
 
-  private fun loadActiveTopicsForCurrentPage() {
+  private fun loadActiveTopicsForCurrentPage(scrollToTop: Boolean) {
     getActiveTopicsPageObservable(searchIdKey, currentPage)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -108,7 +108,7 @@ class ActiveTopicsPresenter : BasePresenter<ActiveTopicsView>() {
         .subscribe({
           // onSuccess
           activeTopicsPage ->
-          onLoadingSuccess(activeTopicsPage)
+          onLoadingSuccess(activeTopicsPage, scrollToTop)
         }, {
           // onError
           throwable ->
@@ -124,7 +124,7 @@ class ActiveTopicsPresenter : BasePresenter<ActiveTopicsView>() {
         .getActiveTopics(searchId, startingTopicNumber)
   }
 
-  private fun onLoadingSuccess(page: ActiveTopicsPage) {
+  private fun onLoadingSuccess(page: ActiveTopicsPage, scrollToTop: Boolean) {
 
     val pageString = page.navigation.currentPage
     val totalPageString = page.navigation.totalPages
@@ -135,7 +135,10 @@ class ActiveTopicsPresenter : BasePresenter<ActiveTopicsView>() {
     }
 
     viewState.displayActiveTopicsPage(page)
-    viewState.scrollToViewTop()
+
+    if (scrollToTop) {
+      viewState.scrollToViewTop()
+    }
   }
 
   private fun onLoadingError(error: Throwable) {

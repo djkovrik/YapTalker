@@ -72,14 +72,13 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListe
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-
     val panel = forumAdapter.getNavigationPanel()
     val topics = forumAdapter.getTopics()
 
     if (panel.isNotEmpty() && topics.isNotEmpty()) {
       forumPresenter.saveCurrentState(outState, currentForumId, panel.first(), topics)
     }
+    super.onSaveInstanceState(outState)
   }
 
   override fun subscribeViews() {
@@ -101,14 +100,14 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListe
     forumAdapter.refreshForumPage(page)
   }
 
-  override fun scrollToViewTop() {
-    forum_topics_list?.layoutManager?.scrollToPosition(0)
-  }
-
   override fun showCantLoadPageMessage(page: Int) {
     context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
       toastWarning(String.format(Locale.getDefault(), template, page))
     }
+  }
+
+  override fun scrollToViewTop() {
+    forum_topics_list?.layoutManager?.scrollToPosition(0)
   }
 
   override fun onTopicClick(topicId: Int) {

@@ -18,7 +18,6 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   companion object {
     private const val FORUM_PAGE_KEY = "FORUM_PAGE_KEY"
     private const val LAST_UPDATE_SORTER = "last_post"
-    private const val RATING_SORTER = "rank"
     private const val TOPICS_PER_PAGE = 30
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
@@ -34,7 +33,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
         savedViewState.containsKey(FORUM_PAGE_KEY)) {
 
       with(savedViewState) {
-        onLoadingSuccess(getParcelable(FORUM_PAGE_KEY))
+        onLoadingSuccess(page = getParcelable(FORUM_PAGE_KEY), scrollToTop = false)
       }
     } else {
       loadForum(forumId)
@@ -53,46 +52,43 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     }
   }
 
-  fun loadForum(forumId: Int, page: Int = 1, sortByRank: Boolean = false) {
+  fun loadForum(forumId: Int) {
     currentForumId = forumId
-    currentPage = page
-    currentSorting =
-        if (sortByRank) RATING_SORTER
-        else LAST_UPDATE_SORTER
+    currentPage = 1
 
-    loadForumCurrentPage()
+    loadForumCurrentPage(scrollToTop = false)
   }
 
   fun goToFirstPage() {
     currentPage = 1
-    loadForumCurrentPage()
+    loadForumCurrentPage(scrollToTop = true)
   }
 
   fun goToLastPage() {
     currentPage = totalPages
-    loadForumCurrentPage()
+    loadForumCurrentPage(scrollToTop = true)
   }
 
   fun goToPreviousPage() {
     currentPage--
-    loadForumCurrentPage()
+    loadForumCurrentPage(scrollToTop = true)
   }
 
   fun goToNextPage() {
     currentPage++
-    loadForumCurrentPage()
+    loadForumCurrentPage(scrollToTop = true)
   }
 
   fun goToChosenPage(chosenPage: Int) {
     if (chosenPage in 1..totalPages) {
       currentPage = chosenPage
-      loadForumCurrentPage()
+      loadForumCurrentPage(scrollToTop = true)
     } else {
       viewState.showCantLoadPageMessage(chosenPage)
     }
   }
 
-  private fun loadForumCurrentPage() {
+  private fun loadForumCurrentPage(scrollToTop: Boolean) {
 
     val startingTopic = (currentPage - OFFSET_FOR_PAGE_NUMBER) * TOPICS_PER_PAGE
 
@@ -104,7 +100,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
         .subscribe({
           // onSuccess
           forumPage ->
-          onLoadingSuccess(forumPage)
+          onLoadingSuccess(forumPage, scrollToTop)
         }, {
           // onError
           throwable ->
@@ -112,7 +108,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
         })
   }
 
-  private fun onLoadingSuccess(page: ForumPage) {
+  private fun onLoadingSuccess(page: ForumPage, scrollToTop: Boolean) {
 
     currentTitle = page.forumTitle
     updateAppbarTitle(currentTitle)
@@ -126,7 +122,10 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     }
 
     viewState.displayForumPage(page)
-    viewState.scrollToViewTop()
+
+    if (scrollToTop) {
+      viewState.scrollToViewTop()
+    }
   }
 
   private fun onLoadingError(error: Throwable) {

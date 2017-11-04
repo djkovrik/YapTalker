@@ -51,7 +51,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         savedViewState.containsKey(TOPIC_PAGE_KEY)) {
 
       with(savedViewState) {
-        onLoadingSuccess(getParcelable(TOPIC_PAGE_KEY))
+        onLoadingSuccess(page = getParcelable(TOPIC_PAGE_KEY), scrollToTop = false)
       }
     } else {
       loadTopic(forumId, topicId, startingPost)
@@ -73,33 +73,33 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
       else -> 1
     }
 
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(scrollToTop = false)
   }
 
   fun goToFirstPage() {
     currentPage = 1
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(scrollToTop = true)
   }
 
   fun goToLastPage() {
     currentPage = totalPages
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(scrollToTop = true)
   }
 
   fun goToPreviousPage() {
     currentPage--
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(scrollToTop = true)
   }
 
   fun goToNextPage() {
     currentPage++
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(scrollToTop = true)
   }
 
   fun goToChosenPage(chosenPage: Int) {
     if (chosenPage in 1..totalPages) {
       currentPage = chosenPage
-      loadTopicCurrentPage()
+      loadTopicCurrentPage(scrollToTop = true)
     } else {
       viewState.showCantLoadPageMessage(chosenPage)
     }
@@ -152,7 +152,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   }
 
   private fun onPostSuccess() {
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(scrollToTop = true)
   }
 
   private fun sendMessage(message: String) {
@@ -178,7 +178,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         })
   }
 
-  private fun loadTopicCurrentPage() {
+  private fun loadTopicCurrentPage(scrollToTop: Boolean) {
 
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
 
@@ -190,7 +190,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         .subscribe({
           // onSuccess
           page: TopicPage ->
-          onLoadingSuccess(page)
+          onLoadingSuccess(page, scrollToTop)
         }, {
           // onError
           throwable ->
@@ -198,7 +198,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         })
   }
 
-  private fun onLoadingSuccess(page: TopicPage) {
+  private fun onLoadingSuccess(page: TopicPage, scrollToTop: Boolean) {
     authKey = page.authKey
     isClosed = page.isClosed
     currentTitle = page.topicTitle
@@ -214,7 +214,10 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
     viewState.handleBookmarkButtonVisibility(authKey.isNotEmpty())
     viewState.displayTopicPage(page)
-    viewState.scrollToViewTop()
+
+    if (scrollToTop) {
+      viewState.scrollToViewTop()
+    }
   }
 
   private fun onResponseReceived(response: Response<ResponseBody>) {
