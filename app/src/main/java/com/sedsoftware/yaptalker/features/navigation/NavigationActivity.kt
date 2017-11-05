@@ -136,6 +136,13 @@ class NavigationActivity : BaseActivity(), NavigationView {
     navigatorHolder.setNavigator(navigator)
   }
 
+  override fun onBackPressed() {
+    when {
+      navDrawer.isDrawerOpen -> navDrawer.closeDrawer()
+      else -> super.onBackPressed()
+    }
+  }
+
   override fun showErrorMessage(message: String) {
     toastError(message)
   }
