@@ -24,7 +24,9 @@ class TopicPage() : Parcelable {
   lateinit var topicRatingPlusClicked: String
   @Selector("div[rel=rating] img[src$=rating-cell-minus-clicked.gif]", attr = "src", defValue = "")
   lateinit var topicRatingMinusClicked: String
-  @Selector("div[rel=rating] a[onclick~=doRatePost]", format = "(?<=\\d{2}, )(\\d+)((?=, ))", attr = "outerHtml", defValue = "")
+  @Selector(
+      "div[rel=rating] a[onclick~=doRatePost]", format = "(?<=\\d{2}, )(\\d+)((?=, ))", attr = "outerHtml",
+      defValue = "")
   lateinit var topicRatingTargetId: String
   @Selector("table.row3")
   lateinit var navigation: TopicNavigationPanel

@@ -302,6 +302,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
     navDrawer.addItem(drawerItemSignIn)
   }
 
+  @Suppress("MagicNumber")
   private fun displaySignedInNavigation() {
     navDrawer.addItemAtPosition(drawerItemBookmarks, 4)
     navDrawer.addItem(drawerItemSignOut)

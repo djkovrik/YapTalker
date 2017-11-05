@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.data.parsing
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
 
+@Suppress("ComplexCondition")
 class ParsedPost(html: String,
                  val content: MutableList<Content> = ArrayList(),
                  val images: MutableList<String> = ArrayList(),

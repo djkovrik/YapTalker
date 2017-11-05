@@ -39,6 +39,7 @@ fun String.validateURL(): String =
       else -> "http:$this"
     }
 
+@Suppress("MagicNumber")
 fun String.extractYapIds(): Triple<Int, Int, Int> {
 
   val noPageRegex = Pattern.compile("yaplakal\\.com/forum(\\d+)/topic(\\d+)\\.")
