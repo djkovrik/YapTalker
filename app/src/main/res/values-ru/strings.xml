@@ -95,6 +95,8 @@
   <string name="action_share">Поделиться</string>
   <string name="action_send">Отправить</string>
   <string name="action_bookmark">В закладки</string>
+  <string name="action_topic_karma_plus">Поставить +1</string>
+  <string name="action_topic_karma_minus">Поставить -1</string>
 
   <!-- SHORT DATE STRINGS -->
   <plurals name="short_date_years">

@@ -104,6 +104,8 @@
   <string name="action_share">Share</string>
   <string name="action_send">Send</string>
   <string name="action_bookmark">Bookmark</string>
+  <string name="action_topic_karma_plus">Add +1</string>
+  <string name="action_topic_karma_minus">Add -1</string>
 
   <!-- SHORT DATE STRINGS -->
   <plurals name="short_date_years">

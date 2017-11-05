@@ -71,8 +71,9 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
   }
 
   private lateinit var topicAdapter: ChosenTopicAdapter
-  private lateinit var currentMenu: Menu
   private var isFabShown = true
+  private var isLoggedIn = false
+  private var isKarmaAvailable = false
 
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -111,13 +112,28 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
     super.onCreateOptionsMenu(menu, inflater)
     inflater.inflate(R.menu.menu_chosen_topic, menu)
-    currentMenu = menu
+  }
+
+  override fun onPrepareOptionsMenu(menu: Menu?) {
+    super.onPrepareOptionsMenu(menu)
+
+    menu?.findItem(R.id.action_bookmark)?.isVisible = isLoggedIn
+    menu?.findItem(R.id.action_topic_karma_plus)?.isVisible = isKarmaAvailable
+    menu?.findItem(R.id.action_topic_karma_minus)?.isVisible = isKarmaAvailable
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
       R.id.action_share -> {
         topicPresenter.onShareItemClicked()
+        true
+      }
+      R.id.action_topic_karma_plus -> {
+        topicPresenter.onChangeTopicKarmaItemClicked(increaseKarma = true)
+        true
+      }
+      R.id.action_topic_karma_minus -> {
+        topicPresenter.onChangeTopicKarmaItemClicked(increaseKarma = false)
         true
       }
       R.id.action_bookmark -> {
@@ -192,10 +208,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     context?.share("http://www.yaplakal.com/forum$forumId/st/$topicPage/topic$topicId.html", title)
   }
 
-  override fun handleBookmarkButtonVisibility(shouldShow: Boolean) {
-    currentMenu.findItem(R.id.action_bookmark).isVisible = shouldShow
-  }
-
   override fun showCantLoadPageMessage(page: Int) {
     context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
       toastWarning(String.format(Locale.getDefault(), template, page))
@@ -216,6 +228,11 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     context?.stringRes(R.string.msg_unknown_error)?.let { message ->
       toastError(message)
     }
+  }
+
+  override fun setIfMenuButtonsAvailable(loggedIn: Boolean, karmaAvailable: Boolean) {
+    isLoggedIn = loggedIn
+    isKarmaAvailable = karmaAvailable
   }
 
   override fun onUserAvatarClick(userId: Int) {

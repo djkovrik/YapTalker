@@ -13,6 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
 import retrofit2.Response
+import timber.log.Timber
 
 @InjectViewState
 class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
@@ -143,7 +144,36 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         .subscribe({
           // On Success
           response ->
-          onResponseReceived(response)
+          onBookmarkResponseReceived(response)
+        }, {
+          // On Error
+          error ->
+          error.message?.let { viewState.showErrorMessage(it) }
+        })
+  }
+
+  fun onChangeTopicKarmaItemClicked(increaseKarma: Boolean) {
+
+    if (ratingTargetId.isEmpty() || authKey.isEmpty() || currentTopicId == 0) {
+      return
+    }
+
+    val diff = if (increaseKarma) 1 else -1
+
+    yapDataManager
+        .changeKarma(
+            rank = diff,
+            postId = ratingTargetId.toInt(),
+            topicId = currentTopicId,
+            type = 1)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe({
+          // On Success
+          response ->
+          onKarmaResponseReceived(response)
+          loadTopicCurrentPage(scrollToTop = false)
         }, {
           // On Error
           error ->
@@ -218,6 +248,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     currentTitle = page.topicTitle
 
     updateAppbarTitle(currentTitle)
+    setupMenuButtons()
 
     val pageString = page.navigation.currentPage
     val totalPageString = page.navigation.totalPages
@@ -227,7 +258,6 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
       totalPages = totalPageString.toInt()
     }
 
-    viewState.handleBookmarkButtonVisibility(authKey.isNotEmpty())
     viewState.displayTopicPage(page)
 
     if (scrollToTop) {
@@ -235,7 +265,13 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     }
   }
 
-  private fun onResponseReceived(response: Response<ResponseBody>) {
+  private fun onKarmaResponseReceived(response: Response<ResponseBody>) {
+    response.body()?.string()?.let { str ->
+      Timber.d("Response from karma change request: $str")
+    }
+  }
+
+  private fun onBookmarkResponseReceived(response: Response<ResponseBody>) {
     response.body()?.string()?.let { str ->
       if (str.contains(BOOKMARK_SUCCESS_MARKER)) {
         viewState.showBookmarkAddedMessage()
@@ -247,5 +283,11 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   private fun onLoadingError(error: Throwable) {
     error.message?.let { viewState.showErrorMessage(it) }
+  }
+
+  private fun setupMenuButtons() {
+    val loggedIn = authKey.isNotEmpty()
+    val karmaAvailable = ratingPlusAvailable.isNotEmpty() && ratingMinusAvailable.isNotEmpty()
+    viewState.setIfMenuButtonsAvailable(loggedIn, karmaAvailable)
   }
 }

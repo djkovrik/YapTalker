@@ -3,16 +3,23 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <item
-    android:id="@+id/action_bookmark"
-    android:icon="@drawable/ic_bookmark"
-    android:title="@string/action_bookmark"
-    android:visible="false"
-    app:showAsAction="ifRoom" />
+    android:id="@+id/action_share"
+    android:title="@string/action_share"
+    app:showAsAction="never" />
 
   <item
-    android:id="@+id/action_share"
-    android:icon="@drawable/ic_share"
-    android:title="@string/action_share"
-    app:showAsAction="ifRoom" />
+    android:id="@+id/action_bookmark"
+    android:title="@string/action_bookmark"
+    app:showAsAction="never" />
+
+  <item
+    android:id="@+id/action_topic_karma_plus"
+    android:title="@string/action_topic_karma_plus"
+    app:showAsAction="never" />
+
+  <item
+    android:id="@+id/action_topic_karma_minus"
+    android:title="@string/action_topic_karma_minus"
+    app:showAsAction="never" />
 
 </menu>
