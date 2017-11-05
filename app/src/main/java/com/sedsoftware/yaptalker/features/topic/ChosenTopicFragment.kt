@@ -25,6 +25,7 @@ import com.sedsoftware.yaptalker.commons.extensions.toastSuccess
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.data.parsing.TopicPage
 import com.sedsoftware.yaptalker.features.topic.adapter.ChosenTopicAdapter
+import com.sedsoftware.yaptalker.features.topic.adapter.ChosenTopicItemClickListener
 import com.sedsoftware.yaptalker.features.topic.adapter.TopicNavigationClickListener
 import com.sedsoftware.yaptalker.features.topic.adapter.UserProfileClickListener
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -32,7 +33,8 @@ import kotlinx.android.synthetic.main.fragment_chosen_topic.*
 import org.jetbrains.anko.share
 import java.util.Locale
 
-class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickListener, TopicNavigationClickListener {
+class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickListener, TopicNavigationClickListener,
+    ChosenTopicItemClickListener {
 
   companion object {
     const val MESSAGE_TEXT_REQUEST = 321
@@ -80,7 +82,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
 
     setHasOptionsMenu(true)
 
-    topicAdapter = ChosenTopicAdapter(this, this)
+    topicAdapter = ChosenTopicAdapter(this, this, this)
     topicAdapter.setHasStableIds(true)
 
     topic_refresh_layout.setIndicatorColorScheme()
@@ -230,6 +232,23 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     }
   }
 
+  override fun displayPostContextMenu(postId: String) {
+
+    val plusItem = context.stringRes(R.string.action_post_karma_plus)
+    val minusItem = context.stringRes(R.string.action_post_karma_minus)
+
+    val itemsArray = arrayListOf(plusItem, minusItem)
+
+    MaterialDialog.Builder(context)
+        .title(R.string.title_post_context_menu)
+        .items(itemsArray)
+        .itemsCallback { _, _, _, text ->
+          if (text == plusItem) topicPresenter.onChangePostKarmaItemClicked(postId, increaseKarma = true)
+          if (text == minusItem) topicPresenter.onChangePostKarmaItemClicked(postId, increaseKarma = false)
+        }
+        .show()
+  }
+
   override fun setIfMenuButtonsAvailable(loggedIn: Boolean, karmaAvailable: Boolean) {
     isLoggedIn = loggedIn
     isKarmaAvailable = karmaAvailable
@@ -264,6 +283,12 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
             topicPresenter.goToChosenPage(input.toString().toInt())
           })
           .show()
+    }
+  }
+
+  override fun onPostItemClicked(postId: String, isKarmaAvailable: Boolean) {
+    if (isKarmaAvailable) {
+      topicPresenter.checkIfPostContextMenuAvailable(postId)
     }
   }
 }

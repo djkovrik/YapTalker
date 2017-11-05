@@ -181,12 +181,49 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         })
   }
 
+  fun onChangePostKarmaItemClicked(postId: String, increaseKarma: Boolean) {
+
+    if (postId.isEmpty() || authKey.isEmpty() || currentTopicId == 0) {
+      return
+    }
+
+    val diff = if (increaseKarma) 1 else -1
+
+    yapDataManager
+        .changeKarma(
+            rank = diff,
+            postId = postId.toInt(),
+            topicId = currentTopicId,
+            type = 0)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe({
+          // On Success
+          response ->
+          onKarmaResponseReceived(response)
+          loadTopicCurrentPage(scrollToTop = false)
+        }, {
+          // On Error
+          error ->
+          error.message?.let { viewState.showErrorMessage(it) }
+        })
+  }
+
   fun navigateToUserProfile(userId: Int) {
     router.navigateTo(NavigationScreens.USER_PROFILE_SCREEN, userId)
   }
 
   fun navigateToAddMessageView() {
     router.navigateTo(NavigationScreens.ADD_MESSAGE_SCREEN, currentTitle)
+  }
+
+  fun checkIfPostContextMenuAvailable(postId: String) {
+    if (postId.isEmpty() || authKey.isEmpty()) {
+      return
+    }
+
+    viewState.displayPostContextMenu(postId)
   }
 
   private fun onPostSuccess() {

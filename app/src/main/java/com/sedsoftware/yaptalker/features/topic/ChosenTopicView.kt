@@ -28,6 +28,8 @@ interface ChosenTopicView : BaseView {
 
   fun showUnknownErrorMessage()
 
+  fun displayPostContextMenu(postId: String)
+
   @StateStrategyType(AddToEndSingleStrategy::class)
   fun setIfMenuButtonsAvailable(loggedIn: Boolean, karmaAvailable: Boolean)
 }
