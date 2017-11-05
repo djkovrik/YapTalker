@@ -25,6 +25,7 @@ import com.sedsoftware.yaptalker.commons.extensions.toastSuccess
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
 import com.sedsoftware.yaptalker.data.parsing.TopicPage
 import com.sedsoftware.yaptalker.features.topic.adapter.ChosenTopicAdapter
+import com.sedsoftware.yaptalker.features.topic.adapter.ChosenTopicItemClickListener
 import com.sedsoftware.yaptalker.features.topic.adapter.TopicNavigationClickListener
 import com.sedsoftware.yaptalker.features.topic.adapter.UserProfileClickListener
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -32,7 +33,8 @@ import kotlinx.android.synthetic.main.fragment_chosen_topic.*
 import org.jetbrains.anko.share
 import java.util.Locale
 
-class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickListener, TopicNavigationClickListener {
+class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickListener, TopicNavigationClickListener,
+    ChosenTopicItemClickListener {
 
   companion object {
     const val MESSAGE_TEXT_REQUEST = 321
@@ -71,15 +73,16 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
   }
 
   private lateinit var topicAdapter: ChosenTopicAdapter
-  private lateinit var currentMenu: Menu
   private var isFabShown = true
+  private var isLoggedIn = false
+  private var isKarmaAvailable = false
 
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     setHasOptionsMenu(true)
 
-    topicAdapter = ChosenTopicAdapter(this, this)
+    topicAdapter = ChosenTopicAdapter(this, this, this)
     topicAdapter.setHasStableIds(true)
 
     topic_refresh_layout.setIndicatorColorScheme()
@@ -111,13 +114,28 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
     super.onCreateOptionsMenu(menu, inflater)
     inflater.inflate(R.menu.menu_chosen_topic, menu)
-    currentMenu = menu
+  }
+
+  override fun onPrepareOptionsMenu(menu: Menu?) {
+    super.onPrepareOptionsMenu(menu)
+
+    menu?.findItem(R.id.action_bookmark)?.isVisible = isLoggedIn
+    menu?.findItem(R.id.action_topic_karma_plus)?.isVisible = isKarmaAvailable
+    menu?.findItem(R.id.action_topic_karma_minus)?.isVisible = isKarmaAvailable
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
       R.id.action_share -> {
         topicPresenter.onShareItemClicked()
+        true
+      }
+      R.id.action_topic_karma_plus -> {
+        topicPresenter.onChangeTopicKarmaItemClicked(increaseKarma = true)
+        true
+      }
+      R.id.action_topic_karma_minus -> {
+        topicPresenter.onChangeTopicKarmaItemClicked(increaseKarma = false)
         true
       }
       R.id.action_bookmark -> {
@@ -192,10 +210,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     context?.share("http://www.yaplakal.com/forum$forumId/st/$topicPage/topic$topicId.html", title)
   }
 
-  override fun handleBookmarkButtonVisibility(shouldShow: Boolean) {
-    currentMenu.findItem(R.id.action_bookmark).isVisible = shouldShow
-  }
-
   override fun showCantLoadPageMessage(page: Int) {
     context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
       toastWarning(String.format(Locale.getDefault(), template, page))
@@ -216,6 +230,28 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     context?.stringRes(R.string.msg_unknown_error)?.let { message ->
       toastError(message)
     }
+  }
+
+  override fun displayPostContextMenu(postId: String) {
+
+    val plusItem = context.stringRes(R.string.action_post_karma_plus)
+    val minusItem = context.stringRes(R.string.action_post_karma_minus)
+
+    val itemsArray = arrayListOf(plusItem, minusItem)
+
+    MaterialDialog.Builder(context)
+        .title(R.string.title_post_context_menu)
+        .items(itemsArray)
+        .itemsCallback { _, _, _, text ->
+          if (text == plusItem) topicPresenter.onChangePostKarmaItemClicked(postId, increaseKarma = true)
+          if (text == minusItem) topicPresenter.onChangePostKarmaItemClicked(postId, increaseKarma = false)
+        }
+        .show()
+  }
+
+  override fun setIfMenuButtonsAvailable(loggedIn: Boolean, karmaAvailable: Boolean) {
+    isLoggedIn = loggedIn
+    isKarmaAvailable = karmaAvailable
   }
 
   override fun onUserAvatarClick(userId: Int) {
@@ -247,6 +283,12 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
             topicPresenter.goToChosenPage(input.toString().toInt())
           })
           .show()
+    }
+  }
+
+  override fun onPostItemClicked(postId: String, isKarmaAvailable: Boolean) {
+    if (isKarmaAvailable) {
+      topicPresenter.checkIfPostContextMenuAvailable(postId)
     }
   }
 }

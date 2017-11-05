@@ -42,7 +42,8 @@ import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
 
-class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
+class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
+                                 val itemClick: ChosenTopicItemClickListener) :
     BaseAdapterInjections(), ViewTypeDelegateAdapter {
 
   companion object {
@@ -249,6 +250,11 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
         post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateURL())
         post_author_avatar.setOnClickListener {
           profileClick.onUserAvatarClick(post.authorProfile.getLastDigits())
+        }
+
+        setOnClickListener {
+          val isKarmaAvailable = post.postRankPlusAvailable.isNotEmpty() && post.postRankMinusAvailable.isNotEmpty()
+          itemClick.onPostItemClicked(post.postId, isKarmaAvailable)
         }
       }
     }

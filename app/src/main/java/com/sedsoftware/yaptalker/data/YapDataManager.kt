@@ -42,6 +42,9 @@ class YapDataManager(
     private const val BOOKMARKS_CODE_LOAD = "10"
     private const val BOOKMARKS_CODE_ADD = "11"
     private const val BOOKMARKS_CODE_REMOVE = "12"
+    // Karma
+    private const val KARMA_ACT = "ST"
+    private const val KARMA_CODE = "vote_post"
   }
 
   fun getNews(startNumber: Int = 0): Observable<NewsItem> =
@@ -198,6 +201,24 @@ class YapDataManager(
               act = BOOKMARKS_ACT,
               code = BOOKMARKS_CODE_REMOVE,
               id = bookmarkId)
+
+  /**
+   * Request karma change.
+   *
+   * @param rank Karma diff, 1 or -1
+   * @param postId Target post id
+   * @param topicId Target topic id
+   * @param type Karma type, 1 for topic and 0 for post.
+   */
+  fun changeKarma(rank: Int, postId: Int, topicId: Int, type: Int) : Single<Response<ResponseBody>> =
+      yapLoader
+          .changeKarma(
+              act = KARMA_ACT,
+              code = KARMA_CODE,
+              rank = rank,
+              p = postId,
+              t = topicId,
+              n = type)
 
   private fun publishConnectionState(@ConnectionState.Event event: Long) {
     Observable

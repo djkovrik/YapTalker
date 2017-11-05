@@ -20,8 +20,6 @@ interface ChosenTopicView : BaseView {
 
   fun shareTopic(title: String, topicPage: Int)
 
-  fun handleBookmarkButtonVisibility(shouldShow: Boolean)
-
   fun showCantLoadPageMessage(page: Int)
 
   fun scrollToViewTop()
@@ -29,4 +27,9 @@ interface ChosenTopicView : BaseView {
   fun showBookmarkAddedMessage()
 
   fun showUnknownErrorMessage()
+
+  fun displayPostContextMenu(postId: String)
+
+  @StateStrategyType(AddToEndSingleStrategy::class)
+  fun setIfMenuButtonsAvailable(loggedIn: Boolean, karmaAvailable: Boolean)
 }
