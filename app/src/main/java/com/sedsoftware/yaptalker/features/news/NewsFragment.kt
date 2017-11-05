@@ -40,7 +40,7 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
   private lateinit var newsAdapter: NewsAdapter
   private var isFabShown = false
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     newsAdapter = NewsAdapter(this)
@@ -63,7 +63,7 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
     refresh_layout.setIndicatorColorScheme()
 
     newsPresenter.loadNews(true)
-    newsPresenter.updateAppbarTitle(context.stringRes(R.string.nav_drawer_main_page))
+    context?.stringRes(R.string.nav_drawer_main_page)?.let { newsPresenter.updateAppbarTitle(it) }
   }
 
   override fun subscribeViews() {

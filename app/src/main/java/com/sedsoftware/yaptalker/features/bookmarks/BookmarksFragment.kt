@@ -34,7 +34,7 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListe
 
   private lateinit var bookmarksAdapter: BookmarksAdapter
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     bookmarksAdapter = BookmarksAdapter(this, this)
@@ -51,7 +51,7 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListe
       setHasFixedSize(true)
     }
 
-    bookmarksPresenter.updateAppbarTitle(context.stringRes(R.string.nav_drawer_bookmarks))
+    context?.stringRes(R.string.nav_drawer_bookmarks)?.let { bookmarksPresenter.updateAppbarTitle(it) }
   }
 
   override fun showLoadingIndicator(shouldShow: Boolean) {
@@ -73,12 +73,14 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListe
   }
 
   override fun showDeleteConfirmDialog(bookmarkId: Int) {
-    MaterialDialog.Builder(context)
+    context?.let { ctx ->
+      MaterialDialog.Builder(ctx)
         .content(R.string.msg_bookmark_confirm_action)
         .positiveText(R.string.msg_bookmark_confirm_yes)
         .negativeText(R.string.msg_bookmark_confirm_No)
         .onPositive { _, _ -> bookmarksPresenter.onDeleteConfirmed(bookmarkId) }
         .show()
+    }
   }
 
   override fun showBookmarkDeletedMessage() {

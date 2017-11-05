@@ -32,7 +32,7 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
 
   private lateinit var forumsAdapter: ForumsAdapter
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     forumsAdapter = ForumsAdapter(this)
@@ -51,7 +51,7 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
     }
 
     forumsPresenter.loadForumsList()
-    forumsPresenter.updateAppbarTitle(context.stringRes(R.string.nav_drawer_forums))
+    context?.stringRes(R.string.nav_drawer_forums)?.let { forumsPresenter.updateAppbarTitle(it) }
   }
 
   override fun subscribeViews() {

@@ -38,7 +38,7 @@ class ActiveTopicsFragment :
 
   private lateinit var activeTopicsAdapter: ActiveTopicsAdapter
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     activeTopicsAdapter = ActiveTopicsAdapter(this, this)
@@ -58,7 +58,7 @@ class ActiveTopicsFragment :
     }
 
     activeTopicsPresenter.checkSavedState(savedInstanceState)
-    activeTopicsPresenter.updateAppbarTitle(context.stringRes(R.string.nav_drawer_active_topics))
+    context?.stringRes(R.string.nav_drawer_active_topics)?.let { activeTopicsPresenter.updateAppbarTitle(it) }
   }
 
   override fun onSaveInstanceState(outState: Bundle) {

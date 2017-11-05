@@ -61,15 +61,15 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     get() = R.layout.fragment_chosen_topic
 
   private val forumId: Int by lazy {
-    arguments.getInt(FORUM_ID_KEY)
+    arguments?.getInt(FORUM_ID_KEY) ?: 0
   }
 
   private val topicId: Int by lazy {
-    arguments.getInt(TOPIC_ID_KEY)
+    arguments?.getInt(TOPIC_ID_KEY) ?: 0
   }
 
   private val startingPost: Int by lazy {
-    arguments.getInt(STARTING_POST_KEY)
+    arguments?.getInt(STARTING_POST_KEY) ?: 0
   }
 
   private lateinit var topicAdapter: ChosenTopicAdapter
@@ -77,7 +77,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
   private var isLoggedIn = false
   private var isKarmaAvailable = false
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     setHasOptionsMenu(true)
@@ -234,12 +234,13 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
 
   override fun displayPostContextMenu(postId: String) {
 
-    val plusItem = context.stringRes(R.string.action_post_karma_plus)
-    val minusItem = context.stringRes(R.string.action_post_karma_minus)
+    val plusItem = context?.stringRes(R.string.action_post_karma_plus)
+    val minusItem = context?.stringRes(R.string.action_post_karma_minus)
 
     val itemsArray = arrayListOf(plusItem, minusItem)
 
-    MaterialDialog.Builder(context)
+    context?.let { ctx ->
+      MaterialDialog.Builder(ctx)
         .title(R.string.title_post_context_menu)
         .items(itemsArray)
         .itemsCallback { _, _, _, text ->
@@ -247,6 +248,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
           if (text == minusItem) topicPresenter.onChangePostKarmaItemClicked(postId, increaseKarma = false)
         }
         .show()
+    }
   }
 
   override fun setIfMenuButtonsAvailable(loggedIn: Boolean, karmaAvailable: Boolean) {

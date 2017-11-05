@@ -44,12 +44,12 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListe
     get() = R.layout.fragment_chosen_forum
 
   private val currentForumId: Int by lazy {
-    arguments.getInt(FORUM_ID_KEY)
+    arguments?.getInt(FORUM_ID_KEY) ?: 0
   }
 
   private lateinit var forumAdapter: ChosenForumAdapter
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     forumAdapter = ChosenForumAdapter(this, this)
