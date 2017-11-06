@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.data
 
+import android.annotation.SuppressLint
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.base.events.ConnectionState
 import com.sedsoftware.yaptalker.commons.extensions.toMd5
@@ -116,48 +117,6 @@ class YapDataManager(
             publishConnectionState(ConnectionState.COMPLETED)
           }
 
-  fun loginToSite(login: String, password: String): Single<Response<ResponseBody>> {
-
-    return Single
-        .just(login)
-        .map { str -> "$str${System.currentTimeMillis()}".toMd5() }
-        .flatMap { hash ->
-          yapLoader
-              .signIn(
-                  cookieDate = "1",
-                  password = password,
-                  userName = login,
-                  referer = LOGIN_REFERER,
-                  submit = LOGIN_SUBMIT,
-                  userKey = hash)
-        }
-  }
-
-  fun sendMessageToSite(forumId: Int, topicId: Int, page: Int, authKey: String, message: String): Single<TopicPage> =
-      yapLoader
-          .postMessage(
-              act = POST_ACT,
-              code = POST_CODE,
-              forum = forumId,
-              topic = topicId,
-              st = page,
-              enableemo = true,
-              enablesig = true,
-              authKey = authKey,
-              postContent = message,
-              maxFileSize = POST_MAX_FILE_SIZE,
-              enabletag = 1)
-
-
-  fun getAuthorizedUserInfo(): Single<AuthorizedUserInfo> {
-    return yapLoader
-        .loadAuthorizedUserInfo()
-  }
-
-  fun getSearchId(): Single<String> =
-      searchIdLoader
-          .loadSearchIdHash()
-
   fun getActiveTopics(searchId: String, topicNumber: Int): Single<ActiveTopicsPage> =
       yapLoader
           .loadActiveTopics(ACTIVE_TOPICS_ACT, ACTIVE_TOPICS_CODE, searchId, topicNumber)
@@ -185,6 +144,48 @@ class YapDataManager(
           .doOnSuccess {
             publishConnectionState(ConnectionState.COMPLETED)
           }
+
+  fun loginToSite(login: String, password: String): Single<Response<ResponseBody>> {
+
+    return Single
+        .just(login)
+        .map { str -> "$str${System.currentTimeMillis()}".toMd5() }
+        .flatMap { hash ->
+          yapLoader
+              .signIn(
+                  cookieDate = "1",
+                  password = password,
+                  userName = login,
+                  referer = LOGIN_REFERER,
+                  submit = LOGIN_SUBMIT,
+                  userKey = hash)
+        }
+  }
+
+  fun sendMessageToSite(forumId: Int, topicId: Int, page: Int, key: String, message: String): Single<TopicPage> =
+      yapLoader
+          .postMessage(
+              act = POST_ACT,
+              code = POST_CODE,
+              forum = forumId,
+              topic = topicId,
+              st = page,
+              enableemo = true,
+              enablesig = true,
+              authKey = key,
+              postContent = message,
+              maxFileSize = POST_MAX_FILE_SIZE,
+              enabletag = 1)
+
+
+  fun getAuthorizedUserInfo(): Single<AuthorizedUserInfo> {
+    return yapLoader
+        .loadAuthorizedUserInfo()
+  }
+
+  fun getSearchId(): Single<String> =
+      searchIdLoader
+          .loadSearchIdHash()
 
   fun addTopicToBookmarks(topicId: Int, startPostNumber: Int): Single<Response<ResponseBody>> =
       yapLoader
@@ -220,6 +221,7 @@ class YapDataManager(
               t = topicId,
               n = type)
 
+  @SuppressLint("RxLeakedSubscription", "RxSubscribeOnError")
   private fun publishConnectionState(@ConnectionState.Event event: Long) {
     Observable
         .just(event)
