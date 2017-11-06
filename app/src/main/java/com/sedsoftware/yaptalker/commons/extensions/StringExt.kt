@@ -17,7 +17,7 @@ fun String.getLastDigits(): Int {
 }
 
 @Suppress("MagicNumber")
-fun String.toMD5(): String {
+fun String.toMd5(): String {
 
   val digest = java.security.MessageDigest.getInstance("MD5")
   digest.update(this.toByteArray())
@@ -33,7 +33,7 @@ fun String.toMD5(): String {
   return hexString.toString()
 }
 
-fun String.validateURL(): String =
+fun String.validateUrl(): String =
     when {
       startsWith("http") -> this
       else -> "http:$this"

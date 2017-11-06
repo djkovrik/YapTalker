@@ -31,14 +31,14 @@ var TextView.textColor: Int
 fun ImageView.loadFromUrl(url: String) {
   Picasso
       .with(context)
-      .load(url.validateURL())
+      .load(url.validateUrl())
       .into(this)
 }
 
 fun ImageView.loadAvatarFromUrl(url: String) {
   Picasso
       .with(context)
-      .load(url.validateURL())
+      .load(url.validateUrl())
       .transform(CircleImageTransformation())
       .into(this)
 }

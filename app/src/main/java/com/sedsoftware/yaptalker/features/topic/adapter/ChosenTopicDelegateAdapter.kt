@@ -21,7 +21,7 @@ import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtmlWithEmoji
-import com.sedsoftware.yaptalker.commons.extensions.validateURL
+import com.sedsoftware.yaptalker.commons.extensions.validateUrl
 import com.sedsoftware.yaptalker.data.parsing.ParsedPost
 import com.sedsoftware.yaptalker.data.parsing.PostHiddenText
 import com.sedsoftware.yaptalker.data.parsing.PostLink
@@ -247,7 +247,7 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
         post_date.textSize = normalFontSize
         post_rating.textSize = normalFontSize
 
-        post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateURL())
+        post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateUrl())
         post_author_avatar.setOnClickListener {
           profileClick.onUserAvatarClick(post.authorProfile.getLastDigits())
         }

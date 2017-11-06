@@ -27,7 +27,7 @@ import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
-import com.sedsoftware.yaptalker.commons.extensions.validateURL
+import com.sedsoftware.yaptalker.commons.extensions.validateUrl
 import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.features.NavigationScreens
 import com.sedsoftware.yaptalker.features.activetopics.ActiveTopicsFragment
@@ -251,7 +251,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
       ProfileDrawerItem()
           .withName(userInfo.nickname)
           .withEmail(userInfo.title)
-          .withIcon(userInfo.avatar.validateURL())
+          .withIcon(userInfo.avatar.validateUrl())
           .withIdentifier(1L)
     } else {
       ProfileDrawerItem()

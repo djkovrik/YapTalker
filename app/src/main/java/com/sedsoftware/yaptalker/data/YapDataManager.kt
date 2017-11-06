@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.data
 
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.base.events.ConnectionState
-import com.sedsoftware.yaptalker.commons.extensions.toMD5
+import com.sedsoftware.yaptalker.commons.extensions.toMd5
 import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPage
 import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.data.parsing.Bookmarks
@@ -120,7 +120,7 @@ class YapDataManager(
 
     return Single
         .just(login)
-        .map { str -> "$str${System.currentTimeMillis()}".toMD5() }
+        .map { str -> "$str${System.currentTimeMillis()}".toMd5() }
         .flatMap { hash ->
           yapLoader
               .signIn(
