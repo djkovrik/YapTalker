@@ -4,11 +4,12 @@ import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
 
 @Suppress("ComplexCondition")
-class ParsedPost(html: String,
-                 val content: MutableList<Content> = ArrayList(),
-                 val images: MutableList<String> = ArrayList(),
-                 val videos: MutableList<String> = ArrayList(),
-                 val videosRaw: MutableList<String> = ArrayList()) {
+class ParsedPost(
+    html: String,
+    val content: MutableList<Content> = ArrayList(),
+    val images: MutableList<String> = ArrayList(),
+    val videos: MutableList<String> = ArrayList(),
+    val videosRaw: MutableList<String> = ArrayList()) {
 
   companion object {
     private const val POST_TAG = "div"

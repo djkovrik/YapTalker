@@ -25,7 +25,9 @@ class TopicPage() : Parcelable {
   @Selector("div[rel=rating] img[src$=rating-cell-minus-clicked.gif]", attr = "src", defValue = "")
   lateinit var topicRatingMinusClicked: String
   @Selector(
-      "div[rel=rating] a[onclick~=doRatePost]", format = "(?<=\\d{2}, )(\\d+)((?=, ))", attr = "outerHtml",
+      value = "div[rel=rating] a[onclick~=doRatePost]",
+      format = "(?<=\\d{2}, )(\\d+)((?=, ))",
+      attr = "outerHtml",
       defValue = "")
   lateinit var topicRatingTargetId: String
   @Selector("table.row3")
@@ -122,7 +124,7 @@ class TopicNavigationPanel() : Parcelable, ViewType {
   override fun getViewType() = ContentTypes.NAVIGATION_PANEL
 }
 
-class TopicPost() : ViewType, Parcelable {
+class TopicPost() : Parcelable, ViewType {
   @Selector(".normalname", defValue = "Unknown")
   lateinit var authorNickname: String
   @Selector("a[title=Профиль]", attr = "href", defValue = "")

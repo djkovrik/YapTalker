@@ -49,7 +49,7 @@ class ForumPage() : Parcelable {
   }
 }
 
-class ForumNavigationPanel() : ViewType, Parcelable {
+class ForumNavigationPanel() : Parcelable, ViewType {
   @Selector("td[nowrap=nowrap]", format = "\\[(\\d+)\\]", defValue = "0")
   lateinit var currentPage: String
   @Selector("td[nowrap=nowrap]", format = "(\\d+)", defValue = "0")
@@ -78,9 +78,9 @@ class ForumNavigationPanel() : ViewType, Parcelable {
   override fun getViewType() = ContentTypes.NAVIGATION_PANEL
 }
 
-class Topic() : ViewType, Parcelable {
+class Topic() : Parcelable, ViewType {
   @Selector("a.subtitle", defValue = "Unknown") lateinit var title: String
-  @Selector("a.subtitle", attr = "href") lateinit var link: String
+  @Selector("a.subtitle", attr = "href", defValue = "") lateinit var link: String
   @Selector("img[src*=pinned]", attr = "src", defValue = "") lateinit var isPinned: String
   @Selector("img[src*=closed]", attr = "src", defValue = "") lateinit var isClosed: String
   @Selector("td[class~=row(2|4)] > a", defValue = "Unknown") lateinit var author: String
