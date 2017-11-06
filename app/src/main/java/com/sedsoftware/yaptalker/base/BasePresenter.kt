@@ -25,10 +25,10 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
   protected val router: Router by instance()
   protected val yapDataManager: YapDataManager by instance()
   protected val settings: SettingsHelper by instance()
-  protected val appbarBus: BehaviorRelay<String> by instance()
-
   // Global connection events channel
   private val connectionRelay: BehaviorRelay<Long> by instance()
+  // Local appbar title events channel
+  protected val appbarBus: BehaviorRelay<String> by instance()
 
   // Local presenter lifecycle events channel
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
@@ -56,6 +56,7 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
     Observable
         .just(title)
         .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe(appbarBus)
   }
 
