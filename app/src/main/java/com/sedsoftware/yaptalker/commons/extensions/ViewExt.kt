@@ -16,10 +16,13 @@ import com.sedsoftware.yaptalker.commons.CircleImageTransformation
 import com.sedsoftware.yaptalker.commons.PicassoImageGetter
 import com.squareup.picasso.Picasso
 import io.reactivex.Single
+import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
-// Fab params
+// Animation params
 private const val ANIMATION_DELAY_DEFAULT = 150L
 private const val ANIMATION_DURATION = 250L
 private const val DEFAULT_INTERPOLATOR_TENSION = 1.5f
@@ -55,9 +58,9 @@ fun TextView.textFromHtml(html: String) {
           Html.fromHtml(text)
         }
       }
-      .observeOn(AndroidSchedulers.mainThread())
       .subscribeOn(Schedulers.computation())
-      .subscribe { str: Spanned, _: Throwable? -> this.text = str }
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribe(getSpannedObservable(this))
 }
 
 @Suppress("DEPRECATION")
@@ -113,3 +116,18 @@ fun View.showView() {
 fun ViewGroup.inflate(@LayoutRes layoutId: Int, attachToRoot: Boolean = false): View {
   return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
 }
+
+private fun getSpannedObservable(textView: TextView) =
+    object : SingleObserver<Spanned> {
+      override fun onSubscribe(d: Disposable) {
+
+      }
+
+      override fun onSuccess(spanned: Spanned) {
+        textView.text = spanned
+      }
+
+      override fun onError(e: Throwable) {
+        Timber.d("Can't set spanned text to $textView: ${e.message}")
+      }
+    }

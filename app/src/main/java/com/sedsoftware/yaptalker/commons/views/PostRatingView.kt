@@ -24,7 +24,7 @@ class PostRatingView : AppCompatTextView {
 
   private fun setPostRank(postRank: String) {
 
-    showView()
+    hideView()
 
     if (postRank.isNotEmpty()) {
       val rank = postRank.toInt()
@@ -33,12 +33,13 @@ class PostRatingView : AppCompatTextView {
         rank > 0 -> {
           text = String.format(Locale.getDefault(), "+%d", rank)
           textColor = R.color.colorRatingGreen
+          showView()
         }
         rank < 0 -> {
           text = String.format(Locale.getDefault(), "%d", rank)
           textColor = R.color.colorRatingRed
+          showView()
         }
-        else -> hideView()
       }
     }
   }
