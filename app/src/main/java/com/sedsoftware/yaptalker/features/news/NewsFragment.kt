@@ -88,10 +88,6 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
     toastError(message)
   }
 
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-    refresh_layout.isRefreshing = shouldShow
-  }
-
   override fun clearNewsList() {
     newsAdapter.clearNews()
   }

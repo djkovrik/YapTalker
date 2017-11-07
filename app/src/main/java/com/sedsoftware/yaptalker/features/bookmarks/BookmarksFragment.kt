@@ -9,8 +9,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseFragment
 import com.sedsoftware.yaptalker.commons.extensions.extractYapIds
-import com.sedsoftware.yaptalker.commons.extensions.hideView
-import com.sedsoftware.yaptalker.commons.extensions.showView
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
@@ -54,15 +52,15 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListe
     context?.stringRes(R.string.nav_drawer_bookmarks)?.let { bookmarksPresenter.updateAppbarTitle(it) }
   }
 
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-    if (shouldShow) {
-      bookmarks_list.hideView()
-      bookmarks_loading_indicator.showView()
-    } else {
-      bookmarks_loading_indicator.hideView()
-      bookmarks_list.showView()
-    }
-  }
+//  override fun showLoadingIndicator(shouldShow: Boolean) {
+//    if (shouldShow) {
+//      bookmarks_list.hideView()
+//      bookmarks_loading_indicator.showView()
+//    } else {
+//      bookmarks_loading_indicator.hideView()
+//      bookmarks_list.showView()
+//    }
+//  }
 
   override fun showErrorMessage(message: String) {
     toastError(message)

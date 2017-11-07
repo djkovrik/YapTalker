@@ -65,10 +65,6 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
     toastError(message)
   }
 
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-    forums_list_refresh_layout?.isRefreshing = shouldShow
-  }
-
   override fun clearForumsList() {
     forumsAdapter.clearForumsList()
   }

@@ -92,10 +92,6 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListe
     toastError(message)
   }
 
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-    forum_refresh_layout.isRefreshing = shouldShow
-  }
-
   override fun displayForumPage(page: ForumPage) {
     forumAdapter.refreshForumPage(page)
   }

@@ -25,10 +25,8 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
   protected val router: Router by instance()
   protected val yapDataManager: YapDataManager by instance()
   protected val settings: SettingsHelper by instance()
-  // Global connection events channel
-  private val connectionRelay: BehaviorRelay<Long> by instance()
-  // Local appbar title events channel
   protected val appbarBus: BehaviorRelay<String> by instance()
+  private val connectionRelay: BehaviorRelay<Long> by instance()
 
   // Local presenter lifecycle events channel
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
@@ -64,12 +62,11 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
     return lifecycle.filter({ e -> e == event }).firstElement()
   }
 
-  // Connection state events
   private fun onLoadingStart() {
-    viewState.showLoadingIndicator(shouldShow = true)
+    viewState.showLoadingIndicator()
   }
 
   private fun onLoadingFinish() {
-    viewState.showLoadingIndicator(shouldShow = false)
+    viewState.hideLoadingIndicator()
   }
 }

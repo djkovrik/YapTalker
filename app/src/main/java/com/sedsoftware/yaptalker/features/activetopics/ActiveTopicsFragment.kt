@@ -83,10 +83,6 @@ class ActiveTopicsFragment :
     toastError(message)
   }
 
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-    active_topics_refresh_layout?.isRefreshing = shouldShow
-  }
-
   override fun displayActiveTopicsPage(page: ActiveTopicsPage) {
     activeTopicsAdapter.refreshActiveTopicsPage(page)
   }
