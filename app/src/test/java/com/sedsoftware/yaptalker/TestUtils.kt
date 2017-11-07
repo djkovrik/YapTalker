@@ -1,54 +1,14 @@
 package com.sedsoftware.yaptalker
 
-import com.sedsoftware.yaptalker.data.parsing.ForumItem
-import com.sedsoftware.yaptalker.data.parsing.News
-import com.sedsoftware.yaptalker.data.parsing.NewsItem
+import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
 
-fun getDummyForumsList(): List<ForumItem> {
-  return listOf(
-      getDummyForumItem(1),
-      getDummyForumItem(2),
-      getDummyForumItem(3),
-      getDummyForumItem(4),
-      getDummyForumItem(5)
-  )
+fun callProtectedPresenterMethod(presenter: Any, methodName: String) {
+  presenter.javaClass.getDeclaredMethod(methodName).apply {
+    isAccessible = true
+    invoke(presenter)
+  }
 }
 
-fun getDummyForumItem(seed: Int): ForumItem {
-  return ForumItem(
-      title = "title$seed",
-      forumId = seed + 1,
-      lastTopicTitle = "title$seed",
-      lastTopicAuthor = "author$seed",
-      date = "date")
-}
+fun getDummyUserInfoAuthorized() = AuthorizedUserInfo("nickname", "title", "uq", "avatar")
 
-fun getDummyNewsList(): List<NewsItem> {
-  return listOf(
-      getDummyNewsItem(1),
-      getDummyNewsItem(2),
-      getDummyNewsItem(3),
-      getDummyNewsItem(4),
-      getDummyNewsItem(5))
-}
-
-fun getDummyNewsItem(seed: Int): NewsItem {
-  return NewsItem(
-      title = "title$seed",
-      link = "link$seed",
-      rating = "rating$seed",
-      description = "description$seed",
-      images = ArrayList(),
-      videos = ArrayList(),
-      videosRaw = ArrayList(),
-      author = "author$seed",
-      authorLink = "link$seed",
-      date = "date$seed",
-      forumName = "name$seed",
-      forumLink = "link$seed",
-      comments = "comments$seed")
-}
-
-fun getDummyNews(): News {
-  return News()
-}
+fun getDummyUserInfoNotAuthorized() = AuthorizedUserInfo("", "", "", "")
