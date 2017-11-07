@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
-import android.widget.ImageView.ScaleType.CENTER_CROP
+import android.widget.ImageView.ScaleType
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -21,6 +21,7 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseActivity
+import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.extractYapIds
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
@@ -29,7 +30,6 @@ import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
 import com.sedsoftware.yaptalker.commons.extensions.validateUrl
 import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
-import com.sedsoftware.yaptalker.features.NavigationScreens
 import com.sedsoftware.yaptalker.features.activetopics.ActiveTopicsFragment
 import com.sedsoftware.yaptalker.features.authorization.AuthorizationFragment
 import com.sedsoftware.yaptalker.features.bookmarks.BookmarksFragment
@@ -44,15 +44,18 @@ import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 
-class NavigationActivity : BaseActivity(), NavigationView {
+class NavigationActivity : BaseActivity(), NavigationView, NavigationDrawerView {
 
   companion object {
-    const val SIGN_IN_REQUEST = 123
     private const val APPBAR_TITLE_KEY = "APPBAR_TITLE_KEY"
+    private const val BOOKMARKS_ITEM_INSERT_POSITION = 4
   }
 
   @InjectPresenter
-  lateinit var navigationViewPresenter: NavigationViewPresenter
+  lateinit var navigationPresenter: NavigationPresenter
+
+  @InjectPresenter
+  lateinit var navigationDrawerPresenter: NavigationDrawerPresenter
 
   override val layoutId: Int
     get() = R.layout.activity_main
@@ -66,8 +69,6 @@ class NavigationActivity : BaseActivity(), NavigationView {
   private lateinit var drawerItemSettings: PrimaryDrawerItem
   private lateinit var drawerItemSignIn: PrimaryDrawerItem
   private lateinit var drawerItemSignOut: PrimaryDrawerItem
-
-  private var isSignInAvailable = false
 
   private val navigator = object : SupportAppNavigator(this, supportFragmentManager, R.id.content_frame) {
 
@@ -102,9 +103,13 @@ class NavigationActivity : BaseActivity(), NavigationView {
     super.onCreate(savedInstanceState)
     setSupportActionBar(toolbar)
 
-    navigationViewPresenter.initLayout(savedInstanceState)
-    navigationViewPresenter.restoreCurrentTitle(APPBAR_TITLE_KEY, savedInstanceState)
+    savedInstanceState?.let {
+      if (savedInstanceState.containsKey(APPBAR_TITLE_KEY)) {
+        navigationPresenter.updateAppbarTitle(savedInstanceState.getString(APPBAR_TITLE_KEY))
+      }
+    }
 
+    initNavDrawer(savedInstanceState)
     handleLinkIntent()
   }
 
@@ -120,7 +125,9 @@ class NavigationActivity : BaseActivity(), NavigationView {
   }
 
   override fun onSaveInstanceState(outState: Bundle?) {
-    navigationViewPresenter.saveCurrentTitle(APPBAR_TITLE_KEY, outState)
+
+    supportActionBar?.title?.let { title -> outState?.putString(APPBAR_TITLE_KEY, title.toString()) }
+
     navDrawer.saveInstanceState(outState)
     navHeader.saveInstanceState(outState)
     super.onSaveInstanceState(outState)
@@ -147,7 +154,60 @@ class NavigationActivity : BaseActivity(), NavigationView {
     toastError(message)
   }
 
-  override fun initDrawer(savedInstanceState: Bundle?) {
+  override fun setAppbarTitle(title: String) {
+    supportActionBar?.title = title
+  }
+
+  override fun showEula() {
+    val dialog = MaterialDialog.Builder(this)
+        .title(R.string.eula_title)
+        .customView(R.layout.custom_view_eula, true)
+        .positiveText(R.string.eula_button_ok)
+        .onPositive { _, _ -> navigationPresenter.onEulaAccept() }
+        .build()
+
+    dialog.customView?.findViewById<TextView>(R.id.eula_text_view)?.textFromHtml(getString(R.string.eula_text))
+    dialog.show()
+  }
+
+  override fun updateNavDrawerProfile(userInfo: AuthorizedUserInfo) {
+    val profile = if (userInfo.nickname.isNotEmpty()) {
+      ProfileDrawerItem()
+          .withName(userInfo.nickname)
+          .withEmail(userInfo.title)
+          .withIcon(userInfo.avatar.validateUrl())
+          .withIdentifier(1L)
+    } else {
+      ProfileDrawerItem()
+          .withName(stringRes(R.string.nav_drawer_guest_name))
+          .withEmail("")
+          .withIdentifier(2L)
+    }
+
+    navHeader.profiles.clear()
+    navHeader.addProfiles(profile)
+  }
+
+  override fun clearDynamicNavigationItems() {
+    navDrawer.removeItem(NavigationDrawerItems.SIGN_IN)
+    navDrawer.removeItem(NavigationDrawerItems.SIGN_OUT)
+    navDrawer.removeItem(NavigationDrawerItems.BOOKMARKS)
+  }
+
+  override fun displaySignedInNavigation() {
+    navDrawer.addItemAtPosition(drawerItemBookmarks, BOOKMARKS_ITEM_INSERT_POSITION)
+    navDrawer.addItem(drawerItemSignOut)
+  }
+
+  override fun displaySignedOutNavigation() {
+    navDrawer.addItem(drawerItemSignIn)
+  }
+
+  override fun showSignOutMessage() {
+    toastInfo(stringRes(R.string.msg_sign_out))
+  }
+
+  private fun initNavDrawer(savedInstanceState: Bundle?) {
 
     drawerItemMainPage = PrimaryDrawerItem()
         .withIdentifier(NavigationDrawerItems.MAIN_PAGE)
@@ -218,7 +278,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
     navHeader = AccountHeaderBuilder()
         .withActivity(this)
         .withHeaderBackground(R.drawable.nav_header_simple)
-        .withHeaderBackgroundScaleType(CENTER_CROP)
+        .withHeaderBackgroundScaleType(ScaleType.CENTER_CROP)
         .withCompactStyle(true)
         .withSelectionListEnabledForSingleProfile(false)
         .withSavedInstance(savedInstanceState)
@@ -235,77 +295,12 @@ class NavigationActivity : BaseActivity(), NavigationView {
         .addDrawerItems(drawerItemSettings)
         .withOnDrawerItemClickListener { _, _, drawerItem ->
           if (drawerItem is Nameable<*>) {
-            navigationViewPresenter.onNavigationDrawerClicked(drawerItem.identifier)
+            navigationDrawerPresenter.onNavigationDrawerClicked(drawerItem.identifier)
           }
           false
         }
         .withSavedInstance(savedInstanceState)
         .build()
-  }
-
-  override fun updateNavDrawer(userInfo: AuthorizedUserInfo) {
-
-    isSignInAvailable = userInfo.nickname.isEmpty()
-
-    val profile = if (userInfo.nickname.isNotEmpty()) {
-      ProfileDrawerItem()
-          .withName(userInfo.nickname)
-          .withEmail(userInfo.title)
-          .withIcon(userInfo.avatar.validateUrl())
-          .withIdentifier(1L)
-    } else {
-      ProfileDrawerItem()
-          .withName(stringRes(R.string.nav_drawer_guest_name))
-          .withEmail("")
-          .withIdentifier(2L)
-    }
-
-    navHeader.profiles.clear()
-    navHeader.addProfiles(profile)
-
-    clearDynamicNavigationItems()
-
-    when {
-      isSignInAvailable -> displaySignedOutNavigation()
-      !isSignInAvailable -> displaySignedInNavigation()
-    }
-  }
-
-  override fun setAppbarTitle(title: String) {
-    supportActionBar?.title = title
-  }
-
-  override fun showSignOutMessage() {
-    toastInfo(stringRes(R.string.msg_sign_out))
-  }
-
-  override fun showEula() {
-    val dialog = MaterialDialog.Builder(this)
-        .title(R.string.eula_title)
-        .customView(R.layout.custom_view_eula, true)
-        .positiveText(R.string.eula_button_ok)
-        .onPositive { _, _ -> navigationViewPresenter.onEulaAccept() }
-        .build()
-
-    dialog.customView?.findViewById<TextView>(R.id.eula_text_view)?.textFromHtml(getString(R.string.eula_text))
-
-    dialog.show()
-  }
-
-  private fun clearDynamicNavigationItems() {
-    navDrawer.removeItem(NavigationDrawerItems.SIGN_IN)
-    navDrawer.removeItem(NavigationDrawerItems.SIGN_OUT)
-    navDrawer.removeItem(NavigationDrawerItems.BOOKMARKS)
-  }
-
-  private fun displaySignedOutNavigation() {
-    navDrawer.addItem(drawerItemSignIn)
-  }
-
-  @Suppress("MagicNumber")
-  private fun displaySignedInNavigation() {
-    navDrawer.addItemAtPosition(drawerItemBookmarks, 4)
-    navDrawer.addItem(drawerItemSignOut)
   }
 
   private fun handleLinkIntent() {
@@ -318,7 +313,7 @@ class NavigationActivity : BaseActivity(), NavigationView {
       val navigateTo = appLinkData.toString().extractYapIds()
 
       if (navigateTo.first != 0) {
-        navigationViewPresenter.navigateWithIntentLink(navigateTo)
+        navigationPresenter.navigateWithIntentLink(navigateTo)
       }
     }
   }
