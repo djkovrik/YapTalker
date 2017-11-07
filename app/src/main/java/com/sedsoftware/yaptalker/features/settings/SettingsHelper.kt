@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.annotation.StringRes
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
-import com.sedsoftware.yaptalker.features.NavigationScreens
+import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
 import org.jetbrains.anko.defaultSharedPreferences
 
 class SettingsHelper(val context: Context) {

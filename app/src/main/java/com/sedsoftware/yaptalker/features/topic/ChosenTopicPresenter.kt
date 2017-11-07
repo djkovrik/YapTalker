@@ -4,10 +4,11 @@ import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
+import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
+import com.sedsoftware.yaptalker.base.navigation.RequestCodes
 import com.sedsoftware.yaptalker.data.parsing.TopicNavigationPanel
 import com.sedsoftware.yaptalker.data.parsing.TopicPage
 import com.sedsoftware.yaptalker.data.parsing.TopicPost
-import com.sedsoftware.yaptalker.features.NavigationScreens
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -19,7 +20,7 @@ import timber.log.Timber
 class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   init {
-    router.setResultListener(ChosenTopicFragment.MESSAGE_TEXT_REQUEST, { message -> sendMessage(message as String) })
+    router.setResultListener(RequestCodes.MESSAGE_TEXT, { message -> sendMessage(message as String) })
   }
 
   companion object {
@@ -50,7 +51,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 
   override fun onDestroy() {
     super.onDestroy()
-    router.removeResultListener(ChosenTopicFragment.MESSAGE_TEXT_REQUEST)
+    router.removeResultListener(RequestCodes.MESSAGE_TEXT)
   }
 
   fun checkSavedState(forumId: Int, topicId: Int, startingPost: Int, savedViewState: Bundle?) {

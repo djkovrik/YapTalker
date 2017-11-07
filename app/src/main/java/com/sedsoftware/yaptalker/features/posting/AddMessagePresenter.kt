@@ -2,8 +2,8 @@ package com.sedsoftware.yaptalker.features.posting
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
+import com.sedsoftware.yaptalker.base.navigation.RequestCodes
 import com.sedsoftware.yaptalker.features.posting.MessageTags.Tag
-import com.sedsoftware.yaptalker.features.topic.ChosenTopicFragment
 import java.util.Locale
 
 @InjectViewState
@@ -44,7 +44,7 @@ class AddMessagePresenter : BasePresenter<AddMessageView>() {
   fun isAnyTagNotClosed() = isBOpened || isIOpened || isUOpened
 
   fun sendMessageTextBackToView(message: String) {
-    router.exitWithResult(ChosenTopicFragment.MESSAGE_TEXT_REQUEST, message)
+    router.exitWithResult(RequestCodes.MESSAGE_TEXT, message)
   }
 
   private fun onTagClickedWithSelection(@Tag tag: Long) {

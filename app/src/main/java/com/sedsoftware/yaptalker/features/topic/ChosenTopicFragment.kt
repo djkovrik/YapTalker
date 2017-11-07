@@ -37,7 +37,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     ChosenTopicItemClickListener {
 
   companion object {
-    const val MESSAGE_TEXT_REQUEST = 321
     private const val FORUM_ID_KEY = "FORUM_ID_KEY"
     private const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
     private const val STARTING_POST_KEY = "STARTING_POST_KEY"
@@ -168,10 +167,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
 
   override fun showErrorMessage(message: String) {
     toastError(message)
-  }
-
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-    topic_refresh_layout?.isRefreshing = shouldShow
   }
 
   override fun displayTopicPage(page: TopicPage) {
