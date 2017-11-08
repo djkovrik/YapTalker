@@ -1,10 +1,10 @@
 package com.sedsoftware.yaptalker.features.authorization
 
-import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
+import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.base.BaseView
 
-@StateStrategyType(OneExecutionStateStrategy::class)
+@StateStrategyType(SkipStrategy::class)
 interface AuthorizationView : BaseView {
 
   fun loginSuccessMessage()
