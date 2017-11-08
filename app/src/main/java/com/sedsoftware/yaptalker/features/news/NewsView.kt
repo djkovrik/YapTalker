@@ -1,18 +1,22 @@
 package com.sedsoftware.yaptalker.features.news
 
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
+import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
+import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy
+import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.base.BaseView
 import com.sedsoftware.yaptalker.data.parsing.NewsItem
 
-@StateStrategyType(AddToEndSingleStrategy::class)
+@StateStrategyType(SkipStrategy::class)
 interface NewsView : BaseView {
 
-  fun clearNewsList()
-
+  @StateStrategyType(AddToEndStrategy::class)
   fun appendNewsItem(item: NewsItem)
 
-  fun showFab(shouldShow: Boolean)
+  @StateStrategyType(SingleStateStrategy::class)
+  fun clearNewsList()
 
-  fun hideFabWithoutAnimation()
+  fun showFab()
+
+  fun hideFab()
 }

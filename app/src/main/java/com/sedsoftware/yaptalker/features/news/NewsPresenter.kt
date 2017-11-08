@@ -3,8 +3,8 @@ package com.sedsoftware.yaptalker.features.news
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
-import com.sedsoftware.yaptalker.data.parsing.NewsItem
 import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
+import com.sedsoftware.yaptalker.data.parsing.NewsItem
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -23,15 +23,15 @@ class NewsPresenter : BasePresenter<NewsView>() {
     settings.getNewsCategories()
   }
 
-  override fun attachView(view: NewsView?) {
-    super.attachView(view)
-    viewState.hideFabWithoutAnimation()
+  override fun onFirstViewAttach() {
+    super.onFirstViewAttach()
+    loadNews(loadFromFirstPage = true)
   }
 
-  fun handleFabVisibility(isFabShown: Boolean, diff: Int) {
+  fun onScrollFabVisibility(diff: Int) {
     when {
-      isFabShown && diff > 0 -> viewState.showFab(false)
-      !isFabShown && diff < 0 -> viewState.showFab(true)
+      diff > 0 -> viewState.hideFab()
+      diff < 0 -> viewState.showFab()
     }
   }
 
@@ -63,7 +63,7 @@ class NewsPresenter : BasePresenter<NewsView>() {
         .subscribe({
           // onNext
           newsItem ->
-          onLoadingSuccess(newsItem)
+          onNewsItemLoaded(newsItem)
         }, {
           // onError
           throwable ->
@@ -71,12 +71,11 @@ class NewsPresenter : BasePresenter<NewsView>() {
         })
   }
 
-  private fun onLoadingSuccess(newsItem: NewsItem) {
+  private fun onNewsItemLoaded(newsItem: NewsItem) {
     if (backToFirstPage) {
       viewState.clearNewsList()
       backToFirstPage = false
     }
-    viewState.showFab(false)
     viewState.appendNewsItem(newsItem)
   }
 
