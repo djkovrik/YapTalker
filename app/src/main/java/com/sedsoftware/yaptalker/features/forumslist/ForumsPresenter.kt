@@ -3,8 +3,8 @@ package com.sedsoftware.yaptalker.features.forumslist
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
-import com.sedsoftware.yaptalker.data.parsing.ForumItem
 import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
+import com.sedsoftware.yaptalker.data.parsing.ForumItem
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -15,6 +15,11 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
   @Suppress("MagicNumber")
   companion object {
     private val nsfwForumSections = setOf(4, 33, 36)
+  }
+
+  override fun onFirstViewAttach() {
+    super.onFirstViewAttach()
+    loadForumsList()
   }
 
   fun loadForumsList() {

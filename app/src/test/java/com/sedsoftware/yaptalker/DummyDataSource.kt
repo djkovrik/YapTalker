@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker
 
 import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
+import com.sedsoftware.yaptalker.data.parsing.ForumItem
 import com.sedsoftware.yaptalker.data.parsing.NewsItem
 
 fun getDummyUserInfoAuthorized() = AuthorizedUserInfo("nickname", "title", "uq", "avatar")
@@ -21,3 +22,10 @@ fun getDummyNewsItem() = NewsItem(
     forumName = "text",
     forumLink = "link",
     comments = "100")
+
+fun getDummyForumItem() = ForumItem(
+    title = "title",
+    forumId = 123,
+    lastTopicTitle = "lastTopicTitle",
+    lastTopicAuthor = "lastTopicAuthor",
+    date = "date")

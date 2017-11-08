@@ -23,8 +23,8 @@ class NewsPresenterTest : BaseTestClassForPresenters() {
   private lateinit var presenter: NewsPresenter
 
   private val dummyNewsItem = getDummyNewsItem()
-  private val SCROLL_DOWN_DIFF = 1
-  private val SCROLL_UP_DIFF = -1
+  private val scrollDownDiff = 1
+  private val scrollUpDiff = -1
 
   @Before
   fun setUp() {
@@ -38,13 +38,13 @@ class NewsPresenterTest : BaseTestClassForPresenters() {
 
   @Test
   fun presenterHidesFabOnScrollDown() {
-    presenter.onScrollFabVisibility(SCROLL_DOWN_DIFF)
+    presenter.onScrollFabVisibility(scrollDownDiff)
     verify(newsViewState).hideFab()
   }
 
   @Test
   fun presenterShowsFabOnScrollUp() {
-    presenter.onScrollFabVisibility(SCROLL_UP_DIFF)
+    presenter.onScrollFabVisibility(scrollUpDiff)
     verify(newsViewState).showFab()
   }
 }

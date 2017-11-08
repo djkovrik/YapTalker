@@ -50,8 +50,9 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
       setHasFixedSize(true)
     }
 
-    forumsPresenter.loadForumsList()
-    context?.stringRes(R.string.nav_drawer_forums)?.let { forumsPresenter.updateAppbarTitle(it) }
+    context?.stringRes(R.string.nav_drawer_forums)?.let { title ->
+      forumsPresenter.updateAppbarTitle(title)
+    }
   }
 
   override fun subscribeViews() {
@@ -65,16 +66,20 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
     toastError(message)
   }
 
-  override fun clearForumsList() {
-    forumsAdapter.clearForumsList()
+  override fun showLoadingIndicator() {
+    forums_list_refresh_layout.isRefreshing = true
+  }
+
+  override fun hideLoadingIndicator() {
+    forums_list_refresh_layout.isRefreshing = false
   }
 
   override fun appendForumItem(item: ForumItem) {
     forumsAdapter.addForumsListItem(item)
   }
 
-  override fun appendForumsList(list: List<ForumItem>) {
-    forumsAdapter.addForumsList(list)
+  override fun clearForumsList() {
+    forumsAdapter.clearForumsList()
   }
 
   override fun onForumItemClick(forumId: Int) {
