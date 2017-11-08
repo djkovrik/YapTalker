@@ -44,7 +44,7 @@
       android:layout_toEndOf="@id/news_author"
       android:layout_toStartOf="@id/news_date"
       android:paddingTop="@dimen/material_card_title_block_small_padding_vertical"
-      tools:text="\u25AA Abcdefghijklmnopqes" />
+      tools:text="\u25AA Videos" />
 
     <TextView
       android:id="@+id/news_title"

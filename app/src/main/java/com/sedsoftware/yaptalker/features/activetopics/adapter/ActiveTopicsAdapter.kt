@@ -20,7 +20,7 @@ class ActiveTopicsAdapter(
 
   init {
     delegateAdapters.put(ContentTypes.ACTIVE_TOPIC, ActiveTopicsDelegateAdapter(itemClick))
-    delegateAdapters.put(ContentTypes.NAVIGATION_PANEL, ActiveTopicsNavigatonDelegateAdapter(navigationClick))
+    delegateAdapters.put(ContentTypes.NAVIGATION_PANEL, ActiveTopicsNavigationDelegateAdapter(navigationClick))
     items = ArrayList()
   }
 
