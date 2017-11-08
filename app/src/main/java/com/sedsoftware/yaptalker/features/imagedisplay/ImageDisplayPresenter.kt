@@ -87,10 +87,9 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
         }
 
         val file = File(storageDir, filename)
-
         val sink = Okio.buffer(Okio.sink(file))
 
-        sink.writeAll(response.body()?.source())
+        response.body()?.source()?.let { bufferedSource -> sink.writeAll(bufferedSource) }
         sink.close()
         emitter.onSuccess(file)
       } catch (e: IOException) {

@@ -77,6 +77,7 @@ class NavigationActivity : BaseActivity(), NavigationView, NavigationDrawerView 
       else -> null
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
       NavigationScreens.NEWS_SCREEN -> NewsFragment.getNewInstance()
       NavigationScreens.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
