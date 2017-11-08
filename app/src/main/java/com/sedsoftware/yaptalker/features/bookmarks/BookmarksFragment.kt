@@ -6,9 +6,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseFragment
+import com.sedsoftware.yaptalker.base.events.FragmentLifecycle
 import com.sedsoftware.yaptalker.commons.extensions.extractYapIds
+import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
@@ -16,6 +19,7 @@ import com.sedsoftware.yaptalker.data.parsing.Bookmarks
 import com.sedsoftware.yaptalker.features.bookmarks.adapter.BookmarksAdapter
 import com.sedsoftware.yaptalker.features.bookmarks.adapter.BookmarksDeleteClickListener
 import com.sedsoftware.yaptalker.features.bookmarks.adapter.BookmarksItemClickListener
+import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.fragment_bookmarks.*
 
 class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListener, BookmarksDeleteClickListener {
@@ -39,6 +43,8 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListe
 
     bookmarksAdapter.setHasStableIds(true)
 
+    bookmarks_refresh_layout.setIndicatorColorScheme()
+
     with(bookmarks_list) {
       val linearLayout = LinearLayoutManager(context)
       layoutManager = linearLayout
@@ -49,18 +55,25 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListe
       setHasFixedSize(true)
     }
 
-    context?.stringRes(R.string.nav_drawer_bookmarks)?.let { bookmarksPresenter.updateAppbarTitle(it) }
+    context?.stringRes(R.string.nav_drawer_bookmarks)?.let { title ->
+      bookmarksPresenter.updateAppbarTitle(title)
+    }
   }
 
-//  override fun showLoadingIndicator(shouldShow: Boolean) {
-//    if (shouldShow) {
-//      bookmarks_list.hideView()
-//      bookmarks_loading_indicator.showView()
-//    } else {
-//      bookmarks_loading_indicator.hideView()
-//      bookmarks_list.showView()
-//    }
-//  }
+  override fun subscribeViews() {
+    RxSwipeRefreshLayout
+        .refreshes(bookmarks_refresh_layout)
+        .autoDisposeWith(event(FragmentLifecycle.STOP))
+        .subscribe { bookmarksPresenter.loadBookmarks() }
+  }
+
+  override fun showLoadingIndicator() {
+    bookmarks_refresh_layout.isRefreshing = true
+  }
+
+  override fun hideLoadingIndicator() {
+    bookmarks_refresh_layout.isRefreshing = false
+  }
 
   override fun showErrorMessage(message: String) {
     toastError(message)
@@ -73,11 +86,11 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListe
   override fun showDeleteConfirmDialog(bookmarkId: Int) {
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-        .content(R.string.msg_bookmark_confirm_action)
-        .positiveText(R.string.msg_bookmark_confirm_yes)
-        .negativeText(R.string.msg_bookmark_confirm_No)
-        .onPositive { _, _ -> bookmarksPresenter.onDeleteConfirmed(bookmarkId) }
-        .show()
+          .content(R.string.msg_bookmark_confirm_action)
+          .positiveText(R.string.msg_bookmark_confirm_yes)
+          .negativeText(R.string.msg_bookmark_confirm_No)
+          .onPositive { _, _ -> bookmarksPresenter.onDeleteConfirmed(bookmarkId) }
+          .show()
     }
   }
 

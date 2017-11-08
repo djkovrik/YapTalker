@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker
 
 import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
+import com.sedsoftware.yaptalker.data.parsing.Bookmarks
 import com.sedsoftware.yaptalker.data.parsing.ForumItem
 import com.sedsoftware.yaptalker.data.parsing.NewsItem
 
@@ -29,3 +30,5 @@ fun getDummyForumItem() = ForumItem(
     lastTopicTitle = "lastTopicTitle",
     lastTopicAuthor = "lastTopicAuthor",
     date = "date")
+
+fun getDummyBookmarks() = Bookmarks()

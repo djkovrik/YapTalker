@@ -34,7 +34,7 @@ class ForumsPresenterTest : BaseTestClassForPresenters() {
   }
 
   @Test
-  fun presenterLoadingForumsListClearsPreviousListFirst() {
+  fun loadingForumsListClearsPreviousListFirst() {
     presenter.loadForumsList()
     verify(forumsViewState).clearForumsList()
   }

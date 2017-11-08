@@ -3,8 +3,8 @@ package com.sedsoftware.yaptalker.features.bookmarks
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
-import com.sedsoftware.yaptalker.data.parsing.Bookmarks
 import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
+import com.sedsoftware.yaptalker.data.parsing.Bookmarks
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -12,8 +12,8 @@ import io.reactivex.schedulers.Schedulers
 @InjectViewState
 class BookmarksPresenter : BasePresenter<BookmarksView>() {
 
-  override fun attachView(view: BookmarksView?) {
-    super.attachView(view)
+  override fun onFirstViewAttach() {
+    super.onFirstViewAttach()
     loadBookmarks()
   }
 
@@ -29,7 +29,7 @@ class BookmarksPresenter : BasePresenter<BookmarksView>() {
     deleteBookmark(bookmarkId)
   }
 
-  private fun loadBookmarks() {
+  fun loadBookmarks() {
     yapDataManager
         .getBookmarks()
         .subscribeOn(Schedulers.io())
