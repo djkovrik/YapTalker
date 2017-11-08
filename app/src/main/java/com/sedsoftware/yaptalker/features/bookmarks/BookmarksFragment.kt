@@ -55,9 +55,7 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListe
       setHasFixedSize(true)
     }
 
-    context?.stringRes(R.string.nav_drawer_bookmarks)?.let { title ->
-      bookmarksPresenter.updateAppbarTitle(title)
-    }
+    context?.stringRes(R.string.nav_drawer_bookmarks)?.let { bookmarksPresenter.updateAppbarTitle(it) }
   }
 
   override fun subscribeViews() {

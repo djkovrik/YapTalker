@@ -211,7 +211,7 @@ class YapDataManager(
    * @param topicId Target topic id
    * @param type Karma type, 1 for topic and 0 for post.
    */
-  fun changeKarma(rank: Int, postId: Int, topicId: Int, type: Int) : Single<Response<ResponseBody>> =
+  fun changeKarma(rank: Int, postId: Int, topicId: Int, type: Int): Single<Response<ResponseBody>> =
       yapLoader
           .changeKarma(
               act = KARMA_ACT,

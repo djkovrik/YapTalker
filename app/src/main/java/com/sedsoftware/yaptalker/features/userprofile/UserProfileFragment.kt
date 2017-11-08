@@ -89,7 +89,6 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
       val html = template?.let { String.format(Locale.getDefault(), it, profile.website) }
       html?.let { profile_web_site.textFromHtml(it) }
     }
-    //profile_avatar.loadFromUrl("http:${profile.avatar}")
 
     if (profile.photo.isNotEmpty()) {
       profile_photo.loadFromUrl(profile.photo)

@@ -50,9 +50,7 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
       setHasFixedSize(true)
     }
 
-    context?.stringRes(R.string.nav_drawer_forums)?.let { title ->
-      forumsPresenter.updateAppbarTitle(title)
-    }
+    context?.stringRes(R.string.nav_drawer_forums)?.let { forumsPresenter.updateAppbarTitle(it) }
   }
 
   override fun subscribeViews() {

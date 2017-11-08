@@ -236,13 +236,13 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
 
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-        .title(R.string.title_post_context_menu)
-        .items(itemsArray)
-        .itemsCallback { _, _, _, text ->
-          if (text == plusItem) topicPresenter.onChangePostKarmaItemClicked(postId, increaseKarma = true)
-          if (text == minusItem) topicPresenter.onChangePostKarmaItemClicked(postId, increaseKarma = false)
-        }
-        .show()
+          .title(R.string.title_post_context_menu)
+          .items(itemsArray)
+          .itemsCallback { _, _, _, text ->
+            if (text == plusItem) topicPresenter.onChangePostKarmaItemClicked(postId, increaseKarma = true)
+            if (text == minusItem) topicPresenter.onChangePostKarmaItemClicked(postId, increaseKarma = false)
+          }
+          .show()
     }
   }
 

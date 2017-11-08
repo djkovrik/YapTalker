@@ -59,9 +59,7 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
 
     refresh_layout.setIndicatorColorScheme()
 
-    context?.stringRes(R.string.nav_drawer_main_page)?.let { title ->
-      newsPresenter.updateAppbarTitle(title)
-    }
+    context?.stringRes(R.string.nav_drawer_main_page)?.let { newsPresenter.updateAppbarTitle(it) }
   }
 
   override fun subscribeViews() {

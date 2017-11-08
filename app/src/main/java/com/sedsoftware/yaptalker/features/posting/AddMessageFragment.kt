@@ -131,34 +131,34 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
 
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-        .title(R.string.post_insert_link)
-        .positiveText(R.string.post_button_submit)
-        .negativeText(R.string.post_button_dismiss)
-        .inputType(InputType.TYPE_CLASS_TEXT)
-        .alwaysCallInputCallback()
-        .input(R.string.post_insert_link_hint, 0, false, { firstDialog, firstInput ->
-          firstDialog.getActionButton(DialogAction.POSITIVE).isEnabled = firstInput.toString().startsWith("http")
-        })
-        .onPositive { firstDialog, _ ->
-          url = firstDialog.inputEditText?.text.toString()
+          .title(R.string.post_insert_link)
+          .positiveText(R.string.post_button_submit)
+          .negativeText(R.string.post_button_dismiss)
+          .inputType(InputType.TYPE_CLASS_TEXT)
+          .alwaysCallInputCallback()
+          .input(R.string.post_insert_link_hint, 0, false, { firstDialog, firstInput ->
+            firstDialog.getActionButton(DialogAction.POSITIVE).isEnabled = firstInput.toString().startsWith("http")
+          })
+          .onPositive { firstDialog, _ ->
+            url = firstDialog.inputEditText?.text.toString()
 
-          MaterialDialog.Builder(ctx)
-              .title(R.string.post_insert_link_title)
-              .positiveText(R.string.post_button_submit)
-              .negativeText(R.string.post_button_dismiss)
-              .inputType(InputType.TYPE_CLASS_TEXT)
-              .alwaysCallInputCallback()
-              .input(R.string.post_insert_link_title_hint, 0, false, { _, _ -> })
-              .onPositive { secondDialog, _ ->
-                title = secondDialog.inputEditText?.text.toString()
+            MaterialDialog.Builder(ctx)
+                .title(R.string.post_insert_link_title)
+                .positiveText(R.string.post_button_submit)
+                .negativeText(R.string.post_button_dismiss)
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .alwaysCallInputCallback()
+                .input(R.string.post_insert_link_title_hint, 0, false, { _, _ -> })
+                .onPositive { secondDialog, _ ->
+                  title = secondDialog.inputEditText?.text.toString()
 
-                if (url.isNotEmpty() || title.isNotEmpty()) {
-                  messagingPresenter.insertVideoTag(url, title)
+                  if (url.isNotEmpty() || title.isNotEmpty()) {
+                    messagingPresenter.insertVideoTag(url, title)
+                  }
                 }
-              }
-              .show()
-        }
-        .show()
+                .show()
+          }
+          .show()
     }
   }
 
