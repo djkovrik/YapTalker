@@ -12,24 +12,25 @@ interface ChosenTopicView : BaseView {
   @StateStrategyType(AddToEndSingleStrategy::class)
   fun displayTopicPage(page: TopicPage)
 
-  fun showFab(shouldShow: Boolean)
+  @StateStrategyType(AddToEndSingleStrategy::class)
+  fun setLoggedInState(isLoggedIn: Boolean)
 
-  fun hideFabWithoutAnimation()
+  @StateStrategyType(AddToEndSingleStrategy::class)
+  fun setTopicKarmaState(isKarmaAvailable: Boolean)
+
+  fun initiateTopicLoading()
 
   fun showUserProfile(userId: Int)
 
   fun shareTopic(title: String, topicPage: Int)
 
-  fun showCantLoadPageMessage(page: Int)
+  fun displayPostContextMenu(postId: String)
 
   fun scrollToViewTop()
+
+  fun showCantLoadPageMessage(page: Int)
 
   fun showBookmarkAddedMessage()
 
   fun showUnknownErrorMessage()
-
-  fun displayPostContextMenu(postId: String)
-
-  @StateStrategyType(AddToEndSingleStrategy::class)
-  fun setIfMenuButtonsAvailable(loggedIn: Boolean, karmaAvailable: Boolean)
 }

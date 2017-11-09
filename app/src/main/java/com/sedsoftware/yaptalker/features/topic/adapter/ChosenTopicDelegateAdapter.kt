@@ -36,11 +36,14 @@ import com.sedsoftware.yaptalker.data.video.parseLink
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import io.reactivex.Single
+import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
+import timber.log.Timber
 
 class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
                                  val itemClick: ChosenTopicItemClickListener) :
@@ -66,18 +69,33 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
       getParsedPostSingle(postItem)
           .subscribeOn(Schedulers.computation())
           .observeOn(AndroidSchedulers.mainThread())
-          .map { parsedPost -> fillPostText(parsedPost) }
-          .map { parsedPost -> fillPostImages(parsedPost) }
-          .map { parsedPost -> fillPostVideos(parsedPost) }
-          .map { _ -> fillPostHeader(postItem) }
-          .subscribe({ _ -> }, { _ -> })
+          .subscribe(getPostObservable(postItem))
     }
 
     private fun getParsedPostSingle(item: TopicPost): Single<ParsedPost> =
         Single.just(ParsedPost(item.postContent))
 
+    private fun getPostObservable(mainPost: TopicPost) =
+        object : SingleObserver<ParsedPost> {
+          override fun onSubscribe(d: Disposable) {
+
+          }
+
+          override fun onSuccess(post: ParsedPost) {
+            fillPostText(post)
+            fillPostImages(post)
+            fillPostVideos(post)
+            fillPostHeader(mainPost)
+          }
+
+          override fun onError(e: Throwable) {
+            Timber.d("")
+
+          }
+        }
+
     @Suppress("NestedBlockDepth")
-    private fun fillPostText(post: ParsedPost): ParsedPost {
+    private fun fillPostText(post: ParsedPost) {
 
       val textPadding = itemView.context.resources.getDimension(
           R.dimen.post_text_horizontal_padding).toInt()
@@ -179,11 +197,9 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
           itemView.post_content_text_container.addView(warningText)
         }
       }
-
-      return post
     }
 
-    private fun fillPostImages(post: ParsedPost): ParsedPost {
+    private fun fillPostImages(post: ParsedPost) {
 
       val imagePadding = itemView.context.resources.getDimension(
           R.dimen.post_image_vertical_padding).toInt()
@@ -204,8 +220,6 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
       } else {
         itemView.post_content_image_container.hideView()
       }
-
-      return post
     }
 
     private fun fillPostVideos(post: ParsedPost) {

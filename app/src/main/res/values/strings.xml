@@ -106,6 +106,7 @@
   <string name="action_bookmark">Bookmark</string>
   <string name="action_topic_karma_plus">Add +1</string>
   <string name="action_topic_karma_minus">Add -1</string>
+  <string name="action_new_message">New message</string>
   <!-- Post context menu -->
   <string name="title_post_context_menu">Choose an action</string>
   <string name="action_post_karma_plus">Add +1</string>

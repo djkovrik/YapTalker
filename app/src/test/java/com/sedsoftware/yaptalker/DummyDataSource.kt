@@ -8,6 +8,8 @@ import com.sedsoftware.yaptalker.data.parsing.ForumItem
 import com.sedsoftware.yaptalker.data.parsing.ForumNavigationPanel
 import com.sedsoftware.yaptalker.data.parsing.ForumPage
 import com.sedsoftware.yaptalker.data.parsing.NewsItem
+import com.sedsoftware.yaptalker.data.parsing.TopicNavigationPanel
+import com.sedsoftware.yaptalker.data.parsing.TopicPage
 
 fun getDummyUserInfoAuthorized() = AuthorizedUserInfo("nickname", "title", "uq", "avatar")
 
@@ -46,3 +48,16 @@ fun getDummyForumPage() = ForumPage(
     id = "id",
     navigationPanel = ForumNavigationPanel("1", "1"),
     topicsList = ArrayList())
+
+fun getDummyTopicPage() = TopicPage(
+    title = "title",
+    closed = "closed",
+    key = "key",
+    rating = "100",
+    plusAvailable = "available",
+    minusAvailable = "available",
+    plusClicked = "clicked",
+    minusClicked = "clicked",
+    targetId = "id",
+    navigation = TopicNavigationPanel("1", "1"),
+    posts = ArrayList())

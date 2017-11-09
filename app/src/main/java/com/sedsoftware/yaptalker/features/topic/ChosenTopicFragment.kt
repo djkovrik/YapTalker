@@ -11,14 +11,10 @@ import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
-import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
-import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseFragment
 import com.sedsoftware.yaptalker.base.events.FragmentLifecycle
-import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastSuccess
@@ -40,7 +36,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     private const val FORUM_ID_KEY = "FORUM_ID_KEY"
     private const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
     private const val STARTING_POST_KEY = "STARTING_POST_KEY"
-    private const val INITIAL_FAB_OFFSET = 250f
 
     fun getNewInstance(triple: Triple<Int, Int, Int>): ChosenTopicFragment {
       val fragment = ChosenTopicFragment()
@@ -72,7 +67,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
   }
 
   private lateinit var topicAdapter: ChosenTopicAdapter
-  private var isFabShown = true
   private var isLoggedIn = false
   private var isKarmaAvailable = false
 
@@ -95,19 +89,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
 
       setHasFixedSize(true)
     }
-
-    topicPresenter.checkSavedState(forumId, topicId, startingPost, savedInstanceState)
-  }
-
-  override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-
-    val panel = topicAdapter.getNavigationPanel()
-    val posts = topicAdapter.getPosts()
-
-    if (panel.isNotEmpty() && posts.isNotEmpty()) {
-      topicPresenter.saveCurrentState(outState, panel.first(), posts)
-    }
   }
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -119,6 +100,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     super.onPrepareOptionsMenu(menu)
 
     menu?.findItem(R.id.action_bookmark)?.isVisible = isLoggedIn
+    menu?.findItem(R.id.action_new_message)?.isVisible = isLoggedIn
     menu?.findItem(R.id.action_topic_karma_plus)?.isVisible = isKarmaAvailable
     menu?.findItem(R.id.action_topic_karma_minus)?.isVisible = isKarmaAvailable
   }
@@ -127,6 +109,10 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     return when (item.itemId) {
       R.id.action_share -> {
         topicPresenter.onShareItemClicked()
+        true
+      }
+      R.id.action_new_message -> {
+        topicPresenter.onNewMessageItemClicked()
         true
       }
       R.id.action_topic_karma_plus -> {
@@ -151,50 +137,34 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
         .refreshes(topic_refresh_layout)
         .autoDisposeWith(event(FragmentLifecycle.STOP))
         .subscribe { topicPresenter.loadTopic(forumId, topicId) }
-
-    RxRecyclerView
-        .scrollEvents(topic_posts_list)
-        .autoDisposeWith(event(FragmentLifecycle.STOP))
-        .subscribe { event ->
-          topicPresenter.handleFabVisibility(isFabShown, event.dy())
-        }
-
-    RxView
-        .clicks(new_post_fab)
-        .autoDisposeWith(event(FragmentLifecycle.STOP))
-        .subscribe { topicPresenter.navigateToAddMessageView() }
   }
 
   override fun showErrorMessage(message: String) {
     toastError(message)
   }
 
+  override fun showLoadingIndicator() {
+    topic_refresh_layout.isRefreshing = true
+  }
+
+  override fun hideLoadingIndicator() {
+    topic_refresh_layout.isRefreshing = false
+  }
+
   override fun displayTopicPage(page: TopicPage) {
     topicAdapter.refreshTopicPage(page)
   }
 
-  override fun showFab(shouldShow: Boolean) {
-    if (shouldShow == isFabShown) {
-      return
-    }
-
-    if (shouldShow) {
-      new_post_fab?.let { fab ->
-        fab.showFromScreenEdge()
-        isFabShown = true
-      }
-    } else {
-      new_post_fab?.let { fab ->
-        val offset = fab.height + fab.paddingTop + fab.paddingBottom
-        fab.hideBeyondScreenEdge(offset.toFloat())
-        isFabShown = false
-      }
-    }
+  override fun setLoggedInState(isLoggedIn: Boolean) {
+    this.isLoggedIn = isLoggedIn
   }
 
-  override fun hideFabWithoutAnimation() {
-    new_post_fab?.translationY = INITIAL_FAB_OFFSET
-    isFabShown = false
+  override fun setTopicKarmaState(isKarmaAvailable: Boolean) {
+    this.isKarmaAvailable = isKarmaAvailable
+  }
+
+  override fun initiateTopicLoading() {
+    topicPresenter.loadTopic(forumId, topicId, startingPost)
   }
 
   override fun showUserProfile(userId: Int) {
@@ -205,30 +175,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     context?.share("http://www.yaplakal.com/forum$forumId/st/$topicPage/topic$topicId.html", title)
   }
 
-  override fun showCantLoadPageMessage(page: Int) {
-    context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
-      toastWarning(String.format(Locale.getDefault(), template, page))
-    }
-  }
-
-  override fun scrollToViewTop() {
-    topic_posts_list?.layoutManager?.scrollToPosition(0)
-  }
-
-  override fun showBookmarkAddedMessage() {
-    context?.stringRes(R.string.msg_bookmark_topic_added)?.let { message ->
-      toastSuccess(message)
-    }
-  }
-
-  override fun showUnknownErrorMessage() {
-    context?.stringRes(R.string.msg_unknown_error)?.let { message ->
-      toastError(message)
-    }
-  }
-
   override fun displayPostContextMenu(postId: String) {
-
     val plusItem = context?.stringRes(R.string.action_post_karma_plus)
     val minusItem = context?.stringRes(R.string.action_post_karma_minus)
 
@@ -246,13 +193,36 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     }
   }
 
-  override fun setIfMenuButtonsAvailable(loggedIn: Boolean, karmaAvailable: Boolean) {
-    isLoggedIn = loggedIn
-    isKarmaAvailable = karmaAvailable
+  override fun scrollToViewTop() {
+    topic_posts_list?.layoutManager?.scrollToPosition(0)
+  }
+
+  override fun showCantLoadPageMessage(page: Int) {
+    context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
+      toastWarning(String.format(Locale.getDefault(), template, page))
+    }
+  }
+
+  override fun showBookmarkAddedMessage() {
+    context?.stringRes(R.string.msg_bookmark_topic_added)?.let { message ->
+      toastSuccess(message)
+    }
+  }
+
+  override fun showUnknownErrorMessage() {
+    context?.stringRes(R.string.msg_unknown_error)?.let { message ->
+      toastError(message)
+    }
   }
 
   override fun onUserAvatarClick(userId: Int) {
-    topicPresenter.loadProfileIfAvailable(userId)
+    topicPresenter.onUserProfileClicked(userId)
+  }
+
+  override fun onPostItemClicked(postId: String, isKarmaAvailable: Boolean) {
+    if (isKarmaAvailable) {
+      topicPresenter.checkIfPostContextMenuAvailable(postId)
+    }
   }
 
   override fun onGoToFirstPageClick() {
@@ -280,12 +250,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
             topicPresenter.goToChosenPage(input.toString().toInt())
           })
           .show()
-    }
-  }
-
-  override fun onPostItemClicked(postId: String, isKarmaAvailable: Boolean) {
-    if (isKarmaAvailable) {
-      topicPresenter.checkIfPostContextMenuAvailable(postId)
     }
   }
 }
