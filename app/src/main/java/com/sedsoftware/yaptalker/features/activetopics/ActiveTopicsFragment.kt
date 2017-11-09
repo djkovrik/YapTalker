@@ -57,19 +57,7 @@ class ActiveTopicsFragment :
       setHasFixedSize(true)
     }
 
-    activeTopicsPresenter.checkSavedState(savedInstanceState)
     context?.stringRes(R.string.nav_drawer_active_topics)?.let { activeTopicsPresenter.updateAppbarTitle(it) }
-  }
-
-  override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-
-    val panel = activeTopicsAdapter.getNavigationPanel()
-    val topics = activeTopicsAdapter.getTopics()
-
-    if (panel.isNotEmpty() && topics.isNotEmpty()) {
-      activeTopicsPresenter.saveCurrentState(outState, panel.first(), topics)
-    }
   }
 
   override fun subscribeViews() {
@@ -81,6 +69,14 @@ class ActiveTopicsFragment :
 
   override fun showErrorMessage(message: String) {
     toastError(message)
+  }
+
+  override fun showLoadingIndicator() {
+    active_topics_refresh_layout.isRefreshing = true
+  }
+
+  override fun hideLoadingIndicator() {
+    active_topics_refresh_layout.isRefreshing = false
   }
 
   override fun displayActiveTopicsPage(page: ActiveTopicsPage) {

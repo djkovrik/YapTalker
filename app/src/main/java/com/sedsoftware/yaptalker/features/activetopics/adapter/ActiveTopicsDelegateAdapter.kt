@@ -3,14 +3,13 @@ package com.sedsoftware.yaptalker.features.activetopics.adapter
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
-import android.widget.TextView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseAdapterInjections
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.inflate
-import com.sedsoftware.yaptalker.commons.extensions.textColor
+import com.sedsoftware.yaptalker.commons.extensions.loadRatingBackground
 import com.sedsoftware.yaptalker.data.parsing.ActiveTopic
 import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.*
 import java.util.Locale
@@ -69,43 +68,6 @@ class ActiveTopicsDelegateAdapter(val itemClick: ActiveTopicsItemClickListener) 
 
           setOnClickListener { itemClick.onTopicClick(forumLink.getLastDigits(), link.getLastDigits()) }
         }
-      }
-    }
-  }
-
-  @Suppress("MagicNumber")
-  private fun TextView.loadRatingBackground(rating: Int) {
-
-    when (rating) {
-    // Platinum
-      in 1000..50000 -> {
-        textColor = R.color.colorRatingPlatinumText
-        setBackgroundResource(R.drawable.topic_rating_platinum)
-      }
-    // Gold
-      in 500..999 -> {
-        textColor = R.color.colorRatingGoldText
-        setBackgroundResource(R.drawable.topic_rating_gold)
-      }
-    // Green
-      in 50..499 -> {
-        textColor = R.color.colorRatingGreenText
-        setBackgroundResource(R.drawable.topic_rating_green)
-      }
-    // Gray
-      in -9..49 -> {
-        textColor = R.color.colorRatingGreyText
-        setBackgroundResource(R.drawable.topic_rating_grey)
-      }
-    // Red
-      in -99..-10 -> {
-        textColor = R.color.colorRatingRedText
-        setBackgroundResource(R.drawable.topic_rating_red)
-      }
-    // Dark Red
-      else -> {
-        textColor = R.color.colorRatingDarkRedText
-        setBackgroundResource(R.drawable.topic_rating_dark_red)
       }
     }
   }

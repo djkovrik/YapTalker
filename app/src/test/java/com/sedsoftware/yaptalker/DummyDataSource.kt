@@ -1,5 +1,7 @@
 package com.sedsoftware.yaptalker
 
+import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsNavigationPanel
+import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPage
 import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.data.parsing.Bookmarks
 import com.sedsoftware.yaptalker.data.parsing.ForumItem
@@ -32,3 +34,7 @@ fun getDummyForumItem() = ForumItem(
     date = "date")
 
 fun getDummyBookmarks() = Bookmarks()
+
+fun getDummyActiveTopicsPage() = ActiveTopicsPage(
+    navigationPanel = ActiveTopicsNavigationPanel("1", "1"),
+    topics = ArrayList())

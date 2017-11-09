@@ -1,12 +1,9 @@
 package com.sedsoftware.yaptalker.features.activetopics
 
-import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
-import com.sedsoftware.yaptalker.data.parsing.ActiveTopic
-import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsNavigationPanel
 import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPage
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Single
@@ -17,8 +14,6 @@ import io.reactivex.schedulers.Schedulers
 class ActiveTopicsPresenter : BasePresenter<ActiveTopicsView>() {
 
   companion object {
-    private const val ACTIVE_TOPICS_PAGE_KEY = "ACTIVE_TOPICS_PAGE_KEY"
-    private const val SEARCH_ID_KEY = "SEARCH_ID_KEY"
     private const val TOPICS_PER_PAGE = 25
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
@@ -27,22 +22,9 @@ class ActiveTopicsPresenter : BasePresenter<ActiveTopicsView>() {
   private var currentPage = 1
   private var totalPages = 1
 
-  fun checkSavedState(savedViewState: Bundle?) {
-    if (savedViewState != null &&
-        savedViewState.containsKey(ACTIVE_TOPICS_PAGE_KEY) &&
-        savedViewState.containsKey(SEARCH_ID_KEY)) {
-
-      searchIdKey = savedViewState.getString(SEARCH_ID_KEY)
-      onLoadingSuccess(page = savedViewState.getParcelable(ACTIVE_TOPICS_PAGE_KEY), scrollToTop = false)
-    } else {
-      refreshTopicsList()
-    }
-  }
-
-  fun saveCurrentState(outState: Bundle, panel: ActiveTopicsNavigationPanel, topics: List<ActiveTopic>) {
-    val activeTopicsPage = ActiveTopicsPage(panel, topics)
-    outState.putParcelable(ACTIVE_TOPICS_PAGE_KEY, activeTopicsPage)
-    outState.putString(SEARCH_ID_KEY, searchIdKey)
+  override fun onFirstViewAttach() {
+    super.onFirstViewAttach()
+    refreshTopicsList()
   }
 
   fun refreshTopicsList() {
