@@ -1,13 +1,10 @@
 package com.sedsoftware.yaptalker.features.forum
 
-import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
-import com.sedsoftware.yaptalker.data.parsing.ForumNavigationPanel
 import com.sedsoftware.yaptalker.data.parsing.ForumPage
-import com.sedsoftware.yaptalker.data.parsing.Topic
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -16,7 +13,6 @@ import io.reactivex.schedulers.Schedulers
 class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
   companion object {
-    private const val FORUM_PAGE_KEY = "FORUM_PAGE_KEY"
     private const val LAST_UPDATE_SORTER = "last_post"
     private const val TOPICS_PER_PAGE = 30
     private const val OFFSET_FOR_PAGE_NUMBER = 1
@@ -28,28 +24,9 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
   private var currentPage = 1
   private var totalPages = 1
 
-  fun checkSavedState(forumId: Int, savedViewState: Bundle?) {
-    if (savedViewState != null &&
-        savedViewState.containsKey(FORUM_PAGE_KEY)) {
-
-      with(savedViewState) {
-        onLoadingSuccess(page = getParcelable(FORUM_PAGE_KEY), scrollToTop = false)
-      }
-    } else {
-      loadForum(forumId)
-    }
-  }
-
-  fun saveCurrentState(outState: Bundle, currentForumId: Int, panel: ForumNavigationPanel, topics: List<Topic>) {
-    val forumPage = ForumPage(
-        title = currentTitle,
-        id = currentForumId.toString(),
-        navigationPanel = panel,
-        topicsList = topics)
-
-    with(outState) {
-      putParcelable(FORUM_PAGE_KEY, forumPage)
-    }
+  override fun onFirstViewAttach() {
+    super.onFirstViewAttach()
+    viewState.initiateForumLoading()
   }
 
   fun loadForum(forumId: Int) {
@@ -57,6 +34,10 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     currentPage = 1
 
     loadForumCurrentPage(scrollToTop = false)
+  }
+
+  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
+    router.navigateTo(NavigationScreens.CHOSEN_TOPIC_SCREEN, triple)
   }
 
   fun goToFirstPage() {
@@ -130,9 +111,5 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
   private fun onLoadingError(error: Throwable) {
     error.message?.let { viewState.showErrorMessage(it) }
-  }
-
-  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
-    router.navigateTo(NavigationScreens.CHOSEN_TOPIC_SCREEN, triple)
   }
 }

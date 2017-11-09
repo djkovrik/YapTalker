@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.commons.adapter.ContentTypes
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
-import com.sedsoftware.yaptalker.data.parsing.ForumNavigationPanel
+import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.parsing.ForumPage
 import com.sedsoftware.yaptalker.data.parsing.Topic
 
@@ -37,24 +37,20 @@ class ChosenForumAdapter(itemClick: TopicItemClickListener, navigationClick: For
 
   override fun getItemCount() = items.size
 
-  override fun getItemId(position: Int) = position.toLong()
+  override fun getItemId(position: Int): Long {
+    val item = items[position]
+
+    return if (item is Topic) {
+      item.link.getLastDigits().toLong()
+    } else {
+      position.toLong()
+    }
+  }
 
   fun refreshForumPage(page: ForumPage) {
     items.clear()
     items.addAll(page.topics)
     items.add(page.navigation)
     notifyDataSetChanged()
-  }
-
-  fun getTopics(): List<Topic> {
-    return items
-        .filter { it.getViewType() == ContentTypes.TOPIC }
-        .map { it as Topic }
-  }
-
-  fun getNavigationPanel(): List<ForumNavigationPanel> {
-    return items
-        .filter { it.getViewType() == ContentTypes.NAVIGATION_PANEL }
-        .map { it as ForumNavigationPanel }
   }
 }

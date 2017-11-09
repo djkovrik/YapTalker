@@ -6,13 +6,15 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.base.BaseView
 import com.sedsoftware.yaptalker.data.parsing.ForumPage
 
-@StateStrategyType(AddToEndSingleStrategy::class)
+@StateStrategyType(SkipStrategy::class)
 interface ChosenForumView : BaseView {
 
+  @StateStrategyType(AddToEndSingleStrategy::class)
   fun displayForumPage(page: ForumPage)
 
-  fun showCantLoadPageMessage(page: Int)
+  fun initiateForumLoading()
 
-  @StateStrategyType(SkipStrategy::class)
   fun scrollToViewTop()
+
+  fun showCantLoadPageMessage(page: Int)
 }
