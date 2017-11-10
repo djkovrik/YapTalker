@@ -39,8 +39,9 @@ class ParsedPost(
         setOf("#root", "html", "head", "body", "table", "tbody", "tr", "br", "b", "i", "u")
     private val attrsToSkip = setOf("rating", "clear")
     private val contentWhitelist: Whitelist = Whitelist()
-        .addTags("i", "u", "b", "br", "img")
+        .addTags("i", "u", "b", "br", "img", "a")
         .addAttributes("img", "src")
+        .addAttributes("a", "href")
   }
 
   init {
@@ -70,7 +71,7 @@ class ParsedPost(
             element.select(WARNING_TEXT_SELECTOR).remove()
             element.select(IMG_TAG).not(EMOTICON_SRC_SELECTOR).remove()
 
-            element.html().cleanExtraTags().trimLinebreakTags().apply {
+            element.html().formatPostHtmlCode().trimLinebreakTags().apply {
               if (this.isNotEmpty())
                 content.add(PostText(text = this))
             }
@@ -79,7 +80,7 @@ class ParsedPost(
           // Quotes
           if (element.attributes().toString().contains(QUOTE_SELECTOR)
               && !element.text().contains(QUOTE_START_TEXT)) {
-            element.html().cleanExtraTags().trimLinebreakTags().apply {
+            element.html().formatPostHtmlCode().trimLinebreakTags().apply {
               if (this.isNotEmpty())
                 content.add(PostQuote(text = this))
             }
@@ -96,7 +97,7 @@ class ParsedPost(
           // Spoilers
           if (element.tagName() == TD_TAG &&
               element.attributes().toString().contains(SPOILER_SELECTOR)) {
-            element.html().cleanExtraTags().trimLinebreakTags().apply {
+            element.html().formatPostHtmlCode().trimLinebreakTags().apply {
               if (this.isNotEmpty())
                 content.add(PostHiddenText(text = this))
             }
@@ -123,13 +124,6 @@ class ParsedPost(
                 text = element.html()))
           }
 
-          // Links
-          if (element.tagName() == A_TAG && element.text().isNotEmpty()) {
-            content.add(PostLink(
-                url = element.attr(HREF_ATTR),
-                title = element.text()))
-          }
-
           // Warnings
           if (element.tagName() == TD_TAG &&
               element.className() == POST_TEXT_CLASS) {
@@ -138,11 +132,11 @@ class ParsedPost(
         }
   }
 
-  private fun String.cleanExtraTags(): String {
+  private fun String.formatPostHtmlCode(): String {
     return Jsoup
         .clean(this, contentWhitelist)
-        // Replace html spaces
         .replace("&nbsp;", " ")
+        .replace("/go/?http", "http://www.yaplakal.com/go/?http")
   }
 
   private fun String.trimLinebreakTags(): String {

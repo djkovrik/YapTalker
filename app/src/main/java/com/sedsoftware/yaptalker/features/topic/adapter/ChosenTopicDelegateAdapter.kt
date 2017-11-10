@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.features.topic.adapter
 import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
+import android.text.method.LinkMovementMethod
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,14 +18,12 @@ import com.sedsoftware.yaptalker.commons.extensions.inflate
 import com.sedsoftware.yaptalker.commons.extensions.loadAvatarFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.showView
-import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtmlWithEmoji
 import com.sedsoftware.yaptalker.commons.extensions.validateUrl
 import com.sedsoftware.yaptalker.data.parsing.ParsedPost
 import com.sedsoftware.yaptalker.data.parsing.PostHiddenText
-import com.sedsoftware.yaptalker.data.parsing.PostLink
 import com.sedsoftware.yaptalker.data.parsing.PostQuote
 import com.sedsoftware.yaptalker.data.parsing.PostQuoteAuthor
 import com.sedsoftware.yaptalker.data.parsing.PostScript
@@ -100,7 +99,6 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
       val textPadding = itemView.context.resources.getDimension(
           R.dimen.post_text_horizontal_padding).toInt()
       var currentNestingLevel = INITIAL_NESTING_LEVEL
-      val links = HashSet<PostLink>()
       val warnings = ArrayList<PostWarning>()
 
       itemView.post_content_text_container.removeAllViews()
@@ -135,6 +133,7 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
             is PostText -> {
               currentNestingLevel--
               val postText = TextView(itemView.context)
+              postText.movementMethod = LinkMovementMethod.getInstance()
               postText.textFromHtmlWithEmoji(it.text)
               postText.textSize = normalFontSize
               if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
@@ -158,35 +157,10 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
               postScriptText.textColor = R.color.colorPostScriptText
               itemView.post_content_text_container.addView(postScriptText)
             }
-            is PostLink -> {
-              val targetUrl = when {
-                it.url.startsWith("/go") -> "http://www.yaplakal.com${it.url}"
-                else -> it.url
-              }
-
-              val targetTitle = when {
-                it.title.startsWith("http") -> itemView.context.stringRes(R.string.post_link)
-                else -> it.title
-              }
-
-              links.add(PostLink(url = targetUrl, title = targetTitle))
-            }
-
             is PostWarning -> {
               warnings.add(it)
             }
           }
-        }
-
-        if (links.isNotEmpty()) {
-          val link = links.last()
-          itemView.post_link_button.setOnClickListener {
-            itemView.context.browse(url = link.url, newTask = true)
-          }
-          itemView.post_link_button.text = link.title
-          itemView.post_link_button.showView()
-        } else {
-          itemView.post_link_button.hideView()
         }
 
         if (warnings.isNotEmpty()) {
