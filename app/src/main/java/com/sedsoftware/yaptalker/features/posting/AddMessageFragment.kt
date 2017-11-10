@@ -42,13 +42,12 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     get() = R.layout.fragment_new_post
 
   private val currentTopicTitle: String by lazy {
-    arguments.getString(TOPIC_TITLE_KEY)
+    arguments?.getString(TOPIC_TITLE_KEY) ?: ""
   }
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHasOptionsMenu(true)
-    messagingPresenter.updateAppbarTitle("")
 
     if (currentTopicTitle.isNotEmpty()) {
       new_post_topic_title.text = currentTopicTitle
@@ -97,6 +96,10 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
         }
   }
 
+  override fun updateAppbarTitle() {
+    messagingPresenter.setAppbarTitle("")
+  }
+
   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
     inflater.inflate(R.menu.menu_post_editor, menu)
   }
@@ -129,45 +132,47 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     var url: String
     var title: String
 
-    MaterialDialog.Builder(context)
-        .title(R.string.post_insert_link)
-        .positiveText(R.string.post_button_submit)
-        .negativeText(R.string.post_button_dismiss)
-        .inputType(InputType.TYPE_CLASS_TEXT)
-        .alwaysCallInputCallback()
-        .input(R.string.post_insert_link_hint, 0, false, { firstDialog, firstInput ->
-          firstDialog.getActionButton(DialogAction.POSITIVE).isEnabled = firstInput.toString().startsWith("http")
-        })
-        .onPositive { firstDialog, _ ->
-          url = firstDialog.inputEditText?.text.toString()
+    context?.let { ctx ->
+      MaterialDialog.Builder(ctx)
+          .title(R.string.post_insert_link)
+          .positiveText(R.string.post_button_submit)
+          .negativeText(R.string.post_button_dismiss)
+          .inputType(InputType.TYPE_CLASS_TEXT)
+          .alwaysCallInputCallback()
+          .input(R.string.post_insert_link_hint, 0, false, { firstDialog, firstInput ->
+            firstDialog.getActionButton(DialogAction.POSITIVE).isEnabled = firstInput.toString().startsWith("http")
+          })
+          .onPositive { firstDialog, _ ->
+            url = firstDialog.inputEditText?.text.toString()
 
-          MaterialDialog.Builder(context)
-              .title(R.string.post_insert_link_title)
-              .positiveText(R.string.post_button_submit)
-              .negativeText(R.string.post_button_dismiss)
-              .inputType(InputType.TYPE_CLASS_TEXT)
-              .alwaysCallInputCallback()
-              .input(R.string.post_insert_link_title_hint, 0, false, { _, _ -> })
-              .onPositive { secondDialog, _ ->
-                title = secondDialog.inputEditText?.text.toString()
+            MaterialDialog.Builder(ctx)
+                .title(R.string.post_insert_link_title)
+                .positiveText(R.string.post_button_submit)
+                .negativeText(R.string.post_button_dismiss)
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .alwaysCallInputCallback()
+                .input(R.string.post_insert_link_title_hint, 0, false, { _, _ -> })
+                .onPositive { secondDialog, _ ->
+                  title = secondDialog.inputEditText?.text.toString()
 
-                if (url.isNotEmpty() || title.isNotEmpty()) {
-                  messagingPresenter.insertVideoTag(url, title)
+                  if (url.isNotEmpty() || title.isNotEmpty()) {
+                    messagingPresenter.insertVideoTag(url, title)
+                  }
                 }
-              }
-              .show()
-        }
-        .show()
+                .show()
+          }
+          .show()
+    }
   }
 
   override fun hideKeyboard() {
-    val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(view?.windowToken, 0)
   }
 
   private fun returnMessageText() {
     if (messagingPresenter.isAnyTagNotClosed()) {
-      toastWarning(context.stringRes(R.string.msg_unclosed_tag))
+      context?.stringRes(R.string.msg_unclosed_tag)?.let { toastWarning(it) }
       return
     }
 

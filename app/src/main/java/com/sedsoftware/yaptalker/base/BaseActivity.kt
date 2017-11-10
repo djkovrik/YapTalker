@@ -35,7 +35,6 @@ abstract class BaseActivity : MvpAppCompatActivity(), LazyKodeinAware {
 
   @Suppress("EmptyFunctionBlock")
   protected open fun subscribeViews() {
-
   }
 
   override fun onDestroy() {

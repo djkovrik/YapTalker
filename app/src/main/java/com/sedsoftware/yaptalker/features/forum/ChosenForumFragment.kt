@@ -44,12 +44,12 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListe
     get() = R.layout.fragment_chosen_forum
 
   private val currentForumId: Int by lazy {
-    arguments.getInt(FORUM_ID_KEY)
+    arguments?.getInt(FORUM_ID_KEY) ?: 0
   }
 
   private lateinit var forumAdapter: ChosenForumAdapter
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     forumAdapter = ChosenForumAdapter(this, this)
@@ -67,19 +67,6 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListe
 
       setHasFixedSize(true)
     }
-
-    forumPresenter.checkSavedState(currentForumId, savedInstanceState)
-  }
-
-  override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-
-    val panel = forumAdapter.getNavigationPanel()
-    val topics = forumAdapter.getTopics()
-
-    if (panel.isNotEmpty() && topics.isNotEmpty()) {
-      forumPresenter.saveCurrentState(outState, currentForumId, panel.first(), topics)
-    }
   }
 
   override fun subscribeViews() {
@@ -89,16 +76,28 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListe
         .subscribe { forumPresenter.loadForum(currentForumId) }
   }
 
+  override fun updateAppbarTitle(title: String) {
+    forumPresenter.setAppbarTitle(title)
+  }
+
   override fun showErrorMessage(message: String) {
     toastError(message)
   }
 
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-    forum_refresh_layout.isRefreshing = shouldShow
+  override fun showLoadingIndicator() {
+    forum_refresh_layout.isRefreshing = true
+  }
+
+  override fun hideLoadingIndicator() {
+    forum_refresh_layout.isRefreshing = false
   }
 
   override fun displayForumPage(page: ForumPage) {
     forumAdapter.refreshForumPage(page)
+  }
+
+  override fun initiateForumLoading() {
+    forumPresenter.loadForum(currentForumId)
   }
 
   override fun scrollToViewTop() {

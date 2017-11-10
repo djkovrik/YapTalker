@@ -24,7 +24,8 @@ import retrofit2.http.Query
 interface YapLoader {
 
   @GET("/st/{startPage}/")
-  fun loadNews(@Path("startPage") startPage: Int): Single<News>
+  fun loadNews(
+      @Path("startPage") startPage: Int): Single<News>
 
   @GET("/forum")
   fun loadForumsList(): Single<Forums>
@@ -57,6 +58,10 @@ interface YapLoader {
       @Field("referer") referer: String,
       @Field("submit") submit: String,
       @Field("user_key") userKey: String): Single<Response<ResponseBody>>
+
+  @GET("/act/Login/CODE/03/")
+  fun signOut(
+      @Query("key") key: String): Single<Response<ResponseBody>>
 
   @Suppress("LongParameterList")
   @Multipart
@@ -102,4 +107,14 @@ interface YapLoader {
       @Query("act") act: String,
       @Query("CODE") code: String,
       @Query("id") id: Int): Single<Response<ResponseBody>>
+
+  @Headers("X-Requested-With:XMLHttpRequest")
+  @GET("/")
+  fun changeKarma(
+      @Query("act") act: String,
+      @Query("CODE") code: String,
+      @Query("rank") rank: Int,
+      @Query("p") p: Int,
+      @Query("t") t: Int,
+      @Query("n") n: Int): Single<Response<ResponseBody>>
 }

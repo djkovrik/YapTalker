@@ -94,8 +94,8 @@ class ThumbnailsManager(
 
   private fun getImageObserver(imageView: ImageView) =
       object : SingleObserver<String?> {
-        override fun onError(e: Throwable) {
-          Timber.d("Can't load image: ${e.message}")
+        override fun onSubscribe(d: Disposable) {
+
         }
 
         override fun onSuccess(url: String) {
@@ -104,21 +104,23 @@ class ThumbnailsManager(
           }
         }
 
-        override fun onSubscribe(d: Disposable) {
+        override fun onError(e: Throwable) {
+          Timber.d("Can't load image: ${e.message}")
         }
       }
 
   private fun getDrawableObserver(imageView: ImageView) =
       object : SingleObserver<Int> {
-        override fun onError(e: Throwable) {
-          Timber.d("Can't load drawable: ${e.message}")
+        override fun onSubscribe(d: Disposable) {
+
         }
 
         override fun onSuccess(resId: Int) {
           imageView.setImageResource(resId)
         }
 
-        override fun onSubscribe(d: Disposable) {
+        override fun onError(e: Throwable) {
+          Timber.d("Can't load drawable: ${e.message}")
         }
       }
 }

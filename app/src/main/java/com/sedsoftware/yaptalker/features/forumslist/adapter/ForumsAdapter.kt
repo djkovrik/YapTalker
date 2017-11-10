@@ -35,22 +35,10 @@ class ForumsAdapter(itemClick: ForumsItemClickListener) : RecyclerView.Adapter<R
 
   override fun getItemId(position: Int) = position.toLong()
 
-  fun getForums(): List<ForumItem> {
-    return items
-        .filter { it.getViewType() == ContentTypes.FORUM }
-        .map { it as ForumItem }
-  }
-
   fun addForumsListItem(item: ForumItem) {
     val insertPosition = items.size
     items.add(item)
     notifyItemInserted(insertPosition)
-  }
-
-  fun addForumsList(list: List<ForumItem>) {
-    items.clear()
-    items.addAll(list)
-    notifyDataSetChanged()
   }
 
   fun clearForumsList() {

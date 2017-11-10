@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsNavigationPanel
 import kotlinx.android.synthetic.main.item_navigation_panel.view.*
 import java.util.Locale
 
-class ActiveTopicsNavigatonDelegateAdapter(val navigationClick: ActiveTopicsNavigationClickListener) :
+class ActiveTopicsNavigationDelegateAdapter(val navigationClick: ActiveTopicsNavigationClickListener) :
     ViewTypeDelegateAdapter {
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {

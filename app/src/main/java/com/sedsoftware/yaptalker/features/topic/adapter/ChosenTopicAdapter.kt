@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.commons.adapter.ContentTypes
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
-import com.sedsoftware.yaptalker.data.parsing.TopicNavigationPanel
 import com.sedsoftware.yaptalker.data.parsing.TopicPage
-import com.sedsoftware.yaptalker.data.parsing.TopicPost
 
-class ChosenTopicAdapter(profileClick: UserProfileClickListener, navigationClick: TopicNavigationClickListener) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChosenTopicAdapter(
+    profileClick: UserProfileClickListener,
+    navigationClick: TopicNavigationClickListener,
+    itemClick: ChosenTopicItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<ViewType>
   private var delegateAdapters = SparseArrayCompat<ViewTypeDelegateAdapter>()
 
   init {
-    delegateAdapters.put(ContentTypes.POST, ChosenTopicDelegateAdapter(profileClick))
+    delegateAdapters.put(ContentTypes.POST, ChosenTopicDelegateAdapter(profileClick, itemClick))
     delegateAdapters.put(ContentTypes.NAVIGATION_PANEL, TopicNavigationDelegateAdapter(navigationClick))
     items = ArrayList()
   }
@@ -45,17 +45,5 @@ class ChosenTopicAdapter(profileClick: UserProfileClickListener, navigationClick
     items.addAll(page.posts)
     items.add(page.navigation)
     notifyDataSetChanged()
-  }
-
-  fun getPosts(): List<TopicPost> {
-    return items
-        .filter { it.getViewType() == ContentTypes.POST }
-        .map { it as TopicPost }
-  }
-
-  fun getNavigationPanel(): List<TopicNavigationPanel> {
-    return items
-        .filter { it.getViewType() == ContentTypes.NAVIGATION_PANEL }
-        .map { it as TopicNavigationPanel }
   }
 }

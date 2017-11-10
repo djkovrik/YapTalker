@@ -6,9 +6,12 @@ import android.util.AttributeSet
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.extensions.stringQuantityRes
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
+import io.reactivex.Single
+import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.toSingle
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -30,21 +33,15 @@ class ShortDateView : AppCompatTextView {
   var shortDateText: CharSequence
     get() = text
     set(value) {
-      value
-          .toSingle()
+      Single
+          .just(value)
           .observeOn(Schedulers.computation())
           .map { text -> getDifference(text) }
           .map { diff -> getCalculatedTime(diff) }
           .map { calculatedTime -> buildString(calculatedTime) }
-          .observeOn(AndroidSchedulers.mainThread())
           .subscribeOn(Schedulers.computation())
-          .subscribe({ str ->
-            // onSuccess
-            text = str
-          }, { _ ->
-            // onError
-            text = ""
-          })
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe(getTextObservable(this))
     }
 
   private fun getDifference(source: CharSequence): Int {
@@ -101,6 +98,22 @@ class ShortDateView : AppCompatTextView {
       else -> context.stringRes(R.string.short_date_seconds_now)
     }
   }
+
+  private fun getTextObservable(shortDateView: ShortDateView) =
+      object : SingleObserver<String> {
+        override fun onSubscribe(d: Disposable) {
+
+        }
+
+        override fun onSuccess(str: String) {
+          shortDateView.text = str
+        }
+
+        override fun onError(e: Throwable) {
+          Timber.d("Can't set date text to $shortDateView: ${e.message}")
+          shortDateView.text = ""
+        }
+      }
 
   private inner class CalculatedTime(
       val minutes: Int,

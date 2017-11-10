@@ -1,8 +1,9 @@
 package com.sedsoftware.yaptalker.data
 
+import android.annotation.SuppressLint
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.base.events.ConnectionState
-import com.sedsoftware.yaptalker.commons.extensions.toMD5
+import com.sedsoftware.yaptalker.commons.extensions.toMd5
 import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPage
 import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfo
 import com.sedsoftware.yaptalker.data.parsing.Bookmarks
@@ -42,6 +43,9 @@ class YapDataManager(
     private const val BOOKMARKS_CODE_LOAD = "10"
     private const val BOOKMARKS_CODE_ADD = "11"
     private const val BOOKMARKS_CODE_REMOVE = "12"
+    // Karma
+    private const val KARMA_ACT = "ST"
+    private const val KARMA_CODE = "vote_post"
   }
 
   fun getNews(startNumber: Int = 0): Observable<NewsItem> =
@@ -113,48 +117,6 @@ class YapDataManager(
             publishConnectionState(ConnectionState.COMPLETED)
           }
 
-  fun loginToSite(login: String, password: String): Single<Response<ResponseBody>> {
-
-    return Single
-        .just(login)
-        .map { str -> "$str${System.currentTimeMillis()}".toMD5() }
-        .flatMap { hash ->
-          yapLoader
-              .signIn(
-                  cookieDate = "1",
-                  password = password,
-                  userName = login,
-                  referer = LOGIN_REFERER,
-                  submit = LOGIN_SUBMIT,
-                  userKey = hash)
-        }
-  }
-
-  fun sendMessageToSite(forumId: Int, topicId: Int, page: Int, authKey: String, message: String): Single<TopicPage> =
-      yapLoader
-          .postMessage(
-              act = POST_ACT,
-              code = POST_CODE,
-              forum = forumId,
-              topic = topicId,
-              st = page,
-              enableemo = true,
-              enablesig = true,
-              authKey = authKey,
-              postContent = message,
-              maxFileSize = POST_MAX_FILE_SIZE,
-              enabletag = 1)
-
-
-  fun getAuthorizedUserInfo(): Single<AuthorizedUserInfo> {
-    return yapLoader
-        .loadAuthorizedUserInfo()
-  }
-
-  fun getSearchId(): Single<String> =
-      searchIdLoader
-          .loadSearchIdHash()
-
   fun getActiveTopics(searchId: String, topicNumber: Int): Single<ActiveTopicsPage> =
       yapLoader
           .loadActiveTopics(ACTIVE_TOPICS_ACT, ACTIVE_TOPICS_CODE, searchId, topicNumber)
@@ -183,6 +145,52 @@ class YapDataManager(
             publishConnectionState(ConnectionState.COMPLETED)
           }
 
+  fun loginToSite(login: String, password: String): Single<Response<ResponseBody>> {
+
+    return Single
+        .just(login)
+        .map { str -> "$str${System.currentTimeMillis()}".toMd5() }
+        .flatMap { hash ->
+          yapLoader
+              .signIn(
+                  cookieDate = "1",
+                  password = password,
+                  userName = login,
+                  referer = LOGIN_REFERER,
+                  submit = LOGIN_SUBMIT,
+                  userKey = hash)
+        }
+  }
+
+  fun loginOutFromSite(key: String): Single<Response<ResponseBody>> =
+      yapLoader
+          .signOut(key)
+
+  fun sendMessageToSite(forumId: Int, topicId: Int, page: Int, key: String, message: String): Single<TopicPage> =
+      yapLoader
+          .postMessage(
+              act = POST_ACT,
+              code = POST_CODE,
+              forum = forumId,
+              topic = topicId,
+              st = page,
+              enableemo = true,
+              enablesig = true,
+              authKey = key,
+              postContent = message,
+              maxFileSize = POST_MAX_FILE_SIZE,
+              enabletag = 1)
+
+
+  fun getAuthorizedUserInfo(): Single<AuthorizedUserInfo> {
+    return yapLoader
+        .loadAuthorizedUserInfo()
+  }
+
+  fun getSearchId(): Single<String> =
+      searchIdLoader
+          .loadSearchIdHash()
+
   fun addTopicToBookmarks(topicId: Int, startPostNumber: Int): Single<Response<ResponseBody>> =
       yapLoader
           .addToBookmarks(
@@ -199,6 +207,25 @@ class YapDataManager(
               code = BOOKMARKS_CODE_REMOVE,
               id = bookmarkId)
 
+  /**
+   * Request karma change.
+   *
+   * @param rank Karma diff, 1 or -1
+   * @param postId Target post id
+   * @param topicId Target topic id
+   * @param type Karma type, 1 for topic and 0 for post.
+   */
+  fun changeKarma(rank: Int, postId: Int, topicId: Int, type: Int): Single<Response<ResponseBody>> =
+      yapLoader
+          .changeKarma(
+              act = KARMA_ACT,
+              code = KARMA_CODE,
+              rank = rank,
+              p = postId,
+              t = topicId,
+              n = type)
+
+  @SuppressLint("RxLeakedSubscription", "RxSubscribeOnError")
   private fun publishConnectionState(@ConnectionState.Event event: Long) {
     Observable
         .just(event)

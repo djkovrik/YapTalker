@@ -21,8 +21,6 @@ import kotlinx.android.synthetic.main.fragment_forums_list.*
 class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
 
   companion object {
-    private const val FORUMS_LIST_KEY = "FORUMS_LIST"
-
     fun getNewInstance() = ForumsFragment()
   }
 
@@ -34,7 +32,7 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
 
   private lateinit var forumsAdapter: ForumsAdapter
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     forumsAdapter = ForumsAdapter(this)
@@ -51,9 +49,6 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
       addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
       setHasFixedSize(true)
     }
-
-    forumsPresenter.checkSavedState(savedInstanceState, FORUMS_LIST_KEY)
-    forumsPresenter.updateAppbarTitle(context.stringRes(R.string.nav_drawer_forums))
   }
 
   override fun subscribeViews() {
@@ -63,32 +58,29 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
         .subscribe { forumsPresenter.loadForumsList() }
   }
 
-  override fun onSaveInstanceState(outState: Bundle?) {
-    super.onSaveInstanceState(outState)
-    val forums = forumsAdapter.getForums()
-    if (forums.isNotEmpty()) {
-      outState?.putParcelableArrayList(FORUMS_LIST_KEY, ArrayList(forums))
-    }
+  override fun updateAppbarTitle() {
+    context?.stringRes(R.string.nav_drawer_forums)?.let { title ->
+      forumsPresenter.setAppbarTitle(title) }
   }
 
   override fun showErrorMessage(message: String) {
     toastError(message)
   }
 
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-    forums_list_refresh_layout?.isRefreshing = shouldShow
+  override fun showLoadingIndicator() {
+    forums_list_refresh_layout.isRefreshing = true
   }
 
-  override fun clearForumsList() {
-    forumsAdapter.clearForumsList()
+  override fun hideLoadingIndicator() {
+    forums_list_refresh_layout.isRefreshing = false
   }
 
   override fun appendForumItem(item: ForumItem) {
     forumsAdapter.addForumsListItem(item)
   }
 
-  override fun appendForumsList(list: List<ForumItem>) {
-    forumsAdapter.addForumsList(list)
+  override fun clearForumsList() {
+    forumsAdapter.clearForumsList()
   }
 
   override fun onForumItemClick(forumId: Int) {

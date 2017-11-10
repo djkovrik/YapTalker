@@ -1,11 +1,10 @@
 package com.sedsoftware.yaptalker.features.forumslist
 
-import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
+import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
 import com.sedsoftware.yaptalker.data.parsing.ForumItem
-import com.sedsoftware.yaptalker.features.NavigationScreens
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,13 +17,14 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
     private val nsfwForumSections = setOf(4, 33, 36)
   }
 
-  fun checkSavedState(savedViewState: Bundle?, key: String) {
-    if (savedViewState != null && savedViewState.containsKey(key)) {
-      val items = savedViewState.getParcelableArrayList<ForumItem>(key)
-      onRestoringSuccess(items)
-    } else {
-      loadForumsList()
-    }
+  override fun onFirstViewAttach() {
+    super.onFirstViewAttach()
+    loadForumsList()
+  }
+
+  override fun attachView(view: ForumsView?) {
+    super.attachView(view)
+    viewState.updateAppbarTitle()
   }
 
   fun loadForumsList() {
@@ -59,10 +59,6 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
 
   private fun onLoadingSuccess(item: ForumItem) {
     viewState.appendForumItem(item)
-  }
-
-  private fun onRestoringSuccess(items: List<ForumItem>) {
-    viewState.appendForumsList(items)
   }
 
   private fun onLoadingError(error: Throwable) {

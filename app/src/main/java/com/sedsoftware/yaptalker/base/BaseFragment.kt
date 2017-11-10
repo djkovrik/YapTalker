@@ -23,7 +23,6 @@ abstract class BaseFragment : MvpAppCompatFragment() {
 
   @Suppress("EmptyFunctionBlock")
   protected open fun subscribeViews() {
-
   }
 
   override fun onAttach(context: Context?) {

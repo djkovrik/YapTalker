@@ -38,7 +38,7 @@ class ActiveTopicsFragment :
 
   private lateinit var activeTopicsAdapter: ActiveTopicsAdapter
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     activeTopicsAdapter = ActiveTopicsAdapter(this, this)
@@ -56,20 +56,6 @@ class ActiveTopicsFragment :
 
       setHasFixedSize(true)
     }
-
-    activeTopicsPresenter.checkSavedState(savedInstanceState)
-    activeTopicsPresenter.updateAppbarTitle(context.stringRes(R.string.nav_drawer_active_topics))
-  }
-
-  override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-
-    val panel = activeTopicsAdapter.getNavigationPanel()
-    val topics = activeTopicsAdapter.getTopics()
-
-    if (panel.isNotEmpty() && topics.isNotEmpty()) {
-      activeTopicsPresenter.saveCurrentState(outState, panel.first(), topics)
-    }
   }
 
   override fun subscribeViews() {
@@ -79,12 +65,22 @@ class ActiveTopicsFragment :
         .subscribe { activeTopicsPresenter.refreshTopicsList() }
   }
 
+  override fun updateAppbarTitle() {
+    context?.stringRes(R.string.nav_drawer_active_topics)?.let { title ->
+      activeTopicsPresenter.setAppbarTitle(title)
+    }
+  }
+
   override fun showErrorMessage(message: String) {
     toastError(message)
   }
 
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-    active_topics_refresh_layout?.isRefreshing = shouldShow
+  override fun showLoadingIndicator() {
+    active_topics_refresh_layout.isRefreshing = true
+  }
+
+  override fun hideLoadingIndicator() {
+    active_topics_refresh_layout.isRefreshing = false
   }
 
   override fun displayActiveTopicsPage(page: ActiveTopicsPage) {
@@ -102,7 +98,7 @@ class ActiveTopicsFragment :
   }
 
   override fun onTopicClick(forumId: Int, topicId: Int) {
-    activeTopicsPresenter.navigateToChosenTopic(Pair(forumId, topicId))
+    activeTopicsPresenter.navigateToChosenTopic(Triple(forumId, topicId, 0))
   }
 
   override fun onGoToFirstPageClick() {

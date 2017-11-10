@@ -15,9 +15,9 @@ class UserProfile {
   lateinit var status: String
   @Selector(".uq > span", defValue = "0")
   lateinit var uq: String
-  @Selector("td:contains(Подпись) + td", defValue = "", attr = "innerHtml")
+  @Selector("td:contains(Подпись) + td", attr = "innerHtml", defValue = "")
   lateinit var signature: String
-  @Selector("td:contains(Награды) + td", defValue = "", attr = "innerHtml")
+  @Selector("td:contains(Награды) + td", attr = "innerHtml", defValue = "")
   lateinit var rewards: String
   @Selector("td:contains(Регистрация) + td", defValue = "")
   lateinit var registerDate: String
@@ -33,13 +33,13 @@ class UserProfile {
   lateinit var interests: String
   @Selector("td:contains(Половая принадлежность) + td", defValue = "")
   lateinit var sex: String
-  @Selector("td:contains(Всего полезных сообщений) + td", defValue = "0", format = "(\\d+)")
+  @Selector("td:contains(Всего полезных сообщений) + td", format = "(\\d+)", defValue = "0")
   lateinit var messagesCount: String
   @Selector("td:contains(Сообщений в день) + td", defValue = "0")
   lateinit var messsagesPerDay: String
   @Selector("td:contains(Всего баянов) + td", defValue = "0")
   lateinit var bayans: String
-  @Selector("td:contains(Создано тем сегодня) + td", defValue = "0", format = "(\\d+)")
+  @Selector("td:contains(Создано тем сегодня) + td", format = "(\\d+)", defValue = "0")
   lateinit var todayTopics: String
   @Selector("td:contains(E-mail + td)", defValue = "")
   lateinit var email: String

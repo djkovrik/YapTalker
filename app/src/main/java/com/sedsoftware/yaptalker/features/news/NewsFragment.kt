@@ -26,8 +26,6 @@ import kotlinx.android.synthetic.main.fragment_news.*
 class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
 
   companion object {
-    private const val INITIAL_FAB_OFFSET = 250f
-
     fun getNewInstance() = NewsFragment()
   }
 
@@ -38,13 +36,12 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
     get() = R.layout.fragment_news
 
   private lateinit var newsAdapter: NewsAdapter
-  private var isFabShown = false
+  private var isFabShown = true
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     newsAdapter = NewsAdapter(this)
-
     newsAdapter.setHasStableIds(true)
 
     with(news_list) {
@@ -61,9 +58,6 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
     }
 
     refresh_layout.setIndicatorColorScheme()
-
-    newsPresenter.loadNews(true)
-    newsPresenter.updateAppbarTitle(context.stringRes(R.string.nav_drawer_main_page))
   }
 
   override fun subscribeViews() {
@@ -76,7 +70,7 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
     RxRecyclerView
         .scrollEvents(news_list)
         .autoDisposeWith(event(FragmentLifecycle.STOP))
-        .subscribe { event -> newsPresenter.handleFabVisibility(isFabShown, event.dy()) }
+        .subscribe { event -> newsPresenter.onScrollFabVisibility(event.dy()) }
 
     RxView
         .clicks(news_fab)
@@ -84,12 +78,22 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
         .subscribe { newsPresenter.loadNews(loadFromFirstPage = true) }
   }
 
+  override fun updateAppbarTitle() {
+    context?.stringRes(R.string.nav_drawer_main_page)?.let { title ->
+      newsPresenter.setAppbarTitle(title)
+    }
+  }
+
   override fun showErrorMessage(message: String) {
     toastError(message)
   }
 
-  override fun showLoadingIndicator(shouldShow: Boolean) {
-    refresh_layout.isRefreshing = shouldShow
+  override fun showLoadingIndicator() {
+    refresh_layout?.isRefreshing = true
+  }
+
+  override fun hideLoadingIndicator() {
+    refresh_layout?.isRefreshing = false
   }
 
   override fun clearNewsList() {
@@ -100,29 +104,19 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
     newsAdapter.addNewsItem(item)
   }
 
-  override fun showFab(shouldShow: Boolean) {
-
-    if (shouldShow == isFabShown) {
-      return
-    }
-
-    if (shouldShow) {
-      news_fab?.let { fab ->
-        fab.showFromScreenEdge()
-        isFabShown = true
-      }
-    } else {
-      news_fab?.let { fab ->
-        val offset = fab.height + fab.paddingTop + fab.paddingBottom
-        fab.hideBeyondScreenEdge(offset.toFloat())
-        isFabShown = false
-      }
+  override fun showFab() {
+    news_fab?.let { fab ->
+      fab.showFromScreenEdge()
+      isFabShown = true
     }
   }
 
-  override fun hideFabWithoutAnimation() {
-    news_fab.translationY = INITIAL_FAB_OFFSET
-    isFabShown = false
+  override fun hideFab() {
+    news_fab?.let { fab ->
+      val offset = fab.height + fab.paddingTop + fab.paddingBottom
+      fab.hideBeyondScreenEdge(offset.toFloat())
+      isFabShown = false
+    }
   }
 
   override fun onNewsItemClick(link: String, forumLink: String) {

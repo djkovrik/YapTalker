@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.features.authorization
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
-import com.sedsoftware.yaptalker.features.navigation.NavigationActivity
+import com.sedsoftware.yaptalker.base.navigation.RequestCodes
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -16,6 +16,11 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
   companion object {
     private const val ERROR_MESSAGE = "Обнаружены следующие ошибки"
     private const val SUCCESS_MESSAGE = "Спасибо"
+  }
+
+  override fun attachView(view: AuthorizationView?) {
+    super.attachView(view)
+    viewState.updateAppbarTitle()
   }
 
   override fun detachView(view: AuthorizationView?) {
@@ -50,7 +55,7 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
         viewState.loginErrorMessage()
       } else if (str.contains(SUCCESS_MESSAGE)) {
         viewState.loginSuccessMessage()
-        router.exitWithResult(NavigationActivity.SIGN_IN_REQUEST, true)
+        router.exitWithResult(RequestCodes.SIGN_IN, true)
       }
     }
   }

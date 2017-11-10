@@ -38,28 +38,25 @@ fun parseLink(link: String): Pair<Int, String> =
         VideoTypes.YAP_FILES to link.substringAfterLast("=")
 
       link.contains(VK_SELECTOR) -> {
-        val regex = "(?<=oid=)([-\\d]+).*(?<=id=)([\\d]+)"
-        val pattern = Pattern.compile(regex)
-        val matcher = pattern.matcher(link)
-
-        if (matcher.find()) {
-          VideoTypes.VK to "${matcher.group(1)}_${matcher.group(2)}"
-        } else {
-          VideoTypes.VK to ""
-        }
-
+        VideoTypes.VK to getVkVideoId(link)
       }
 
       else -> VideoTypes.OTHER to ""
     }
 
-/**
- * Parse youtube video link to get id.
- *
- * @param link embedded video link.
- * @return video id string.
- */
 fun getYoutubeVideoId(link: String): String {
   val startPosition = link.lastIndexOf("/")
   return link.substring(startPosition + 1, link.indexOf("?", startPosition))
+}
+
+fun getVkVideoId(link: String): String {
+  val regex = "(?<=oid=)([-\\d]+).*(?<=id=)([\\d]+)"
+  val pattern = Pattern.compile(regex)
+  val matcher = pattern.matcher(link)
+
+  return if (matcher.find() && matcher.groupCount() == 2) {
+    "${matcher.group(1)}_${matcher.group(2)}"
+  } else {
+    ""
+  }
 }

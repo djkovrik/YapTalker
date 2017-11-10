@@ -35,10 +35,10 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
     get() = R.layout.fragment_user_profile
 
   private val userId by lazy {
-    arguments.getInt(USER_ID_KEY)
+    arguments?.getInt(USER_ID_KEY) ?: 0
   }
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     userProfilePresenter.loadUserProfile(userId)
@@ -48,48 +48,51 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
     toastError(message)
   }
 
+  override fun updateAppbarTitle(title: String) {
+    userProfilePresenter.setAppbarTitle(title)
+  }
+
   override fun displayProfile(profile: UserProfile) {
     profile_uq.ratingText = profile.uq
     profile_sign.textFromHtml(profile.signature)
     profile_rewards.textFromHtml(profile.rewards)
 
-    profile_group.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_group), profile.group)
-    profile_status.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_status), profile.status)
-    profile_registered.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_registered), profile.registerDate)
-    profile_time_zone.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_time_zone), profile.timeZone)
-
-    if (profile.website.startsWith("http")) {
-      val template = context.stringRes(R.string.profile_web_site)
-      val html = String.format(Locale.getDefault(), template, profile.website)
-      profile_web_site.textFromHtml(html)
+    context?.let { ctx ->
+      profile_group.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_group), profile.group)
+      profile_status.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_status), profile.status)
+      profile_registered.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_registered), profile.registerDate)
+      profile_time_zone.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_time_zone), profile.timeZone)
+      profile_birth_date.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_birth_date), profile.birthDate)
+      profile_location.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_location), profile.location)
+      profile_interests.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_interests), profile.interests)
+      profile_sex.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_sex), profile.sex)
+      profile_messages.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_messages), profile.messagesCount)
+      profile_messages_day.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_messages_day), profile.messsagesPerDay)
+      profile_bayans.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_bayans), profile.bayans)
+      profile_topics_today.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_topics_today), profile.todayTopics)
+      profile_email.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_email), profile.email)
+      profile_icq.text = String.format(Locale.getDefault(),
+          ctx.stringRes(R.string.profile_icq), profile.icq)
     }
 
-    profile_birth_date.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_birth_date), profile.birthDate)
-    profile_location.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_location), profile.location)
-    profile_interests.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_interests), profile.interests)
-    profile_sex.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_sex), profile.sex)
-    profile_messages.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_messages), profile.messagesCount)
-    profile_messages_day.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_messages_day), profile.messsagesPerDay)
-    profile_bayans.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_bayans), profile.bayans)
-    profile_topics_today.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_topics_today), profile.todayTopics)
-    profile_email.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_email), profile.email)
-    profile_icq.text = String.format(Locale.getDefault(),
-        context.stringRes(R.string.profile_icq), profile.icq)
-
-    //profile_avatar.loadFromUrl("http:${profile.avatar}")
+    if (profile.website.startsWith("http")) {
+      val template = context?.stringRes(R.string.profile_web_site)
+      val html = template?.let { String.format(Locale.getDefault(), it, profile.website) }
+      html?.let { profile_web_site.textFromHtml(it) }
+    }
 
     if (profile.photo.isNotEmpty()) {
       profile_photo.loadFromUrl(profile.photo)

@@ -13,7 +13,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
-import com.sedsoftware.yaptalker.commons.extensions.validateURL
+import com.sedsoftware.yaptalker.commons.extensions.validateUrl
 import com.squareup.picasso.Picasso
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.Single
@@ -40,7 +40,7 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
 
   fun saveImage(url: String) {
 
-    loadImageFromUrl(url.validateURL())
+    loadImageFromUrl(url.validateUrl())
         .flatMap { response -> saveToDisk(response, url.substringAfterLast("/")) }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -56,7 +56,7 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
     if (url.isNotEmpty()) {
       Picasso
           .with(context)
-          .load(url.validateURL())
+          .load(url.validateUrl())
           .into(ShareTarget(context))
     }
   }
@@ -87,10 +87,9 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
         }
 
         val file = File(storageDir, filename)
-
         val sink = Okio.buffer(Okio.sink(file))
 
-        sink.writeAll(response.body()?.source())
+        response.body()?.source()?.let { bufferedSource -> sink.writeAll(bufferedSource) }
         sink.close()
         emitter.onSuccess(file)
       } catch (e: IOException) {

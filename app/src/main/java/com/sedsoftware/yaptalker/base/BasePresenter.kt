@@ -26,8 +26,6 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
   protected val yapDataManager: YapDataManager by instance()
   protected val settings: SettingsHelper by instance()
   protected val appbarBus: BehaviorRelay<String> by instance()
-
-  // Global connection events channel
   private val connectionRelay: BehaviorRelay<Long> by instance()
 
   // Local presenter lifecycle events channel
@@ -52,10 +50,11 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
     lifecycle.accept(PresenterLifecycle.DESTROY)
   }
 
-  fun updateAppbarTitle(title: String) {
+  fun setAppbarTitle(title: String) {
     Observable
         .just(title)
         .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe(appbarBus)
   }
 
@@ -63,12 +62,11 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
     return lifecycle.filter({ e -> e == event }).firstElement()
   }
 
-  // Connection state events
   private fun onLoadingStart() {
-    viewState.showLoadingIndicator(shouldShow = true)
+    viewState.showLoadingIndicator()
   }
 
   private fun onLoadingFinish() {
-    viewState.showLoadingIndicator(shouldShow = false)
+    viewState.hideLoadingIndicator()
   }
 }

@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.data.requests
 
 import android.content.Context
-import com.franmontiel.persistentcookiejar.ClearableCookieJar
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.CookieCache
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
@@ -20,6 +19,4 @@ val requestsCookieModule = Kodein.Module {
   bind<CookiePersistor>() with singleton { SharedPrefsCookiePersistor(instance<Context>()) }
 
   bind<CookieJar>() with singleton { PersistentCookieJar(instance(), instance()) }
-
-  bind<ClearableCookieJar>() with singleton { PersistentCookieJar(instance(), instance()) }
 }

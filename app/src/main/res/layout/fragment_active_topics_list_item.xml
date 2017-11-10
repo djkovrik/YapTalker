@@ -8,7 +8,7 @@
   tools:layout_editor_absoluteX="0dp"
   tools:layout_editor_absoluteY="25dp">
 
-  <LinearLayout
+  <RelativeLayout
     android:id="@+id/linearLayoutTopic"
     android:layout_width="0dp"
     android:layout_height="0dp"
@@ -27,43 +27,40 @@
       style="@style/ActiveTopicTitle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentTop="true"
       tools:text="Very very very very very very very long title here" />
 
-    <LinearLayout
-      android:id="@+id/linearLayoutLastPost"
+    <TextView
+      android:id="@+id/active_topic_forum"
+      style="@style/ActiveTopicForum"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:gravity="end"
-      android:orientation="horizontal"
-      tools:layout_editor_absoluteX="194dp"
-      tools:layout_editor_absoluteY="16dp">
+      android:layout_alignParentStart="true"
+      android:layout_below="@+id/active_topic_name"
+      tools:text="Pictures" />
 
-      <TextView
-        android:id="@+id/active_topic_forum"
-        style="@style/ActiveTopicForum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Pictures" />
-
-      <com.sedsoftware.yaptalker.commons.views.ShortDateView
-        android:id="@+id/active_topic_last_post_date"
-        style="@style/CommonSupportingText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/materialize_screen_edge"
-        android:paddingStart="@dimen/materialize_screen_edge"
-        tools:text="minute ago" />
-
-    </LinearLayout>
+    <com.sedsoftware.yaptalker.commons.views.ShortDateView
+      android:id="@+id/active_topic_last_post_date"
+      style="@style/CommonSupportingText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/active_topic_name"
+      android:layout_toEndOf="@+id/active_topic_forum"
+      android:paddingEnd="@dimen/materialize_screen_edge"
+      android:paddingStart="@dimen/materialize_screen_edge"
+      tools:text="minute ago" />
 
     <TextView
       android:id="@+id/active_topic_answers"
       style="@style/ActiveTopicAnswers"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_below="@+id/active_topic_forum"
       tools:text="Answers: 1000" />
 
-  </LinearLayout>
+  </RelativeLayout>
 
   <TextView
     android:id="@+id/active_topic_rating"

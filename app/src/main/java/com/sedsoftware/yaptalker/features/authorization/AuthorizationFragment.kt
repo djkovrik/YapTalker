@@ -1,8 +1,6 @@
 package com.sedsoftware.yaptalker.features.authorization
 
 import android.content.Context
-import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.view.RxView
@@ -30,12 +28,6 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
   override val layoutId: Int
     get() = R.layout.fragment_authorization
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-
-    authorizationPresenter.updateAppbarTitle(context.stringRes(R.string.nav_drawer_sign_in))
-  }
-
   override fun subscribeViews() {
 
     Observable
@@ -58,16 +50,22 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
         }
   }
 
+  override fun updateAppbarTitle() {
+    context?.stringRes(R.string.nav_drawer_sign_in)?.let { title ->
+      authorizationPresenter.setAppbarTitle(title)
+    }
+  }
+
   override fun showErrorMessage(message: String) {
     toastError(message)
   }
 
   override fun loginSuccessMessage() {
-    toastSuccess(context.stringRes(R.string.msg_login_success))
+    context?.stringRes(R.string.msg_login_success)?.let { toastSuccess(it) }
   }
 
   override fun loginErrorMessage() {
-    toastError(context.stringRes(R.string.msg_login_error))
+    context?.stringRes(R.string.msg_login_error)?.let { toastError(it) }
   }
 
   override fun signInButtonEnabled(enabled: Boolean) {
@@ -75,7 +73,7 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
   }
 
   override fun hideKeyboard() {
-    val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(view?.windowToken, 0)
   }
 }

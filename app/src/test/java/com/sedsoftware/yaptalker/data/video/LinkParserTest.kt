@@ -1,11 +1,9 @@
-package com.sedsoftware.yaptalker.commons
+package com.sedsoftware.yaptalker.data.video
 
-import com.sedsoftware.yaptalker.data.video.VideoTypes
-import com.sedsoftware.yaptalker.data.video.parseLink
 import com.winterbe.expekt.should
 import org.junit.Test
 
-class VideoLinkParserKtTest {
+class LinkParserTest {
 
   companion object {
     val coubLink = "//coub.com/embed/vtt0g"
@@ -21,7 +19,7 @@ class VideoLinkParserKtTest {
   }
 
   @Test
-  fun test_parseLinkReturnsCorrectId() {
+  fun parseLinkHandlesAllVideoTypes() {
     VideoTypes.COUB.should.equal(parseLink(coubLink).first)
     coubId.should.equal(parseLink(coubLink).second)
 
@@ -39,5 +37,25 @@ class VideoLinkParserKtTest {
 
     VideoTypes.VK.should.equal(parseLink(vkVideoLink).first)
     vkVideoId.should.equal(parseLink(vkVideoLink).second)
+  }
+
+  @Test
+  fun getYoutubeVideoIdReturnsCorrectId() {
+    // Arrange
+    val link = "//www.youtube.com/embed/Je1fCOcfoxs?start=205&amp;end=&amp;?wmode=transparent"
+    val id = "Je1fCOcfoxs"
+
+    // Assert
+    getYoutubeVideoId(link).should.equal(id)
+  }
+
+  @Test
+  fun getVkVideoIdReturnsCorrectId() {
+    // Arrange
+    val link = "https://vk.com/video_ext.php?oid=239472763&id=456239282&hash=52dc446dee95b9c3"
+    val id = "239472763_456239282"
+
+    // Assert
+    getVkVideoId(link).should.equal(id)
   }
 }

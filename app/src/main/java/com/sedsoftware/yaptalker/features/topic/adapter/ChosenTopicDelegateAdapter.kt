@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.features.topic.adapter
 import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
+import android.text.method.LinkMovementMethod
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,14 +18,12 @@ import com.sedsoftware.yaptalker.commons.extensions.inflate
 import com.sedsoftware.yaptalker.commons.extensions.loadAvatarFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.showView
-import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtmlWithEmoji
-import com.sedsoftware.yaptalker.commons.extensions.validateURL
+import com.sedsoftware.yaptalker.commons.extensions.validateUrl
 import com.sedsoftware.yaptalker.data.parsing.ParsedPost
 import com.sedsoftware.yaptalker.data.parsing.PostHiddenText
-import com.sedsoftware.yaptalker.data.parsing.PostLink
 import com.sedsoftware.yaptalker.data.parsing.PostQuote
 import com.sedsoftware.yaptalker.data.parsing.PostQuoteAuthor
 import com.sedsoftware.yaptalker.data.parsing.PostScript
@@ -36,13 +35,17 @@ import com.sedsoftware.yaptalker.data.video.parseLink
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import io.reactivex.Single
+import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
+import timber.log.Timber
 
-class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
+class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
+                                 val itemClick: ChosenTopicItemClickListener) :
     BaseAdapterInjections(), ViewTypeDelegateAdapter {
 
   companion object {
@@ -65,23 +68,37 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
       getParsedPostSingle(postItem)
           .subscribeOn(Schedulers.computation())
           .observeOn(AndroidSchedulers.mainThread())
-          .map { parsedPost -> fillPostText(parsedPost) }
-          .map { parsedPost -> fillPostImages(parsedPost) }
-          .map { parsedPost -> fillPostVideos(parsedPost) }
-          .map { _ -> fillPostHeader(postItem) }
-          .subscribe({ _ -> }, { _ -> })
+          .subscribe(getPostObservable(postItem))
     }
 
     private fun getParsedPostSingle(item: TopicPost): Single<ParsedPost> =
         Single.just(ParsedPost(item.postContent))
 
+    private fun getPostObservable(mainPost: TopicPost) =
+        object : SingleObserver<ParsedPost> {
+          override fun onSubscribe(d: Disposable) {
+
+          }
+
+          override fun onSuccess(post: ParsedPost) {
+            fillPostText(post)
+            fillPostImages(post)
+            fillPostVideos(post)
+            fillPostHeader(mainPost)
+          }
+
+          override fun onError(e: Throwable) {
+            Timber.d("")
+
+          }
+        }
+
     @Suppress("NestedBlockDepth")
-    private fun fillPostText(post: ParsedPost): ParsedPost {
+    private fun fillPostText(post: ParsedPost) {
 
       val textPadding = itemView.context.resources.getDimension(
           R.dimen.post_text_horizontal_padding).toInt()
       var currentNestingLevel = INITIAL_NESTING_LEVEL
-      val links = HashSet<PostLink>()
       val warnings = ArrayList<PostWarning>()
 
       itemView.post_content_text_container.removeAllViews()
@@ -116,6 +133,7 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
             is PostText -> {
               currentNestingLevel--
               val postText = TextView(itemView.context)
+              postText.movementMethod = LinkMovementMethod.getInstance()
               postText.textFromHtmlWithEmoji(it.text)
               postText.textSize = normalFontSize
               if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
@@ -139,35 +157,10 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
               postScriptText.textColor = R.color.colorPostScriptText
               itemView.post_content_text_container.addView(postScriptText)
             }
-            is PostLink -> {
-              val targetUrl = when {
-                it.url.startsWith("/go") -> "http://www.yaplakal.com${it.url}"
-                else -> it.url
-              }
-
-              val targetTitle = when {
-                it.title.startsWith("http") -> itemView.context.stringRes(R.string.post_link)
-                else -> it.title
-              }
-
-              links.add(PostLink(url = targetUrl, title = targetTitle))
-            }
-
             is PostWarning -> {
               warnings.add(it)
             }
           }
-        }
-
-        if (links.isNotEmpty()) {
-          val link = links.last()
-          itemView.post_link_button.setOnClickListener {
-            itemView.context.browse(url = link.url, newTask = true)
-          }
-          itemView.post_link_button.text = link.title
-          itemView.post_link_button.showView()
-        } else {
-          itemView.post_link_button.hideView()
         }
 
         if (warnings.isNotEmpty()) {
@@ -178,11 +171,9 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
           itemView.post_content_text_container.addView(warningText)
         }
       }
-
-      return post
     }
 
-    private fun fillPostImages(post: ParsedPost): ParsedPost {
+    private fun fillPostImages(post: ParsedPost) {
 
       val imagePadding = itemView.context.resources.getDimension(
           R.dimen.post_image_vertical_padding).toInt()
@@ -203,8 +194,6 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
       } else {
         itemView.post_content_image_container.hideView()
       }
-
-      return post
     }
 
     private fun fillPostVideos(post: ParsedPost) {
@@ -242,13 +231,32 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener) :
         post_date.shortDateText = post.postDate
         post_rating.ratingText = post.postRank
 
+        post_rating_thumb_down.hideView()
+        post_rating_thumb_up.hideView()
+
+        when {
+          post.postRankMinusClicked.isNotEmpty() -> {
+            post_rating_thumb_down.textSize = normalFontSize
+            post_rating_thumb_down.showView()
+          }
+          post.postRankPlusClicked.isNotEmpty() -> {
+            post_rating_thumb_up.textSize = normalFontSize
+            post_rating_thumb_up.showView()
+          }
+        }
+
         post_author.textSize = normalFontSize
         post_date.textSize = normalFontSize
         post_rating.textSize = normalFontSize
 
-        post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateURL())
+        post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateUrl())
         post_author_avatar.setOnClickListener {
           profileClick.onUserAvatarClick(post.authorProfile.getLastDigits())
+        }
+
+        setOnClickListener {
+          val isKarmaAvailable = post.postRankPlusAvailable.isNotEmpty() && post.postRankMinusAvailable.isNotEmpty()
+          itemClick.onPostItemClicked(post.postId, isKarmaAvailable)
         }
       }
     }

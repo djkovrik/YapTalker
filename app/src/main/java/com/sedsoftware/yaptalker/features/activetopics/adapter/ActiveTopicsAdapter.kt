@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.commons.adapter.ContentTypes
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
-import com.sedsoftware.yaptalker.data.parsing.ActiveTopic
-import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsNavigationPanel
 import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPage
 
 class ActiveTopicsAdapter(
@@ -20,7 +18,7 @@ class ActiveTopicsAdapter(
 
   init {
     delegateAdapters.put(ContentTypes.ACTIVE_TOPIC, ActiveTopicsDelegateAdapter(itemClick))
-    delegateAdapters.put(ContentTypes.NAVIGATION_PANEL, ActiveTopicsNavigatonDelegateAdapter(navigationClick))
+    delegateAdapters.put(ContentTypes.NAVIGATION_PANEL, ActiveTopicsNavigationDelegateAdapter(navigationClick))
     items = ArrayList()
   }
 
@@ -45,17 +43,5 @@ class ActiveTopicsAdapter(
     items.addAll(page.topics)
     items.add(page.navigation)
     notifyDataSetChanged()
-  }
-
-  fun getTopics(): List<ActiveTopic> {
-    return items
-        .filter { it.getViewType() == ContentTypes.ACTIVE_TOPIC }
-        .map { it as ActiveTopic }
-  }
-
-  fun getNavigationPanel(): List<ActiveTopicsNavigationPanel> {
-    return items
-        .filter { it.getViewType() == ContentTypes.NAVIGATION_PANEL }
-        .map { it as ActiveTopicsNavigationPanel }
   }
 }

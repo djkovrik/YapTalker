@@ -6,7 +6,20 @@ import org.junit.Test
 class StringExtTest {
 
   @Test
-  fun testStringGetLastDigitsExt() {
+  fun chopEdgesReturnsCorrectString() {
+    // Arrange
+    val commentsString = "(12345)"
+    val commentsStringShortened = "12345"
+    val randomString = "as#Dw56DF85DFh5DF"
+    val randomStringShortened = "s#Dw56DF85DFh5D"
+
+    // Assert
+    commentsStringShortened.should.equal(commentsString.chopEdges())
+    randomStringShortened.should.equal(randomString.chopEdges())
+  }
+
+  @Test
+  fun getLastDigitsReturnsCorrectInt() {
     // Arrange
     val testMap = mapOf(
         7 to "http://www.yaplakal.com/forum7/",
@@ -28,20 +41,7 @@ class StringExtTest {
   }
 
   @Test
-  fun testStringChopEdgesExt() {
-    // Arrange
-    val commentsString = "(12345)"
-    val commentsStringShortened = "12345"
-    val randomString = "as#Dw56DF85DFh5DF"
-    val randomStringShortened = "s#Dw56DF85DFh5D"
-
-    // Assert
-    commentsStringShortened.should.equal(commentsString.chopEdges())
-    randomStringShortened.should.equal(randomString.chopEdges())
-  }
-
-  @Test
-  fun testStringMD5HashCreation() {
+  fun toMd5ReturnsCorrectString() {
     // Arrange
     val testMap = mapOf(
         "Admin1506268417166" to "a9878e9d3f77aeff9825808ab6b620b6",
@@ -56,7 +56,40 @@ class StringExtTest {
 
     // Assert
     testMap.forEach { string, hash ->
-      string.toMD5().should.equal(hash)
+      string.toMd5().should.equal(hash)
+    }
+  }
+
+  @Test
+  fun validateUrlReturnsCorrectString() {
+    // Arrange
+    val rawUrl1 = "http://www.yaplakal.com/html/static/top-logo.png"
+    val rawUrl2 = "//www.yaplakal.com/html/static/top-logo.png"
+    val validatedUrl = "http://www.yaplakal.com/html/static/top-logo.png"
+
+    // Assert
+    rawUrl1.validateUrl().should.equal(validatedUrl)
+    rawUrl2.validateUrl().should.equal(validatedUrl)
+  }
+
+  @Test
+  fun extractYapIdsReturnsCorrectTriple() {
+
+    // Triple format:
+    // ForumId - TopicId - startingPostNumber
+
+    // Arrange
+    val testMap = mapOf(
+        "http://www.yaplakal.com/forum1/topic1672650.html" to Triple(1, 1672650, 0),
+        "http://www.yaplakal.com/forum1/st/25/topic1687325.html" to Triple(1, 1687325, 25),
+        "http://www.yaplakal.com/forum24/st/375/topic690940.html" to Triple(24, 690940, 375),
+        "http://www.yaplakal.com/forum28/st/0/topic1687465.html" to Triple(28, 1687465, 0),
+        "https://www.google.ru" to Triple(0, 0, 0)
+    )
+
+    // Assert
+    testMap.forEach { url, triple ->
+      url.extractYapIds().should.equal(triple)
     }
   }
 }

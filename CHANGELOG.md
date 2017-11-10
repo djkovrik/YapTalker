@@ -2,6 +2,20 @@
 
 # Changelog
 
+## [0.6.0] - 2017-11-10
+### Added
+- Topics rating
+- Posts rating
+- Given rating displaying for topic posts
+
+### Changed
+- Launcher icon updated
+- All links in post TextView now clickable
+
+### Fixed
+- Crash after click on chosen active topic
+- Sign Out request now closes site login session
+
 ## [0.5.0] - 2017-11-03
 ### Added
 - Active topics browsing

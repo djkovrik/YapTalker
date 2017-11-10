@@ -31,6 +31,7 @@ class UserProfilePresenter : BasePresenter<UserProfileView>() {
 
   private fun onLoadingSuccess(profile: UserProfile) {
     viewState.displayProfile(profile)
+    viewState.updateAppbarTitle(profile.nickname)
   }
 
   private fun onLoadingError(error: Throwable) {

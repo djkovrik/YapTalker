@@ -1,45 +1,35 @@
 package com.sedsoftware.yaptalker.features.navigation
 
-import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
-import com.franmontiel.persistentcookiejar.ClearableCookieJar
-import com.github.salomonbrys.kodein.instance
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
-import com.sedsoftware.yaptalker.features.NavigationScreens
+import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
+import com.sedsoftware.yaptalker.base.navigation.RequestCodes
 import com.uber.autodispose.kotlin.autoDisposeWith
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
+import retrofit2.Response
 
 @InjectViewState
-class NavigationViewPresenter : BasePresenter<NavigationView>() {
+class NavigationPresenter : BasePresenter<NavigationView>() {
+
+  companion object {
+    private const val SIGN_OUT_SUCCESS_MARKER = "Вы вышли"
+  }
 
   init {
-    router.setResultListener(NavigationActivity.SIGN_IN_REQUEST, {
+    router.setResultListener(RequestCodes.SIGN_IN, {
       refreshAuthorization()
       goToDefaultMainPage()
     })
   }
 
-  private val cookieStorage: ClearableCookieJar by instance()
-
-  private var currentTitle: String = ""
+  private var sessionId = ""
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
-
-    appbarBus
-        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
-        .subscribe { title ->
-          viewState.setAppbarTitle(title)
-          currentTitle = title
-        }
-
     goToDefaultMainPage()
-
-    if (!settings.isEulaAccepted()) {
-      viewState.showEula()
-    }
   }
 
   override fun attachView(view: NavigationView?) {
@@ -49,23 +39,7 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
 
   override fun onDestroy() {
     super.onDestroy()
-    router.removeResultListener(NavigationActivity.SIGN_IN_REQUEST)
-  }
-
-  fun saveCurrentTitle(key: String, outState: Bundle?) {
-    outState?.putString(key, currentTitle)
-  }
-
-  fun restoreCurrentTitle(key: String, savedInstanceState: Bundle?) {
-    savedInstanceState?.let {
-      if (savedInstanceState.containsKey(key)) {
-        updateAppbarTitle(savedInstanceState.getString(key))
-      }
-    }
-  }
-
-  fun initLayout(savedInstanceState: Bundle?) {
-    viewState.initDrawer(savedInstanceState)
+    router.removeResultListener(RequestCodes.SIGN_IN)
   }
 
   fun onNavigationDrawerClicked(@NavigationDrawerItems.Section identifier: Long) {
@@ -76,16 +50,37 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
       NavigationDrawerItems.BOOKMARKS -> router.newRootScreen(NavigationScreens.BOOKMARKS_SCREEN)
       NavigationDrawerItems.SETTINGS -> router.navigateTo(NavigationScreens.SETTINGS_SCREEN)
       NavigationDrawerItems.SIGN_IN -> router.navigateTo(NavigationScreens.AUTHORIZATION_SCREEN)
-      NavigationDrawerItems.SIGN_OUT -> signOut()
+      NavigationDrawerItems.SIGN_OUT -> sendSignOutRequest()
     }
   }
 
-  fun onEulaAccept() {
-    settings.markEulaAccepted()
+  private fun sendSignOutRequest() {
+    if (sessionId.isNotEmpty()) {
+      yapDataManager
+          .loginOutFromSite(sessionId)
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+          .subscribe({
+            // onSuccess
+            response ->
+            onSignOutResponse(response)
+          }, {
+            // onError
+            throwable ->
+            throwable.message?.let { viewState.showErrorMessage(it) }
+          })
+    }
   }
 
-  fun navigateWithIntentLink(triple: Triple<Int, Int, Int>) {
-    router.navigateTo(NavigationScreens.CHOSEN_TOPIC_SCREEN, triple)
+  private fun onSignOutResponse(response: Response<ResponseBody>) {
+    response.body()?.string()?.let { str ->
+      if (str.contains(SIGN_OUT_SUCCESS_MARKER)) {
+        viewState.showSignOutMessage()
+        refreshAuthorization()
+        goToDefaultMainPage()
+      }
+    }
   }
 
   private fun refreshAuthorization() {
@@ -96,11 +91,19 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
         .observeOn(AndroidSchedulers.mainThread())
         .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe({
-          // On Success
-          info ->
-          viewState.updateNavDrawer(info)
+          // onSuccess
+          userInfo ->
+          sessionId = userInfo.sessionId
+          viewState.updateNavDrawerProfile(userInfo)
+          viewState.clearDynamicNavigationItems()
+
+          if (userInfo.nickname.isEmpty()) {
+            viewState.displaySignedOutNavigation()
+          } else {
+            viewState.displaySignedInNavigation()
+          }
         }, {
-          // On Error
+          // onError
           throwable ->
           throwable.message?.let { viewState.showErrorMessage(it) }
         })
@@ -108,12 +111,5 @@ class NavigationViewPresenter : BasePresenter<NavigationView>() {
 
   private fun goToDefaultMainPage() {
     router.newRootScreen(settings.getStartingPage())
-  }
-
-  private fun signOut() {
-    cookieStorage.clear()
-    viewState.showSignOutMessage()
-    refreshAuthorization()
-    goToDefaultMainPage()
   }
 }
