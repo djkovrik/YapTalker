@@ -137,7 +137,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     RxSwipeRefreshLayout
         .refreshes(topic_refresh_layout)
         .autoDisposeWith(event(FragmentLifecycle.STOP))
-        .subscribe { topicPresenter.loadTopic(forumId, topicId) }
+        .subscribe { topicPresenter.refreshCurrentPage() }
   }
 
   override fun updateAppbarTitle(title: String) {

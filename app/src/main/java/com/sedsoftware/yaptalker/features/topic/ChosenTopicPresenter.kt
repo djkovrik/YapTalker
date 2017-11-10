@@ -63,6 +63,10 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     loadTopicCurrentPage(scrollToTop = false)
   }
 
+  fun refreshCurrentPage() {
+    loadTopicCurrentPage(scrollToTop = false)
+  }
+
   fun goToFirstPage() {
     currentPage = 1
     loadTopicCurrentPage(scrollToTop = true)
