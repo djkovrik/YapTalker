@@ -22,6 +22,11 @@ class ForumsPresenter : BasePresenter<ForumsView>() {
     loadForumsList()
   }
 
+  override fun attachView(view: ForumsView?) {
+    super.attachView(view)
+    viewState.updateAppbarTitle()
+  }
+
   fun loadForumsList() {
 
     viewState.clearForumsList()

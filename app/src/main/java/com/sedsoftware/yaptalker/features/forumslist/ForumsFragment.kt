@@ -49,8 +49,6 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
       addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
       setHasFixedSize(true)
     }
-
-    context?.stringRes(R.string.nav_drawer_forums)?.let { forumsPresenter.updateAppbarTitle(it) }
   }
 
   override fun subscribeViews() {
@@ -58,6 +56,11 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
         .refreshes(forums_list_refresh_layout)
         .autoDisposeWith(event(FragmentLifecycle.STOP))
         .subscribe { forumsPresenter.loadForumsList() }
+  }
+
+  override fun updateAppbarTitle() {
+    context?.stringRes(R.string.nav_drawer_forums)?.let { title ->
+      forumsPresenter.setAppbarTitle(title) }
   }
 
   override fun showErrorMessage(message: String) {

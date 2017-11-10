@@ -249,8 +249,8 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     isClosed = page.isClosed
     currentTitle = page.topicTitle
 
-    updateAppbarTitle(currentTitle)
     setupMenuButtons()
+    viewState.updateAppbarTitle(currentTitle)
 
     val pageString = page.navigation.currentPage
     val totalPageString = page.navigation.totalPages

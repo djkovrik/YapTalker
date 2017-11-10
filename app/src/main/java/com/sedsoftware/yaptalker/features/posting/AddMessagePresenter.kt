@@ -23,6 +23,11 @@ class AddMessagePresenter : BasePresenter<AddMessageView>() {
     private var isUOpened = false
   }
 
+  override fun attachView(view: AddMessageView?) {
+    super.attachView(view)
+    viewState.updateAppbarTitle()
+  }
+
   override fun detachView(view: AddMessageView?) {
     viewState.hideKeyboard()
     super.detachView(view)

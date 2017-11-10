@@ -27,6 +27,11 @@ class ActiveTopicsPresenter : BasePresenter<ActiveTopicsView>() {
     refreshTopicsList()
   }
 
+  override fun attachView(view: ActiveTopicsView?) {
+    super.attachView(view)
+    viewState.updateAppbarTitle()
+  }
+
   fun refreshTopicsList() {
     yapDataManager
         .getSearchId()

@@ -1,8 +1,6 @@
 package com.sedsoftware.yaptalker.features.authorization
 
 import android.content.Context
-import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.view.RxView
@@ -30,12 +28,6 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
   override val layoutId: Int
     get() = R.layout.fragment_authorization
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-
-    context?.stringRes(R.string.nav_drawer_sign_in)?.let { authorizationPresenter.updateAppbarTitle(it) }
-  }
-
   override fun subscribeViews() {
 
     Observable
@@ -56,6 +48,12 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
               authorization_login.text.toString(),
               authorization_password.text.toString())
         }
+  }
+
+  override fun updateAppbarTitle() {
+    context?.stringRes(R.string.nav_drawer_sign_in)?.let { title ->
+      authorizationPresenter.setAppbarTitle(title)
+    }
   }
 
   override fun showErrorMessage(message: String) {

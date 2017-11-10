@@ -18,6 +18,11 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
     private const val SUCCESS_MESSAGE = "Спасибо"
   }
 
+  override fun attachView(view: AuthorizationView?) {
+    super.attachView(view)
+    viewState.updateAppbarTitle()
+  }
+
   override fun detachView(view: AuthorizationView?) {
     viewState.hideKeyboard()
     super.detachView(view)

@@ -48,7 +48,6 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHasOptionsMenu(true)
-    messagingPresenter.updateAppbarTitle("")
 
     if (currentTopicTitle.isNotEmpty()) {
       new_post_topic_title.text = currentTopicTitle
@@ -95,6 +94,10 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
             messagingPresenter.onTagClicked(selectionStart, selectionEnd, MessageTags.TAG_LINK)
           }
         }
+  }
+
+  override fun updateAppbarTitle() {
+    messagingPresenter.setAppbarTitle("")
   }
 
   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {

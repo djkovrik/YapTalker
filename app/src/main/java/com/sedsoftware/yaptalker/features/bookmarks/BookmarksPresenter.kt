@@ -17,6 +17,11 @@ class BookmarksPresenter : BasePresenter<BookmarksView>() {
     loadBookmarks()
   }
 
+  override fun attachView(view: BookmarksView?) {
+    super.attachView(view)
+    viewState.updateAppbarTitle()
+  }
+
   fun navigateToBookmarkedTopic(triple: Triple<Int, Int, Int>) {
     router.navigateTo(NavigationScreens.CHOSEN_TOPIC_SCREEN, triple)
   }

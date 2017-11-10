@@ -28,6 +28,11 @@ class NewsPresenter : BasePresenter<NewsView>() {
     loadNews(loadFromFirstPage = true)
   }
 
+  override fun attachView(view: NewsView?) {
+    super.attachView(view)
+    viewState.updateAppbarTitle()
+  }
+
   fun onScrollFabVisibility(diff: Int) {
     when {
       diff > 0 -> viewState.hideFab()

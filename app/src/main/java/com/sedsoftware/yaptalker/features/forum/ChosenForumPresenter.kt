@@ -18,7 +18,6 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
 
-  private var currentTitle = ""
   private var currentForumId = 0
   private var currentSorting = LAST_UPDATE_SORTER
   private var currentPage = 1
@@ -91,8 +90,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
   private fun onLoadingSuccess(page: ForumPage, scrollToTop: Boolean) {
 
-    currentTitle = page.forumTitle
-    updateAppbarTitle(currentTitle)
+    viewState.updateAppbarTitle(page.forumTitle)
 
     val pageString = page.navigation.currentPage
     val totalPageString = page.navigation.totalPages

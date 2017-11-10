@@ -47,7 +47,6 @@ import ru.terrakok.cicerone.commands.Command
 class NavigationActivity : BaseActivity(), NavigationView, NavigationDrawerView {
 
   companion object {
-    private const val APPBAR_TITLE_KEY = "APPBAR_TITLE_KEY"
     private const val BOOKMARKS_ITEM_INSERT_POSITION = 4
   }
 
@@ -104,12 +103,6 @@ class NavigationActivity : BaseActivity(), NavigationView, NavigationDrawerView 
     super.onCreate(savedInstanceState)
     setSupportActionBar(toolbar)
 
-    savedInstanceState?.let {
-      if (savedInstanceState.containsKey(APPBAR_TITLE_KEY)) {
-        navigationPresenter.updateAppbarTitle(savedInstanceState.getString(APPBAR_TITLE_KEY))
-      }
-    }
-
     initNavDrawer(savedInstanceState)
     handleLinkIntent()
   }
@@ -126,9 +119,6 @@ class NavigationActivity : BaseActivity(), NavigationView, NavigationDrawerView 
   }
 
   override fun onSaveInstanceState(outState: Bundle?) {
-
-    supportActionBar?.title?.let { title -> outState?.putString(APPBAR_TITLE_KEY, title.toString()) }
-
     navDrawer.saveInstanceState(outState)
     navHeader.saveInstanceState(outState)
     super.onSaveInstanceState(outState)

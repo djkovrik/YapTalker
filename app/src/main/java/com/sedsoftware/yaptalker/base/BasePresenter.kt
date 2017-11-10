@@ -50,8 +50,7 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
     lifecycle.accept(PresenterLifecycle.DESTROY)
   }
 
-  // TODO() Refactor appbar title handling
-  fun updateAppbarTitle(title: String) {
+  fun setAppbarTitle(title: String) {
     Observable
         .just(title)
         .observeOn(AndroidSchedulers.mainThread())

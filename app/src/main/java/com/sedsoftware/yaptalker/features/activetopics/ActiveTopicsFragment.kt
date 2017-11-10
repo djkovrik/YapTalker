@@ -56,8 +56,6 @@ class ActiveTopicsFragment :
 
       setHasFixedSize(true)
     }
-
-    context?.stringRes(R.string.nav_drawer_active_topics)?.let { activeTopicsPresenter.updateAppbarTitle(it) }
   }
 
   override fun subscribeViews() {
@@ -65,6 +63,12 @@ class ActiveTopicsFragment :
         .refreshes(active_topics_refresh_layout)
         .autoDisposeWith(event(FragmentLifecycle.STOP))
         .subscribe { activeTopicsPresenter.refreshTopicsList() }
+  }
+
+  override fun updateAppbarTitle() {
+    context?.stringRes(R.string.nav_drawer_active_topics)?.let { title ->
+      activeTopicsPresenter.setAppbarTitle(title)
+    }
   }
 
   override fun showErrorMessage(message: String) {

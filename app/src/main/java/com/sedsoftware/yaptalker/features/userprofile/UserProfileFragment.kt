@@ -48,6 +48,10 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
     toastError(message)
   }
 
+  override fun updateAppbarTitle(title: String) {
+    userProfilePresenter.setAppbarTitle(title)
+  }
+
   override fun displayProfile(profile: UserProfile) {
     profile_uq.ratingText = profile.uq
     profile_sign.textFromHtml(profile.signature)
@@ -95,7 +99,5 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
     } else {
       profile_photo_card.hideView()
     }
-
-    userProfilePresenter.updateAppbarTitle(profile.nickname)
   }
 }

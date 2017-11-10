@@ -139,6 +139,10 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
         .subscribe { topicPresenter.loadTopic(forumId, topicId) }
   }
 
+  override fun updateAppbarTitle(title: String) {
+    topicPresenter.setAppbarTitle(title)
+  }
+
   override fun showErrorMessage(message: String) {
     toastError(message)
   }

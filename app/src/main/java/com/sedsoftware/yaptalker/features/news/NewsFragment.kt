@@ -58,8 +58,6 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
     }
 
     refresh_layout.setIndicatorColorScheme()
-
-    context?.stringRes(R.string.nav_drawer_main_page)?.let { newsPresenter.updateAppbarTitle(it) }
   }
 
   override fun subscribeViews() {
@@ -78,6 +76,12 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
         .clicks(news_fab)
         .autoDisposeWith(event(FragmentLifecycle.STOP))
         .subscribe { newsPresenter.loadNews(loadFromFirstPage = true) }
+  }
+
+  override fun updateAppbarTitle() {
+    context?.stringRes(R.string.nav_drawer_main_page)?.let { title ->
+      newsPresenter.setAppbarTitle(title)
+    }
   }
 
   override fun showErrorMessage(message: String) {

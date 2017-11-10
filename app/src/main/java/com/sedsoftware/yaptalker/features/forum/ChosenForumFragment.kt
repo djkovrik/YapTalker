@@ -76,6 +76,10 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListe
         .subscribe { forumPresenter.loadForum(currentForumId) }
   }
 
+  override fun updateAppbarTitle(title: String) {
+    forumPresenter.setAppbarTitle(title)
+  }
+
   override fun showErrorMessage(message: String) {
     toastError(message)
   }

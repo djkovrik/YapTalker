@@ -54,8 +54,6 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListe
 
       setHasFixedSize(true)
     }
-
-    context?.stringRes(R.string.nav_drawer_bookmarks)?.let { bookmarksPresenter.updateAppbarTitle(it) }
   }
 
   override fun subscribeViews() {
@@ -63,6 +61,12 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListe
         .refreshes(bookmarks_refresh_layout)
         .autoDisposeWith(event(FragmentLifecycle.STOP))
         .subscribe { bookmarksPresenter.loadBookmarks() }
+  }
+
+  override fun updateAppbarTitle() {
+    context?.stringRes(R.string.nav_drawer_bookmarks)?.let { title ->
+      bookmarksPresenter.setAppbarTitle(title)
+    }
   }
 
   override fun showLoadingIndicator() {
