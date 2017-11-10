@@ -6,5 +6,6 @@ import retrofit2.http.Query
 
 interface YapFileLoader {
   @GET("/get_player")
-  fun loadHash(@Query("v") v: String): Single<String>
+  fun loadHash(
+      @Query("v") v: String): Single<String>
 }

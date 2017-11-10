@@ -162,6 +162,10 @@ class YapDataManager(
         }
   }
 
+  fun loginOutFronSite(key: String): Single<Response<ResponseBody>> =
+      yapLoader
+          .signOut(key)
+
   fun sendMessageToSite(forumId: Int, topicId: Int, page: Int, key: String, message: String): Single<TopicPage> =
       yapLoader
           .postMessage(

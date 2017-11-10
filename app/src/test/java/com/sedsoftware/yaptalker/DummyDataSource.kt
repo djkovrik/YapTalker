@@ -11,9 +11,9 @@ import com.sedsoftware.yaptalker.data.parsing.NewsItem
 import com.sedsoftware.yaptalker.data.parsing.TopicNavigationPanel
 import com.sedsoftware.yaptalker.data.parsing.TopicPage
 
-fun getDummyUserInfoAuthorized() = AuthorizedUserInfo("nickname", "title", "uq", "avatar")
+fun getDummyUserInfoAuthorized() = AuthorizedUserInfo("nickname", "title", "uq", "avatar", "12345")
 
-fun getDummyUserInfoNotAuthorized() = AuthorizedUserInfo("", "", "", "")
+fun getDummyUserInfoNotAuthorized() = AuthorizedUserInfo("", "", "", "", "")
 
 fun getDummyNewsItem() = NewsItem(
     title = "Title",
