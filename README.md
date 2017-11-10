@@ -15,6 +15,7 @@ With this app you can:
 * Watch videos (including yapfiles and embedded video clips from vk.com, coub etc.)
 * Manage bookmarks
 * Sign In and post messages
+* Change user posts and topics rating
 
 Download
 --------
