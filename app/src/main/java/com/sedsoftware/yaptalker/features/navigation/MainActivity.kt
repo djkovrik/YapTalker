@@ -44,17 +44,17 @@ import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 
-class NavigationActivity : BaseActivity(), NavigationView, NavigationDrawerView {
+class MainActivity : BaseActivity(), MainActivityView, NavigationView {
 
   companion object {
     private const val BOOKMARKS_ITEM_INSERT_POSITION = 4
   }
 
   @InjectPresenter
-  lateinit var navigationPresenter: NavigationPresenter
+  lateinit var navigationPresenter: MainActivityPresenter
 
   @InjectPresenter
-  lateinit var navigationDrawerPresenter: NavigationDrawerPresenter
+  lateinit var navigationDrawerPresenter: NavigationPresenter
 
   override val layoutId: Int
     get() = R.layout.activity_main
@@ -72,7 +72,7 @@ class NavigationActivity : BaseActivity(), NavigationView, NavigationDrawerView 
   private val navigator = object : SupportAppNavigator(this, supportFragmentManager, R.id.content_frame) {
 
     override fun createActivityIntent(screenKey: String?, data: Any?): Intent? = when (screenKey) {
-      NavigationScreens.SETTINGS_SCREEN -> SettingsActivity.getIntent(this@NavigationActivity)
+      NavigationScreens.SETTINGS_SCREEN -> SettingsActivity.getIntent(this@MainActivity)
       else -> null
     }
 
