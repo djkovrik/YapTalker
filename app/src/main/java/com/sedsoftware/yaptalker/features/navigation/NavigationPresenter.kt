@@ -57,7 +57,7 @@ class NavigationPresenter : BasePresenter<NavigationView>() {
   private fun sendSignOutRequest() {
     if (sessionId.isNotEmpty()) {
       yapDataManager
-          .loginOutFronSite(sessionId)
+          .loginOutFromSite(sessionId)
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .autoDisposeWith(event(PresenterLifecycle.DESTROY))

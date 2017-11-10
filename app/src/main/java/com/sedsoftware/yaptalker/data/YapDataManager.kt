@@ -162,7 +162,7 @@ class YapDataManager(
         }
   }
 
-  fun loginOutFronSite(key: String): Single<Response<ResponseBody>> =
+  fun loginOutFromSite(key: String): Single<Response<ResponseBody>> =
       yapLoader
           .signOut(key)
 

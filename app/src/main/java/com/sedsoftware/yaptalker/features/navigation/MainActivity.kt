@@ -51,10 +51,10 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   }
 
   @InjectPresenter
-  lateinit var navigationPresenter: MainActivityPresenter
+  lateinit var mainActivityPresenter: MainActivityPresenter
 
   @InjectPresenter
-  lateinit var navigationDrawerPresenter: NavigationPresenter
+  lateinit var navigationPresenter: NavigationPresenter
 
   override val layoutId: Int
     get() = R.layout.activity_main
@@ -154,7 +154,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
         .title(R.string.eula_title)
         .customView(R.layout.custom_view_eula, true)
         .positiveText(R.string.eula_button_ok)
-        .onPositive { _, _ -> navigationPresenter.onEulaAccept() }
+        .onPositive { _, _ -> mainActivityPresenter.onEulaAccept() }
         .build()
 
     dialog.customView?.findViewById<TextView>(R.id.eula_text_view)?.textFromHtml(getString(R.string.eula_text))
@@ -286,7 +286,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
         .addDrawerItems(drawerItemSettings)
         .withOnDrawerItemClickListener { _, _, drawerItem ->
           if (drawerItem is Nameable<*>) {
-            navigationDrawerPresenter.onNavigationDrawerClicked(drawerItem.identifier)
+            navigationPresenter.onNavigationDrawerClicked(drawerItem.identifier)
           }
           false
         }
@@ -304,7 +304,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       val navigateTo = appLinkData.toString().extractYapIds()
 
       if (navigateTo.first != 0) {
-        navigationPresenter.navigateWithIntentLink(navigateTo)
+        mainActivityPresenter.navigateWithIntentLink(navigateTo)
       }
     }
   }

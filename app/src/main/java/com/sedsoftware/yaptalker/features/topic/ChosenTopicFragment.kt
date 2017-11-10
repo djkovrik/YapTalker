@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.fragment_chosen_topic.*
 import org.jetbrains.anko.share
 import java.util.Locale
 
+@Suppress("TooManyFunctions")
 class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickListener, TopicNavigationClickListener,
     ChosenTopicItemClickListener {
 

@@ -13,6 +13,7 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import timber.log.Timber
 
+@Suppress("TooManyFunctions")
 @InjectViewState
 class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
 

@@ -40,11 +40,7 @@ class ChosenForumAdapter(itemClick: TopicItemClickListener, navigationClick: For
   override fun getItemId(position: Int): Long {
     val item = items[position]
 
-    return if (item is Topic) {
-      item.link.getLastDigits().toLong()
-    } else {
-      position.toLong()
-    }
+    return (item as? Topic)?.link?.getLastDigits()?.toLong() ?: position.toLong()
   }
 
   fun refreshForumPage(page: ForumPage) {
