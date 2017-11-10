@@ -257,6 +257,20 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
         post_date.shortDateText = post.postDate
         post_rating.ratingText = post.postRank
 
+        post_rating_thumb_down.hideView()
+        post_rating_thumb_up.hideView()
+
+        when {
+          post.postRankMinusClicked.isNotEmpty() -> {
+            post_rating_thumb_down.textSize = normalFontSize
+            post_rating_thumb_down.showView()
+          }
+          post.postRankPlusClicked.isNotEmpty() -> {
+            post_rating_thumb_up.textSize = normalFontSize
+            post_rating_thumb_up.showView()
+          }
+        }
+
         post_author.textSize = normalFontSize
         post_date.textSize = normalFontSize
         post_rating.textSize = normalFontSize

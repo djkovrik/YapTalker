@@ -38,6 +38,10 @@
   <color name="colorRatingRedText">@color/material_color_black_54_percent</color>
   <color name="colorRatingDarkRedText">@color/material_color_black_54_percent</color>
 
+  <!-- UQ thumbs colors -->
+  <color name="colorRatingThumbUp">@color/material_color_green_500</color>
+  <color name="colorRatingThumbDown">@color/colorPrimary</color>
+
   <!-- Toasty colors -->
   <color name="toastyColorError">@color/colorPrimary</color>
   <color name="toastyColorInfo">@color/colorAccent</color>

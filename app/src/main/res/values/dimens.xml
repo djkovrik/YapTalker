@@ -17,4 +17,5 @@
   <dimen name="post_editor_margin">8dp</dimen>
   <dimen name="navigation_panel_text_size">20sp</dimen>
   <dimen name="auth_edit_text_drawable_padding">8dp</dimen>
+  <dimen name="post_karma_thump_icon_padding">4dp</dimen>
 </resources>

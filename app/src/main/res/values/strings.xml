@@ -47,6 +47,10 @@
   <string name="authorization_password_label">Password</string>
   <string name="authorization_button_login">Sign In</string>
 
+  <!-- TOPIC -->
+  <string name="topic_post_karma_thumb_up" translatable="false">{cmd-thumb-up} </string>
+  <string name="topic_post_karma_thumb_down" translatable="false">{cmd-thumb-down} </string>
+
   <!-- ADD MESSAGE ACTIVITY -->
   <string name="post_message_hint">Enter your message…</string>
   <string name="post_insert_link">Link</string>
