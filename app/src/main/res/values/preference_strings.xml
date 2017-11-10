@@ -17,6 +17,8 @@
   <string name="pref_appearance_font_size_value_14" translatable="false">14</string>
   <string name="pref_appearance_font_size_value_15" translatable="false">15</string>
   <string name="pref_appearance_font_size_value_16" translatable="false">16</string>
+  <string name="pref_appearance_font_size_value_17" translatable="false">17</string>
+  <string name="pref_appearance_font_size_value_18" translatable="false">18</string>
 
   <!-- CONTENT -->
   <string name="pref_category_title_content">Content</string>

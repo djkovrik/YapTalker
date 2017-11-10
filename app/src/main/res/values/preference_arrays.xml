@@ -16,6 +16,8 @@
     <item>@string/pref_appearance_font_size_value_14</item>
     <item>@string/pref_appearance_font_size_value_15</item>
     <item>@string/pref_appearance_font_size_value_16</item>
+    <item>@string/pref_appearance_font_size_value_17</item>
+    <item>@string/pref_appearance_font_size_value_18</item>
   </string-array>
 
   <!-- Content: Categorizer -->
