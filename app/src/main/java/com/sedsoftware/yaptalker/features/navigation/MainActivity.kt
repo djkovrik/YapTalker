@@ -22,6 +22,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseActivity
 import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
+import com.sedsoftware.yaptalker.commons.extensions.booleanRes
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.extractYapIds
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
@@ -40,6 +41,7 @@ import com.sedsoftware.yaptalker.features.posting.AddMessageFragment
 import com.sedsoftware.yaptalker.features.settings.SettingsActivity
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.features.userprofile.UserProfileFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -58,6 +60,10 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
 
   override val layoutId: Int
     get() = R.layout.activity_main
+
+  private val isInTwoPaneMode: Boolean by lazy {
+    booleanRes(R.bool.two_pane_mode)
+  }
 
   private lateinit var navDrawer: Drawer
   private lateinit var navHeader: AccountHeader
@@ -136,7 +142,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
 
   override fun onBackPressed() {
     when {
-      navDrawer.isDrawerOpen -> navDrawer.closeDrawer()
+      !isInTwoPaneMode && navDrawer.isDrawerOpen -> navDrawer.closeDrawer()
       else -> super.onBackPressed()
     }
   }
@@ -198,6 +204,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     toastInfo(stringRes(R.string.msg_sign_out))
   }
 
+  @Suppress("PLUGIN_WARNING")
   private fun initNavDrawer(savedInstanceState: Bundle?) {
 
     drawerItemMainPage = PrimaryDrawerItem()
@@ -275,7 +282,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
         .withSavedInstance(savedInstanceState)
         .build()
 
-    navDrawer = DrawerBuilder()
+    val drawerBuilder = DrawerBuilder()
         .withActivity(this)
         .withAccountHeader(navHeader)
         .withToolbar(toolbar)
@@ -291,7 +298,13 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
           false
         }
         .withSavedInstance(savedInstanceState)
-        .build()
+
+    if (isInTwoPaneMode) {
+      navDrawer = drawerBuilder.buildView()
+      navigation_drawer.addView(navDrawer.slider)
+    } else {
+      navDrawer = drawerBuilder.build()
+    }
   }
 
   private fun handleLinkIntent() {
