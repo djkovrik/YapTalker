@@ -37,6 +37,12 @@ class NewsPresenterTest : BaseTestClassForPresenters() {
   }
 
   @Test
+  fun attachViewUpdatesAppbarTitle() {
+    presenter.attachView(newsView)
+    verify(newsViewState).updateAppbarTitle()
+  }
+
+  @Test
   fun presenterHidesFabOnScrollDown() {
     presenter.onScrollFabVisibility(scrollDownDiff)
     verify(newsViewState).hideFab()

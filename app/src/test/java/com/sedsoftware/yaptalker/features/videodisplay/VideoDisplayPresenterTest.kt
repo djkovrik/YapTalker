@@ -32,13 +32,13 @@ class VideoDisplayPresenterTest : BaseTestClassForPresenters() {
   }
 
   @Test
-  fun presenterAttachViewCallsVideoInit() {
+  fun attachViewCallsVideoInit() {
     presenter.attachView(videoView)
     verify(videoViewState).initWebView()
   }
 
   @Test
-  fun presenterDetachViewCallsVideoClean() {
+  fun detachViewCallsVideoClean() {
     presenter.detachView(videoView)
     verify(videoViewState).clearWebView()
   }

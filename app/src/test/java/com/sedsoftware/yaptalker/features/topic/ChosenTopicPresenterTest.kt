@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.features.topic
 
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.sedsoftware.yaptalker.BaseTestClassForPresenters
@@ -43,13 +44,23 @@ class ChosenTopicPresenterTest : BaseTestClassForPresenters() {
   }
 
   @Test
+  fun normalViewAttachesDoNotInitiateTopicPageUpdate() {
+    presenter.detachView(chosenTopicView)
+    presenter.attachView(chosenTopicView)
+    verify(chosenTopicViewState, never()).initiateTopicLoading()
+    presenter.detachView(chosenTopicView)
+    presenter.attachView(chosenTopicView)
+    verify(chosenTopicViewState, never()).initiateTopicLoading()
+  }
+
+  @Test
   fun incorrectPageRequestShowsErrorMessage() {
     presenter.goToChosenPage(1000)
     verify(chosenTopicViewState).showCantLoadPageMessage(1000)
   }
 
   @Test
-  fun shareTopicLaunchesSharingFromView() {
+  fun onShareItemClickedLaunchesSharingFromView() {
     presenter.onShareItemClicked()
     verify(chosenTopicViewState).shareTopic("", 0)
   }

@@ -29,14 +29,14 @@ class NavigationPresenterTest : BaseTestClassForPresenters() {
   }
 
   @Test
-  fun presenterShowsEulaOnFirstViewAttach() {
+  fun onFirstViewAttachShowsEula() {
     whenever(settingsMock.isEulaAccepted()).thenReturn(false)
     callProtectedPresenterMethod(presenter, "onFirstViewAttach")
     verify(navigationViewState).showEula()
   }
 
   @Test
-  fun presenterDoesNotShowEulaWhenConfirmed() {
+  fun onFirstViewAttachDoesNotShowEulaWhenConfirmed() {
     whenever(settingsMock.isEulaAccepted()).thenReturn(true)
     callProtectedPresenterMethod(presenter, "onFirstViewAttach")
     verify(navigationViewState, never()).showEula()

@@ -38,6 +38,12 @@ class ActiveTopicsPresenterTest : BaseTestClassForPresenters() {
   }
 
   @Test
+  fun attachViewUpdatesAppbarTitle() {
+    presenter.attachView(activeTopicsView)
+    verify(activeTopicsViewState).updateAppbarTitle()
+  }
+
+  @Test
   fun incorrectPageRequestShowsErrorMessage() {
     presenter.goToChosenPage(1000)
     verify(activeTopicsViewState).showCantLoadPageMessage(1000)

@@ -32,6 +32,12 @@ class BookmarksPresenterTest : BaseTestClassForPresenters() {
   }
 
   @Test
+  fun attachViewUpdatesAppbarTitle() {
+    presenter.attachView(bookmarksView)
+    verify(bookmarksViewState).updateAppbarTitle()
+  }
+
+  @Test
   fun onDeleteIconClickedShowsConfirmationDialog() {
     presenter.onDeleteIconClicked(1)
     verify(bookmarksViewState).showDeleteConfirmDialog(1)

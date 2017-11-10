@@ -32,7 +32,7 @@ class NavigationDrawerPresenterTest : BaseTestClassForPresenters() {
   }
 
   @Test
-  fun presenterUpdatesNavDrawerAuthorized() {
+  fun refreshAuthorizationUpdatesNavigationDrawerAuthorized() {
     whenever(yapDataManagerMock.getAuthorizedUserInfo())
         .thenReturn(Single.just(authorizedUser))
 
@@ -46,7 +46,7 @@ class NavigationDrawerPresenterTest : BaseTestClassForPresenters() {
   }
 
   @Test
-  fun presenterUpdatesNavDrawerNotAuthorized() {
+  fun refreshAuthorizationUpdatesNavigationDrawerNotAuthorized() {
     whenever(yapDataManagerMock.getAuthorizedUserInfo())
         .thenReturn(Single.just(notAuthorizedUser))
 
@@ -60,7 +60,7 @@ class NavigationDrawerPresenterTest : BaseTestClassForPresenters() {
   }
 
   @Test
-  fun presenterSignOutShowsMessage() {
+  fun signingOutShowsMessage() {
 
     whenever(yapDataManagerMock.getAuthorizedUserInfo())
         .thenReturn(Single.just(authorizedUser))

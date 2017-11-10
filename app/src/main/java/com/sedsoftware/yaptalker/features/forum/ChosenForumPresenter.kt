@@ -90,8 +90,6 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
 
   private fun onLoadingSuccess(page: ForumPage, scrollToTop: Boolean) {
 
-    viewState.updateAppbarTitle(page.forumTitle)
-
     val pageString = page.navigation.currentPage
     val totalPageString = page.navigation.totalPages
 
@@ -100,6 +98,7 @@ class ChosenForumPresenter : BasePresenter<ChosenForumView>() {
       totalPages = totalPageString.toInt()
     }
 
+    viewState.updateAppbarTitle(page.forumTitle)
     viewState.displayForumPage(page)
 
     if (scrollToTop) {

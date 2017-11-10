@@ -34,6 +34,12 @@ class ForumsPresenterTest : BaseTestClassForPresenters() {
   }
 
   @Test
+  fun attachViewUpdatesAppbarTitle() {
+    presenter.attachView(forumsView)
+    verify(forumsViewState).updateAppbarTitle()
+  }
+
+  @Test
   fun loadingForumsListClearsPreviousListFirst() {
     presenter.loadForumsList()
     verify(forumsViewState).clearForumsList()
