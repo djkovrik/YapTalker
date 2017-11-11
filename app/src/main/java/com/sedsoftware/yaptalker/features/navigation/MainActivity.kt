@@ -21,6 +21,7 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseActivity
+import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
 import com.sedsoftware.yaptalker.commons.extensions.booleanRes
 import com.sedsoftware.yaptalker.commons.extensions.color

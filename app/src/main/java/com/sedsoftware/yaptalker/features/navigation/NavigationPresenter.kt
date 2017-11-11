@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.features.navigation
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
+import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
 import com.sedsoftware.yaptalker.base.navigation.RequestCodes
 import com.uber.autodispose.kotlin.autoDisposeWith
