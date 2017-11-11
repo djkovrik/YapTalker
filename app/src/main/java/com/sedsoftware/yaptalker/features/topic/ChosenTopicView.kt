@@ -18,6 +18,9 @@ interface ChosenTopicView : BaseView {
   @StateStrategyType(AddToEndSingleStrategy::class)
   fun setTopicKarmaState(isKarmaAvailable: Boolean)
 
+  @StateStrategyType(AddToEndSingleStrategy::class)
+  fun updateAppbarTitle(title: String)
+
   fun initiateTopicLoading()
 
   fun showUserProfile(userId: Int)

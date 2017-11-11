@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.base
 
 import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
@@ -10,11 +9,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 interface BaseView : MvpView {
 
   fun updateAppbarTitle() {
-
-  }
-
-  @StateStrategyType(AddToEndSingleStrategy::class)
-  fun updateAppbarTitle(title: String) {
 
   }
 
