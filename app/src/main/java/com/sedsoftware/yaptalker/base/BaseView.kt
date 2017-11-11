@@ -9,7 +9,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 @StateStrategyType(SkipStrategy::class)
 interface BaseView : MvpView {
 
-  @StateStrategyType(AddToEndSingleStrategy::class)
   fun updateAppbarTitle() {
 
   }

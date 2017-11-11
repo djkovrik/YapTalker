@@ -130,7 +130,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         }, {
           // On Error
           error ->
-          error.message?.let { viewState.showErrorMessage(it) }
+          onLoadingError(error)
         })
   }
 
@@ -159,7 +159,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         }, {
           // On Error
           error ->
-          error.message?.let { viewState.showErrorMessage(it) }
+          onLoadingError(error)
         })
   }
 
@@ -188,7 +188,7 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
         }, {
           // On Error
           error ->
-          error.message?.let { viewState.showErrorMessage(it) }
+          onLoadingError(error)
         })
   }
 
@@ -293,7 +293,9 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   }
 
   private fun onLoadingError(error: Throwable) {
-    error.message?.let { viewState.showErrorMessage(it) }
+    error.message?.let { message ->
+      viewState.showErrorMessage(message)
+    }
   }
 
   private fun setupMenuButtons() {

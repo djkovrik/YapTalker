@@ -105,7 +105,7 @@ class ThumbnailsManager(
         }
 
         override fun onError(e: Throwable) {
-          Timber.d("Can't load image: ${e.message}")
+          Timber.d("ThumbnailsManager - error with image loading: ${e.message}")
         }
       }
 
@@ -120,7 +120,7 @@ class ThumbnailsManager(
         }
 
         override fun onError(e: Throwable) {
-          Timber.d("Can't load drawable: ${e.message}")
+          Timber.d("ThumbnailsManager - error with drawable loading: ${e.message}")
         }
       }
 }

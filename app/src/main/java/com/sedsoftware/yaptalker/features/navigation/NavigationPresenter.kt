@@ -69,7 +69,7 @@ class NavigationPresenter : BasePresenter<NavigationView>() {
           }, {
             // onError
             throwable ->
-            throwable.message?.let { viewState.showErrorMessage(it) }
+            onLoadingError(throwable)
           })
     }
   }
@@ -106,8 +106,14 @@ class NavigationPresenter : BasePresenter<NavigationView>() {
         }, {
           // onError
           throwable ->
-          throwable.message?.let { viewState.showErrorMessage(it) }
+          onLoadingError(throwable)
         })
+  }
+
+  private fun onLoadingError(error: Throwable) {
+    error.message?.let { message ->
+      viewState.showErrorMessage(message)
+    }
   }
 
   private fun goToDefaultMainPage() {
