@@ -15,6 +15,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseFragment
 import com.sedsoftware.yaptalker.base.events.FragmentLifecycle
+import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastWarning
@@ -98,6 +99,10 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
 
   override fun updateAppbarTitle() {
     messagingPresenter.setAppbarTitle("")
+  }
+
+  override fun highlightCurrentNavDrawerItem() {
+    messagingPresenter.setNavDrawerItem(NavigationDrawerItems.FORUMS)
   }
 
   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {

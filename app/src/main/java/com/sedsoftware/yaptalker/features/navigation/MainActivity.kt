@@ -156,6 +156,10 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     supportActionBar?.title = title
   }
 
+  override fun setNavDrawerItem(item: Long) {
+    navDrawer.setSelection(item, false)
+  }
+
   override fun showEula() {
     val dialog = MaterialDialog.Builder(this)
         .title(R.string.eula_title)
@@ -211,6 +215,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemMainPage = PrimaryDrawerItem()
         .withIdentifier(NavigationDrawerItems.MAIN_PAGE)
         .withName(R.string.nav_drawer_main_page)
+        .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_home)
         .withTextColor(color(R.color.colorNavDefaultText))
         .withIconColorRes(R.color.colorNavMainPage)
@@ -220,6 +225,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemForums = PrimaryDrawerItem()
         .withIdentifier(NavigationDrawerItems.FORUMS)
         .withName(R.string.nav_drawer_forums)
+        .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_forum)
         .withTextColor(color(R.color.colorNavDefaultText))
         .withIconColorRes(R.color.colorNavForums)
@@ -229,6 +235,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemActiveTopics = PrimaryDrawerItem()
         .withIdentifier(NavigationDrawerItems.ACTIVE_TOPICS)
         .withName(R.string.nav_drawer_active_topics)
+        .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_bulletin_board)
         .withTextColor(color(R.color.colorNavDefaultText))
         .withIconColorRes(R.color.colorNavActiveTopics)
@@ -238,6 +245,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemBookmarks = PrimaryDrawerItem()
         .withIdentifier(NavigationDrawerItems.BOOKMARKS)
         .withName(R.string.nav_drawer_bookmarks)
+        .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_bookmark_outline)
         .withTextColor(color(R.color.colorNavDefaultText))
         .withIconColorRes(R.color.colorNavBookmarks)

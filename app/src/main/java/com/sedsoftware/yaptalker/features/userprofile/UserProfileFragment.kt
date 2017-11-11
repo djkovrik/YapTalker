@@ -5,6 +5,7 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseFragment
+import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
@@ -50,6 +51,10 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
 
   override fun updateAppbarTitle(title: String) {
     userProfilePresenter.setAppbarTitle(title)
+  }
+
+  override fun highlightCurrentNavDrawerItem() {
+    userProfilePresenter.setNavDrawerItem(NavigationDrawerItems.FORUMS)
   }
 
   override fun displayProfile(profile: UserProfile) {

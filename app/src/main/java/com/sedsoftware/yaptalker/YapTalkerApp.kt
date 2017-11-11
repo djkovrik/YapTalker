@@ -11,7 +11,6 @@ import com.github.salomonbrys.kodein.KodeinAware
 import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.lazy
 import com.github.salomonbrys.kodein.singleton
-import com.jakewharton.rxrelay2.BehaviorRelay
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
@@ -37,16 +36,11 @@ class YapTalkerApp : Application(), KodeinAware {
 
   override val kodein by Kodein.lazy {
 
-    // App context
     bind<Context>() with singleton { this@YapTalkerApp }
 
-    // Global settings helper
     bind<SettingsHelper>() with singleton { SettingsHelper(this@YapTalkerApp) }
 
-    // Global rx bus for appbar title changing events
-    bind<BehaviorRelay<String>>() with singleton { BehaviorRelay.createDefault("") }
-
-    // Kodein modules
+    import(rxModule)
     import(navigationModule)
     import(requestsClientModule)
     import(requestsCookieModule)
@@ -66,7 +60,6 @@ class YapTalkerApp : Application(), KodeinAware {
     LeakCanary.install(this)
 
     // Normal app init code below
-
     kodeinInstance = kodein
 
     initTimber()

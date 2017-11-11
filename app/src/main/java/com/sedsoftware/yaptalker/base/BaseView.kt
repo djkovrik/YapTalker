@@ -11,23 +11,27 @@ interface BaseView : MvpView {
 
   @StateStrategyType(AddToEndSingleStrategy::class)
   fun updateAppbarTitle() {
-    // Default empty implementation
+
   }
 
   @StateStrategyType(AddToEndSingleStrategy::class)
   fun updateAppbarTitle(title: String) {
-    // Default empty implementation
+
+  }
+
+  fun highlightCurrentNavDrawerItem() {
+
   }
 
   fun showErrorMessage(message: String) {
-    // Default empty implementation
+
   }
 
   fun showLoadingIndicator() {
-    // Default empty implementation
+
   }
 
   fun hideLoadingIndicator() {
-    // Default empty implementation
+
   }
 }

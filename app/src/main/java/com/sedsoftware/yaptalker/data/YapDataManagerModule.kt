@@ -5,8 +5,6 @@ import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.singleton
 import com.github.salomonbrys.kodein.with
-import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.base.events.ConnectionState
 import com.sedsoftware.yaptalker.commons.converters.HashSearchConverterFactory
 import com.sedsoftware.yaptalker.data.requests.site.YapLoader
 import com.sedsoftware.yaptalker.data.requests.site.YapSearchIdLoader
@@ -40,10 +38,7 @@ val yapDataManagerModule = Kodein.Module {
         .create(YapSearchIdLoader::class.java)
   }
 
-  // Rx bus for connection events
-  bind<BehaviorRelay<Long>>() with singleton { BehaviorRelay.createDefault(ConnectionState.IDLE) }
-
   bind<YapDataManager>() with singleton {
-    YapDataManager(instance("YapLoader"), instance("YapSearchIdLoader"), instance())
+    YapDataManager(instance("YapLoader"), instance("YapSearchIdLoader"), instance("connectionState"))
   }
 }

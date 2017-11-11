@@ -12,10 +12,16 @@ class MainActivityPresenter : BasePresenter<MainActivityView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-    appbarBus
+    appbarRelay
         .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe { title ->
           viewState.setAppbarTitle(title)
+        }
+
+    navDrawerRelay
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe { item ->
+          viewState.setNavDrawerItem(item)
         }
 
     if (!settings.isEulaAccepted()) {
