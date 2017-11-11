@@ -16,7 +16,7 @@ class VideoDisplayPresenter : BasePresenter<VideoDisplayView>() {
   }
 
   override fun detachView(view: VideoDisplayView?) {
-    super.detachView(view)
     viewState.clearWebView()
+    super.detachView(view)
   }
 }
