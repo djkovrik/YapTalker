@@ -37,7 +37,9 @@ class ForumsDelegateAdapter(val clickListener: ForumsItemClickListener) :
           forum_image.loadFromUrl("http://www.yaplakal.com/html/icons/$forumId.gif")
 
           forum_title.textSize = normalFontSize
+          forum_last_topic_title.textSize = normalFontSize
           forum_last_topic_author.textSize = normalFontSize
+          forum_last_topic_date.textSize = normalFontSize
 
           setOnClickListener { clickListener.onForumItemClick(forumId) }
         }

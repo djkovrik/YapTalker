@@ -64,7 +64,9 @@ class ActiveTopicsDelegateAdapter(val itemClick: ActiveTopicsItemClickListener) 
           }
 
           active_topic_name.textSize = normalFontSize
-          active_topic_rating.textSize = normalFontSize
+          active_topic_forum.textSize = normalFontSize
+          active_topic_last_post_date.textSize = normalFontSize
+          active_topic_answers.textSize = normalFontSize
 
           setOnClickListener { itemClick.onTopicClick(forumLink.getLastDigits(), link.getLastDigits()) }
         }

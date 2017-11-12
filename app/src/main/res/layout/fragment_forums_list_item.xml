@@ -23,9 +23,8 @@
   <LinearLayout
     android:id="@+id/linearLayoutMain"
     android:layout_width="0dp"
-    android:layout_height="0dp"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/material_list_avatar_margin_start"
-    android:layout_marginEnd="0dp"
     android:layout_marginStart="@dimen/material_list_avatar_margin_start"
     android:layout_marginTop="@dimen/material_list_avatar_margin_start"
     android:gravity="center_vertical"
