@@ -1,8 +1,8 @@
-### Current version: 0.6.0
+### Current version: 0.7.0
 
 # Changelog
 
-## [WIP] - 2017-xx-xx
+## [0.7.0] - 2017-xx-xx
 ### Added
 - New setting to keep screen awake while reading forum topic
 - New setting to choose user avatar size

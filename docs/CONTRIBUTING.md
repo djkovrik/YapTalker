@@ -8,6 +8,7 @@ Always write a clear log message for your commits.
 
 ## Coding conventions
  * Use Kotlin
+ * Checkout from and PR to `develop` (as described [here](http://nvie.com/posts/a-successful-git-branching-model/))
  * Each feature based on MVP architecture and implemented using Moxy
  * Organize the code using **package per feature** scheme
  * [Say mNo to Hungarian notation](http://jakewharton.com/just-say-no-to-hungarian-notation/)

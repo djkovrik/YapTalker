@@ -17,6 +17,11 @@ With this app you can:
 * Sign In and post messages
 * Change user posts and topics rating
 
+Build Notes
+-----------
+* The app uses access token to download vk.com videos thumbnail images, you can obtain new access token [here](https://vk.com/dev/access_token)
+* To build the app you must add **VK_ACCESS_TOKEN** into your local *gradle.properties* file
+
 Download
 --------
 Google Play publication planned for version 1.0.0
