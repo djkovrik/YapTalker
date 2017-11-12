@@ -28,5 +28,7 @@
   <!-- TABLETS DIMENSION VARIATIONS -->
   <dimen name="navigation_drawer_width">280dp</dimen>
   <dimen name="sign_in_layout_width">@dimen/custom_match_parent</dimen>
+  <dimen name="news_content_media_width">@dimen/custom_match_parent</dimen>
+  <dimen name="topic_content_media_width">@dimen/custom_match_parent</dimen>
 
 </resources>

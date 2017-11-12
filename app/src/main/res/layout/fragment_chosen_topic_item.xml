@@ -104,30 +104,19 @@
 
     <LinearLayout
       android:id="@+id/post_content_image_container"
-      android:layout_width="match_parent"
+      android:layout_width="@dimen/topic_content_media_width"
       android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
       android:orientation="vertical" />
 
     <LinearLayout
       android:id="@+id/post_content_video_container"
-      android:layout_width="match_parent"
+      android:layout_width="@dimen/topic_content_media_width"
+      android:layout_gravity="center_horizontal"
       android:layout_height="wrap_content"
       android:orientation="vertical" />
 
   </LinearLayout>
-
-  <Button
-    android:id="@+id/post_link_button"
-    style="@style/PostLink"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/post_content"
-    android:drawableStart="@drawable/ic_link"
-    android:paddingBottom="@dimen/materialize_screen_edge"
-    android:paddingEnd="@dimen/materialize_screen_edge"
-    android:paddingStart="@dimen/materialize_screen_edge"
-    android:text="@string/post_link"
-    android:visibility="gone" />
 
 </RelativeLayout>
 
