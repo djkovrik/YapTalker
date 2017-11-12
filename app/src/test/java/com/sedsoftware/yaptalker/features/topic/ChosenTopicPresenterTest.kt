@@ -32,6 +32,9 @@ class ChosenTopicPresenterTest : BaseTestClassForPresenters() {
         .getChosenTopic(ArgumentMatchers.anyInt(), ArgumentMatchers.anyInt(), ArgumentMatchers.anyInt()))
         .thenReturn(Single.just(topicPage))
 
+    whenever(settingsMock.isScreenAlwaysOnEnabled())
+        .thenReturn(true)
+
     presenter = ChosenTopicPresenter()
     presenter.attachView(chosenTopicView)
     presenter.setViewState(chosenTopicViewState)
@@ -63,5 +66,13 @@ class ChosenTopicPresenterTest : BaseTestClassForPresenters() {
   fun onShareItemClickedLaunchesSharingFromView() {
     presenter.onShareItemClicked()
     verify(chosenTopicViewState).shareTopic("", 0)
+  }
+
+  @Test
+  fun attachAndDetachViewHandleScreenAwakeIfEnabled() {
+    presenter.attachView(chosenTopicView)
+    verify(chosenTopicViewState).blockScreenSleep()
+    presenter.detachView(chosenTopicView)
+    verify(chosenTopicViewState).unblockScreenSleep()
   }
 }

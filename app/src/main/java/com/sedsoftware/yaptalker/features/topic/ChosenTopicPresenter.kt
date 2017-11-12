@@ -27,6 +27,10 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
     private const val BOOKMARK_SUCCESS_MARKER = "Закладка добавлена"
   }
 
+  private val isScreenAlwaysActive: Boolean by lazy {
+    settings.isScreenAlwaysOnEnabled()
+  }
+
   private var currentForumId = 0
   private var currentTopicId = 0
   private var currentPage = 1
@@ -49,6 +53,22 @@ class ChosenTopicPresenter : BasePresenter<ChosenTopicView>() {
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
     viewState.initiateTopicLoading()
+  }
+
+  override fun attachView(view: ChosenTopicView?) {
+    super.attachView(view)
+
+    if (isScreenAlwaysActive) {
+      viewState.blockScreenSleep()
+    }
+  }
+
+  override fun detachView(view: ChosenTopicView?) {
+    if (isScreenAlwaysActive) {
+      viewState.unblockScreenSleep()
+    }
+
+    super.detachView(view)
   }
 
   fun loadTopic(forumId: Int, topicId: Int, startingPost: Int = 0) {

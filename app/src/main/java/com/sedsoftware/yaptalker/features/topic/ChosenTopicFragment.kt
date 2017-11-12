@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
@@ -28,6 +29,7 @@ import com.sedsoftware.yaptalker.features.topic.adapter.UserProfileClickListener
 import com.uber.autodispose.kotlin.autoDisposeWith
 import kotlinx.android.synthetic.main.fragment_chosen_topic.*
 import org.jetbrains.anko.share
+import timber.log.Timber
 import java.util.Locale
 
 @Suppress("TooManyFunctions")
@@ -223,6 +225,16 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     context?.stringRes(R.string.msg_unknown_error)?.let { message ->
       toastError(message)
     }
+  }
+
+  override fun blockScreenSleep() {
+    activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    Timber.d("Screen always awake - enabled")
+  }
+
+  override fun unblockScreenSleep() {
+    activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    Timber.d("Screen always awake - disabled")
   }
 
   override fun onUserAvatarClick(userId: Int) {

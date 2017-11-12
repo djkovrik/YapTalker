@@ -36,4 +36,8 @@ interface ChosenTopicView : BaseView {
   fun showBookmarkAddedMessage()
 
   fun showUnknownErrorMessage()
+
+  fun blockScreenSleep()
+
+  fun unblockScreenSleep()
 }

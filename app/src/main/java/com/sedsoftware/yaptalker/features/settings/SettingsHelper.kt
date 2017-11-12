@@ -39,6 +39,8 @@ class SettingsHelper(val context: Context) {
 
   fun isEulaAccepted() = getBoolean(R.string.pref_key_eula_accepted, false)
 
+  fun isScreenAlwaysOnEnabled() = getBoolean(R.string.pref_key_screen_always_on, false)
+
   fun markEulaAccepted() {
     preferences.edit().putBoolean(context.stringRes(R.string.pref_key_eula_accepted), true).apply()
   }

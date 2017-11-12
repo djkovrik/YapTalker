@@ -65,9 +65,9 @@
   <string name="pref_content_nsfw_title">I\'m over 18 years old</string>
   <string name="pref_content_nsfw_summary">Display forum sections with mature content.</string>
 
-  <!--- MISCELLANEOUS -->
-  <string name="pref_category_title_misc">Misc</string>
-  <string name="pref_misc_send_crash_reports_label">Send crash reports</string>
-  <string name="pref_misc_send_crash_reports_summary">Enable crash statistics reporting.</string>
+  <!--- SYSTEM -->
+  <string name="pref_category_title_system">System</string>
+  <string name="pref_system_screen_always_on_label">Keep screen awake</string>
+  <string name="pref_system_screen_always_on_summary">Prevent screen sleeping while browsing any forum topic.</string>
 
 </resources>
