@@ -1,6 +1,14 @@
-### Current version: 0.5.0
+### Current version: 0.6.0
 
 # Changelog
+
+## [WIP] - 2017-xx-xx
+### Added
+- New setting to keep screen awake while reading forum topic
+- Basic tablets layout
+
+### Changed
+- Navigation drawer items highlighting
 
 ## [0.6.0] - 2017-11-10
 ### Added
