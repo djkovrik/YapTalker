@@ -40,8 +40,8 @@
 
   <Button
     android:id="@+id/new_post_button_bold"
-    android:layout_width="@dimen/flat_button_size_square"
-    android:layout_height="@dimen/flat_button_size_square"
+    android:layout_width="@dimen/post_editor_square_button_size"
+    android:layout_height="@dimen/post_editor_square_button_size"
     android:layout_marginStart="8dp"
     android:layout_marginTop="@dimen/post_editor_margin"
     android:drawablePadding="5dp"
@@ -53,8 +53,8 @@
 
   <Button
     android:id="@+id/new_post_button_italic"
-    android:layout_width="@dimen/flat_button_size_square"
-    android:layout_height="@dimen/flat_button_size_square"
+    android:layout_width="@dimen/post_editor_square_button_size"
+    android:layout_height="@dimen/post_editor_square_button_size"
     android:layout_marginStart="@dimen/post_editor_margin"
     android:layout_marginTop="@dimen/post_editor_margin"
     android:drawableStart="@drawable/ic_bb_italic"
@@ -65,8 +65,8 @@
 
   <Button
     android:id="@+id/new_post_button_underlined"
-    android:layout_width="@dimen/flat_button_size_square"
-    android:layout_height="@dimen/flat_button_size_square"
+    android:layout_width="@dimen/post_editor_square_button_size"
+    android:layout_height="@dimen/post_editor_square_button_size"
     android:layout_marginStart="@dimen/post_editor_margin"
     android:layout_marginTop="@dimen/post_editor_margin"
     android:drawableStart="@drawable/ic_bb_underline"
@@ -77,8 +77,8 @@
 
   <Button
     android:id="@+id/new_post_button_link"
-    android:layout_width="@dimen/flat_button_size_square"
-    android:layout_height="@dimen/flat_button_size_square"
+    android:layout_width="@dimen/post_editor_square_button_size"
+    android:layout_height="@dimen/post_editor_square_button_size"
     android:layout_marginStart="@dimen/post_editor_margin"
     android:layout_marginTop="@dimen/post_editor_margin"
     android:drawableStart="@drawable/ic_bb_link"

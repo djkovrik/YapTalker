@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <!-- Cards -->
+  <!-- News screen -->
   <dimen name="card_margin_value_half">@dimen/material_baseline_grid_0.5x</dimen>
+  <dimen name="mini_fab_icon_padding">4dp</dimen>
 
-  <!-- Other -->
-  <dimen name="tablets_drawer_width">280dp</dimen>
+  <!-- Rating labels -->
   <dimen name="rating_background_padding">3dp</dimen>
   <dimen name="rating_background_corner_radius">1dp</dimen>
   <dimen name="rating_background_width">50dp</dimen>
-  <dimen name="avatar_size">36dp</dimen>
-  <dimen name="mini_fab_icon_padding">4dp</dimen>
+
+  <!-- Topic post padding parameters -->
   <dimen name="post_image_vertical_padding">8dp</dimen>
   <dimen name="post_text_horizontal_padding">8dp</dimen>
-  <dimen name="flat_button_size_square">48dp</dimen>
-  <dimen name="flat_navigation_button_width">54dp</dimen>
-  <dimen name="post_editor_margin">8dp</dimen>
-  <dimen name="navigation_panel_text_size">20sp</dimen>
-  <dimen name="auth_edit_text_drawable_padding">8dp</dimen>
   <dimen name="post_karma_thump_icon_padding">4dp</dimen>
+
+  <!-- Navigation panel -->
+  <dimen name="navigation_button_width">54dp</dimen>
+  <dimen name="navigation_panel_text_size">20sp</dimen>
+
+  <!-- Other -->
+  <dimen name="avatar_size">36dp</dimen>
+  <dimen name="post_editor_margin">8dp</dimen>
+  <dimen name="post_editor_square_button_size">48dp</dimen>
+  <dimen name="auth_edit_text_drawable_padding">8dp</dimen>
+
+  <!-- TABLETS DIMENSION VARIATIONS -->
+  <dimen name="navigation_drawer_width">280dp</dimen>
+  <dimen name="sign_in_layout_width">@dimen/custom_match_parent</dimen>
+
 </resources>

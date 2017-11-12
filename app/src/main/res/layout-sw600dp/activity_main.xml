@@ -17,7 +17,7 @@
 
   <FrameLayout
     android:id="@+id/navigation_drawer"
-    android:layout_width="@dimen/tablets_drawer_width"
+    android:layout_width="@dimen/navigation_drawer_width"
     android:layout_height="match_parent"
     android:layout_alignParentBottom="true"
     android:layout_alignParentStart="true"
