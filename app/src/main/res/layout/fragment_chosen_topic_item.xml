@@ -8,8 +8,8 @@
 
   <ImageView
     android:id="@+id/post_author_avatar"
-    android:layout_width="@dimen/avatar_size"
-    android:layout_height="@dimen/avatar_size"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_alignParentStart="true"
     android:layout_marginBottom="@dimen/material_card_title_block_small_padding_vertical"
     android:layout_marginEnd="@dimen/material_card_gutter"

@@ -12,6 +12,7 @@ import com.sedsoftware.yaptalker.base.BaseAdapterInjections
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
 import com.sedsoftware.yaptalker.commons.extensions.color
+import com.sedsoftware.yaptalker.commons.extensions.currentDensity
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.inflate
@@ -63,6 +64,8 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
 
   inner class PostViewHolder(parent: ViewGroup) :
       RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_chosen_topic_item)) {
+
+    private val currentAvatarSize = avatarSize * parent.context.currentDensity
 
     fun bindTo(postItem: TopicPost) {
       getParsedPostSingle(postItem)
@@ -247,6 +250,9 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
         post_author.textSize = normalFontSize
         post_date.textSize = normalFontSize
         post_rating.textSize = normalFontSize
+
+        post_author_avatar.layoutParams.width = currentAvatarSize
+        post_author_avatar.layoutParams.height = currentAvatarSize
 
         post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateUrl())
         post_author_avatar.setOnClickListener {

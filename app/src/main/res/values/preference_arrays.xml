@@ -20,6 +20,19 @@
     <item>@string/pref_appearance_font_size_value_18</item>
   </string-array>
 
+  <!-- Appearance: Avatar size labels -->
+  <string-array name="pref_avatar_size_labels">
+    <item>@string/pref_appearance_avatar_size_label_small</item>
+    <item>@string/pref_appearance_avatar_size_label_medium</item>
+    <item>@string/pref_appearance_avatar_size_label_large</item>
+  </string-array>
+
+  <string-array name="pref_avatar_size_values">
+    <item>@string/pref_appearance_avatar_size_value_small</item>
+    <item>@string/pref_appearance_avatar_size_value_medium</item>
+    <item>@string/pref_appearance_avatar_size_value_large</item>
+  </string-array>
+
   <!-- Content: Categorizer -->
   <string-array name="pref_categorizer_labels">
     <item>@string/pref_content_categorizer_label_pictures</item>

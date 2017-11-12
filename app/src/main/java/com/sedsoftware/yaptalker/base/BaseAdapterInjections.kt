@@ -16,6 +16,10 @@ abstract class BaseAdapterInjections : LazyKodeinAware {
   protected val thumbnailsLoader: ThumbnailsManager by instance()
   private val settings: SettingsHelper by instance()
 
+  protected val avatarSize by lazy {
+    settings.getAvatarSize()
+  }
+
   protected val normalFontSize by lazy {
     settings.getNormalFontSize()
   }

@@ -19,6 +19,15 @@
   <string name="pref_appearance_font_size_value_16" translatable="false">16</string>
   <string name="pref_appearance_font_size_value_17" translatable="false">17</string>
   <string name="pref_appearance_font_size_value_18" translatable="false">18</string>
+  <!-- Avatars size -->
+  <string name="pref_appearance_avatar_size_title">Avatar size</string>
+  <string name="pref_appearance_avatar_size_label_small">Small</string>
+  <string name="pref_appearance_avatar_size_label_medium">Medium</string>
+  <string name="pref_appearance_avatar_size_label_large">Large</string>
+
+  <string name="pref_appearance_avatar_size_value_small" translatable="false">36</string>
+  <string name="pref_appearance_avatar_size_value_medium" translatable="false">42</string>
+  <string name="pref_appearance_avatar_size_value_large" translatable="false">48</string>
 
   <!-- CONTENT -->
   <string name="pref_category_title_content">Content</string>

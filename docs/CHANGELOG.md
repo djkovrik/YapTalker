@@ -5,6 +5,7 @@
 ## [WIP] - 2017-xx-xx
 ### Added
 - New setting to keep screen awake while reading forum topic
+- New setting to choose user avatar size
 - Basic tablets layout
 
 ### Changed

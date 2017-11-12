@@ -31,9 +31,22 @@ class SettingsHelper(val context: Context) {
     }
   }
 
-  fun getNormalFontSize() = getString(R.string.pref_key_font_size, "14").toFloat()
-  fun getBigFontSize() = getString(R.string.pref_key_font_size, "16").toFloat() + TEXT_SIZE_OFFSET
-  fun getSmallFontSize() = getString(R.string.pref_key_font_size, "12").toFloat() - TEXT_SIZE_OFFSET
+  fun getAvatarSize() = getString(
+      R.string.pref_key_avatar_size,
+      context.stringRes(R.string.pref_appearance_avatar_size_value_small)).toInt()
+
+  fun getNormalFontSize() = getString(
+      R.string.pref_key_font_size,
+      context.getString(R.string.pref_appearance_font_size_value_14)).toFloat()
+
+  fun getBigFontSize() = getString(
+      R.string.pref_key_font_size,
+      context.getString(R.string.pref_appearance_font_size_value_14)).toFloat() + TEXT_SIZE_OFFSET
+
+  fun getSmallFontSize() = getString(
+      R.string.pref_key_font_size,
+      context.getString(R.string.pref_appearance_font_size_value_14)).toFloat() - TEXT_SIZE_OFFSET
+
   fun getNewsCategories() = getStringSet(R.string.pref_key_categorizer, defaultCategories)
   fun isNsfwEnabled() = getBoolean(R.string.pref_key_nswf, false)
 
