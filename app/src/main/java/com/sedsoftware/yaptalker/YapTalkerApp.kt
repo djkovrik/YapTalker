@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
-import com.facebook.stetho.Stetho
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.KodeinAware
 import com.github.salomonbrys.kodein.bind
@@ -72,7 +71,6 @@ class YapTalkerApp : Application(), KodeinAware {
 
     if (BuildConfig.DEBUG) {
       LeakCanary.install(this)
-      Stetho.initializeWithDefaults(this)
       Timber.plant(Timber.DebugTree())
     }
   }

@@ -98,7 +98,6 @@ dependencies {
   // Debugging
   final TIMBER_VERSION = "4.6.0"
   final LEAK_CANARY_VERSION = "1.5.4"
-  final STETHO_VERSION = "1.5.0"
 
   def moxyCompiler = "com.arello-mobile:moxy-compiler:$MOXY_VERSION"
 
@@ -183,8 +182,4 @@ dependencies {
   debugImplementation "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
   releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
   testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
-
-  debugImplementation "com.facebook.stetho:stetho:$STETHO_VERSION"
-  releaseImplementation "net.igenius:stetho-no-op:1.1"
-  testImplementation "net.igenius:stetho-no-op:1.1"
 }
