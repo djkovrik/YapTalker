@@ -14,9 +14,9 @@
   <string name="pref_appearance_font_size_title">Базовый размер шрифта</string>
   <!-- Avatars size -->
   <string name="pref_appearance_avatar_size_title">Размер аватарок</string>
-  <string name="pref_appearance_avatar_size_value_small">Маленькие</string>
-  <string name="pref_appearance_avatar_size_value_medium">Средние</string>
-  <string name="pref_appearance_avatar_size_value_large">Большие</string>
+  <string name="pref_appearance_avatar_size_label_small">Маленькие</string>
+  <string name="pref_appearance_avatar_size_label_medium">Средние</string>
+  <string name="pref_appearance_avatar_size_label_large">Большие</string>
 
   <!-- CONTENT -->
   <string name="pref_category_title_content">Контент</string>
