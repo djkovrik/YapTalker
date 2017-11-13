@@ -11,6 +11,9 @@
 ### Changed
 - Navigation drawer items highlighting
 
+### Fixed
+- Youtube thumbnail id parsing crash
+
 ## [0.6.0] - 2017-11-10
 ### Added
 - Topics rating
