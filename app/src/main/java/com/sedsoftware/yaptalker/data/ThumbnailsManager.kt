@@ -25,7 +25,7 @@ class ThumbnailsManager(
     private val vkVideo: VkLoader) {
 
   companion object {
-    private const val VK_ACCESS_TOKEN = BuildConfig.VK_ACCESS_TOKEN
+    private val VK_ACCESS_TOKEN = BuildConfig.VK_ACCESS_TOKEN
     private const val VK_API_VERSION = "5.58"
     private const val YAP_RESULT_TYPE = "json"
   }
