@@ -12,6 +12,9 @@ interface ChosenForumView : BaseView {
   @StateStrategyType(AddToEndSingleStrategy::class)
   fun displayForumPage(page: ForumPage)
 
+  @StateStrategyType(AddToEndSingleStrategy::class)
+  fun updateAppbarTitle(title: String)
+
   fun initiateForumLoading()
 
   fun scrollToViewTop()

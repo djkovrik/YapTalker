@@ -110,7 +110,7 @@ class ShortDateView : AppCompatTextView {
         }
 
         override fun onError(e: Throwable) {
-          Timber.d("Can't set date text to $shortDateView: ${e.message}")
+          Timber.e("Error with shortDateView text: ${e.message}")
           shortDateView.text = ""
         }
       }

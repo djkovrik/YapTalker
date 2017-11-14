@@ -28,9 +28,7 @@ class ParsedPost(
     private const val IFRAME_TAG = "iframe"
     private const val IMG_TAG = "img"
     private const val TD_TAG = "td"
-    private const val A_TAG = "a"
     private const val SRC_ATTR = "src"
-    private const val HREF_ATTR = "href"
     private const val QUOTE_AUTHOR_MARKER = "@"
     private const val QUOTE_MARKER = "Цитата"
     private const val POST_EDIT_MARKER = "edit"
@@ -136,7 +134,9 @@ class ParsedPost(
     return Jsoup
         .clean(this, contentWhitelist)
         .replace("&nbsp;", " ")
-        .replace("/go/?http", "http://www.yaplakal.com/go/?http")
+        .replace("/go/?http", "http")
+        .replace("%3A", ":")
+        .replace("%2F", "/")
   }
 
   private fun String.trimLinebreakTags(): String {

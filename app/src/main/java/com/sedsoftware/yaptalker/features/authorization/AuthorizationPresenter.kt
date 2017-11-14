@@ -45,7 +45,7 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
         }, {
           // On Error
           error ->
-          error.message?.let { viewState.showErrorMessage(it) }
+          onLoadingError(error)
         })
   }
 
@@ -57,6 +57,12 @@ class AuthorizationPresenter : BasePresenter<AuthorizationView>() {
         viewState.loginSuccessMessage()
         router.exitWithResult(RequestCodes.SIGN_IN, true)
       }
+    }
+  }
+
+  private fun onLoadingError(error: Throwable) {
+    error.message?.let { message ->
+      viewState.showErrorMessage(message)
     }
   }
 }

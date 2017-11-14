@@ -8,6 +8,7 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.base.events.ConnectionState
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
+import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.data.YapDataManager
 import com.sedsoftware.yaptalker.features.settings.SettingsHelper
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -25,8 +26,9 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
   protected val router: Router by instance()
   protected val yapDataManager: YapDataManager by instance()
   protected val settings: SettingsHelper by instance()
-  protected val appbarBus: BehaviorRelay<String> by instance()
-  private val connectionRelay: BehaviorRelay<Long> by instance()
+  protected val appbarRelay: BehaviorRelay<String> by instance()
+  protected val navDrawerRelay: BehaviorRelay<Long> by instance("navDrawer")
+  private val connectionRelay: BehaviorRelay<Long> by instance("connectionState")
 
   // Local presenter lifecycle events channel
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
@@ -45,6 +47,11 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
         }
   }
 
+  override fun attachView(view: View?) {
+    super.attachView(view)
+    viewState.highlightCurrentNavDrawerItem()
+  }
+
   override fun onDestroy() {
     super.onDestroy()
     lifecycle.accept(PresenterLifecycle.DESTROY)
@@ -55,7 +62,15 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
         .just(title)
         .observeOn(AndroidSchedulers.mainThread())
         .autoDisposeWith(event(PresenterLifecycle.DESTROY))
-        .subscribe(appbarBus)
+        .subscribe(appbarRelay)
+  }
+
+  fun setNavDrawerItem(@NavigationDrawerItems.Section item: Long) {
+    Observable
+        .just(item)
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposeWith(event(PresenterLifecycle.DESTROY))
+        .subscribe(navDrawerRelay)
   }
 
   protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> {

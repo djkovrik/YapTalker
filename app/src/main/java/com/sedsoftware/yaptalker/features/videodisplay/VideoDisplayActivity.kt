@@ -35,7 +35,7 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
     <head>
       <link href="video.css" type="text/css" rel="stylesheet"/>
     </head>
-      <body>
+      <body style='margin:0;padding:0;'>
         $iframe
       </body>
     </html>

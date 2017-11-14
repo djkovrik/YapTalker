@@ -12,6 +12,11 @@
   <string name="pref_category_title_appearance">Внешний вид</string>
   <!-- Font size -->
   <string name="pref_appearance_font_size_title">Базовый размер шрифта</string>
+  <!-- Avatars size -->
+  <string name="pref_appearance_avatar_size_title">Размер аватарок</string>
+  <string name="pref_appearance_avatar_size_label_small">Маленькие</string>
+  <string name="pref_appearance_avatar_size_label_medium">Средние</string>
+  <string name="pref_appearance_avatar_size_label_large">Большие</string>
 
   <!-- CONTENT -->
   <string name="pref_category_title_content">Контент</string>
@@ -41,9 +46,9 @@
   <string name="pref_content_nsfw_title">Мне больше 18 лет</string>
   <string name="pref_content_nsfw_summary">Отображать разделы форумов, содержащие контент для взрослых.</string>
 
-  <!--- MISCELLANEOUS -->
-  <string name="pref_category_title_misc">Прочее</string>
-  <string name="pref_misc_send_crash_reports_label">Отправлять отчеты об ошибках</string>
-  <string name="pref_misc_send_crash_reports_summary">Включить отправку отчетов об ошибках приложения.</string>
+  <!--- SYSTEM -->
+  <string name="pref_category_title_system">Системные</string>
+  <string name="pref_system_screen_always_on_label">Держать экран включенным</string>
+  <string name="pref_system_screen_always_on_summary">Блокировать затухание экрана во время чтения любой темы на форуме.</string>
 
 </resources>

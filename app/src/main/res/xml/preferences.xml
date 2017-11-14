@@ -16,12 +16,20 @@
   <PreferenceCategory android:title="@string/pref_category_title_appearance">
 
     <com.afollestad.materialdialogs.prefs.MaterialListPreference
-      android:defaultValue="14"
+      android:defaultValue="@string/pref_appearance_font_size_value_14"
       android:entries="@array/pref_font_size_values"
       android:entryValues="@array/pref_font_size_values"
       android:key="@string/pref_key_font_size"
       android:persistent="true"
       android:title="@string/pref_appearance_font_size_title" />
+
+    <com.afollestad.materialdialogs.prefs.MaterialListPreference
+      android:defaultValue="@string/pref_appearance_avatar_size_value_small"
+      android:entries="@array/pref_avatar_size_labels"
+      android:entryValues="@array/pref_avatar_size_values"
+      android:key="@string/pref_key_avatar_size"
+      android:persistent="true"
+      android:title="@string/pref_appearance_avatar_size_title" />
 
   </PreferenceCategory>
 
@@ -45,14 +53,14 @@
 
   </PreferenceCategory>
 
-  <PreferenceCategory android:title="@string/pref_category_title_misc">
+  <PreferenceCategory android:title="@string/pref_category_title_system">
 
     <CheckBoxPreference
-      android:defaultValue="true"
-      android:key="@string/pref_key_crash_reports"
+      android:defaultValue="false"
+      android:key="@string/pref_key_screen_always_on"
       android:persistent="true"
-      android:summary="@string/pref_misc_send_crash_reports_summary"
-      android:title="@string/pref_misc_send_crash_reports_label" />
+      android:summary="@string/pref_system_screen_always_on_summary"
+      android:title="@string/pref_system_screen_always_on_label" />
 
   </PreferenceCategory>
 

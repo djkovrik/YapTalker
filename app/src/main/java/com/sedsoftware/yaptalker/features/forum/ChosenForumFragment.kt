@@ -11,6 +11,7 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseFragment
 import com.sedsoftware.yaptalker.base.events.FragmentLifecycle
+import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
@@ -78,6 +79,10 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListe
 
   override fun updateAppbarTitle(title: String) {
     forumPresenter.setAppbarTitle(title)
+  }
+
+  override fun highlightCurrentNavDrawerItem() {
+    forumPresenter.setNavDrawerItem(NavigationDrawerItems.FORUMS)
   }
 
   override fun showErrorMessage(message: String) {

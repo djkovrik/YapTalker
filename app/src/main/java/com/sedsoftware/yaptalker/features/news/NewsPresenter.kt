@@ -85,6 +85,8 @@ class NewsPresenter : BasePresenter<NewsView>() {
   }
 
   private fun onLoadingError(error: Throwable) {
-    error.message?.let { viewState.showErrorMessage(it) }
+    error.message?.let { message ->
+      viewState.showErrorMessage(message)
+    }
   }
 }

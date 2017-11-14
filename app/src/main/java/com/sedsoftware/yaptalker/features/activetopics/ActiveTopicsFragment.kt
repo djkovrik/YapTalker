@@ -11,6 +11,7 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseFragment
 import com.sedsoftware.yaptalker.base.events.FragmentLifecycle
+import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
@@ -69,6 +70,10 @@ class ActiveTopicsFragment :
     context?.stringRes(R.string.nav_drawer_active_topics)?.let { title ->
       activeTopicsPresenter.setAppbarTitle(title)
     }
+  }
+
+  override fun highlightCurrentNavDrawerItem() {
+    activeTopicsPresenter.setNavDrawerItem(NavigationDrawerItems.ACTIVE_TOPICS)
   }
 
   override fun showErrorMessage(message: String) {

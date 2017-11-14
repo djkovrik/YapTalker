@@ -3,15 +3,13 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/material_list_two_line_normal_height"
-  android:background="?attr/selectableItemBackground"
-  tools:layout_editor_absoluteX="0dp"
-  tools:layout_editor_absoluteY="25dp">
+  android:layout_height="wrap_content"
+  android:background="?attr/selectableItemBackground">
 
   <RelativeLayout
-    android:id="@+id/linearLayoutTopic"
+    android:id="@+id/relativeLayoutTopic"
     android:layout_width="0dp"
-    android:layout_height="0dp"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/material_list_normal_padding_vertical"
     android:layout_marginEnd="@dimen/materialize_screen_edge"
     android:layout_marginStart="@dimen/materialize_screen_edge"

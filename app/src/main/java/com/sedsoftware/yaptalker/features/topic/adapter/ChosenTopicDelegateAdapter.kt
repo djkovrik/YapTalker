@@ -12,6 +12,7 @@ import com.sedsoftware.yaptalker.base.BaseAdapterInjections
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
 import com.sedsoftware.yaptalker.commons.extensions.color
+import com.sedsoftware.yaptalker.commons.extensions.currentDensity
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.inflate
@@ -64,6 +65,8 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
   inner class PostViewHolder(parent: ViewGroup) :
       RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_chosen_topic_item)) {
 
+    private val currentAvatarSize = avatarSize * parent.context.currentDensity
+
     fun bindTo(postItem: TopicPost) {
       getParsedPostSingle(postItem)
           .subscribeOn(Schedulers.computation())
@@ -88,8 +91,7 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
           }
 
           override fun onError(e: Throwable) {
-            Timber.d("")
-
+            Timber.e("Error with topic post observable: ${e.message}")
           }
         }
 
@@ -106,13 +108,13 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
       if (post.content.isNotEmpty()) {
         itemView.post_content_text_container.showView()
 
-        post.content.forEach {
+        post.content.forEach { contentItem ->
 
-          when (it) {
+          when (contentItem) {
             is PostQuoteAuthor -> {
               currentNestingLevel++
               val quoteAuthor = TextView(itemView.context)
-              quoteAuthor.textFromHtml(it.text)
+              quoteAuthor.textFromHtml(contentItem.text)
               quoteAuthor.textSize = normalFontSize
               if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
                 quoteAuthor.setPadding(textPadding * currentNestingLevel, 0, 0, 0)
@@ -123,7 +125,7 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
             }
             is PostQuote -> {
               val quoteText = TextView(itemView.context)
-              quoteText.textFromHtmlWithEmoji(it.text)
+              quoteText.textFromHtmlWithEmoji(contentItem.text)
               quoteText.textSize = normalFontSize
               quoteText.setBackgroundColor(
                   itemView.context.color(R.color.colorQuotedTextBackground))
@@ -134,7 +136,7 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
               currentNestingLevel--
               val postText = TextView(itemView.context)
               postText.movementMethod = LinkMovementMethod.getInstance()
-              postText.textFromHtmlWithEmoji(it.text)
+              postText.textFromHtmlWithEmoji(contentItem.text)
               postText.textSize = normalFontSize
               if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
                 postText.setBackgroundColor(
@@ -145,20 +147,20 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
             }
             is PostHiddenText -> {
               val hiddenText = TextView(itemView.context)
-              hiddenText.textFromHtmlWithEmoji(it.text)
+              hiddenText.textFromHtmlWithEmoji(contentItem.text)
               hiddenText.textSize = smallFontSize
               itemView.post_content_text_container.addView(hiddenText)
             }
             is PostScript -> {
               val postScriptText = TextView(itemView.context)
               postScriptText.setTypeface(postScriptText.typeface, Typeface.ITALIC)
-              postScriptText.textFromHtml(it.text)
+              postScriptText.textFromHtml(contentItem.text)
               postScriptText.textSize = smallFontSize
               postScriptText.textColor = R.color.colorPostScriptText
               itemView.post_content_text_container.addView(postScriptText)
             }
             is PostWarning -> {
-              warnings.add(it)
+              warnings.add(contentItem)
             }
           }
         }
@@ -248,6 +250,9 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
         post_author.textSize = normalFontSize
         post_date.textSize = normalFontSize
         post_rating.textSize = normalFontSize
+
+        post_author_avatar.layoutParams.width = currentAvatarSize
+        post_author_avatar.layoutParams.height = currentAvatarSize
 
         post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateUrl())
         post_author_avatar.setOnClickListener {

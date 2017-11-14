@@ -25,7 +25,7 @@ class ThumbnailsManager(
     private val vkVideo: VkLoader) {
 
   companion object {
-    private const val VK_ACCESS_TOKEN = BuildConfig.VK_ACCESS_TOKEN
+    private val VK_ACCESS_TOKEN = BuildConfig.VK_ACCESS_TOKEN
     private const val VK_API_VERSION = "5.58"
     private const val YAP_RESULT_TYPE = "json"
   }
@@ -105,7 +105,7 @@ class ThumbnailsManager(
         }
 
         override fun onError(e: Throwable) {
-          Timber.d("Can't load image: ${e.message}")
+          Timber.d("ThumbnailsManager - error with image loading: ${e.message}")
         }
       }
 
@@ -120,7 +120,7 @@ class ThumbnailsManager(
         }
 
         override fun onError(e: Throwable) {
-          Timber.d("Can't load drawable: ${e.message}")
+          Timber.d("ThumbnailsManager - error with drawable loading: ${e.message}")
         }
       }
 }

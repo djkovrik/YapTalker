@@ -10,6 +10,7 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseFragment
 import com.sedsoftware.yaptalker.base.events.FragmentLifecycle
+import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.commons.extensions.extractYapIds
 import com.sedsoftware.yaptalker.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
@@ -67,6 +68,10 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListe
     context?.stringRes(R.string.nav_drawer_bookmarks)?.let { title ->
       bookmarksPresenter.setAppbarTitle(title)
     }
+  }
+
+  override fun highlightCurrentNavDrawerItem() {
+    bookmarksPresenter.setNavDrawerItem(NavigationDrawerItems.BOOKMARKS)
   }
 
   override fun showLoadingIndicator() {

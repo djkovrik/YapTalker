@@ -71,10 +71,11 @@
 
     <ImageView
       android:id="@+id/news_content_image"
-      android:layout_width="match_parent"
+      android:layout_width="@dimen/news_content_media_width"
       android:layout_height="wrap_content"
       android:layout_below="@id/news_content_text"
       android:adjustViewBounds="true"
+      android:layout_centerHorizontal="true"
       android:contentDescription="@string/a11y_news_image"
       android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
       android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"

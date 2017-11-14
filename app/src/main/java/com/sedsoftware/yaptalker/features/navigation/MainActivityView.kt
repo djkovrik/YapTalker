@@ -9,5 +9,7 @@ interface MainActivityView : BaseView {
 
   fun setAppbarTitle(title: String)
 
+  fun setNavDrawerItem(item: Long)
+
   fun showEula()
 }

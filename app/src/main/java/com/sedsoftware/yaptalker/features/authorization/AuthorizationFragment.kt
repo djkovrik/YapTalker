@@ -8,6 +8,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseFragment
 import com.sedsoftware.yaptalker.base.events.FragmentLifecycle
+import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastSuccess
@@ -54,6 +55,10 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
     context?.stringRes(R.string.nav_drawer_sign_in)?.let { title ->
       authorizationPresenter.setAppbarTitle(title)
     }
+  }
+
+  override fun highlightCurrentNavDrawerItem() {
+    authorizationPresenter.setNavDrawerItem(NavigationDrawerItems.SIGN_IN)
   }
 
   override fun showErrorMessage(message: String) {

@@ -10,6 +10,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseFragment
 import com.sedsoftware.yaptalker.base.events.FragmentLifecycle
+import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.commons.InfiniteScrollListener
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.hideBeyondScreenEdge
@@ -82,6 +83,10 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
     context?.stringRes(R.string.nav_drawer_main_page)?.let { title ->
       newsPresenter.setAppbarTitle(title)
     }
+  }
+
+  override fun highlightCurrentNavDrawerItem() {
+    newsPresenter.setNavDrawerItem(NavigationDrawerItems.MAIN_PAGE)
   }
 
   override fun showErrorMessage(message: String) {

@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.features.navigation
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.base.BasePresenter
 import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
+import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
 import com.sedsoftware.yaptalker.base.navigation.RequestCodes
 import com.uber.autodispose.kotlin.autoDisposeWith
@@ -68,7 +69,7 @@ class NavigationPresenter : BasePresenter<NavigationView>() {
           }, {
             // onError
             throwable ->
-            throwable.message?.let { viewState.showErrorMessage(it) }
+            onLoadingError(throwable)
           })
     }
   }
@@ -105,8 +106,14 @@ class NavigationPresenter : BasePresenter<NavigationView>() {
         }, {
           // onError
           throwable ->
-          throwable.message?.let { viewState.showErrorMessage(it) }
+          onLoadingError(throwable)
         })
+  }
+
+  private fun onLoadingError(error: Throwable) {
+    error.message?.let { message ->
+      viewState.showErrorMessage(message)
+    }
   }
 
   private fun goToDefaultMainPage() {

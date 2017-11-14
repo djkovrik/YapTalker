@@ -42,11 +42,14 @@ class LinkParserTest {
   @Test
   fun getYoutubeVideoIdReturnsCorrectId() {
     // Arrange
-    val link = "//www.youtube.com/embed/Je1fCOcfoxs?start=205&amp;end=&amp;?wmode=transparent"
-    val id = "Je1fCOcfoxs"
+    val testMap = mapOf(
+        "//www.youtube.com/embed/Je1fCOcfoxs?start=205&amp;end=&amp;?wmode=transparent" to "Je1fCOcfoxs",
+        "https://www.youtube.com/embed/DAzd7CE6qQw" to "DAzd7CE6qQw")
 
     // Assert
-    getYoutubeVideoId(link).should.equal(id)
+    testMap.forEach { link, id ->
+      id.should.equal(getYoutubeVideoId(link))
+    }
   }
 
   @Test

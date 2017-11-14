@@ -19,7 +19,7 @@ class UserProfilePresenter : BasePresenter<UserProfileView>() {
         .autoDisposeWith(event(PresenterLifecycle.DESTROY))
         .subscribe({
           // onSuccess
-          profile: UserProfile ->
+          profile ->
           onLoadingSuccess(profile)
         }, {
           // onError
@@ -35,6 +35,8 @@ class UserProfilePresenter : BasePresenter<UserProfileView>() {
   }
 
   private fun onLoadingError(error: Throwable) {
-    error.message?.let { viewState.showErrorMessage(it) }
+    error.message?.let { message ->
+      viewState.showErrorMessage(message)
+    }
   }
 }

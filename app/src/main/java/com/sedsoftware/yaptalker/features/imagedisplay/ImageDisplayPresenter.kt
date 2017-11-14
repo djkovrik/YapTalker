@@ -23,6 +23,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import okio.Okio
+import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -35,7 +36,6 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
     private const val ENCODING_IMAGE_QUALITY = 100
   }
 
-  // Kodein injection
   private val httpClient: OkHttpClient by instance("fileClient")
 
   fun saveImage(url: String) {
@@ -143,9 +143,9 @@ class ImageDisplayPresenter : BasePresenter<ImageDisplayView>() {
             intent.putExtra(Intent.EXTRA_STREAM, uri)
             context.startActivity(
                 Intent.createChooser(intent, context.stringRes(R.string.title_share_image)))
-          }, { _ ->
+          }, { throwable ->
             // onError
-
+            Timber.e("Image sharing error: ${throwable.message}")
           })
     }
   }

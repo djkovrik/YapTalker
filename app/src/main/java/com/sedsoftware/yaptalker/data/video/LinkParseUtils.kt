@@ -46,7 +46,12 @@ fun parseLink(link: String): Pair<Int, String> =
 
 fun getYoutubeVideoId(link: String): String {
   val startPosition = link.lastIndexOf("/")
-  return link.substring(startPosition + 1, link.indexOf("?", startPosition))
+  val endPosition = link.indexOf("?", startPosition)
+
+  return when (endPosition) {
+    -1 -> link.substring(startPosition + 1)
+    else -> link.substring(startPosition + 1, endPosition)
+  }
 }
 
 fun getVkVideoId(link: String): String {

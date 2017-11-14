@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="navigation_drawer_width">320dp</dimen>
+  <dimen name="sign_in_layout_width">580dp</dimen>
+  <dimen name="news_content_media_width">520dp</dimen>
+  <dimen name="topic_content_media_width">520dp</dimen>
+</resources>

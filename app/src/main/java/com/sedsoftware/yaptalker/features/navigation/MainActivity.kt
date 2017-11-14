@@ -21,7 +21,9 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseActivity
+import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
+import com.sedsoftware.yaptalker.commons.extensions.booleanRes
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.extractYapIds
 import com.sedsoftware.yaptalker.commons.extensions.stringRes
@@ -40,6 +42,7 @@ import com.sedsoftware.yaptalker.features.posting.AddMessageFragment
 import com.sedsoftware.yaptalker.features.settings.SettingsActivity
 import com.sedsoftware.yaptalker.features.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.features.userprofile.UserProfileFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -58,6 +61,10 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
 
   override val layoutId: Int
     get() = R.layout.activity_main
+
+  private val isInTwoPaneMode: Boolean by lazy {
+    booleanRes(R.bool.two_pane_mode)
+  }
 
   private lateinit var navDrawer: Drawer
   private lateinit var navHeader: AccountHeader
@@ -136,7 +143,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
 
   override fun onBackPressed() {
     when {
-      navDrawer.isDrawerOpen -> navDrawer.closeDrawer()
+      !isInTwoPaneMode && navDrawer.isDrawerOpen -> navDrawer.closeDrawer()
       else -> super.onBackPressed()
     }
   }
@@ -147,6 +154,10 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
 
   override fun setAppbarTitle(title: String) {
     supportActionBar?.title = title
+  }
+
+  override fun setNavDrawerItem(item: Long) {
+    navDrawer.setSelection(item, false)
   }
 
   override fun showEula() {
@@ -198,11 +209,13 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     toastInfo(stringRes(R.string.msg_sign_out))
   }
 
+  @Suppress("PLUGIN_WARNING")
   private fun initNavDrawer(savedInstanceState: Bundle?) {
 
     drawerItemMainPage = PrimaryDrawerItem()
         .withIdentifier(NavigationDrawerItems.MAIN_PAGE)
         .withName(R.string.nav_drawer_main_page)
+        .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_home)
         .withTextColor(color(R.color.colorNavDefaultText))
         .withIconColorRes(R.color.colorNavMainPage)
@@ -212,6 +225,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemForums = PrimaryDrawerItem()
         .withIdentifier(NavigationDrawerItems.FORUMS)
         .withName(R.string.nav_drawer_forums)
+        .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_forum)
         .withTextColor(color(R.color.colorNavDefaultText))
         .withIconColorRes(R.color.colorNavForums)
@@ -221,6 +235,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemActiveTopics = PrimaryDrawerItem()
         .withIdentifier(NavigationDrawerItems.ACTIVE_TOPICS)
         .withName(R.string.nav_drawer_active_topics)
+        .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_bulletin_board)
         .withTextColor(color(R.color.colorNavDefaultText))
         .withIconColorRes(R.color.colorNavActiveTopics)
@@ -230,6 +245,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemBookmarks = PrimaryDrawerItem()
         .withIdentifier(NavigationDrawerItems.BOOKMARKS)
         .withName(R.string.nav_drawer_bookmarks)
+        .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_bookmark_outline)
         .withTextColor(color(R.color.colorNavDefaultText))
         .withIconColorRes(R.color.colorNavBookmarks)
@@ -275,7 +291,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
         .withSavedInstance(savedInstanceState)
         .build()
 
-    navDrawer = DrawerBuilder()
+    val drawerBuilder = DrawerBuilder()
         .withActivity(this)
         .withAccountHeader(navHeader)
         .withToolbar(toolbar)
@@ -291,7 +307,13 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
           false
         }
         .withSavedInstance(savedInstanceState)
-        .build()
+
+    if (isInTwoPaneMode) {
+      navDrawer = drawerBuilder.buildView()
+      navigation_drawer.addView(navDrawer.slider)
+    } else {
+      navDrawer = drawerBuilder.build()
+    }
   }
 
   private fun handleLinkIntent() {

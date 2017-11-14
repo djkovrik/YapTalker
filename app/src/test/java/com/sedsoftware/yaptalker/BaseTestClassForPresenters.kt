@@ -8,6 +8,7 @@ import com.github.salomonbrys.kodein.singleton
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.nhaarman.mockito_kotlin.mock
 import com.sedsoftware.yaptalker.base.events.ConnectionState
+import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.data.YapDataManager
 import com.sedsoftware.yaptalker.data.requests.site.YapLoader
 import com.sedsoftware.yaptalker.data.requests.site.YapSearchIdLoader
@@ -26,7 +27,15 @@ abstract class BaseTestClassForPresenters {
 
     bind<Router>() with singleton { instance<Cicerone<Router>>().router }
 
-    bind<BehaviorRelay<Long>>() with singleton { BehaviorRelay.createDefault(ConnectionState.IDLE) }
+    bind<BehaviorRelay<Long>>("connectionState") with singleton {
+      BehaviorRelay.createDefault(ConnectionState.IDLE)
+    }
+
+    bind<BehaviorRelay<Long>>("navDrawer") with singleton {
+      BehaviorRelay.createDefault(NavigationDrawerItems.MAIN_PAGE)
+    }
+
+    bind<BehaviorRelay<Long>>("") with singleton { BehaviorRelay.createDefault(ConnectionState.IDLE) }
 
     bind<BehaviorRelay<String>>() with singleton { BehaviorRelay.createDefault("") }
 

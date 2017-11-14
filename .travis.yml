@@ -1,0 +1,48 @@
+language: android
+jdk: oraclejdk8
+
+env:
+  global:
+    - VK_ACCESS_TOKEN_ENV=abc
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle
+
+before_install:
+  - mkdir "$ANDROID_HOME/licenses" || true
+  - echo "$LICENSE_HASH" > "$ANDROID_HOME/licenses/android-sdk-license"
+  - echo "$LICENSE_HASH_TWO" >> "$ANDROID_HOME/licenses/android-sdk-license"
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - tools
+    - build-tools-26.0.2
+    - android-26
+    - extra
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - addon-google_apis-google-19
+  licenses:
+    - '.+'
+
+branches:
+  only:
+    - develop
+    - master
+
+before_script:
+  - chmod +x gradlew
+  - source scripts/environmentSetup.sh && copyEnvVarsToGradleProperties
+
+script:
+  - ./gradlew build --continue
+  - ./gradlew test --continue
+  - ./gradlew detektCheck --continue

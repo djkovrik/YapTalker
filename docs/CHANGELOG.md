@@ -1,6 +1,18 @@
-### Current version: 0.5.0
+### Current version: 0.7.0
 
 # Changelog
+
+## [0.7.0] - 2017-11-14
+### Added
+- New setting to keep screen awake while reading forum topic
+- New setting to choose user avatar size
+- Basic tablet layouts
+
+### Changed
+- Navigation drawer items highlighting
+
+### Fixed
+- Youtube thumbnail id parsing crash
 
 ## [0.6.0] - 2017-11-10
 ### Added
