@@ -134,7 +134,9 @@ class ParsedPost(
     return Jsoup
         .clean(this, contentWhitelist)
         .replace("&nbsp;", " ")
-        .replace("/go/?http", "http://www.yaplakal.com/go/?http")
+        .replace("/go/?http", "http")
+        .replace("%3A", ":")
+        .replace("%2F", "/")
   }
 
   private fun String.trimLinebreakTags(): String {
