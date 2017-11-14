@@ -1,5 +1,11 @@
 YapTalker
 =========
+[![Build Status](https://travis-ci.org/djkovrik/YapTalker.svg?branch=develop)](https://travis-ci.org/djkovrik/YapTalker/builds)
+![minSdk](https://img.shields.io/badge/minSdk-19-green.svg)
+![Last Commit](https://img.shields.io/github/last-commit/djkovrik/yaptalker/develop.svg)
+![Current Release](https://img.shields.io/github/release/djkovrik/yaptalker/all.svg)
+
+
 Unofficial open source Android client for yaplakal.com.
 
 Keep in mind that it is still under development so bugs are possible.
