@@ -25,9 +25,9 @@
   <string name="pref_appearance_avatar_size_label_medium">Medium</string>
   <string name="pref_appearance_avatar_size_label_large">Large</string>
 
-  <string name="pref_appearance_avatar_size_value_small" translatable="false">36</string>
-  <string name="pref_appearance_avatar_size_value_medium" translatable="false">42</string>
-  <string name="pref_appearance_avatar_size_value_large" translatable="false">48</string>
+  <string name="pref_appearance_avatar_size_value_small" translatable="false">38</string>
+  <string name="pref_appearance_avatar_size_value_medium" translatable="false">46</string>
+  <string name="pref_appearance_avatar_size_value_large" translatable="false">54</string>
 
   <!-- CONTENT -->
   <string name="pref_category_title_content">Content</string>
