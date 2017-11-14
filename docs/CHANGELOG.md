@@ -2,11 +2,11 @@
 
 # Changelog
 
-## [0.7.0] - 2017-xx-xx
+## [0.7.0] - 2017-11-14
 ### Added
 - New setting to keep screen awake while reading forum topic
 - New setting to choose user avatar size
-- Basic tablets layout
+- Basic tablet layouts
 
 ### Changed
 - Navigation drawer items highlighting
