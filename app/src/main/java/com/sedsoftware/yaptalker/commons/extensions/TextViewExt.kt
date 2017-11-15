@@ -90,6 +90,6 @@ private fun getSpannedObservable(textView: TextView) =
       }
 
       override fun onError(e: Throwable) {
-        Timber.d("Can't set spanned text to $textView: ${e.message}")
+        Timber.e("Can't set spanned text to $textView: ${e.message}")
       }
     }

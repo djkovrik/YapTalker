@@ -1,6 +1,9 @@
 ### Current version: 0.7.0
 
 # Changelog
+## [0.8.0] - 2017-
+### Added
+- GIF support
 
 ## [0.7.0] - 2017-11-14
 ### Added

@@ -33,6 +33,7 @@ import com.sedsoftware.yaptalker.data.parsing.PostWarning
 import com.sedsoftware.yaptalker.data.parsing.TopicPost
 import com.sedsoftware.yaptalker.data.video.getYoutubeVideoId
 import com.sedsoftware.yaptalker.data.video.parseLink
+import com.sedsoftware.yaptalker.features.gifdisplay.GifDisplayActivity
 import com.sedsoftware.yaptalker.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.features.videodisplay.VideoDisplayActivity
 import io.reactivex.Single
@@ -51,6 +52,7 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
 
   companion object {
     private const val INITIAL_NESTING_LEVEL = 0
+    private const val GIF_EXT = ".gif"
   }
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
@@ -189,8 +191,14 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
           image.setPadding(0, imagePadding, 0, imagePadding)
           itemView.post_content_image_container.addView(image)
           image.loadFromUrl(url)
+
           image.setOnClickListener {
-            itemView.context.startActivity<ImageDisplayActivity>("url" to url)
+
+            if (url.endsWith(GIF_EXT)) {
+              itemView.context.startActivity<GifDisplayActivity>("url" to url)
+            } else {
+              itemView.context.startActivity<ImageDisplayActivity>("url" to url)
+            }
           }
         }
       } else {
