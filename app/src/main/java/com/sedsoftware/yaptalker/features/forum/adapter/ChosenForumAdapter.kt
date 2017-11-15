@@ -38,9 +38,7 @@ class ChosenForumAdapter(itemClick: TopicItemClickListener, navigationClick: For
   override fun getItemCount() = items.size
 
   override fun getItemId(position: Int): Long {
-    val item = items[position]
-
-    return (item as? Topic)?.link?.getLastDigits()?.toLong() ?: position.toLong()
+    return (items[position] as? Topic)?.link?.getLastDigits()?.toLong() ?: position.toLong()
   }
 
   fun refreshForumPage(page: ForumPage) {

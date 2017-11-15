@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.commons.adapter.ContentTypes
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
+import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
+import com.sedsoftware.yaptalker.data.parsing.ActiveTopic
 import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPage
 
 class ActiveTopicsAdapter(
@@ -36,7 +38,9 @@ class ActiveTopicsAdapter(
 
   override fun getItemCount() = items.size
 
-  override fun getItemId(position: Int) = position.toLong()
+  override fun getItemId(position: Int): Long {
+    return (items[position] as? ActiveTopic)?.link?.getLastDigits()?.toLong() ?: position.toLong()
+  }
 
   fun refreshActiveTopicsPage(page: ActiveTopicsPage) {
     items.clear()
