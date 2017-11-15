@@ -28,9 +28,7 @@ import java.util.Locale
 class NewsDelegateAdapter(val newsClick: NewsItemClickListener) :
     BaseAdapterInjections(), ViewTypeDelegateAdapter {
 
-  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-    return NewsViewHolder(parent)
-  }
+  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = NewsViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, item: ViewType) {
     holder as NewsViewHolder

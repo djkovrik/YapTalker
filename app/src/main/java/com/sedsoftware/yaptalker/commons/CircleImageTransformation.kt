@@ -47,7 +47,5 @@ class CircleImageTransformation : Transformation {
     return bitmap
   }
 
-  override fun key(): String {
-    return "rounded(x=$x, y=$y)"
-  }
+  override fun key(): String = "rounded(x=$x, y=$y)"
 }

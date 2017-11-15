@@ -15,9 +15,7 @@ import kotlinx.android.synthetic.main.fragment_forums_list_item.view.*
 class ForumsDelegateAdapter(val clickListener: ForumsItemClickListener) :
     BaseAdapterInjections(), ViewTypeDelegateAdapter {
 
-  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-    return ForumsViewHolder(parent)
-  }
+  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = ForumsViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, item: ViewType) {
     holder as ForumsViewHolder

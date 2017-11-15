@@ -13,9 +13,7 @@ import java.util.Locale
 
 class ForumNavigationDelegateAdapter(val navigationClick: ForumNavigationClickListener) : ViewTypeDelegateAdapter {
 
-  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-    return NavigationViewHolder(parent)
-  }
+  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = NavigationViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, item: ViewType) {
     holder as NavigationViewHolder

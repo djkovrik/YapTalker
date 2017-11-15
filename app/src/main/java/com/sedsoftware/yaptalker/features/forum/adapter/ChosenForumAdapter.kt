@@ -23,23 +23,19 @@ class ChosenForumAdapter(itemClick: TopicItemClickListener, navigationClick: For
     items = ArrayList()
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-    return delegateAdapters.get(viewType).onCreateViewHolder(parent)
-  }
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
+      delegateAdapters.get(viewType).onCreateViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])
   }
 
-  override fun getItemViewType(position: Int): Int {
-    return items[position].getViewType()
-  }
+  override fun getItemViewType(position: Int): Int = items[position].getViewType()
 
   override fun getItemCount() = items.size
 
-  override fun getItemId(position: Int): Long {
-    return (items[position] as? Topic)?.link?.getLastDigits()?.toLong() ?: position.toLong()
-  }
+  override fun getItemId(position: Int): Long =
+      (items[position] as? Topic)?.link?.getLastDigits()?.toLong() ?: position.toLong()
 
   fun refreshForumPage(page: ForumPage) {
     items.clear()

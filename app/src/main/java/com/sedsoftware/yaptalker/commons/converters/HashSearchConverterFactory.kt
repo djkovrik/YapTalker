@@ -12,8 +12,6 @@ class HashSearchConverterFactory(private val marker: String) : Converter.Factory
   }
 
   override fun responseBodyConverter(type: Type?, annotations: Array<out Annotation>?,
-                                     retrofit: Retrofit?): Converter<ResponseBody, String>? {
-
-    return HashSearchResponseBodyConverter(marker)
-  }
+                                     retrofit: Retrofit?): Converter<ResponseBody, String>? =
+      HashSearchResponseBodyConverter(marker)
 }

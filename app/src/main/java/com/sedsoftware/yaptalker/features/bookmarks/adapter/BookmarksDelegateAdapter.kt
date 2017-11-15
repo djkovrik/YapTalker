@@ -16,9 +16,7 @@ class BookmarksDelegateAdapter(
     val deleteClick: BookmarksDeleteClickListener) :
     BaseAdapterInjections(), ViewTypeDelegateAdapter {
 
-  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-    return BookmarkViewHolder(parent)
-  }
+  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = BookmarkViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, item: ViewType) {
     holder as BookmarkViewHolder

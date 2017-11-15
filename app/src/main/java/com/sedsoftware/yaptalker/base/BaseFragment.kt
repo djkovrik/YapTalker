@@ -17,9 +17,8 @@ abstract class BaseFragment : MvpAppCompatFragment() {
   // Local fragment lifecycle events channel
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    return inflater.inflate(layoutId, container, false)
-  }
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+      inflater.inflate(layoutId, container, false)
 
   @Suppress("EmptyFunctionBlock")
   protected open fun subscribeViews() {
@@ -66,7 +65,6 @@ abstract class BaseFragment : MvpAppCompatFragment() {
     lifecycle.accept(FragmentLifecycle.DETACH)
   }
 
-  protected fun event(@FragmentLifecycle.Event event: Long): Maybe<*> {
-    return lifecycle.filter({ e -> e == event }).firstElement()
-  }
+  protected fun event(@FragmentLifecycle.Event event: Long): Maybe<*> =
+      lifecycle.filter({ e -> e == event }).firstElement()
 }

@@ -17,9 +17,7 @@ import java.util.Locale
 class ChosenForumDelegateAdapter(val itemClick: TopicItemClickListener) :
     BaseAdapterInjections(), ViewTypeDelegateAdapter {
 
-  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-    return TopicViewHolder(parent)
-  }
+  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = TopicViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, item: ViewType) {
     holder as TopicViewHolder

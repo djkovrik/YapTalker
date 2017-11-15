@@ -109,30 +109,29 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, UserProfileClickLis
     menu?.findItem(R.id.action_topic_karma_minus)?.isVisible = isKarmaAvailable
   }
 
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    return when (item.itemId) {
-      R.id.action_share -> {
-        topicPresenter.onShareItemClicked()
-        true
-      }
-      R.id.action_new_message -> {
-        topicPresenter.onNewMessageItemClicked()
-        true
-      }
-      R.id.action_topic_karma_plus -> {
-        topicPresenter.onChangeTopicKarmaItemClicked(increaseKarma = true)
-        true
-      }
-      R.id.action_topic_karma_minus -> {
-        topicPresenter.onChangeTopicKarmaItemClicked(increaseKarma = false)
-        true
-      }
-      R.id.action_bookmark -> {
-        topicPresenter.onBookmarkItemClicked()
-        true
-      }
-      else -> super.onOptionsItemSelected(item)
-    }
+  override fun onOptionsItemSelected(item: MenuItem): Boolean =
+      when (item.itemId) {
+        R.id.action_share -> {
+          topicPresenter.onShareItemClicked()
+          true
+        }
+        R.id.action_new_message -> {
+          topicPresenter.onNewMessageItemClicked()
+          true
+        }
+        R.id.action_topic_karma_plus -> {
+          topicPresenter.onChangeTopicKarmaItemClicked(increaseKarma = true)
+          true
+        }
+        R.id.action_topic_karma_minus -> {
+          topicPresenter.onChangeTopicKarmaItemClicked(increaseKarma = false)
+          true
+        }
+        R.id.action_bookmark -> {
+          topicPresenter.onBookmarkItemClicked()
+          true
+        }
+        else -> super.onOptionsItemSelected(item)
   }
 
   override fun subscribeViews() {

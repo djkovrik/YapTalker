@@ -50,19 +50,17 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
     return true
   }
 
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-    return when (item.itemId) {
-      R.id.action_share -> {
-        displayPresenter.shareImage(this, imageUrl)
-        true
-      }
-      R.id.action_save -> {
-        checkPermissionAndSaveImage()
-        true
-      }
-      else -> super.onOptionsItemSelected(item)
-    }
+  override fun onOptionsItemSelected(item: MenuItem): Boolean =
+      when (item.itemId) {
+        R.id.action_share -> {
+          displayPresenter.shareImage(this, imageUrl)
+          true
+        }
+        R.id.action_save -> {
+          checkPermissionAndSaveImage()
+          true
+        }
+        else -> super.onOptionsItemSelected(item)
   }
 
   override fun showErrorMessage(message: String) {

@@ -55,9 +55,7 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
     private const val GIF_EXT = ".gif"
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-    return PostViewHolder(parent)
-  }
+  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = PostViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, item: ViewType) {
     holder as PostViewHolder

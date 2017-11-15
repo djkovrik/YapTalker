@@ -73,9 +73,8 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>(), LazyKodein
         .subscribe(navDrawerRelay)
   }
 
-  protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> {
-    return lifecycle.filter({ e -> e == event }).firstElement()
-  }
+  protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> =
+      lifecycle.filter({ e -> e == event }).firstElement()
 
   private fun onLoadingStart() {
     viewState.showLoadingIndicator()

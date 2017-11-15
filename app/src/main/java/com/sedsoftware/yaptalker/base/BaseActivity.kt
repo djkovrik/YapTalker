@@ -62,7 +62,6 @@ abstract class BaseActivity : MvpAppCompatActivity(), LazyKodeinAware {
     lifecycle.accept(ActivityLifecycle.PAUSE)
   }
 
-  protected fun event(@ActivityLifecycle.Event event: Long): Maybe<*> {
-    return lifecycle.filter({ e -> e == event }).firstElement()
-  }
+  protected fun event(@ActivityLifecycle.Event event: Long): Maybe<*> =
+      lifecycle.filter({ e -> e == event }).firstElement()
 }

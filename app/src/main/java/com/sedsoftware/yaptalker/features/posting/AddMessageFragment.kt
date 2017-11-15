@@ -113,14 +113,13 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     toastError(message)
   }
 
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    return when (item.itemId) {
-      R.id.action_send -> {
-        returnMessageText()
-        true
-      }
-      else -> super.onOptionsItemSelected(item)
-    }
+  override fun onOptionsItemSelected(item: MenuItem): Boolean =
+      when (item.itemId) {
+        R.id.action_send -> {
+          returnMessageText()
+          true
+        }
+        else -> super.onOptionsItemSelected(item)
   }
 
   override fun insertTag(tag: String) {

@@ -15,9 +15,7 @@ class PostRatingView : AppCompatTextView {
   constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
   var ratingText: CharSequence
-    get() {
-      return text
-    }
+    get() = text
     set(value) {
       setPostRank(value.toString())
     }

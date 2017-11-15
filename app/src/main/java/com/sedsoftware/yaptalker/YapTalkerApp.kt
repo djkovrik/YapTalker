@@ -94,18 +94,16 @@ class YapTalkerApp : Application(), KodeinAware {
         Picasso.with(imageView?.context).cancelRequest(imageView)
       }
 
-      override fun placeholder(ctx: Context?, tag: String?): Drawable {
+      override fun placeholder(ctx: Context?, tag: String?): Drawable =
+          when (tag) {
+            DrawerImageLoader.Tags.PROFILE.name ->
+              IconicsDrawable(ctx)
+                  .icon(CommunityMaterial.Icon.cmd_account)
+                  .colorRes(R.color.colorPrimary)
+                  .backgroundColorRes(R.color.material_color_white_70_percent)
+                  .paddingDp(NAV_DRAWER_AVATAR_PADDING)
 
-        return when (tag) {
-          DrawerImageLoader.Tags.PROFILE.name ->
-            IconicsDrawable(ctx)
-                .icon(CommunityMaterial.Icon.cmd_account)
-                .colorRes(R.color.colorPrimary)
-                .backgroundColorRes(R.color.material_color_white_70_percent)
-                .paddingDp(NAV_DRAWER_AVATAR_PADDING)
-
-          else -> super.placeholder(ctx, tag)
-        }
+            else -> super.placeholder(ctx, tag)
       }
     })
   }

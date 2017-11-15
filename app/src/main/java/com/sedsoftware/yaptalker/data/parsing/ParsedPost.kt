@@ -139,7 +139,5 @@ class ParsedPost(
         .replace("%2F", "/")
   }
 
-  private fun String.trimLinebreakTags(): String {
-    return this.removePrefix("<br>").removeSuffix("<br>").trim()
-  }
+  private fun String.trimLinebreakTags(): String = this.removePrefix("<br>").removeSuffix("<br>").trim()
 }

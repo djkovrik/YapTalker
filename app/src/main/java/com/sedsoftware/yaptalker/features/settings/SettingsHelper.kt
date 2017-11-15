@@ -58,15 +58,12 @@ class SettingsHelper(val context: Context) {
     preferences.edit().putBoolean(context.stringRes(R.string.pref_key_eula_accepted), true).apply()
   }
 
-  private fun getString(@StringRes key: Int, default: String): String {
-    return preferences.getString(context.stringRes(key), default)
-  }
+  private fun getString(@StringRes key: Int, default: String): String =
+      preferences.getString(context.stringRes(key), default)
 
-  private fun getStringSet(@StringRes key: Int, default: Set<String>): Set<String> {
-    return preferences.getStringSet(context.stringRes(key), default)
-  }
+  private fun getStringSet(@StringRes key: Int, default: Set<String>): Set<String> =
+      preferences.getStringSet(context.stringRes(key), default)
 
-  private fun getBoolean(@StringRes key: Int, default: Boolean): Boolean {
-    return preferences.getBoolean(context.stringRes(key), default)
-  }
+  private fun getBoolean(@StringRes key: Int, default: Boolean): Boolean =
+      preferences.getBoolean(context.stringRes(key), default)
 }
