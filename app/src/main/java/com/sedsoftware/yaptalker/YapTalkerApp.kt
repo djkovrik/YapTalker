@@ -14,6 +14,7 @@ import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
+import com.sedsoftware.yaptalker.commons.CrashReportingTree
 import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.data.requests.requestsClientModule
 import com.sedsoftware.yaptalker.data.requests.requestsCookieModule
@@ -56,7 +57,9 @@ class YapTalkerApp : MultiDexApplication(), KodeinAware {
       return
     }
 
-    LeakCanary.install(this)
+    if (BuildConfig.DEBUG) {
+      LeakCanary.install(this)
+    }
 
     // Normal app init code below
     kodeinInstance = kodein
@@ -70,8 +73,9 @@ class YapTalkerApp : MultiDexApplication(), KodeinAware {
     Timber.uprootAll()
 
     if (BuildConfig.DEBUG) {
-      LeakCanary.install(this)
       Timber.plant(Timber.DebugTree())
+    } else {
+      Timber.plant(CrashReportingTree())
     }
   }
 
