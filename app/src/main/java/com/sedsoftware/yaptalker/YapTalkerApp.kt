@@ -1,9 +1,9 @@
 package com.sedsoftware.yaptalker
 
+import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.support.multidex.MultiDexApplication
 import android.widget.ImageView
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.KodeinAware
@@ -27,7 +27,7 @@ import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import timber.log.Timber
 
-class YapTalkerApp : MultiDexApplication(), KodeinAware {
+class YapTalkerApp : Application(), KodeinAware {
 
   companion object {
     lateinit var kodeinInstance: Kodein
@@ -57,9 +57,7 @@ class YapTalkerApp : MultiDexApplication(), KodeinAware {
       return
     }
 
-    if (BuildConfig.DEBUG) {
-      LeakCanary.install(this)
-    }
+    LeakCanary.install(this)
 
     // Normal app init code below
     kodeinInstance = kodein
