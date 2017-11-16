@@ -6,6 +6,7 @@
   android:layout_marginBottom="@dimen/card_margin_value_half"
   android:layout_marginTop="@dimen/card_margin_value_half"
   android:elevation="@dimen/material_elevation_card_resting"
+  tools:keep="@layout/fragment_news_item"
   tools:targetApi="lollipop">
 
   <RelativeLayout

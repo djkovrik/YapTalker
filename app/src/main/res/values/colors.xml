@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <color name="colorPrimary">#e53935</color>
   <color name="colorPrimaryDark">#ab000d</color>
   <color name="colorPrimaryLight">#ff6f60</color>
@@ -18,7 +18,6 @@
   <!-- Misc UI colors -->
   <color name="colorMaterialBackground">@color/material_color_grey_200</color>
   <color name="colorSupportingText">@color/material_color_grey_500</color>
-  <color name="colorSupportingTextLight">@color/material_color_grey_400</color>
   <color name="colorQuotedTextBackground">@color/material_color_grey_200</color>
   <color name="colorPostScriptText">@color/material_color_grey_500</color>
 
@@ -39,8 +38,8 @@
   <color name="colorRatingDarkRedText">@color/material_color_black_54_percent</color>
 
   <!-- UQ thumbs colors -->
-  <color name="colorRatingThumbUp">@color/material_color_green_500</color>
-  <color name="colorRatingThumbDown">@color/colorPrimary</color>
+  <color name="colorRatingThumbUp" tools:keep="@color/colorRatingThumbUp">@color/material_color_green_500</color>
+  <color name="colorRatingThumbDown" tools:keep="@color/colorRatingThumbDown">@color/colorPrimary</color>
 
   <!-- Toasty colors -->
   <color name="toastyColorError">@color/colorPrimary</color>

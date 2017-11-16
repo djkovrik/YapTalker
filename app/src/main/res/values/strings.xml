@@ -29,18 +29,15 @@
   <string name="forum_closed_topic_template" translatable="false"><xliff:g id="icon">{cmd-lock}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
   <string name="forum_pinned_and_closed_topic_template" translatable="false"><xliff:g id="icons">{cmd-lock} {cmd-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
 
-  <!-- POSTS -->
-  <string name="post_link">Link</string>
-
   <!-- NAVIGATION PANEL -->
   <string name="navigation_pages_template"><xliff:g id="page">%d</xliff:g> of <xliff:g id="total_pages">%d</xliff:g></string>
   <string name="navigation_go_to_page_title">Go to page</string>
   <string name="navigation_go_to_page_hint">Enter page number…</string>
   <string name="navigation_page_not_available">Page <xliff:g id="page">%d</xliff:g> is not available</string>
-  <string name="navigation_previous" translatable="false">&lt;</string>
-  <string name="navigation_next" translatable="false">&gt;</string>
-  <string name="navigation_first" translatable="false">&lt;&lt;</string>
-  <string name="navigation_last" translatable="false">&gt;&gt;</string>
+  <string name="navigation_previous" translatable="false" tools:keep="@string/navigation_previous">&lt;</string>
+  <string name="navigation_next" translatable="false" tools:keep="@string/navigation_next">&gt;</string>
+  <string name="navigation_first" translatable="false" tools:keep="@string/navigation_first">&lt;&lt;</string>
+  <string name="navigation_last" translatable="false" tools:keep="@string/navigation_last">&gt;&gt;</string>
 
   <!-- AUTHORIZATION ACTIVITY -->
   <string name="authorization_login_label">Login</string>
@@ -48,8 +45,8 @@
   <string name="authorization_button_login">Sign In</string>
 
   <!-- TOPIC -->
-  <string name="topic_post_karma_thumb_up" translatable="false">{cmd-thumb-up} </string>
-  <string name="topic_post_karma_thumb_down" translatable="false">{cmd-thumb-down} </string>
+  <string name="topic_post_karma_thumb_up" translatable="false" tools:keep="@string/topic_post_karma_thumb_up">{cmd-thumb-up} </string>
+  <string name="topic_post_karma_thumb_down" translatable="false" tools:keep="@string/topic_post_karma_thumb_down">{cmd-thumb-down} </string>
 
   <!-- ADD MESSAGE ACTIVITY -->
   <string name="post_message_hint">Enter your message…</string>
@@ -146,10 +143,10 @@
   <string name="short_date_seconds_now">just now</string>
 
   <!-- A11Y -->
-  <string name="a11y_avatar">User avatar</string>
+  <string name="a11y_avatar" tools:keep="@string/a11y_avatar">User avatar</string>
   <string name="a11y_photo">User photo</string>
-  <string name="a11y_forum_image">Forum image</string>
-  <string name="a11y_news_image">News content image</string>
-  <string name="a11y_bookmark_delete">Delete topic from bookmarks</string>
+  <string name="a11y_forum_image" tools:keep="@string/a11y_forum_image">Forum image</string>
+  <string name="a11y_news_image" tools:keep="@string/a11y_news_image">News content image</string>
+  <string name="a11y_bookmark_delete" tools:keep="@string/a11y_bookmark_delete">Delete topic from bookmarks</string>
 
 </resources>

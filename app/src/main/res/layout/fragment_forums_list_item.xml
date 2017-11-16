@@ -5,7 +5,8 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?attr/selectableItemBackground"
-  android:orientation="horizontal">
+  android:orientation="horizontal"
+  tools:keep="@layout/fragment_forums_list_item">
 
   <ImageView
     android:id="@+id/forum_image"

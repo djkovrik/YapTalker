@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
   <!-- News screen -->
-  <dimen name="card_margin_value_half">@dimen/material_baseline_grid_0.5x</dimen>
+  <dimen name="card_margin_value_half" tools:keep="@dimen/card_margin_value_half">@dimen/material_baseline_grid_0.5x
+  </dimen>
   <dimen name="mini_fab_icon_padding">4dp</dimen>
 
   <!-- Rating labels -->
   <dimen name="rating_background_padding">3dp</dimen>
   <dimen name="rating_background_corner_radius">1dp</dimen>
-  <dimen name="rating_background_width">50dp</dimen>
+  <dimen name="rating_background_width" tools:keep="@dimen/rating_background_width">50dp</dimen>
 
   <!-- Topic post padding parameters -->
   <dimen name="post_image_vertical_padding">8dp</dimen>
   <dimen name="post_text_horizontal_padding">8dp</dimen>
-  <dimen name="post_karma_thump_icon_padding">4dp</dimen>
+  <dimen name="post_karma_thump_icon_padding" tools:keep="@dimen/post_karma_thump_icon_padding">4dp</dimen>
 
   <!-- Navigation panel -->
-  <dimen name="navigation_button_width">54dp</dimen>
-  <dimen name="navigation_panel_text_size">20sp</dimen>
+  <dimen name="navigation_button_width" tools:keep="@dimen/navigation_button_width">54dp</dimen>
 
   <!-- Other -->
   <dimen name="post_editor_margin">8dp</dimen>
@@ -27,7 +27,9 @@
   <!-- TABLETS DIMENSION VARIATIONS -->
   <dimen name="navigation_drawer_width">280dp</dimen>
   <dimen name="sign_in_layout_width">@dimen/custom_match_parent</dimen>
-  <dimen name="news_content_media_width">@dimen/custom_match_parent</dimen>
-  <dimen name="topic_content_media_width">@dimen/custom_match_parent</dimen>
+  <dimen name="news_content_media_width" tools:keep="@dimen/news_content_media_width">@dimen/custom_match_parent
+  </dimen>
+  <dimen name="topic_content_media_width" tools:keep="@dimen/topic_content_media_width">@dimen/custom_match_parent
+  </dimen>
 
 </resources>

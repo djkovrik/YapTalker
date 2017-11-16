@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="NewsAuthorNickname">
+  <style name="NewsAuthorNickname" tools:keep="@style/NewsAuthorNickname">
     <item name="android:textStyle">bold</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">1</item>
   </style>
 
-  <style name="NewsForumTitle">
+  <style name="NewsForumTitle" tools:keep="@style/NewsForumTitle">
     <item name="android:textColor">@color/colorAccent</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">1</item>
   </style>
 
-  <style name="NewsTopicRating">
+  <style name="NewsTopicRating" tools:keep="@style/NewsTopicRating">
     <item name="android:textStyle">bold</item>
     <item name="android:textColor">@color/colorRatingGreen</item>
     <item name="android:ellipsize">end</item>

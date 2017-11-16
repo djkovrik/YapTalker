@@ -15,7 +15,3 @@ fun AppCompatActivity.toastSuccess(message: String) {
 fun AppCompatActivity.toastInfo(message: String) {
   Toasty.info(this, message, Toast.LENGTH_SHORT, true).show()
 }
-
-fun AppCompatActivity.toastWarning(message: String) {
-  Toasty.warning(this, message, Toast.LENGTH_SHORT, true).show()
-}

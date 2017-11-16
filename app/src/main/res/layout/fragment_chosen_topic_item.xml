@@ -4,7 +4,8 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?attr/selectableItemBackground"
-  android:orientation="vertical">
+  android:orientation="vertical"
+  tools:keep="@layout/fragment_chosen_topic_item">
 
   <ImageView
     android:id="@+id/post_author_avatar"

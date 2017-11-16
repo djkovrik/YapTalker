@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="PostAuthorNickname" parent="NewsAuthorNickname" />
+  <style name="PostAuthorNickname" parent="NewsAuthorNickname" tools:keep="@style/PostAuthorNickname" />
 
-  <style name="PostRating" parent="NewsTopicRating">
+  <style name="PostRating" parent="NewsTopicRating" tools:keep="@style/PostRating">
     <item name="android:textStyle">normal</item>
   </style>
 
-  <style name="PostLink" parent="Widget.AppCompat.Button.Borderless">
+  <style name="PostLink" parent="Widget.AppCompat.Button.Borderless" tools:keep="@style/PostLink">
     <item name="android:textColor">@color/colorAccent</item>
     <item name="android:minHeight">0dp</item>
   </style>
