@@ -133,10 +133,27 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
 
   override fun showLinkParametersDialogs() {
 
-    var url: String
+    var url = ""
     var title: String
 
-    context?.let { ctx ->
+    val titleDialog = context?.let { ctx ->
+      MaterialDialog.Builder(ctx)
+          .title(R.string.post_insert_link_title)
+          .positiveText(R.string.post_button_submit)
+          .negativeText(R.string.post_button_dismiss)
+          .inputType(InputType.TYPE_CLASS_TEXT)
+          .alwaysCallInputCallback()
+          .input(R.string.post_insert_link_title_hint, 0, false, { _, _ -> })
+          .onPositive { secondDialog, _ ->
+            title = secondDialog.inputEditText?.text.toString()
+
+            if (url.isNotEmpty() || title.isNotEmpty()) {
+              messagingPresenter.insertVideoTag(url, title)
+            }
+          }
+    }
+
+    val linkDialog = context?.let { ctx ->
       MaterialDialog.Builder(ctx)
           .title(R.string.post_insert_link)
           .positiveText(R.string.post_button_submit)
@@ -148,25 +165,11 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
           })
           .onPositive { firstDialog, _ ->
             url = firstDialog.inputEditText?.text.toString()
-
-            MaterialDialog.Builder(ctx)
-                .title(R.string.post_insert_link_title)
-                .positiveText(R.string.post_button_submit)
-                .negativeText(R.string.post_button_dismiss)
-                .inputType(InputType.TYPE_CLASS_TEXT)
-                .alwaysCallInputCallback()
-                .input(R.string.post_insert_link_title_hint, 0, false, { _, _ -> })
-                .onPositive { secondDialog, _ ->
-                  title = secondDialog.inputEditText?.text.toString()
-
-                  if (url.isNotEmpty() || title.isNotEmpty()) {
-                    messagingPresenter.insertVideoTag(url, title)
-                  }
-                }
-                .show()
+            titleDialog?.show()
           }
-          .show()
     }
+
+    linkDialog?.show()
   }
 
   override fun hideKeyboard() {
