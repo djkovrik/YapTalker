@@ -1,9 +1,9 @@
 package com.sedsoftware.yaptalker
 
-import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.support.multidex.MultiDexApplication
 import android.widget.ImageView
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.KodeinAware
@@ -26,7 +26,7 @@ import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import timber.log.Timber
 
-class YapTalkerApp : Application(), KodeinAware {
+class YapTalkerApp : MultiDexApplication(), KodeinAware {
 
   companion object {
     lateinit var kodeinInstance: Kodein
