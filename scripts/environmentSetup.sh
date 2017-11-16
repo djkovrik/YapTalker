@@ -22,6 +22,12 @@ function copyEnvVarsToGradleProperties {
     echo "Adding VK_ACCESS_TOKEN to gradle.properties..."
     echo "VK_ACCESS_TOKEN=\"$VK_ACCESS_TOKEN_ENV\"" >> ${GRADLE_PROPERTIES}
 
+    echo "Adding dummy signing config to gradle.properties..."
+    echo "RELEASE_STORE_FILE=\"$DUMMY_PATH_ENV\"" >> ${GRADLE_PROPERTIES}
+    echo "RELEASE_STORE_PASSWORD=\"$DUMMY_STRING_ENV\"" >> ${GRADLE_PROPERTIES}
+    echo "RELEASE_KEY_ALIAS=\"$DUMMY_STRING_ENV\"" >> ${GRADLE_PROPERTIES}
+    echo "RELEASE_KEY_PASSWORD=\"$DUMMY_STRING_ENV\"" >> ${GRADLE_PROPERTIES}
+
     echo "gradle.properties content:"
     cat ${GRADLE_PROPERTIES}
 }

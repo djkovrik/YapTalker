@@ -4,6 +4,8 @@ jdk: oraclejdk8
 env:
   global:
     - VK_ACCESS_TOKEN_ENV=abc
+    - DUMMY_STRING_ENV=abc
+    - DUMMY_PATH_ENV=D:/Documents
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
