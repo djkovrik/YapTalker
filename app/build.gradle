@@ -4,6 +4,7 @@ plugins {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -94,6 +95,10 @@ dependencies {
   final MOCKITO_KOTLIN_VERSION = "1.5.0"
   final EXPEKT_VERSION = "0.5.0"
 
+  // Supporting tools
+  final ANDROID_CRASHALYTICS_VERSION = "2.7.1@aar"
+  final FIREBASE_CORE_VERSION = "11.6.0"
+
   // Debugging
   final TIMBER_VERSION = "4.6.0"
   final LEAK_CANARY_VERSION = "1.5.4"
@@ -175,6 +180,10 @@ dependencies {
   testImplementation mockitoKotlin
   testImplementation expekt
 
+  // Supporting tools
+  implementation("com.crashlytics.sdk.android:crashlytics:$ANDROID_CRASHALYTICS_VERSION") { transitive = true }
+  implementation "com.google.firebase:firebase-core:$FIREBASE_CORE_VERSION"
+
   // Debugging tools dependencies
   implementation "com.jakewharton.timber:timber:$TIMBER_VERSION"
 
@@ -182,3 +191,5 @@ dependencies {
   releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
   testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
 }
+
+apply plugin: 'com.google.gms.google-services'
