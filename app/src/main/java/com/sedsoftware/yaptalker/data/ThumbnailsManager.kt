@@ -100,6 +100,7 @@ class ThumbnailsManager(
 
         override fun onSuccess(url: String) {
           if (url.isNotEmpty()) {
+            imageView.adjustViewBounds = true
             imageView.loadFromUrl(url)
           }
         }
@@ -116,6 +117,7 @@ class ThumbnailsManager(
         }
 
         override fun onSuccess(resId: Int) {
+          imageView.adjustViewBounds = false
           imageView.setImageResource(resId)
         }
 

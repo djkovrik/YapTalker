@@ -215,7 +215,6 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
         post.videos.forEachIndexed { index, url ->
           val rawHtml = post.videosRaw[index]
           val thumbnail = ImageView(itemView.context)
-          thumbnail.adjustViewBounds = true
           thumbnail.setPadding(0, imagePadding, 0, imagePadding)
           itemView.post_content_video_container.addView(thumbnail)
           thumbnailsLoader.loadThumbnail(parseLink(url), thumbnail)
