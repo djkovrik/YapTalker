@@ -33,6 +33,7 @@ android {
     dev {
       dimension "variant"
       minSdkVersion 22
+      multiDexEnabled true
     }
     prod {
       dimension "variant"
