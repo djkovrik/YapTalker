@@ -68,14 +68,14 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
     private val currentAvatarSize = avatarSize * parent.context.currentDensity
 
     fun bindTo(postItem: TopicPost) {
-      getParsedPostSingle(postItem)
+      Single
+          .just(postItem)
           .subscribeOn(Schedulers.computation())
+          .observeOn(Schedulers.computation())
+          .map { item -> ParsedPost(item.postContent) }
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(getPostObservable(postItem))
     }
-
-    private fun getParsedPostSingle(item: TopicPost): Single<ParsedPost> =
-        Single.just(ParsedPost(item.postContent))
 
     private fun getPostObservable(mainPost: TopicPost) =
         object : SingleObserver<ParsedPost> {
