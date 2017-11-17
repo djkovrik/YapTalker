@@ -67,6 +67,7 @@ class YapTalkerApp : Application(), KodeinAware {
     initMaterialDrawerImageLoader()
   }
 
+  @Suppress("ConstantConditionIf")
   private fun initTimber() {
     Timber.uprootAll()
 
