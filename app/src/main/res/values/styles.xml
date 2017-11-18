@@ -1,21 +1,28 @@
 <resources>
 
-  <!-- BASE THEME (LIGHT) -->
+  <!-- LIGHT THEME -->
   <style name="AppTheme" parent="MaterialDrawerTheme.Light.DarkToolbar">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-    <item name="android:windowBackground">@color/colorMaterialBackground</item>
+    <!-- Base -->
+    <item name="colorPrimary">@color/colorPrimaryL</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDarkL</item>
+    <item name="colorAccent">@color/colorAccentL</item>
+    <item name="android:windowBackground">@color/material_color_grey_100</item>
+    <!-- Text -->
+    <item name="android:textColorPrimary">@color/material_color_grey_600</item>
+    <item name="android:textColorPrimaryInverse">@color/material_color_white</item>
+    <item name="android:textColorSecondary">@color/material_color_grey_500</item>
+    <item name="android:textColorSecondaryInverse">@color/material_color_grey_500</item>
+    <!-- CardView -->
+    <item name="cardBackgroundColor">@color/material_color_white</item>
+    <!-- Preferences -->
     <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+    <!-- Custom attr colors -->
+    <item name="colorQuoteBackground">@color/material_color_grey_200</item>
   </style>
 
   <!-- DARK THEME -->
-  <style name="AppTheme.Dark" parent="MaterialDrawerTheme.ActionBar">
-    <item name="colorPrimary">@color/colorPrimaryD</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDarkD</item>
-    <item name="colorAccent">@color/colorAccentD</item>
-    <item name="android:windowBackground">@color/colorMaterialBackgroundD</item>
-    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+  <style name="AppTheme.Dark" parent="MaterialDrawerTheme.Light.DarkToolbar">
+
   </style>
 
   <style name="AppTheme.NoActionBar">

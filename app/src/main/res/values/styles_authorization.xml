@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="SignInButton" parent="Theme.AppCompat.Light">
-    <item name="colorControlHighlight">@color/colorPrimaryDark</item>
-    <item name="colorButtonNormal">@color/colorPrimary</item>
+  <style name="SignInButton">
+    <item name="colorControlHighlight">?android:attr/colorPrimaryDark</item>
+    <item name="colorButtonNormal">?android:attr/colorPrimary</item>
     <item name="android:textColor">@color/material_color_white</item>
   </style>
 
   <style name="EditTextStyle">
-    <item name="android:textColor">@color/colorPrimary</item>
-    <item name="android:textColorHint">@color/colorSupportingText</item>
-    <item name="colorAccent">@color/colorPrimary</item>
-    <item name="colorControlNormal">@color/colorSupportingText</item>
-    <item name="colorControlActivated">@color/colorPrimary</item>
+    <item name="android:textColor">?android:colorPrimary</item>
+    <item name="android:textColorHint">?android:textColorSecondary</item>
+    <item name="colorAccent">?android:colorPrimary</item>
+    <item name="colorControlNormal">?android:textColorSecondary</item>
+    <item name="colorControlActivated">?android:colorPrimary</item>
   </style>
 
 </resources>

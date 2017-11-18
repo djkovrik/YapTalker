@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
   <!-- LIGHT THEME -->
-  <color name="colorPrimary">#e53935</color>
-  <color name="colorPrimaryDark">#ab000d</color>
-  <color name="colorAccent">#0277bd</color>
-  <color name="colorPrimaryLight">#ff6f60</color>
-  <color name="colorAccentDark">#004c8c</color>
+  <color name="colorPrimaryL">#e53935</color>
+  <color name="colorPrimaryDarkL">#ab000d</color>
+  <color name="colorAccentL">#0277bd</color>
+  <!-- DARK THEME -->
+  <color name="colorPrimaryD">#546e7a</color>
+  <color name="colorPrimaryDarkD">#29434e</color>
+  <color name="colorAccentD">#ff5722</color>
+
+  <!-- COMMON COLORS -->
   <!-- Navigation drawer colors -->
   <color name="colorNavDefaultText">@color/material_color_grey_600</color>
-  <color name="colorNavMainPage">@color/colorPrimary</color>
+  <color name="colorNavMainPage">@color/material_color_red_600</color>
   <color name="colorNavForums">@color/material_color_purple_600</color>
   <color name="colorNavActiveTopics">@color/material_color_green_600</color>
   <color name="colorNavBookmarks">@color/material_color_orange_800</color>
   <color name="colorNavSettings">@color/material_color_grey_700</color>
   <color name="colorNavSignIn">@color/material_color_grey_700</color>
-  <!-- Misc UI colors -->
-  <color name="colorMaterialBackground">@color/material_color_grey_200</color>
-  <color name="colorSupportingText">@color/material_color_grey_500</color>
-  <color name="colorQuotedTextBackground">@color/material_color_grey_200</color>
-  <color name="colorPostScriptText">@color/material_color_grey_500</color>
   <!-- UQ colors -->
   <color name="colorRatingPlatinum">@color/material_color_grey_200</color>
   <color name="colorRatingGold">@color/material_color_amber_400</color>
@@ -34,17 +33,11 @@
   <color name="colorRatingRedText">@color/material_color_black_54_percent</color>
   <color name="colorRatingDarkRedText">@color/material_color_black_54_percent</color>
   <!-- UQ thumbs colors -->
-  <color name="colorRatingThumbUp" tools:keep="@color/colorRatingThumbUp">@color/material_color_green_500</color>
-  <color name="colorRatingThumbDown" tools:keep="@color/colorRatingThumbDown">@color/colorPrimary</color>
+  <color name="colorRatingThumbUp">@color/material_color_green_500</color>
+  <color name="colorRatingThumbDown">@color/material_color_red_500</color>
   <!-- Toasty colors -->
-  <color name="toastyColorError">@color/colorPrimary</color>
-  <color name="toastyColorInfo">@color/colorAccent</color>
+  <color name="toastyColorError">@color/material_color_red_500</color>
+  <color name="toastyColorInfo">@color/material_color_blue_500</color>
   <color name="toastyColorSuccess">@color/material_color_green_500</color>
-  <color name="toastyColorWarning">@color/colorAccentDark</color>
-
-  <!-- DARK THEME -->
-  <color name="colorPrimaryD">@color/material_color_blue_grey_700</color>
-  <color name="colorPrimaryDarkD">#1c313a</color>
-  <color name="colorAccentD">@color/material_color_orange_800</color>
-  <color name="colorMaterialBackgroundD">@color/material_color_grey_800</color>
+  <color name="toastyColorWarning">@color/material_color_teal_500</color>
 </resources>

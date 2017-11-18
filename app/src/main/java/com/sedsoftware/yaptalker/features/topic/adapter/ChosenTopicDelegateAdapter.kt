@@ -11,15 +11,14 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseAdapterInjections
 import com.sedsoftware.yaptalker.commons.adapter.ViewType
 import com.sedsoftware.yaptalker.commons.adapter.ViewTypeDelegateAdapter
-import com.sedsoftware.yaptalker.commons.extensions.color
 import com.sedsoftware.yaptalker.commons.extensions.currentDensity
+import com.sedsoftware.yaptalker.commons.extensions.getColorFromAttr
 import com.sedsoftware.yaptalker.commons.extensions.getLastDigits
 import com.sedsoftware.yaptalker.commons.extensions.hideView
 import com.sedsoftware.yaptalker.commons.extensions.inflate
 import com.sedsoftware.yaptalker.commons.extensions.loadAvatarFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.commons.extensions.showView
-import com.sedsoftware.yaptalker.commons.extensions.textColor
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.commons.extensions.textFromHtmlWithEmoji
 import com.sedsoftware.yaptalker.commons.extensions.validateUrl
@@ -66,6 +65,12 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
       RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_chosen_topic_item)) {
 
     private val currentAvatarSize = avatarSize * parent.context.currentDensity
+    private val textPadding = parent.context.resources.getDimension(R.dimen.post_text_horizontal_padding).toInt()
+    private val primaryTextColor = parent.context.getColorFromAttr(android.R.attr.textColorPrimary)
+    private val secondaryTextColor = parent.context.getColorFromAttr(android.R.attr.textColorSecondary)
+    private val quoteBackgroundColor = parent.context.getColorFromAttr(R.attr.colorQuoteBackground)
+    private val warnings = ArrayList<PostWarning>()
+    private var currentNestingLevel = INITIAL_NESTING_LEVEL
 
     fun bindTo(postItem: TopicPost) {
       Single
@@ -98,11 +103,6 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
     @Suppress("NestedBlockDepth")
     private fun fillPostText(post: ParsedPost) {
 
-      val textPadding = itemView.context.resources.getDimension(
-          R.dimen.post_text_horizontal_padding).toInt()
-      var currentNestingLevel = INITIAL_NESTING_LEVEL
-      val warnings = ArrayList<PostWarning>()
-
       itemView.post_content_text_container.removeAllViews()
 
       if (post.content.isNotEmpty()) {
@@ -114,21 +114,21 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
             is PostQuoteAuthor -> {
               currentNestingLevel++
               val quoteAuthor = TextView(itemView.context)
-              quoteAuthor.textFromHtml(contentItem.text)
               quoteAuthor.textSize = normalFontSize
+              quoteAuthor.setTextColor(primaryTextColor)
+              quoteAuthor.textFromHtml(contentItem.text)
               if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
                 quoteAuthor.setPadding(textPadding * currentNestingLevel, 0, 0, 0)
               }
-              quoteAuthor.setBackgroundColor(
-                  itemView.context.color(R.color.colorQuotedTextBackground))
+              quoteAuthor.setBackgroundColor(quoteBackgroundColor)
               itemView.post_content_text_container.addView(quoteAuthor)
             }
             is PostQuote -> {
               val quoteText = TextView(itemView.context)
-              quoteText.textFromHtmlWithEmoji(contentItem.text)
               quoteText.textSize = normalFontSize
-              quoteText.setBackgroundColor(
-                  itemView.context.color(R.color.colorQuotedTextBackground))
+              quoteText.setTextColor(primaryTextColor)
+              quoteText.textFromHtmlWithEmoji(contentItem.text)
+              quoteText.setBackgroundColor(quoteBackgroundColor)
               quoteText.setPadding(textPadding * currentNestingLevel, 0, 0, 0)
               itemView.post_content_text_container.addView(quoteText)
             }
@@ -136,27 +136,28 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
               currentNestingLevel--
               val postText = TextView(itemView.context)
               postText.movementMethod = LinkMovementMethod.getInstance()
-              postText.textFromHtmlWithEmoji(contentItem.text)
               postText.textSize = normalFontSize
+              postText.setTextColor(primaryTextColor)
+              postText.textFromHtmlWithEmoji(contentItem.text)
               if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
-                postText.setBackgroundColor(
-                    itemView.context.color(R.color.colorQuotedTextBackground))
+                postText.setBackgroundColor(quoteBackgroundColor)
                 postText.setPadding(textPadding * currentNestingLevel, 0, 0, 0)
               }
               itemView.post_content_text_container.addView(postText)
             }
             is PostHiddenText -> {
               val hiddenText = TextView(itemView.context)
-              hiddenText.textFromHtmlWithEmoji(contentItem.text)
               hiddenText.textSize = smallFontSize
+              hiddenText.setTextColor(primaryTextColor)
+              hiddenText.textFromHtmlWithEmoji(contentItem.text)
               itemView.post_content_text_container.addView(hiddenText)
             }
             is PostScript -> {
               val postScriptText = TextView(itemView.context)
               postScriptText.setTypeface(postScriptText.typeface, Typeface.ITALIC)
-              postScriptText.textFromHtml(contentItem.text)
               postScriptText.textSize = smallFontSize
-              postScriptText.textColor = R.color.colorPostScriptText
+              postScriptText.setTextColor(secondaryTextColor)
+              postScriptText.textFromHtml(contentItem.text)
               itemView.post_content_text_container.addView(postScriptText)
             }
             is PostWarning -> {
@@ -168,8 +169,9 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
         if (warnings.isNotEmpty()) {
           val warning = warnings.last()
           val warningText = TextView(itemView.context)
-          warningText.textFromHtml(warning.text)
           warningText.textSize = smallFontSize
+          warningText.setTextColor(secondaryTextColor)
+          warningText.textFromHtml(warning.text)
           itemView.post_content_text_container.addView(warningText)
         }
       }

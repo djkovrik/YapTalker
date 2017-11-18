@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
-  <style name="NewsAuthorNickname" tools:keep="@style/NewsAuthorNickname">
+  <style name="NewsAuthorNickname">
+    <item name="android:textColor">?android:textColorPrimary</item>
     <item name="android:textStyle">bold</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">1</item>
   </style>
 
-  <style name="NewsForumTitle" tools:keep="@style/NewsForumTitle">
-    <item name="android:textColor">@color/colorAccent</item>
+  <style name="NewsForumTitle">
+    <item name="android:textColor">?android:colorAccent</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">1</item>
   </style>
 
-  <style name="NewsTopicRating" tools:keep="@style/NewsTopicRating">
-    <item name="android:textStyle">bold</item>
+  <style name="NewsTitle">
+    <item name="android:textColor">?android:textColorPrimary</item>
+  </style>
+
+  <style name="NewsTopicRating">
     <item name="android:textColor">@color/colorRatingGreen</item>
+    <item name="android:textStyle">bold</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">1</item>
+  </style>
+
+  <style name="NewsText">
+    <item name="android:textColor">?android:textColorPrimary</item>
   </style>
 
 </resources>

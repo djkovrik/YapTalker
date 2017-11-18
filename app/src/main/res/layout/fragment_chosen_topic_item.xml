@@ -34,7 +34,7 @@
 
   <TextView
     android:id="@+id/post_rating_thumb_down"
-    style="@style/PostRating"
+    style="@style/RatingThumbsDown"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignBottom="@id/post_author_avatar"
@@ -44,7 +44,6 @@
     android:paddingEnd="@dimen/post_karma_thump_icon_padding"
     android:paddingStart="@dimen/post_karma_thump_icon_padding"
     android:text="@string/topic_post_karma_thumb_down"
-    android:textColor="@color/colorRatingThumbDown"
     tools:text="-" />
 
   <com.sedsoftware.yaptalker.commons.views.PostRatingView
@@ -60,7 +59,7 @@
 
   <TextView
     android:id="@+id/post_rating_thumb_up"
-    style="@style/PostRating"
+    style="@style/RatingThumbsUp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignBottom="@id/post_author_avatar"
@@ -70,7 +69,6 @@
     android:paddingEnd="@dimen/post_karma_thump_icon_padding"
     android:paddingStart="@dimen/post_karma_thump_icon_padding"
     android:text="@string/topic_post_karma_thumb_up"
-    android:textColor="@color/colorRatingThumbUp"
     tools:text="+" />
 
   <com.sedsoftware.yaptalker.commons.views.ShortDateView

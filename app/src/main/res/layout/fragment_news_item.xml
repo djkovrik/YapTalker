@@ -48,6 +48,7 @@
       tools:text="\u25AA Videos" />
 
     <TextView
+      style="@style/NewsTitle"
       android:id="@+id/news_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -61,6 +62,7 @@
       tools:text="Here is a long news title, here is a long news title here" />
 
     <TextView
+      style="@style/NewsText"
       android:id="@+id/news_content_text"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
