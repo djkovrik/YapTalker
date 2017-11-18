@@ -22,7 +22,7 @@ class SettingsHelper(val context: Context) {
   }
 
   fun getStartingPage(): String {
-    val current = getString(R.string.pref_key_start_page, "")
+    val current = getStringPref(R.string.pref_key_start_page, "")
     val forums = context.stringRes(R.string.pref_general_start_page_value_forums)
 
     return when (current) {
@@ -31,39 +31,48 @@ class SettingsHelper(val context: Context) {
     }
   }
 
-  fun getAvatarSize() = getString(
+  fun getAvatarSize() = getStringPref(
       R.string.pref_key_avatar_size,
       context.stringRes(R.string.pref_appearance_avatar_size_value_small)).toInt()
 
-  fun getNormalFontSize() = getString(
+  fun getNormalFontSize() = getStringPref(
       R.string.pref_key_font_size,
       context.getString(R.string.pref_appearance_font_size_value_14)).toFloat()
 
-  fun getBigFontSize() = getString(
+  fun getBigFontSize() = getStringPref(
       R.string.pref_key_font_size,
       context.getString(R.string.pref_appearance_font_size_value_14)).toFloat() + TEXT_SIZE_OFFSET
 
-  fun getSmallFontSize() = getString(
+  fun getSmallFontSize() = getStringPref(
       R.string.pref_key_font_size,
       context.getString(R.string.pref_appearance_font_size_value_14)).toFloat() - TEXT_SIZE_OFFSET
 
-  fun getNewsCategories() = getStringSet(R.string.pref_key_categorizer, defaultCategories)
-  fun isNsfwEnabled() = getBoolean(R.string.pref_key_nswf, false)
+  fun getNewsCategories() = getStringSetPref(R.string.pref_key_categorizer, defaultCategories)
 
-  fun isEulaAccepted() = getBoolean(R.string.pref_key_eula_accepted, false)
+  fun isNsfwEnabled() = getBooleanPref(R.string.pref_key_nswf, false)
 
-  fun isScreenAlwaysOnEnabled() = getBoolean(R.string.pref_key_screen_always_on, false)
+  fun isEulaAccepted() = getBooleanPref(R.string.pref_key_eula_accepted, false)
+
+  fun isScreenAlwaysOnEnabled() = getBooleanPref(R.string.pref_key_screen_always_on, false)
+
+  fun isDarkThemeEnabled(): Boolean {
+    val dark = context.getString(R.string.pref_appearance_theme_value_dark)
+    val light = context.getString(R.string.pref_appearance_theme_value_light)
+    val current = getStringPref(R.string.pref_key_theme, light)
+
+    return current == dark
+  }
 
   fun markEulaAccepted() {
     preferences.edit().putBoolean(context.stringRes(R.string.pref_key_eula_accepted), true).apply()
   }
 
-  private fun getString(@StringRes key: Int, default: String): String =
+  private fun getStringPref(@StringRes key: Int, default: String): String =
       preferences.getString(context.stringRes(key), default)
 
-  private fun getStringSet(@StringRes key: Int, default: Set<String>): Set<String> =
+  private fun getStringSetPref(@StringRes key: Int, default: Set<String>): Set<String> =
       preferences.getStringSet(context.stringRes(key), default)
 
-  private fun getBoolean(@StringRes key: Int, default: Boolean): Boolean =
+  private fun getBooleanPref(@StringRes key: Int, default: Boolean): Boolean =
       preferences.getBoolean(context.stringRes(key), default)
 }

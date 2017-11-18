@@ -17,6 +17,10 @@
   <string name="pref_appearance_avatar_size_label_small">Маленькие</string>
   <string name="pref_appearance_avatar_size_label_medium">Средние</string>
   <string name="pref_appearance_avatar_size_label_large">Большие</string>
+  <!-- Theme -->
+  <string name="pref_appearance_theme_title">Тема</string>
+  <string name="pref_appearance_theme_label_light">Светлая</string>
+  <string name="pref_appearance_theme_label_dark">Темная</string>
 
   <!-- CONTENT -->
   <string name="pref_category_title_content">Контент</string>

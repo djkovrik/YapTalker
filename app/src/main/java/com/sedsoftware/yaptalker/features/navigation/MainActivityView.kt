@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.features.navigation
 
+import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.base.BaseView
@@ -12,4 +13,10 @@ interface MainActivityView : BaseView {
   fun setNavDrawerItem(item: Long)
 
   fun showEula()
+
+  @StateStrategyType(AddToEndSingleStrategy::class)
+  fun setLightTheme()
+
+  @StateStrategyType(AddToEndSingleStrategy::class)
+  fun setDarkTheme()
 }

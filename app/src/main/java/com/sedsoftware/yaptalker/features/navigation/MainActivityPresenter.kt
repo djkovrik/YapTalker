@@ -29,6 +29,15 @@ class MainActivityPresenter : BasePresenter<MainActivityView>() {
     }
   }
 
+  override fun attachView(view: MainActivityView?) {
+    super.attachView(view)
+    if (settings.isDarkThemeEnabled()) {
+      viewState.setDarkTheme()
+    } else {
+      viewState.setLightTheme()
+    }
+  }
+
   fun onEulaAccept() {
     settings.markEulaAccepted()
   }
