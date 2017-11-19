@@ -70,7 +70,6 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
     private val secondaryTextColor = parent.context.getColorFromAttr(android.R.attr.textColorSecondary)
     private val quoteBackgroundColor = parent.context.getColorFromAttr(R.attr.colorQuoteBackground)
     private val warnings = ArrayList<PostWarning>()
-    private var currentNestingLevel = INITIAL_NESTING_LEVEL
 
     fun bindTo(postItem: TopicPost) {
       Single
@@ -102,6 +101,8 @@ class ChosenTopicDelegateAdapter(val profileClick: UserProfileClickListener,
 
     @Suppress("NestedBlockDepth")
     private fun fillPostText(post: ParsedPost) {
+
+      var currentNestingLevel = INITIAL_NESTING_LEVEL
 
       itemView.post_content_text_container.removeAllViews()
 
