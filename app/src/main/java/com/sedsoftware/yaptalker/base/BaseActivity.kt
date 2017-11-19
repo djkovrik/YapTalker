@@ -1,11 +1,13 @@
 package com.sedsoftware.yaptalker.base
 
 import android.os.Bundle
+import android.preference.PreferenceManager
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.LazyKodeinAware
 import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.base.events.ActivityLifecycle
 import io.reactivex.Maybe
@@ -25,6 +27,7 @@ abstract class BaseActivity : MvpAppCompatActivity(), LazyKodeinAware {
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    applyTheme()
     super.onCreate(savedInstanceState)
     setContentView(layoutId)
 
@@ -64,4 +67,16 @@ abstract class BaseActivity : MvpAppCompatActivity(), LazyKodeinAware {
 
   protected fun event(@ActivityLifecycle.Event event: Long): Maybe<*> =
       lifecycle.filter({ e -> e == event }).firstElement()
+
+  private fun applyTheme() {
+    val dark = getString(R.string.pref_appearance_theme_value_dark)
+    val light = getString(R.string.pref_appearance_theme_value_light)
+    val key = getString(R.string.pref_key_theme)
+
+    PreferenceManager.getDefaultSharedPreferences(this).getString(key, light).let { current ->
+      if (dark == current) {
+        setTheme(R.style.AppTheme_Dark)
+      }
+    }
+  }
 }

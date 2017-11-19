@@ -55,14 +55,6 @@ class SettingsHelper(val context: Context) {
 
   fun isScreenAlwaysOnEnabled() = getBooleanPref(R.string.pref_key_screen_always_on, false)
 
-  fun isDarkThemeEnabled(): Boolean {
-    val dark = context.getString(R.string.pref_appearance_theme_value_dark)
-    val light = context.getString(R.string.pref_appearance_theme_value_light)
-    val current = getStringPref(R.string.pref_key_theme, light)
-
-    return current == dark
-  }
-
   fun markEulaAccepted() {
     preferences.edit().putBoolean(context.stringRes(R.string.pref_key_eula_accepted), true).apply()
   }

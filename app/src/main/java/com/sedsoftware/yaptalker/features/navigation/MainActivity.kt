@@ -172,14 +172,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     dialog.show()
   }
 
-  override fun setLightTheme() {
-    setTheme(R.style.AppTheme)
-  }
-
-  override fun setDarkTheme() {
-    setTheme(R.style.AppTheme_Dark)
-  }
-
   override fun updateNavDrawerProfile(userInfo: AuthorizedUserInfo) {
     val profile = if (userInfo.nickname.isNotEmpty()) {
       ProfileDrawerItem()
