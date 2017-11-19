@@ -105,7 +105,7 @@
       android:name=".features.settings.SettingsActivity"
       android:label="@string/nav_drawer_settings"
       android:parentActivityName=".features.navigation.MainActivity"
-      android:theme="@style/AppTheme.Settings">
+      android:theme="@style/AppTheme.NoActionBar">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
         android:value=".features.navigation.MainActivity" />

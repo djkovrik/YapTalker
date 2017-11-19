@@ -103,11 +103,6 @@
     <item name="windowNoTitle">true</item>
   </style>
 
-  <style name="AppTheme.Settings">
-    <item name="windowActionBar">true</item>
-    <item name="windowNoTitle">false</item>
-  </style>
-
   <!-- Video activity theme -->
   <style name="AppTheme.DarkBackground" parent="AppTheme.NoActionBar">
     <item name="android:windowBackground">@color/material_color_black</item>
