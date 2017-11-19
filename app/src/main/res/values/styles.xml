@@ -38,7 +38,15 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail</item>
+    <!-- Overlays -->
+    <item name="AppBarOverlay">@style/AppTheme.AppBarOverlay</item>
+    <item name="PopupOverlay">@style/AppTheme.PopupOverlay</item>
   </style>
+
+  <!-- Light Overlays -->
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
   <!-- DARK THEME -->
   <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
@@ -55,7 +63,7 @@
     <!-- CardView -->
     <item name="cardBackgroundColor">@color/material_color_blue_grey_900</item>
     <!-- Custom attr colors -->
-    <item name="colorQuoteBackground">@color/material_color_grey_600</item>
+    <item name="colorQuoteBackground">@color/material_color_grey_800</item>
     <item name="colorRefreshFab">@color/material_color_grey_800</item>
     <!-- Material Drawer -->
     <item name="material_drawer_background">@color/material_drawer_dark_background</item>
@@ -78,7 +86,17 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile_dark</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_dark</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail_dark</item>
+    <!-- Overlays -->
+    <item name="AppBarOverlay">@style/AppTheme.Dark.AppBarOverlay</item>
+    <item name="PopupOverlay">@style/AppTheme.Dark.PopupOverlay</item>
   </style>
+
+  <!-- Dark Overlays -->
+  <style name="AppTheme.Dark.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
+
+  <style name="AppTheme.Dark.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
+  <!-- COMMONS -->
 
   <style name="AppTheme.NoActionBar">
     <item name="windowActionBar">false</item>
@@ -94,9 +112,5 @@
   <style name="AppTheme.DarkBackground" parent="AppTheme.NoActionBar">
     <item name="android:windowBackground">@color/material_color_black</item>
   </style>
-
-  <!-- Overlays -->
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
