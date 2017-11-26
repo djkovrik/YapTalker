@@ -97,6 +97,8 @@ dependencies {
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
 
+    implementation project(':domain')
+
     implementation androidDependencies.appCompat
     implementation androidDependencies.preferenceV7
     implementation androidDependencies.preferenceV14
