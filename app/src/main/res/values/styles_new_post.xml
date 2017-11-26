@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-  <style name="NewPostTopicTitle">
-    <item name="android:textColor">?android:textColorSecondary</item>
-    <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
-  </style>
-
-</resources>

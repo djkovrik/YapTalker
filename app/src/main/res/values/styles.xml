@@ -1,111 +1,11 @@
 <resources>
 
-  <!-- LIGHT THEME -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <!-- Base -->
-    <item name="colorPrimary">@color/colorPrimaryL</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDarkL</item>
-    <item name="colorAccent">@color/colorAccentL</item>
-    <item name="android:windowBackground">@color/material_color_grey_100</item>
-    <!-- Text -->
-    <item name="android:textColorPrimary">@color/material_color_grey_600</item>
-    <item name="android:textColorPrimaryInverse">@color/material_color_grey_300</item>
-    <item name="android:textColorSecondary">@color/material_color_grey_500</item>
-    <item name="android:textColorSecondaryInverse">@color/material_color_grey_500</item>
-    <!-- CardView -->
-    <item name="cardBackgroundColor">@color/material_color_white</item>
-    <!-- Custom attr colors -->
-    <item name="colorQuoteBackground">@color/material_color_grey_200</item>
-    <item name="colorRefreshFab">@color/material_color_grey_200</item>
-    <!-- Material Drawer -->
-    <item name="material_drawer_background">@color/material_drawer_background</item>
-    <item name="material_drawer_primary_text">@color/material_drawer_primary_text</item>
-    <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon</item>
-    <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text</item>
-    <item name="material_drawer_hint_text">@color/material_drawer_hint_text</item>
-    <item name="material_drawer_divider">@color/material_drawer_divider</item>
-    <item name="material_drawer_selected">@color/material_drawer_selected</item>
-    <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
-    <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text</item>
-    <!-- Icons -->
-    <item name="iconAuthLogin">@drawable/ic_auth_login</item>
-    <item name="iconAuthPassword">@drawable/ic_auth_password</item>
-    <item name="iconEditorBold">@drawable/ic_bb_bold</item>
-    <item name="iconEditorItalic">@drawable/ic_bb_italic</item>
-    <item name="iconEditorUnderlined">@drawable/ic_bb_underline</item>
-    <item name="iconEditorLink">@drawable/ic_bb_link</item>
-    <item name="iconProfileData">@drawable/ic_account</item>
-    <item name="iconProfileInfo">@drawable/ic_face_profile</item>
-    <item name="iconProfileStatistic">@drawable/ic_chart_areaspline</item>
-    <item name="iconProfileContacts">@drawable/ic_contact_mail</item>
-    <!-- Overlays -->
-    <item name="AppBarOverlay">@style/AppTheme.AppBarOverlay</item>
-    <item name="PopupOverlay">@style/AppTheme.PopupOverlay</item>
-  </style>
-
-  <!-- Light Overlays -->
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-  <!-- DARK THEME -->
-  <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
-    <!-- Base -->
-    <item name="colorPrimary">@color/colorPrimaryD</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDarkD</item>
-    <item name="colorAccent">@color/colorAccentD</item>
-    <item name="android:windowBackground">@color/material_color_grey_900</item>
-    <!-- Text -->
-    <item name="android:textColorPrimary">@color/material_color_grey_300</item>
-    <item name="android:textColorPrimaryInverse">@color/material_color_grey_600</item>
-    <item name="android:textColorSecondary">@color/material_color_grey_500</item>
-    <item name="android:textColorSecondaryInverse">@color/material_color_grey_500</item>
-    <!-- CardView -->
-    <item name="cardBackgroundColor">@color/material_color_blue_grey_900</item>
-    <!-- Custom attr colors -->
-    <item name="colorQuoteBackground">@color/material_color_grey_700</item>
-    <item name="colorRefreshFab">@color/material_color_grey_800</item>
-    <!-- Material Drawer -->
-    <item name="material_drawer_background">@color/material_drawer_dark_background</item>
-    <item name="material_drawer_primary_text">@color/material_drawer_dark_primary_text</item>
-    <item name="material_drawer_primary_icon">@color/material_drawer_dark_primary_icon</item>
-    <item name="material_drawer_secondary_text">@color/material_drawer_dark_secondary_text</item>
-    <item name="material_drawer_hint_text">@color/material_drawer_dark_hint_text</item>
-    <item name="material_drawer_divider">@color/material_drawer_dark_divider</item>
-    <item name="material_drawer_selected">@color/material_drawer_dark_selected</item>
-    <item name="material_drawer_selected_text">@color/material_drawer_dark_selected_text</item>
-    <item name="material_drawer_header_selection_text">@color/material_drawer_dark_header_selection_text</item>
-    <!-- Icons -->
-    <item name="iconAuthLogin">@drawable/ic_auth_login_dark</item>
-    <item name="iconAuthPassword">@drawable/ic_auth_password_dark</item>
-    <item name="iconEditorBold">@drawable/ic_bb_bold_dark</item>
-    <item name="iconEditorItalic">@drawable/ic_bb_italic_dark</item>
-    <item name="iconEditorUnderlined">@drawable/ic_bb_underline_dark</item>
-    <item name="iconEditorLink">@drawable/ic_bb_link_dark</item>
-    <item name="iconProfileData">@drawable/ic_account_dark</item>
-    <item name="iconProfileInfo">@drawable/ic_face_profile_dark</item>
-    <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_dark</item>
-    <item name="iconProfileContacts">@drawable/ic_contact_mail_dark</item>
-    <!-- Overlays -->
-    <item name="AppBarOverlay">@style/AppTheme.Dark.AppBarOverlay</item>
-    <item name="PopupOverlay">@style/AppTheme.Dark.PopupOverlay</item>
-  </style>
-
-  <!-- Dark Overlays -->
-  <style name="AppTheme.Dark.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
-
-  <style name="AppTheme.Dark.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
-
-  <!-- COMMONS -->
-
-  <style name="AppTheme.NoActionBar">
-    <item name="windowActionBar">false</item>
-    <item name="windowNoTitle">true</item>
-  </style>
-
-  <!-- Video activity theme -->
-  <style name="AppTheme.DarkBackground" parent="AppTheme.NoActionBar">
-    <item name="android:windowBackground">@color/material_color_black</item>
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
   </style>
 
 </resources>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <attr name="colorQuoteBackground" format="color" />
-  <attr name="colorRefreshFab" format="color" />
-</resources>
