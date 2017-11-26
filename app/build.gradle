@@ -111,7 +111,7 @@ dependencies {
   final CICERONE_VERSION = "2.1.0"
   final PICASSO_VERSION = "2.5.2"
   final JSPOON_VERSION = "1.0.1"
-  final ANKO_VERSION = "0.10.2"
+  final ANKO_VERSION = "0.10.3"
   final MOSHI_VERSION = "1.5.0"
   final PERSISTENT_COOKIE_JAR_VERSION = "v1.0.1"
 
@@ -120,7 +120,7 @@ dependencies {
   final MATERIAL_DRAWER_VERSION = "6.0.2@aar"
   final ICONICS_VERSION = "3.0.0@aar"
   final COMMUNITY_MATERIAL_ICONS_VERSION = "2.0.46.1@aar"
-  final MATERIAL_DIALOGUES_VERSION = "0.9.5.0"
+  final MATERIAL_DIALOGUES_VERSION = "0.9.6.0"
   final TOASTY_VERSION = "1.2.5"
   final PHOTOVIEW_VERSION = "2.1.3"
 
