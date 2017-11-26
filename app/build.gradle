@@ -17,9 +17,45 @@ android {
         versionName globalConfiguration["androidVersionName"]
         testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
         testApplicationId globalConfiguration["testApplicationId"]
+        flavorDimensions "variant"
+        resConfigs "en", "ru"
+    }
+    productFlavors {
+        dev {
+            dimension "variant"
+            minSdkVersion globalConfiguration["minSdkDevVersion"]
+            multiDexEnabled true
+        }
+        prod {
+            dimension "variant"
+            minSdkVersion globalConfiguration["minSdkVersion"]
+        }
+    }
+    signingConfigs {
+        release {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
     }
     buildTypes {
+        beta {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles fileTree('proguard').asList().toArray()
+            versionNameSuffix "-beta"
+        }
         release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles fileTree('proguard').asList().toArray()
+        }
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -97,5 +133,6 @@ dependencies {
     implementation developmentDependencies.timber
     debugImplementation developmentDependencies.leakCanary
     releaseImplementation developmentDependencies.leakCanaryNoOp
+    betaImplementation developmentDependencies.leakCanaryNoOp
     testImplementation developmentDependencies.leakCanaryNoOp
 }
