@@ -46,6 +46,7 @@ ext {
     final MOCKITO_VERSION = "2.12.0"
     final MOCKITO_KOTLIN_VERSION = "1.5.0"
     final EXPEKT_VERSION = "0.5.0"
+    final ROBOLECTRIC_VERSION = "3.5.1"
 
     // Development tools
     final TIMBER_VERSION = "4.6.0"
@@ -121,6 +122,34 @@ ext {
             mockito      : "org.mockito:mockito-core:$MOCKITO_VERSION",
             mockitoKotlin: "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
             expekt       : "com.winterbe:expekt:$EXPEKT_VERSION"
+    ]
+
+    dataDependencies = [
+            javaxInject             : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
+            javaxAnnotation         : "javax.annotation:jsr250-api:$JAVAX_ANNOTATION_VERSION",
+            rxAndroid               : "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION",
+            rxJava                  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
+            rxKotlin                : "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
+            rxRelay                 : "com.jakewharton.rxrelay2:rxrelay:$RX_RELAY_VERSION",
+            rxLint                  : "nl.littlerobots.rxlint:rxlint:$RX_LINT_VERSION",
+            autoDispose             : "com.uber.autodispose:autodispose:$AUTO_DISPOSE_VERSION",
+            autoDisposeKotlin       : "com.uber.autodispose:autodispose-kotlin:$AUTO_DISPOSE_VERSION",
+            retrofit                : "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION",
+            retrofitRxAdapter       : "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION",
+            retrofitMoshiConverter  : "com.squareup.retrofit2:converter-moshi:$RETROFIT_VERSION",
+            retrofitScalarsConverter: "com.squareup.retrofit2:converter-scalars:$RETROFIT_VERSION",
+            jspoon                  : "pl.droidsonroids:jspoon:$JSPOON_VERSION",
+            retrofitJspoonConverter : "pl.droidsonroids.retrofit2:converter-jspoon:$JSPOON_VERSION",
+            moshi                   : "com.squareup.moshi:moshi:$MOSHI_VERSION",
+            persistentCookies       : "com.github.franmontiel:persistentcookiejar:$PERSISTENT_COOKIE_JAR_VERSION"
+    ]
+
+    dataTestDependencies = [
+            junit        : "junit:junit:$JUNIT_VERSION",
+            mockito      : "org.mockito:mockito-core:$MOCKITO_VERSION",
+            mockitoKotlin: "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
+            expekt       : "com.winterbe:expekt:$EXPEKT_VERSION",
+            robolectric  : "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
     ]
 
     developmentDependencies = [

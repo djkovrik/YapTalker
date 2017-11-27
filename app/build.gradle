@@ -52,6 +52,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
             proguardFiles fileTree('proguard').asList().toArray()
             versionNameSuffix "-beta"
+            matchingFallbacks = ['debug', 'release']
         }
         release {
             signingConfig signingConfigs.release
@@ -98,6 +99,7 @@ dependencies {
     def developmentDependencies = rootProject.ext.developmentDependencies
 
     implementation project(':domain')
+    implementation project(':data')
 
     implementation androidDependencies.appCompat
     implementation androidDependencies.preferenceV7
