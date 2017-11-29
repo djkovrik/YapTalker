@@ -73,7 +73,7 @@ potential-bugs:
   UnreachableCode:
     active: true
   LateinitUsage:
-    active: true
+    active: false
     excludeAnnotatedProperties: ''
     ignoreOnClassesPattern: ''
   UnsafeCallOnNullableType:

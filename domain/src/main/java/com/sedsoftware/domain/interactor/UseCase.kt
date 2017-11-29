@@ -7,8 +7,9 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 
-abstract class UseCase<T, in Params>(private val executionScheduler: ExecutionScheduler,
-                                     private val postExecutionScheduler: PostExecutionScheduler) {
+abstract class UseCase<T, in Params>(
+    private val executionScheduler: ExecutionScheduler,
+    private val postExecutionScheduler: PostExecutionScheduler) {
 
   abstract fun buildUseCaseObservable(params: Params): Observable<T>
 

@@ -10,11 +10,11 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(
-    AppModule::class,
-    ActivityContributionModule::class,
-    FragmentContributionModule::class
-))
+@Component(modules = [
+  (AppModule::class),
+  (ActivityContributionModule::class),
+  (FragmentContributionModule::class)
+])
 interface AppComponent {
 
   @Component.Builder
