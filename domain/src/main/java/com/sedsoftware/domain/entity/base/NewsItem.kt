@@ -1,4 +1,7 @@
-package com.sedsoftware.domain.entity
+package com.sedsoftware.domain.entity.base
+
+import com.sedsoftware.domain.entity.YapEntity
+import com.sedsoftware.domain.entity.YapEntityTypes
 
 /**
  * Class which represents news item in domain layer.
@@ -6,7 +9,7 @@ package com.sedsoftware.domain.entity
 class NewsItem(
     val title: String,
     val link: String,
-    val rating: String,
+    val rating: Int,
     val description: String,
     val images: List<String>,
     val videos: List<String>,
@@ -16,6 +19,9 @@ class NewsItem(
     val date: String,
     val forumName: String,
     val forumLink: String,
-    val comments: String,
+    val comments: Int,
     val cleanedDescription: String
-)
+) : YapEntity {
+
+  override fun getEntityType(): Int = YapEntityTypes.NEWS_ITEM
+}

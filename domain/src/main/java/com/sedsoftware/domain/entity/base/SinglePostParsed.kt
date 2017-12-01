@@ -1,4 +1,4 @@
-package com.sedsoftware.domain.entity
+package com.sedsoftware.domain.entity.base
 
 /**
  * Class which contains single post parsed content.

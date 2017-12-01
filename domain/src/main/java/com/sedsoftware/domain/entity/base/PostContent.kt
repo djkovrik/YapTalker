@@ -1,4 +1,4 @@
-package com.sedsoftware.domain.entity
+package com.sedsoftware.domain.entity.base
 
 /**
  * Class contains all possible content types for SinglePost.
