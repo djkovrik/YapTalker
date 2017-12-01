@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="PostAuthorNickname">
+    <item name="android:textColor">?android:textColorPrimary</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:maxLines">1</item>
+  </style>
+
+  <style name="PostRating">
+    <item name="android:textColor">@color/colorRatingGreen</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:maxLines">1</item>
+  </style>
+
+</resources>

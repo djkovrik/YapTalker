@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- GENERAL -->
+  <string name="pref_category_title_general">Общие</string>
+  <!-- Start page -->
+  <string name="pref_general_start_page_title">Стартовая страница</string>
+  <string name="pref_general_start_page_label_main">Главная</string>
+  <string name="pref_general_start_page_label_forums">Форумы</string>
+
+  <!-- APPEARANCE -->
+  <string name="pref_category_title_appearance">Внешний вид</string>
+  <!-- Font size -->
+  <string name="pref_appearance_font_size_title">Базовый размер шрифта</string>
+  <!-- Avatars size -->
+  <string name="pref_appearance_avatar_size_title">Размер аватарок</string>
+  <string name="pref_appearance_avatar_size_label_small">Маленькие</string>
+  <string name="pref_appearance_avatar_size_label_medium">Средние</string>
+  <string name="pref_appearance_avatar_size_label_large">Большие</string>
+  <!-- Theme -->
+  <string name="pref_appearance_theme_title">Тема</string>
+  <string name="pref_appearance_theme_label_light">Светлая</string>
+  <string name="pref_appearance_theme_label_dark">Темная</string>
+
+  <!-- CONTENT -->
+  <string name="pref_category_title_content">Контент</string>
+  <!-- Categorizer -->
+  <string name="pref_content_categorizer_label">Категории новостей</string>
+  <string name="pref_content_categorizer_summary">Укажите категории новостей, которые будут отображаться на главной странице.</string>
+  <string name="pref_content_categorizer_label_pictures">Картинки</string>
+  <string name="pref_content_categorizer_label_video">Видео</string>
+  <string name="pref_content_categorizer_label_events">События</string>
+  <string name="pref_content_categorizer_label_auto">Авто/Мото</string>
+  <string name="pref_content_categorizer_label_animals">Зверье</string>
+  <string name="pref_content_categorizer_label_trading">Двигатель Торговли</string>
+  <string name="pref_content_categorizer_label_photo_trav">Фотопутешествия</string>
+  <string name="pref_content_categorizer_label_text">Тексты</string>
+  <string name="pref_content_categorizer_label_photoshop">Фотожаба</string>
+  <string name="pref_content_categorizer_label_creative">Креативы</string>
+  <string name="pref_content_categorizer_label_yapizdat">ЯП-издат</string>
+  <string name="pref_content_categorizer_label_flash">Флэш</string>
+  <string name="pref_content_categorizer_label_poetry">Поэзия</string>
+  <string name="pref_content_categorizer_label_rhyme">Весёлая рифма</string>
+  <string name="pref_content_categorizer_label_gold">Золото</string>
+  <string name="pref_content_categorizer_label_collection">Коллекция</string>
+  <string name="pref_content_categorizer_label_reviews">ЯП-Обзор</string>
+  <string name="pref_content_categorizer_label_building">Строительство</string>
+
+  <!-- nsfw -->
+  <string name="pref_content_nsfw_title">Мне больше 18 лет</string>
+  <string name="pref_content_nsfw_summary">Отображать разделы форумов, содержащие контент для взрослых.</string>
+
+  <!--- SYSTEM -->
+  <string name="pref_category_title_system">Системные</string>
+  <string name="pref_system_screen_always_on_label">Держать экран включенным</string>
+  <string name="pref_system_screen_always_on_summary">Блокировать затухание экрана во время чтения любой темы на форуме.</string>
+
+</resources>

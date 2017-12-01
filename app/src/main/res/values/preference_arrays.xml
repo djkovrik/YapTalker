@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- General: Start page -->
+  <string-array name="pref_start_page_labels">
+    <item>@string/pref_general_start_page_label_main</item>
+    <item>@string/pref_general_start_page_label_forums</item>
+  </string-array>
+
+  <string-array name="pref_start_page_values">
+    <item>@string/pref_general_start_page_value_main</item>
+    <item>@string/pref_general_start_page_value_forums</item>
+  </string-array>
+
+  <!-- Appearance: Font size -->
+  <string-array name="pref_font_size_values">
+    <item>@string/pref_appearance_font_size_value_14</item>
+    <item>@string/pref_appearance_font_size_value_15</item>
+    <item>@string/pref_appearance_font_size_value_16</item>
+    <item>@string/pref_appearance_font_size_value_17</item>
+    <item>@string/pref_appearance_font_size_value_18</item>
+  </string-array>
+
+  <!-- Appearance: Avatar size labels -->
+  <string-array name="pref_avatar_size_labels">
+    <item>@string/pref_appearance_avatar_size_label_small</item>
+    <item>@string/pref_appearance_avatar_size_label_medium</item>
+    <item>@string/pref_appearance_avatar_size_label_large</item>
+  </string-array>
+
+  <string-array name="pref_avatar_size_values">
+    <item>@string/pref_appearance_avatar_size_value_small</item>
+    <item>@string/pref_appearance_avatar_size_value_medium</item>
+    <item>@string/pref_appearance_avatar_size_value_large</item>
+  </string-array>
+
+  <!-- Appearance: Theme -->
+  <string-array name="pref_theme_labels">
+    <item>@string/pref_appearance_theme_label_light</item>
+    <item>@string/pref_appearance_theme_label_dark</item>
+  </string-array>
+
+  <string-array name="pref_theme_values">
+    <item>@string/pref_appearance_theme_value_light</item>
+    <item>@string/pref_appearance_theme_value_dark</item>
+  </string-array>
+
+  <!-- Content: Categorizer -->
+  <string-array name="pref_categorizer_labels">
+    <item>@string/pref_content_categorizer_label_pictures</item>
+    <item>@string/pref_content_categorizer_label_video</item>
+    <item>@string/pref_content_categorizer_label_events</item>
+    <item>@string/pref_content_categorizer_label_auto</item>
+    <item>@string/pref_content_categorizer_label_animals</item>
+    <item>@string/pref_content_categorizer_label_trading</item>
+    <item>@string/pref_content_categorizer_label_photo_trav</item>
+    <item>@string/pref_content_categorizer_label_text</item>
+    <item>@string/pref_content_categorizer_label_photoshop</item>
+    <item>@string/pref_content_categorizer_label_creative</item>
+    <item>@string/pref_content_categorizer_label_yapizdat</item>
+    <item>@string/pref_content_categorizer_label_flash</item>
+    <item>@string/pref_content_categorizer_label_poetry</item>
+    <item>@string/pref_content_categorizer_label_rhyme</item>
+    <item>@string/pref_content_categorizer_label_gold</item>
+    <item>@string/pref_content_categorizer_label_collection</item>
+    <item>@string/pref_content_categorizer_label_reviews</item>
+    <item>@string/pref_content_categorizer_label_building</item>
+  </string-array>
+
+  <string-array name="pref_categorizer_values">
+    <item>@string/pref_content_categorizer_value_pictures</item>
+    <item>@string/pref_content_categorizer_value_video</item>
+    <item>@string/pref_content_categorizer_value_events</item>
+    <item>@string/pref_content_categorizer_value_auto</item>
+    <item>@string/pref_content_categorizer_value_animals</item>
+    <item>@string/pref_content_categorizer_value_trading</item>
+    <item>@string/pref_content_categorizer_value_photo_trav</item>
+    <item>@string/pref_content_categorizer_value_text</item>
+    <item>@string/pref_content_categorizer_value_photoshop</item>
+    <item>@string/pref_content_categorizer_value_creative</item>
+    <item>@string/pref_content_categorizer_value_yapizdat</item>
+    <item>@string/pref_content_categorizer_value_flash</item>
+    <item>@string/pref_content_categorizer_value_poetry</item>
+    <item>@string/pref_content_categorizer_value_rhyme</item>
+    <item>@string/pref_content_categorizer_value_gold</item>
+    <item>@string/pref_content_categorizer_value_collection</item>
+    <item>@string/pref_content_categorizer_value_reviews</item>
+    <item>@string/pref_content_categorizer_value_building</item>
+  </string-array>
+
+</resources>

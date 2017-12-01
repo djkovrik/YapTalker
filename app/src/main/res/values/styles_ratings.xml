@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="RatingGrey">
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="RatingThumbsUp">
+    <item name="android:textColor">@color/colorRatingThumbUp</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="RatingThumbsDown">
+    <item name="android:textColor">@color/colorRatingThumbDown</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+
+</resources>
