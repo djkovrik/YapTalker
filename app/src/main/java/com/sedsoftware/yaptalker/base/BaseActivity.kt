@@ -7,12 +7,16 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
+import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
 abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector {
 
   @Inject
   lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
+
+  @Inject
+  lateinit var navigatorHolder: NavigatorHolder
 
   protected abstract val layoutId: Int
 
@@ -25,3 +29,4 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
 
   override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
 }
+

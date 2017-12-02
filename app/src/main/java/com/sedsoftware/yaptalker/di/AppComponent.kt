@@ -5,6 +5,7 @@ import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.di.modules.ActivityContributionModule
 import com.sedsoftware.yaptalker.di.modules.AppModule
 import com.sedsoftware.yaptalker.di.modules.FragmentContributionModule
+import com.sedsoftware.yaptalker.di.modules.NavigationModule
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -12,6 +13,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
   (AppModule::class),
+  (NavigationModule::class),
   (ActivityContributionModule::class),
   (FragmentContributionModule::class)
 ])
