@@ -4,7 +4,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical"
-  tools:context="com.sedsoftware.yaptalker.features.navigation.MainActivity">
+  tools:context=".presentation.navigation.MainActivity">
 
   <include layout="@layout/include_main_appbar" />
 
