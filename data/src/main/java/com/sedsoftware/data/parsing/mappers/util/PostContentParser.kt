@@ -1,4 +1,4 @@
-package com.sedsoftware.data.entity.mappers.util
+package com.sedsoftware.data.parsing.mappers.util
 
 import com.sedsoftware.domain.entity.base.PostContent.PostHiddenText
 import com.sedsoftware.domain.entity.base.PostContent.PostQuote

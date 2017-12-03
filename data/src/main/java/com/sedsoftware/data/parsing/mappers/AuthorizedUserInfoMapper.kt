@@ -1,7 +1,7 @@
-package com.sedsoftware.data.entity.mappers
+package com.sedsoftware.data.parsing.mappers
 
-import com.sedsoftware.data.entity.AuthorizedUserInfoParsed
-import com.sedsoftware.domain.entity.YapEntity
+import com.sedsoftware.data.parsing.AuthorizedUserInfoParsed
+import com.sedsoftware.domain.entity.BaseEntity
 import com.sedsoftware.domain.entity.base.AuthorizedUserInfo
 
 /**
@@ -9,7 +9,7 @@ import com.sedsoftware.domain.entity.base.AuthorizedUserInfo
  */
 class AuthorizedUserInfoMapper {
 
-  fun transform(userInfo: AuthorizedUserInfoParsed): YapEntity =
+  fun transform(userInfo: AuthorizedUserInfoParsed): BaseEntity =
       AuthorizedUserInfo(
           nickname = userInfo.nickname,
           title = userInfo.title,

@@ -1,7 +1,7 @@
-package com.sedsoftware.data.entity.mappers
+package com.sedsoftware.data.parsing.mappers
 
-import com.sedsoftware.data.entity.UserProfileParsed
-import com.sedsoftware.domain.entity.YapEntity
+import com.sedsoftware.data.parsing.UserProfileParsed
+import com.sedsoftware.domain.entity.BaseEntity
 import com.sedsoftware.domain.entity.base.UserProfile
 
 /**
@@ -9,7 +9,7 @@ import com.sedsoftware.domain.entity.base.UserProfile
  */
 class UserProfileMapper {
 
-  fun transform(profile: UserProfileParsed): YapEntity =
+  fun transform(profile: UserProfileParsed): BaseEntity =
       UserProfile(
           nickname = profile.nickname,
           avatar = profile.avatar,

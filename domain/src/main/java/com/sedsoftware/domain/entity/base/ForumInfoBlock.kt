@@ -1,12 +1,12 @@
 package com.sedsoftware.domain.entity.base
 
-import com.sedsoftware.domain.entity.YapEntity
-import com.sedsoftware.domain.entity.YapEntityTypes
+import com.sedsoftware.domain.entity.BaseEntity
+import com.sedsoftware.domain.entity.BaseEntityTypes
 
 class ForumInfoBlock(
     val forumTitle: String,
     val forumId: Int
-) : YapEntity {
+) : BaseEntity {
 
-  override fun getEntityType(): Int = YapEntityTypes.FORUM_INFO_BLOCK
+  override fun getBaseEntityType(): Int = BaseEntityTypes.FORUM_INFO
 }

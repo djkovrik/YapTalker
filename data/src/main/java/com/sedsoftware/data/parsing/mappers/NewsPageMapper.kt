@@ -1,7 +1,7 @@
-package com.sedsoftware.data.entity.mappers
+package com.sedsoftware.data.parsing.mappers
 
-import com.sedsoftware.data.entity.NewsPageParsed
-import com.sedsoftware.domain.entity.YapEntity
+import com.sedsoftware.data.parsing.NewsPageParsed
+import com.sedsoftware.domain.entity.BaseEntity
 import com.sedsoftware.domain.entity.base.NewsItem
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
@@ -15,9 +15,9 @@ class NewsPageMapper {
     private const val NEWS_PER_PAGE = 50
   }
 
-  fun transform(newsPage: NewsPageParsed): List<YapEntity> {
+  fun transform(newsPage: NewsPageParsed): List<BaseEntity> {
 
-    val result: MutableList<YapEntity> = ArrayList(NEWS_PER_PAGE)
+    val result: MutableList<BaseEntity> = ArrayList(NEWS_PER_PAGE)
 
     with(newsPage) {
       check(headers.size == contents.size) { "Headers size should match contents size" }

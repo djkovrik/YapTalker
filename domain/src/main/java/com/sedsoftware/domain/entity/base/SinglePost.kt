@@ -1,7 +1,7 @@
 package com.sedsoftware.domain.entity.base
 
-import com.sedsoftware.domain.entity.YapEntity
-import com.sedsoftware.domain.entity.YapEntityTypes
+import com.sedsoftware.domain.entity.BaseEntity
+import com.sedsoftware.domain.entity.BaseEntityTypes
 
 /**
  * Class which represents single topic post item in domain layer.
@@ -19,7 +19,7 @@ class SinglePost(
     val postRankMinusClicked: Boolean,
     val postContent: SinglePostParsed,
     val postId: Int
-) : YapEntity {
+) : BaseEntity {
 
-  override fun getEntityType(): Int = YapEntityTypes.SINGLE_POST_ITEM
+  override fun getBaseEntityType(): Int = BaseEntityTypes.SINGLE_POST
 }

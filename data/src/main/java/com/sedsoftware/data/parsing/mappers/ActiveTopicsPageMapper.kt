@@ -1,7 +1,7 @@
-package com.sedsoftware.data.entity.mappers
+package com.sedsoftware.data.parsing.mappers
 
-import com.sedsoftware.data.entity.ActiveTopicsPageParsed
-import com.sedsoftware.domain.entity.YapEntity
+import com.sedsoftware.data.parsing.ActiveTopicsPageParsed
+import com.sedsoftware.domain.entity.BaseEntity
 import com.sedsoftware.domain.entity.base.ActiveTopic
 import com.sedsoftware.domain.entity.base.NavigationPanel
 
@@ -15,9 +15,9 @@ class ActiveTopicsPageMapper {
     private const val TOPICS_PER_PAGE = 25
   }
 
-  fun transform(activeTopicsPage: ActiveTopicsPageParsed): List<YapEntity> {
+  fun transform(activeTopicsPage: ActiveTopicsPageParsed): List<BaseEntity> {
 
-    val result: MutableList<YapEntity> = ArrayList(TOPICS_PER_PAGE)
+    val result: MutableList<BaseEntity> = ArrayList(TOPICS_PER_PAGE)
 
     with(activeTopicsPage) {
       topics.forEach { topic ->

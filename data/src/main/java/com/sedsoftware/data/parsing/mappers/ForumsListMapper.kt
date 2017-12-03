@@ -1,7 +1,7 @@
-package com.sedsoftware.data.entity.mappers
+package com.sedsoftware.data.parsing.mappers
 
-import com.sedsoftware.data.entity.ForumsListParsed
-import com.sedsoftware.domain.entity.YapEntity
+import com.sedsoftware.data.parsing.ForumsListParsed
+import com.sedsoftware.domain.entity.BaseEntity
 import com.sedsoftware.domain.entity.base.Forum
 
 /**
@@ -14,9 +14,9 @@ class ForumsListMapper {
     private const val FORUMS_COUNT = 40
   }
 
-  fun transform(forumsList: ForumsListParsed): List<YapEntity> {
+  fun transform(forumsList: ForumsListParsed): List<BaseEntity> {
 
-    val result: MutableList<YapEntity> = ArrayList(FORUMS_COUNT)
+    val result: MutableList<BaseEntity> = ArrayList(FORUMS_COUNT)
 
     with(forumsList) {
       check(titles.size == ids.size) { "Titles list size should match ids list size" }

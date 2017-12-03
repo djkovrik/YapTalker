@@ -1,7 +1,7 @@
 package com.sedsoftware.domain.entity.base
 
-import com.sedsoftware.domain.entity.YapEntity
-import com.sedsoftware.domain.entity.YapEntityTypes
+import com.sedsoftware.domain.entity.BaseEntity
+import com.sedsoftware.domain.entity.BaseEntityTypes
 
 /**
  * Class which represents bookmarked topic item in domain layer.
@@ -10,7 +10,7 @@ class BookmarkedTopic(
     val bookmarkId: Int,
     val title: String,
     val link: String
-) : YapEntity {
+) : BaseEntity {
 
-  override fun getEntityType(): Int = YapEntityTypes.BOOKMARKED_TOPIC_ITEM
+  override fun getBaseEntityType(): Int = BaseEntityTypes.BOOKMARKED_TOPIC
 }

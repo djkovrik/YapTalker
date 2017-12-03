@@ -1,7 +1,7 @@
 package com.sedsoftware.domain.entity.base
 
-import com.sedsoftware.domain.entity.YapEntity
-import com.sedsoftware.domain.entity.YapEntityTypes
+import com.sedsoftware.domain.entity.BaseEntity
+import com.sedsoftware.domain.entity.BaseEntityTypes
 
 /**
  * Class which represents navigation panel in domain layer.
@@ -9,7 +9,7 @@ import com.sedsoftware.domain.entity.YapEntityTypes
 class NavigationPanel(
     val currentPage: Int,
     val totalPages: Int
-) : YapEntity {
+) : BaseEntity {
 
-  override fun getEntityType(): Int = YapEntityTypes.NAVIGATION_PANEL
+  override fun getBaseEntityType(): Int = BaseEntityTypes.NAVIGATION_PANEL
 }

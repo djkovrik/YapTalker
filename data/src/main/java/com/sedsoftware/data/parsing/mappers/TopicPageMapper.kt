@@ -1,8 +1,8 @@
-package com.sedsoftware.data.entity.mappers
+package com.sedsoftware.data.parsing.mappers
 
-import com.sedsoftware.data.entity.TopicPageParsed
-import com.sedsoftware.data.entity.mappers.util.PostContentParser
-import com.sedsoftware.domain.entity.YapEntity
+import com.sedsoftware.data.parsing.TopicPageParsed
+import com.sedsoftware.data.parsing.mappers.util.PostContentParser
+import com.sedsoftware.domain.entity.BaseEntity
 import com.sedsoftware.domain.entity.base.NavigationPanel
 import com.sedsoftware.domain.entity.base.SinglePost
 import com.sedsoftware.domain.entity.base.TopicInfoBlock
@@ -17,9 +17,9 @@ class TopicPageMapper {
     private const val POSTS_PER_PAGE = 25
   }
 
-  fun transform(topicPage: TopicPageParsed): List<YapEntity> {
+  fun transform(topicPage: TopicPageParsed): List<BaseEntity> {
 
-    val result: MutableList<YapEntity> = ArrayList(POSTS_PER_PAGE)
+    val result: MutableList<BaseEntity> = ArrayList(POSTS_PER_PAGE)
 
     with(topicPage) {
       result.add(TopicInfoBlock(

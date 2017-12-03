@@ -1,4 +1,4 @@
-package com.sedsoftware.data.entity
+package com.sedsoftware.data.parsing
 
 import pl.droidsonroids.jspoon.annotation.Selector
 

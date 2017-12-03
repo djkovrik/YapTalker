@@ -1,7 +1,7 @@
-package com.sedsoftware.data.entity.mappers
+package com.sedsoftware.data.parsing.mappers
 
-import com.sedsoftware.data.entity.ForumPageParsed
-import com.sedsoftware.domain.entity.YapEntity
+import com.sedsoftware.data.parsing.ForumPageParsed
+import com.sedsoftware.domain.entity.BaseEntity
 import com.sedsoftware.domain.entity.base.ForumInfoBlock
 import com.sedsoftware.domain.entity.base.NavigationPanel
 import com.sedsoftware.domain.entity.base.Topic
@@ -15,9 +15,9 @@ class ForumPageMapper {
     private const val TOPICS_PER_PAGE = 30
   }
 
-  fun transform(forumPage: ForumPageParsed): List<YapEntity> {
+  fun transform(forumPage: ForumPageParsed): List<BaseEntity> {
 
-    val result: MutableList<YapEntity> = ArrayList(TOPICS_PER_PAGE)
+    val result: MutableList<BaseEntity> = ArrayList(TOPICS_PER_PAGE)
 
     with(forumPage) {
       result.add(ForumInfoBlock(

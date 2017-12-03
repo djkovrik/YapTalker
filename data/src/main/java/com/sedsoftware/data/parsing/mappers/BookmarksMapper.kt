@@ -1,7 +1,7 @@
-package com.sedsoftware.data.entity.mappers
+package com.sedsoftware.data.parsing.mappers
 
-import com.sedsoftware.data.entity.BookmarksParsed
-import com.sedsoftware.domain.entity.YapEntity
+import com.sedsoftware.data.parsing.BookmarksParsed
+import com.sedsoftware.domain.entity.BaseEntity
 import com.sedsoftware.domain.entity.base.BookmarkedTopic
 
 /**
@@ -9,9 +9,9 @@ import com.sedsoftware.domain.entity.base.BookmarkedTopic
  */
 class BookmarksMapper {
 
-  fun transform(bookmarks: BookmarksParsed): List<YapEntity> {
+  fun transform(bookmarks: BookmarksParsed): List<BaseEntity> {
 
-    val result: MutableList<YapEntity> = ArrayList()
+    val result: MutableList<BaseEntity> = ArrayList()
 
     bookmarks.topics.forEach { topic ->
       result.add(BookmarkedTopic(
