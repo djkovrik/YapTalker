@@ -5,7 +5,7 @@ import com.sedsoftware.domain.entity.BaseEntity
 import com.sedsoftware.domain.entity.base.BookmarkedTopic
 
 /**
- * Mapper class used to transform parsed bookmarks from the data layer into YapEntity list in the domain layer.
+ * Mapper class used to transform parsed bookmarks from the data layer into BaseEntity list in the domain layer.
  */
 class BookmarksMapper {
 

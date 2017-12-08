@@ -5,7 +5,7 @@ import com.sedsoftware.domain.entity.BaseEntity
 import com.sedsoftware.domain.entity.base.UserProfile
 
 /**
- * Mapper class used to transform parsed user profile from the data layer into YapEntity in the domain layer.
+ * Mapper class used to transform parsed user profile from the data layer into BaseEntity in the domain layer.
  */
 class UserProfileMapper {
 

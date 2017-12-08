@@ -6,7 +6,7 @@ import com.sedsoftware.domain.entity.base.ActiveTopic
 import com.sedsoftware.domain.entity.base.NavigationPanel
 
 /**
- * Mapper class used to transform parsed active topics page from the data layer into YapEntity list
+ * Mapper class used to transform parsed active topics page from the data layer into BaseEntity list
  * in the domain layer.
  */
 class ActiveTopicsPageMapper {

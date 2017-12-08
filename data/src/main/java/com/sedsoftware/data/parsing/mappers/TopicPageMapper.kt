@@ -8,7 +8,7 @@ import com.sedsoftware.domain.entity.base.SinglePost
 import com.sedsoftware.domain.entity.base.TopicInfoBlock
 
 /**
- * Mapper class used to transform parsed topic page from the data layer into YapEntity list
+ * Mapper class used to transform parsed topic page from the data layer into BaseEntity list
  * in the domain layer.
  */
 class TopicPageMapper {
@@ -51,7 +51,7 @@ class TopicPageMapper {
             postRankMinusAvailable = post.postRankMinusAvailable.isNotEmpty(),
             postRankPlusClicked = post.postRankPlusClicked.isNotEmpty(),
             postRankMinusClicked = post.postRankMinusClicked.isNotEmpty(),
-            postContent = PostContentParser(post.postContent).getParsedPost(),
+            postContentParsed = PostContentParser(post.postContent).getParsedPost(),
             postId = post.postId.toInt()
         ))
       }

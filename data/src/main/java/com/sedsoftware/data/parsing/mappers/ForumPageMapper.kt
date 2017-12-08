@@ -7,7 +7,7 @@ import com.sedsoftware.domain.entity.base.NavigationPanel
 import com.sedsoftware.domain.entity.base.Topic
 
 /**
- * Mapper class used to transform parsed forum page from the data layer into YapEntity list in the domain layer.
+ * Mapper class used to transform parsed forum page from the data layer into BaseEntity list in the domain layer.
  */
 class ForumPageMapper {
 

@@ -7,7 +7,7 @@ import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
 
 /**
- * Mapper class used to transform parsed news page from the data layer into YapEntity list in the domain layer.
+ * Mapper class used to transform parsed news page from the data layer into BaseEntity list in the domain layer.
  */
 class NewsPageMapper {
 

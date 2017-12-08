@@ -5,7 +5,7 @@ import com.sedsoftware.domain.entity.BaseEntity
 import com.sedsoftware.domain.entity.base.Forum
 
 /**
- * Mapper class used to transform parsed forums list page from the data layer into YapEntity list
+ * Mapper class used to transform parsed forums list page from the data layer into BaseEntity list
  * in the domain layer.
  */
 class ForumsListMapper {
