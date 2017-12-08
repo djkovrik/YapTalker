@@ -1,7 +1,6 @@
 package com.sedsoftware.domain.entity.base
 
 import com.sedsoftware.domain.entity.BaseEntity
-import com.sedsoftware.domain.entity.BaseEntityTypes
 
 /**
  * Class which represents active topic item in domain layer.
@@ -16,7 +15,4 @@ class ActiveTopic(
     val rating: Int,
     val answers: Int,
     val lastPostDate: String
-) : BaseEntity {
-
-  override fun getBaseEntityType(): Int = BaseEntityTypes.ACTIVE_TOPIC
-}
+) : BaseEntity

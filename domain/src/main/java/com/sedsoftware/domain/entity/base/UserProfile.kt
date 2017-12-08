@@ -1,7 +1,6 @@
 package com.sedsoftware.domain.entity.base
 
 import com.sedsoftware.domain.entity.BaseEntity
-import com.sedsoftware.domain.entity.BaseEntityTypes
 
 class UserProfile(
     val nickname: String,
@@ -25,7 +24,4 @@ class UserProfile(
     val todayTopics: String,
     val email: String,
     val icq: String
-) : BaseEntity {
-
-  override fun getBaseEntityType(): Int = BaseEntityTypes.USER_PROFILE
-}
+) : BaseEntity
