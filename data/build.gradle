@@ -5,6 +5,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -17,6 +18,11 @@ android {
         targetSdkVersion globalConfiguration["targetSdkVersion"]
         versionCode globalConfiguration["androidVersionCode"]
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -24,6 +30,8 @@ dependencies {
     def dataTestDependencies = rootProject.ext.dataTestDependencies
 
     implementation project(':domain')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation dataDependencies.javaxInject
     implementation dataDependencies.rxAndroid
@@ -49,4 +57,7 @@ dependencies {
     testImplementation dataTestDependencies.mockitoKotlin
     testImplementation dataTestDependencies.expekt
     testImplementation dataTestDependencies.robolectric
+}
+repositories {
+    mavenCentral()
 }

@@ -101,14 +101,15 @@ dependencies {
     implementation project(':domain')
     implementation project(':data')
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
     implementation androidDependencies.appCompat
     implementation androidDependencies.preferenceV7
     implementation androidDependencies.preferenceV14
     implementation androidDependencies.cardView
     implementation androidDependencies.design
     implementation androidDependencies.constraintLayout
-    implementation androidDependencies.kotlinStdLib
-
+    
     implementation presentationDependencies.dagger
     implementation presentationDependencies.daggerAndroid
     implementation presentationDependencies.daggerAndroidSupport
@@ -135,9 +136,8 @@ dependencies {
     implementation presentationDependencies.rxBindingSupport
     implementation presentationDependencies.autoDispose
     implementation presentationDependencies.autoDisposeKotlin
-
     implementation presentationDependencies.materialValues
-    implementation (presentationDependencies.materialDrawer) {transitive = true}
+    implementation(presentationDependencies.materialDrawer) { transitive = true }
     implementation presentationDependencies.iconicsCore
     implementation presentationDependencies.iconicsView
     implementation presentationDependencies.materialTypeface
@@ -156,4 +156,8 @@ dependencies {
     releaseImplementation developmentDependencies.leakCanaryNoOp
     betaImplementation developmentDependencies.leakCanaryNoOp
     testImplementation developmentDependencies.leakCanaryNoOp
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
