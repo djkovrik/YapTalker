@@ -1,6 +1,6 @@
-package com.sedsoftware.yaptalker.data.parsing.mappers
+package com.sedsoftware.yaptalker.data.parsed.mappers
 
-import com.sedsoftware.yaptalker.data.parsing.UserProfileParsed
+import com.sedsoftware.yaptalker.data.parsed.UserProfileParsed
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.UserProfile
 

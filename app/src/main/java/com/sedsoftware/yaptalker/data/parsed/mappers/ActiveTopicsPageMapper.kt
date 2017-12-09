@@ -1,6 +1,6 @@
-package com.sedsoftware.yaptalker.data.parsing.mappers
+package com.sedsoftware.yaptalker.data.parsed.mappers
 
-import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPageParsed
+import com.sedsoftware.yaptalker.data.parsed.ActiveTopicsPageParsed
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.ActiveTopic
 import com.sedsoftware.yaptalker.domain.entity.base.NavigationPanel

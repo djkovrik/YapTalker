@@ -12,4 +12,5 @@ object YapEntityTypes {
   const val FORUM_INFO = 9
   const val TOPIC_INFO = 10
   const val USER_PROFILE = 11
+  const val SERVER_RESPONSE = 12
 }

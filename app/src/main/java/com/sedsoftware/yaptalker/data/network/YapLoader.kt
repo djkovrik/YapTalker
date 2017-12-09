@@ -1,13 +1,13 @@
 package com.sedsoftware.yaptalker.data.network
 
-import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPageParsed
-import com.sedsoftware.yaptalker.data.parsing.LoginSessionInfoParsed
-import com.sedsoftware.yaptalker.data.parsing.BookmarksParsed
-import com.sedsoftware.yaptalker.data.parsing.ForumPageParsed
-import com.sedsoftware.yaptalker.data.parsing.ForumsListParsed
-import com.sedsoftware.yaptalker.data.parsing.NewsPageParsed
-import com.sedsoftware.yaptalker.data.parsing.TopicPageParsed
-import com.sedsoftware.yaptalker.data.parsing.UserProfileParsed
+import com.sedsoftware.yaptalker.data.parsed.ActiveTopicsPageParsed
+import com.sedsoftware.yaptalker.data.parsed.BookmarksParsed
+import com.sedsoftware.yaptalker.data.parsed.ForumPageParsed
+import com.sedsoftware.yaptalker.data.parsed.ForumsListParsed
+import com.sedsoftware.yaptalker.data.parsed.LoginSessionInfoParsed
+import com.sedsoftware.yaptalker.data.parsed.NewsPageParsed
+import com.sedsoftware.yaptalker.data.parsed.TopicPageParsed
+import com.sedsoftware.yaptalker.data.parsed.UserProfileParsed
 import io.reactivex.Observable
 import okhttp3.ResponseBody
 import retrofit2.Response

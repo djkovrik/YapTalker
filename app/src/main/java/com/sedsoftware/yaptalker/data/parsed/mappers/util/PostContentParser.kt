@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.parsing.mappers.util
+package com.sedsoftware.yaptalker.data.parsed.mappers.util
 
 import com.sedsoftware.yaptalker.domain.entity.base.PostContent.PostHiddenText
 import com.sedsoftware.yaptalker.domain.entity.base.PostContent.PostQuote

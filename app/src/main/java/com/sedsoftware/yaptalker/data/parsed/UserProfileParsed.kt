@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.parsing
+package com.sedsoftware.yaptalker.data.parsed
 
 import pl.droidsonroids.jspoon.annotation.Selector
 
