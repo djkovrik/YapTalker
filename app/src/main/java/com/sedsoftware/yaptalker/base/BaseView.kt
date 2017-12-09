@@ -5,4 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(SkipStrategy::class)
-interface BaseView : MvpView
+interface BaseView : MvpView {
+
+  fun showErrorMessage(message: String)
+}

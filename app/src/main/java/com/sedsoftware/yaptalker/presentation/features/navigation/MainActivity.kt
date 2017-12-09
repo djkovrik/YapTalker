@@ -13,18 +13,28 @@ import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.base.BaseActivity
 import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.commons.extensions.booleanRes
 import com.sedsoftware.yaptalker.commons.extensions.color
+import com.sedsoftware.yaptalker.commons.extensions.stringRes
+import com.sedsoftware.yaptalker.commons.extensions.toastError
+import com.sedsoftware.yaptalker.commons.extensions.toastInfo
+import com.sedsoftware.yaptalker.commons.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.model.base.AuthorizedUserInfoModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.Navigator
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainActivityView, NavigationView {
+
+  companion object {
+    private const val BOOKMARKS_ITEM_INSERT_POSITION = 4
+  }
 
   override val layoutId: Int
     get() = R.layout.activity_main
@@ -37,7 +47,14 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   lateinit var presenter: MainActivityPresenter
 
   @ProvidePresenter
-  fun providePresenter() = presenter
+  fun provideMainPresenter(): MainActivityPresenter = presenter
+
+  @Inject
+  @InjectPresenter
+  lateinit var navigationPresenter: NavigationPresenter
+
+  @ProvidePresenter
+  fun provideNavigationPresenter(): NavigationPresenter = navigationPresenter
 
   private val isInTwoPaneMode: Boolean by lazy {
     booleanRes(R.bool.two_pane_mode)
@@ -65,6 +82,12 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     initializeNavigationDrawer(savedInstanceState)
   }
 
+  override fun onSaveInstanceState(outState: Bundle?) {
+    navDrawer.saveInstanceState(outState)
+    navHeader.saveInstanceState(outState)
+    super.onSaveInstanceState(outState)
+  }
+
   override fun onPause() {
     super.onPause()
     navigatorHolder.removeNavigator()
@@ -80,6 +103,59 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       !isInTwoPaneMode && navDrawer.isDrawerOpen -> navDrawer.closeDrawer()
       else -> super.onBackPressed()
     }
+  }
+
+  override fun showErrorMessage(message: String) {
+    toastError(message)
+  }
+
+  override fun setAppbarTitle(title: String) {
+    supportActionBar?.title = title
+  }
+
+  override fun setNavDrawerItem(item: Long) {
+    navDrawer.setSelection(item, false)
+  }
+
+  override fun showEula() {
+    // TODO() Reimplement
+  }
+
+  override fun updateNavDrawerProfile(userInfo: AuthorizedUserInfoModel) {
+    val profile = if (userInfo.nickname.isNotEmpty()) {
+      ProfileDrawerItem()
+          .withName(userInfo.nickname)
+          .withEmail(userInfo.title)
+          .withIcon(userInfo.avatar.validateUrl())
+          .withIdentifier(1L)
+    } else {
+      ProfileDrawerItem()
+          .withName(stringRes(R.string.nav_drawer_guest_name))
+          .withEmail("")
+          .withIdentifier(2L)
+    }
+
+    navHeader.profiles.clear()
+    navHeader.addProfiles(profile)
+  }
+
+  override fun clearDynamicNavigationItems() {
+    navDrawer.removeItem(NavigationDrawerItems.SIGN_IN)
+    navDrawer.removeItem(NavigationDrawerItems.SIGN_OUT)
+    navDrawer.removeItem(NavigationDrawerItems.BOOKMARKS)
+  }
+
+  override fun displaySignedInNavigation() {
+    navDrawer.addItemAtPosition(drawerItemBookmarks, BOOKMARKS_ITEM_INSERT_POSITION)
+    navDrawer.addItem(drawerItemSignOut)
+  }
+
+  override fun displaySignedOutNavigation() {
+    navDrawer.addItem(drawerItemSignIn)
+  }
+
+  override fun showSignOutMessage() {
+    toastInfo(stringRes(R.string.msg_sign_out))
   }
 
   @Suppress("PLUGIN_WARNING")
@@ -175,7 +251,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
         .addDrawerItems(drawerItemSettings)
         .withOnDrawerItemClickListener { _, _, drawerItem ->
           if (drawerItem is Nameable<*>) {
-//            navigationPresenter.onNavigationDrawerClicked(drawerItem.identifier)
+            navigationPresenter.navigateToChosenSection(drawerItem.identifier)
           }
           false
         }
