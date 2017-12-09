@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.di.modules
+package com.sedsoftware.yaptalker.di.modules.contribution
 
 import dagger.Module
 import dagger.android.support.AndroidSupportInjectionModule
