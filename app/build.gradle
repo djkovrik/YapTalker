@@ -94,12 +94,13 @@ androidExtensions {
 dependencies {
 
     def androidDependencies = rootProject.ext.androidDependencies
-    def presentationDependencies = rootProject.ext.presentationDependencies
-    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
+    def coreDependencies = rootProject.ext.coreDependencies
+    def rxDependencies = rootProject.ext.rxDependencies
+    def networkingDependencies = rootProject.ext.networkingDependencies
+    def uiDependencies = rootProject.ext.uiDependencies
+    def testDependencies = rootProject.ext.testDependencies
+    def androidTestDependencies = rootProject.ext.androidTestDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
-
-    implementation project(':domain')
-    implementation project(':data')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
@@ -109,55 +110,66 @@ dependencies {
     implementation androidDependencies.cardView
     implementation androidDependencies.design
     implementation androidDependencies.constraintLayout
-    
-    implementation presentationDependencies.dagger
-    implementation presentationDependencies.daggerAndroid
-    implementation presentationDependencies.daggerAndroidSupport
-    implementation presentationDependencies.moxy
-    implementation presentationDependencies.moxyAndroid
-    implementation presentationDependencies.moxyAppCompat
-    implementation presentationDependencies.cicerone
-    implementation presentationDependencies.picasso
-    implementation presentationDependencies.anko
-    implementation presentationDependencies.ankoDesign
 
-    kapt presentationDependencies.daggerCompiler
-    kapt presentationDependencies.daggerAndroidCompiler
-    kapt presentationDependencies.moxyCompiler
+    implementation coreDependencies.dagger
+    implementation coreDependencies.daggerAndroid
+    implementation coreDependencies.daggerAndroidSupport
+    implementation coreDependencies.moxy
+    implementation coreDependencies.moxyAndroid
+    implementation coreDependencies.moxyAppCompat
+    implementation coreDependencies.cicerone
+    implementation coreDependencies.anko
+    implementation coreDependencies.ankoDesign
 
-    implementation presentationDependencies.rxAndroid
-    implementation presentationDependencies.rxJava
-    implementation presentationDependencies.rxKotlin
-    implementation presentationDependencies.rxRelay
-    implementation presentationDependencies.rxLint
-    implementation presentationDependencies.rxBinding
-    implementation presentationDependencies.rxBindingAppCompat
-    implementation presentationDependencies.rxBindingRecyclerView
-    implementation presentationDependencies.rxBindingSupport
-    implementation presentationDependencies.autoDispose
-    implementation presentationDependencies.autoDisposeKotlin
-    implementation presentationDependencies.materialValues
-    implementation(presentationDependencies.materialDrawer) { transitive = true }
-    implementation presentationDependencies.iconicsCore
-    implementation presentationDependencies.iconicsView
-    implementation presentationDependencies.materialTypeface
-    implementation presentationDependencies.materialDialogs
-    implementation presentationDependencies.materialDialogsCommons
-    implementation presentationDependencies.toasty
-    implementation presentationDependencies.photoView
+    kapt coreDependencies.daggerCompiler
+    kapt coreDependencies.daggerAndroidCompiler
+    kapt coreDependencies.moxyCompiler
 
-    androidTestImplementation presentationTestDependencies.espresso
-    androidTestImplementation presentationTestDependencies.mockito
-    androidTestImplementation presentationTestDependencies.mockitoAndroid
-    androidTestImplementation presentationTestDependencies.mockitoKotlin
+    implementation rxDependencies.rxAndroid
+    implementation rxDependencies.rxJava
+    implementation rxDependencies.rxKotlin
+    implementation rxDependencies.rxRelay
+    implementation rxDependencies.rxLint
+    implementation rxDependencies.rxBinding
+    implementation rxDependencies.rxBindingAppCompat
+    implementation rxDependencies.rxBindingRecyclerView
+    implementation rxDependencies.rxBindingSupport
+    implementation rxDependencies.autoDispose
+    implementation rxDependencies.autoDisposeKotlin
+
+    implementation networkingDependencies.jspoon
+    implementation networkingDependencies.moshi
+    implementation networkingDependencies.persistentCookies
+    implementation networkingDependencies.picasso
+    implementation networkingDependencies.retrofit
+    implementation networkingDependencies.retrofitRxAdapter
+    implementation networkingDependencies.retrofitMoshiConverter
+    implementation networkingDependencies.retrofitScalarsConverter
+    implementation networkingDependencies.retrofitJspoonConverter
+
+    implementation uiDependencies.materialValues
+    implementation(uiDependencies.materialDrawer) { transitive = true }
+    implementation uiDependencies.iconicsCore
+    implementation uiDependencies.iconicsView
+    implementation uiDependencies.materialTypeface
+    implementation uiDependencies.materialDialogs
+    implementation uiDependencies.materialDialogsCommons
+    implementation uiDependencies.toasty
+    implementation uiDependencies.photoView
+
+    testImplementation testDependencies.junit
+    testImplementation testDependencies.mockito
+    testImplementation testDependencies.mockitoKotlin
+    testImplementation testDependencies.expekt
+
+    androidTestImplementation androidTestDependencies.espresso
+    androidTestImplementation androidTestDependencies.mockitoAndroid
+    androidTestImplementation androidTestDependencies.mockitoKotlin
+    androidTestImplementation androidTestDependencies.robolectric
 
     implementation developmentDependencies.timber
     debugImplementation developmentDependencies.leakCanary
     releaseImplementation developmentDependencies.leakCanaryNoOp
     betaImplementation developmentDependencies.leakCanaryNoOp
     testImplementation developmentDependencies.leakCanaryNoOp
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
-repositories {
-    mavenCentral()
 }

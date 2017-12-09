@@ -111,8 +111,8 @@
     <LinearLayout
       android:id="@+id/post_content_video_container"
       android:layout_width="@dimen/topic_content_media_width"
-      android:layout_gravity="center_horizontal"
       android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
       android:orientation="vertical" />
 
   </LinearLayout>
