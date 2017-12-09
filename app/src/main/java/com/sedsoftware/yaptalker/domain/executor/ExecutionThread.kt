@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.domain.executor
 
 import io.reactivex.Scheduler
 
-interface ExecutionScheduler {
+interface ExecutionThread {
+
   fun getScheduler(): Scheduler
 }
