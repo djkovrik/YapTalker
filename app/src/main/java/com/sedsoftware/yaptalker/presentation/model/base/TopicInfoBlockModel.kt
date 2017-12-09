@@ -18,5 +18,5 @@ class TopicInfoBlockModel(
     val topicRatingTargetId: Int
 ) : YapEntity {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.TOPIC_INFO_BLOCK
+  override fun getBaseEntityType(): Int = YapEntityTypes.TOPIC_INFO
 }

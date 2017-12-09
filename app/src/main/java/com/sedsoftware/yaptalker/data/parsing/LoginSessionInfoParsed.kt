@@ -3,9 +3,9 @@ package com.sedsoftware.yaptalker.data.parsing
 import pl.droidsonroids.jspoon.annotation.Selector
 
 /**
- * Class which represents parsed authorized user info block in data layer.
+ * Class which represents parsed user login session info in data layer.
  */
-class AuthorizedUserInfoParsed {
+class LoginSessionInfoParsed {
   @Selector("div.user-name > a", defValue = "")
   lateinit var nickname: String
   @Selector("div.user-title", defValue = "")

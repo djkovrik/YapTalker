@@ -27,5 +27,5 @@ class UserProfileModel(
     val icq: String
 ) : YapEntity {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.USER_PROFILE_BLOCK
+  override fun getBaseEntityType(): Int = YapEntityTypes.USER_PROFILE
 }

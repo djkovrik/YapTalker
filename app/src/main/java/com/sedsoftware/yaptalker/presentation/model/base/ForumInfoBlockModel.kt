@@ -11,5 +11,5 @@ class ForumInfoBlockModel(
     val forumId: Int
 ) : YapEntity {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.FORUM_INFO_BLOCK
+  override fun getBaseEntityType(): Int = YapEntityTypes.FORUM_INFO
 }

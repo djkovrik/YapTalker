@@ -1,16 +1,17 @@
 package com.sedsoftware.yaptalker.data.parsing.mappers
 
-import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfoParsed
+import com.sedsoftware.yaptalker.data.parsing.LoginSessionInfoParsed
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.entity.base.AuthorizedUserInfo
+import com.sedsoftware.yaptalker.domain.entity.base.LoginSessionInfo
+import javax.inject.Inject
 
 /**
  * Mapper class used to transform parsed user info from the data layer into BaseEntity in the domain layer.
  */
-class AuthorizedUserInfoMapper {
+class LoginSessionInfoMapper @Inject constructor() {
 
-  fun transform(userInfo: AuthorizedUserInfoParsed): BaseEntity =
-      AuthorizedUserInfo(
+  fun transform(userInfo: LoginSessionInfoParsed): BaseEntity =
+      LoginSessionInfo(
           nickname = userInfo.nickname,
           title = userInfo.title,
           uq = userInfo.uq.toInt(),

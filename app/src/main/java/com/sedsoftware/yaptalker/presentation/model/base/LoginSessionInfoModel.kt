@@ -4,9 +4,9 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
 /**
- * Class which represents authorized user info block in presentation layer.
+ * Class which represents user login session info in presentation layer.
  */
-class AuthorizedUserInfoModel(
+class LoginSessionInfoModel(
     val nickname: String,
     val title: String,
     val uq: Int,
@@ -14,5 +14,5 @@ class AuthorizedUserInfoModel(
     val sessionId: String
 ) : YapEntity {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.AUTHORIZED_USER_INFO_BLOCK
+  override fun getBaseEntityType(): Int = YapEntityTypes.LOGIN_SESSION_INFO
 }

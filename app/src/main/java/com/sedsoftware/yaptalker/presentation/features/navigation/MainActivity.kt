@@ -24,7 +24,7 @@ import com.sedsoftware.yaptalker.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.commons.extensions.toastError
 import com.sedsoftware.yaptalker.commons.extensions.toastInfo
 import com.sedsoftware.yaptalker.commons.extensions.validateUrl
-import com.sedsoftware.yaptalker.presentation.model.base.AuthorizedUserInfoModel
+import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.Navigator
@@ -121,7 +121,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     // TODO() Reimplement
   }
 
-  override fun updateNavDrawerProfile(userInfo: AuthorizedUserInfoModel) {
+  override fun updateNavDrawerProfile(userInfo: LoginSessionInfoModel) {
     val profile = if (userInfo.nickname.isNotEmpty()) {
       ProfileDrawerItem()
           .withName(userInfo.nickname)

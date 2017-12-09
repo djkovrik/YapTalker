@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.data.network
 
 import com.sedsoftware.yaptalker.data.parsing.ActiveTopicsPageParsed
-import com.sedsoftware.yaptalker.data.parsing.AuthorizedUserInfoParsed
+import com.sedsoftware.yaptalker.data.parsing.LoginSessionInfoParsed
 import com.sedsoftware.yaptalker.data.parsing.BookmarksParsed
 import com.sedsoftware.yaptalker.data.parsing.ForumPageParsed
 import com.sedsoftware.yaptalker.data.parsing.ForumsListParsed
@@ -97,7 +97,7 @@ interface YapLoader {
    * @return Parsed authorization status summary Observable.
    */
   @GET("/forum")
-  fun loadAuthorizedUserInfo(): Observable<AuthorizedUserInfoParsed>
+  fun loadAuthorizedUserInfo(): Observable<LoginSessionInfoParsed>
 
 
   /**

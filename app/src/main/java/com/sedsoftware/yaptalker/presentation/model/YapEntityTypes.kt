@@ -8,8 +8,8 @@ object YapEntityTypes {
   const val BOOKMARKED_TOPIC_ITEM = 5
   const val SINGLE_POST_ITEM = 6
   const val NAVIGATION_PANEL_ITEM = 7
-  const val AUTHORIZED_USER_INFO_BLOCK = 8
-  const val FORUM_INFO_BLOCK = 9
-  const val TOPIC_INFO_BLOCK = 10
-  const val USER_PROFILE_BLOCK = 11
+  const val LOGIN_SESSION_INFO = 8
+  const val FORUM_INFO = 9
+  const val TOPIC_INFO = 10
+  const val USER_PROFILE = 11
 }
