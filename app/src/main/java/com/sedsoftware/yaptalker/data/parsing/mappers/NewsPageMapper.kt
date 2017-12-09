@@ -5,11 +5,12 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.NewsItem
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
+import javax.inject.Inject
 
 /**
  * Mapper class used to transform parsed news page from the data layer into BaseEntity list in the domain layer.
  */
-class NewsPageMapper {
+class NewsPageMapper @Inject constructor() {
 
   companion object {
     private const val NEWS_PER_PAGE = 50
