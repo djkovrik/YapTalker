@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.features.navigation
 
+import android.text.Spanned
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.base.BaseView
@@ -9,7 +10,9 @@ interface MainActivityView : BaseView {
 
   fun setAppbarTitle(title: String)
 
-  fun setNavDrawerItem(item: Long)
+  fun selectNavDrawerItem(item: Long)
 
-  fun showEula()
+  fun requestEulaDisplaying()
+
+  fun displayFormattedEulaText(spanned: Spanned)
 }

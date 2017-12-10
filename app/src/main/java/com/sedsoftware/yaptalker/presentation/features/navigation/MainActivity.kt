@@ -1,8 +1,12 @@
 package com.sedsoftware.yaptalker.presentation.features.navigation
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.text.Spanned
 import android.widget.ImageView.ScaleType
+import android.widget.TextView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
@@ -80,6 +84,13 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
 
     setSupportActionBar(toolbar)
     initializeNavigationDrawer(savedInstanceState)
+    handleLinkIntent()
+  }
+
+  override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    setIntent(intent)
+    handleLinkIntent()
   }
 
   override fun onSaveInstanceState(outState: Bundle?) {
@@ -113,12 +124,26 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     supportActionBar?.title = title
   }
 
-  override fun setNavDrawerItem(item: Long) {
+  override fun selectNavDrawerItem(item: Long) {
     navDrawer.setSelection(item, false)
   }
 
-  override fun showEula() {
-    // TODO() Reimplement
+  override fun requestEulaDisplaying() {
+    val eulaText = stringRes(R.string.eula_text)
+    presenter.formatEulaHtmlText(eulaText)
+  }
+
+  override fun displayFormattedEulaText(spanned: Spanned) {
+
+    val dialog = MaterialDialog.Builder(this)
+        .title(R.string.eula_title)
+        .customView(R.layout.custom_view_eula, true)
+        .positiveText(R.string.eula_button_ok)
+        .onPositive { _, _ -> presenter.markEulaAsAccepted() }
+        .build()
+
+    dialog.customView?.findViewById<TextView>(R.id.eula_text_view)?.text = spanned
+    dialog.show()
   }
 
   override fun updateNavDrawerProfile(userInfo: LoginSessionInfoModel) {
@@ -263,5 +288,9 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     } else {
       navDrawer = drawerBuilder.build()
     }
+  }
+
+  private fun handleLinkIntent() {
+    // TODO() Implement App Links
   }
 }
