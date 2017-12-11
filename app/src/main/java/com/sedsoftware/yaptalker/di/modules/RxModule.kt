@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.di.modules
 
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationDrawerItems
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

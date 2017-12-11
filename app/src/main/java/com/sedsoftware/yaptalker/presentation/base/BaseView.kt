@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.base
+package com.sedsoftware.yaptalker.presentation.base
 
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy

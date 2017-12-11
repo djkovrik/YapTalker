@@ -61,7 +61,7 @@
           android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
           android:text="@string/profile_uq" />
 
-        <com.sedsoftware.yaptalker.commons.views.PostRatingView
+        <com.sedsoftware.yaptalker.presentation.commons.views.PostRatingView
           android:id="@+id/profile_uq"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"

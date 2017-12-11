@@ -1,9 +1,9 @@
 package com.sedsoftware.yaptalker.presentation.features.navigation
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.base.BasePresenter
-import com.sedsoftware.yaptalker.base.navigation.NavigationDrawerItems
-import com.sedsoftware.yaptalker.base.navigation.RequestCodes
+import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationDrawerItems
+import com.sedsoftware.yaptalker.presentation.base.navigation.RequestCodes
 import com.sedsoftware.yaptalker.data.SettingsManager
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetLoginSessionInfo

@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.support.annotation.StringRes
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.base.navigation.NavigationScreens
-import com.sedsoftware.yaptalker.commons.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationScreens
+import com.sedsoftware.yaptalker.presentation.commons.extensions.stringRes
 import javax.inject.Inject
 
 /**

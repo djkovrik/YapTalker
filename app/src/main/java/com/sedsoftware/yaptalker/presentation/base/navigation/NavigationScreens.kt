@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.base.navigation
+package com.sedsoftware.yaptalker.presentation.base.navigation
 
 object NavigationScreens {
   const val NEWS_SCREEN = "NEWS_SCREEN"

@@ -1,10 +1,10 @@
-package com.sedsoftware.yaptalker.base
+package com.sedsoftware.yaptalker.presentation.base
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.base.events.ActivityLifecycle
+import com.sedsoftware.yaptalker.presentation.base.events.ActivityLifecycle
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

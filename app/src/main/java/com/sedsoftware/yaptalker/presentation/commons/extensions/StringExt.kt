@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.commons.extensions
+package com.sedsoftware.yaptalker.presentation.commons.extensions
 
 fun String.validateUrl(): String =
     when {

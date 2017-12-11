@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.base.navigation
+package com.sedsoftware.yaptalker.presentation.base.navigation
 
 import android.support.annotation.IntDef
 

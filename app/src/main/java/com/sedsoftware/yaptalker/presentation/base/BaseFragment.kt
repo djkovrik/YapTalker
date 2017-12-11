@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.base
+package com.sedsoftware.yaptalker.presentation.base
 
 import android.content.Context
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.base.events.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.events.FragmentLifecycle
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Maybe
 

@@ -1,7 +1,7 @@
-package com.sedsoftware.yaptalker.commons.extensions
+package com.sedsoftware.yaptalker.presentation.commons.extensions
 
 import android.widget.ImageView
-import com.sedsoftware.yaptalker.commons.CircleImageTransformation
+import com.sedsoftware.yaptalker.presentation.commons.CircleImageTransformation
 import com.squareup.picasso.Picasso
 
 fun ImageView.loadFromUrl(url: String) {

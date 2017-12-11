@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.base.navigation
+package com.sedsoftware.yaptalker.presentation.base.navigation
 
 object RequestCodes {
   const val SIGN_IN = 1

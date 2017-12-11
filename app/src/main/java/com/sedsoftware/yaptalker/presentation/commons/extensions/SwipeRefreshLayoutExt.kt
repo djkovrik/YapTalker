@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.commons.extensions
+package com.sedsoftware.yaptalker.presentation.commons.extensions
 
 import android.support.v4.widget.SwipeRefreshLayout
 import com.sedsoftware.yaptalker.R

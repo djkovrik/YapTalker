@@ -26,7 +26,7 @@
       android:paddingTop="@dimen/material_card_title_block_small_padding_vertical"
       tools:text="Administrator" />
 
-    <com.sedsoftware.yaptalker.commons.views.ShortDateView
+    <com.sedsoftware.yaptalker.presentation.commons.views.ShortDateView
       android:id="@+id/news_date"
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
       android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
       tools:text="100" />
 
-    <com.sedsoftware.yaptalker.commons.views.PostRatingView
+    <com.sedsoftware.yaptalker.presentation.commons.views.PostRatingView
       android:id="@+id/news_rating"
       style="@style/NewsTopicRating"
       android:layout_width="wrap_content"

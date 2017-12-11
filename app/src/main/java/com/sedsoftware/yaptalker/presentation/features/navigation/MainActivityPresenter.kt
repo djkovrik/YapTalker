@@ -3,8 +3,8 @@ package com.sedsoftware.yaptalker.presentation.features.navigation
 import android.text.Spanned
 import com.arellomobile.mvp.InjectViewState
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.base.BasePresenter
-import com.sedsoftware.yaptalker.base.events.PresenterLifecycle
+import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.SettingsManager
 import com.sedsoftware.yaptalker.data.task.HtmlToSpannedTask
 import com.sedsoftware.yaptalker.data.task.HtmlToSpannedTask.Params
