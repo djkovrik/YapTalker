@@ -13,6 +13,7 @@ import javax.inject.Inject
 class ServerResponseModelMapper @Inject constructor() {
 
   fun transform(response: BaseEntity): YapEntity {
+
     response as ServerResponse
 
     return ServerResponseModel(text = response.text)
