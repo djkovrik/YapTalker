@@ -19,7 +19,7 @@ class NewsHead {
   lateinit var title: String
   @Selector(".subtitle", attr = "href", defValue = "")
   lateinit var link: String
-  @Selector(".rating-short-value > a", defValue = "")
+  @Selector(".rating-short-value > a", defValue = "0")
   lateinit var rating: String
 }
 
@@ -45,6 +45,6 @@ class NewsBottom {
   lateinit var forumName: String
   @Selector(".icon-forum > a", attr = "href", defValue = "")
   lateinit var forumLink: String
-  @Selector("span", defValue = "0", format = "(\\d+)")
+  @Selector("span", format = "(\\d+)", defValue = "0")
   lateinit var comments: String
 }

@@ -8,6 +8,7 @@ import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest
 import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest.Params
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationDrawerItems
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationScreens
 import com.sedsoftware.yaptalker.presentation.base.navigation.RequestCodes
 import com.sedsoftware.yaptalker.presentation.mappers.LoginSessionInfoModelMapper
 import com.sedsoftware.yaptalker.presentation.mappers.ServerResponseModelMapper
@@ -60,8 +61,15 @@ class NavigationPresenter @Inject constructor(
   }
 
   fun navigateToChosenSection(@NavigationDrawerItems.Section identifier: Long) {
-    // TODO () Restore navdrawer menu navigation
-    Timber.d("Navigate to $identifier")
+    when (identifier) {
+      NavigationDrawerItems.MAIN_PAGE -> router.newRootScreen(NavigationScreens.NEWS_SCREEN)
+//      NavigationDrawerItems.FORUMS -> router.newRootScreen(NavigationScreens.FORUMS_LIST_SCREEN)
+//      NavigationDrawerItems.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreens.ACTIVE_TOPICS_SCREEN)
+//      NavigationDrawerItems.BOOKMARKS -> router.newRootScreen(NavigationScreens.BOOKMARKS_SCREEN)
+//      NavigationDrawerItems.SETTINGS -> router.navigateTo(NavigationScreens.SETTINGS_SCREEN)
+//      NavigationDrawerItems.SIGN_IN -> router.navigateTo(NavigationScreens.AUTHORIZATION_SCREEN)
+//      NavigationDrawerItems.SIGN_OUT -> sendSignOutRequest()
+    }
   }
 
   fun navigateWithIntentLink(triple: Triple<Int, Int, Int>) {
@@ -70,8 +78,7 @@ class NavigationPresenter @Inject constructor(
   }
 
   private fun navigateToDefaultMainPage() {
-    // TODO () Restore navigation to main page
-    // router.newRootScreen(settings.getStartingPage())
+    router.newRootScreen(settings.getStartingPage())
   }
 
   private fun refreshAuthorization() {

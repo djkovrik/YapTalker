@@ -12,9 +12,9 @@ class GetNewsList @Inject constructor(
     @Named("io") executionThread: ExecutionThread,
     @Named("ui") postExecutionThread: PostExecutionThread,
     private val newsRepository: NewsRepository
-) : UseCase<List<BaseEntity>, GetNewsList.Params>(executionThread, postExecutionThread) {
+) : UseCase<BaseEntity, GetNewsList.Params>(executionThread, postExecutionThread) {
 
-  override fun buildUseCaseObservable(params: Params): Observable<List<BaseEntity>> =
+  override fun buildUseCaseObservable(params: Params): Observable<BaseEntity> =
       newsRepository
           .getNews(params.pageNumber)
 

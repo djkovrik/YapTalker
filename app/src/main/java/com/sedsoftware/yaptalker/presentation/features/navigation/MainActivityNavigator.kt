@@ -6,6 +6,8 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationScreens
+import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
@@ -20,7 +22,7 @@ class MainActivityNavigator @Inject constructor(activity: MainActivity) :
 
   @Suppress("UNCHECKED_CAST")
   override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
-//    NavigationScreens.NEWS_SCREEN -> NewsFragment.getNewInstance()
+    NavigationScreens.NEWS_SCREEN -> NewsFragment.getNewInstance()
 //    NavigationScreens.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
 //    NavigationScreens.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Int)
 //    NavigationScreens.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
