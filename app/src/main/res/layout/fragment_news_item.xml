@@ -26,7 +26,7 @@
       android:paddingTop="@dimen/material_card_title_block_small_padding_vertical"
       tools:text="Administrator" />
 
-    <com.sedsoftware.yaptalker.commons.views.ShortDateView
+    <TextView
       android:id="@+id/news_date"
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"

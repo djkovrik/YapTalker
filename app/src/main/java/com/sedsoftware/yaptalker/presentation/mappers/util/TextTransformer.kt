@@ -14,5 +14,4 @@ class TextTransformer @Inject constructor(private val context: Context) {
       } else {
         Html.fromHtml(html)
       }
-
 }

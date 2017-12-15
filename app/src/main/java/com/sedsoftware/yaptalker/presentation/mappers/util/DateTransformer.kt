@@ -1,22 +1,15 @@
-package com.sedsoftware.yaptalker.commons.views
+package com.sedsoftware.yaptalker.presentation.mappers.util
 
 import android.content.Context
-import android.support.v7.widget.AppCompatTextView
-import android.util.AttributeSet
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.commons.extensions.stringQuantityRes
 import com.sedsoftware.yaptalker.presentation.commons.extensions.stringRes
-import io.reactivex.Single
-import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import javax.inject.Inject
 
-class ShortDateView : AppCompatTextView {
+class DateTransformer @Inject constructor(private val context: Context) {
 
   companion object {
     private const val MILLISECONDS_PER_SECOND = 1000
@@ -27,28 +20,16 @@ class ShortDateView : AppCompatTextView {
     private const val MONTH_PER_YEAR = 12
   }
 
-  constructor(context: Context?) : super(context)
-  constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+  fun transformDateToShortView(date: String): String {
+    val diff = getDifference(date)
+    val calcTime = getCalculatedTime(diff)
+    return buildString(calcTime)
+  }
 
-  var shortDateText: CharSequence
-    get() = text
-    set(value) {
-      Single
-          .just(value)
-          .observeOn(Schedulers.computation())
-          .map { text -> getDifference(text) }
-          .map { diff -> getCalculatedTime(diff) }
-          .map { calculatedTime -> buildString(calculatedTime) }
-          .subscribeOn(Schedulers.computation())
-          .observeOn(AndroidSchedulers.mainThread())
-          .subscribe(getTextObservable(this))
-    }
-
-  private fun getDifference(source: CharSequence): Int {
+  private fun getDifference(source: String): Int {
 
     val format = SimpleDateFormat("dd.MM.yyyy - HH:mm", Locale.getDefault())
-    val sourceStr = source.toString()
-    val topicDate = format.parse(sourceStr)
+    val topicDate = format.parse(source)
     val currentDate = Calendar.getInstance().time
 
     return ((currentDate.time - topicDate.time) / MILLISECONDS_PER_SECOND).toInt()
@@ -96,22 +77,6 @@ class ShortDateView : AppCompatTextView {
           String.format(Locale.getDefault(), template, time.minutes)
         }
         else -> context.stringRes(R.string.short_date_seconds_now)
-      }
-
-  private fun getTextObservable(shortDateView: ShortDateView) =
-      object : SingleObserver<String> {
-        override fun onSubscribe(d: Disposable) {
-
-        }
-
-        override fun onSuccess(str: String) {
-          shortDateView.text = str
-        }
-
-        override fun onError(e: Throwable) {
-          Timber.e("Error with shortDateView text: ${e.message}")
-          shortDateView.text = ""
-        }
       }
 
   private inner class CalculatedTime(
