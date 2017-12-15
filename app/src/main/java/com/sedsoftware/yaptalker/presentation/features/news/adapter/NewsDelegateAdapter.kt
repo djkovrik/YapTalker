@@ -13,17 +13,9 @@ import com.sedsoftware.yaptalker.presentation.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.commons.extensions.showView
 import com.sedsoftware.yaptalker.presentation.commons.extensions.stringQuantityRes
 import com.sedsoftware.yaptalker.presentation.commons.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.commons.extensions.textFromHtml
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_author
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_comments_counter
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_content_image
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_content_text
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_date
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_forum
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_rating
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_title
+import kotlinx.android.synthetic.main.fragment_news_item.view.*
 import java.util.Locale
 
 class NewsDelegateAdapter(
@@ -80,7 +72,7 @@ class NewsDelegateAdapter(
         news_date.shortDateText = newsItem.date
         news_rating.ratingText = newsItem.rating.toString()
         news_comments_counter.text = String.format(Locale.getDefault(), commentsTemplate, newsItem.comments)
-        news_content_text.textFromHtml(newsItem.cleanedDescription)
+        news_content_text.text = newsItem.cleanedDescription
       }
     }
 

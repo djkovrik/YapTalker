@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
+import android.text.Spanned
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
@@ -10,7 +11,7 @@ class NewsItemModel(
     val title: String,
     val link: String,
     val rating: Int,
-    val description: String,
+    val description: Spanned,
     val images: List<String>,
     val videos: List<String>,
     val videosRaw: List<String>,
@@ -20,7 +21,7 @@ class NewsItemModel(
     val forumName: String,
     val forumLink: String,
     val comments: Int,
-    val cleanedDescription: String
+    val cleanedDescription: Spanned
 ) : YapEntity {
 
   override fun getBaseEntityType(): Int = YapEntityTypes.NEWS_ITEM

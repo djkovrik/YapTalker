@@ -4,7 +4,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
 /**
- * Class which represents navigation panel in domain layer.
+ * Class which represents navigation panel in presentation layer.
  */
 class NavigationPanelModel(
     val currentPage: Int,

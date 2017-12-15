@@ -1,16 +1,9 @@
 package com.sedsoftware.yaptalker.presentation.commons.extensions
 
 import android.text.Html
-import android.text.Spanned
 import android.widget.TextView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.PicassoImageGetter
-import io.reactivex.Single
-import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 
 var TextView.textColor: Int
   get() = currentTextColor
@@ -54,23 +47,6 @@ fun TextView.loadRatingBackground(rating: Int) {
 }
 
 @Suppress("DEPRECATION")
-fun TextView.textFromHtml(html: String) {
-
-  Single
-      .just(html)
-      .map { text ->
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-          Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
-        } else {
-          Html.fromHtml(text)
-        }
-      }
-      .subscribeOn(Schedulers.computation())
-      .observeOn(AndroidSchedulers.mainThread())
-      .subscribe(getSpannedObservable(this))
-}
-
-@Suppress("DEPRECATION")
 fun TextView.textFromHtmlWithEmoji(html: String) {
   this.text = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
     Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, PicassoImageGetter(context, this), null)
@@ -78,18 +54,3 @@ fun TextView.textFromHtmlWithEmoji(html: String) {
     Html.fromHtml(html, PicassoImageGetter(context, this), null)
   }
 }
-
-private fun getSpannedObservable(textView: TextView) =
-    object : SingleObserver<Spanned> {
-      override fun onSubscribe(d: Disposable) {
-
-      }
-
-      override fun onSuccess(spanned: Spanned) {
-        textView.text = spanned
-      }
-
-      override fun onError(e: Throwable) {
-        Timber.e("Can't set spanned text to $textView: ${e.message}")
-      }
-    }
