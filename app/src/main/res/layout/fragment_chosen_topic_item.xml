@@ -46,7 +46,7 @@
     android:text="@string/topic_post_karma_thumb_down"
     tools:text="-" />
 
-  <com.sedsoftware.yaptalker.presentation.commons.views.PostRatingView
+  <TextView
     android:id="@+id/post_rating"
     style="@style/PostRating"
     android:layout_width="wrap_content"

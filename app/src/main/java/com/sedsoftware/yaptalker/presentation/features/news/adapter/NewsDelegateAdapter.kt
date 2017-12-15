@@ -70,7 +70,7 @@ class NewsDelegateAdapter(
         news_title.text = newsItem.title
         news_forum.text = String.format(Locale.getDefault(), forumTitleTemplate, newsItem.forumName)
         news_date.text = newsItem.date
-        news_rating.ratingText = newsItem.rating.toString()
+        news_rating.text = newsItem.rating
         news_comments_counter.text = String.format(Locale.getDefault(), commentsTemplate, newsItem.comments)
         news_content_text.text = newsItem.cleanedDescription
       }

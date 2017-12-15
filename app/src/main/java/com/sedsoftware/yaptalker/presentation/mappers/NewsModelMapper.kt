@@ -23,7 +23,7 @@ class NewsModelMapper @Inject constructor(
     return NewsItemModel(
         title = item.title,
         link = item.link,
-        rating = item.rating,
+        rating = textTransformer.transformRankToFormattedText(item.rating),
         description = textTransformer.transformHtmlToSpanned(item.description),
         images = item.images,
         videos = item.videos,

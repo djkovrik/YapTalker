@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 class NewsItemModel(
     val title: String,
     val link: String,
-    val rating: Int,
+    val rating: Spanned,
     val description: Spanned,
     val images: List<String>,
     val videos: List<String>,
