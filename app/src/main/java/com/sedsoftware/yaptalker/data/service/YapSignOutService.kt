@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.data.service
 
-import com.sedsoftware.yaptalker.data.network.YapLoader
+import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.data.parsed.mappers.ServerResponseMapper
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.service.SignOutService

@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.network
+package com.sedsoftware.yaptalker.data.network.site
 
 import com.sedsoftware.yaptalker.data.parsed.ActiveTopicsPageParsed
 import com.sedsoftware.yaptalker.data.parsed.BookmarksParsed
@@ -22,7 +22,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
- * Retrofit2 interface definition for sending and retrieving data from the site.
+ * Retrofit 2 interface definition for sending and retrieving data from the site.
  */
 interface YapLoader {
 
