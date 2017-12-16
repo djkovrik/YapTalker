@@ -56,6 +56,7 @@ class PostContentParser(private val content: String) {
         images = ArrayList(),
         videos = ArrayList(),
         videosRaw = ArrayList())
+
     val singlePost = Jsoup.parse(content)
 
     singlePost

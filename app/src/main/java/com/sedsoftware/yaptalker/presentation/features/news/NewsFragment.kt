@@ -13,9 +13,8 @@ import com.sedsoftware.yaptalker.commons.InfiniteScrollListener
 import com.sedsoftware.yaptalker.data.SettingsManager
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.events.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.commons.extensions.hideBeyondScreenEdge
+import com.sedsoftware.yaptalker.presentation.commons.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.commons.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.presentation.commons.extensions.showFromScreenEdge
 import com.sedsoftware.yaptalker.presentation.commons.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemClickListener
@@ -92,7 +91,7 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
 
   override fun showFab() {
     news_fab?.let { fab ->
-      fab.showFromScreenEdge()
+      fab.moveWithAnimationAxisY(offset = 0f)
       isFabShown = true
     }
   }
@@ -100,7 +99,7 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
   override fun hideFab() {
     news_fab?.let { fab ->
       val offset = fab.height + fab.paddingTop + fab.paddingBottom
-      fab.hideBeyondScreenEdge(offset.toFloat())
+      fab.moveWithAnimationAxisY(offset = offset.toFloat())
       isFabShown = false
     }
   }

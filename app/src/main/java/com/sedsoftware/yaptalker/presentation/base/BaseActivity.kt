@@ -64,4 +64,3 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
   protected fun event(@ActivityLifecycle.Event event: Long): Maybe<*> =
       lifecycle.filter({ e -> e == event }).firstElement()
 }
-

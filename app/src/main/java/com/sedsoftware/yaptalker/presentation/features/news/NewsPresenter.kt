@@ -56,7 +56,6 @@ class NewsPresenter @Inject constructor(
   }
 
   private fun loadDataForCurrentPage() {
-//    getNewsListUseCase.execute(getNewsObserver(), Params(pageNumber = currentPage))
     getNewsListUseCase
         .buildUseCaseObservable(Params(pageNumber = currentPage))
         .subscribeOn(Schedulers.io())
