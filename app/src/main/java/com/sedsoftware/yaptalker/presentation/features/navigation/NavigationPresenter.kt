@@ -7,14 +7,19 @@ import com.sedsoftware.yaptalker.domain.interactor.GetLoginSessionInfo
 import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest
 import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest.Params
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationScreens
 import com.sedsoftware.yaptalker.presentation.base.navigation.RequestCodes
 import com.sedsoftware.yaptalker.presentation.mappers.LoginSessionInfoModelMapper
 import com.sedsoftware.yaptalker.presentation.mappers.ServerResponseModelMapper
+import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
 import com.sedsoftware.yaptalker.presentation.model.base.ServerResponseModel
+import com.uber.autodispose.kotlin.autoDisposable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
+import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -55,8 +60,6 @@ class NavigationPresenter @Inject constructor(
 
   override fun onDestroy() {
     super.onDestroy()
-    getSessionInfoUseCase.dispose()
-    signOutUseCase.dispose()
     router.removeResultListener(RequestCodes.SIGN_IN)
   }
 
@@ -82,20 +85,22 @@ class NavigationPresenter @Inject constructor(
   }
 
   private fun refreshAuthorization() {
-    getSessionInfoUseCase.execute(getLoginSessionInfoObserver(), Unit)
-  }
-
-  private fun sendSignOutRequest() {
-    signOutUseCase.execute(getSignOutResponseObserver(), Params(userKey = currentUserKey))
+    getSessionInfoUseCase
+        .buildUseCaseObservable(Unit)
+        .subscribeOn(Schedulers.io())
+        .map { sessionInfo: BaseEntity -> sessionInfoMapper.transform(sessionInfo) }
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposable(event(PresenterLifecycle.DESTROY))
+        .subscribe(getLoginSessionInfoObserver())
   }
 
   private fun getLoginSessionInfoObserver() =
-      object : DisposableObserver<BaseEntity>() {
+      object : DisposableObserver<YapEntity>() {
         override fun onComplete() {
           Timber.i("Login session info updated.")
         }
 
-        override fun onNext(info: BaseEntity) {
+        override fun onNext(info: YapEntity) {
           displayLoginSessionInfo(info)
         }
 
@@ -104,29 +109,36 @@ class NavigationPresenter @Inject constructor(
         }
       }
 
-  private fun displayLoginSessionInfo(info: BaseEntity) {
-    sessionInfoMapper
-        .transform(info)
-        .also { sessionInfo ->
-          sessionInfo as LoginSessionInfoModel
-          currentUserKey = sessionInfo.sessionId
-          viewState.updateNavDrawerProfile(sessionInfo)
+  private fun displayLoginSessionInfo(sessionInfo: YapEntity) {
 
-          if (sessionInfo.nickname.isEmpty()) {
-            viewState.displaySignedOutNavigation()
-          } else {
-            viewState.displaySignedInNavigation()
-          }
-        }
+    sessionInfo as LoginSessionInfoModel
+    currentUserKey = sessionInfo.sessionId
+    viewState.updateNavDrawerProfile(sessionInfo)
+
+    if (sessionInfo.nickname.isEmpty()) {
+      viewState.displaySignedOutNavigation()
+    } else {
+      viewState.displaySignedInNavigation()
+    }
+  }
+
+  private fun sendSignOutRequest() {
+    signOutUseCase
+        .buildUseCaseObservable(Params(userKey = currentUserKey))
+        .subscribeOn(Schedulers.io())
+        .map { response: BaseEntity -> serverResponseMapper.transform(response) }
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposable(event(PresenterLifecycle.DESTROY))
+        .subscribe(getSignOutResponseObserver())
   }
 
   private fun getSignOutResponseObserver() =
-      object : DisposableObserver<BaseEntity>() {
+      object : DisposableObserver<YapEntity>() {
         override fun onComplete() {
           Timber.i("Signed Out request completed.")
         }
 
-        override fun onNext(response: BaseEntity) {
+        override fun onNext(response: YapEntity) {
           checkIfSignedOutSuccessfully(response)
         }
 
@@ -135,16 +147,13 @@ class NavigationPresenter @Inject constructor(
         }
       }
 
-  private fun checkIfSignedOutSuccessfully(response: BaseEntity) {
-    serverResponseMapper
-        .transform(response)
-        .also { serverResponse ->
-          serverResponse as ServerResponseModel
-          if (serverResponse.text.contains(SIGN_OUT_SUCCESS_MARKER)) {
-            viewState.showSignOutMessage()
-            refreshAuthorization()
-            navigateToDefaultMainPage()
-          }
-        }
+  private fun checkIfSignedOutSuccessfully(serverResponse: YapEntity) {
+    serverResponse as ServerResponseModel
+
+    if (serverResponse.text.contains(SIGN_OUT_SUCCESS_MARKER)) {
+      viewState.showSignOutMessage()
+      refreshAuthorization()
+      navigateToDefaultMainPage()
+    }
   }
 }

@@ -5,10 +5,14 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetNewsList
 import com.sedsoftware.yaptalker.domain.interactor.GetNewsList.Params
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationScreens
 import com.sedsoftware.yaptalker.presentation.mappers.NewsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.uber.autodispose.kotlin.autoDisposable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
+import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -29,11 +33,6 @@ class NewsPresenter @Inject constructor(
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
     loadNews(loadFromFirstPage = true)
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    getNewsListUseCase.dispose()
   }
 
   fun handleFabVisibility(diff: Int) {
@@ -57,16 +56,23 @@ class NewsPresenter @Inject constructor(
   }
 
   private fun loadDataForCurrentPage() {
-    getNewsListUseCase.execute(getNewsObserver(), Params(pageNumber = currentPage))
+//    getNewsListUseCase.execute(getNewsObserver(), Params(pageNumber = currentPage))
+    getNewsListUseCase
+        .buildUseCaseObservable(Params(pageNumber = currentPage))
+        .subscribeOn(Schedulers.io())
+        .map { newsItem: BaseEntity -> newsModelMapper.transform(newsItem) }
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposable(event(PresenterLifecycle.DESTROY))
+        .subscribe(getNewsObserver())
   }
 
   private fun getNewsObserver() =
-      object : DisposableObserver<BaseEntity>() {
+      object : DisposableObserver<YapEntity>() {
         override fun onComplete() {
 
         }
 
-        override fun onNext(item: BaseEntity) {
+        override fun onNext(item: YapEntity) {
           if (backToFirstPage) {
             viewState.clearNewsList()
             backToFirstPage = false
@@ -80,10 +86,8 @@ class NewsPresenter @Inject constructor(
         }
       }
 
-  private fun displayLoadedNewsItem(item: BaseEntity) {
-    newsModelMapper
-        .transform(item)
-        .also { entity: YapEntity -> viewState.appendNewsItem(entity) }
+  private fun displayLoadedNewsItem(item: YapEntity) {
+    viewState.appendNewsItem(item)
   }
 
   fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {

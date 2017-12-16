@@ -6,7 +6,6 @@ import com.sedsoftware.yaptalker.di.modules.AppModule
 import com.sedsoftware.yaptalker.di.modules.NavigationModule
 import com.sedsoftware.yaptalker.di.modules.NetworkModule
 import com.sedsoftware.yaptalker.di.modules.RxModule
-import com.sedsoftware.yaptalker.di.modules.SchedulersModule
 import com.sedsoftware.yaptalker.di.modules.contribution.ActivityContributionModule
 import com.sedsoftware.yaptalker.di.modules.contribution.FragmentContributionModule
 import dagger.BindsInstance
@@ -20,8 +19,7 @@ import javax.inject.Singleton
   (AppModule::class),
   (NavigationModule::class),
   (NetworkModule::class),
-  (RxModule::class),
-  (SchedulersModule::class)
+  (RxModule::class)
 ])
 interface AppComponent {
 
