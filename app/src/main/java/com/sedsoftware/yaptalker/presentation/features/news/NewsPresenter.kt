@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.features.news
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetNewsList
-import com.sedsoftware.yaptalker.domain.interactor.GetNewsList.Params
+import com.sedsoftware.yaptalker.domain.interactor.GetVideoThumbnail
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.events.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationScreens
@@ -20,6 +20,7 @@ import javax.inject.Inject
 class NewsPresenter @Inject constructor(
     private val router: Router,
     private val getNewsListUseCase: GetNewsList,
+    private val getVideoThumbnail: GetVideoThumbnail,
     private val newsModelMapper: NewsModelMapper
 ) : BasePresenter<NewsView>() {
 
@@ -57,7 +58,7 @@ class NewsPresenter @Inject constructor(
 
   private fun loadDataForCurrentPage() {
     getNewsListUseCase
-        .buildUseCaseObservable(Params(pageNumber = currentPage))
+        .buildUseCaseObservable(GetNewsList.Params(pageNumber = currentPage))
         .subscribeOn(Schedulers.io())
         .map { newsItem: BaseEntity -> newsModelMapper.transform(newsItem) }
         .observeOn(AndroidSchedulers.mainThread())
