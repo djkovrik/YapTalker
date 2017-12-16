@@ -21,9 +21,7 @@ import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_news.news_fab
-import kotlinx.android.synthetic.main.fragment_news.news_list
-import kotlinx.android.synthetic.main.fragment_news.refresh_layout
+import kotlinx.android.synthetic.main.fragment_news.*
 import javax.inject.Inject
 
 class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {

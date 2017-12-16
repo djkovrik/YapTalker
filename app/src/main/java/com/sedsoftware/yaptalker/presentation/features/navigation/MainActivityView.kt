@@ -12,7 +12,5 @@ interface MainActivityView : BaseView {
 
   fun selectNavDrawerItem(item: Long)
 
-  fun requestEulaDisplaying()
-
   fun displayFormattedEulaText(spanned: Spanned)
 }

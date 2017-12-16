@@ -10,7 +10,6 @@ import com.sedsoftware.yaptalker.data.SettingsManager
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
-import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 
 class NewsAdapter(itemClick: NewsItemClickListener, settings: SettingsManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

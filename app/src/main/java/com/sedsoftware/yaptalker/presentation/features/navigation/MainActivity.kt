@@ -128,11 +128,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     navDrawer.setSelection(item, false)
   }
 
-  override fun requestEulaDisplaying() {
-    val eulaText = stringRes(R.string.eula_text)
-    presenter.formatEulaHtmlText(eulaText)
-  }
-
   override fun displayFormattedEulaText(spanned: Spanned) {
 
     val dialog = MaterialDialog.Builder(this)
