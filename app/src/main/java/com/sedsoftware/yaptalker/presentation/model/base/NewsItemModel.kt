@@ -20,7 +20,7 @@ class NewsItemModel(
     val date: String,
     val forumName: String,
     val forumLink: String,
-    val comments: Int,
+    val comments: String,
     val cleanedDescription: Spanned
 ) : YapEntity {
 

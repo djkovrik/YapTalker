@@ -31,9 +31,9 @@ class NewsModelMapper @Inject constructor(
         author = item.author,
         authorLink = item.authorLink,
         date = dateTransformer.transformDateToShortView(item.date),
-        forumName = item.forumName,
+        forumName = textTransformer.transformNewsForumTitle(item.forumName),
         forumLink = item.forumLink,
-        comments = item.comments,
+        comments = textTransformer.transformCommentsLabel(item.comments),
         cleanedDescription = textTransformer.transformHtmlToSpanned(item.cleanedDescription)
     )
   }

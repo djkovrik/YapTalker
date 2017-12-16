@@ -11,12 +11,9 @@ import com.sedsoftware.yaptalker.presentation.commons.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.commons.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.commons.extensions.showView
-import com.sedsoftware.yaptalker.presentation.commons.extensions.stringQuantityRes
-import com.sedsoftware.yaptalker.presentation.commons.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import kotlinx.android.synthetic.main.fragment_news_item.view.*
-import java.util.Locale
 
 class NewsDelegateAdapter(
     private val newsClick: NewsItemClickListener,
@@ -40,8 +37,6 @@ class NewsDelegateAdapter(
   inner class NewsViewHolder(parent: ViewGroup) :
       RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_news_item)) {
 
-    private val forumTitleTemplate: String = parent.context.stringRes(R.string.news_forum_title_template)
-
     fun bindTo(newsItem: NewsItemModel) {
       setViewsTextSize(itemView)
       setViewsContent(itemView, newsItem)
@@ -49,6 +44,7 @@ class NewsDelegateAdapter(
     }
 
     private fun setViewsTextSize(itemView: View) {
+
       with(itemView) {
         news_author.textSize = normalFontSize
         news_title.textSize = bigFontSize
@@ -62,21 +58,19 @@ class NewsDelegateAdapter(
 
     private fun setViewsContent(itemView: View, newsItem: NewsItemModel) {
 
-      val commentsTemplate: String = itemView.context.stringQuantityRes(
-          R.plurals.news_comments_template, newsItem.comments)
-
       with(itemView) {
         news_author.text = newsItem.author
         news_title.text = newsItem.title
-        news_forum.text = String.format(Locale.getDefault(), forumTitleTemplate, newsItem.forumName)
+        news_forum.text = newsItem.forumName
         news_date.text = newsItem.date
         news_rating.text = newsItem.rating
-        news_comments_counter.text = String.format(Locale.getDefault(), commentsTemplate, newsItem.comments)
+        news_comments_counter.text = newsItem.comments
         news_content_text.text = newsItem.cleanedDescription
       }
     }
 
     private fun setMediaContent(itemView: View, newsItem: NewsItemModel) {
+
       with(itemView) {
 
         news_content_image.setOnClickListener(null)

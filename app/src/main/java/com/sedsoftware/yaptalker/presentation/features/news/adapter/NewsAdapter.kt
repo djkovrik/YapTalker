@@ -11,7 +11,8 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
-class NewsAdapter(itemClick: NewsItemClickListener, settings: SettingsManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NewsAdapter(itemClick: NewsItemClickListener, settings: SettingsManager) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<YapEntity>
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
