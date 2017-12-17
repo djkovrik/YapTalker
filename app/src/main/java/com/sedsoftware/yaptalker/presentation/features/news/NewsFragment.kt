@@ -9,10 +9,10 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.InfiniteScrollListener
+import com.sedsoftware.yaptalker.presentation.commons.InfiniteScrollListener
 import com.sedsoftware.yaptalker.data.SettingsManager
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
-import com.sedsoftware.yaptalker.presentation.base.events.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.commons.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.commons.extensions.toastError

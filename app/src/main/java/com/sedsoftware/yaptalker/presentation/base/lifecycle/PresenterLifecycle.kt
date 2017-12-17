@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.base.events
+package com.sedsoftware.yaptalker.presentation.base.lifecycle
 
 import android.support.annotation.IntDef
 

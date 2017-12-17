@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.presentation.base.events.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.lifecycle.FragmentLifecycle
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Maybe
 

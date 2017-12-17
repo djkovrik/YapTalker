@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.presentation.base.events.ActivityLifecycle
+import com.sedsoftware.yaptalker.presentation.base.lifecycle.ActivityLifecycle
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

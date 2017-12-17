@@ -7,7 +7,7 @@ import com.sedsoftware.yaptalker.domain.interactor.GetLoginSessionInfo
 import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest
 import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest.Params
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
-import com.sedsoftware.yaptalker.presentation.base.events.PresenterLifecycle
+import com.sedsoftware.yaptalker.presentation.base.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationDrawerItems
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationScreens
 import com.sedsoftware.yaptalker.presentation.base.navigation.RequestCodes

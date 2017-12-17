@@ -5,7 +5,7 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetNewsList
 import com.sedsoftware.yaptalker.domain.interactor.GetVideoThumbnail
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
-import com.sedsoftware.yaptalker.presentation.base.events.PresenterLifecycle
+import com.sedsoftware.yaptalker.presentation.base.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationScreens
 import com.sedsoftware.yaptalker.presentation.mappers.NewsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity

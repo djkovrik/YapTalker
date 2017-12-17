@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.commons
+package com.sedsoftware.yaptalker.presentation.commons
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
