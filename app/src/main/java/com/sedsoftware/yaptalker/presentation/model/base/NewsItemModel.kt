@@ -11,7 +11,6 @@ class NewsItemModel(
     val title: String,
     val link: String,
     val rating: Spanned,
-    val description: Spanned,
     val images: List<String>,
     val videos: List<String>,
     val videosRaw: List<String>,

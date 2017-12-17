@@ -10,6 +10,7 @@ import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationScreens
 import com.sedsoftware.yaptalker.presentation.mappers.NewsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
@@ -42,6 +43,10 @@ class NewsPresenter @Inject constructor(
       diff < 0 -> viewState.showFab()
     }
   }
+
+  fun requestThumbnail(videoUrl: String): Observable<String> =
+      getVideoThumbnail
+          .buildUseCaseObservable(GetVideoThumbnail.Params(videoUrl))
 
   fun loadNews(loadFromFirstPage: Boolean) {
 

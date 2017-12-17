@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_news_item.view.*
 
 class NewsDelegateAdapter(
     private val newsClick: NewsItemClickListener,
+    private val thumbnailsLoader: NewsItemThumbnailsLoader,
     private val settings: SettingsManager) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {
@@ -80,25 +81,15 @@ class NewsDelegateAdapter(
             val url = newsItem.images.first()
             news_content_image.showView()
             news_content_image.loadFromUrl(url)
-            news_content_image.setOnClickListener {
-              // TODO() Navigate to image view activity
-            }
+
+            // TODO() Navigate to image view activity on click
           }
           newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty() -> {
             val url = newsItem.videos.first()
-            val rawHtml = newsItem.videosRaw.first()
             news_content_image.showView()
-            // TODO () Load thumbnail
-            // thumbnailsLoader.loadThumbnail(video = parseLink(url), imageView = news_content_image)
+            thumbnailsLoader.loadThumbnail(url, news_content_image)
 
-            // TODO() Navigate to video view activity
-//            news_content_image.setOnClickListener {
-//              if (url.contains("youtube")) {
-//                context.browse("http://www.youtube.com/watch?v=${getYoutubeVideoId(url)}")
-//              } else {
-//
-//              }
-//            }
+            // TODO() Navigate to video view activity on click
           }
           else -> news_content_image.hideView()
         }

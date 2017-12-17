@@ -24,7 +24,6 @@ class NewsModelMapper @Inject constructor(
         title = item.title,
         link = item.link,
         rating = textTransformer.transformRankToFormattedText(item.rating),
-        description = textTransformer.transformHtmlToSpanned(item.description),
         images = item.images,
         videos = item.videos,
         videosRaw = item.videosRaw,

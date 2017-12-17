@@ -3,27 +3,33 @@ package com.sedsoftware.yaptalker.presentation.features.news
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.ImageView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.commons.InfiniteScrollListener
 import com.sedsoftware.yaptalker.data.SettingsManager
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.commons.InfiniteScrollListener
+import com.sedsoftware.yaptalker.presentation.commons.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.commons.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.commons.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.commons.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemClickListener
+import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_news.*
+import timber.log.Timber
 import javax.inject.Inject
 
-class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
+class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemThumbnailsLoader {
 
   companion object {
     fun getNewInstance() = NewsFragment()
@@ -48,7 +54,7 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    newsAdapter = NewsAdapter(this, settings)
+    newsAdapter = NewsAdapter(this, this, settings)
     newsAdapter.setHasStableIds(true)
 
     with(news_list) {
@@ -106,6 +112,19 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener {
 
   override fun onNewsItemClick(topicLink: String, forumLink: String) {
     // TODO () Navigate to chosen topic
+  }
+
+  override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
+    newsPresenter
+        .requestThumbnail(videoUrl)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposable(event(FragmentLifecycle.STOP))
+        .subscribe({ url ->
+          imageView.loadFromUrl(url)
+        }, { throwable ->
+          Timber.e("Can't load image: ${throwable.message}")
+        })
   }
 
   private fun subscribeViews() {
