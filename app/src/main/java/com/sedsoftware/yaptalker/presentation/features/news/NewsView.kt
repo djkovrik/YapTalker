@@ -16,10 +16,6 @@ interface NewsView : BaseView {
   @StateStrategyType(SingleStateStrategy::class)
   fun clearNewsList()
 
-  fun showLoadingIndicator()
-
-  fun hideLoadingIndicator()
-
   fun showFab()
 
   fun hideFab()

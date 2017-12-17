@@ -2,11 +2,12 @@ package com.sedsoftware.yaptalker.presentation.features.navigation
 
 import android.text.Spanned
 import com.arellomobile.mvp.InjectViewState
-import com.jakewharton.rxrelay2.BehaviorRelay
+import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.SettingsManager
+import com.sedsoftware.yaptalker.data.event.AppEvent.AppbarEvent
+import com.sedsoftware.yaptalker.data.event.AppEvent.NavDrawerEvent
 import com.sedsoftware.yaptalker.domain.interactor.GetEulaText
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
-import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,8 +18,6 @@ import javax.inject.Inject
 
 @InjectViewState
 class MainActivityPresenter @Inject constructor(
-    private val appbarRelay: BehaviorRelay<String>,
-    private val navDrawerRelay: BehaviorRelay<Long>,
     private val settings: SettingsManager,
     private val getEulaTextUseCase: GetEulaText,
     private val textTransformer: TextTransformer
@@ -27,18 +26,16 @@ class MainActivityPresenter @Inject constructor(
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
 
-    // TODO() Add event emitting functions to base classes
-    appbarRelay
+    eventBus
         .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe { title ->
-          viewState.setAppbarTitle(title)
-        }
-
-    navDrawerRelay
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe { item ->
-          viewState.selectNavDrawerItem(item)
-        }
+        .subscribe({ event ->
+          when (event) {
+            is AppbarEvent -> viewState.setAppbarTitle(event.title)
+            is NavDrawerEvent -> viewState.selectNavDrawerItem(event.itemId)
+          }
+        }, { throwable ->
+          Timber.e("Error while handling app event: ${throwable.message}")
+        })
 
     if (!settings.isEulaAccepted()) {
       requestForEulaDisplaying()
