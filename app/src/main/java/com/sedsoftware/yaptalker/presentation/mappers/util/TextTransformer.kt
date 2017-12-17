@@ -4,8 +4,8 @@ import android.content.Context
 import android.text.Html
 import android.text.Spanned
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.commons.extensions.stringQuantityRes
-import com.sedsoftware.yaptalker.presentation.commons.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.stringQuantityRes
+import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import java.util.Locale
 import javax.inject.Inject
 

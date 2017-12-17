@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.di.modules
 
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationDrawerItems
+import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationSection
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -15,5 +15,5 @@ class RxModule {
 
   @Singleton
   @Provides
-  fun provideNavDrawerBus(): BehaviorRelay<Long> = BehaviorRelay.createDefault(NavigationDrawerItems.MAIN_PAGE)
+  fun provideNavDrawerBus(): BehaviorRelay<Long> = BehaviorRelay.createDefault(NavigationSection.MAIN_PAGE)
 }

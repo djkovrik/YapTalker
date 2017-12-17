@@ -5,8 +5,8 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetNewsList
 import com.sedsoftware.yaptalker.domain.interactor.GetVideoThumbnail
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
-import com.sedsoftware.yaptalker.presentation.base.lifecycle.PresenterLifecycle
-import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationScreens
+import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
+import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.mappers.NewsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
@@ -96,6 +96,6 @@ class NewsPresenter @Inject constructor(
   }
 
   fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
-    router.navigateTo(NavigationScreens.CHOSEN_TOPIC_SCREEN, triple)
+    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
   }
 }

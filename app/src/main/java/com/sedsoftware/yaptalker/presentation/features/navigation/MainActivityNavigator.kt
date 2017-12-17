@@ -6,7 +6,7 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationScreens
+import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -16,21 +16,21 @@ class MainActivityNavigator @Inject constructor(activity: MainActivity) :
     SupportAppNavigator(activity, activity.supportFragmentManager, R.id.content_frame) {
 
   override fun createActivityIntent(screenKey: String?, data: Any?): Intent? = when (screenKey) {
-//    NavigationScreens.SETTINGS_SCREEN -> SettingsActivity.getIntent(this@MainActivity)
+//    NavigationScreen.SETTINGS_SCREEN -> SettingsActivity.getIntent(this@MainActivity)
     else -> null
   }
 
   @Suppress("UNCHECKED_CAST")
   override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
-    NavigationScreens.NEWS_SCREEN -> NewsFragment.getNewInstance()
-//    NavigationScreens.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
-//    NavigationScreens.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Int)
-//    NavigationScreens.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
-//    NavigationScreens.BOOKMARKS_SCREEN -> BookmarksFragment.getNewInstance()
-//    NavigationScreens.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
-//    NavigationScreens.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
-//    NavigationScreens.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()
-//    NavigationScreens.ADD_MESSAGE_SCREEN -> AddMessageFragment.getNewInstance(data as String)
+    NavigationScreen.NEWS_SCREEN -> NewsFragment.getNewInstance()
+//    NavigationScreen.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
+//    NavigationScreen.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Int)
+//    NavigationScreen.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
+//    NavigationScreen.BOOKMARKS_SCREEN -> BookmarksFragment.getNewInstance()
+//    NavigationScreen.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
+//    NavigationScreen.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
+//    NavigationScreen.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()
+//    NavigationScreen.ADD_MESSAGE_SCREEN -> AddMessageFragment.getNewInstance(data as String)
     else -> null
   }
 

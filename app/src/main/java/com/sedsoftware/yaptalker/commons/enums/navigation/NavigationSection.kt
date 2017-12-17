@@ -1,8 +1,8 @@
-package com.sedsoftware.yaptalker.presentation.base.navigation
+package com.sedsoftware.yaptalker.commons.enums.navigation
 
 import android.support.annotation.IntDef
 
-class NavigationDrawerItems {
+class NavigationSection {
   companion object {
     const val MAIN_PAGE = 0L
     const val FORUMS = 1L

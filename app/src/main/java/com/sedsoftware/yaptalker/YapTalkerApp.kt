@@ -11,7 +11,7 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.sedsoftware.yaptalker.di.DaggerAppComponent
-import com.sedsoftware.yaptalker.presentation.commons.extensions.color
+import com.sedsoftware.yaptalker.presentation.extensions.color
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
 import dagger.android.AndroidInjector

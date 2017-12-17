@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.data.SettingsManager
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
-import com.sedsoftware.yaptalker.presentation.commons.extensions.hideView
-import com.sedsoftware.yaptalker.presentation.commons.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.commons.extensions.loadFromUrl
-import com.sedsoftware.yaptalker.presentation.commons.extensions.showView
+import com.sedsoftware.yaptalker.presentation.extensions.hideView
+import com.sedsoftware.yaptalker.presentation.extensions.inflate
+import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import kotlinx.android.synthetic.main.fragment_news_item.view.*

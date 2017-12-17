@@ -4,8 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.support.annotation.StringRes
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationScreens
-import com.sedsoftware.yaptalker.presentation.commons.extensions.stringRes
+import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationScreen
 import javax.inject.Inject
 
 /**
@@ -28,18 +27,18 @@ class SettingsManager @Inject constructor(
 
   fun getStartingPage(): String {
     val current = getStringPref(R.string.pref_key_start_page, "")
-    val forums = context.stringRes(R.string.pref_general_start_page_value_forums)
+    val forums = context.resources.getString(R.string.pref_general_start_page_value_forums)
 
     return when (current) {
-      forums -> NavigationScreens.FORUMS_LIST_SCREEN
-      else -> NavigationScreens.NEWS_SCREEN
+      forums -> NavigationScreen.FORUMS_LIST_SCREEN
+      else -> NavigationScreen.NEWS_SCREEN
     }
   }
 
   fun getAvatarSize(): Int =
       getStringPref(
           R.string.pref_key_avatar_size,
-          context.stringRes(R.string.pref_appearance_avatar_size_value_small)).toInt()
+          context.resources.getString(R.string.pref_appearance_avatar_size_value_small)).toInt()
 
   fun getNormalFontSize(): Float =
       getStringPref(
@@ -68,15 +67,15 @@ class SettingsManager @Inject constructor(
       getBooleanPref(R.string.pref_key_screen_always_on, false)
 
   fun markEulaAccepted() {
-    preferences.edit().putBoolean(context.stringRes(R.string.pref_key_eula_accepted), true).apply()
+    preferences.edit().putBoolean(context.resources.getString(R.string.pref_key_eula_accepted), true).apply()
   }
 
   private fun getStringPref(@StringRes key: Int, default: String): String =
-      preferences.getString(context.stringRes(key), default)
+      preferences.getString(context.resources.getString(key), default)
 
   private fun getStringSetPref(@StringRes key: Int, default: Set<String>): Set<String> =
-      preferences.getStringSet(context.stringRes(key), default)
+      preferences.getStringSet(context.resources.getString(key), default)
 
   private fun getBooleanPref(@StringRes key: Int, default: Boolean): Boolean =
-      preferences.getBoolean(context.stringRes(key), default)
+      preferences.getBoolean(context.resources.getString(key), default)
 }

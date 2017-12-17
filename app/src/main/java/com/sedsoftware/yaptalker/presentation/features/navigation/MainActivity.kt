@@ -21,13 +21,13 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
-import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationDrawerItems
-import com.sedsoftware.yaptalker.presentation.commons.extensions.booleanRes
-import com.sedsoftware.yaptalker.presentation.commons.extensions.color
-import com.sedsoftware.yaptalker.presentation.commons.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.commons.extensions.toastError
-import com.sedsoftware.yaptalker.presentation.commons.extensions.toastInfo
-import com.sedsoftware.yaptalker.presentation.commons.extensions.validateUrl
+import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.extensions.booleanRes
+import com.sedsoftware.yaptalker.presentation.extensions.color
+import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.toastError
+import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
+import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
@@ -160,9 +160,9 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   }
 
   override fun clearDynamicNavigationItems() {
-    navDrawer.removeItem(NavigationDrawerItems.SIGN_IN)
-    navDrawer.removeItem(NavigationDrawerItems.SIGN_OUT)
-    navDrawer.removeItem(NavigationDrawerItems.BOOKMARKS)
+    navDrawer.removeItem(NavigationSection.SIGN_IN)
+    navDrawer.removeItem(NavigationSection.SIGN_OUT)
+    navDrawer.removeItem(NavigationSection.BOOKMARKS)
   }
 
   override fun displaySignedInNavigation() {
@@ -182,7 +182,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   private fun initializeNavigationDrawer(savedInstanceState: Bundle?) {
 
     drawerItemMainPage = PrimaryDrawerItem()
-        .withIdentifier(NavigationDrawerItems.MAIN_PAGE)
+        .withIdentifier(NavigationSection.MAIN_PAGE)
         .withName(R.string.nav_drawer_main_page)
         .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_home)
@@ -192,7 +192,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
         .withSelectedIconColorRes(R.color.colorNavMainPage)
 
     drawerItemForums = PrimaryDrawerItem()
-        .withIdentifier(NavigationDrawerItems.FORUMS)
+        .withIdentifier(NavigationSection.FORUMS)
         .withName(R.string.nav_drawer_forums)
         .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_forum)
@@ -202,7 +202,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
         .withSelectedIconColorRes(R.color.colorNavForums)
 
     drawerItemActiveTopics = PrimaryDrawerItem()
-        .withIdentifier(NavigationDrawerItems.ACTIVE_TOPICS)
+        .withIdentifier(NavigationSection.ACTIVE_TOPICS)
         .withName(R.string.nav_drawer_active_topics)
         .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_bulletin_board)
@@ -212,7 +212,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
         .withSelectedIconColorRes(R.color.colorNavActiveTopics)
 
     drawerItemBookmarks = PrimaryDrawerItem()
-        .withIdentifier(NavigationDrawerItems.BOOKMARKS)
+        .withIdentifier(NavigationSection.BOOKMARKS)
         .withName(R.string.nav_drawer_bookmarks)
         .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_bookmark_outline)
@@ -222,7 +222,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
         .withSelectedIconColorRes(R.color.colorNavBookmarks)
 
     drawerItemSettings = PrimaryDrawerItem()
-        .withIdentifier(NavigationDrawerItems.SETTINGS)
+        .withIdentifier(NavigationSection.SETTINGS)
         .withIcon(CommunityMaterial.Icon.cmd_settings)
         .withName(R.string.nav_drawer_settings)
         .withSelectable(false)
@@ -232,7 +232,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
         .withSelectedIconColorRes(R.color.colorNavSettings)
 
     drawerItemSignIn = PrimaryDrawerItem()
-        .withIdentifier(NavigationDrawerItems.SIGN_IN)
+        .withIdentifier(NavigationSection.SIGN_IN)
         .withName(R.string.nav_drawer_sign_in)
         .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_login)
@@ -242,7 +242,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
         .withSelectedIconColorRes(R.color.colorNavSignIn)
 
     drawerItemSignOut = PrimaryDrawerItem()
-        .withIdentifier(NavigationDrawerItems.SIGN_OUT)
+        .withIdentifier(NavigationSection.SIGN_OUT)
         .withName(R.string.nav_drawer_sign_out)
         .withSelectable(false)
         .withIcon(CommunityMaterial.Icon.cmd_logout)

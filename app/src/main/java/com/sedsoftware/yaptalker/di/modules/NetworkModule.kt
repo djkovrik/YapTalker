@@ -7,7 +7,7 @@ import com.sedsoftware.yaptalker.data.network.thumbnails.VkLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapFileLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapVideoLoader
 import com.sedsoftware.yaptalker.di.modules.network.HttpClientsModule
-import com.sedsoftware.yaptalker.presentation.commons.converters.HashSearchConverterFactory
+import com.sedsoftware.yaptalker.commons.converters.HashSearchConverterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

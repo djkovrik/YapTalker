@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.presentation.base
 
 import com.arellomobile.mvp.MvpPresenter
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.presentation.base.lifecycle.PresenterLifecycle
+import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
 import io.reactivex.Maybe
 
 abstract class BasePresenter<View : BaseView> : MvpPresenter<View>() {

@@ -7,10 +7,10 @@ import com.sedsoftware.yaptalker.domain.interactor.GetLoginSessionInfo
 import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest
 import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest.Params
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
-import com.sedsoftware.yaptalker.presentation.base.lifecycle.PresenterLifecycle
-import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationDrawerItems
-import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationScreens
-import com.sedsoftware.yaptalker.presentation.base.navigation.RequestCodes
+import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
+import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.commons.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.mappers.LoginSessionInfoModelMapper
 import com.sedsoftware.yaptalker.presentation.mappers.ServerResponseModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -39,7 +39,7 @@ class NavigationPresenter @Inject constructor(
   }
 
   init {
-    router.setResultListener(RequestCodes.SIGN_IN, {
+    router.setResultListener(RequestCode.SIGN_IN, {
       refreshAuthorization()
       navigateToDefaultMainPage()
     })
@@ -60,24 +60,24 @@ class NavigationPresenter @Inject constructor(
 
   override fun onDestroy() {
     super.onDestroy()
-    router.removeResultListener(RequestCodes.SIGN_IN)
+    router.removeResultListener(RequestCode.SIGN_IN)
   }
 
-  fun navigateToChosenSection(@NavigationDrawerItems.Section identifier: Long) {
+  fun navigateToChosenSection(@NavigationSection.Section identifier: Long) {
     when (identifier) {
-      NavigationDrawerItems.MAIN_PAGE -> router.newRootScreen(NavigationScreens.NEWS_SCREEN)
-//      NavigationDrawerItems.FORUMS -> router.newRootScreen(NavigationScreens.FORUMS_LIST_SCREEN)
-//      NavigationDrawerItems.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreens.ACTIVE_TOPICS_SCREEN)
-//      NavigationDrawerItems.BOOKMARKS -> router.newRootScreen(NavigationScreens.BOOKMARKS_SCREEN)
-//      NavigationDrawerItems.SETTINGS -> router.navigateTo(NavigationScreens.SETTINGS_SCREEN)
-//      NavigationDrawerItems.SIGN_IN -> router.navigateTo(NavigationScreens.AUTHORIZATION_SCREEN)
-//      NavigationDrawerItems.SIGN_OUT -> sendSignOutRequest()
+      NavigationSection.MAIN_PAGE -> router.newRootScreen(NavigationScreen.NEWS_SCREEN)
+//      NavigationSection.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
+//      NavigationSection.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
+//      NavigationSection.BOOKMARKS -> router.newRootScreen(NavigationScreen.BOOKMARKS_SCREEN)
+//      NavigationSection.SETTINGS -> router.navigateTo(NavigationScreen.SETTINGS_SCREEN)
+//      NavigationSection.SIGN_IN -> router.navigateTo(NavigationScreen.AUTHORIZATION_SCREEN)
+//      NavigationSection.SIGN_OUT -> sendSignOutRequest()
     }
   }
 
   fun navigateWithIntentLink(triple: Triple<Int, Int, Int>) {
     // TODO () Restore navigation to link
-    // router.navigateTo(NavigationScreens.CHOSEN_TOPIC_SCREEN, triple)
+    // router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
   }
 
   private fun navigateToDefaultMainPage() {

@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.commons
+package com.sedsoftware.yaptalker.presentation.utility
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -7,7 +7,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.text.Html
 import android.widget.TextView
-import com.sedsoftware.yaptalker.presentation.commons.extensions.currentDensity
+import com.sedsoftware.yaptalker.presentation.extensions.currentDensity
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target as DrawableTarget
 

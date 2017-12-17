@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.commons.extensions
+package com.sedsoftware.yaptalker.presentation.extensions
 
 import android.support.v4.app.Fragment
 import android.widget.Toast

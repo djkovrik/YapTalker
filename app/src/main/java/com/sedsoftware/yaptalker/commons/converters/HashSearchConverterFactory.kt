@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.commons.converters
+package com.sedsoftware.yaptalker.commons.converters
 
 import okhttp3.ResponseBody
 import retrofit2.Converter

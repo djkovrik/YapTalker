@@ -1,6 +1,6 @@
-package com.sedsoftware.yaptalker.presentation.base.navigation
+package com.sedsoftware.yaptalker.commons.enums.navigation
 
-object NavigationScreens {
+object NavigationScreen {
   const val NEWS_SCREEN = "NEWS_SCREEN"
   const val FORUMS_LIST_SCREEN = "FORUMS_LIST_SCREEN"
   const val CHOSEN_FORUM_SCREEN = "CHOSEN_FORUM_SCREEN"

@@ -6,7 +6,7 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.data.SettingsManager
 import com.sedsoftware.yaptalker.domain.interactor.GetEulaText
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
-import com.sedsoftware.yaptalker.presentation.base.lifecycle.PresenterLifecycle
+import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
