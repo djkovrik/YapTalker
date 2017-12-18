@@ -13,5 +13,5 @@ class ConnectionState {
 
   @Retention(AnnotationRetention.SOURCE)
   @IntDef(IDLE, LOADING, COMPLETED, ERROR)
-  annotation class Event
+  annotation class State
 }

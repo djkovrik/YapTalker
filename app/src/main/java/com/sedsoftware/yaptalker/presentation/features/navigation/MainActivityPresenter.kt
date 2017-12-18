@@ -4,8 +4,8 @@ import android.text.Spanned
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.SettingsManager
-import com.sedsoftware.yaptalker.data.event.AppEvent.AppbarEvent
-import com.sedsoftware.yaptalker.data.event.AppEvent.NavDrawerEvent
+import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.AppbarEvent
+import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.NavDrawerEvent
 import com.sedsoftware.yaptalker.domain.interactor.GetEulaText
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer

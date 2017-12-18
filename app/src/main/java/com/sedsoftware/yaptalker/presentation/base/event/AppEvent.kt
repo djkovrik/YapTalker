@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.event
+package com.sedsoftware.yaptalker.presentation.base.event
 
 sealed class AppEvent {
   class AppbarEvent(val title: String) : AppEvent()
