@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.features.news
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
@@ -130,7 +131,11 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemTh
         .observeOn(AndroidSchedulers.mainThread())
         .autoDisposable(event(FragmentLifecycle.STOP))
         .subscribe({ url ->
-          imageView.loadFromUrl(url)
+          if (url.isNotEmpty()) {
+            imageView.loadFromUrl(url)
+          } else {
+            context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
+          }
         }, { throwable ->
           Timber.e("Can't load image: ${throwable.message}")
         })
