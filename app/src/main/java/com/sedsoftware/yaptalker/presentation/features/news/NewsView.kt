@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.presentation.features.news
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
 import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy
+import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.presentation.base.BaseView
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -15,6 +16,9 @@ interface NewsView : BaseView {
 
   @StateStrategyType(SingleStateStrategy::class)
   fun clearNewsList()
+
+  @StateStrategyType(SkipStrategy::class)
+  fun updateCurrentUiState()
 
   fun showFab()
 
