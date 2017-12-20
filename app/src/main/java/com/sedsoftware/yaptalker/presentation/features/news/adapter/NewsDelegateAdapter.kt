@@ -18,7 +18,8 @@ import kotlinx.android.synthetic.main.fragment_news_item.view.*
 class NewsDelegateAdapter(
     private val newsClick: NewsItemClickListener,
     private val thumbnailsLoader: NewsItemThumbnailsLoader,
-    private val settings: SettingsManager) : YapEntityDelegateAdapter {
+    private val settings: SettingsManager
+) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {
     settings.getNormalFontSize()

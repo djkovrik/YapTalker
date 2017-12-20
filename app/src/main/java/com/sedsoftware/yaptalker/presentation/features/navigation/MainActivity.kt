@@ -129,7 +129,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   }
 
   override fun displayFormattedEulaText(spanned: Spanned) {
-
     val dialog = MaterialDialog.Builder(this)
         .title(R.string.eula_title)
         .customView(R.layout.custom_view_eula, true)

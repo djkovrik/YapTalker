@@ -68,8 +68,7 @@ class NewsPresenter @Inject constructor(
         .map { newsItem: BaseEntity -> newsModelMapper.transform(newsItem) }
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe { viewState.showLoadingIndicator() }
-        .doOnComplete { viewState.hideLoadingIndicator() }
-        .doOnError { viewState.hideLoadingIndicator() }
+        .doFinally { viewState.hideLoadingIndicator() }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
         .subscribe(getNewsObserver())
   }

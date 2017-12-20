@@ -29,6 +29,6 @@ class ThumbnailSourceFactory @Inject constructor(
         link.contains(RUTUBE_SELECTOR) -> RutubeThumbnailSource(rutubeLoader, link)
         link.contains(YAPFILES_SELECTOR) -> YapThumbnailSource(yapFileLoader, yapVideoLoader, link)
         link.contains(VK_SELECTOR) -> VkThumbnailSource(vkLoader, link)
-        else -> UnknownThumbnailSource(link)
+        else -> UnknownThumbnailSource()
       }
 }

@@ -54,7 +54,6 @@ class TextTransformer @Inject constructor(private val context: Context) {
       String.format(Locale.getDefault(), forumTitleTemplate, title)
 
   fun transformCommentsLabel(comments: Int) : String {
-
     val commentsTemplate: String = context.stringQuantityRes(
         R.plurals.news_comments_template, comments)
 

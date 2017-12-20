@@ -9,6 +9,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 
 @Module(includes = [(AndroidSupportInjectionModule::class)])
 interface FragmentContributionModule {
+
   @FragmentScope
   @ContributesAndroidInjector(modules = [(NewsFragmentModule::class)])
   fun newsFragmentInjector(): NewsFragment
