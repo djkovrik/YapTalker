@@ -1,13 +1,14 @@
 package com.sedsoftware.yaptalker.di.modules
 
+import com.sedsoftware.yaptalker.commons.converters.HashSearchConverterFactory
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
+import com.sedsoftware.yaptalker.data.network.site.YapSearchIdLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.CoubLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.RutubeLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.VkLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapFileLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapVideoLoader
 import com.sedsoftware.yaptalker.di.modules.network.HttpClientsModule
-import com.sedsoftware.yaptalker.commons.converters.HashSearchConverterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -30,6 +31,7 @@ class NetworkModule {
     private const val YAP_API_ENDPOINT = "http://api.yapfiles.ru/"
     private const val VK_VIDEO_ENDPOINT = "https://api.vk.com/"
     private const val YAP_FILE_HASH_MARKER = "md5="
+    private const val YAP_SEARCH_ID_HASH_MARKER = "searchid="
   }
 
   @Singleton
@@ -44,6 +46,19 @@ class NetworkModule {
           .addConverterFactory(ScalarsConverterFactory.create())
           .build()
           .create(YapLoader::class.java)
+
+  @Singleton
+  @Provides
+  fun provideYapSearchIdLoader(@Named("siteClient") okHttpClient: OkHttpClient): YapSearchIdLoader =
+      Retrofit
+          .Builder()
+          .baseUrl(SITE_ENDPOINT)
+          .client(okHttpClient)
+          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+          .addConverterFactory(HashSearchConverterFactory.create(YAP_SEARCH_ID_HASH_MARKER))
+          .build()
+          .create(YapSearchIdLoader::class.java)
+
 
   @Singleton
   @Provides
