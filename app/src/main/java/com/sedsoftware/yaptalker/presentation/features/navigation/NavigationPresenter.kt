@@ -67,11 +67,11 @@ class NavigationPresenter @Inject constructor(
     when (identifier) {
       NavigationSection.MAIN_PAGE -> router.newRootScreen(NavigationScreen.NEWS_SCREEN)
       NavigationSection.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
+      NavigationSection.SIGN_IN -> router.navigateTo(NavigationScreen.AUTHORIZATION_SCREEN)
+      NavigationSection.SIGN_OUT -> sendSignOutRequest()
 //      NavigationSection.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
 //      NavigationSection.BOOKMARKS -> router.newRootScreen(NavigationScreen.BOOKMARKS_SCREEN)
 //      NavigationSection.SETTINGS -> router.navigateTo(NavigationScreen.SETTINGS_SCREEN)
-//      NavigationSection.SIGN_IN -> router.navigateTo(NavigationScreen.AUTHORIZATION_SCREEN)
-//      NavigationSection.SIGN_OUT -> sendSignOutRequest()
     }
   }
 
@@ -114,6 +114,7 @@ class NavigationPresenter @Inject constructor(
     sessionInfo as LoginSessionInfoModel
     currentUserKey = sessionInfo.sessionId
     viewState.updateNavDrawerProfile(sessionInfo)
+    viewState.clearDynamicNavigationItems()
 
     if (sessionInfo.nickname.isEmpty()) {
       viewState.displaySignedOutNavigation()
@@ -135,7 +136,7 @@ class NavigationPresenter @Inject constructor(
   private fun getSignOutResponseObserver() =
       object : DisposableObserver<YapEntity>() {
         override fun onComplete() {
-          Timber.i("Signed Out request completed.")
+          Timber.i("Sign Out request completed.")
         }
 
         override fun onNext(response: YapEntity) {
