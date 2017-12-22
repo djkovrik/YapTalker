@@ -7,9 +7,9 @@ import javax.inject.Inject
 
 class GetActiveTopicsList @Inject constructor(
     private val activeTopicsRepository: ActiveTopicsRepository
-) : UseCase<BaseEntity, GetActiveTopicsList.Params> {
+) : UseCase<List<BaseEntity>, GetActiveTopicsList.Params> {
 
-  override fun buildUseCaseObservable(params: Params): Observable<BaseEntity> =
+  override fun buildUseCaseObservable(params: Params): Observable<List<BaseEntity>> =
       activeTopicsRepository
           .getActiveTopics(params.hash, params.page)
 

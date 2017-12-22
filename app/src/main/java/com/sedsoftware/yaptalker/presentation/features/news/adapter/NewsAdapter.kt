@@ -11,9 +11,10 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
-class NewsAdapter(itemClick: NewsItemClickListener,
-                  thumbnailsLoader: NewsItemThumbnailsLoader,
-                  settings: SettingsManager
+class NewsAdapter(
+    itemClick: NewsItemClickListener,
+    thumbnailsLoader: NewsItemThumbnailsLoader,
+    settings: SettingsManager
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<YapEntity>

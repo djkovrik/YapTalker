@@ -12,6 +12,7 @@ import com.sedsoftware.yaptalker.domain.entity.base.PostContent.PostWarning
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePost
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePostParsed
 import com.sedsoftware.yaptalker.domain.entity.base.TopicInfoBlock
+import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel
@@ -24,12 +25,14 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWa
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicInfoBlockModel
+import javax.inject.Inject
 
 /**
  * Mapper class used to transform single topic entities list from the domain layer into YapEntity list
  * in the presentation layer.
  */
-class TopicModelMapper {
+class TopicModelMapper @Inject constructor(
+    private val textTransformer: TextTransformer) {
 
   fun transform(items: List<BaseEntity>): List<YapEntity> {
 
@@ -51,7 +54,8 @@ class TopicModelMapper {
 
         is NavigationPanel -> result.add(NavigationPanelModel(
             currentPage = item.currentPage,
-            totalPages = item.totalPages
+            totalPages = item.totalPages,
+            navigationLabel = textTransformer.createNavigationLabel(item.currentPage, item.totalPages)
         ))
 
         is SinglePost -> result.add(SinglePostModel(

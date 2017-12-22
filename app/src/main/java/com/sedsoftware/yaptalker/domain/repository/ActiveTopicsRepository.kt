@@ -8,5 +8,5 @@ import io.reactivex.Observable
  */
 interface ActiveTopicsRepository {
 
-  fun getActiveTopics(hash: String, page: Int): Observable<BaseEntity>
+  fun getActiveTopics(hash: String, page: Int): Observable<List<BaseEntity>>
 }

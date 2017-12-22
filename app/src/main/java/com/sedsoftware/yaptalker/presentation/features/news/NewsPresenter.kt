@@ -85,17 +85,13 @@ class NewsPresenter @Inject constructor(
             backToFirstPage = false
           }
 
-          displayLoadedNewsItem(item)
+          viewState.appendNewsItem(item)
         }
 
         override fun onError(e: Throwable) {
           e.message?.let { viewState.showErrorMessage(it) }
         }
       }
-
-  private fun displayLoadedNewsItem(item: YapEntity) {
-    viewState.appendNewsItem(item)
-  }
 
   fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
     router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)

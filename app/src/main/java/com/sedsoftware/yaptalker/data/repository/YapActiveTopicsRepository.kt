@@ -17,7 +17,7 @@ class YapActiveTopicsRepository @Inject constructor(
     private const val ACTIVE_TOPICS_CODE = "getactive"
   }
 
-  override fun getActiveTopics(hash: String, page: Int): Observable<BaseEntity> =
+  override fun getActiveTopics(hash: String, page: Int): Observable<List<BaseEntity>> =
       dataLoader
           .loadActiveTopics(
               act = ACTIVE_TOPICS_ACT,
@@ -26,5 +26,4 @@ class YapActiveTopicsRepository @Inject constructor(
               startTopicNumber = page
           )
           .map { item -> dataMapper.transform(item) }
-          .flatMap { list -> Observable.fromIterable(list) }
 }

@@ -48,10 +48,10 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemTh
 
   @Inject
   @InjectPresenter
-  lateinit var newsPresenter: NewsPresenter
+  lateinit var presenter: NewsPresenter
 
   @ProvidePresenter
-  fun provideNewsPresenter() = newsPresenter
+  fun provideNewsPresenter() = presenter
 
   private lateinit var newsAdapter: NewsAdapter
   private var isFabShown = true
@@ -66,12 +66,11 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemTh
       val linearLayout = LinearLayoutManager(context)
       layoutManager = linearLayout
       adapter = newsAdapter
-
       setHasFixedSize(true)
       clearOnScrollListeners()
 
       addOnScrollListener(InfiniteScrollListener({
-        newsPresenter.loadNews(loadFromFirstPage = false)
+        presenter.loadNews(loadFromFirstPage = false)
       }, linearLayout))
     }
 
@@ -93,8 +92,8 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemTh
   }
 
   override fun updateCurrentUiState() {
-    context?.stringRes(R.string.nav_drawer_main_page)?.let { newsPresenter.setAppbarTitle(it) }
-    newsPresenter.setNavDrawerItem(NavigationSection.MAIN_PAGE)
+    context?.stringRes(R.string.nav_drawer_main_page)?.let { presenter.setAppbarTitle(it) }
+    presenter.setNavDrawerItem(NavigationSection.MAIN_PAGE)
   }
 
   override fun showLoadingIndicator() {
@@ -125,7 +124,7 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemTh
   }
 
   override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
-    newsPresenter
+    presenter
         .requestThumbnail(videoUrl)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -146,16 +145,16 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemTh
     RxSwipeRefreshLayout
         .refreshes(refresh_layout)
         .autoDisposable(event(FragmentLifecycle.STOP))
-        .subscribe { newsPresenter.loadNews(loadFromFirstPage = true) }
+        .subscribe { presenter.loadNews(loadFromFirstPage = true) }
 
     RxRecyclerView
         .scrollEvents(news_list)
         .autoDisposable(event(FragmentLifecycle.STOP))
-        .subscribe { event -> newsPresenter.handleFabVisibility(event.dy()) }
+        .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
 
     RxView
         .clicks(news_fab)
         .autoDisposable(event(FragmentLifecycle.STOP))
-        .subscribe { newsPresenter.loadNews(loadFromFirstPage = true) }
+        .subscribe { presenter.loadNews(loadFromFirstPage = true) }
   }
 }

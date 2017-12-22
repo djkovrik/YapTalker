@@ -8,7 +8,8 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
  */
 class NavigationPanelModel(
     val currentPage: Int,
-    val totalPages: Int
+    val totalPages: Int,
+    val navigationLabel: String
 ) : YapEntity {
 
   override fun getBaseEntityType(): Int = YapEntityTypes.NAVIGATION_PANEL_ITEM

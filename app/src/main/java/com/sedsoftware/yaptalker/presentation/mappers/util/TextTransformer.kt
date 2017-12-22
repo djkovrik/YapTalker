@@ -21,6 +21,22 @@ class TextTransformer @Inject constructor(private val context: Context) {
     context.stringRes(R.string.news_forum_title_template)
   }
 
+  private val pinnedTopicTemplate: String by lazy {
+    context.getString(R.string.forum_pinned_topic_template)
+  }
+
+  private val closedTopicTemplate: String by lazy {
+    context.getString(R.string.forum_closed_topic_template)
+  }
+
+  private val pinnedAndClosedTopicTemplate: String by lazy {
+    context.getString(R.string.forum_pinned_and_closed_topic_template)
+  }
+
+  private val commentsTemplate: String by lazy {
+    context.getString(R.string.forum_comments_template)
+  }
+
   @Suppress("DEPRECATION")
   fun transformHtmlToSpanned(html: String): Spanned =
       if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -50,13 +66,26 @@ class TextTransformer @Inject constructor(private val context: Context) {
     }
   }
 
-  fun transformNewsForumTitle(title: String) : String =
+  fun transformNewsForumTitle(title: String): String =
       String.format(Locale.getDefault(), forumTitleTemplate, title)
 
-  fun transformCommentsLabel(comments: Int) : String {
-    val commentsTemplate: String = context.stringQuantityRes(
-        R.plurals.news_comments_template, comments)
-
+  fun transformCommentsLabel(comments: Int): String {
+    val commentsTemplate: String = context.stringQuantityRes(R.plurals.news_comments_template, comments)
     return String.format(Locale.getDefault(), commentsTemplate, comments)
+  }
+
+  fun createNavigationLabel(currentPage: Int, totalPages: Int): String {
+    val pagesLabelTemplate = context.getString(R.string.navigation_pages_template)
+    return String.format(Locale.getDefault(), pagesLabelTemplate, currentPage, totalPages)
+  }
+
+  fun createCommentsLabel(comments: Int): String =
+      String.format(Locale.getDefault(), commentsTemplate, comments)
+
+  fun createForumTopicTitle(isPinned: Boolean, isClosed: Boolean, title: String): String = when {
+    isPinned && isClosed -> String.format(Locale.getDefault(), pinnedAndClosedTopicTemplate, title)
+    isPinned && !isClosed -> String.format(Locale.getDefault(), pinnedTopicTemplate, title)
+    !isPinned && isClosed -> String.format(Locale.getDefault(), closedTopicTemplate, title)
+    else -> title
   }
 }

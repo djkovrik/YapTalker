@@ -4,16 +4,19 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.ForumInfoBlock
 import com.sedsoftware.yaptalker.domain.entity.base.NavigationPanel
 import com.sedsoftware.yaptalker.domain.entity.base.Topic
+import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.ForumInfoBlockModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicModel
+import javax.inject.Inject
 
 /**
  * Mapper class used to transform forum page entities list from the domain layer into YapEntity list
  * in the presentation layer.
  */
-class ForumModelMapper {
+class ForumModelMapper @Inject constructor(
+    private val textTransformer: TextTransformer) {
 
   fun transform(items: List<BaseEntity>): List<YapEntity> {
 
@@ -27,7 +30,8 @@ class ForumModelMapper {
         ))
         is NavigationPanel -> result.add(NavigationPanelModel(
             currentPage = item.currentPage,
-            totalPages = item.totalPages
+            totalPages = item.totalPages,
+            navigationLabel = textTransformer.createNavigationLabel(item.currentPage, item.totalPages)
         ))
         is Topic -> result.add(TopicModel(
             title = item.title,

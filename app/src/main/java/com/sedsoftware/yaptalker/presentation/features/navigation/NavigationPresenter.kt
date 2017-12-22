@@ -1,16 +1,16 @@
 package com.sedsoftware.yaptalker.presentation.features.navigation
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
+import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.commons.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.data.SettingsManager
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetLoginSessionInfo
 import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest
 import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest.Params
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
-import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
-import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationScreen
-import com.sedsoftware.yaptalker.commons.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.mappers.LoginSessionInfoModelMapper
 import com.sedsoftware.yaptalker.presentation.mappers.ServerResponseModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -66,8 +66,8 @@ class NavigationPresenter @Inject constructor(
   fun navigateToChosenSection(@NavigationSection.Section identifier: Long) {
     when (identifier) {
       NavigationSection.MAIN_PAGE -> router.newRootScreen(NavigationScreen.NEWS_SCREEN)
+      NavigationSection.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
 //      NavigationSection.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
-//      NavigationSection.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
 //      NavigationSection.BOOKMARKS -> router.newRootScreen(NavigationScreen.BOOKMARKS_SCREEN)
 //      NavigationSection.SETTINGS -> router.navigateTo(NavigationScreen.SETTINGS_SCREEN)
 //      NavigationSection.SIGN_IN -> router.navigateTo(NavigationScreen.AUTHORIZATION_SCREEN)
