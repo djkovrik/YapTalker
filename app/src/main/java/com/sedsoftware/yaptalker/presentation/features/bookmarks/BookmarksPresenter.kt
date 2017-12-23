@@ -67,6 +67,7 @@ class BookmarksPresenter @Inject constructor(
 
   private fun getBookmarksObserver() =
       object : DisposableObserver<YapEntity?>() {
+
         override fun onNext(item: YapEntity) {
           viewState.appendBookmarkItem(item)
         }
@@ -93,6 +94,7 @@ class BookmarksPresenter @Inject constructor(
 
   private fun getBookmarksResponseObserver() =
       object : DisposableObserver<YapEntity?>() {
+
         override fun onNext(response: YapEntity) {
         }
 

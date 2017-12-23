@@ -56,6 +56,7 @@ class AuthorizationPresenter @Inject constructor(
 
   private fun getSignInResponseObserver() =
       object : DisposableObserver<YapEntity>() {
+
         override fun onNext(response: YapEntity) {
           checkIfSignedInSuccessfully(response)
         }
@@ -70,6 +71,7 @@ class AuthorizationPresenter @Inject constructor(
       }
 
   private fun checkIfSignedInSuccessfully(serverResponse: YapEntity) {
+
     serverResponse as ServerResponseModel
 
     if (serverResponse.text.contains(ERROR_MESSAGE)) {

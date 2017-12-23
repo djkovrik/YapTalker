@@ -96,12 +96,13 @@ class NavigationPresenter @Inject constructor(
 
   private fun getLoginSessionInfoObserver() =
       object : DisposableObserver<YapEntity>() {
-        override fun onComplete() {
-          Timber.i("Login session info updated.")
-        }
 
         override fun onNext(info: YapEntity) {
           displayLoginSessionInfo(info)
+        }
+
+        override fun onComplete() {
+          Timber.i("Login session info updated.")
         }
 
         override fun onError(e: Throwable) {
@@ -112,6 +113,7 @@ class NavigationPresenter @Inject constructor(
   private fun displayLoginSessionInfo(sessionInfo: YapEntity) {
 
     sessionInfo as LoginSessionInfoModel
+
     currentUserKey = sessionInfo.sessionId
     viewState.updateNavDrawerProfile(sessionInfo)
     viewState.clearDynamicNavigationItems()
@@ -135,6 +137,7 @@ class NavigationPresenter @Inject constructor(
 
   private fun getSignOutResponseObserver() =
       object : DisposableObserver<YapEntity>() {
+
         override fun onNext(response: YapEntity) {
           checkIfSignedOutSuccessfully(response)
         }

@@ -9,12 +9,14 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 class TopicModel(
     val title: String,
     val link: String,
+    val id: Int,
     val isPinned: Boolean,
     val isClosed: Boolean,
     val author: String,
     val authorLink: String,
     val rating: Int,
-    val answers: Int,
+    val ratingText: String,
+    val answers: String,
     val lastPostDate: String,
     val lastPostAuthor: String
 ) : YapEntity {

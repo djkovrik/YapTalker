@@ -54,6 +54,7 @@ class ForumsPresenter @Inject constructor(
 
   private fun getForumsListObserver() =
       object : DisposableObserver<YapEntity>() {
+
         override fun onNext(item: YapEntity) {
           viewState.appendForumItem(item)
         }

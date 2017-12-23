@@ -58,6 +58,7 @@ class MainActivityPresenter @Inject constructor(
 
   private fun getParsedTextObserver() =
       object : DisposableObserver<Spanned>() {
+
         override fun onNext(text: Spanned) {
           viewState.displayFormattedEulaText(text)
         }

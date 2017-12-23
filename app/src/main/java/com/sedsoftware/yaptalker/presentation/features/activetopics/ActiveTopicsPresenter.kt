@@ -86,8 +86,8 @@ class ActiveTopicsPresenter @Inject constructor(
           getActiveTopicsListUseCase.buildUseCaseObservable(Params(hash = searchIdKey, page = 0))
         }
         .subscribeOn(Schedulers.io())
-        .map { item -> activeTopicsModelMapper.transform(item) }
-        .flatMap { list -> Observable.fromIterable(list) }
+        .map { topics: List<BaseEntity> -> activeTopicsModelMapper.transform(topics) }
+        .flatMap { topics: List<YapEntity> -> Observable.fromIterable(topics) }
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe { viewState.showLoadingIndicator() }
         .doFinally { viewState.hideLoadingIndicator() }
@@ -114,6 +114,7 @@ class ActiveTopicsPresenter @Inject constructor(
 
   private fun getActiveTopicsObserver() =
       object : DisposableObserver<YapEntity?>() {
+
         override fun onNext(item: YapEntity) {
           if (item is NavigationPanelModel) {
             currentPage = item.currentPage

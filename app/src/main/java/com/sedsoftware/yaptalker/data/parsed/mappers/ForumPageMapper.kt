@@ -5,11 +5,12 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.ForumInfoBlock
 import com.sedsoftware.yaptalker.domain.entity.base.NavigationPanel
 import com.sedsoftware.yaptalker.domain.entity.base.Topic
+import javax.inject.Inject
 
 /**
  * Mapper class used to transform parsed forum page from the data layer into BaseEntity list in the domain layer.
  */
-class ForumPageMapper {
+class ForumPageMapper @Inject constructor() {
 
   companion object {
     private const val TOPICS_PER_PAGE = 30
@@ -20,14 +21,10 @@ class ForumPageMapper {
     val result: MutableList<BaseEntity> = ArrayList(TOPICS_PER_PAGE)
 
     with(forumPage) {
+
       result.add(ForumInfoBlock(
           forumTitle = forumTitle,
           forumId = forumId.toInt()
-      ))
-
-      result.add(NavigationPanel(
-          currentPage = navigation.currentPage.toInt(),
-          totalPages = navigation.totalPages.toInt()
       ))
 
       topics.forEach { topic ->
@@ -44,6 +41,11 @@ class ForumPageMapper {
             lastPostAuthor = topic.lastPostAuthor
         ))
       }
+
+      result.add(NavigationPanel(
+          currentPage = navigation.currentPage.toInt(),
+          totalPages = navigation.totalPages.toInt()
+      ))
     }
 
     return result

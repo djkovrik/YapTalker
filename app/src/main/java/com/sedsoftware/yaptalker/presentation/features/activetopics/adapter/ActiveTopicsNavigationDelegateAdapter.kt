@@ -22,8 +22,8 @@ class ActiveTopicsNavigationDelegateAdapter(val navigationClick: ActiveTopicsNav
 
   inner class NavigationViewHolder(parent: ViewGroup) :
       RecyclerView.ViewHolder(parent.inflate(R.layout.item_navigation_panel)) {
-    fun bindTo(navigation: NavigationPanelModel) {
 
+    fun bindTo(navigation: NavigationPanelModel) {
       with(itemView) {
         navigation_pages_label.text = navigation.navigationLabel
         navigation_go_first.isEnabled = (navigation.currentPage != 1)
