@@ -58,6 +58,7 @@ class ChosenTopicFragment :
     private const val FORUM_ID_KEY = "FORUM_ID_KEY"
     private const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
     private const val STARTING_POST_KEY = "STARTING_POST_KEY"
+    private const val GIF_EXT = ".gif"
   }
 
   override val layoutId: Int
@@ -309,6 +310,9 @@ class ChosenTopicFragment :
       }
       isVideo && !url.contains("youtube") -> {
         presenter.navigateToChosenVideo(html)
+      }
+      url.endsWith(GIF_EXT) -> {
+        presenter.navigateToChosenGif(url)
       }
       else -> {
         presenter.navigateToChosenImage(url)

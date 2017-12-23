@@ -156,6 +156,10 @@ class ChosenTopicPresenter @Inject constructor(
     router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
   }
 
+  fun navigateToChosenGif(url: String) {
+    router.navigateTo(NavigationScreen.GIF_DISPLAY_SCREEN, url)
+  }
+
   fun navigateToMessagePostingScreen() {
     router.navigateTo(NavigationScreen.ADD_MESSAGE_SCREEN, currentTitle)
   }

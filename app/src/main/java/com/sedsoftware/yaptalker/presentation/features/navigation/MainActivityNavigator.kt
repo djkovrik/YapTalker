@@ -12,6 +12,7 @@ import com.sedsoftware.yaptalker.presentation.features.authorization.Authorizati
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.BookmarksFragment
 import com.sedsoftware.yaptalker.presentation.features.forum.ChosenForumFragment
 import com.sedsoftware.yaptalker.presentation.features.forumslist.ForumsFragment
+import com.sedsoftware.yaptalker.presentation.features.gifdisplay.GifDisplayActivity
 import com.sedsoftware.yaptalker.presentation.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.features.posting.AddMessageFragment
@@ -30,6 +31,7 @@ class MainActivityNavigator @Inject constructor(val activity: MainActivity) :
     NavigationScreen.SETTINGS_SCREEN -> SettingsActivity.getIntent(activity)
     NavigationScreen.IMAGE_DISPLAY_SCREEN -> ImageDisplayActivity.getIntent(activity, data as String)
     NavigationScreen.VIDEO_DISPLAY_SCREEN -> VideoDisplayActivity.getIntent(activity, data as String)
+    NavigationScreen.GIF_DISPLAY_SCREEN -> GifDisplayActivity.getIntent(activity, data as String)
     else -> null
   }
 
