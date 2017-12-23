@@ -138,9 +138,8 @@ class NewsFragment :
   }
 
   override fun onPreviewClicked(url: String, html: String, isVideo: Boolean) {
-
     if (isVideo) {
-      // Navigate to video
+      presenter.navigateToChosenVideo(html)
     } else {
       presenter.navigateToChosenImage(url)
     }

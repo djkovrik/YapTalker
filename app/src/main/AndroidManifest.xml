@@ -91,15 +91,15 @@
         android:value=".presentation.features.navigation.MainActivity" />
     </activity>
 
-    <!--<activity-->
-    <!--android:name=".features.videodisplay.VideoDisplayActivity"-->
-    <!--android:label="@string/app_name"-->
-    <!--android:parentActivityName=".features.navigation.MainActivity"-->
-    <!--android:theme="@style/AppTheme.DarkBackground">-->
-    <!--<meta-data-->
-    <!--android:name="android.support.PARENT_ACTIVITY"-->
-    <!--android:value=".features.navigation.MainActivity" />-->
-    <!--</activity>-->
+    <activity
+      android:name=".presentation.features.videodisplay.VideoDisplayActivity"
+      android:label="@string/app_name"
+      android:parentActivityName=".presentation.features.navigation.MainActivity"
+      android:theme="@style/AppTheme.DarkBackground">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".presentation.features.navigation.MainActivity" />
+    </activity>
 
     <!--<activity-->
     <!--android:name=".features.gifdisplay.GifDisplayActivity"-->

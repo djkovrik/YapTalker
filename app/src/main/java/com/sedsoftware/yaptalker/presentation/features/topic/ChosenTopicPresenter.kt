@@ -148,6 +148,10 @@ class ChosenTopicPresenter @Inject constructor(
     router.navigateTo(NavigationScreen.USER_PROFILE_SCREEN, userId)
   }
 
+  fun navigateToChosenVideo(html: String) {
+    router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
+  }
+
   fun navigateToChosenImage(url: String) {
     router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
   }

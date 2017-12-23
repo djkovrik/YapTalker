@@ -191,8 +191,7 @@ class ChosenTopicDelegateAdapter(
           thumbnail.setPadding(0, imagePadding, 0, imagePadding)
           itemView.post_content_video_container.addView(thumbnail)
           thumbnailLoader.loadThumbnail(url, thumbnail)
-
-          // TODO () Browse video on click
+          thumbnail.setOnClickListener { mediaClick.onPreviewClicked(url, rawHtml, true) }
         }
       } else {
         itemView.post_content_video_container.hideView()

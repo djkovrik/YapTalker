@@ -97,7 +97,9 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicItemClic
 
     setHasOptionsMenu(true)
 
-    topicAdapter = ChosenTopicAdapter(this, this, this, this, settings)
+    topicAdapter =
+        ChosenTopicAdapter(this, this, this, this, this, settings)
+
     topicAdapter.setHasStableIds(true)
 
     with(topic_posts_list) {
@@ -305,7 +307,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicItemClic
 
   override fun onPreviewClicked(url: String, html: String, isVideo: Boolean) {
     if (isVideo) {
-      // Navigate to video
+      presenter.navigateToChosenVideo(html)
     } else {
       presenter.navigateToChosenImage(url)
     }

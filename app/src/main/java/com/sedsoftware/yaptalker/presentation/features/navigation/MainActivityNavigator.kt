@@ -18,6 +18,7 @@ import com.sedsoftware.yaptalker.presentation.features.posting.AddMessageFragmen
 import com.sedsoftware.yaptalker.presentation.features.settings.SettingsActivity
 import com.sedsoftware.yaptalker.presentation.features.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.presentation.features.userprofile.UserProfileFragment
+import com.sedsoftware.yaptalker.presentation.features.videodisplay.VideoDisplayActivity
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
@@ -28,6 +29,7 @@ class MainActivityNavigator @Inject constructor(val activity: MainActivity) :
   override fun createActivityIntent(screenKey: String?, data: Any?): Intent? = when (screenKey) {
     NavigationScreen.SETTINGS_SCREEN -> SettingsActivity.getIntent(activity)
     NavigationScreen.IMAGE_DISPLAY_SCREEN -> ImageDisplayActivity.getIntent(activity, data as String)
+    NavigationScreen.VIDEO_DISPLAY_SCREEN -> VideoDisplayActivity.getIntent(activity, data as String)
     else -> null
   }
 
