@@ -13,16 +13,17 @@ import com.sedsoftware.yaptalker.presentation.features.bookmarks.BookmarksFragme
 import com.sedsoftware.yaptalker.presentation.features.forum.ChosenForumFragment
 import com.sedsoftware.yaptalker.presentation.features.forumslist.ForumsFragment
 import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
+import com.sedsoftware.yaptalker.presentation.features.settings.SettingsActivity
 import com.sedsoftware.yaptalker.presentation.features.topic.ChosenTopicFragment
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
 
-class MainActivityNavigator @Inject constructor(activity: MainActivity) :
+class MainActivityNavigator @Inject constructor(val activity: MainActivity) :
     SupportAppNavigator(activity, activity.supportFragmentManager, R.id.content_frame) {
 
   override fun createActivityIntent(screenKey: String?, data: Any?): Intent? = when (screenKey) {
-//    NavigationScreen.SETTINGS_SCREEN -> SettingsActivity.getIntent(this@MainActivity)
+    NavigationScreen.SETTINGS_SCREEN -> SettingsActivity.getIntent(activity)
     else -> null
   }
 

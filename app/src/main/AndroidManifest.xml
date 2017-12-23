@@ -71,6 +71,26 @@
       </intent-filter>
     </activity>
 
+    <activity
+      android:name=".presentation.features.settings.SettingsActivity"
+      android:label="@string/nav_drawer_settings"
+      android:parentActivityName=".presentation.features.navigation.MainActivity"
+      android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="presentation.features.navigation.MainActivity" />
+    </activity>
+
+    <provider
+      android:name="android.support.v4.content.FileProvider"
+      android:authorities="com.sedsoftware.yaptalker"
+      android:exported="false"
+      android:grantUriPermissions="true">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/fileprovider" />
+    </provider>
+
   </application>
 
 </manifest>
