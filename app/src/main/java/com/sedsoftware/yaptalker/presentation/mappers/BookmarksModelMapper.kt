@@ -4,27 +4,22 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.BookmarkedTopic
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
+import javax.inject.Inject
 
 /**
  * Mapper class used to transform bookmarks entities list from the domain layer into YapEntity list
  * in the presentation layer.
  */
-class BookmarksModelMapper {
+class BookmarksModelMapper @Inject constructor() {
 
-  fun transform(items: List<BaseEntity>): List<YapEntity> {
+  fun transform(item: BaseEntity): YapEntity {
 
-    val result: MutableList<YapEntity> = ArrayList(items.size)
+    item as BookmarkedTopic
 
-    items.forEach { item ->
-      if (item is BookmarkedTopic) {
-        result.add(BookmarkedTopicModel(
-            bookmarkId = item.bookmarkId,
-            title = item.title,
-            link = item.link
-        ))
-      }
-    }
-
-    return result
+    return BookmarkedTopicModel(
+        bookmarkId = item.bookmarkId,
+        title = item.title,
+        link = item.link
+    )
   }
 }

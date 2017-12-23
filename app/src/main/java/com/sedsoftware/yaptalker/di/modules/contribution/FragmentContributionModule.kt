@@ -5,6 +5,8 @@ import com.sedsoftware.yaptalker.presentation.features.activetopics.ActiveTopics
 import com.sedsoftware.yaptalker.presentation.features.activetopics.di.ActiveTopicsFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.authorization.AuthorizationFragment
 import com.sedsoftware.yaptalker.presentation.features.authorization.di.AuthorizationFragmentModule
+import com.sedsoftware.yaptalker.presentation.features.bookmarks.BookmarksFragment
+import com.sedsoftware.yaptalker.presentation.features.bookmarks.di.BookmarksFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.features.news.di.NewsFragmentModule
 import dagger.Module
@@ -25,4 +27,8 @@ interface FragmentContributionModule {
   @FragmentScope
   @ContributesAndroidInjector(modules = [(AuthorizationFragmentModule::class)])
   fun authorizationFragmentInjector(): AuthorizationFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [(BookmarksFragmentModule::class)])
+  fun bookmarksFragmentInjector(): BookmarksFragment
 }
