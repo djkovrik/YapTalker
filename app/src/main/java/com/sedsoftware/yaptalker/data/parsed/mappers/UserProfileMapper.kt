@@ -3,11 +3,12 @@ package com.sedsoftware.yaptalker.data.parsed.mappers
 import com.sedsoftware.yaptalker.data.parsed.UserProfileParsed
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.UserProfile
+import javax.inject.Inject
 
 /**
  * Mapper class used to transform parsed user profile from the data layer into BaseEntity in the domain layer.
  */
-class UserProfileMapper {
+class UserProfileMapper @Inject constructor() {
 
   fun transform(profile: UserProfileParsed): BaseEntity =
       UserProfile(
