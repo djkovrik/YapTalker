@@ -33,6 +33,7 @@ import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 class ChosenTopicDelegateAdapter(
     val itemClick: ChosenTopicItemClickListener,
     val profileClick: UserProfileClickListener,
+    val mediaClick: TopicItemMediaClickListener,
     val thumbnailLoader: ChosenTopicThumbnailLoader,
     val settings: SettingsManager) : YapEntityDelegateAdapter {
 
@@ -171,7 +172,7 @@ class ChosenTopicDelegateAdapter(
           image.setPadding(0, imagePadding, 0, imagePadding)
           itemView.post_content_image_container.addView(image)
           image.loadFromUrl(url)
-          // TODO () Start image view activity on click
+          image.setOnClickListener { mediaClick.onPreviewClicked(url, "", false) }
         }
       }
     }

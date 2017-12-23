@@ -102,4 +102,8 @@ class NewsPresenter @Inject constructor(
   fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
     router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
   }
+
+  fun navigateToChosenImage(url: String) {
+    router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
+  }
 }

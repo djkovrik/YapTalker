@@ -29,6 +29,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicAdapter
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicItemClickListener
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicThumbnailLoader
+import com.sedsoftware.yaptalker.presentation.features.topic.adapter.TopicItemMediaClickListener
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.TopicNavigationClickListener
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.UserProfileClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -42,7 +43,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicItemClickListener, ChosenTopicThumbnailLoader,
-    TopicNavigationClickListener, UserProfileClickListener {
+    TopicNavigationClickListener, UserProfileClickListener, TopicItemMediaClickListener {
 
   companion object {
     fun getNewInstance(triple: Triple<Int, Int, Int>): ChosenTopicFragment {
@@ -133,7 +134,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicItemClic
           true
         }
         R.id.action_new_message -> {
-          presenter.showNewMessagePostingScreen()
+          presenter.navigateToMessagePostingScreen()
           true
         }
         R.id.action_topic_karma_plus -> {
@@ -300,6 +301,14 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicItemClic
         }, { throwable ->
           Timber.e("Can't load image: ${throwable.message}")
         })
+  }
+
+  override fun onPreviewClicked(url: String, html: String, isVideo: Boolean) {
+    if (isVideo) {
+      // Navigate to video
+    } else {
+      presenter.navigateToChosenImage(url)
+    }
   }
 
   private fun subscribeViews() {

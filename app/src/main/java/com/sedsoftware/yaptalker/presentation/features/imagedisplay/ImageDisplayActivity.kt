@@ -1,6 +1,8 @@
 package com.sedsoftware.yaptalker.presentation.features.imagedisplay
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -8,6 +10,7 @@ import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
@@ -17,21 +20,33 @@ import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
 import kotlinx.android.synthetic.main.activity_image_display.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import java.util.Locale
+import javax.inject.Inject
 
 class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
 
   companion object {
+    fun getIntent(ctx: Context, url: String): Intent {
+      val intent = Intent(ctx, ImageDisplayActivity::class.java)
+      intent.putExtra(IMAGE_URL_KEY, url)
+      return intent
+    }
+
+    private const val IMAGE_URL_KEY = "IMAGE_URL_KEY"
     private const val STORAGE_WRITE_PERMISSION = 0
   }
 
+  @Inject
   @InjectPresenter
-  lateinit var displayPresenter: ImageDisplayPresenter
+  lateinit var presenter: ImageDisplayPresenter
+
+  @ProvidePresenter
+  fun provideImagePresenter() = presenter
 
   override val layoutId: Int
     get() = R.layout.activity_image_display
 
   private val imageUrl: String by lazy {
-    intent.getStringExtra("url")
+    intent.getStringExtra(IMAGE_URL_KEY)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +68,7 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
   override fun onOptionsItemSelected(item: MenuItem): Boolean =
       when (item.itemId) {
         R.id.action_share -> {
-          displayPresenter.shareImage(this, imageUrl)
+          presenter.shareImage(this, imageUrl)
           true
         }
         R.id.action_save -> {
@@ -84,7 +99,7 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
 
     when (requestCode) {
       STORAGE_WRITE_PERMISSION -> {
-        displayPresenter.saveImage(imageUrl)
+        presenter.saveImage(imageUrl)
       }
     }
   }
@@ -98,7 +113,7 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
           arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
           STORAGE_WRITE_PERMISSION)
     } else {
-      displayPresenter.saveImage(imageUrl)
+      presenter.saveImage(imageUrl)
     }
   }
 }

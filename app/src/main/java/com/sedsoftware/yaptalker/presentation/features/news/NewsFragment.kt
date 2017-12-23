@@ -22,6 +22,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemClickListener
+import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemMediaClickListener
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.utility.InfiniteScrollListener
@@ -32,7 +33,8 @@ import kotlinx.android.synthetic.main.fragment_news.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemThumbnailsLoader {
+class NewsFragment :
+    BaseFragment(), NewsView, NewsItemClickListener, NewsItemThumbnailsLoader, NewsItemMediaClickListener {
 
   companion object {
     fun getNewInstance() = NewsFragment()
@@ -56,7 +58,7 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemTh
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    newsAdapter = NewsAdapter(this, this, settings)
+    newsAdapter = NewsAdapter(this, this, this, settings)
     newsAdapter.setHasStableIds(true)
 
     with(news_list) {
@@ -133,6 +135,15 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemTh
         }, { throwable ->
           Timber.e("Can't load image: ${throwable.message}")
         })
+  }
+
+  override fun onPreviewClicked(url: String, html: String, isVideo: Boolean) {
+
+    if (isVideo) {
+      // Navigate to video
+    } else {
+      presenter.navigateToChosenImage(url)
+    }
   }
 
   private fun subscribeViews() {

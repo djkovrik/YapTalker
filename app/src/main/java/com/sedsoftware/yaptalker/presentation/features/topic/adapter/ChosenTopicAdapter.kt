@@ -13,6 +13,7 @@ class ChosenTopicAdapter(
     profileClick: UserProfileClickListener,
     navigationClick: TopicNavigationClickListener,
     itemClick: ChosenTopicItemClickListener,
+    mediaClick: TopicItemMediaClickListener,
     thumbnailLoader: ChosenTopicThumbnailLoader,
     settings: SettingsManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -22,7 +23,7 @@ class ChosenTopicAdapter(
   init {
     delegateAdapters.put(
         YapEntityTypes.SINGLE_POST_ITEM,
-        ChosenTopicDelegateAdapter(itemClick, profileClick, thumbnailLoader, settings))
+        ChosenTopicDelegateAdapter(itemClick, profileClick, mediaClick, thumbnailLoader, settings))
 
     delegateAdapters.put(
         YapEntityTypes.NAVIGATION_PANEL_ITEM,

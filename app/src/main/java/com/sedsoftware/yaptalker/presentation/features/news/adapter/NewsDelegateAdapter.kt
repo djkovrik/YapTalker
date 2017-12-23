@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_news_item.view.*
 
 class NewsDelegateAdapter(
     private val newsClick: NewsItemClickListener,
+    private val imageClick: NewsItemMediaClickListener,
     private val thumbnailsLoader: NewsItemThumbnailsLoader,
     private val settings: SettingsManager
 ) : YapEntityDelegateAdapter {
@@ -76,23 +77,19 @@ class NewsDelegateAdapter(
       with(itemView) {
 
         news_content_image.setOnClickListener(null)
+        news_content_image.hideView()
 
-        when {
-          newsItem.images.isNotEmpty() -> {
-            val url = newsItem.images.first()
-            news_content_image.showView()
-            news_content_image.loadFromUrl(url)
-
-            // TODO() Navigate to image view activity on click
-          }
-          newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty() -> {
-            val url = newsItem.videos.first()
-            news_content_image.showView()
-            thumbnailsLoader.loadThumbnail(url, news_content_image)
-
-            // TODO() Navigate to video view activity on click
-          }
-          else -> news_content_image.hideView()
+        if (newsItem.images.isNotEmpty()) {
+          val url = newsItem.images.first()
+          news_content_image.showView()
+          news_content_image.loadFromUrl(url)
+          news_content_image.setOnClickListener { imageClick.onPreviewClicked(url, "", false) }
+        } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
+          val url = newsItem.videos.first()
+          val rawVideo = newsItem.videosRaw.first()
+          news_content_image.showView()
+          thumbnailsLoader.loadThumbnail(url, news_content_image)
+          news_content_image.setOnClickListener { imageClick.onPreviewClicked(url, rawVideo, true) }
         }
 
         setOnClickListener { if (newsItem.isYapLink) newsClick.onNewsItemClick(newsItem.forumId, newsItem.topicId) }
