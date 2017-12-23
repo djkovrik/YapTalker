@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
+import android.text.Spanned
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
@@ -9,12 +10,12 @@ class UserProfileModel(
     val photo: String,
     val group: String,
     val status: String,
-    val uq: String,
-    val signature: String,
-    val rewards: String,
+    val uq: Spanned,
+    val signature: Spanned,
+    val rewards: Spanned,
     val registerDate: String,
     val timeZone: String,
-    val website: String,
+    val website: Spanned,
     val birthDate: String,
     val location: String,
     val interests: String,

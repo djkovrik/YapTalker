@@ -17,7 +17,7 @@ class UserProfileMapper @Inject constructor() {
           photo = profile.photo,
           group = profile.group,
           status = profile.status,
-          uq = profile.uq,
+          uq = profile.uq.toInt(),
           signature = profile.signature,
           rewards = profile.rewards,
           registerDate = profile.registerDate,

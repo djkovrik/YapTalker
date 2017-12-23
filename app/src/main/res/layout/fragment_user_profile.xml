@@ -179,15 +179,17 @@
           android:id="@+id/profile_location"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_columnSpan="2"
           android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
           android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
           android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-          tools:text="Russia" />
+          tools:text="Location: Russia" />
 
         <TextView
           android:id="@+id/profile_sex"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_columnSpan="2"
           android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
           android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
           android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
@@ -299,6 +301,7 @@
           android:id="@+id/profile_email"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_columnSpan="2"
           android:paddingBottom="@dimen/material_card_title_block_large_subtitle_margin_top"
           android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
           android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
@@ -308,6 +311,7 @@
           android:id="@+id/profile_icq"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_columnSpan="2"
           android:paddingBottom="@dimen/material_card_title_block_large_subtitle_margin_top"
           android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
           android:paddingStart="@dimen/material_card_title_block_padding_horizontal"

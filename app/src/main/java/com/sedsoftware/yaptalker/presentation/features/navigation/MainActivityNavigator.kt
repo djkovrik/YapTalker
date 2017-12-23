@@ -15,6 +15,7 @@ import com.sedsoftware.yaptalker.presentation.features.forumslist.ForumsFragment
 import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.features.settings.SettingsActivity
 import com.sedsoftware.yaptalker.presentation.features.topic.ChosenTopicFragment
+import com.sedsoftware.yaptalker.presentation.features.userprofile.UserProfileFragment
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
@@ -36,7 +37,7 @@ class MainActivityNavigator @Inject constructor(val activity: MainActivity) :
     NavigationScreen.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
     NavigationScreen.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Int)
     NavigationScreen.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
-//    NavigationScreen.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
+    NavigationScreen.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
 //    NavigationScreen.ADD_MESSAGE_SCREEN -> AddMessageFragment.getNewInstance(data as String)
     else -> null
   }

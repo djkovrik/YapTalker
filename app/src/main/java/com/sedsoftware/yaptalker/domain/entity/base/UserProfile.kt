@@ -8,7 +8,7 @@ class UserProfile(
     val photo: String,
     val group: String,
     val status: String,
-    val uq: String,
+    val uq: Int,
     val signature: String,
     val rewards: String,
     val registerDate: String,

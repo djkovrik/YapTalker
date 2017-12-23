@@ -15,6 +15,8 @@ import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.features.news.di.NewsFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.presentation.features.topic.di.ChosenTopicFragmentModule
+import com.sedsoftware.yaptalker.presentation.features.userprofile.UserProfileFragment
+import com.sedsoftware.yaptalker.presentation.features.userprofile.di.UserProfileFragmentModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
@@ -49,4 +51,8 @@ interface FragmentContributionModule {
   @FragmentScope
   @ContributesAndroidInjector(modules = [(ChosenTopicFragmentModule::class)])
   fun chosenTopicFragmentInjector(): ChosenTopicFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [(UserProfileFragmentModule::class)])
+  fun userProfileFragmentInjector(): UserProfileFragment
 }

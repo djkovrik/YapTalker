@@ -2,13 +2,16 @@ package com.sedsoftware.yaptalker.presentation.mappers
 
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.UserProfile
+import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.UserProfileModel
+import javax.inject.Inject
 
 /**
  * Mapper class used to transform user profile entity from the domain layer into YapEntity in the presentation layer.
  */
-class UserProfileModelMapper {
+class UserProfileModelMapper @Inject constructor(
+    private val textTransformer: TextTransformer) {
 
   fun transform(profile: BaseEntity): YapEntity {
 
@@ -20,12 +23,12 @@ class UserProfileModelMapper {
         photo = profile.photo,
         group = profile.group,
         status = profile.status,
-        uq = profile.uq,
-        signature = profile.signature,
-        rewards = profile.rewards,
+        uq = textTransformer.transformRankToFormattedText(profile.uq),
+        signature = textTransformer.transformHtmlToSpanned(profile.signature),
+        rewards = textTransformer.transformHtmlToSpanned(profile.rewards),
         registerDate = profile.registerDate,
         timeZone = profile.timeZone,
-        website = profile.website,
+        website = textTransformer.transformHtmlToSpanned(profile.website),
         birthDate = profile.birthDate,
         location = profile.location,
         interests = profile.interests,
