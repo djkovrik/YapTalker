@@ -34,6 +34,7 @@ import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_chosen_topic.*
+import org.jetbrains.anko.browse
 import org.jetbrains.anko.share
 import timber.log.Timber
 import java.util.Locale
@@ -302,10 +303,16 @@ class ChosenTopicFragment :
   }
 
   override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
-    if (isVideo) {
-      presenter.navigateToChosenVideo(html)
-    } else {
-      presenter.navigateToChosenImage(url)
+    when {
+      isVideo && url.contains("youtube") -> {
+        context?.browse("http://www.youtube.com/watch?v=${getYoutubeVideoId(url)}")
+      }
+      isVideo && !url.contains("youtube") -> {
+        presenter.navigateToChosenVideo(html)
+      }
+      else -> {
+        presenter.navigateToChosenImage(url)
+      }
     }
   }
 
@@ -315,5 +322,15 @@ class ChosenTopicFragment :
         .refreshes(topic_refresh_layout)
         .autoDisposable(event(FragmentLifecycle.STOP))
         .subscribe { presenter.refreshCurrentPage() }
+  }
+
+  private fun getYoutubeVideoId(link: String): String {
+    val startPosition = link.lastIndexOf("/")
+    val endPosition = link.indexOf("?", startPosition)
+
+    return when (endPosition) {
+      -1 -> link.substring(startPosition + 1)
+      else -> link.substring(startPosition + 1, endPosition)
+    }
   }
 }
