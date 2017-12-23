@@ -25,5 +25,5 @@ class YapActiveTopicsRepository @Inject constructor(
               searchId = hash,
               startTopicNumber = page
           )
-          .map { item -> dataMapper.transform(item) }
+          .map { parsedActiveTopics -> dataMapper.transform(parsedActiveTopics) }
 }

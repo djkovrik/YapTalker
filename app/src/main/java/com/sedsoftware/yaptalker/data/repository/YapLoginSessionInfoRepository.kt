@@ -15,5 +15,5 @@ class YapLoginSessionInfoRepository @Inject constructor(
   override fun getLoginSessionInfo(): Observable<BaseEntity> =
       dataLoader
           .loadAuthorizedUserInfo()
-          .map { info -> dataMapper.transform(info) }
+          .map { parsedSessionInfo -> dataMapper.transform(parsedSessionInfo) }
 }

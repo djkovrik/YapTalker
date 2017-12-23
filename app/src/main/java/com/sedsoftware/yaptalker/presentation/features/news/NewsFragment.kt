@@ -28,9 +28,7 @@ import com.sedsoftware.yaptalker.presentation.utility.InfiniteScrollListener
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_news.news_fab
-import kotlinx.android.synthetic.main.fragment_news.news_list
-import kotlinx.android.synthetic.main.fragment_news.refresh_layout
+import kotlinx.android.synthetic.main.fragment_news.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -54,7 +52,6 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemTh
   fun provideNewsPresenter() = presenter
 
   private lateinit var newsAdapter: NewsAdapter
-  private var isFabShown = true
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -107,7 +104,6 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemTh
   override fun showFab() {
     news_fab?.let { fab ->
       fab.moveWithAnimationAxisY(offset = 0f)
-      isFabShown = true
     }
   }
 
@@ -115,7 +111,6 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemTh
     news_fab?.let { fab ->
       val offset = fab.height + fab.paddingTop + fab.paddingBottom
       fab.moveWithAnimationAxisY(offset = offset.toFloat())
-      isFabShown = false
     }
   }
 

@@ -56,12 +56,12 @@ class AuthorizationPresenter @Inject constructor(
 
   private fun getSignInResponseObserver() =
       object : DisposableObserver<YapEntity>() {
-        override fun onComplete() {
-          Timber.i("Sign In request completed.")
-        }
-
         override fun onNext(response: YapEntity) {
           checkIfSignedInSuccessfully(response)
+        }
+
+        override fun onComplete() {
+          Timber.i("Sign In request completed.")
         }
 
         override fun onError(e: Throwable) {

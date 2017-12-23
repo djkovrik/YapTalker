@@ -135,12 +135,12 @@ class NavigationPresenter @Inject constructor(
 
   private fun getSignOutResponseObserver() =
       object : DisposableObserver<YapEntity>() {
-        override fun onComplete() {
-          Timber.i("Sign Out request completed.")
-        }
-
         override fun onNext(response: YapEntity) {
           checkIfSignedOutSuccessfully(response)
+        }
+
+        override fun onComplete() {
+          Timber.i("Sign Out request completed.")
         }
 
         override fun onError(e: Throwable) {

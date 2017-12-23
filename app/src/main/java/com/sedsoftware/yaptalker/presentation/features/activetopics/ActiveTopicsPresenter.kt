@@ -113,11 +113,6 @@ class ActiveTopicsPresenter @Inject constructor(
 
   private fun getActiveTopicsObserver() =
       object : DisposableObserver<YapEntity?>() {
-        override fun onComplete() {
-          viewState.updateCurrentUiState()
-          viewState.scrollToViewTop()
-        }
-
         override fun onNext(item: YapEntity) {
           if (item is NavigationPanelModel) {
             currentPage = item.currentPage
@@ -130,6 +125,11 @@ class ActiveTopicsPresenter @Inject constructor(
           }
 
           viewState.appendActiveTopicItem(item)
+        }
+
+        override fun onComplete() {
+          viewState.updateCurrentUiState()
+          viewState.scrollToViewTop()
         }
 
         override fun onError(e: Throwable) {

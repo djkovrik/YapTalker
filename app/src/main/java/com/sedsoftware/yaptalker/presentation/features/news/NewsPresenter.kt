@@ -15,6 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
+import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState
@@ -35,6 +36,11 @@ class NewsPresenter @Inject constructor(
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
     loadNews(loadFromFirstPage = true)
+  }
+
+  override fun attachView(view: NewsView?) {
+    super.attachView(view)
+    viewState.updateCurrentUiState()
   }
 
   fun handleFabVisibility(diff: Int) {
@@ -75,10 +81,6 @@ class NewsPresenter @Inject constructor(
 
   private fun getNewsObserver() =
       object : DisposableObserver<YapEntity>() {
-        override fun onComplete() {
-          viewState.updateCurrentUiState()
-        }
-
         override fun onNext(item: YapEntity) {
           if (backToFirstPage) {
             viewState.clearNewsList()
@@ -86,6 +88,10 @@ class NewsPresenter @Inject constructor(
           }
 
           viewState.appendNewsItem(item)
+        }
+
+        override fun onComplete() {
+          Timber.i("News page loading completed.")
         }
 
         override fun onError(e: Throwable) {

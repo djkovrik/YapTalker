@@ -22,10 +22,10 @@ class YapNewsRepository @Inject constructor(
   override fun getNews(page: Int): Observable<BaseEntity> =
       dataLoader
           .loadNews(startPage = page)
-          .map { item -> dataMapper.transform(item) }
-          .flatMap { list: List<BaseEntity> -> Observable.fromIterable(list) }
-          .filter { entity: BaseEntity ->
-            entity as NewsItem
-            newsCategories.contains(entity.forumLink)
+          .map { parsedNewsPage -> dataMapper.transform(parsedNewsPage) }
+          .flatMap { newsList -> Observable.fromIterable(newsList) }
+          .filter { newsEntity ->
+            newsEntity as NewsItem
+            newsCategories.contains(newsEntity.forumLink)
           }
 }
