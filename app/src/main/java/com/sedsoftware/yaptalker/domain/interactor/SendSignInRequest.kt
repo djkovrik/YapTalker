@@ -9,7 +9,6 @@ class SendSignInRequest @Inject constructor(
     private val signInService: SignInService
 ) : UseCase<BaseEntity, SendSignInRequest.Params> {
 
-
   override fun buildUseCaseObservable(params: Params): Observable<BaseEntity> =
       signInService
           .requestSignIn(params.login, params.password)

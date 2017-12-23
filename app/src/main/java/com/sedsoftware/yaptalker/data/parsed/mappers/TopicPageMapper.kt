@@ -6,12 +6,13 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.NavigationPanel
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePost
 import com.sedsoftware.yaptalker.domain.entity.base.TopicInfoBlock
+import javax.inject.Inject
 
 /**
  * Mapper class used to transform parsed topic page from the data layer into BaseEntity list
  * in the domain layer.
  */
-class TopicPageMapper {
+class TopicPageMapper @Inject constructor() {
 
   companion object {
     private const val POSTS_PER_PAGE = 25
@@ -34,11 +35,6 @@ class TopicPageMapper {
           topicRatingTargetId = topicRatingTargetId.toInt()
       ))
 
-      result.add(NavigationPanel(
-          currentPage = navigation.currentPage.toInt(),
-          totalPages = navigation.totalPages.toInt()
-      ))
-
       posts.forEach { post ->
         result.add(SinglePost(
             authorNickname = post.authorNickname,
@@ -55,6 +51,11 @@ class TopicPageMapper {
             postId = post.postId.toInt()
         ))
       }
+
+      result.add(NavigationPanel(
+          currentPage = navigation.currentPage.toInt(),
+          totalPages = navigation.totalPages.toInt()
+      ))
     }
 
     return result
