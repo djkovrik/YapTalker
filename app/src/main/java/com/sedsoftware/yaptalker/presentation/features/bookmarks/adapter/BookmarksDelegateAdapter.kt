@@ -12,8 +12,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
 import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.*
 
 class BookmarksDelegateAdapter(
-    val itemClick: BookmarksItemClickListener,
-    val deleteClick: BookmarksDeleteClickListener,
+    val clickListener: BookmarksElementsClickListener,
     val settings: SettingsManager) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {
@@ -34,8 +33,8 @@ class BookmarksDelegateAdapter(
       with(itemView) {
         bookmark_title.text = topicItem.title
         bookmark_title.textSize = normalFontSize
-        bookmark_delete_icon.setOnClickListener { deleteClick.onDeleteIconClick(topicItem.bookmarkId) }
-        setOnClickListener { itemClick.onTopicClick(topicItem.link) }
+        bookmark_delete_icon.setOnClickListener { clickListener.onDeleteIconClick(topicItem.bookmarkId) }
+        setOnClickListener { clickListener.onTopicClick(topicItem.link) }
       }
     }
   }

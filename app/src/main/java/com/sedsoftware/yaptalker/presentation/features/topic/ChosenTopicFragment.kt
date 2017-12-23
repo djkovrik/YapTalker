@@ -27,11 +27,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
 import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicAdapter
-import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicItemClickListener
+import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicElementsClickListener
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicThumbnailLoader
-import com.sedsoftware.yaptalker.presentation.features.topic.adapter.TopicItemMediaClickListener
-import com.sedsoftware.yaptalker.presentation.features.topic.adapter.TopicNavigationClickListener
-import com.sedsoftware.yaptalker.presentation.features.topic.adapter.UserProfileClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -42,8 +39,8 @@ import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 
-class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicItemClickListener, ChosenTopicThumbnailLoader,
-    TopicNavigationClickListener, UserProfileClickListener, TopicItemMediaClickListener {
+class ChosenTopicFragment :
+    BaseFragment(), ChosenTopicView, ChosenTopicThumbnailLoader, ChosenTopicElementsClickListener {
 
   companion object {
     fun getNewInstance(triple: Triple<Int, Int, Int>): ChosenTopicFragment {
@@ -97,8 +94,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicItemClic
 
     setHasOptionsMenu(true)
 
-    topicAdapter =
-        ChosenTopicAdapter(this, this, this, this, this, settings)
+    topicAdapter = ChosenTopicAdapter(this, this, settings)
 
     topicAdapter.setHasStableIds(true)
 
@@ -305,7 +301,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicItemClic
         })
   }
 
-  override fun onPreviewClicked(url: String, html: String, isVideo: Boolean) {
+  override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
     if (isVideo) {
       presenter.navigateToChosenVideo(html)
     } else {

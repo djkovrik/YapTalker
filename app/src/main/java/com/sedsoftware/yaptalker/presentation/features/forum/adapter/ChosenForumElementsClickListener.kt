@@ -1,6 +1,8 @@
 package com.sedsoftware.yaptalker.presentation.features.forum.adapter
 
-interface ForumNavigationClickListener {
+interface ChosenForumElementsClickListener {
+
+  fun onTopicClick(topicId: Int)
 
   fun onGoToFirstPageClick()
 

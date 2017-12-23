@@ -12,8 +12,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
 class NewsAdapter(
-    itemClick: NewsItemClickListener,
-    imageClick: NewsItemMediaClickListener,
+    clickListener: NewsItemElementsClickListener,
     thumbnailsLoader: NewsItemThumbnailsLoader,
     settings: SettingsManager
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -23,7 +22,7 @@ class NewsAdapter(
 
   init {
     delegateAdapters.put(
-        YapEntityTypes.NEWS_ITEM, NewsDelegateAdapter(itemClick, imageClick, thumbnailsLoader, settings))
+        YapEntityTypes.NEWS_ITEM, NewsDelegateAdapter(clickListener, thumbnailsLoader, settings))
 
     items = ArrayList()
   }

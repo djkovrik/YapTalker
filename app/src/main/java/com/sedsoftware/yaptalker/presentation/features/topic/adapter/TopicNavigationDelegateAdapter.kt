@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import kotlinx.android.synthetic.main.item_navigation_panel.view.*
 
-class TopicNavigationDelegateAdapter(val navigationClick: TopicNavigationClickListener) :
+class TopicNavigationDelegateAdapter(val navigationClick: ChosenTopicElementsClickListener) :
     YapEntityDelegateAdapter {
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = NavigationViewHolder(parent)

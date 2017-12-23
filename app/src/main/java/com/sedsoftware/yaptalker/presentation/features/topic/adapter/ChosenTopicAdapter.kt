@@ -10,10 +10,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
 class ChosenTopicAdapter(
-    profileClick: UserProfileClickListener,
-    navigationClick: TopicNavigationClickListener,
-    itemClick: ChosenTopicItemClickListener,
-    mediaClick: TopicItemMediaClickListener,
+    clickListener: ChosenTopicElementsClickListener,
     thumbnailLoader: ChosenTopicThumbnailLoader,
     settings: SettingsManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -22,12 +19,9 @@ class ChosenTopicAdapter(
 
   init {
     delegateAdapters.put(
-        YapEntityTypes.SINGLE_POST_ITEM,
-        ChosenTopicDelegateAdapter(itemClick, profileClick, mediaClick, thumbnailLoader, settings))
+        YapEntityTypes.SINGLE_POST_ITEM, ChosenTopicDelegateAdapter(clickListener, thumbnailLoader, settings))
 
-    delegateAdapters.put(
-        YapEntityTypes.NAVIGATION_PANEL_ITEM,
-        TopicNavigationDelegateAdapter(navigationClick))
+    delegateAdapters.put(YapEntityTypes.NAVIGATION_PANEL_ITEM, TopicNavigationDelegateAdapter(clickListener))
 
     items = ArrayList()
   }

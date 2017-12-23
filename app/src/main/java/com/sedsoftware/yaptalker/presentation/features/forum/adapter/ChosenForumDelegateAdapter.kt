@@ -13,7 +13,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.TopicModel
 import kotlinx.android.synthetic.main.fragment_chosen_forum_item.view.*
 
 class ChosenForumDelegateAdapter(
-    val itemClick: TopicItemClickListener,
+    val itemClick: ChosenForumElementsClickListener,
     val settings: SettingsManager) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {

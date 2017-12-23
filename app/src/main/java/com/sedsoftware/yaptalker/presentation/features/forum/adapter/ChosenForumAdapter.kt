@@ -11,8 +11,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import com.sedsoftware.yaptalker.presentation.model.base.TopicModel
 
 class ChosenForumAdapter(
-    itemClick: TopicItemClickListener,
-    navigationClick: ForumNavigationClickListener,
+    clickListener: ChosenForumElementsClickListener,
     settings: SettingsManager
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -20,8 +19,8 @@ class ChosenForumAdapter(
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
   init {
-    delegateAdapters.put(YapEntityTypes.TOPIC_ITEM, ChosenForumDelegateAdapter(itemClick, settings))
-    delegateAdapters.put(YapEntityTypes.NAVIGATION_PANEL_ITEM, ForumNavigationDelegateAdapter(navigationClick))
+    delegateAdapters.put(YapEntityTypes.TOPIC_ITEM, ChosenForumDelegateAdapter(clickListener, settings))
+    delegateAdapters.put(YapEntityTypes.NAVIGATION_PANEL_ITEM, ForumNavigationDelegateAdapter(clickListener))
     items = ArrayList()
   }
 

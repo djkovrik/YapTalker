@@ -11,8 +11,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import com.sedsoftware.yaptalker.presentation.model.base.ActiveTopicModel
 
 class ActiveTopicsAdapter(
-    itemClick: ActiveTopicsItemClickListener,
-    navigationClick: ActiveTopicsNavigationClickListener,
+    clickListener: ActiveTopicsElementsClickListener,
     settings: SettingsManager
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -20,8 +19,8 @@ class ActiveTopicsAdapter(
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
   init {
-    delegateAdapters.put(YapEntityTypes.ACTIVE_TOPIC_ITEM, ActiveTopicsDelegateAdapter(itemClick, settings))
-    delegateAdapters.put(YapEntityTypes.NAVIGATION_PANEL_ITEM, ActiveTopicsNavigationDelegateAdapter(navigationClick))
+    delegateAdapters.put(YapEntityTypes.ACTIVE_TOPIC_ITEM, ActiveTopicsDelegateAdapter(clickListener, settings))
+    delegateAdapters.put(YapEntityTypes.NAVIGATION_PANEL_ITEM, ActiveTopicsNavigationDelegateAdapter(clickListener))
     items = ArrayList()
   }
 

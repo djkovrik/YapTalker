@@ -1,6 +1,8 @@
 package com.sedsoftware.yaptalker.presentation.features.activetopics.adapter
 
-interface ActiveTopicsNavigationClickListener {
+interface ActiveTopicsElementsClickListener {
+
+  fun onTopicClick(forumId: Int, topicId: Int)
 
   fun onGoToFirstPageClick()
 

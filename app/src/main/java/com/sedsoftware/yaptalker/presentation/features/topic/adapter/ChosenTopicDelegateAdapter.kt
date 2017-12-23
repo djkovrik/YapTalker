@@ -31,9 +31,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
 import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 
 class ChosenTopicDelegateAdapter(
-    val itemClick: ChosenTopicItemClickListener,
-    val profileClick: UserProfileClickListener,
-    val mediaClick: TopicItemMediaClickListener,
+    val clickListener: ChosenTopicElementsClickListener,
     val thumbnailLoader: ChosenTopicThumbnailLoader,
     val settings: SettingsManager) : YapEntityDelegateAdapter {
 
@@ -172,7 +170,7 @@ class ChosenTopicDelegateAdapter(
           image.setPadding(0, imagePadding, 0, imagePadding)
           itemView.post_content_image_container.addView(image)
           image.loadFromUrl(url)
-          image.setOnClickListener { mediaClick.onPreviewClicked(url, "", false) }
+          image.setOnClickListener { clickListener.onMediaPreviewClicked(url, "", false) }
         }
       }
     }
@@ -191,7 +189,7 @@ class ChosenTopicDelegateAdapter(
           thumbnail.setPadding(0, imagePadding, 0, imagePadding)
           itemView.post_content_video_container.addView(thumbnail)
           thumbnailLoader.loadThumbnail(url, thumbnail)
-          thumbnail.setOnClickListener { mediaClick.onPreviewClicked(url, rawHtml, true) }
+          thumbnail.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawHtml, true) }
         }
       } else {
         itemView.post_content_video_container.hideView()
@@ -227,12 +225,12 @@ class ChosenTopicDelegateAdapter(
 
         post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateUrl())
         post_author_avatar.setOnClickListener {
-          profileClick.onUserAvatarClick(post.authorProfileId)
+          clickListener.onUserAvatarClick(post.authorProfileId)
         }
 
         setOnClickListener {
           val isKarmaAvailable = post.postRankPlusAvailable && post.postRankMinusAvailable
-          itemClick.onPostItemClicked(post.postId, isKarmaAvailable)
+          clickListener.onPostItemClicked(post.postId, isKarmaAvailable)
         }
       }
     }

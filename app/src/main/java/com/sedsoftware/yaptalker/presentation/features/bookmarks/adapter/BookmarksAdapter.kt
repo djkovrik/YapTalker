@@ -10,8 +10,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
 class BookmarksAdapter(
-    itemClick: BookmarksItemClickListener,
-    deleteClick: BookmarksDeleteClickListener,
+    clickListener: BookmarksElementsClickListener,
     settings: SettingsManager
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -20,7 +19,7 @@ class BookmarksAdapter(
 
   init {
     delegateAdapters.put(
-        YapEntityTypes.BOOKMARKED_TOPIC_ITEM, BookmarksDelegateAdapter(itemClick, deleteClick, settings))
+        YapEntityTypes.BOOKMARKED_TOPIC_ITEM, BookmarksDelegateAdapter(clickListener, settings))
     items = ArrayList()
   }
 

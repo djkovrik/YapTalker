@@ -16,8 +16,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import kotlinx.android.synthetic.main.fragment_news_item.view.*
 
 class NewsDelegateAdapter(
-    private val newsClick: NewsItemClickListener,
-    private val imageClick: NewsItemMediaClickListener,
+    private val clickListener: NewsItemElementsClickListener,
     private val thumbnailsLoader: NewsItemThumbnailsLoader,
     private val settings: SettingsManager
 ) : YapEntityDelegateAdapter {
@@ -83,16 +82,18 @@ class NewsDelegateAdapter(
           val url = newsItem.images.first()
           news_content_image.showView()
           news_content_image.loadFromUrl(url)
-          news_content_image.setOnClickListener { imageClick.onPreviewClicked(url, "", false) }
+          news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, "", false) }
         } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
           val url = newsItem.videos.first()
           val rawVideo = newsItem.videosRaw.first()
           news_content_image.showView()
           thumbnailsLoader.loadThumbnail(url, news_content_image)
-          news_content_image.setOnClickListener { imageClick.onPreviewClicked(url, rawVideo, true) }
+          news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawVideo, true) }
         }
 
-        setOnClickListener { if (newsItem.isYapLink) newsClick.onNewsItemClick(newsItem.forumId, newsItem.topicId) }
+        setOnClickListener {
+          if (newsItem.isYapLink) clickListener.onNewsItemClick(newsItem.forumId, newsItem.topicId)
+        }
       }
     }
   }

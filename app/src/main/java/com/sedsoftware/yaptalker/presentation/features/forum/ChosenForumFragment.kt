@@ -19,15 +19,14 @@ import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
 import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ChosenForumAdapter
-import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ForumNavigationClickListener
-import com.sedsoftware.yaptalker.presentation.features.forum.adapter.TopicItemClickListener
+import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ChosenForumElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_chosen_forum.*
 import java.util.Locale
 import javax.inject.Inject
 
-class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListener, ForumNavigationClickListener {
+class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElementsClickListener {
 
   companion object {
     private const val FORUM_ID_KEY = "FORUM_ID_KEY"
@@ -63,7 +62,7 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, TopicItemClickListe
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    forumAdapter = ChosenForumAdapter(this, this, settings)
+    forumAdapter = ChosenForumAdapter(this, settings)
     forumAdapter.setHasStableIds(true)
 
     with(forum_topics_list) {

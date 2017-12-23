@@ -21,8 +21,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsAdapter
-import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemClickListener
-import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemMediaClickListener
+import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemElementsClickListener
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.utility.InfiniteScrollListener
@@ -34,7 +33,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class NewsFragment :
-    BaseFragment(), NewsView, NewsItemClickListener, NewsItemThumbnailsLoader, NewsItemMediaClickListener {
+    BaseFragment(), NewsView, NewsItemThumbnailsLoader, NewsItemElementsClickListener {
 
   companion object {
     fun getNewInstance() = NewsFragment()
@@ -58,7 +57,7 @@ class NewsFragment :
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    newsAdapter = NewsAdapter(this, this, this, settings)
+    newsAdapter = NewsAdapter( this, this, settings)
     newsAdapter.setHasStableIds(true)
 
     with(news_list) {
@@ -137,7 +136,7 @@ class NewsFragment :
         })
   }
 
-  override fun onPreviewClicked(url: String, html: String, isVideo: Boolean) {
+  override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
     if (isVideo) {
       presenter.navigateToChosenVideo(html)
     } else {

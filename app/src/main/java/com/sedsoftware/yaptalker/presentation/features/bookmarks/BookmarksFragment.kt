@@ -19,14 +19,13 @@ import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.BookmarksAdapter
-import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.BookmarksDeleteClickListener
-import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.BookmarksItemClickListener
+import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.BookmarksElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_bookmarks.*
 import javax.inject.Inject
 
-class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListener, BookmarksDeleteClickListener {
+class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickListener {
 
   companion object {
     fun getNewInstance() = BookmarksFragment()
@@ -50,7 +49,7 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksItemClickListe
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    bookmarksAdapter = BookmarksAdapter(this, this, settings)
+    bookmarksAdapter = BookmarksAdapter(this, settings)
     bookmarksAdapter.setHasStableIds(true)
 
 

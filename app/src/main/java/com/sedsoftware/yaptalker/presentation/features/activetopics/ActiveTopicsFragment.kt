@@ -19,16 +19,14 @@ import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
 import com.sedsoftware.yaptalker.presentation.features.activetopics.adapter.ActiveTopicsAdapter
-import com.sedsoftware.yaptalker.presentation.features.activetopics.adapter.ActiveTopicsItemClickListener
-import com.sedsoftware.yaptalker.presentation.features.activetopics.adapter.ActiveTopicsNavigationClickListener
+import com.sedsoftware.yaptalker.presentation.features.activetopics.adapter.ActiveTopicsElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_active_topics.*
 import java.util.Locale
 import javax.inject.Inject
 
-class ActiveTopicsFragment :
-    BaseFragment(), ActiveTopicsView, ActiveTopicsItemClickListener, ActiveTopicsNavigationClickListener {
+class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsElementsClickListener {
 
   companion object {
     fun getNewInstance() = ActiveTopicsFragment()
@@ -52,7 +50,7 @@ class ActiveTopicsFragment :
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    topicsAdapter = ActiveTopicsAdapter(this, this, settings)
+    topicsAdapter = ActiveTopicsAdapter(this, settings)
     topicsAdapter.setHasStableIds(true)
 
     with(active_topics_list) {
