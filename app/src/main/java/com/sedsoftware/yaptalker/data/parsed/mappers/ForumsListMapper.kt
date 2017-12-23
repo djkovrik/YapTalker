@@ -3,12 +3,13 @@ package com.sedsoftware.yaptalker.data.parsed.mappers
 import com.sedsoftware.yaptalker.data.parsed.ForumsListParsed
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.Forum
+import javax.inject.Inject
 
 /**
  * Mapper class used to transform parsed forums list page from the data layer into BaseEntity list
  * in the domain layer.
  */
-class ForumsListMapper {
+class ForumsListMapper @Inject constructor() {
 
   companion object {
     private const val FORUMS_COUNT = 40
