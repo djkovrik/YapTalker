@@ -71,7 +71,7 @@
     android:text="@string/topic_post_karma_thumb_up"
     tools:text="+" />
 
-  <com.sedsoftware.yaptalker.presentation.utility.views.ShortDateView
+  <TextView
     android:id="@+id/post_date"
     style="@style/CommonSupportingText"
     android:layout_width="wrap_content"

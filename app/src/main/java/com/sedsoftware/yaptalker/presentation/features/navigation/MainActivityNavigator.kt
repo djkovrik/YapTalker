@@ -13,6 +13,7 @@ import com.sedsoftware.yaptalker.presentation.features.bookmarks.BookmarksFragme
 import com.sedsoftware.yaptalker.presentation.features.forum.ChosenForumFragment
 import com.sedsoftware.yaptalker.presentation.features.forumslist.ForumsFragment
 import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
+import com.sedsoftware.yaptalker.presentation.features.topic.ChosenTopicFragment
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
@@ -33,7 +34,7 @@ class MainActivityNavigator @Inject constructor(activity: MainActivity) :
     NavigationScreen.BOOKMARKS_SCREEN -> BookmarksFragment.getNewInstance()
     NavigationScreen.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
     NavigationScreen.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Int)
-//    NavigationScreen.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
+    NavigationScreen.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
 //    NavigationScreen.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
 //    NavigationScreen.ADD_MESSAGE_SCREEN -> AddMessageFragment.getNewInstance(data as String)
     else -> null

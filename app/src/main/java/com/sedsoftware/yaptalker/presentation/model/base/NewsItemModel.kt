@@ -10,6 +10,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 class NewsItemModel(
     val title: String,
     val link: String,
+    val topicId: Int,
     val rating: Spanned,
     val images: List<String>,
     val videos: List<String>,
@@ -19,8 +20,10 @@ class NewsItemModel(
     val date: String,
     val forumName: String,
     val forumLink: String,
+    val forumId: Int,
     val comments: String,
-    val cleanedDescription: Spanned
+    val cleanedDescription: Spanned,
+    val isYapLink: Boolean
 ) : YapEntity {
 
   override fun getBaseEntityType(): Int = YapEntityTypes.NEWS_ITEM

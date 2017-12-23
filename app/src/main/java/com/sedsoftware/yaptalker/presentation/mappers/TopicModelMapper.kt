@@ -12,6 +12,8 @@ import com.sedsoftware.yaptalker.domain.entity.base.PostContent.PostWarning
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePost
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePostParsed
 import com.sedsoftware.yaptalker.domain.entity.base.TopicInfoBlock
+import com.sedsoftware.yaptalker.presentation.extensions.getLastDigits
+import com.sedsoftware.yaptalker.presentation.mappers.util.DateTransformer
 import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
@@ -32,6 +34,7 @@ import javax.inject.Inject
  * in the presentation layer.
  */
 class TopicModelMapper @Inject constructor(
+    private val dateTransformer: DateTransformer,
     private val textTransformer: TextTransformer) {
 
   fun transform(items: List<BaseEntity>): List<YapEntity> {
@@ -61,10 +64,12 @@ class TopicModelMapper @Inject constructor(
         is SinglePost -> result.add(SinglePostModel(
             authorNickname = item.authorNickname,
             authorProfile = item.authorProfile,
+            authorProfileId = item.authorProfile.getLastDigits(),
             authorAvatar = item.authorAvatar,
             authorMessagesCount = item.authorMessagesCount,
-            postDate = item.postDate,
+            postDate = dateTransformer.transformDateToShortView(item.postDate),
             postRank = item.postRank,
+            postRankText = item.postRank.toString(),
             postRankPlusAvailable = item.postRankPlusAvailable,
             postRankMinusAvailable = item.postRankMinusAvailable,
             postRankPlusClicked = item.postRankPlusClicked,
@@ -82,10 +87,10 @@ class TopicModelMapper @Inject constructor(
       when (content) {
         is PostText -> PostTextModel(content.text)
         is PostQuote -> PostQuoteModel(content.text)
-        is PostQuoteAuthor -> PostQuoteAuthorModel(content.text)
+        is PostQuoteAuthor -> PostQuoteAuthorModel(textTransformer.transformHtmlToSpanned(content.text))
         is PostHiddenText -> PostHiddenTextModel(content.text)
-        is PostScript -> PostScriptModel(content.text)
-        is PostWarning -> PostWarningModel(content.text)
+        is PostScript -> PostScriptModel(textTransformer.transformHtmlToSpanned(content.text))
+        is PostWarning -> PostWarningModel(textTransformer.transformHtmlToSpanned(content.text))
       }
 
   private fun transform(post: SinglePostParsed): SinglePostParsedModel =

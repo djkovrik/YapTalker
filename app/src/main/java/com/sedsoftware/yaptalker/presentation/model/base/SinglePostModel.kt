@@ -9,10 +9,12 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 class SinglePostModel(
     val authorNickname: String,
     val authorProfile: String,
+    val authorProfileId: Int,
     val authorAvatar: String,
     val authorMessagesCount: Int,
     val postDate: String,
-    val postRank: String,
+    val postRank: Int,
+    val postRankText: String,
     val postRankPlusAvailable: Boolean,
     val postRankMinusAvailable: Boolean,
     val postRankPlusClicked: Boolean,

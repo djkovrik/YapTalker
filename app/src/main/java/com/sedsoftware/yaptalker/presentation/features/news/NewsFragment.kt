@@ -114,8 +114,8 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemClickListener, NewsItemTh
     }
   }
 
-  override fun onNewsItemClick(topicLink: String, forumLink: String) {
-    // TODO () Navigate to chosen topic
+  override fun onNewsItemClick(forumId: Int, topicId: Int) {
+    presenter.navigateToChosenTopic(Triple(forumId, topicId, 0))
   }
 
   override fun loadThumbnail(videoUrl: String, imageView: ImageView) {

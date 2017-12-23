@@ -42,7 +42,7 @@ class TopicPageMapper @Inject constructor() {
             authorAvatar = post.authorAvatar,
             authorMessagesCount = post.authorMessagesCount.toInt(),
             postDate = post.postDate,
-            postRank = post.postRank,
+            postRank = post.postRank.toInt(),
             postRankPlusAvailable = post.postRankPlusAvailable.isNotEmpty(),
             postRankMinusAvailable = post.postRankMinusAvailable.isNotEmpty(),
             postRankPlusClicked = post.postRankPlusClicked.isNotEmpty(),

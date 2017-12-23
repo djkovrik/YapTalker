@@ -11,7 +11,7 @@ class SinglePost(
     val authorAvatar: String,
     val authorMessagesCount: Int,
     val postDate: String,
-    val postRank: String,
+    val postRank: Int,
     val postRankPlusAvailable: Boolean,
     val postRankMinusAvailable: Boolean,
     val postRankPlusClicked: Boolean,

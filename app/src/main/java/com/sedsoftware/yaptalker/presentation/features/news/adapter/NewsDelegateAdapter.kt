@@ -95,7 +95,7 @@ class NewsDelegateAdapter(
           else -> news_content_image.hideView()
         }
 
-        setOnClickListener { newsClick.onNewsItemClick(newsItem.link, newsItem.forumLink) }
+        setOnClickListener { if (newsItem.isYapLink) newsClick.onNewsItemClick(newsItem.forumId, newsItem.topicId) }
       }
     }
   }

@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.presentation.mappers
 
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.NewsItem
+import com.sedsoftware.yaptalker.presentation.extensions.getLastDigits
 import com.sedsoftware.yaptalker.presentation.mappers.util.DateTransformer
 import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -23,6 +24,7 @@ class NewsModelMapper @Inject constructor(
     return NewsItemModel(
         title = item.title,
         link = item.link,
+        topicId = item.link.getLastDigits(),
         rating = textTransformer.transformRankToFormattedText(item.rating),
         images = item.images,
         videos = item.videos,
@@ -32,8 +34,10 @@ class NewsModelMapper @Inject constructor(
         date = dateTransformer.transformDateToShortView(item.date),
         forumName = textTransformer.transformNewsForumTitle(item.forumName),
         forumLink = item.forumLink,
+        forumId = item.forumLink.getLastDigits(),
         comments = textTransformer.transformCommentsLabel(item.comments),
-        cleanedDescription = textTransformer.transformHtmlToSpanned(item.cleanedDescription)
+        cleanedDescription = textTransformer.transformHtmlToSpanned(item.cleanedDescription),
+        isYapLink = item.link.contains("yaplakal")
     )
   }
 }

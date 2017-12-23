@@ -12,7 +12,7 @@ class TopicPageParsed {
   lateinit var isClosed: String
   @Selector("input[name~=auth_key]", attr = "outerHtml", format = "value=\"([a-z0-9]+)\"", defValue = "")
   lateinit var authKey: String
-  @Selector("div.rating-value", defValue = "")
+  @Selector("div.rating-value", defValue = "0")
   lateinit var topicRating: String
   @Selector("div[rel=rating] img[src$=rating-cell-minus.gif]", attr = "src", defValue = "")
   lateinit var topicRatingPlusAvailable: String
@@ -24,7 +24,7 @@ class TopicPageParsed {
   lateinit var topicRatingMinusClicked: String
   @Selector(
       value = "div[rel=rating] a[onclick~=doRatePost]", format = "(?<=\\d{2}, )(\\d+)((?=, ))",
-      attr = "outerHtml", defValue = "")
+      attr = "outerHtml", defValue = "0")
   lateinit var topicRatingTargetId: String
   @Selector("table.row3")
   lateinit var navigation: TopicNavigationPanel
