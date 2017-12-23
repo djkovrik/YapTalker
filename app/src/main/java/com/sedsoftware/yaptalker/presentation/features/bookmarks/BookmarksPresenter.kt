@@ -28,6 +28,8 @@ class BookmarksPresenter @Inject constructor(
     private val serverResponseMapper: ServerResponseModelMapper
 ) : BasePresenter<BookmarksView>() {
 
+  private var clearCurrentList = false
+
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
     loadBookmarks()
@@ -52,7 +54,7 @@ class BookmarksPresenter @Inject constructor(
 
   fun loadBookmarks() {
 
-    viewState.clearBookmarksList()
+    clearCurrentList = true
 
     getBookmarksUseCase
         .buildUseCaseObservable(Unit)
@@ -69,6 +71,11 @@ class BookmarksPresenter @Inject constructor(
       object : DisposableObserver<YapEntity?>() {
 
         override fun onNext(item: YapEntity) {
+          if (clearCurrentList) {
+            clearCurrentList = false
+            viewState.clearBookmarksList()
+          }
+
           viewState.appendBookmarkItem(item)
         }
 

@@ -42,6 +42,11 @@ class ActiveTopicsPresenter @Inject constructor(
     refreshActiveTopicsList()
   }
 
+  override fun attachView(view: ActiveTopicsView?) {
+    super.attachView(view)
+    viewState.updateCurrentUiState()
+  }
+
   fun goToFirstPage() {
     currentPage = 1
     loadActiveTopicsForCurrentPage()
@@ -130,7 +135,6 @@ class ActiveTopicsPresenter @Inject constructor(
         }
 
         override fun onComplete() {
-          viewState.updateCurrentUiState()
           viewState.scrollToViewTop()
         }
 

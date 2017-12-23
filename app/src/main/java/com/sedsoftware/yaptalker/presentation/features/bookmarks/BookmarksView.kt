@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.features.bookmarks
 
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
+import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
 import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 @StateStrategyType(SkipStrategy::class)
 interface BookmarksView : BaseView {
 
-  @StateStrategyType(AddToEndSingleStrategy::class)
+  @StateStrategyType(AddToEndStrategy::class)
   fun appendBookmarkItem(bookmark: YapEntity)
 
   @StateStrategyType(SingleStateStrategy::class)
