@@ -13,6 +13,8 @@ import com.sedsoftware.yaptalker.presentation.features.forumslist.ForumsFragment
 import com.sedsoftware.yaptalker.presentation.features.forumslist.di.ForumsFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.features.news.di.NewsFragmentModule
+import com.sedsoftware.yaptalker.presentation.features.posting.AddMessageFragment
+import com.sedsoftware.yaptalker.presentation.features.posting.di.AddMessageFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.presentation.features.topic.di.ChosenTopicFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.userprofile.UserProfileFragment
@@ -55,4 +57,8 @@ interface FragmentContributionModule {
   @FragmentScope
   @ContributesAndroidInjector(modules = [(UserProfileFragmentModule::class)])
   fun userProfileFragmentInjector(): UserProfileFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [(AddMessageFragmentModule::class)])
+  fun addMessageFragmentInjector(): AddMessageFragment
 }

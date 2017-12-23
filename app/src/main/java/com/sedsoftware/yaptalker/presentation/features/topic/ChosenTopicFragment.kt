@@ -133,7 +133,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicItemClic
           true
         }
         R.id.action_new_message -> {
-          presenter.onNewMessageItemClicked()
+          presenter.showNewMessagePostingScreen()
           true
         }
         R.id.action_topic_karma_plus -> {

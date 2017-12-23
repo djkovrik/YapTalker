@@ -148,7 +148,7 @@ class ChosenTopicPresenter @Inject constructor(
     router.navigateTo(NavigationScreen.USER_PROFILE_SCREEN, userId)
   }
 
-  fun onNewMessageItemClicked() {
+  fun showNewMessagePostingScreen() {
     router.navigateTo(NavigationScreen.ADD_MESSAGE_SCREEN, currentTitle)
   }
 
