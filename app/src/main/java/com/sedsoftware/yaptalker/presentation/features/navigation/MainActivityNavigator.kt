@@ -10,6 +10,7 @@ import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.features.activetopics.ActiveTopicsFragment
 import com.sedsoftware.yaptalker.presentation.features.authorization.AuthorizationFragment
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.BookmarksFragment
+import com.sedsoftware.yaptalker.presentation.features.forumslist.ForumsFragment
 import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -29,7 +30,7 @@ class MainActivityNavigator @Inject constructor(activity: MainActivity) :
     NavigationScreen.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
     NavigationScreen.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()
     NavigationScreen.BOOKMARKS_SCREEN -> BookmarksFragment.getNewInstance()
-//    NavigationScreen.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
+    NavigationScreen.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
 //    NavigationScreen.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Int)
 //    NavigationScreen.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
 //    NavigationScreen.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)

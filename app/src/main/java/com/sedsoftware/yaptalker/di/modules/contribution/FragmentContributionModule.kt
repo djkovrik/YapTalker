@@ -7,6 +7,8 @@ import com.sedsoftware.yaptalker.presentation.features.authorization.Authorizati
 import com.sedsoftware.yaptalker.presentation.features.authorization.di.AuthorizationFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.BookmarksFragment
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.di.BookmarksFragmentModule
+import com.sedsoftware.yaptalker.presentation.features.forumslist.ForumsFragment
+import com.sedsoftware.yaptalker.presentation.features.forumslist.di.ForumsFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.features.news.di.NewsFragmentModule
 import dagger.Module
@@ -31,4 +33,8 @@ interface FragmentContributionModule {
   @FragmentScope
   @ContributesAndroidInjector(modules = [(BookmarksFragmentModule::class)])
   fun bookmarksFragmentInjector(): BookmarksFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [(ForumsFragmentModule::class)])
+  fun forunsListFragmentInjector(): ForumsFragment
 }

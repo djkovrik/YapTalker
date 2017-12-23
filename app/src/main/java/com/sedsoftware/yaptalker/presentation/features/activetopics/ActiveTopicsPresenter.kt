@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.presentation.features.activetopics
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetActiveTopicsList
 import com.sedsoftware.yaptalker.domain.interactor.GetActiveTopicsList.Params
 import com.sedsoftware.yaptalker.domain.interactor.GetSearchId
@@ -102,8 +103,8 @@ class ActiveTopicsPresenter @Inject constructor(
     getActiveTopicsListUseCase
         .buildUseCaseObservable(Params(hash = searchIdKey, page = startingTopicNumber))
         .subscribeOn(Schedulers.io())
-        .map { item -> activeTopicsModelMapper.transform(item) }
-        .flatMap { list -> Observable.fromIterable(list) }
+        .map { item: List<BaseEntity> -> activeTopicsModelMapper.transform(item) }
+        .flatMap { list: List<YapEntity> -> Observable.fromIterable(list) }
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe { viewState.showLoadingIndicator() }
         .doFinally { viewState.hideLoadingIndicator() }

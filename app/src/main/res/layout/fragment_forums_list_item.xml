@@ -73,7 +73,7 @@
       android:layout_height="wrap_content"
       tools:text="Jus" />
 
-    <com.sedsoftware.yaptalker.presentation.utility.views.ShortDateView
+    <TextView
       android:id="@+id/forum_last_topic_date"
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"
