@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.domain.entity
 
 /**
- * Base entity which represents objects in domain layer.
+ * Base entity which represents base entity in domain layer.
  */
 interface BaseEntity

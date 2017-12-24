@@ -4,7 +4,7 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import io.reactivex.Observable
 
 /**
- * Interface that represents service for change karma.
+ * Interface that represents karma changing service.
  */
 interface KarmaService {
 

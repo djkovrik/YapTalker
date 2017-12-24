@@ -23,8 +23,10 @@ class TopicPageParsed {
   @Selector("div[rel=rating] img[src$=rating-cell-minus-clicked.gif]", attr = "src", defValue = "")
   lateinit var topicRatingMinusClicked: String
   @Selector(
-      value = "div[rel=rating] a[onclick~=doRatePost]", format = "(?<=\\d{2}, )(\\d+)((?=, ))",
-      attr = "outerHtml", defValue = "0")
+      value = "div[rel=rating] a[onclick~=doRatePost]",
+      format = "(?<=\\d{2}, )(\\d+)((?=, ))",
+      attr = "outerHtml",
+      defValue = "0")
   lateinit var topicRatingTargetId: String
   @Selector("table.row3")
   lateinit var navigation: TopicNavigationPanel

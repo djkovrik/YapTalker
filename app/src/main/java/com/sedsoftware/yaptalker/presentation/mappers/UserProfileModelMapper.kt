@@ -28,7 +28,7 @@ class UserProfileModelMapper @Inject constructor(
         rewards = textTransformer.transformHtmlToSpanned(profile.rewards),
         registerDate = profile.registerDate,
         timeZone = profile.timeZone,
-        website = textTransformer.transformHtmlToSpanned(profile.website),
+        website = textTransformer.transformWebsiteToSpanned(profile.website),
         birthDate = profile.birthDate,
         location = profile.location,
         interests = profile.interests,

@@ -23,6 +23,8 @@ class ForumsPresenter @Inject constructor(
     private val forumsListModelMapper: ForumsListModelMapper
 ) : BasePresenter<ForumsView>() {
 
+  private var clearCurrentList = false
+
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
     loadForumsList()
@@ -39,7 +41,7 @@ class ForumsPresenter @Inject constructor(
 
   fun loadForumsList() {
 
-    viewState.clearForumsList()
+    clearCurrentList = true
 
     forumsListUseCase
         .buildUseCaseObservable(Unit)
@@ -56,6 +58,12 @@ class ForumsPresenter @Inject constructor(
       object : DisposableObserver<YapEntity>() {
 
         override fun onNext(item: YapEntity) {
+
+          if (clearCurrentList) {
+            clearCurrentList = false
+            viewState.clearForumsList()
+          }
+
           viewState.appendForumItem(item)
         }
 

@@ -6,6 +6,7 @@ import android.text.Spanned
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.extensions.stringQuantityRes
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 
@@ -44,6 +45,22 @@ class TextTransformer @Inject constructor(private val context: Context) {
       } else {
         Html.fromHtml(html)
       }
+
+  @Suppress("DEPRECATION")
+  fun transformWebsiteToSpanned(link: String): Spanned {
+
+    val template = context.stringRes(R.string.profile_web_site)
+
+    val html = if (link.startsWith("http")) {
+      String.format(Locale.getDefault(), template, link)
+    } else {
+      link
+    }
+
+    Timber.d("Got html: $html")
+
+    return transformHtmlToSpanned(html)
+  }
 
   @Suppress("DEPRECATION")
   fun transformRankToFormattedText(rank: Int): Spanned {
