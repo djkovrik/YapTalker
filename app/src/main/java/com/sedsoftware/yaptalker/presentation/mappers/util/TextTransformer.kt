@@ -6,7 +6,6 @@ import android.text.Spanned
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.extensions.stringQuantityRes
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
-import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 
@@ -14,7 +13,7 @@ class TextTransformer @Inject constructor(private val context: Context) {
 
   companion object {
     private const val POSITIVE_RATING = "<font color='#4CAF50'>+%d</font>"
-    private const val NEGATIVE_RATING = "<font color='#E57373'>-%d</font>"
+    private const val NEGATIVE_RATING = "<font color='#E57373'>%d</font>"
     private const val ZERO_RATING = "<font color='#BDBDBD'>%d</font>"
   }
 
@@ -57,8 +56,6 @@ class TextTransformer @Inject constructor(private val context: Context) {
       link
     }
 
-    Timber.d("Got html: $html")
-
     return transformHtmlToSpanned(html)
   }
 
@@ -76,11 +73,7 @@ class TextTransformer @Inject constructor(private val context: Context) {
       }
     }
 
-    return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-      Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
-    } else {
-      Html.fromHtml(html)
-    }
+    return transformHtmlToSpanned(html)
   }
 
   fun transformNewsForumTitle(title: String): String =

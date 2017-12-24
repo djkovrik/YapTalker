@@ -69,7 +69,7 @@ class TopicModelMapper @Inject constructor(
             authorMessagesCount = item.authorMessagesCount,
             postDate = dateTransformer.transformDateToShortView(item.postDate),
             postRank = item.postRank,
-            postRankText = item.postRank.toString(),
+            postRankText = textTransformer.transformRankToFormattedText(item.postRank),
             postRankPlusAvailable = item.postRankPlusAvailable,
             postRankMinusAvailable = item.postRankMinusAvailable,
             postRankPlusClicked = item.postRankPlusClicked,

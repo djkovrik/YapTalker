@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
+import android.text.Spanned
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
@@ -14,7 +15,7 @@ class SinglePostModel(
     val authorMessagesCount: Int,
     val postDate: String,
     val postRank: Int,
-    val postRankText: String,
+    val postRankText: Spanned,
     val postRankPlusAvailable: Boolean,
     val postRankMinusAvailable: Boolean,
     val postRankPlusClicked: Boolean,

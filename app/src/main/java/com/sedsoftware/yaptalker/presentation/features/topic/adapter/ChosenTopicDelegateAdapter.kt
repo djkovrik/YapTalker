@@ -209,7 +209,13 @@ class ChosenTopicDelegateAdapter(
       with(itemView) {
         post_author.text = post.authorNickname
         post_date.text = post.postDate
-        post_rating.text = post.postRankText
+
+        post_rating.hideView()
+
+        if (post.postRank != 0) {
+          post_rating.showView()
+          post_rating.text = post.postRankText
+        }
 
         post_rating_thumb_down.hideView()
         post_rating_thumb_up.hideView()
