@@ -56,7 +56,7 @@
   <string name="profile_label_info"> Информация</string>
   <string name="profile_registered">Регистрация: <xliff:g id="date">%s</xliff:g></string>
   <string name="profile_time_zone">Часовой пояс: <xliff:g id="time_zone">%s</xliff:g></string>
-  <string name="profile_web_site"><![CDATA[<a href="%s">Вебсайт</a>]]></string>
+  <string name="profile_web_site"><![CDATA[<a href=\"%s\">Вебсайт</a>]]></string>
   <string name="profile_birth_date">Дата рождения: <xliff:g id="date">%s</xliff:g></string>
   <string name="profile_location">Место жительства: <xliff:g id="place">%s</xliff:g></string>
   <string name="profile_interests">Увлечения: <xliff:g id="list">%s</xliff:g></string>

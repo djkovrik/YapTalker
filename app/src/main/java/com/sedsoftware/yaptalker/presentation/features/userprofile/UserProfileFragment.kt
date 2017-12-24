@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.features.userprofile
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -90,11 +91,8 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
           ctx.stringRes(R.string.profile_icq), profile.icq)
     }
 
-    if (profile.website.startsWith("http")) {
-      val template = context?.stringRes(R.string.profile_web_site)
-      val html = template?.let { String.format(Locale.getDefault(), it, profile.website) }
-      html?.let { profile_web_site.text = it }
-    }
+    profile_web_site.text = profile.website
+    profile_web_site.movementMethod = LinkMovementMethod.getInstance ()
 
     if (profile.photo.isNotEmpty()) {
       profile_photo.loadFromUrl(profile.photo)
