@@ -16,10 +16,11 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.data.SettingsManager
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
@@ -33,7 +34,8 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_chosen_topic.*
+import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_posts_list
+import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_refresh_layout
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.share
 import timber.log.Timber
@@ -307,7 +309,8 @@ class ChosenTopicFragment :
   override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
     when {
       isVideo && url.contains("youtube") -> {
-        context?.browse("http://www.youtube.com/watch?v=${getYoutubeVideoId(url)}")
+        val videoId = url.extractYoutubeVideoId()
+        context?.browse("http://www.youtube.com/watch?v=$videoId")
       }
       isVideo && !url.contains("youtube") -> {
         presenter.navigateToChosenVideo(html)
@@ -327,15 +330,5 @@ class ChosenTopicFragment :
         .refreshes(topic_refresh_layout)
         .autoDisposable(event(FragmentLifecycle.STOP))
         .subscribe { presenter.refreshCurrentPage() }
-  }
-
-  private fun getYoutubeVideoId(link: String): String {
-    val startPosition = link.lastIndexOf("/")
-    val endPosition = link.indexOf("?", startPosition)
-
-    return when (endPosition) {
-      -1 -> link.substring(startPosition + 1)
-      else -> link.substring(startPosition + 1, endPosition)
-    }
   }
 }

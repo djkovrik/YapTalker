@@ -65,3 +65,13 @@ fun String.extractYapIds(): Triple<Int, Int, Int> {
     else -> Triple(0, 0, 0)
   }
 }
+
+fun String.extractYoutubeVideoId(): String {
+  val startPosition = this.lastIndexOf("/")
+  val endPosition = this.indexOf("?", startPosition)
+
+  return when (endPosition) {
+    -1 -> this.substring(startPosition + 1)
+    else -> this.substring(startPosition + 1, endPosition)
+  }
+}

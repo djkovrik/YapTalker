@@ -11,10 +11,11 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.data.SettingsManager
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
@@ -28,7 +29,9 @@ import com.sedsoftware.yaptalker.presentation.utility.InfiniteScrollListener
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_news.*
+import kotlinx.android.synthetic.main.fragment_news.news_fab
+import kotlinx.android.synthetic.main.fragment_news.news_list
+import kotlinx.android.synthetic.main.fragment_news.refresh_layout
 import org.jetbrains.anko.browse
 import timber.log.Timber
 import javax.inject.Inject
@@ -138,7 +141,8 @@ class NewsFragment :
   override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
     when {
       isVideo && url.contains("youtube") -> {
-        context?.browse("http://www.youtube.com/watch?v=${getYoutubeVideoId(url)}")
+        val videoId = url.extractYoutubeVideoId()
+        context?.browse("http://www.youtube.com/watch?v=$videoId")
       }
       isVideo && !url.contains("youtube") -> {
         presenter.navigateToChosenVideo(html)
@@ -165,15 +169,5 @@ class NewsFragment :
         .clicks(news_fab)
         .autoDisposable(event(FragmentLifecycle.STOP))
         .subscribe { presenter.loadNews(loadFromFirstPage = true) }
-  }
-
-  private fun getYoutubeVideoId(link: String): String {
-    val startPosition = link.lastIndexOf("/")
-    val endPosition = link.indexOf("?", startPosition)
-
-    return when (endPosition) {
-      -1 -> link.substring(startPosition + 1)
-      else -> link.substring(startPosition + 1, endPosition)
-    }
   }
 }
