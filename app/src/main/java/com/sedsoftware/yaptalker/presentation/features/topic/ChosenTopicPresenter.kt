@@ -29,7 +29,6 @@ import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
 
-// TODO () Split this monstrosity to separate presenters
 @InjectViewState
 class ChosenTopicPresenter @Inject constructor(
     private val router: Router,

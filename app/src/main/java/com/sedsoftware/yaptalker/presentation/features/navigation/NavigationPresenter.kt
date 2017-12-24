@@ -76,8 +76,7 @@ class NavigationPresenter @Inject constructor(
   }
 
   fun navigateWithIntentLink(triple: Triple<Int, Int, Int>) {
-    // TODO () Restore navigation to link
-    // router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
+    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
   }
 
   private fun navigateToDefaultMainPage() {

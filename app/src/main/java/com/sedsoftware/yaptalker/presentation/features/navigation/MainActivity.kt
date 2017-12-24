@@ -24,6 +24,7 @@ import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.booleanRes
 import com.sedsoftware.yaptalker.presentation.extensions.color
+import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
@@ -285,6 +286,17 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   }
 
   private fun handleLinkIntent() {
-    // TODO() Implement App Links
+    val appLinkIntent = intent
+    val appLinkAction = appLinkIntent.action
+    val appLinkData = appLinkIntent.data
+
+    if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
+
+      val navigateTo = appLinkData.toString().extractYapIds()
+
+      if (navigateTo.first != 0) {
+        navigationPresenter.navigateWithIntentLink(navigateTo)
+      }
+    }
   }
 }
