@@ -1,8 +1,8 @@
 package com.sedsoftware.yaptalker.presentation.features.authorization
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
-import com.sedsoftware.yaptalker.commons.enums.navigation.RequestCode
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.SendSignInRequest
 import com.sedsoftware.yaptalker.domain.interactor.SendSignInRequest.Params

@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.features.userprofile
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetUserProfile
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter

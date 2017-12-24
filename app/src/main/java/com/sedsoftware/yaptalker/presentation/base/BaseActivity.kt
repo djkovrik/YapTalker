@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.enums.lifecycle.ActivityLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.ActivityLifecycle
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

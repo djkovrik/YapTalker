@@ -10,8 +10,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.data.SettingsManager
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
@@ -29,8 +29,6 @@ import javax.inject.Inject
 class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElementsClickListener {
 
   companion object {
-    private const val FORUM_ID_KEY = "FORUM_ID_KEY"
-
     fun getNewInstance(forumId: Int): ChosenForumFragment {
       val fragment = ChosenForumFragment()
       val args = Bundle()
@@ -38,6 +36,8 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElements
       fragment.arguments = args
       return fragment
     }
+
+    private const val FORUM_ID_KEY = "FORUM_ID_KEY"
   }
 
   override val layoutId: Int

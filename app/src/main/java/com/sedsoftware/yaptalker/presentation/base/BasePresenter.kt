@@ -2,8 +2,8 @@ package com.sedsoftware.yaptalker.presentation.base
 
 import com.arellomobile.mvp.MvpPresenter
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
-import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.event.AppEvent
 import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.AppbarEvent
 import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.NavDrawerEvent

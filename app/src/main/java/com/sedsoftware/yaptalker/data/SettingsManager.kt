@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.support.annotation.StringRes
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import javax.inject.Inject
 
 /**

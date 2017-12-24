@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.commons.enums.lifecycle
+package com.sedsoftware.yaptalker.presentation.base.enums.lifecycle
 
 import android.support.annotation.IntDef
 

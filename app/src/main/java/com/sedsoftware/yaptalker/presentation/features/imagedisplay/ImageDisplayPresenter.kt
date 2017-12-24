@@ -9,7 +9,7 @@ import android.os.Environment
 import android.support.v4.content.FileProvider
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.enums.lifecycle.PresenterLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
@@ -140,8 +140,7 @@ class ImageDisplayPresenter @Inject constructor(
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "image/png"
             intent.putExtra(Intent.EXTRA_STREAM, uri)
-            context.startActivity(
-                Intent.createChooser(intent, context.stringRes(R.string.title_share_image)))
+            context.startActivity(Intent.createChooser(intent, context.stringRes(R.string.title_share_image)))
           }, { throwable ->
             // onError
             Timber.e("Image sharing error: ${throwable.message}")

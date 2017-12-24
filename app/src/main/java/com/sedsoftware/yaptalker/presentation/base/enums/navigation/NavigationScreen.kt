@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.commons.enums.navigation
+package com.sedsoftware.yaptalker.presentation.base.enums.navigation
 
 object NavigationScreen {
   const val NEWS_SCREEN = "NEWS_SCREEN"

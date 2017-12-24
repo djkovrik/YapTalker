@@ -6,7 +6,7 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.features.activetopics.ActiveTopicsFragment
 import com.sedsoftware.yaptalker.presentation.features.authorization.AuthorizationFragment
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.BookmarksFragment

@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.commons.enums.navigation
+package com.sedsoftware.yaptalker.presentation.base.enums.navigation
 
 object RequestCode {
   const val SIGN_IN = 1
