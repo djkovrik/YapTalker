@@ -76,7 +76,7 @@ android {
 }
 
 detekt {
-    version = "1.0.0.RC5-5"
+    version = "1.0.0.RC6"
 
     profile("main") {
         input = "$projectDir/src/main/java"
