@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.features.posting
+package com.sedsoftware.yaptalker.commons.enums
 
 import android.support.annotation.IntDef
 

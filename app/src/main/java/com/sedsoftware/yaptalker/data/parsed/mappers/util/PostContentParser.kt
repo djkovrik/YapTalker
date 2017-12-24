@@ -15,7 +15,7 @@ import org.jsoup.safety.Whitelist
  *
  * @param content Raw html post content
  */
-@Suppress("ComplexCondition")
+
 class PostContentParser(private val content: String) {
 
   companion object {
@@ -49,6 +49,7 @@ class PostContentParser(private val content: String) {
         .addAttributes("a", "href")
   }
 
+  @Suppress("NestedBlockDepth", "ComplexMethod")
   fun getParsedPost(): SinglePostParsed {
 
     val result = SinglePostParsed(
@@ -116,6 +117,7 @@ class PostContentParser(private val content: String) {
           }
 
           // Images
+          @Suppress("ComplexCondition")
           if (element.tagName() == IMG_TAG &&
               element.hasAttr(SRC_ATTR) &&
               !element.attr(SRC_ATTR).contains(EMOTICON_SELECTOR) &&
@@ -146,19 +148,18 @@ class PostContentParser(private val content: String) {
     return result
   }
 
-  private fun String.formatPostHtmlCode(): String {
-    return Jsoup
-        .clean(this, contentWhitelist)
-        .replace("&nbsp;", " ")
-        .replace("/go/?http", "http")
-        .replace("%3A", ":")
-        .replace("%2F", "/")
-  }
+  private fun String.formatPostHtmlCode(): String =
+      Jsoup
+          .clean(this, contentWhitelist)
+          .replace("&nbsp;", " ")
+          .replace("/go/?http", "http")
+          .replace("%3A", ":")
+          .replace("%2F", "/")
 
-  private fun String.trimLinebreakTags(): String {
-    return this
-        .removePrefix("<br>")
-        .removeSuffix("<br>")
-        .trim()
-  }
+  private fun String.trimLinebreakTags(): String =
+      this
+          .removePrefix("<br>")
+          .removeSuffix("<br>")
+          .trim()
+
 }

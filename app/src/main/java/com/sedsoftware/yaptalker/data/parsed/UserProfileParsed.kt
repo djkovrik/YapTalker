@@ -5,6 +5,7 @@ import pl.droidsonroids.jspoon.annotation.Selector
 /**
  * Class which represents parsed user profile in data layer.
  */
+@Suppress("VariableMinLength")
 class UserProfileParsed {
   @Selector("div[id=profilename]", defValue = "")
   lateinit var nickname: String

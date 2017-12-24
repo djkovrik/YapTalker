@@ -35,13 +35,8 @@ class ActiveTopicsAdapter(
 
   override fun getItemViewType(position: Int): Int = items[position].getBaseEntityType()
 
-  override fun getItemId(position: Int): Long {
-    return if (items[position] is ActiveTopicModel) {
-      (items[position] as ActiveTopicModel).topicId.toLong()
-    } else {
-      position.toLong()
-    }
-  }
+  override fun getItemId(position: Int): Long =
+      (items[position] as? ActiveTopicModel)?.topicId?.toLong() ?: position.toLong()
 
   fun addActiveTopicItem(item: YapEntity) {
     val insertPosition = items.size

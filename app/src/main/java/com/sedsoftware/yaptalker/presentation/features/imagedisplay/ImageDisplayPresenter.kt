@@ -62,67 +62,65 @@ class ImageDisplayPresenter @Inject constructor(
     }
   }
 
-  private fun loadImageFromUrl(url: String): Single<Response> {
-    return Single.create<Response> { emitter ->
-      try {
-        val request = Request.Builder().url(url).build()
-        val response = httpClient.newCall(request).execute()
-        emitter.onSuccess(response)
-      } catch (e: IOException) {
-        emitter.onError(e)
-      }
-    }
-  }
+  private fun loadImageFromUrl(url: String): Single<Response> =
 
-  private fun saveToDisk(response: Response, filename: String): Single<File> {
-
-    return Single.create({ emitter ->
-
-      try {
-
-        val storageDir = Environment.getExternalStoragePublicDirectory(
-            "${Environment.DIRECTORY_PICTURES}/YapTalker")
-
-        if (!storageDir.exists() && !storageDir.mkdir()) {
-          throw IOException("Can't create file path")
+      Single.create<Response> { emitter ->
+        try {
+          val request = Request.Builder().url(url).build()
+          val response = httpClient.newCall(request).execute()
+          emitter.onSuccess(response)
+        } catch (e: IOException) {
+          emitter.onError(e)
         }
-
-        val file = File(storageDir, filename)
-        val sink = Okio.buffer(Okio.sink(file))
-
-        response.body()?.source()?.let { bufferedSource -> sink.writeAll(bufferedSource) }
-        sink.close()
-        emitter.onSuccess(file)
-      } catch (e: IOException) {
-        e.printStackTrace()
-        emitter.onError(e)
       }
-    })
-  }
 
-  private fun getBitmapUriSingle(context: Context, bmp: Bitmap): Single<Uri> {
+  private fun saveToDisk(response: Response, filename: String): Single<File> =
 
-    return Single.create { emitter ->
+      Single.create({ emitter ->
 
-      val bmpUri: Uri?
+        try {
 
-      try {
+          val storageDir = Environment.getExternalStoragePublicDirectory(
+              "${Environment.DIRECTORY_PICTURES}/YapTalker")
 
-        val file = File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-            "shared_image_${System.currentTimeMillis()}.png")
+          if (!storageDir.exists() && !storageDir.mkdir()) {
+            throw IOException("Can't create file path")
+          }
 
-        val out = FileOutputStream(file)
-        bmp.compress(Bitmap.CompressFormat.PNG, ENCODING_IMAGE_QUALITY, out)
-        out.close()
+          val file = File(storageDir, filename)
+          val sink = Okio.buffer(Okio.sink(file))
 
-        bmpUri = FileProvider.getUriForFile(context, context.packageName, file)
-        emitter.onSuccess(bmpUri)
+          response.body()?.source()?.let { bufferedSource -> sink.writeAll(bufferedSource) }
+          sink.close()
+          emitter.onSuccess(file)
+        } catch (e: IOException) {
+          e.printStackTrace()
+          emitter.onError(e)
+        }
+      })
 
-      } catch (e: IOException) {
-        emitter.onError(e)
+  private fun getBitmapUriSingle(context: Context, bmp: Bitmap): Single<Uri> =
+
+      Single.create { emitter ->
+
+        val bmpUri: Uri?
+
+        try {
+
+          val file = File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+              "shared_image_${System.currentTimeMillis()}.png")
+
+          val out = FileOutputStream(file)
+          bmp.compress(Bitmap.CompressFormat.PNG, ENCODING_IMAGE_QUALITY, out)
+          out.close()
+
+          bmpUri = FileProvider.getUriForFile(context, context.packageName, file)
+          emitter.onSuccess(bmpUri)
+
+        } catch (e: IOException) {
+          emitter.onError(e)
+        }
       }
-    }
-  }
 
   private inner class ShareTarget(val context: Context) : ImageTarget {
     override fun onPrepareLoad(placeHolderDrawable: Drawable?) {

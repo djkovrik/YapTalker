@@ -11,6 +11,7 @@ import com.squareup.picasso.Transformation
  * Circle image transformation for Picasso
  * Source: https://gist.github.com/julianshen/5829333
  */
+@Suppress("VariableMinLength")
 class CircleImageTransformation : Transformation {
 
   private var x: Int = 0

@@ -2,8 +2,8 @@ package com.sedsoftware.yaptalker.presentation.features.posting
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.commons.enums.navigation.RequestCode
-import com.sedsoftware.yaptalker.features.posting.MessageTags
-import com.sedsoftware.yaptalker.features.posting.MessageTags.Tag
+import com.sedsoftware.yaptalker.commons.enums.MessageTags
+import com.sedsoftware.yaptalker.commons.enums.MessageTags.Tag
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import ru.terrakok.cicerone.Router
 import java.util.Locale

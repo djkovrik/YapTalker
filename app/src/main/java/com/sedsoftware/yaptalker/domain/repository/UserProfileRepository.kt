@@ -8,5 +8,5 @@ import io.reactivex.Observable
  */
 interface UserProfileRepository {
 
-  fun getUserProfile(userId: Int) : Observable<BaseEntity>
+  fun getUserProfile(userId: Int): Observable<BaseEntity>
 }

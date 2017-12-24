@@ -5,6 +5,7 @@ import pl.droidsonroids.jspoon.annotation.Selector
 /**
  * Class which represents parsed user login session info in data layer.
  */
+@Suppress("VariableMinLength")
 class LoginSessionInfoParsed {
   @Selector("div.user-name > a", defValue = "")
   lateinit var nickname: String

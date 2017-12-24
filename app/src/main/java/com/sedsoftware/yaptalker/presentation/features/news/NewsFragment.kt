@@ -58,7 +58,7 @@ class NewsFragment :
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    newsAdapter = NewsAdapter( this, this, settings)
+    newsAdapter = NewsAdapter(this, this, settings)
     newsAdapter.setHasStableIds(true)
 
     with(news_list) {
@@ -104,9 +104,7 @@ class NewsFragment :
   }
 
   override fun showFab() {
-    news_fab?.let { fab ->
-      fab.moveWithAnimationAxisY(offset = 0f)
-    }
+    news_fab?.moveWithAnimationAxisY(offset = 0f)
   }
 
   override fun hideFab() {

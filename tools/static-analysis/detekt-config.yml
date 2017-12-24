@@ -79,7 +79,7 @@ potential-bugs:
   UnsafeCallOnNullableType:
     active: true
   UnsafeCast:
-    active: true
+    active: false
   UselessPostfixExpression:
     active: true
 
@@ -95,10 +95,10 @@ performance:
 exceptions:
   active: true
   ExceptionRaisedInUnexpectedLocation:
-    active: false
+    active: true
     methodNames: 'toString,hashCode,equals,finalize'
   SwallowedException:
-    active: false
+    active: true
   TooGenericExceptionCaught:
     active: true
     exceptions:
@@ -120,24 +120,24 @@ exceptions:
       - RuntimeException
       - Throwable
   InstanceOfCheckForException:
-    active: false
+    active: true
   NotImplementedDeclaration:
-    active: false
+    active: true
   ThrowingExceptionsWithoutMessageOrCause:
-    active: false
+    active: true
     exceptions: 'IllegalArgumentException,IllegalStateException,IOException'
   PrintStackTrace:
-    active: false
+    active: true
   RethrowCaughtException:
-    active: false
+    active: true
   ReturnFromFinally:
-    active: false
+    active: true
   ThrowingExceptionFromFinally:
-    active: false
+    active: true
   ThrowingExceptionInMain:
-    active: false
+    active: true
   ThrowingNewInstanceOfSameException:
-    active: false
+    active: true
 
 empty-blocks:
   active: true
@@ -185,19 +185,19 @@ complexity:
     active: true
     threshold: 150
   ComplexInterface:
-    active: false
-    threshold: 10
+    active: true
+    threshold: 15
     includeStaticDeclarations: false
   ComplexMethod:
     active: true
-    threshold: 10
+    threshold: 15
   MethodOverloading:
-    active: false
+    active: true
     threshold: 5
   TooManyFunctions:
     active: true
-    thresholdInFiles: 10
-    thresholdInClasses: 15
+    thresholdInFiles: 15
+    thresholdInClasses: 20
     thresholdInInterfaces: 15
     thresholdInObjects: 10
     thresholdInEnums: 10
@@ -233,24 +233,24 @@ style:
   OptionalAbstractKeyword:
     active: true
   OptionalWhenBraces:
-    active: true
+    active: false
   CollapsibleIfStatements:
-    active: true
+    active: false
   EqualsNullCall:
     active: true
   ForbiddenComment:
     active: true
     values: 'TODO:,FIXME:,STOPSHIP:'
   ForbiddenImport:
-    active: false
+    active: true
     imports: ''
   SpacingBetweenPackageAndImports:
-    active: true
-  LoopWithTooManyJumpStatements:
     active: false
+  LoopWithTooManyJumpStatements:
+    active: true
     maxJumpCount: 1
   MethodNameEqualsClassName:
-    active: true
+    active: false
     ignoreOverriddenFunction: true
   ModifierOrder:
     active: true
@@ -288,9 +288,9 @@ style:
     functionPattern: '^([a-z$][a-zA-Z$0-9]*)|(`.*`)$'
   FunctionMaxLength:
     active: true
-    maximumFunctionNameLength: 30
+    maximumFunctionNameLength: 35
   FunctionMinLength:
-    active: true
+    active: false
     minimumFunctionNameLength: 3
   VariableNaming:
     active: true
@@ -299,20 +299,20 @@ style:
     active: true
     constantPattern: '^([A-Z_]*|serialVersionUID)$'
   VariableMaxLength:
-    active: false
+    active: true
     maximumVariableNameLength: 30
   VariableMinLength:
     active: true
     minimumVariableNameLength: 3
   ForbiddenClassName:
-    active: false
+    active: true
     forbiddenName: ''
   ProtectedMemberInFinalClass:
     active: true
   SerialVersionUIDInSerializableClass:
-    active: false
-  UnnecessaryParentheses:
     active: true
+  UnnecessaryParentheses:
+    active: false
   UnnecessaryInheritance:
     active: true
   UtilityClassWithPublicConstructor:
@@ -321,9 +321,9 @@ style:
     active: true
     conversionFunctionPrefix: 'to'
   UseDataClass:
-    active: true
+    active: false
   UnnecessaryAbstractClass:
-    active: true
+    active: false
   OptionalUnit:
     active: true
   OptionalReturnKeyword:
