@@ -13,7 +13,14 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
-import kotlinx.android.synthetic.main.fragment_news_item.view.*
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_author
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_comments_counter
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_content_image
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_content_text
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_date
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_forum
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_rating
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_title
 
 class NewsDelegateAdapter(
     private val clickListener: NewsItemElementsClickListener,
@@ -76,18 +83,19 @@ class NewsDelegateAdapter(
       with(itemView) {
 
         news_content_image.setOnClickListener(null)
+        news_content_image.setImageDrawable(null)
         news_content_image.hideView()
 
         if (newsItem.images.isNotEmpty()) {
           val url = newsItem.images.first()
-          news_content_image.showView()
           news_content_image.loadFromUrl(url)
+          news_content_image.showView()
           news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, "", false) }
         } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
           val url = newsItem.videos.first()
           val rawVideo = newsItem.videosRaw.first()
-          news_content_image.showView()
           thumbnailsLoader.loadThumbnail(url, news_content_image)
+          news_content_image.showView()
           news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawVideo, true) }
         }
 

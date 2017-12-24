@@ -28,7 +28,15 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostTe
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWarningModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_author
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_author_avatar
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_image_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_text_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_video_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_date
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_down
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_up
 
 class ChosenTopicDelegateAdapter(
     val clickListener: ChosenTopicElementsClickListener,
@@ -159,11 +167,11 @@ class ChosenTopicDelegateAdapter(
       val imagePadding = itemView.context.resources.getDimension(
           R.dimen.post_image_vertical_padding).toInt()
 
+      itemView.post_content_image_container.removeAllViews()
       itemView.post_content_image_container.hideView()
 
       if (post.images.isNotEmpty()) {
         itemView.post_content_image_container.showView()
-        itemView.post_content_image_container.removeAllViews()
         post.images.forEach { url ->
           val image = ImageView(itemView.context)
           image.adjustViewBounds = true
@@ -180,9 +188,11 @@ class ChosenTopicDelegateAdapter(
       val imagePadding = itemView.context.resources.getDimension(
           R.dimen.post_image_vertical_padding).toInt()
 
+      itemView.post_content_video_container.removeAllViews()
+      itemView.post_content_video_container.hideView()
+
       if (post.videos.isNotEmpty() && post.videosRaw.isNotEmpty()) {
         itemView.post_content_video_container.showView()
-        itemView.post_content_video_container.removeAllViews()
         post.videos.forEachIndexed { index, url ->
           val rawHtml = post.videosRaw[index]
           val thumbnail = ImageView(itemView.context)
@@ -192,8 +202,6 @@ class ChosenTopicDelegateAdapter(
           thumbnailLoader.loadThumbnail(url, thumbnail)
           thumbnail.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawHtml, true) }
         }
-      } else {
-        itemView.post_content_video_container.hideView()
       }
     }
 
