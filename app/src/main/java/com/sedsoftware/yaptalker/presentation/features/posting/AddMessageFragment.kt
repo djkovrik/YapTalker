@@ -146,7 +146,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     // B
     RxView
         .clicks(new_post_button_bold)
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe {
           with(new_post_edit_text) {
             presenter.insertChosenTag(selectionStart, selectionEnd, MessageTags.TAG_B)
@@ -156,7 +156,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     // I
     RxView
         .clicks(new_post_button_italic)
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe {
           with(new_post_edit_text) {
             presenter.insertChosenTag(selectionStart, selectionEnd, MessageTags.TAG_I)
@@ -166,7 +166,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     // U
     RxView
         .clicks(new_post_button_underlined)
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe {
           with(new_post_edit_text) {
             presenter.insertChosenTag(selectionStart, selectionEnd, MessageTags.TAG_U)
@@ -176,7 +176,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     // Link
     RxView
         .clicks(new_post_button_link)
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe {
           with(new_post_edit_text) {
             presenter.insertChosenTag(selectionStart, selectionEnd, MessageTags.TAG_LINK)

@@ -294,7 +294,7 @@ class ChosenTopicFragment :
         .requestThumbnail(videoUrl)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe({ url ->
           if (url.isNotEmpty()) {
             imageView.loadFromUrl(url)
@@ -328,7 +328,7 @@ class ChosenTopicFragment :
 
     RxSwipeRefreshLayout
         .refreshes(topic_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe { presenter.refreshCurrentPage() }
   }
 }

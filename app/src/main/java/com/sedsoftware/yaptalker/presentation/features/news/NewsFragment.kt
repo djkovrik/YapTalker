@@ -126,7 +126,7 @@ class NewsFragment :
         .requestThumbnail(videoUrl)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe({ url ->
           if (url.isNotEmpty()) {
             imageView.loadFromUrl(url)
@@ -157,17 +157,17 @@ class NewsFragment :
 
     RxSwipeRefreshLayout
         .refreshes(refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe { presenter.loadNews(loadFromFirstPage = true) }
 
     RxRecyclerView
         .scrollEvents(news_list)
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
 
     RxView
         .clicks(news_fab)
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe { presenter.loadNews(loadFromFirstPage = true) }
   }
 }

@@ -94,7 +94,7 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
   private fun subscribeViews() {
     RxSwipeRefreshLayout
         .refreshes(forums_list_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe { presenter.loadForumsList() }
   }
 }

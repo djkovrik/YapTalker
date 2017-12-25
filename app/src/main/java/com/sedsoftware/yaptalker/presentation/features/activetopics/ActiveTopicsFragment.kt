@@ -136,7 +136,7 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsEleme
   private fun subscribeViews() {
     RxSwipeRefreshLayout
         .refreshes(active_topics_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe { presenter.refreshActiveTopicsList() }
   }
 }

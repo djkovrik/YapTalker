@@ -77,12 +77,12 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
             BiFunction { login: CharSequence, password: CharSequence ->
               login.isNotEmpty() && password.isNotEmpty()
             })
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe { enabled -> presenter.handleSignInButton(enabled) }
 
     RxView
         .clicks(button_sign_in)
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe {
           presenter.performLoginAttempt(
               authorization_login.text.toString(),

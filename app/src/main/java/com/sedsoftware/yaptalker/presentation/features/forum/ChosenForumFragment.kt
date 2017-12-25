@@ -153,7 +153,7 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElements
 
     RxSwipeRefreshLayout
         .refreshes(forum_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe { presenter.loadForum(currentForumId) }
   }
 }

@@ -121,7 +121,7 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
 
     RxSwipeRefreshLayout
         .refreshes(bookmarks_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.STOP))
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe { presenter.loadBookmarks() }
   }
 }
