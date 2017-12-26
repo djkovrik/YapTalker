@@ -4,4 +4,5 @@
   <dimen name="sign_in_layout_width">580dp</dimen>
   <dimen name="news_content_media_width">520dp</dimen>
   <dimen name="topic_content_media_width">520dp</dimen>
+  <dimen name="settings_block_width">520dp</dimen>
 </resources>

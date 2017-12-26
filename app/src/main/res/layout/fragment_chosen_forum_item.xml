@@ -4,7 +4,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:background="?attr/selectableItemBackground">
+  android:background="?attr/selectableItemBackground"
+  tools:keep="@layout/fragment_chosen_forum_item">
 
   <RelativeLayout
     android:id="@+id/linearLayoutTopic"
@@ -38,7 +39,7 @@
       android:layout_below="@+id/topic_name"
       tools:text="Administration" />
 
-    <com.sedsoftware.yaptalker.commons.views.ShortDateView
+    <TextView
       android:id="@+id/topic_last_post_date"
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"

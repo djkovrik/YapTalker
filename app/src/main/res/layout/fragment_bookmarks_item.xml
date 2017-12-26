@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/material_list_single_line_without_avatar_normal_height">
+  android:layout_height="@dimen/material_list_single_line_without_avatar_normal_height"
+  tools:keep="@layout/fragment_bookmarks_item">
 
   <ImageView
     android:id="@+id/bookmark_delete_icon"

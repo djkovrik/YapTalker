@@ -2,7 +2,9 @@
 <resources>
 
   <!-- News screen -->
-  <dimen name="card_margin_value_half">@dimen/material_baseline_grid_0.5x</dimen>
+  <dimen name="card_margin_value_half">
+    @dimen/material_baseline_grid_0.5x
+  </dimen>
   <dimen name="mini_fab_icon_padding">4dp</dimen>
 
   <!-- Rating labels -->
@@ -17,7 +19,6 @@
 
   <!-- Navigation panel -->
   <dimen name="navigation_button_width">54dp</dimen>
-  <dimen name="navigation_panel_text_size">20sp</dimen>
 
   <!-- Other -->
   <dimen name="post_editor_margin">8dp</dimen>
@@ -29,5 +30,5 @@
   <dimen name="sign_in_layout_width">@dimen/custom_match_parent</dimen>
   <dimen name="news_content_media_width">@dimen/custom_match_parent</dimen>
   <dimen name="topic_content_media_width">@dimen/custom_match_parent</dimen>
-
+  <dimen name="settings_block_width">@dimen/custom_match_parent</dimen>
 </resources>

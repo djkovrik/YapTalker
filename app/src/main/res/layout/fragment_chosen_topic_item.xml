@@ -4,7 +4,8 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?attr/selectableItemBackground"
-  android:orientation="vertical">
+  android:orientation="vertical"
+  tools:keep="@layout/fragment_chosen_topic_item">
 
   <ImageView
     android:id="@+id/post_author_avatar"
@@ -33,7 +34,7 @@
 
   <TextView
     android:id="@+id/post_rating_thumb_down"
-    style="@style/PostRating"
+    style="@style/RatingThumbsDown"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignBottom="@id/post_author_avatar"
@@ -43,10 +44,9 @@
     android:paddingEnd="@dimen/post_karma_thump_icon_padding"
     android:paddingStart="@dimen/post_karma_thump_icon_padding"
     android:text="@string/topic_post_karma_thumb_down"
-    android:textColor="@color/colorRatingThumbDown"
     tools:text="-" />
 
-  <com.sedsoftware.yaptalker.commons.views.PostRatingView
+  <TextView
     android:id="@+id/post_rating"
     style="@style/PostRating"
     android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
 
   <TextView
     android:id="@+id/post_rating_thumb_up"
-    style="@style/PostRating"
+    style="@style/RatingThumbsUp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignBottom="@id/post_author_avatar"
@@ -69,10 +69,9 @@
     android:paddingEnd="@dimen/post_karma_thump_icon_padding"
     android:paddingStart="@dimen/post_karma_thump_icon_padding"
     android:text="@string/topic_post_karma_thumb_up"
-    android:textColor="@color/colorRatingThumbUp"
     tools:text="+" />
 
-  <com.sedsoftware.yaptalker.commons.views.ShortDateView
+  <TextView
     android:id="@+id/post_date"
     style="@style/CommonSupportingText"
     android:layout_width="wrap_content"
@@ -112,8 +111,8 @@
     <LinearLayout
       android:id="@+id/post_content_video_container"
       android:layout_width="@dimen/topic_content_media_width"
-      android:layout_gravity="center_horizontal"
       android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
       android:orientation="vertical" />
 
   </LinearLayout>

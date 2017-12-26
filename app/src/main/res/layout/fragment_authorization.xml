@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/auth_edit_text_drawable_padding"
-        android:drawableStart="@drawable/ic_auth_login"
+        android:drawableStart="?attr/iconAuthLogin"
         android:hint="@string/authorization_login_label"
         android:inputType="text|textNoSuggestions"
         android:maxLines="1" />
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="8dp"
-        android:drawableStart="@drawable/ic_auth_password"
+        android:drawableStart="?attr/iconAuthPassword"
         android:hint="@string/authorization_password_label"
         android:inputType="textPassword"
         android:maxLines="1" />

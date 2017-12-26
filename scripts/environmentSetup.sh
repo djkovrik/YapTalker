@@ -7,6 +7,9 @@ function copyEnvVarsToGradleProperties {
     GRADLE_PROPERTIES=$HOME"/.gradle/gradle.properties"
     export GRADLE_PROPERTIES
 
+    KEYSTORE_FILE=$HOME"/build/djkovrik/YapTalker/app/upload.jks"
+    export KEYSTORE_FILE
+
     echo "Creating Gradle folder..."
     mkdir -p ${GRADLE_DIR}
 
@@ -19,9 +22,16 @@ function copyEnvVarsToGradleProperties {
         truncate -s 0 ${GRADLE_PROPERTIES}
     fi
 
+    if [ -f "$KEYSTORE_FILE" ]; then
+        echo "keystore detected."
+    fi
+
     echo "Adding VK_ACCESS_TOKEN to gradle.properties..."
     echo "VK_ACCESS_TOKEN=\"$VK_ACCESS_TOKEN_ENV\"" >> ${GRADLE_PROPERTIES}
 
-    echo "gradle.properties content:"
-    cat ${GRADLE_PROPERTIES}
+    echo "Adding dummy signing config to gradle.properties..."
+    echo "RELEASE_STORE_FILE=$KEYSTORE_FILE" >> ${GRADLE_PROPERTIES}
+    echo "RELEASE_STORE_PASSWORD=$RELEASE_STORE_PASSWORD" >> ${GRADLE_PROPERTIES}
+    echo "RELEASE_KEY_ALIAS=upload" >> ${GRADLE_PROPERTIES}
+    echo "RELEASE_KEY_PASSWORD=$RELEASE_KEY_PASSWORD" >> ${GRADLE_PROPERTIES}
 }

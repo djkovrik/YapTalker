@@ -24,9 +24,6 @@
   <!-- FORUMS -->
   <string name="forum_comments_template">Комментариев: <xliff:g id="answers">%s</xliff:g></string>
 
-  <!-- POSTS -->
-  <string name="post_link">Ссылка</string>
-
   <!-- NAVIGATION PANEL -->
   <string name="navigation_pages_template"><xliff:g id="page">%d</xliff:g> из <xliff:g id="total_pages">%d</xliff:g></string>
   <string name="navigation_go_to_page_title">Перейти на страницу</string>
@@ -59,7 +56,7 @@
   <string name="profile_label_info"> Информация</string>
   <string name="profile_registered">Регистрация: <xliff:g id="date">%s</xliff:g></string>
   <string name="profile_time_zone">Часовой пояс: <xliff:g id="time_zone">%s</xliff:g></string>
-  <string name="profile_web_site"><![CDATA[<a href="%s">Вебсайт</a>]]></string>
+  <string name="profile_web_site"><![CDATA[<a href=\"%s\">Вебсайт</a>]]></string>
   <string name="profile_birth_date">Дата рождения: <xliff:g id="date">%s</xliff:g></string>
   <string name="profile_location">Место жительства: <xliff:g id="place">%s</xliff:g></string>
   <string name="profile_interests">Увлечения: <xliff:g id="list">%s</xliff:g></string>
@@ -133,10 +130,10 @@
   <string name="short_date_seconds_now">только что</string>
 
   <!-- A11Y -->
-  <string name="a11y_avatar">Аватар пользователя</string>
+  <string name="a11y_avatar" tools:keep="@string/a11y_avatar">Аватар пользователя</string>
   <string name="a11y_photo">Фото пользователя</string>
-  <string name="a11y_forum_image">Картинка форума</string>
-  <string name="a11y_news_image">Фото содержимого новости</string>
-  <string name="a11y_bookmark_delete">Удаление темы из закладок</string>
+  <string name="a11y_forum_image" tools:keep="@string/a11y_forum_image">Картинка форума</string>
+  <string name="a11y_news_image" tools:keep="@string/a11y_news_image">Фото содержимого новости</string>
+  <string name="a11y_bookmark_delete" tools:keep="@string/a11y_bookmark_delete">Удаление темы из закладок</string>
 
 </resources>

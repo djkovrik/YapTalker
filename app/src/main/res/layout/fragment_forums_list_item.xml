@@ -5,7 +5,8 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?attr/selectableItemBackground"
-  android:orientation="horizontal">
+  android:orientation="horizontal"
+  tools:keep="@layout/fragment_forums_list_item">
 
   <ImageView
     android:id="@+id/forum_image"
@@ -72,7 +73,7 @@
       android:layout_height="wrap_content"
       tools:text="Jus" />
 
-    <com.sedsoftware.yaptalker.commons.views.ShortDateView
+    <TextView
       android:id="@+id/forum_last_topic_date"
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"

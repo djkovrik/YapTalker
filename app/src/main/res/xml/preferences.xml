@@ -31,6 +31,14 @@
       android:persistent="true"
       android:title="@string/pref_appearance_avatar_size_title" />
 
+    <com.afollestad.materialdialogs.prefs.MaterialListPreference
+      android:defaultValue="@string/pref_appearance_theme_value_light"
+      android:entries="@array/pref_theme_labels"
+      android:entryValues="@array/pref_theme_values"
+      android:key="@string/pref_key_theme"
+      android:persistent="true"
+      android:title="@string/pref_appearance_theme_title" />
+
   </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/pref_category_title_content">

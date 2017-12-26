@@ -33,6 +33,17 @@
     <item>@string/pref_appearance_avatar_size_value_large</item>
   </string-array>
 
+  <!-- Appearance: Theme -->
+  <string-array name="pref_theme_labels">
+    <item>@string/pref_appearance_theme_label_light</item>
+    <item>@string/pref_appearance_theme_label_dark</item>
+  </string-array>
+
+  <string-array name="pref_theme_values">
+    <item>@string/pref_appearance_theme_value_light</item>
+    <item>@string/pref_appearance_theme_value_dark</item>
+  </string-array>
+
   <!-- Content: Categorizer -->
   <string-array name="pref_categorizer_labels">
     <item>@string/pref_content_categorizer_label_pictures</item>
