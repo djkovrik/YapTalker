@@ -1,35 +1,47 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: 'buildsystem/dependencies.gradle'
 
 buildscript {
-  ext.kotlin_version = '1.1.61'
-  ext.support_library_version = '27.0.1'
-  ext.fabric_gradle_version = '1.24.5'
-  ext.google_play_services_version = '3.1.2'
-  repositories {
-    google()
-    jcenter()
-    maven { url "https://maven.fabric.io/public" }
-  }
-  dependencies {
-    classpath 'com.android.tools.build:gradle:3.0.1'
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    classpath "io.fabric.tools:gradle:$fabric_gradle_version"
-    classpath "com.google.gms:google-services:$google_play_services_version"
-
-    // NOTE: Do not place your application dependencies here; they belong
-    // in the individual module build.gradle files
-  }
+    ext.kotlin_version = '1.2.10'
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:3.0.1"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
 
+// Versioning convention from ribot:
+// Major -> Millions, Minor -> Thousands, Bugfix -> Hundreds. E.g 1.3.72 == 1,003,072
+// Current: 0.7.0 (000,007,000)
+def versionMajor = 0
+def versionMinor = 7
+def versionPatch = 0
+
 allprojects {
-  repositories {
-    google()
-    jcenter()
-    mavenCentral()
-    maven { url "https://jitpack.io" }
-  }
+    ext {
+        compileSdkVersion = 27
+        buildToolsVersion = "27.0.0"
+        minSdkVersion = 19
+        minSdkDevVersion = 22
+        targetSdkVersion = 27
+        supportLibraryVersion = "27.0.1"
+        constraintLayoutVersion = "1.1.0-beta3"
+        androidApplicationId = "com.sedsoftware.yaptalker"
+        androidVersionCode = versionMajor * 1000000 + versionMinor * 1000 + versionPatch
+        androidVersionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testApplicationId = "com.sedsoftware.yaptalker.test"
+    }
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
 }
 
 task clean(type: Delete) {
-  delete rootProject.buildDir
+    delete rootProject.buildDir
 }

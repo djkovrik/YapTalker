@@ -1,71 +1,56 @@
 package com.sedsoftware.yaptalker
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.KodeinAware
-import com.github.salomonbrys.kodein.bind
-import com.github.salomonbrys.kodein.lazy
-import com.github.salomonbrys.kodein.singleton
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
-import com.sedsoftware.yaptalker.commons.CrashReportingTree
-import com.sedsoftware.yaptalker.commons.extensions.color
-import com.sedsoftware.yaptalker.data.requests.requestsClientModule
-import com.sedsoftware.yaptalker.data.requests.requestsCookieModule
-import com.sedsoftware.yaptalker.data.thumbnailsManagerModule
-import com.sedsoftware.yaptalker.data.yapDataManagerModule
-import com.sedsoftware.yaptalker.features.navigationModule
-import com.sedsoftware.yaptalker.features.settings.SettingsHelper
+import com.sedsoftware.yaptalker.di.DaggerAppComponent
+import com.sedsoftware.yaptalker.presentation.extensions.color
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
 import es.dmoral.toasty.Toasty
 import timber.log.Timber
+import javax.inject.Inject
 
-class YapTalkerApp : Application(), KodeinAware {
+class YapTalkerApp : Application(), HasActivityInjector {
 
   companion object {
-    lateinit var kodeinInstance: Kodein
     private const val NAV_DRAWER_AVATAR_PADDING = 16
   }
 
-  override val kodein by Kodein.lazy {
-
-    bind<Context>() with singleton { this@YapTalkerApp }
-
-    bind<SettingsHelper>() with singleton { SettingsHelper(this@YapTalkerApp) }
-
-    import(rxModule)
-    import(navigationModule)
-    import(requestsClientModule)
-    import(requestsCookieModule)
-    import(yapDataManagerModule)
-    import(thumbnailsManagerModule)
-  }
+  @Inject
+  lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
   override fun onCreate() {
     super.onCreate()
 
     if (LeakCanary.isInAnalyzerProcess(this)) {
-      // This process is dedicated to LeakCanary for heap analysis.
-      // You should not init your app in this process.
       return
     }
 
     LeakCanary.install(this)
 
-    // Normal app init code below
-    kodeinInstance = kodein
+    DaggerAppComponent
+        .builder()
+        .context(this)
+        .build()
+        .inject(this)
 
     initTimber()
     initToasty()
     initMaterialDrawerImageLoader()
   }
+
+  override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
 
   @Suppress("ConstantConditionIf")
   private fun initTimber() {
@@ -73,8 +58,6 @@ class YapTalkerApp : Application(), KodeinAware {
 
     if (BuildConfig.DEBUG) {
       Timber.plant(Timber.DebugTree())
-    } else {
-      Timber.plant(CrashReportingTree())
     }
   }
 
@@ -107,7 +90,7 @@ class YapTalkerApp : Application(), KodeinAware {
                   .paddingDp(NAV_DRAWER_AVATAR_PADDING)
 
             else -> super.placeholder(ctx, tag)
-      }
+          }
     })
   }
 }

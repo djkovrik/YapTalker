@@ -15,7 +15,7 @@ cache:
 before_install:
   - mkdir -p "$HOME/build/djkovrik/YapTalker/app"
   - openssl aes-256-cbc -K $encrypted_9201c6e45d1f_key -iv $encrypted_9201c6e45d1f_iv
-    -in upload.jks.enc -out $HOME/build/djkovrik/YapTalker/app/upload.jks -d
+    -in buildsystem/upload.jks.enc -out $HOME/build/djkovrik/YapTalker/app/upload.jks -d
   - mkdir "$ANDROID_HOME/licenses" || true
   - echo "$LICENSE_HASH" > "$ANDROID_HOME/licenses/android-sdk-license"
   - echo "$LICENSE_HASH_TWO" >> "$ANDROID_HOME/licenses/android-sdk-license"

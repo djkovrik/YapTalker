@@ -39,7 +39,7 @@
       android:layout_below="@+id/topic_name"
       tools:text="Administration" />
 
-    <com.sedsoftware.yaptalker.commons.views.ShortDateView
+    <TextView
       android:id="@+id/topic_last_post_date"
       style="@style/CommonSupportingText"
       android:layout_width="wrap_content"

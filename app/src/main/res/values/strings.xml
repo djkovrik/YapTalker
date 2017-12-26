@@ -69,7 +69,7 @@
   <string name="profile_label_info"> User info</string>
   <string name="profile_registered">Registered: <xliff:g id="date">%s</xliff:g></string>
   <string name="profile_time_zone">Time zone: <xliff:g id="time_zone">%s</xliff:g></string>
-  <string name="profile_web_site"><![CDATA[<a href="%s">Web site</a>]]></string>
+  <string name="profile_web_site"><![CDATA[<a href=\"%s\">Web site</a>]]></string>
   <string name="profile_birth_date">Birth date: <xliff:g id="date">%s</xliff:g></string>
   <string name="profile_location">Location: <xliff:g id="place">%s</xliff:g></string>
   <string name="profile_interests">Interests: <xliff:g id="list">%s</xliff:g></string>
