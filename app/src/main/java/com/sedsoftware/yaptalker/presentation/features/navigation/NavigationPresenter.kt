@@ -1,16 +1,17 @@
 package com.sedsoftware.yaptalker.presentation.features.navigation
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
-import com.sedsoftware.yaptalker.data.SettingsManager
+import com.sedsoftware.yaptalker.data.settings.DefaultHomeScreen
+import com.sedsoftware.yaptalker.data.settings.SettingsManager
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetLoginSessionInfo
 import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest
 import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest.Params
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.mappers.LoginSessionInfoModelMapper
 import com.sedsoftware.yaptalker.presentation.mappers.ServerResponseModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -80,7 +81,11 @@ class NavigationPresenter @Inject constructor(
   }
 
   private fun navigateToDefaultMainPage() {
-    router.newRootScreen(settings.getStartingPage())
+    when (settings.getStartingPage()) {
+      DefaultHomeScreen.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
+      DefaultHomeScreen.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
+      else -> router.newRootScreen(NavigationScreen.NEWS_SCREEN)
+    }
   }
 
   private fun refreshAuthorization() {

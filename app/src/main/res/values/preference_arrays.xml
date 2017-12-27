@@ -4,11 +4,13 @@
   <string-array name="pref_start_page_labels">
     <item>@string/pref_general_start_page_label_main</item>
     <item>@string/pref_general_start_page_label_forums</item>
+    <item>@string/pref_general_start_page_label_active_topics</item>
   </string-array>
 
   <string-array name="pref_start_page_values">
     <item>@string/pref_general_start_page_value_main</item>
     <item>@string/pref_general_start_page_value_forums</item>
+    <item>@string/pref_general_start_page_value_active_topics</item>
   </string-array>
 
   <!-- Appearance: Font size -->

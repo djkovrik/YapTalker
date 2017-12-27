@@ -1,10 +1,9 @@
-package com.sedsoftware.yaptalker.data
+package com.sedsoftware.yaptalker.data.settings
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.support.annotation.StringRes
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import javax.inject.Inject
 
 /**
@@ -28,10 +27,12 @@ class SettingsManager @Inject constructor(
   fun getStartingPage(): String {
     val current = getStringPref(R.string.pref_key_start_page, "")
     val forums = context.resources.getString(R.string.pref_general_start_page_value_forums)
+    val topics = context.resources.getString(R.string.pref_general_start_page_value_active_topics)
 
     return when (current) {
-      forums -> NavigationScreen.FORUMS_LIST_SCREEN
-      else -> NavigationScreen.NEWS_SCREEN
+      forums -> DefaultHomeScreen.FORUMS
+      topics -> DefaultHomeScreen.ACTIVE_TOPICS
+      else -> DefaultHomeScreen.MAIN
     }
   }
 
