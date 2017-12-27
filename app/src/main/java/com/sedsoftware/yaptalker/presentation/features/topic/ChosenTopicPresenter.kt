@@ -1,9 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.features.topic
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.data.settings.SettingsManager
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetChosenTopic
@@ -13,6 +10,9 @@ import com.sedsoftware.yaptalker.domain.interactor.SendChangeKarmaRequestPost
 import com.sedsoftware.yaptalker.domain.interactor.SendChangeKarmaRequestTopic
 import com.sedsoftware.yaptalker.domain.interactor.SendMessageRequest
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.mappers.ServerResponseModelMapper
 import com.sedsoftware.yaptalker.presentation.mappers.TopicModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity

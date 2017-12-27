@@ -68,14 +68,14 @@ class ChosenTopicFragment :
     get() = R.layout.fragment_chosen_topic
 
   @Inject
-  lateinit var settings: SettingsManager
-
-  @Inject
   @InjectPresenter
   lateinit var presenter: ChosenTopicPresenter
 
   @ProvidePresenter
   fun provideTopicPresenter() = presenter
+
+  @Inject
+  lateinit var settings: SettingsManager
 
   private val forumId: Int by lazy {
     arguments?.getInt(FORUM_ID_KEY) ?: 0

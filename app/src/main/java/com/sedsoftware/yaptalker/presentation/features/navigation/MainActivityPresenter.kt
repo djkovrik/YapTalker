@@ -2,10 +2,10 @@ package com.sedsoftware.yaptalker.presentation.features.navigation
 
 import android.text.Spanned
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.data.settings.SettingsManager
 import com.sedsoftware.yaptalker.domain.interactor.GetEulaText
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.AppbarEvent
 import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.NavDrawerEvent
 import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer

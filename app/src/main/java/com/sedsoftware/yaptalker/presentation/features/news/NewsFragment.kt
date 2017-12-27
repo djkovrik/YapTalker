@@ -47,14 +47,14 @@ class NewsFragment :
     get() = R.layout.fragment_news
 
   @Inject
-  lateinit var settings: SettingsManager
-
-  @Inject
   @InjectPresenter
   lateinit var presenter: NewsPresenter
 
   @ProvidePresenter
   fun provideNewsPresenter() = presenter
+
+  @Inject
+  lateinit var settings: SettingsManager
 
   private lateinit var newsAdapter: NewsAdapter
 

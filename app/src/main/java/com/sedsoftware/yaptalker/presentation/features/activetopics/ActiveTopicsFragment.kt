@@ -10,10 +10,10 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.data.settings.SettingsManager
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
@@ -22,7 +22,8 @@ import com.sedsoftware.yaptalker.presentation.features.activetopics.adapter.Acti
 import com.sedsoftware.yaptalker.presentation.features.activetopics.adapter.ActiveTopicsElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_active_topics.*
+import kotlinx.android.synthetic.main.fragment_active_topics.active_topics_list
+import kotlinx.android.synthetic.main.fragment_active_topics.active_topics_refresh_layout
 import java.util.Locale
 import javax.inject.Inject
 

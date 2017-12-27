@@ -8,10 +8,10 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.data.settings.SettingsManager
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
@@ -19,7 +19,8 @@ import com.sedsoftware.yaptalker.presentation.features.forumslist.adapter.Forums
 import com.sedsoftware.yaptalker.presentation.features.forumslist.adapter.ForumsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_forums_list.*
+import kotlinx.android.synthetic.main.fragment_forums_list.forums_list
+import kotlinx.android.synthetic.main.fragment_forums_list.forums_list_refresh_layout
 import javax.inject.Inject
 
 class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
@@ -32,14 +33,14 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
     get() = R.layout.fragment_forums_list
 
   @Inject
-  lateinit var settings: SettingsManager
-
-  @Inject
   @InjectPresenter
   lateinit var presenter: ForumsPresenter
 
   @ProvidePresenter
   fun provideForumsPresenter() = presenter
+
+  @Inject
+  lateinit var settings: SettingsManager
 
   private lateinit var forumsAdapter: ForumsAdapter
 
