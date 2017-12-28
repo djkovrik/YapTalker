@@ -10,10 +10,10 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.data.SettingsManager
-import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
@@ -22,7 +22,8 @@ import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ChosenForum
 import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ChosenForumElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_chosen_forum.*
+import kotlinx.android.synthetic.main.fragment_chosen_forum.forum_refresh_layout
+import kotlinx.android.synthetic.main.fragment_chosen_forum.forum_topics_list
 import java.util.Locale
 import javax.inject.Inject
 
@@ -44,14 +45,14 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElements
     get() = R.layout.fragment_chosen_forum
 
   @Inject
-  lateinit var settings: SettingsManager
-
-  @Inject
   @InjectPresenter
   lateinit var presenter: ChosenForumPresenter
 
   @ProvidePresenter
   fun provideForumPresenter() = presenter
+
+  @Inject
+  lateinit var settings: SettingsManager
 
   private val currentForumId: Int by lazy {
     arguments?.getInt(FORUM_ID_KEY) ?: 0

@@ -20,8 +20,8 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.booleanRes
 import com.sedsoftware.yaptalker.presentation.extensions.color
 import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
@@ -30,8 +30,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.activity_main.navigation_drawer
+import kotlinx.android.synthetic.main.include_main_appbar.toolbar
 import ru.terrakok.cicerone.Navigator
 import javax.inject.Inject
 

@@ -9,8 +9,8 @@ import android.os.Environment
 import android.support.v4.content.FileProvider
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.squareup.picasso.Picasso

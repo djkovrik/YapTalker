@@ -21,23 +21,6 @@ fun String.getLastDigits(): Int {
 }
 
 @Suppress("MagicNumber")
-fun String.toMd5(): String {
-
-  val digest = java.security.MessageDigest.getInstance("MD5")
-  digest.update(this.toByteArray())
-  val messageDigest = digest.digest()
-  val hexString = StringBuffer()
-
-  for (i in 0 until messageDigest.size) {
-    var hex = Integer.toHexString(0xFF and messageDigest[i].toInt())
-    while (hex.length < 2)
-      hex = "0" + hex
-    hexString.append(hex)
-  }
-  return hexString.toString()
-}
-
-@Suppress("MagicNumber")
 fun String.extractYapIds(): Triple<Int, Int, Int> {
 
   val noPageRegex = Pattern.compile("yaplakal\\.com/forum(\\d+)/topic(\\d+)\\.")

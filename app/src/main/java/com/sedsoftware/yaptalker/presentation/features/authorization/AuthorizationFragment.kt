@@ -9,16 +9,18 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
-import kotlinx.android.synthetic.main.fragment_authorization.*
+import kotlinx.android.synthetic.main.fragment_authorization.authorization_login
+import kotlinx.android.synthetic.main.fragment_authorization.authorization_password
+import kotlinx.android.synthetic.main.fragment_authorization.button_sign_in
 import javax.inject.Inject
 
 class AuthorizationFragment : BaseFragment(), AuthorizationView {

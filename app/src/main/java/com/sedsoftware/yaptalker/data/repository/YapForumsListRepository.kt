@@ -1,8 +1,8 @@
 package com.sedsoftware.yaptalker.data.repository
 
-import com.sedsoftware.yaptalker.data.SettingsManager
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.data.parsed.mappers.ForumsListMapper
+import com.sedsoftware.yaptalker.data.settings.SettingsManager
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.Forum
 import com.sedsoftware.yaptalker.domain.repository.ForumsListRepository

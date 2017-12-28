@@ -4,13 +4,17 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.data.SettingsManager
+import com.sedsoftware.yaptalker.data.settings.SettingsManager
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadRatingBackground
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.ActiveTopicModel
-import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.*
+import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.active_topic_answers
+import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.active_topic_forum
+import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.active_topic_last_post_date
+import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.active_topic_name
+import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.active_topic_rating
 
 class ActiveTopicsDelegateAdapter(
     private val itemClick: ActiveTopicsElementsClickListener,

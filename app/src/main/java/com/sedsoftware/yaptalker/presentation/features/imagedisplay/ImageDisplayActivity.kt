@@ -17,8 +17,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
-import kotlinx.android.synthetic.main.activity_image_display.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.activity_image_display.photo_view
+import kotlinx.android.synthetic.main.include_main_appbar.toolbar
 import java.util.Locale
 import javax.inject.Inject
 

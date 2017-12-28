@@ -9,10 +9,10 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.data.SettingsManager
-import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
@@ -22,7 +22,8 @@ import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.Bookmar
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.BookmarksElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_bookmarks.*
+import kotlinx.android.synthetic.main.fragment_bookmarks.bookmarks_list
+import kotlinx.android.synthetic.main.fragment_bookmarks.bookmarks_refresh_layout
 import javax.inject.Inject
 
 class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickListener {
@@ -35,14 +36,14 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
     get() = R.layout.fragment_bookmarks
 
   @Inject
-  lateinit var settings: SettingsManager
-
-  @Inject
   @InjectPresenter
   lateinit var presenter: BookmarksPresenter
 
   @ProvidePresenter
   fun provideBookmarksPresenter() = presenter
+
+  @Inject
+  lateinit var settings: SettingsManager
 
   private lateinit var bookmarksAdapter: BookmarksAdapter
 
