@@ -1,7 +1,11 @@
-### Current version: 0.8.0
+### Current version: 0.8.1
 
 # Changelog
-## [0.8.0] - 2017-12-28
+## [0.8.1] - 2017-12-28
+- First beta-release.
+
+# Changelog
+## [0.8.0] - 2017-12-27
 ### Added
 - GIF support
 
