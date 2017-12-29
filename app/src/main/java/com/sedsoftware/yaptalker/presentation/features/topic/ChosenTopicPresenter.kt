@@ -10,6 +10,7 @@ import com.sedsoftware.yaptalker.domain.interactor.SendChangeKarmaRequestPost
 import com.sedsoftware.yaptalker.domain.interactor.SendChangeKarmaRequestTopic
 import com.sedsoftware.yaptalker.domain.interactor.SendMessageRequest
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
@@ -192,8 +193,9 @@ class ChosenTopicPresenter @Inject constructor(
         .subscribeOn(Schedulers.io())
         .map { response: BaseEntity -> serverResponseMapper.transform(response) }
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { viewState.showLoadingIndicator() }
-        .doFinally { viewState.hideLoadingIndicator() }
+        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+        .doOnError { setConnectionState(ConnectionState.ERROR) }
+        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
         .subscribe(getBookmarksResponseObserver())
   }
@@ -211,8 +213,9 @@ class ChosenTopicPresenter @Inject constructor(
         .subscribeOn(Schedulers.io())
         .map { response: BaseEntity -> serverResponseMapper.transform(response) }
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { viewState.showLoadingIndicator() }
-        .doFinally { viewState.hideLoadingIndicator() }
+        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+        .doOnError { setConnectionState(ConnectionState.ERROR) }
+        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
         .subscribe(getKarmaResponseObserver())
   }
@@ -229,8 +232,9 @@ class ChosenTopicPresenter @Inject constructor(
         .subscribeOn(Schedulers.io())
         .map { response: BaseEntity -> serverResponseMapper.transform(response) }
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { viewState.showLoadingIndicator() }
-        .doFinally { viewState.hideLoadingIndicator() }
+        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+        .doOnError { setConnectionState(ConnectionState.ERROR) }
+        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
         .subscribe(getKarmaResponseObserver())
   }
@@ -252,8 +256,9 @@ class ChosenTopicPresenter @Inject constructor(
             SendMessageRequest.Params(currentForumId, currentTopicId, startingPost, authKey, message))
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { viewState.showLoadingIndicator() }
-        .doFinally { viewState.hideLoadingIndicator() }
+        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+        .doOnError { setConnectionState(ConnectionState.ERROR) }
+        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
         .subscribe(getMessageSendingObserver())
   }
@@ -269,8 +274,9 @@ class ChosenTopicPresenter @Inject constructor(
         .map { topicItems: List<BaseEntity> -> topicMapper.transform(topicItems) }
         .flatMap { items: List<YapEntity> -> Observable.fromIterable(items) }
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { viewState.showLoadingIndicator() }
-        .doFinally { viewState.hideLoadingIndicator() }
+        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+        .doOnError { setConnectionState(ConnectionState.ERROR) }
+        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
         .subscribe(getTopicObserver())
   }

@@ -6,6 +6,7 @@ import com.sedsoftware.yaptalker.domain.interactor.GetBookmarksList
 import com.sedsoftware.yaptalker.domain.interactor.SendBookmarkDeleteRequest
 import com.sedsoftware.yaptalker.domain.interactor.SendBookmarkDeleteRequest.Params
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.mappers.BookmarksModelMapper
@@ -61,8 +62,9 @@ class BookmarksPresenter @Inject constructor(
         .subscribeOn(Schedulers.io())
         .map { bookmarkItem: BaseEntity -> bookmarksMapper.transform(bookmarkItem) }
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { viewState.showLoadingIndicator() }
-        .doFinally { viewState.hideLoadingIndicator() }
+        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+        .doOnError { setConnectionState(ConnectionState.ERROR) }
+        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
         .subscribe(getBookmarksObserver())
   }
@@ -91,7 +93,6 @@ class BookmarksPresenter @Inject constructor(
   private fun deleteBookmark(bookmarkId: Int) {
     deleteBookmarkUseCase
         .buildUseCaseObservable(Params(bookmarkId))
-        .subscribeOn(Schedulers.io())
         .subscribeOn(Schedulers.io())
         .map { response: BaseEntity -> serverResponseMapper.transform(response) }
         .observeOn(AndroidSchedulers.mainThread())

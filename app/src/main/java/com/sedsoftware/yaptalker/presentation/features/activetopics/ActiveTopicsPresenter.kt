@@ -6,6 +6,7 @@ import com.sedsoftware.yaptalker.domain.interactor.GetActiveTopicsList
 import com.sedsoftware.yaptalker.domain.interactor.GetActiveTopicsList.Params
 import com.sedsoftware.yaptalker.domain.interactor.GetSearchId
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.mappers.ActiveTopicModelMapper
@@ -94,8 +95,9 @@ class ActiveTopicsPresenter @Inject constructor(
         .map { topics: List<BaseEntity> -> activeTopicsModelMapper.transform(topics) }
         .flatMap { topics: List<YapEntity> -> Observable.fromIterable(topics) }
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { viewState.showLoadingIndicator() }
-        .doFinally { viewState.hideLoadingIndicator() }
+        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+        .doOnError { setConnectionState(ConnectionState.ERROR) }
+        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
         .subscribe(getActiveTopicsObserver())
   }
@@ -111,8 +113,9 @@ class ActiveTopicsPresenter @Inject constructor(
         .map { item: List<BaseEntity> -> activeTopicsModelMapper.transform(item) }
         .flatMap { list: List<YapEntity> -> Observable.fromIterable(list) }
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { viewState.showLoadingIndicator() }
-        .doFinally { viewState.hideLoadingIndicator() }
+        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+        .doOnError { setConnectionState(ConnectionState.ERROR) }
+        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
         .subscribe(getActiveTopicsObserver())
   }

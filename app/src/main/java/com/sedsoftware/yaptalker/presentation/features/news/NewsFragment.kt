@@ -99,10 +99,12 @@ class NewsFragment :
   }
 
   override fun showLoadingIndicator() {
+    Timber.tag("xxxx").d("showLoadingIndicator")
     refresh_layout?.isRefreshing = true
   }
 
   override fun hideLoadingIndicator() {
+    Timber.tag("xxxx").d("hideLoadingIndicator")
     refresh_layout?.isRefreshing = false
   }
 
