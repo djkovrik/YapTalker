@@ -1,7 +1,7 @@
-### Current version: 0.8.1
+### Current version: 0.8.2
 
 # Changelog
-## [0.8.1] - 2017-12-28
+## [0.8.2] - 2017-12-29
 - First beta-release.
 
 # Changelog
