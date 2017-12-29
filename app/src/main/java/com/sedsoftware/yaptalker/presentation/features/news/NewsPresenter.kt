@@ -5,6 +5,7 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetNewsList
 import com.sedsoftware.yaptalker.domain.interactor.GetVideoThumbnail
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.mappers.NewsModelMapper
@@ -73,8 +74,9 @@ class NewsPresenter @Inject constructor(
         .subscribeOn(Schedulers.io())
         .map { newsItem: BaseEntity -> newsModelMapper.transform(newsItem) }
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { viewState.showLoadingIndicator() }
-        .doFinally { viewState.hideLoadingIndicator() }
+        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+        .doOnError { setConnectionState(ConnectionState.ERROR) }
+        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
         .subscribe(getNewsObserver())
   }
