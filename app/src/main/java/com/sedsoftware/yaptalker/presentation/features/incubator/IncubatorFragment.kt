@@ -92,7 +92,7 @@ class IncubatorFragment :
   }
 
   override fun updateCurrentUiState() {
-    context?.stringRes(R.string.nav_drawer_main_page)?.let { presenter.setAppbarTitle(it) }
+    context?.stringRes(R.string.nav_drawer_incubator)?.let { presenter.setAppbarTitle(it) }
     presenter.setNavDrawerItem(NavigationSection.INCUBATOR)
   }
 
