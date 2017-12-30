@@ -7,11 +7,11 @@ allprojects {
 ext {
     // Android
     final SUPPORT_LIBRARY_VERSION = "27.0.2"
-    final CONSTRAINT_LAYOUT_VERSION = "1.1.0-beta3"
+    final CONSTRAINT_LAYOUT_VERSION = "1.1.0-beta4"
 
     // Rx
     final RX_ANDROID_VERSION = "2.0.1"
-    final RX_JAVA_VERSION = "2.1.7"
+    final RX_JAVA_VERSION = "2.1.8"
     final RX_KOTLIN_VERSION = "2.2.0"
     final RX_RELAY_VERSION = "2.0.0"
     final RX_LINT_VERSION = "1.6"
@@ -21,7 +21,7 @@ ext {
     // Core
     final DAGGER_VERSION = "2.14.1"
     final MOXY_VERSION = "1.5.3"
-    final ANKO_VERSION = "0.10.3"
+    final ANKO_VERSION = "0.10.4"
     final PICASSO_VERSION = "2.5.2"
     final CICERONE_VERSION = "2.1.0"
     final RETROFIT_VERSION = "2.3.0"
