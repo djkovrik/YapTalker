@@ -68,6 +68,7 @@ class NavigationPresenter @Inject constructor(
     when (identifier) {
       NavigationSection.MAIN_PAGE -> router.newRootScreen(NavigationScreen.NEWS_SCREEN)
       NavigationSection.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
+      NavigationSection.INCUBATOR -> router.newRootScreen(NavigationScreen.INCUBATOR_SCREEN)
       NavigationSection.SIGN_IN -> router.navigateTo(NavigationScreen.AUTHORIZATION_SCREEN)
       NavigationSection.SIGN_OUT -> sendSignOutRequest()
       NavigationSection.BOOKMARKS -> router.newRootScreen(NavigationScreen.BOOKMARKS_SCREEN)

@@ -5,7 +5,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
 /**
- * Class which represents news item in domain layer.
+ * Class which represents news item in presentation layer.
  */
 class NewsItemModel(
     val title: String,
