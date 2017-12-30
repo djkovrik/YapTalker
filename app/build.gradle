@@ -7,6 +7,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -100,6 +101,7 @@ dependencies {
     def uiDependencies = rootProject.ext.uiDependencies
     def testDependencies = rootProject.ext.testDependencies
     def androidTestDependencies = rootProject.ext.androidTestDependencies
+    def supportingToolsDependencies = rootProject.ext.supportingToolsDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
@@ -167,9 +169,14 @@ dependencies {
     androidTestImplementation androidTestDependencies.mockitoKotlin
     androidTestImplementation androidTestDependencies.robolectric
 
+    implementation(supportingToolsDependencies.crashalytics) { transitive = true }
+    implementation supportingToolsDependencies.firebaseCore
+
     implementation developmentDependencies.timber
     debugImplementation developmentDependencies.leakCanary
     releaseImplementation developmentDependencies.leakCanaryNoOp
     betaImplementation developmentDependencies.leakCanaryNoOp
     testImplementation developmentDependencies.leakCanaryNoOp
 }
+
+apply plugin: 'com.google.gms.google-services'
