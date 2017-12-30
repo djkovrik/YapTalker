@@ -29,9 +29,7 @@ import com.sedsoftware.yaptalker.presentation.utility.InfiniteScrollListener
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_news.news_fab
-import kotlinx.android.synthetic.main.fragment_news.news_list
-import kotlinx.android.synthetic.main.fragment_news.refresh_layout
+import kotlinx.android.synthetic.main.fragment_news.*
 import org.jetbrains.anko.browse
 import timber.log.Timber
 import javax.inject.Inject
@@ -99,12 +97,10 @@ class NewsFragment :
   }
 
   override fun showLoadingIndicator() {
-    Timber.tag("xxxx").d("showLoadingIndicator")
     refresh_layout?.isRefreshing = true
   }
 
   override fun hideLoadingIndicator() {
-    Timber.tag("xxxx").d("hideLoadingIndicator")
     refresh_layout?.isRefreshing = false
   }
 

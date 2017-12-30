@@ -46,6 +46,10 @@ ext {
     final EXPEKT_VERSION = "0.5.0"
     final ROBOLECTRIC_VERSION = "3.6.1"
 
+    // Supporting tools
+    final ANDROID_CRASHALYTICS_VERSION = "2.7.1@aar"
+    final FIREBASE_CORE_VERSION = "11.8.0"
+
     // Development tools
     final TIMBER_VERSION = "4.6.0"
     final LEAK_CANARY_VERSION = "1.5.4"
@@ -124,6 +128,11 @@ ext {
             mockitoAndroid          : "org.mockito:mockito-android:$MOCKITO_VERSION",
             mockitoKotlin           : "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
             robolectric             : "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
+    ]
+
+    supportingToolsDependencies = [
+            crashalytics            : "com.crashlytics.sdk.android:crashlytics:$ANDROID_CRASHALYTICS_VERSION",
+            firebaseCore            : "com.google.firebase:firebase-core:$FIREBASE_CORE_VERSION"
     ]
 
     developmentDependencies = [

@@ -10,6 +10,7 @@ import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
+import com.sedsoftware.yaptalker.commons.CrashReportingTree
 import com.sedsoftware.yaptalker.di.DaggerAppComponent
 import com.sedsoftware.yaptalker.presentation.extensions.color
 import com.squareup.leakcanary.LeakCanary
@@ -58,6 +59,8 @@ class YapTalkerApp : Application(), HasActivityInjector {
 
     if (BuildConfig.DEBUG) {
       Timber.plant(Timber.DebugTree())
+    } else {
+      Timber.plant(CrashReportingTree())
     }
   }
 
