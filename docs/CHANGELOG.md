@@ -1,6 +1,10 @@
 ### Current version: 0.8.3
 
 # Changelog
+## [0.8.4] - 2017-12-30
+### Added
+- Incubator site section.
+
 ## [0.8.3] - 2017-12-30
 - First beta release.
 
