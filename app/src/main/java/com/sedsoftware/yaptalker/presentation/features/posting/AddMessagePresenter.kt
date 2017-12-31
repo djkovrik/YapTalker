@@ -2,8 +2,8 @@ package com.sedsoftware.yaptalker.presentation.features.posting
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
-import com.sedsoftware.yaptalker.presentation.features.posting.MessageTags.Tag
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
+import com.sedsoftware.yaptalker.presentation.features.posting.MessageTags.Tag
 import ru.terrakok.cicerone.Router
 import java.util.Locale
 import javax.inject.Inject
@@ -49,8 +49,6 @@ class AddMessagePresenter @Inject constructor(
     val result = String.format(Locale.getDefault(), LINK_BLOCK, url, title)
     viewState.insertTag(result)
   }
-
-  fun isAnyTagNotClosed() = isBOpened || isIOpened || isUOpened
 
   fun sendMessageTextBackToView(message: String) {
     router.exitWithResult(RequestCode.MESSAGE_TEXT, message)
