@@ -9,7 +9,7 @@ class PostItemParsed {
   lateinit var authorProfile: String
   @Selector("a[title=Профиль] img", attr = "src", defValue = "//www.yaplakal.com/html/static/noavatar.gif")
   lateinit var authorAvatar: String
-  @Selector("div[align=left][style=padding-left:5px]", format = "Сообщений: (\\d+)", defValue = "0")
+  @Selector("div[align=left][style=padding-left:5px]", format = "Сообщений: ([-\\d]+)", defValue = "0")
   lateinit var authorMessagesCount: String
   @Selector("a.anchor", defValue = "")
   lateinit var postDate: String

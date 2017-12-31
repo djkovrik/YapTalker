@@ -37,7 +37,7 @@ class UserProfileParsed {
   lateinit var interests: String
   @Selector("td:contains(Половая принадлежность) + td", defValue = "")
   lateinit var sex: String
-  @Selector("td:contains(Всего полезных сообщений) + td", format = "(\\d+)", defValue = "0")
+  @Selector("td:contains(Всего полезных сообщений) + td", format = "([-\\d]+)", defValue = "0")
   lateinit var messagesCount: String
   @Selector("td:contains(Сообщений в день) + td", defValue = "0")
   lateinit var messsagesPerDay: String
