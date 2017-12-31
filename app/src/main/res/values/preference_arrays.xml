@@ -17,6 +17,8 @@
 
   <!-- Appearance: Font size -->
   <string-array name="pref_font_size_values">
+    <item>@string/pref_appearance_font_size_value_12</item>
+    <item>@string/pref_appearance_font_size_value_13</item>
     <item>@string/pref_appearance_font_size_value_14</item>
     <item>@string/pref_appearance_font_size_value_15</item>
     <item>@string/pref_appearance_font_size_value_16</item>
