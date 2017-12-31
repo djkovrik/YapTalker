@@ -35,6 +35,11 @@ class TopicPageMapper @Inject constructor() {
           topicRatingTargetId = topicRatingTargetId.toInt()
       ))
 
+      result.add(NavigationPanel(
+          currentPage = navigation.currentPage.toInt(),
+          totalPages = navigation.totalPages.toInt()
+      ))
+
       posts.forEach { post ->
         result.add(SinglePost(
             authorNickname = post.authorNickname,

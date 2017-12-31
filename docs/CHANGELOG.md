@@ -4,6 +4,10 @@
 ## [0.8.4] - 2017-12-30
 ### Added
 - Incubator site section.
+- Additional font sizes.
+
+### Changed
+- Site topic now also has top navigation panel
 
 ## [0.8.3] - 2017-12-30
 - First beta release.
