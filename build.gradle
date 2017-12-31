@@ -19,10 +19,10 @@ buildscript {
 
 // Versioning convention from ribot:
 // Major -> Millions, Minor -> Thousands, Bugfix -> Hundreds. E.g 1.3.72 == 1,003,072
-// Current: 0.8.3 (000,008,003)
+// Current: 0.8.4 (000,008,004)
 def versionMajor = 0
 def versionMinor = 8
-def versionPatch = 3
+def versionPatch = 4
 
 allprojects {
     ext {
