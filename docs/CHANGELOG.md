@@ -11,6 +11,9 @@
 - Added post-loading scroll to targeted post for post karma changing
 - Added messages for karma changing request results
 
+### Fixed
+- Broken EditText width for add new message layout
+
 ## [0.8.3] - 2017-12-30
 - First beta release.
 

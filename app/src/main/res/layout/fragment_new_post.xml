@@ -21,7 +21,7 @@
 
   <EditText
     android:id="@+id/new_post_edit_text"
-    android:layout_width="368dp"
+    android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_marginBottom="@dimen/post_editor_margin"
     android:layout_marginEnd="@dimen/post_editor_margin"
