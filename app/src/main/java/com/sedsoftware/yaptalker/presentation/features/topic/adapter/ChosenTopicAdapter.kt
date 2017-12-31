@@ -30,7 +30,7 @@ class ChosenTopicAdapter(
       delegateAdapters.get(viewType).onCreateViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])
+    delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position], position)
   }
 
   override fun getItemViewType(position: Int): Int = items[position].getBaseEntityType()

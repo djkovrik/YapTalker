@@ -9,8 +9,7 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
-import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.bookmark_delete_icon
-import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.bookmark_title
+import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.*
 
 class BookmarksDelegateAdapter(
     val clickListener: BookmarksElementsClickListener,
@@ -22,7 +21,7 @@ class BookmarksDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = BookmarkViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
+  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity, position: Int) {
     holder as BookmarkViewHolder
     holder.bindTo(item as BookmarkedTopicModel)
   }

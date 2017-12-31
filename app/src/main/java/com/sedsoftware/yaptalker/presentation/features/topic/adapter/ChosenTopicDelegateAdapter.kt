@@ -28,15 +28,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostTe
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWarningModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_author
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_author_avatar
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_image_container
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_text_container
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_video_container
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_date
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_down
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_up
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 
 class ChosenTopicDelegateAdapter(
     val clickListener: ChosenTopicElementsClickListener,
@@ -61,9 +53,9 @@ class ChosenTopicDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = PostViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
+  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity, position: Int) {
     holder as PostViewHolder
-    holder.bindTo(item as SinglePostModel)
+    holder.bindTo(item as SinglePostModel, position)
   }
 
   inner class PostViewHolder(parent: ViewGroup) :
@@ -76,11 +68,11 @@ class ChosenTopicDelegateAdapter(
     private val quoteBackgroundColor = parent.context.getColorFromAttr(R.attr.colorQuoteBackground)
     private val warnings = ArrayList<PostWarningModel>()
 
-    fun bindTo(postItem: SinglePostModel) {
+    fun bindTo(postItem: SinglePostModel, position: Int) {
       fillPostText(postItem.postContentParsed)
       fillPostImages(postItem.postContentParsed)
       fillPostVideos(postItem.postContentParsed)
-      fillPostHeader(postItem)
+      fillPostHeader(postItem, position)
     }
 
     @Suppress("NestedBlockDepth")
@@ -205,7 +197,7 @@ class ChosenTopicDelegateAdapter(
       }
     }
 
-    private fun fillPostHeader(post: SinglePostModel) {
+    private fun fillPostHeader(post: SinglePostModel, position: Int) {
       with(itemView) {
         post_author.text = post.authorNickname
         post_date.text = post.postDate
@@ -245,9 +237,10 @@ class ChosenTopicDelegateAdapter(
 
         setOnClickListener {
           val isKarmaAvailable = post.postRankPlusAvailable && post.postRankMinusAvailable
-          clickListener.onPostItemClicked(post.postId, isKarmaAvailable)
+          clickListener.onPostItemClicked(post.postId, position, isKarmaAvailable)
         }
       }
+
     }
   }
 }

@@ -100,6 +100,8 @@
   <string name="msg_bookmark_confirm_No">Cancel</string>
   <string name="msg_bookmark_topic_deleted">Topic successfully deleted from bookmarks.</string>
   <string name="msg_bookmark_topic_added">Topic added to bookmarks.</string>
+  <string name="msg_karma_changed">Post karma changed successfully.</string>
+  <string name="msg_karma_already_rated">You already rated this post.</string>
 
   <!-- MENUS -->
   <string name="action_save">Save</string>

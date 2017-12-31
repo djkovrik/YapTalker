@@ -25,6 +25,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
+import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
 import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
 import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicAdapter
@@ -34,8 +35,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_posts_list
-import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_refresh_layout
+import kotlinx.android.synthetic.main.fragment_chosen_topic.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.share
 import timber.log.Timber
@@ -201,7 +201,7 @@ class ChosenTopicFragment :
     context?.share("http://www.yaplakal.com/forum$forumId/st/$topicPage/topic$topicId.html", title)
   }
 
-  override fun displayPostContextMenu(postId: Int) {
+  override fun displayPostContextMenu(postId: Int, postPosition: Int) {
     val plusItem = context?.stringRes(R.string.action_post_karma_plus)
     val minusItem = context?.stringRes(R.string.action_post_karma_minus)
 
@@ -212,8 +212,8 @@ class ChosenTopicFragment :
           .title(R.string.title_post_context_menu)
           .items(itemsArray)
           .itemsCallback { _, _, _, text ->
-            if (text == plusItem) presenter.changePostKarma(postId, shouldIncrease = true)
-            if (text == minusItem) presenter.changePostKarma(postId, shouldIncrease = false)
+            if (text == plusItem) presenter.changePostKarma(postId, postPosition, shouldIncrease = true)
+            if (text == minusItem) presenter.changePostKarma(postId, postPosition, shouldIncrease = false)
           }
           .show()
     }
@@ -221,6 +221,12 @@ class ChosenTopicFragment :
 
   override fun scrollToViewTop() {
     topic_posts_list?.layoutManager?.scrollToPosition(0)
+    Timber.d("Scroll to page top")
+  }
+
+  override fun scrollToPost(position: Int) {
+    topic_posts_list?.layoutManager?.scrollToPosition(position)
+    Timber.d("Scroll to post $position")
   }
 
   override fun showCantLoadPageMessage(page: Int) {
@@ -232,6 +238,18 @@ class ChosenTopicFragment :
   override fun showBookmarkAddedMessage() {
     context?.stringRes(R.string.msg_bookmark_topic_added)?.let { message ->
       toastSuccess(message)
+    }
+  }
+
+  override fun showPostKarmaChangedMessage() {
+    context?.stringRes(R.string.msg_karma_changed)?.let { message ->
+      toastSuccess(message)
+    }
+  }
+
+  override fun showPostAlreadyRatedMessage() {
+    context?.stringRes(R.string.msg_karma_already_rated)?.let { message ->
+      toastInfo(message)
     }
   }
 
@@ -251,9 +269,9 @@ class ChosenTopicFragment :
     Timber.i("Screen always awake - disabled")
   }
 
-  override fun onPostItemClicked(postId: Int, isKarmaAvailable: Boolean) {
+  override fun onPostItemClicked(postId: Int, postPosition: Int, isKarmaAvailable: Boolean) {
     if (isKarmaAvailable) {
-      presenter.showPostContextMenuIfAvailable(postId)
+      presenter.showPostContextMenuIfAvailable(postId, postPosition)
     }
   }
 

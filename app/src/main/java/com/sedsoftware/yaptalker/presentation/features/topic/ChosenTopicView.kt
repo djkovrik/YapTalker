@@ -32,13 +32,19 @@ interface ChosenTopicView : BaseView {
 
   fun shareTopic(title: String, topicPage: Int)
 
-  fun displayPostContextMenu(postId: Int)
+  fun displayPostContextMenu(postId: Int, postPosition: Int)
 
   fun scrollToViewTop()
+
+  fun scrollToPost(position: Int)
 
   fun showCantLoadPageMessage(page: Int)
 
   fun showBookmarkAddedMessage()
+
+  fun showPostKarmaChangedMessage()
+
+  fun showPostAlreadyRatedMessage()
 
   fun showUnknownErrorMessage()
 

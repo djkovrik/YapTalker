@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.presentation.features.topic.adapter
 
 interface ChosenTopicElementsClickListener {
 
-  fun onPostItemClicked(postId: Int, isKarmaAvailable: Boolean)
+  fun onPostItemClicked(postId: Int, postPosition: Int, isKarmaAvailable: Boolean)
 
   fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean)
 

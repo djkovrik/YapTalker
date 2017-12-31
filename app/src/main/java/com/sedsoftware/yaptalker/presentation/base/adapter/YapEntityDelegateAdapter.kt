@@ -8,5 +8,5 @@ interface YapEntityDelegateAdapter {
 
   fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
 
-  fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: YapEntity)
+  fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: YapEntity, position: Int = -1)
 }
