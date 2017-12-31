@@ -6,10 +6,10 @@ import pl.droidsonroids.jspoon.annotation.Selector
  * Class which represents parsed news page in data layer.
  */
 class NewsPageParsed {
-  @Selector(".newshead")
+  @Selector("td.newshead")
   lateinit var headers: List<NewsHead>
-  @Selector(".news-content")
+  @Selector("td.postcolor")
   lateinit var contents: List<NewsContent>
-  @Selector(".newsbottom")
+  @Selector("td.holder")
   lateinit var bottoms: List<NewsBottom>
 }
