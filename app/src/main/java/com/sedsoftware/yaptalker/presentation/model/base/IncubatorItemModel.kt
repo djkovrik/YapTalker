@@ -5,9 +5,9 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
 /**
- * Class which represents news item in presentation layer.
+ * Class which represents incubator item in presentation layer.
  */
-class NewsItemModel(
+class IncubatorItemModel(
     val title: String,
     val link: String,
     val topicId: Int,
@@ -26,5 +26,5 @@ class NewsItemModel(
     val isYapLink: Boolean
 ) : YapEntity {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.NEWS_ITEM
+  override fun getBaseEntityType(): Int = YapEntityTypes.INCUBATOR_TOPIC
 }

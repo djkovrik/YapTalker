@@ -13,4 +13,5 @@ object YapEntityTypes {
   const val TOPIC_INFO = 10
   const val USER_PROFILE = 11
   const val SERVER_RESPONSE = 12
+  const val INCUBATOR_TOPIC = 13
 }

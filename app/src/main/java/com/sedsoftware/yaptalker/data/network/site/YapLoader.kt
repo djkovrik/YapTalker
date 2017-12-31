@@ -37,7 +37,6 @@ interface YapLoader {
   fun loadNews(
       @Path("startPage") startPage: Int): Observable<NewsPageParsed>
 
-
   /**
    * Load forums list from the site.
    *
