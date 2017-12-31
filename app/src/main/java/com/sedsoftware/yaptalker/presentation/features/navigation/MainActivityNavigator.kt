@@ -14,6 +14,7 @@ import com.sedsoftware.yaptalker.presentation.features.forum.ChosenForumFragment
 import com.sedsoftware.yaptalker.presentation.features.forumslist.ForumsFragment
 import com.sedsoftware.yaptalker.presentation.features.gifdisplay.GifDisplayActivity
 import com.sedsoftware.yaptalker.presentation.features.imagedisplay.ImageDisplayActivity
+import com.sedsoftware.yaptalker.presentation.features.incubator.IncubatorFragment
 import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.features.posting.AddMessageFragment
 import com.sedsoftware.yaptalker.presentation.features.settings.SettingsActivity
@@ -39,6 +40,7 @@ class MainActivityNavigator @Inject constructor(val activity: MainActivity) :
   override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
     NavigationScreen.NEWS_SCREEN -> NewsFragment.getNewInstance()
     NavigationScreen.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
+    NavigationScreen.INCUBATOR_SCREEN -> IncubatorFragment.getNewInstance()
     NavigationScreen.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()
     NavigationScreen.BOOKMARKS_SCREEN -> BookmarksFragment.getNewInstance()
     NavigationScreen.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()

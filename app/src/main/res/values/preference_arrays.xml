@@ -5,16 +5,20 @@
     <item>@string/pref_general_start_page_label_main</item>
     <item>@string/pref_general_start_page_label_forums</item>
     <item>@string/pref_general_start_page_label_active_topics</item>
+    <item>@string/pref_general_start_page_label_incubator</item>
   </string-array>
 
   <string-array name="pref_start_page_values">
     <item>@string/pref_general_start_page_value_main</item>
     <item>@string/pref_general_start_page_value_forums</item>
     <item>@string/pref_general_start_page_value_active_topics</item>
+    <item>@string/pref_general_start_page_value_incubator</item>
   </string-array>
 
   <!-- Appearance: Font size -->
   <string-array name="pref_font_size_values">
+    <item>@string/pref_appearance_font_size_value_12</item>
+    <item>@string/pref_appearance_font_size_value_13</item>
     <item>@string/pref_appearance_font_size_value_14</item>
     <item>@string/pref_appearance_font_size_value_15</item>
     <item>@string/pref_appearance_font_size_value_16</item>

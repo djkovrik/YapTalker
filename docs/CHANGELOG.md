@@ -1,6 +1,20 @@
-### Current version: 0.8.3
+### Current version: 0.8.4
 
 # Changelog
+## [0.8.4] - 2017-12-31
+### Added
+- Incubator site section
+- Additional font sizes
+- Notifications for change karma requests
+
+### Changed
+- Each site topic now also has top navigation panel
+- Added post-loading scroll to targeted post for post karma changing
+- Added messages for karma changing request results
+
+### Fixed
+- Broken EditText width for new message layout
+
 ## [0.8.3] - 2017-12-30
 - First beta release.
 

@@ -30,8 +30,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
-import kotlinx.android.synthetic.main.activity_main.navigation_drawer
-import kotlinx.android.synthetic.main.include_main_appbar.toolbar
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.Navigator
 import javax.inject.Inject
 
@@ -70,6 +70,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   private lateinit var drawerItemMainPage: PrimaryDrawerItem
   private lateinit var drawerItemForums: PrimaryDrawerItem
   private lateinit var drawerItemActiveTopics: PrimaryDrawerItem
+  private lateinit var drawerItemIncubator: PrimaryDrawerItem
   private lateinit var drawerItemBookmarks: PrimaryDrawerItem
   private lateinit var drawerItemSettings: PrimaryDrawerItem
   private lateinit var drawerItemSignIn: PrimaryDrawerItem
@@ -211,6 +212,16 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
         .withSelectedTextColor(color(R.color.colorNavActiveTopics))
         .withSelectedIconColorRes(R.color.colorNavActiveTopics)
 
+    drawerItemIncubator = PrimaryDrawerItem()
+        .withIdentifier(NavigationSection.INCUBATOR)
+        .withName(R.string.nav_drawer_incubator)
+        .withSelectable(false)
+        .withIcon(CommunityMaterial.Icon.cmd_human_child)
+        .withTextColor(color(R.color.colorNavDefaultText))
+        .withIconColorRes(R.color.colorNavIncubator)
+        .withSelectedTextColor(color(R.color.colorNavIncubator))
+        .withSelectedIconColorRes(R.color.colorNavIncubator)
+
     drawerItemBookmarks = PrimaryDrawerItem()
         .withIdentifier(NavigationSection.BOOKMARKS)
         .withName(R.string.nav_drawer_bookmarks)
@@ -267,6 +278,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
         .addDrawerItems(drawerItemMainPage)
         .addDrawerItems(drawerItemForums)
         .addDrawerItems(drawerItemActiveTopics)
+        .addDrawerItems(drawerItemIncubator)
         .addDrawerItems(DividerDrawerItem())
         .addDrawerItems(drawerItemSettings)
         .withOnDrawerItemClickListener { _, _, drawerItem ->

@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.di.modules
 
 import com.sedsoftware.yaptalker.commons.converters.HashSearchConverterFactory
+import com.sedsoftware.yaptalker.data.network.site.YapIncubatorLoader
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.data.network.site.YapSearchIdLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.CoubLoader
@@ -25,6 +26,7 @@ class NetworkModule {
 
   companion object {
     private const val SITE_ENDPOINT = "https://www.yaplakal.com/"
+    private const val SITE_INCUBATOR_ENDPOINT = "https://inkubator.yaplakal.com/"
     private const val COUB_VIDEO_ENDPOINT = "http://coub.com/"
     private const val RUTUBE_VIDEO_ENDPOINT = "http://rutube.ru/"
     private const val YAP_FILES_ENDPOINT = "http://www.yapfiles.ru/"
@@ -46,6 +48,19 @@ class NetworkModule {
           .addConverterFactory(ScalarsConverterFactory.create())
           .build()
           .create(YapLoader::class.java)
+
+  @Singleton
+  @Provides
+  fun provideYapIncubatorLoader(@Named("siteClient") okHttpClient: OkHttpClient): YapIncubatorLoader =
+      Retrofit
+          .Builder()
+          .baseUrl(SITE_INCUBATOR_ENDPOINT)
+          .client(okHttpClient)
+          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+          .addConverterFactory(JspoonConverterFactory.create())
+          .addConverterFactory(ScalarsConverterFactory.create())
+          .build()
+          .create(YapIncubatorLoader::class.java)
 
   @Singleton
   @Provides

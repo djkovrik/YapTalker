@@ -11,11 +11,15 @@
   <string name="pref_general_start_page_value_forums" translatable="false">forums</string>
   <string name="pref_general_start_page_label_active_topics">Active topics</string>
   <string name="pref_general_start_page_value_active_topics" translatable="false">active_topics</string>
+  <string name="pref_general_start_page_label_incubator">Incubator</string>
+  <string name="pref_general_start_page_value_incubator" translatable="false">incubator</string>
 
   <!-- APPEARANCE -->
   <string name="pref_category_title_appearance">Appearance</string>
   <!-- Font size -->
   <string name="pref_appearance_font_size_title">Base font size</string>
+  <string name="pref_appearance_font_size_value_12" translatable="false">12</string>
+  <string name="pref_appearance_font_size_value_13" translatable="false">13</string>
   <string name="pref_appearance_font_size_value_14" translatable="false">14</string>
   <string name="pref_appearance_font_size_value_15" translatable="false">15</string>
   <string name="pref_appearance_font_size_value_16" translatable="false">16</string>

@@ -8,6 +8,7 @@
   <string name="nav_drawer_main_page">Main page</string>
   <string name="nav_drawer_forums">Forums</string>
   <string name="nav_drawer_active_topics">Active topics</string>
+  <string name="nav_drawer_incubator">Incubator</string>
   <string name="nav_drawer_settings">Settings</string>
   <string name="nav_drawer_bookmarks">Bookmarks</string>
   <string name="nav_drawer_sign_in">Sign In</string>
@@ -99,6 +100,8 @@
   <string name="msg_bookmark_confirm_No">Cancel</string>
   <string name="msg_bookmark_topic_deleted">Topic successfully deleted from bookmarks.</string>
   <string name="msg_bookmark_topic_added">Topic added to bookmarks.</string>
+  <string name="msg_karma_changed">Post karma changed successfully.</string>
+  <string name="msg_karma_already_rated">You already rated this post.</string>
 
   <!-- MENUS -->
   <string name="action_save">Save</string>

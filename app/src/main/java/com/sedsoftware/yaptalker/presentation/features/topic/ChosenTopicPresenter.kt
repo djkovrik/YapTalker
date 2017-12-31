@@ -49,6 +49,8 @@ class ChosenTopicPresenter @Inject constructor(
     private const val POSTS_PER_PAGE = 25
     private const val OFFSET_FOR_PAGE_NUMBER = 1
     private const val BOOKMARK_SUCCESS_MARKER = "Закладка добавлена"
+    private const val KARMA_SUCCESS_MARKER = "\"status\":1"
+    private const val KARMA_ALREADY_CHANGED_MARKER = "\"status\":-1"
   }
 
   private val isScreenAlwaysActive: Boolean by lazy {
@@ -69,6 +71,7 @@ class ChosenTopicPresenter @Inject constructor(
   private var isClosed = false
   private var currentTitle = ""
   private var clearCurrentList = false
+  private var karmaTargetedPostPosition = -1
 
   init {
     router.setResultListener(RequestCode.MESSAGE_TEXT, { message -> sendMessage(message as String) })
@@ -176,12 +179,12 @@ class ChosenTopicPresenter @Inject constructor(
     viewState.shareTopic(currentTitle, startingPost)
   }
 
-  fun showPostContextMenuIfAvailable(postId: Int) {
+  fun showPostContextMenuIfAvailable(postId: Int, postPosition: Int) {
     if (postId == 0 || authKey.isEmpty()) {
       return
     }
 
-    viewState.displayPostContextMenu(postId)
+    viewState.displayPostContextMenu(postId, postPosition)
   }
 
   fun addCurrentTopicToBookmarks() {
@@ -220,10 +223,12 @@ class ChosenTopicPresenter @Inject constructor(
         .subscribe(getKarmaResponseObserver())
   }
 
-  fun changePostKarma(postId: Int, shouldIncrease: Boolean) {
+  fun changePostKarma(postId: Int, postPosition: Int, shouldIncrease: Boolean) {
     if (authKey.isEmpty() || postId == 0 || currentTopicId == 0) {
       return
     }
+
+    karmaTargetedPostPosition = postPosition
 
     val diff = if (shouldIncrease) 1 else -1
 
@@ -313,6 +318,11 @@ class ChosenTopicPresenter @Inject constructor(
         override fun onNext(response: YapEntity) {
           response as ServerResponseModel
           Timber.d("Response from karma change request: ${response.text}")
+
+          when {
+            response.text.contains(KARMA_SUCCESS_MARKER) -> viewState.showPostKarmaChangedMessage()
+            response.text.contains(KARMA_ALREADY_CHANGED_MARKER) -> viewState.showPostAlreadyRatedMessage()
+          }
         }
 
         override fun onComplete() {
@@ -376,8 +386,14 @@ class ChosenTopicPresenter @Inject constructor(
         override fun onComplete() {
           Timber.i("Topic page loading completed.")
           viewState.updateCurrentUiState(currentTitle)
-          viewState.scrollToViewTop()
           setupMenuButtons()
+
+          if (karmaTargetedPostPosition == -1) {
+            viewState.scrollToViewTop()
+          } else {
+            viewState.scrollToPost(karmaTargetedPostPosition)
+            karmaTargetedPostPosition = -1
+          }
         }
 
         override fun onError(e: Throwable) {
