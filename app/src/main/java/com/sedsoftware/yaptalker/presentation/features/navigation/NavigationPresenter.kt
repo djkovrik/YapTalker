@@ -85,6 +85,7 @@ class NavigationPresenter @Inject constructor(
     when (settings.getStartingPage()) {
       DefaultHomeScreen.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
       DefaultHomeScreen.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
+      DefaultHomeScreen.INCUBATOR -> router.newRootScreen(NavigationScreen.INCUBATOR_SCREEN)
       else -> router.newRootScreen(NavigationScreen.NEWS_SCREEN)
     }
   }

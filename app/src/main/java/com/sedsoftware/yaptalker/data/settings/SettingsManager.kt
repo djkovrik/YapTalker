@@ -28,10 +28,12 @@ class SettingsManager @Inject constructor(
     val current = getStringPref(R.string.pref_key_start_page, "")
     val forums = context.resources.getString(R.string.pref_general_start_page_value_forums)
     val topics = context.resources.getString(R.string.pref_general_start_page_value_active_topics)
+    val incubator = context.resources.getString(R.string.pref_general_start_page_value_incubator)
 
     return when (current) {
       forums -> DefaultHomeScreen.FORUMS
       topics -> DefaultHomeScreen.ACTIVE_TOPICS
+      incubator -> DefaultHomeScreen.INCUBATOR
       else -> DefaultHomeScreen.MAIN
     }
   }
