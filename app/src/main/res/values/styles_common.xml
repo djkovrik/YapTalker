@@ -8,4 +8,8 @@
     <item name="android:singleLine">true</item>
   </style>
 
+  <style name="RatingGrey">
+    <item name="android:textStyle">bold</item>
+  </style>
+
 </resources>
