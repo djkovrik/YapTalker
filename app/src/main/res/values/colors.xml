@@ -42,6 +42,7 @@
   <!-- UQ thumbs colors -->
   <color name="colorRatingThumbUp">@color/material_color_green_500</color>
   <color name="colorRatingThumbDown">@color/material_color_red_500</color>
+  <color name="colorRatingThumbAvailable">@color/material_color_grey_400</color>
   <!-- Toasty colors -->
   <color name="toastyColorError">@color/material_color_red_500</color>
   <color name="toastyColorInfo">@color/material_color_blue_500</color>

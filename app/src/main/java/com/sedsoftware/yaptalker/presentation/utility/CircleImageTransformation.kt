@@ -25,6 +25,7 @@ class CircleImageTransformation : Transformation {
     y = (source.height - size) / 2
 
     val squaredBitmap = Bitmap.createBitmap(source, x, y, size, size)
+
     if (squaredBitmap != source) {
       source.recycle()
     }

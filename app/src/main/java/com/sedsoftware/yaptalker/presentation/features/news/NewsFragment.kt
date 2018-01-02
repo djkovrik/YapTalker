@@ -16,7 +16,7 @@ import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
-import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.loadThumbnailFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
@@ -127,7 +127,7 @@ class NewsFragment :
         .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe({ url ->
           if (url.isNotEmpty()) {
-            imageView.loadFromUrl(url)
+            imageView.loadThumbnailFromUrl(url)
           } else {
             context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
           }

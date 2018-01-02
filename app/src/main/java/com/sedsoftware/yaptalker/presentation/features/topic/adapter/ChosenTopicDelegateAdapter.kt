@@ -201,26 +201,41 @@ class ChosenTopicDelegateAdapter(
       with(itemView) {
         post_author.text = post.authorNickname
         post_date.text = post.postDate
+        post_rating.text = post.postRankText
+
+        post_rating.textSize = normalFontSize
+        post_rating_thumb_up.textSize = normalFontSize
+        post_rating_thumb_down.textSize = normalFontSize
+        post_rating_thumb_up_available.textSize = normalFontSize
+        post_rating_thumb_down_available.textSize = normalFontSize
 
         post_rating.hideView()
-
-        if (post.postRank != 0) {
-          post_rating.showView()
-          post_rating.text = post.postRankText
-        }
-
         post_rating_thumb_down.hideView()
         post_rating_thumb_up.hideView()
+        post_rating_thumb_down_available.hideView()
+        post_rating_thumb_up_available.hideView()
 
         when {
           post.postRankMinusClicked -> {
-            post_rating_thumb_down.textSize = normalFontSize
+            post_rating.showView()
             post_rating_thumb_down.showView()
+            post_rating_thumb_up_available.showView()
           }
           post.postRankPlusClicked -> {
-            post_rating_thumb_up.textSize = normalFontSize
+            post_rating.showView()
             post_rating_thumb_up.showView()
+            post_rating_thumb_down_available.showView()
           }
+          post.postRankMinusAvailable && post.postRankPlusAvailable -> {
+            post_rating.showView()
+            post_rating_thumb_up_available.showView()
+            post_rating_thumb_down_available.showView()
+          }
+        }
+
+        post_rating_block.setOnClickListener {
+          val isKarmaAvailable = post.postRankPlusAvailable && post.postRankMinusAvailable
+          clickListener.onPostItemClicked(post.postId, position, isKarmaAvailable)
         }
 
         post_author.textSize = normalFontSize
@@ -231,13 +246,9 @@ class ChosenTopicDelegateAdapter(
         post_author_avatar.layoutParams.height = currentAvatarSize
 
         post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateUrl())
+
         post_author_avatar.setOnClickListener {
           clickListener.onUserAvatarClick(post.authorProfileId)
-        }
-
-        setOnClickListener {
-          val isKarmaAvailable = post.postRankPlusAvailable && post.postRankMinusAvailable
-          clickListener.onPostItemClicked(post.postId, position, isKarmaAvailable)
         }
       }
 

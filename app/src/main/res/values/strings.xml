@@ -152,4 +152,8 @@
   <string name="a11y_news_image" tools:keep="@string/a11y_news_image">News content image</string>
   <string name="a11y_bookmark_delete" tools:keep="@string/a11y_bookmark_delete">Delete topic from bookmarks</string>
 
+  <!-- Current theme markers -->
+  <string name="theme_light" translatable="false">light</string>
+  <string name="theme_dark" translatable="false">dark</string>
+
 </resources>
