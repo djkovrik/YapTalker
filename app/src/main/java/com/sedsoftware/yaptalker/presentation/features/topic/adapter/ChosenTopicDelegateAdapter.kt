@@ -231,6 +231,9 @@ class ChosenTopicDelegateAdapter(
             post_rating_thumb_up_available.showView()
             post_rating_thumb_down_available.showView()
           }
+          post.postRank != 0 -> {
+            post_rating.showView()
+          }
         }
 
         post_rating_block.setOnClickListener {

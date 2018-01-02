@@ -5,9 +5,9 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
+@StateStrategyType(SkipStrategy::class)
 interface BaseView : MvpView {
 
-  @StateStrategyType(SkipStrategy::class)
   fun showErrorMessage(message: String)
 
   @StateStrategyType(AddToEndSingleStrategy::class)
