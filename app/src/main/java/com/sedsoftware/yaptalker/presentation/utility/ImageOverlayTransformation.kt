@@ -5,19 +5,30 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
-import android.support.annotation.DrawableRes
 import android.support.v4.content.res.ResourcesCompat
+import android.util.TypedValue
 import com.sedsoftware.yaptalker.R
 import com.squareup.picasso.Transformation
-
 
 @Suppress("VariableMinLength")
 class ImageOverlayTransformation(private val context: Context) : Transformation {
 
   companion object {
-    fun drawableToBitmap(context: Context, @DrawableRes drawableResId: Int): Bitmap {
+    private fun drawableRefToBitmap(context: Context, redId: Int): Bitmap {
 
-      val drawable = ResourcesCompat.getDrawable(context.resources, drawableResId, null)
+      val outValue = TypedValue()
+      context.theme.resolveAttribute(R.attr.themeName, outValue, true)
+      val currentThemeName = outValue.string
+
+      val currentThemeId = when (currentThemeName) {
+        context.getString(R.string.theme_dark) -> R.style.AppTheme_Dark
+        else -> R.style.AppTheme
+      }
+
+      val attr = context.theme.obtainStyledAttributes(currentThemeId, intArrayOf(redId))
+      val attributeResourceId = attr.getResourceId(0, 0)
+      val drawable = ResourcesCompat.getDrawable(context.resources, attributeResourceId, null)
+      attr.recycle()
 
       if (drawable is BitmapDrawable) {
         return drawable.bitmap
@@ -44,7 +55,7 @@ class ImageOverlayTransformation(private val context: Context) : Transformation 
 
     val config = source.config ?: Bitmap.Config.ARGB_8888
     val drawingBitmap = source.copy(config, true)
-    val overlayBitmap = drawableToBitmap(context, R.drawable.ic_video_play)
+    val overlayBitmap = drawableRefToBitmap(context, R.attr.iconVideoOverlay)
 
     x = source.width / 2f - overlayBitmap.width / 2f
     y = source.height / 2f - overlayBitmap.height / 2f
@@ -62,5 +73,5 @@ class ImageOverlayTransformation(private val context: Context) : Transformation 
     return drawingBitmap
   }
 
-  override fun key(): String = "overlayed(x=$x, y=$y)"
+  override fun key(): String = "overlay(x=$x, y=$y)"
 }

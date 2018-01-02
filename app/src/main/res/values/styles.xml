@@ -2,6 +2,7 @@
 
   <!-- LIGHT THEME -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="themeName">@string/theme_light</item>
     <!-- Base -->
     <item name="colorPrimary">@color/colorPrimaryL</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDarkL</item>
@@ -38,6 +39,7 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail</item>
+    <item name="iconVideoOverlay">@drawable/ic_video_play</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.AppBarOverlay</item>
     <item name="PopupOverlay">@style/AppTheme.PopupOverlay</item>
@@ -50,6 +52,7 @@
 
   <!-- DARK THEME -->
   <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+    <item name="themeName">@string/theme_dark</item>
     <!-- Base -->
     <item name="colorPrimary">@color/colorPrimaryD</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDarkD</item>
@@ -86,6 +89,7 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile_dark</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_dark</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail_dark</item>
+    <item name="iconVideoOverlay">@drawable/ic_video_play_dark</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.Dark.AppBarOverlay</item>
     <item name="PopupOverlay">@style/AppTheme.Dark.PopupOverlay</item>
