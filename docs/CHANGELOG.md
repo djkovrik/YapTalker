@@ -1,6 +1,14 @@
-### Current version: 0.8.4
+### Current version: 0.8.5
 
 # Changelog
+## [0.8.5] - 2018-01-02
+### Changed
+- Single post rating displaying
+
+### Fixed
+- Unable to load publicsuffixes.gz error
+- Negative messages count displaying but
+
 ## [0.8.4] - 2017-12-31
 ### Added
 - Incubator site section
