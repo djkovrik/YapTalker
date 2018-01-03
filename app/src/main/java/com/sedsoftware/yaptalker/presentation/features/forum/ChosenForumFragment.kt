@@ -22,8 +22,7 @@ import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ChosenForum
 import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ChosenForumElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_chosen_forum.forum_refresh_layout
-import kotlinx.android.synthetic.main.fragment_chosen_forum.forum_topics_list
+import kotlinx.android.synthetic.main.fragment_chosen_forum.*
 import java.util.Locale
 import javax.inject.Inject
 

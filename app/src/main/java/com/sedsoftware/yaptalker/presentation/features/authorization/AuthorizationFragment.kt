@@ -18,9 +18,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
-import kotlinx.android.synthetic.main.fragment_authorization.authorization_login
-import kotlinx.android.synthetic.main.fragment_authorization.authorization_password
-import kotlinx.android.synthetic.main.fragment_authorization.button_sign_in
+import kotlinx.android.synthetic.main.fragment_authorization.*
 import javax.inject.Inject
 
 class AuthorizationFragment : BaseFragment(), AuthorizationView {
