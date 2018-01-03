@@ -64,7 +64,7 @@
   <PreferenceCategory android:title="@string/pref_category_title_system">
 
     <CheckBoxPreference
-      android:defaultValue="false"
+      android:defaultValue="true"
       android:key="@string/pref_key_https_enabled"
       android:persistent="true"
       android:summary="@string/pref_system_use_https_summary"
