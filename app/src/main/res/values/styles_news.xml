@@ -9,7 +9,7 @@
   </style>
 
   <style name="NewsForumTitle">
-    <item name="android:textColor">?android:colorAccent</item>
+    <item name="android:textColor">?attr/colorAccentOverride</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">1</item>
   </style>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <attr name="colorAccentOverride" format="color" />
   <attr name="colorQuoteBackground" format="color" />
   <attr name="colorRefreshFab" format="color" />
 </resources>

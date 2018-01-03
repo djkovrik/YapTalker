@@ -7,6 +7,7 @@
     <item name="colorPrimary">@color/colorPrimaryL</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDarkL</item>
     <item name="colorAccent">@color/colorAccentL</item>
+    <item name="colorAccentOverride">@color/colorAccentL</item>
     <item name="android:windowBackground">@color/material_color_grey_100</item>
     <!-- Text -->
     <item name="android:textColorPrimary">@color/material_color_grey_600</item>
@@ -57,6 +58,7 @@
     <item name="colorPrimary">@color/colorPrimaryD</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDarkD</item>
     <item name="colorAccent">@color/colorAccentD</item>
+    <item name="colorAccentOverride">@color/colorAccentD</item>
     <item name="android:windowBackground">@color/material_color_grey_900</item>
     <!-- Text -->
     <item name="android:textColorPrimary">@color/material_color_grey_300</item>
