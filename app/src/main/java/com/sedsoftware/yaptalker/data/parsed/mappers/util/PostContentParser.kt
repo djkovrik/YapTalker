@@ -9,6 +9,7 @@ import com.sedsoftware.yaptalker.domain.entity.base.PostContent.PostWarning
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePostParsed
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
+import java.net.URLDecoder
 
 /**
  * Utility class for post content parsing.
@@ -148,13 +149,14 @@ class PostContentParser(private val content: String) {
     return result
   }
 
-  private fun String.formatPostHtmlCode(): String =
-      Jsoup
-          .clean(this, contentWhitelist)
-          .replace("&nbsp;", " ")
-          .replace("/go/?http", "http")
-          .replace("%3A", ":")
-          .replace("%2F", "/")
+  private fun String.formatPostHtmlCode(): String {
+    val cleaned = Jsoup
+        .clean(this, contentWhitelist)
+        .replace("&nbsp;", " ")
+        .replace("/go/?http", "http")
+
+    return URLDecoder.decode(cleaned, "UTF-8")
+  }
 
   private fun String.trimLinebreakTags(): String =
       this
