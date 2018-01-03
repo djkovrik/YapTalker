@@ -16,7 +16,7 @@
 
     <activity
       android:name="com.sedsoftware.yaptalker.presentation.features.navigation.MainActivity"
-      android:launchMode="singleTop"
+      android:launchMode="singleTask"
       android:theme="@style/AppTheme.NoActionBar">
 
       <intent-filter>
