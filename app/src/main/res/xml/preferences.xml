@@ -65,6 +65,12 @@
 
     <CheckBoxPreference
       android:defaultValue="false"
+      android:key="@string/pref_key_https_enabled"
+      android:persistent="true"
+      android:summary="@string/pref_system_use_https_summary"
+      android:title="@string/pref_system_use_https_label" />
+
+    <CheckBoxPreference
       android:key="@string/pref_key_screen_always_on"
       android:persistent="true"
       android:summary="@string/pref_system_screen_always_on_summary"

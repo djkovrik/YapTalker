@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.data.settings
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.support.annotation.StringRes
 import com.sedsoftware.yaptalker.R
 import javax.inject.Inject
@@ -68,6 +69,11 @@ class SettingsManager @Inject constructor(
 
   fun isScreenAlwaysOnEnabled(): Boolean =
       getBooleanPref(R.string.pref_key_screen_always_on, false)
+
+  fun isHttpsEnabled(): Boolean {
+    val default = Build.VERSION.SDK_INT !in 19..21
+    return getBooleanPref(R.string.pref_key_https_enabled, default)
+  }
 
   fun markEulaAccepted() {
     preferences.edit().putBoolean(context.resources.getString(R.string.pref_key_eula_accepted), true).apply()

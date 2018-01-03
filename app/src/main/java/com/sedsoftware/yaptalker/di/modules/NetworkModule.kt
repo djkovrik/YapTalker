@@ -9,6 +9,7 @@ import com.sedsoftware.yaptalker.data.network.thumbnails.RutubeLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.VkLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapFileLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapVideoLoader
+import com.sedsoftware.yaptalker.data.settings.SettingsManager
 import com.sedsoftware.yaptalker.di.modules.network.HttpClientsModule
 import dagger.Module
 import dagger.Provides
@@ -25,42 +26,66 @@ import javax.inject.Singleton
 class NetworkModule {
 
   companion object {
-    private const val SITE_ENDPOINT = "https://www.yaplakal.com/"
-    private const val SITE_INCUBATOR_ENDPOINT = "https://inkubator.yaplakal.com/"
+    private const val SITE_ENDPOINT = "http://www.yaplakal.com/"
+    private const val SITE_ENDPOINT_HTTPS = "https://www.yaplakal.com/"
+    private const val SITE_INCUBATOR_ENDPOINT = "http://inkubator.yaplakal.com/"
+    private const val SITE_INCUBATOR_ENDPOINT_HTTPS = "https://inkubator.yaplakal.com/"
     private const val COUB_VIDEO_ENDPOINT = "http://coub.com/"
     private const val RUTUBE_VIDEO_ENDPOINT = "http://rutube.ru/"
     private const val YAP_FILES_ENDPOINT = "http://www.yapfiles.ru/"
     private const val YAP_API_ENDPOINT = "http://api.yapfiles.ru/"
-    private const val VK_VIDEO_ENDPOINT = "https://api.vk.com/"
+    private const val VK_VIDEO_ENDPOINT = "http://api.vk.com/"
     private const val YAP_FILE_HASH_MARKER = "md5="
     private const val YAP_SEARCH_ID_HASH_MARKER = "searchid="
   }
 
   @Singleton
   @Provides
-  fun provideYapLoader(@Named("siteClient") okHttpClient: OkHttpClient): YapLoader =
-      Retrofit
-          .Builder()
-          .baseUrl(SITE_ENDPOINT)
-          .client(okHttpClient)
-          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-          .addConverterFactory(JspoonConverterFactory.create())
-          .addConverterFactory(ScalarsConverterFactory.create())
-          .build()
-          .create(YapLoader::class.java)
+  fun provideYapLoader(
+      @Named("siteClient") okHttpClient: OkHttpClient,
+      settings: SettingsManager
+  ): YapLoader {
+
+    val endpoint = if (settings.isHttpsEnabled()) {
+      SITE_ENDPOINT_HTTPS
+    } else {
+      SITE_ENDPOINT
+    }
+
+    return Retrofit
+        .Builder()
+        .baseUrl(endpoint)
+        .client(okHttpClient)
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addConverterFactory(JspoonConverterFactory.create())
+        .addConverterFactory(ScalarsConverterFactory.create())
+        .build()
+        .create(YapLoader::class.java)
+  }
 
   @Singleton
   @Provides
-  fun provideYapIncubatorLoader(@Named("siteClient") okHttpClient: OkHttpClient): YapIncubatorLoader =
-      Retrofit
-          .Builder()
-          .baseUrl(SITE_INCUBATOR_ENDPOINT)
-          .client(okHttpClient)
-          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-          .addConverterFactory(JspoonConverterFactory.create())
-          .addConverterFactory(ScalarsConverterFactory.create())
-          .build()
-          .create(YapIncubatorLoader::class.java)
+  fun provideYapIncubatorLoader(
+      @Named("siteClient") okHttpClient: OkHttpClient,
+      settings: SettingsManager
+  ): YapIncubatorLoader {
+
+    val endpoint = if (settings.isHttpsEnabled()) {
+      SITE_INCUBATOR_ENDPOINT_HTTPS
+    } else {
+      SITE_INCUBATOR_ENDPOINT
+    }
+
+    return Retrofit
+        .Builder()
+        .baseUrl(endpoint)
+        .client(okHttpClient)
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addConverterFactory(JspoonConverterFactory.create())
+        .addConverterFactory(ScalarsConverterFactory.create())
+        .build()
+        .create(YapIncubatorLoader::class.java)
+  }
 
   @Singleton
   @Provides
