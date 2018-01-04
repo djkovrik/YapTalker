@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/fab_menu_authorized"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:layout_gravity="bottom">
+
+  <LinearLayout
+    android:id="@+id/fab_main_block"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="@dimen/materialize_screen_edge"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+      android:id="@+id/fab_main_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_label_margin"
+      android:background="@drawable/fab_label_background"
+      android:text="@string/fab_label_new_message" />
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_main_authorized"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|end"
+      android:elevation="@dimen/material_elevation_fab_resting"
+      app:fabSize="normal"
+      app:ico_color="?attr/colorFabIcon"
+      app:ico_icon="cmd-human-greeting"
+      app:ico_padding="@dimen/fab_icon_padding"
+      tools:targetApi="lollipop" />
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/fab_refresh_block"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="@dimen/materialize_screen_edge"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:translationY="-60dp">
+
+    <TextView
+      android:id="@+id/fab_refresh_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_label_margin"
+      android:background="@drawable/fab_label_background"
+      android:text="@string/fab_label_refresh" />
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_refresh"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_additional_margin"
+      android:elevation="@dimen/material_elevation_fab_resting"
+      app:fabSize="mini"
+      app:ico_color="?attr/colorFabIcon"
+      app:ico_icon="cmd-refresh"
+      app:ico_padding="@dimen/mini_fab_icon_padding"
+      tools:targetApi="lollipop" />
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/fab_bookmark_block"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="@dimen/materialize_screen_edge"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:translationY="-110dp">
+
+    <TextView
+      android:id="@+id/fab_bookmark_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_label_margin"
+      android:background="@drawable/fab_label_background"
+      android:text="@string/fab_label_bookmark" />
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_bookmark"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_additional_margin"
+      android:elevation="@dimen/material_elevation_fab_resting"
+      app:fabSize="mini"
+      app:ico_color="?attr/colorFabIcon"
+      app:ico_icon="cmd-bookmark"
+      app:ico_padding="@dimen/mini_fab_icon_padding"
+      tools:targetApi="lollipop" />
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/fab_karma_down_block"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="@dimen/materialize_screen_edge"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:translationY="-160dp">
+
+    <TextView
+      android:id="@+id/fab_karma_down_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_label_margin"
+      android:background="@drawable/fab_label_background"
+      android:text="@string/fab_label_karma_down" />
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_karma_down"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_additional_margin"
+      android:elevation="@dimen/material_elevation_fab_resting"
+      app:fabSize="mini"
+      app:ico_color="?attr/colorFabIcon"
+      app:ico_icon="cmd-thumb-down"
+      app:ico_padding="@dimen/mini_fab_icon_padding"
+      tools:targetApi="lollipop" />
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/fab_karma_add_block"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="@dimen/materialize_screen_edge"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:translationY="-210dp">
+
+    <TextView
+      android:id="@+id/fab_karma_add_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_label_margin"
+      android:background="@drawable/fab_label_background"
+      android:text="@string/fab_label_karma_add" />
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_karma_add"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_additional_margin"
+      android:elevation="@dimen/material_elevation_fab_resting"
+      app:fabSize="mini"
+      app:ico_color="?attr/colorFabIcon"
+      app:ico_icon="cmd-thumb-up"
+      app:ico_padding="@dimen/mini_fab_icon_padding"
+      tools:targetApi="lollipop" />
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/fab_share_block"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="@dimen/materialize_screen_edge"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:translationY="-260dp">
+
+    <TextView
+      android:id="@+id/fab_share_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_label_margin"
+      android:background="@drawable/fab_label_background"
+      android:text="@string/fab_label_share" />
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_share"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_additional_margin"
+      android:elevation="@dimen/material_elevation_fab_resting"
+      app:fabSize="mini"
+      app:ico_color="?attr/colorFabIcon"
+      app:ico_icon="cmd-share-variant"
+      app:ico_padding="@dimen/mini_fab_icon_padding"
+      tools:targetApi="lollipop" />
+
+  </LinearLayout>
+
+</FrameLayout>

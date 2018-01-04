@@ -325,6 +325,7 @@ class ChosenTopicPresenter @Inject constructor(
           }
         }
 
+        // TODO () Remove refresh
         override fun onComplete() {
           Timber.i("Karma changing request completed.")
           loadTopicCurrentPage()

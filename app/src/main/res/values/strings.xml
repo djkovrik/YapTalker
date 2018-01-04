@@ -51,7 +51,7 @@
 
   <!-- FAB labels -->
   <string name="fab_label_karma_add">Add +1</string>
-  <string name="fab_label_karma_remove">Add -1</string>
+  <string name="fab_label_karma_down">Add -1</string>
   <string name="fab_label_bookmark">Bookmark</string>
   <string name="fab_label_new_message">New message</string>
   <string name="fab_label_refresh">Refresh</string>
