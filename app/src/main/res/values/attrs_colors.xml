@@ -2,5 +2,7 @@
 <resources>
   <attr name="colorAccentOverride" format="color" />
   <attr name="colorQuoteBackground" format="color" />
-  <attr name="colorRefreshFab" format="color" />
+  <attr name="colorFabIcon" format="color" />
+  <attr name="colorFabLabelBackground" format="color" />
+  <attr name="colorFabLabelBackgroundStroke" format="color" />
 </resources>

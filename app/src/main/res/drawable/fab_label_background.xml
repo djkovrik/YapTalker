@@ -1,0 +1,33 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item>
+    <shape
+      android:dither="true"
+      android:shape="rectangle">
+
+      <corners android:radius="@dimen/fab_label_corners" />
+      <solid android:color="?attr/colorFabLabelBackgroundStroke" />
+
+    </shape>
+  </item>
+
+  <item android:bottom="1dp">
+    <shape
+      android:dither="true"
+      android:shape="rectangle">
+
+      <corners android:radius="@dimen/fab_label_corners" />
+      <solid android:color="?attr/colorFabLabelBackground" />
+
+      <padding
+        android:bottom="@dimen/fab_label_padding"
+        android:left="@dimen/fab_label_padding"
+        android:right="@dimen/fab_label_padding"
+        android:top="@dimen/fab_label_padding" />
+
+      <stroke android:color="?attr/colorFabLabelBackgroundStroke" />
+
+    </shape>
+  </item>
+
+</layer-list>

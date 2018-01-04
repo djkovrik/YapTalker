@@ -49,6 +49,14 @@
   <string name="topic_post_karma_thumb_up" translatable="false" tools:keep="@string/topic_post_karma_thumb_up">{cmd-thumb-up} </string>
   <string name="topic_post_karma_thumb_down" translatable="false" tools:keep="@string/topic_post_karma_thumb_down">{cmd-thumb-down} </string>
 
+  <!-- FAB labels -->
+  <string name="fab_label_karma_add">Add +1</string>
+  <string name="fab_label_karma_remove">Add -1</string>
+  <string name="fab_label_bookmark">Bookmark</string>
+  <string name="fab_label_new_message">New message</string>
+  <string name="fab_label_refresh">Refresh</string>
+  <string name="fab_label_share">Share</string>
+
   <!-- ADD MESSAGE ACTIVITY -->
   <string name="post_message_hint">Enter your message…</string>
   <string name="post_insert_link">Link</string>

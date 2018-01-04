@@ -36,6 +36,15 @@
   <string name="authorization_password_label">Пароль</string>
   <string name="authorization_button_login">Войти</string>
 
+  <!-- TOPIC -->
+  <!-- FAB labels -->
+  <string name="fab_label_karma_add">Поставить +1</string>
+  <string name="fab_label_karma_remove">Поставить -1</string>
+  <string name="fab_label_bookmark">В закладки</string>
+  <string name="fab_label_new_message">Новое сообщение</string>
+  <string name="fab_label_refresh">Обновить</string>
+  <string name="fab_label_share">Поделиться</string>
+
   <!-- ADD MESSAGE ACTIVITY -->
   <string name="post_message_hint">Введите сообщение…</string>
   <string name="post_insert_link">Ссылка</string>

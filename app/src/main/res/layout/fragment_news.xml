@@ -25,9 +25,9 @@
     android:layout_margin="@dimen/materialize_screen_edge"
     android:elevation="@dimen/material_elevation_fab_resting"
     app:fabSize="normal"
-    app:ico_color="?attr/colorRefreshFab"
+    app:ico_color="?attr/colorFabIcon"
     app:ico_icon="cmd-refresh"
-    app:ico_padding="@dimen/mini_fab_icon_padding"
+    app:ico_padding="@dimen/fab_icon_padding"
     tools:targetApi="lollipop" />
 
 </FrameLayout>
