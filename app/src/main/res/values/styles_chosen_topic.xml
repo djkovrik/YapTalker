@@ -10,7 +10,6 @@
 
   <style name="PostRating">
     <item name="android:textColor">@color/colorRatingGreen</item>
-    <item name="android:textStyle">bold</item>
   </style>
 
   <style name="RatingThumbsUp">

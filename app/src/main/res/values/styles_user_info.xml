@@ -2,7 +2,7 @@
 <resources>
 
   <style name="InfoCardTitle">
-    <item name="android:textColor">?android:colorAccent</item>
+    <item name="android:textColor">?attr/colorAccentOverride</item>
   </style>
 
 </resources>

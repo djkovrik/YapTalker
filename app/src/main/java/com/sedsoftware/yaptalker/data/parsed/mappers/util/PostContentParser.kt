@@ -148,13 +148,26 @@ class PostContentParser(private val content: String) {
     return result
   }
 
+  // TODO () Refactor or simplify
   private fun String.formatPostHtmlCode(): String =
       Jsoup
           .clean(this, contentWhitelist)
           .replace("&nbsp;", " ")
           .replace("/go/?http", "http")
-          .replace("%3A", ":")
+          .replace("%21", "!")
+          .replace("%23", "#")
+          .replace("%24", "$")
+          .replace("%25", "%")
+          .replace("%26", "&")
+          .replace("%2B", "+")
+          .replace("%2C", ",")
+          .replace("%2D", "-")
+          .replace("%2E", ".")
           .replace("%2F", "/")
+          .replace("%3A", ":")
+          .replace("%3B", ";")
+          .replace("%3D", "=")
+          .replace("%3F", "?")
 
   private fun String.trimLinebreakTags(): String =
       this

@@ -13,6 +13,7 @@ import com.squareup.picasso.Transformation
 @Suppress("VariableMinLength")
 class ImageOverlayTransformation(private val context: Context) : Transformation {
 
+  @Suppress("UnsafeCallOnNullableType")
   companion object {
     private fun drawableRefToBitmap(context: Context, redId: Int): Bitmap {
 

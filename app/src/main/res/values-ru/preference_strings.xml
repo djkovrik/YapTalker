@@ -56,5 +56,7 @@
   <string name="pref_category_title_system">Системные</string>
   <string name="pref_system_screen_always_on_label">Держать экран включенным</string>
   <string name="pref_system_screen_always_on_summary">Блокировать затухание экрана во время чтения любой темы на форуме.</string>
+  <string name="pref_system_use_https_label">Соединяться через https</string>
+  <string name="pref_system_use_https_summary">Использовать https для всех запросов к сайту yaplakal.com.</string>
 
 </resources>

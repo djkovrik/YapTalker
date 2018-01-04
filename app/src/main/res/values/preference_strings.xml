@@ -89,5 +89,7 @@
   <string name="pref_category_title_system">System</string>
   <string name="pref_system_screen_always_on_label">Keep screen awake</string>
   <string name="pref_system_screen_always_on_summary">Prevent screen sleeping while browsing any forum topic.</string>
+  <string name="pref_system_use_https_label">Connect with https</string>
+  <string name="pref_system_use_https_summary">Use https for all yaplakal.com site requests.</string>
 
 </resources>

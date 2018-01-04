@@ -42,15 +42,16 @@ class NavigationPresenter @Inject constructor(
   init {
     router.setResultListener(RequestCode.SIGN_IN, {
       refreshAuthorization()
-      navigateToDefaultMainPage()
+      navigateToDefaultHomePage()
     })
   }
 
   private var currentUserKey = ""
+  private var isLinkNavigationPending = false
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
-    navigateToDefaultMainPage()
+    navigateToDefaultHomePage()
   }
 
 
@@ -78,10 +79,17 @@ class NavigationPresenter @Inject constructor(
   }
 
   fun navigateWithIntentLink(triple: Triple<Int, Int, Int>) {
+    isLinkNavigationPending = true
     router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
   }
 
-  private fun navigateToDefaultMainPage() {
+  private fun navigateToDefaultHomePage() {
+
+    if (isLinkNavigationPending) {
+      isLinkNavigationPending = false
+      return
+    }
+
     when (settings.getStartingPage()) {
       DefaultHomeScreen.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
       DefaultHomeScreen.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
@@ -163,7 +171,7 @@ class NavigationPresenter @Inject constructor(
     if (serverResponse.text.contains(SIGN_OUT_SUCCESS_MARKER)) {
       viewState.showSignOutMessage()
       refreshAuthorization()
-      navigateToDefaultMainPage()
+      navigateToDefaultHomePage()
     }
   }
 }

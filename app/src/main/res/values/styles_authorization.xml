@@ -3,15 +3,15 @@
 
   <style name="SignInButton">
     <item name="colorControlHighlight">?android:attr/colorPrimary</item>
-    <item name="colorButtonNormal">?android:attr/colorAccent</item>
+    <item name="colorButtonNormal">?attr/colorAccentOverride</item>
     <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
   </style>
 
   <style name="EditTextStyle">
-    <item name="android:textColor">?android:colorAccent</item>
+    <item name="android:textColor">?attr/colorAccentOverride</item>
     <item name="android:textColorHint">?android:textColorSecondary</item>
     <item name="colorControlNormal">?android:textColorSecondary</item>
-    <item name="colorControlActivated">?android:colorAccent</item>
+    <item name="colorControlActivated">?attr/colorAccentOverride</item>
   </style>
 
 </resources>

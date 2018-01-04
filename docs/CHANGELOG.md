@@ -1,12 +1,19 @@
-### Current version: 0.8.5
+### Current version: 0.8.6
 
 # Changelog
+## [0.8.5] - 2018-01-04
+### Fixed
+- Own posts rating displaying bug
+- url links parsing
+- Android 4.4 compatibility problems
+- App Links bug
+- More fixes for Unable to load publicsuffixes.gz error
+
 ## [0.8.5] - 2018-01-02
 ### Changed
 - Single post rating displaying
 
 ### Fixed
-- Unable to load publicsuffixes.gz error
 - Negative messages count displaying but
 
 ## [0.8.4] - 2017-12-31
