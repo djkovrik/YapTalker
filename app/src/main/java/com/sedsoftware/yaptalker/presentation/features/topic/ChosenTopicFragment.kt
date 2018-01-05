@@ -34,6 +34,7 @@ import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopic
 import com.sedsoftware.yaptalker.presentation.features.topic.fabmenu.FabMenu
 import com.sedsoftware.yaptalker.presentation.features.topic.fabmenu.FabMenuItemPrimary
 import com.sedsoftware.yaptalker.presentation.features.topic.fabmenu.FabMenuItemSecondary
+import com.sedsoftware.yaptalker.presentation.features.topic.fabmenu.FabOverlay
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -344,6 +345,7 @@ class ChosenTopicFragment :
 
     fabMenu.clear()
 
+    fabMenu.add(FabOverlay(context, fab_overlay))
     fabMenu.add(FabMenuItemPrimary(context, fab_menu, fab_new_message, fab_new_message_label, isLoggedIn))
     fabMenu.add(FabMenuItemSecondary(context, fab_refresh_block))
 
