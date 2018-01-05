@@ -5,4 +5,5 @@
   <attr name="colorFabIcon" format="color" />
   <attr name="colorFabLabelBackground" format="color" />
   <attr name="colorFabLabelBackgroundStroke" format="color" />
+  <attr name="colorFabOverlay" format="color" />
 </resources>

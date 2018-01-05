@@ -21,6 +21,7 @@
     <item name="colorFabIcon">@color/material_color_grey_200</item>
     <item name="colorFabLabelBackground">@color/material_color_grey_200</item>
     <item name="colorFabLabelBackgroundStroke">@color/material_color_grey_300</item>
+    <item name="colorFabOverlay">#96ffffff</item>
     <!-- Material Drawer -->
     <item name="material_drawer_background">@color/material_drawer_background</item>
     <item name="material_drawer_primary_text">@color/material_drawer_primary_text</item>
@@ -74,6 +75,7 @@
     <item name="colorFabIcon">@color/material_color_grey_800</item>
     <item name="colorFabLabelBackground">@color/material_color_grey_800</item>
     <item name="colorFabLabelBackgroundStroke">@color/material_color_grey_700</item>
+    <item name="colorFabOverlay">#a1ffffff</item>
     <!-- Material Drawer -->
     <item name="material_drawer_background">@color/material_drawer_dark_background</item>
     <item name="material_drawer_primary_text">@color/material_drawer_dark_primary_text</item>
