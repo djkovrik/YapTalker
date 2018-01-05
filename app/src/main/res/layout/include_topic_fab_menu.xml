@@ -47,8 +47,7 @@
       android:id="@+id/fab_new_message_block"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:visibility="gone">
+      android:orientation="horizontal">
 
       <TextView
         android:id="@+id/fab_new_message_label"
@@ -57,7 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_margin="@dimen/mini_fab_label_margin"
-        android:text="@string/fab_label_new_message" />
+        android:text="@string/fab_label_new_message"
+        android:visibility="gone" />
 
       <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_new_message"
@@ -68,7 +68,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="@dimen/mini_fab_additional_margin"
         android:elevation="@dimen/material_elevation_fab_resting"
-        android:visibility="visible"
+        android:visibility="gone"
         app:fabSize="normal"
         app:ico_color="?attr/colorFabIcon"
         app:ico_icon="cmd-pencil"

@@ -31,6 +31,9 @@ import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicAdapter
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicElementsClickListener
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicThumbnailLoader
+import com.sedsoftware.yaptalker.presentation.features.topic.fabmenu.FabMenu
+import com.sedsoftware.yaptalker.presentation.features.topic.fabmenu.FabMenuItemPrimary
+import com.sedsoftware.yaptalker.presentation.features.topic.fabmenu.FabMenuItemSecondary
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -96,7 +99,7 @@ class ChosenTopicFragment :
 
   private var isLoggedIn = false
   private var isKarmaAvailable = false
-  private var isFabMenuExpanded = false
+  private var fabMenu = FabMenu(isMenuExpanded = false)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -119,6 +122,8 @@ class ChosenTopicFragment :
 
     subscribeViews()
   }
+
+
 
   override fun showErrorMessage(message: String) {
     toastError(message)
@@ -316,25 +321,33 @@ class ChosenTopicFragment :
     RxView
         .clicks(fab_menu)
         .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          if (isFabMenuExpanded) hideFabMenu()
-          else showFabMenu()
-        }
+        .subscribe { initiateFabMenuDisplaying() }
   }
 
-  private fun showFabMenu() {
-    isFabMenuExpanded = true
-
-    // Handle menu items visibility here
-
-    // Animate
+  private fun initiateFabMenuDisplaying() {
+    if (fabMenu.isMenuExpanded) {
+      fabMenu.hideItems()
+    } else {
+      refreshFabMenuState()
+      fabMenu.showItems()
+    }
   }
 
-  private fun hideFabMenu() {
-    isFabMenuExpanded = false
+  private fun refreshFabMenuState() {
 
-    // Animate
+    fabMenu.clear()
 
-    // Handle menu items visibility here
+    fabMenu.add(FabMenuItemPrimary(context, fab_menu, fab_new_message, fab_new_message_label, isLoggedIn))
+    fabMenu.add(FabMenuItemSecondary(context, fab_refresh_block))
+
+    if (isLoggedIn) {
+      fabMenu.add(FabMenuItemSecondary(context, fab_bookmark_block))
+    }
+
+    if (isKarmaAvailable) {
+      fabMenu.add(FabMenuItemSecondary(context, fab_karma_block))
+    }
+
+    fabMenu.add(FabMenuItemSecondary(context, fab_share_block))
   }
 }
