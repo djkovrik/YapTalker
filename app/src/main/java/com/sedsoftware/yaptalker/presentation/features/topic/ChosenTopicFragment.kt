@@ -123,7 +123,14 @@ class ChosenTopicFragment :
     subscribeViews()
   }
 
+  override fun onBackPressed(): Boolean {
+    if (fabMenu.isMenuExpanded) {
+      fabMenu.hideItems()
+      return true
+    }
 
+    return false
+  }
 
   override fun showErrorMessage(message: String) {
     toastError(message)

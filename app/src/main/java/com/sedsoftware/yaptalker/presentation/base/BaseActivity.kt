@@ -15,7 +15,7 @@ import io.reactivex.Maybe
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
-abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector {
+abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector, BackPressHandler {
 
   @Inject
   lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
@@ -24,6 +24,8 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
   lateinit var navigatorHolder: NavigatorHolder
 
   protected abstract val layoutId: Int
+
+  lateinit var backPressFragment: BaseFragment
 
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
 
@@ -62,6 +64,10 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
   override fun onPause() {
     super.onPause()
     lifecycle.accept(ActivityLifecycle.PAUSE)
+  }
+
+  override fun setSelectedFragment(fragment: BaseFragment) {
+    backPressFragment = fragment
   }
 
   protected fun event(@ActivityLifecycle.Event event: Long): Maybe<*> =
