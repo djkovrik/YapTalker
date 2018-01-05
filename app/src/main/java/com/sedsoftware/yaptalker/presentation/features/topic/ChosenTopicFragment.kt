@@ -1,13 +1,12 @@
 package com.sedsoftware.yaptalker.presentation.features.topic
 
+import android.animation.AnimatorInflater
+import android.animation.AnimatorSet
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
@@ -15,6 +14,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
+import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.data.settings.SettingsManager
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
@@ -36,6 +36,7 @@ import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_chosen_topic.*
+import kotlinx.android.synthetic.main.include_topic_fab_menu.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.share
 import timber.log.Timber
@@ -89,18 +90,21 @@ class ChosenTopicFragment :
     arguments?.getInt(STARTING_POST_KEY) ?: 0
   }
 
+  private lateinit var menuShowAnimator: AnimatorSet
+  private lateinit var menuHideAnimator: AnimatorSet
   private lateinit var topicAdapter: ChosenTopicAdapter
 
   private var isLoggedIn = false
   private var isKarmaAvailable = false
+  private var isFabMenuExpanded = false
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    setHasOptionsMenu(true)
+    menuShowAnimator = AnimatorInflater.loadAnimator(context, R.animator.fab_menu_vertical_show) as AnimatorSet
+    menuHideAnimator = AnimatorInflater.loadAnimator(context, R.animator.fab_menu_vertical_hide) as AnimatorSet
 
     topicAdapter = ChosenTopicAdapter(this, this, settings)
-
     topicAdapter.setHasStableIds(true)
 
     with(topic_posts_list) {
@@ -115,46 +119,6 @@ class ChosenTopicFragment :
 
     subscribeViews()
   }
-
-  override fun onPrepareOptionsMenu(menu: Menu?) {
-    super.onPrepareOptionsMenu(menu)
-
-    menu?.findItem(R.id.action_bookmark)?.isVisible = isLoggedIn
-    menu?.findItem(R.id.action_new_message)?.isVisible = isLoggedIn
-    menu?.findItem(R.id.action_topic_karma_plus)?.isVisible = isKarmaAvailable
-    menu?.findItem(R.id.action_topic_karma_minus)?.isVisible = isKarmaAvailable
-  }
-
-  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-    super.onCreateOptionsMenu(menu, inflater)
-    inflater.inflate(R.menu.menu_chosen_topic, menu)
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean =
-      when (item.itemId) {
-        R.id.action_share -> {
-          presenter.shareCurrentTopic()
-          true
-        }
-        R.id.action_new_message -> {
-          presenter.navigateToMessagePostingScreen()
-          true
-        }
-        R.id.action_topic_karma_plus -> {
-          presenter.changeTopicKarma(shouldIncrease = true)
-          true
-        }
-        R.id.action_topic_karma_minus -> {
-          presenter.changeTopicKarma(shouldIncrease = false)
-          true
-        }
-        R.id.action_bookmark -> {
-          presenter.addCurrentTopicToBookmarks()
-          true
-        }
-        else -> super.onOptionsItemSelected(item)
-      }
-
 
   override fun showErrorMessage(message: String) {
     toastError(message)
@@ -348,5 +312,29 @@ class ChosenTopicFragment :
         .refreshes(topic_refresh_layout)
         .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe { presenter.refreshCurrentPage() }
+
+    RxView
+        .clicks(fab_menu)
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
+        .subscribe {
+          if (isFabMenuExpanded) hideFabMenu()
+          else showFabMenu()
+        }
+  }
+
+  private fun showFabMenu() {
+    isFabMenuExpanded = true
+
+    // Handle menu items visibility here
+
+    // Animate
+  }
+
+  private fun hideFabMenu() {
+    isFabMenuExpanded = false
+
+    // Animate
+
+    // Handle menu items visibility here
   }
 }

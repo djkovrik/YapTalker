@@ -24,4 +24,10 @@
     <item name="android:textColor">@color/colorRatingThumbAvailable</item>
   </style>
 
+  <style name="FabMenuLabel">
+    <item name="android:background">@drawable/fab_label_background</item>
+    <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
+    <item name="android:textColor">?attr/colorFabLabelText</item>
+  </style>
+
 </resources>
