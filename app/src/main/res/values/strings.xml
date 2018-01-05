@@ -50,8 +50,7 @@
   <string name="topic_post_karma_thumb_down" translatable="false" tools:keep="@string/topic_post_karma_thumb_down">{cmd-thumb-down} </string>
 
   <!-- FAB labels -->
-  <string name="fab_label_karma_add">Add +1</string>
-  <string name="fab_label_karma_down">Add -1</string>
+  <string name="fab_label_karma">Rate topic</string>
   <string name="fab_label_bookmark">Bookmark</string>
   <string name="fab_label_new_message">New message</string>
   <string name="fab_label_refresh">Refresh</string>

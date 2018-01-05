@@ -7,17 +7,31 @@
   android:layout_height="match_parent"
   android:layout_gravity="bottom">
 
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/fab_menu"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="@dimen/materialize_screen_edge"
+    android:elevation="@dimen/material_elevation_fab_resting"
+    app:fabSize="normal"
+    app:ico_color="?attr/colorFabIcon"
+    app:ico_icon="cmd-human-greeting"
+    app:ico_padding="@dimen/fab_icon_padding"
+    tools:targetApi="lollipop" />
+
   <LinearLayout
-    android:id="@+id/fab_main_block"
+    android:id="@+id/fab_new_message_block"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|end"
     android:layout_margin="@dimen/materialize_screen_edge"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:visibility="invisible">
 
     <TextView
-      android:id="@+id/fab_main_label"
+      android:id="@+id/fab_new_message_label"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/mini_fab_label_margin"
@@ -25,14 +39,14 @@
       android:text="@string/fab_label_new_message" />
 
     <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab_main_authorized"
+      android:id="@+id/fab_new_message"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom|end"
       android:elevation="@dimen/material_elevation_fab_resting"
       app:fabSize="normal"
       app:ico_color="?attr/colorFabIcon"
-      app:ico_icon="cmd-human-greeting"
+      app:ico_icon="cmd-pencil"
       app:ico_padding="@dimen/fab_icon_padding"
       tools:targetApi="lollipop" />
 
@@ -46,7 +60,7 @@
     android:layout_margin="@dimen/materialize_screen_edge"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:translationY="-60dp">
+    android:visibility="invisible">
 
     <TextView
       android:id="@+id/fab_refresh_label"
@@ -78,7 +92,7 @@
     android:layout_margin="@dimen/materialize_screen_edge"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:translationY="-110dp">
+    android:visibility="invisible">
 
     <TextView
       android:id="@+id/fab_bookmark_label"
@@ -103,64 +117,32 @@
   </LinearLayout>
 
   <LinearLayout
-    android:id="@+id/fab_karma_down_block"
+    android:id="@+id/fab_karma_block"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|end"
     android:layout_margin="@dimen/materialize_screen_edge"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:translationY="-160dp">
+    android:visibility="invisible">
 
     <TextView
-      android:id="@+id/fab_karma_down_label"
+      android:id="@+id/fab_karma_label"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/mini_fab_label_margin"
       android:background="@drawable/fab_label_background"
-      android:text="@string/fab_label_karma_down" />
+      android:text="@string/fab_label_karma" />
 
     <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab_karma_down"
+      android:id="@+id/fab_karma"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/mini_fab_additional_margin"
       android:elevation="@dimen/material_elevation_fab_resting"
       app:fabSize="mini"
       app:ico_color="?attr/colorFabIcon"
-      app:ico_icon="cmd-thumb-down"
-      app:ico_padding="@dimen/mini_fab_icon_padding"
-      tools:targetApi="lollipop" />
-
-  </LinearLayout>
-
-  <LinearLayout
-    android:id="@+id/fab_karma_add_block"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|end"
-    android:layout_margin="@dimen/materialize_screen_edge"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:translationY="-210dp">
-
-    <TextView
-      android:id="@+id/fab_karma_add_label"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="@dimen/mini_fab_label_margin"
-      android:background="@drawable/fab_label_background"
-      android:text="@string/fab_label_karma_add" />
-
-    <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab_karma_add"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="@dimen/mini_fab_additional_margin"
-      android:elevation="@dimen/material_elevation_fab_resting"
-      app:fabSize="mini"
-      app:ico_color="?attr/colorFabIcon"
-      app:ico_icon="cmd-thumb-up"
+      app:ico_icon="cmd-thumbs-up-down"
       app:ico_padding="@dimen/mini_fab_icon_padding"
       tools:targetApi="lollipop" />
 
@@ -174,7 +156,7 @@
     android:layout_margin="@dimen/materialize_screen_edge"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:translationY="-260dp">
+    android:visibility="invisible">
 
     <TextView
       android:id="@+id/fab_share_label"
