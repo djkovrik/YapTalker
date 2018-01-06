@@ -22,7 +22,7 @@ class ActiveTopicsDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = TopicViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
     holder as TopicViewHolder
     holder.bindTo(item as ActiveTopicModel)
   }

@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.presentation.features.topic
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -98,6 +99,7 @@ class ChosenTopicFragment :
   private lateinit var menuShowAnimator: AnimatorSet
   private lateinit var menuHideAnimator: AnimatorSet
   private lateinit var topicAdapter: ChosenTopicAdapter
+  private lateinit var topicScrollState: Parcelable
 
   private var isLoggedIn = false
   private var isKarmaAvailable = false
@@ -123,6 +125,8 @@ class ChosenTopicFragment :
     topic_refresh_layout.setIndicatorColorScheme()
 
     subscribeViews()
+
+    topicScrollState = topic_posts_list.layoutManager.onSaveInstanceState()
   }
 
   override fun onBackPressed(): Boolean {
@@ -179,7 +183,7 @@ class ChosenTopicFragment :
     context?.share("http://www.yaplakal.com/forum$forumId/st/$topicPage/topic$topicId.html", title)
   }
 
-  override fun showPostKarmaMenu(postId: Int, postPosition: Int) {
+  override fun showPostKarmaMenu(postId: Int) {
     val plusItem = context?.stringRes(R.string.action_post_karma_plus)
     val minusItem = context?.stringRes(R.string.action_post_karma_minus)
 
@@ -190,8 +194,8 @@ class ChosenTopicFragment :
           .title(R.string.title_post_context_menu)
           .items(itemsArray)
           .itemsCallback { _, _, _, text ->
-            if (text == plusItem) presenter.changePostKarma(postId, postPosition, shouldIncrease = true)
-            if (text == minusItem) presenter.changePostKarma(postId, postPosition, shouldIncrease = false)
+            if (text == plusItem) presenter.changePostKarma(postId, shouldIncrease = true)
+            if (text == minusItem) presenter.changePostKarma(postId, shouldIncrease = false)
           }
           .show()
     }
@@ -202,7 +206,6 @@ class ChosenTopicFragment :
     val minusItem = context?.stringRes(R.string.action_topic_karma_minus)
 
     val itemsArray = arrayListOf(plusItem, minusItem)
-    val currentPosition = topic_posts_list.layoutManager.
 
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
@@ -222,14 +225,12 @@ class ChosenTopicFragment :
     }
   }
 
-  override fun scrollToViewTop() {
-    topic_posts_list?.layoutManager?.scrollToPosition(0)
-    Timber.d("Scroll to page top")
+  override fun saveScrollPosition() {
+    topicScrollState = topic_posts_list.layoutManager.onSaveInstanceState()
   }
 
-  override fun scrollToPost(position: Int) {
-    topic_posts_list?.layoutManager?.scrollToPosition(position)
-    Timber.d("Scroll to post $position")
+  override fun restoreScrollPosition() {
+    topic_posts_list.layoutManager.onRestoreInstanceState(topicScrollState)
   }
 
   override fun showCantLoadPageMessage(page: Int) {
@@ -289,9 +290,9 @@ class ChosenTopicFragment :
     }
   }
 
-  override fun onPostItemClicked(postId: Int, postPosition: Int, isKarmaAvailable: Boolean) {
+  override fun onPostItemClicked(postId: Int, isKarmaAvailable: Boolean) {
     if (isKarmaAvailable) {
-      presenter.showPostKarmaMenuIfAvailable(postId, postPosition)
+      presenter.showPostKarmaMenuIfAvailable(postId)
     }
   }
 

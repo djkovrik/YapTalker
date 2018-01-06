@@ -21,7 +21,7 @@ class BookmarksDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = BookmarkViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
     holder as BookmarkViewHolder
     holder.bindTo(item as BookmarkedTopicModel)
   }

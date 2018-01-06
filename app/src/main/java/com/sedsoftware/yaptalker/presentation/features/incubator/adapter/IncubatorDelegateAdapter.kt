@@ -31,7 +31,7 @@ class IncubatorDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = IncubatorViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
     holder as IncubatorViewHolder
     holder.bindTo(item as IncubatorItemModel)
   }

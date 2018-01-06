@@ -33,13 +33,13 @@ interface ChosenTopicView : BaseView {
 
   fun shareTopic(title: String, topicPage: Int)
 
-  fun showPostKarmaMenu(postId: Int, postPosition: Int)
+  fun showPostKarmaMenu(postId: Int)
 
   fun showTopicKarmaMenu()
 
-  fun scrollToViewTop()
+  fun saveScrollPosition()
 
-  fun scrollToPost(position: Int)
+  fun restoreScrollPosition()
 
   fun showCantLoadPageMessage(page: Int)
 

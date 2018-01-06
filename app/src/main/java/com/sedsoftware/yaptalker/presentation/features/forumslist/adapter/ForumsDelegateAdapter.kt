@@ -22,7 +22,7 @@ class ForumsDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = ForumsViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
     holder as ForumsViewHolder
     holder.bindTo(item as ForumModel)
   }

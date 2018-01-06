@@ -71,7 +71,6 @@ class ChosenTopicPresenter @Inject constructor(
   private var isClosed = false
   private var currentTitle = ""
   private var clearCurrentList = false
-  private var karmaTargetedPostPosition = -1
 
   init {
     router.setResultListener(RequestCode.MESSAGE_TEXT, { message -> sendMessage(message as String) })
@@ -179,12 +178,12 @@ class ChosenTopicPresenter @Inject constructor(
     viewState.shareTopic(currentTitle, startingPost)
   }
 
-  fun showPostKarmaMenuIfAvailable(postId: Int, postPosition: Int) {
+  fun showPostKarmaMenuIfAvailable(postId: Int) {
     if (postId == 0 || authKey.isEmpty()) {
       return
     }
 
-    viewState.showPostKarmaMenu(postId, postPosition)
+    viewState.showPostKarmaMenu(postId)
   }
 
   fun showTopicKarmaMenuIfAvailable() {
@@ -231,12 +230,10 @@ class ChosenTopicPresenter @Inject constructor(
         .subscribe(getKarmaResponseObserver(isTopic = true))
   }
 
-  fun changePostKarma(postId: Int, postPosition: Int, shouldIncrease: Boolean) {
+  fun changePostKarma(postId: Int, shouldIncrease: Boolean) {
     if (authKey.isEmpty() || postId == 0 || currentTopicId == 0) {
       return
     }
-
-    karmaTargetedPostPosition = postPosition
 
     val diff = if (shouldIncrease) 1 else -1
 
@@ -277,6 +274,8 @@ class ChosenTopicPresenter @Inject constructor(
   }
 
   private fun loadTopicCurrentPage() {
+
+    viewState.saveScrollPosition()
 
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
     clearCurrentList = true
@@ -339,7 +338,6 @@ class ChosenTopicPresenter @Inject constructor(
           }
         }
 
-        // TODO () Remove refresh
         override fun onComplete() {
           Timber.i("Karma changing request completed.")
           loadTopicCurrentPage()
@@ -402,13 +400,7 @@ class ChosenTopicPresenter @Inject constructor(
           Timber.i("Topic page loading completed.")
           viewState.updateCurrentUiState(currentTitle)
           setupMenuButtons()
-
-          if (karmaTargetedPostPosition == -1) {
-            viewState.scrollToViewTop()
-          } else {
-            viewState.scrollToPost(karmaTargetedPostPosition)
-            karmaTargetedPostPosition = -1
-          }
+          viewState.restoreScrollPosition()
         }
 
         override fun onError(e: Throwable) {

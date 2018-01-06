@@ -53,9 +53,9 @@ class ChosenTopicDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = PostViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
     holder as PostViewHolder
-    holder.bindTo(item as SinglePostModel, position)
+    holder.bindTo(item as SinglePostModel)
   }
 
   inner class PostViewHolder(parent: ViewGroup) :
@@ -68,11 +68,11 @@ class ChosenTopicDelegateAdapter(
     private val quoteBackgroundColor = parent.context.getColorFromAttr(R.attr.colorQuoteBackground)
     private val warnings = ArrayList<PostWarningModel>()
 
-    fun bindTo(postItem: SinglePostModel, position: Int) {
+    fun bindTo(postItem: SinglePostModel) {
       fillPostText(postItem.postContentParsed)
       fillPostImages(postItem.postContentParsed)
       fillPostVideos(postItem.postContentParsed)
-      fillPostHeader(postItem, position)
+      fillPostHeader(postItem)
     }
 
     @Suppress("NestedBlockDepth")
@@ -197,7 +197,7 @@ class ChosenTopicDelegateAdapter(
       }
     }
 
-    private fun fillPostHeader(post: SinglePostModel, position: Int) {
+    private fun fillPostHeader(post: SinglePostModel) {
       with(itemView) {
         post_author.text = post.authorNickname
         post_date.text = post.postDate
@@ -238,7 +238,7 @@ class ChosenTopicDelegateAdapter(
 
         post_rating_block.setOnClickListener {
           val isKarmaAvailable = post.postRankPlusAvailable && post.postRankMinusAvailable
-          clickListener.onPostItemClicked(post.postId, position, isKarmaAvailable)
+          clickListener.onPostItemClicked(post.postId, isKarmaAvailable)
         }
 
         post_author.textSize = normalFontSize
