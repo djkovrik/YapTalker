@@ -81,6 +81,7 @@ class ChosenTopicDelegateAdapter(
       var currentNestingLevel = INITIAL_NESTING_LEVEL
 
       itemView.post_content_text_container.removeAllViews()
+      warnings.clear()
 
       if (post.content.isNotEmpty()) {
         itemView.post_content_text_container.showView()
