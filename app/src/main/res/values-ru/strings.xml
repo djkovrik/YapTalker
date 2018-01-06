@@ -36,6 +36,14 @@
   <string name="authorization_password_label">Пароль</string>
   <string name="authorization_button_login">Войти</string>
 
+  <!-- TOPIC -->
+  <!-- FAB labels -->
+  <string name="fab_label_karma">Оценить тему</string>
+  <string name="fab_label_bookmark">В закладки</string>
+  <string name="fab_label_new_message">Новое сообщение</string>
+  <string name="fab_label_refresh">Обновить</string>
+  <string name="fab_label_share">Поделиться</string>
+
   <!-- ADD MESSAGE ACTIVITY -->
   <string name="post_message_hint">Введите сообщение…</string>
   <string name="post_insert_link">Ссылка</string>
@@ -95,13 +103,13 @@
   <string name="action_share">Поделиться</string>
   <string name="action_send">Отправить</string>
   <string name="action_bookmark">В закладки</string>
+  <string name="action_new_message">Новое сообщение</string>
   <string name="action_topic_karma_plus">Поставить +1</string>
   <string name="action_topic_karma_minus">Поставить -1</string>
-  <string name="action_new_message">Новое сообщение</string>
-  <!-- Post context menu -->
-  <string name="title_post_context_menu">Выберите действие</string>
   <string name="action_post_karma_plus">Поставить +1</string>
   <string name="action_post_karma_minus">Поставить -1</string>
+  <string name="title_topic_karma_menu">Оценить тему:</string>
+  <string name="title_post_context_menu">Оценить пост:</string>
 
   <!-- SHORT DATE STRINGS -->
   <plurals name="short_date_years">

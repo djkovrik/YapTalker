@@ -179,12 +179,20 @@ class ChosenTopicPresenter @Inject constructor(
     viewState.shareTopic(currentTitle, startingPost)
   }
 
-  fun showPostContextMenuIfAvailable(postId: Int, postPosition: Int) {
+  fun showPostKarmaMenuIfAvailable(postId: Int, postPosition: Int) {
     if (postId == 0 || authKey.isEmpty()) {
       return
     }
 
-    viewState.displayPostContextMenu(postId, postPosition)
+    viewState.displayPostKarmaMenu(postId, postPosition)
+  }
+
+  fun showTopicKarmaMenuIfAvailable() {
+    if (ratingTargetId == 0 || authKey.isEmpty()) {
+      return
+    }
+
+    viewState.displayTopicKarmaMenu()
   }
 
   fun addCurrentTopicToBookmarks() {
@@ -286,6 +294,12 @@ class ChosenTopicPresenter @Inject constructor(
         .subscribe(getTopicObserver())
   }
 
+  fun handleFabVisibility(diff: Int) {
+    when {
+      diff > 0 -> viewState.hideFab()
+      diff < 0 -> viewState.showFab()
+    }
+  }
 
   // ==== OBSERVERS ====
 
@@ -325,6 +339,7 @@ class ChosenTopicPresenter @Inject constructor(
           }
         }
 
+        // TODO () Remove refresh
         override fun onComplete() {
           Timber.i("Karma changing request completed.")
           loadTopicCurrentPage()

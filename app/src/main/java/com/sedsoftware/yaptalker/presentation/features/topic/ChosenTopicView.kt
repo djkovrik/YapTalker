@@ -33,7 +33,9 @@ interface ChosenTopicView : BaseView {
 
   fun shareTopic(title: String, topicPage: Int)
 
-  fun displayPostContextMenu(postId: Int, postPosition: Int)
+  fun displayPostKarmaMenu(postId: Int, postPosition: Int)
+
+  fun displayTopicKarmaMenu()
 
   fun scrollToViewTop()
 
@@ -52,4 +54,8 @@ interface ChosenTopicView : BaseView {
   fun blockScreenSleep()
 
   fun unblockScreenSleep()
+
+  fun showFab()
+
+  fun hideFab()
 }

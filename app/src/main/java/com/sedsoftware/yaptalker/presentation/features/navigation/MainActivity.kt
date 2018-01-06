@@ -33,6 +33,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.Navigator
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainActivityView, NavigationView {
@@ -114,6 +115,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   override fun onBackPressed() {
     when {
       !isInTwoPaneMode && navDrawer.isDrawerOpen -> navDrawer.closeDrawer()
+      backPressFragment.onBackPressed() -> Timber.i("Back press event consumed by fragment.")
       else -> super.onBackPressed()
     }
   }

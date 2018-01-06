@@ -1,0 +1,16 @@
+-dontnote android.net.http.*
+-dontnote org.apache.http.**
+-dontnote com.mikepenz.iconics.**
+-dontnote com.mikepenz.materialize.**
+-dontnote com.afollestad.materialdialogs.**
+-dontnote com.crashlytics.**
+-dontnote com.squareup.moshi.**
+-dontnote com.google.android.gms.**
+-dontnote com.google.firebase.iid.*
+-dontnote com.github.chrisbanes.photoview.**
+-dontnote io.fabric.sdk.**
+-dontnote com.sedsoftware.yaptalker.data.**
+-dontnote com.squareup.picasso.**
+-dontnote okhttp3.internal.**
+-dontnote kotlin.internal.**
+-dontnote kotlin.jvm.internal.**

@@ -2,10 +2,7 @@
 <resources>
 
   <!-- News screen -->
-  <dimen name="card_margin_value_half">
-    @dimen/material_baseline_grid_0.5x
-  </dimen>
-  <dimen name="mini_fab_icon_padding">4dp</dimen>
+  <dimen name="card_margin_value_half">@dimen/material_baseline_grid_0.5x</dimen>
 
   <!-- Rating labels -->
   <dimen name="rating_background_padding">3dp</dimen>
@@ -19,6 +16,15 @@
 
   <!-- Navigation panel -->
   <dimen name="navigation_button_width">54dp</dimen>
+
+  <!-- FABs and menus-->
+  <dimen name="fab_icon_padding">4dp</dimen>
+  <dimen name="fab_label_corners">2dp</dimen>
+  <dimen name="fab_label_padding_horizontal">4dp</dimen>
+  <dimen name="fab_label_padding_vertical">2dp</dimen>
+  <dimen name="mini_fab_icon_padding">4dp</dimen>
+  <dimen name="mini_fab_label_margin">8dp</dimen>
+  <dimen name="mini_fab_additional_margin">8dp</dimen>
 
   <!-- Other -->
   <dimen name="post_editor_margin">8dp</dimen>

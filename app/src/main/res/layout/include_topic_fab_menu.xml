@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/fab_menu_authorized"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:layout_gravity="bottom">
+
+  <View
+    android:id="@+id/fab_overlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorFabOverlay"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <FrameLayout
+    android:id="@+id/fab_main_button_block"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_menu"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|end"
+      android:layout_marginBottom="@dimen/materialize_screen_edge"
+      android:layout_marginEnd="@dimen/materialize_screen_edge"
+      android:layout_marginStart="@dimen/materialize_screen_edge"
+      android:layout_marginTop="@dimen/mini_fab_additional_margin"
+      android:elevation="@dimen/material_elevation_fab_resting"
+      android:visibility="visible"
+      app:fabSize="normal"
+      app:ico_color="?attr/colorFabIcon"
+      app:ico_icon="cmd-gesture-tap"
+      app:ico_padding="@dimen/fab_icon_padding"
+      tools:targetApi="lollipop" />
+
+    <LinearLayout
+      android:id="@+id/fab_new_message_block"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|end"
+      android:orientation="horizontal"
+      android:visibility="visible">
+
+      <TextView
+        android:id="@+id/fab_new_message_label"
+        style="@style/FabMenuLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        android:layout_margin="@dimen/mini_fab_label_margin"
+        android:text="@string/fab_label_new_message"
+        android:visibility="gone" />
+
+      <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_new_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/materialize_screen_edge"
+        android:layout_marginEnd="@dimen/materialize_screen_edge"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="@dimen/mini_fab_additional_margin"
+        android:elevation="@dimen/material_elevation_fab_resting"
+        android:visibility="gone"
+        app:fabSize="normal"
+        app:ico_color="?attr/colorFabIcon"
+        app:ico_icon="cmd-pencil"
+        app:ico_padding="@dimen/fab_icon_padding"
+        tools:targetApi="lollipop" />
+
+    </LinearLayout>
+
+  </FrameLayout>
+
+  <LinearLayout
+    android:id="@+id/fab_refresh_block"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="16dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    app:layout_constraintBottom_toTopOf="@+id/fab_main_button_block"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <TextView
+      android:id="@+id/fab_refresh_label"
+      style="@style/FabMenuLabel"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_label_margin"
+      android:text="@string/fab_label_refresh" />
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_refresh"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_additional_margin"
+      android:elevation="@dimen/material_elevation_fab_resting"
+      app:fabSize="mini"
+      app:ico_color="?attr/colorFabIcon"
+      app:ico_icon="cmd-refresh"
+      app:ico_padding="@dimen/mini_fab_icon_padding"
+      tools:targetApi="lollipop" />
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/fab_bookmark_block"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_marginEnd="16dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    app:layout_constraintBottom_toTopOf="@+id/fab_refresh_block"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <TextView
+      android:id="@+id/fab_bookmark_label"
+      style="@style/FabMenuLabel"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_label_margin"
+      android:text="@string/fab_label_bookmark" />
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_bookmark"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_additional_margin"
+      android:elevation="@dimen/material_elevation_fab_resting"
+      app:fabSize="mini"
+      app:ico_color="?attr/colorFabIcon"
+      app:ico_icon="cmd-bookmark"
+      app:ico_padding="@dimen/mini_fab_icon_padding"
+      tools:targetApi="lollipop" />
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/fab_karma_block"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="16dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    app:layout_constraintBottom_toTopOf="@+id/fab_bookmark_block"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <TextView
+      android:id="@+id/fab_karma_label"
+      style="@style/FabMenuLabel"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_label_margin"
+      android:text="@string/fab_label_karma" />
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_karma"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_additional_margin"
+      android:elevation="@dimen/material_elevation_fab_resting"
+      app:fabSize="mini"
+      app:ico_color="?attr/colorFabIcon"
+      app:ico_icon="cmd-thumbs-up-down"
+      app:ico_padding="@dimen/mini_fab_icon_padding"
+      tools:targetApi="lollipop" />
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/fab_share_block"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="16dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    app:layout_constraintBottom_toTopOf="@+id/fab_karma_block"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <TextView
+      android:id="@+id/fab_share_label"
+      style="@style/FabMenuLabel"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_label_margin"
+      android:text="@string/fab_label_share" />
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_share"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_additional_margin"
+      android:elevation="@dimen/material_elevation_fab_resting"
+      app:fabSize="mini"
+      app:ico_color="?attr/colorFabIcon"
+      app:ico_icon="cmd-share-variant"
+      app:ico_padding="@dimen/mini_fab_icon_padding"
+      tools:targetApi="lollipop" />
+
+  </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

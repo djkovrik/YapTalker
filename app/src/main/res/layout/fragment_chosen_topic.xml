@@ -19,4 +19,6 @@
 
   </android.support.v4.widget.SwipeRefreshLayout>
 
+  <include layout="@layout/include_topic_fab_menu" />
+
 </android.support.v7.widget.CardView>
