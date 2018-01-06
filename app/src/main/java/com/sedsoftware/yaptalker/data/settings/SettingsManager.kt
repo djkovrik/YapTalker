@@ -70,6 +70,7 @@ class SettingsManager @Inject constructor(
   fun isScreenAlwaysOnEnabled(): Boolean =
       getBooleanPref(R.string.pref_key_screen_always_on, false)
 
+  @Suppress("MagicNumber")
   fun isHttpsEnabled(): Boolean {
     val default = Build.VERSION.SDK_INT !in 19..20
     return getBooleanPref(R.string.pref_key_https_enabled, default)

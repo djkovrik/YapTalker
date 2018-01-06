@@ -8,7 +8,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.presentation.base.BaseView
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 
-@Suppress("ComplexInterface")
+@Suppress("ComplexInterface", "TooManyFunctions")
 @StateStrategyType(SkipStrategy::class)
 interface ChosenTopicView : BaseView {
 

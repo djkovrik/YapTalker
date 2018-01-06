@@ -49,7 +49,7 @@ import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions")
+@Suppress("LargeClass", "TooManyFunctions")
 class ChosenTopicFragment :
     BaseFragment(), ChosenTopicView, ChosenTopicThumbnailLoader, ChosenTopicElementsClickListener {
 
