@@ -294,6 +294,12 @@ class ChosenTopicPresenter @Inject constructor(
         .subscribe(getTopicObserver())
   }
 
+  fun handleFabVisibility(diff: Int) {
+    when {
+      diff > 0 -> viewState.hideFab()
+      diff < 0 -> viewState.showFab()
+    }
+  }
 
   // ==== OBSERVERS ====
 

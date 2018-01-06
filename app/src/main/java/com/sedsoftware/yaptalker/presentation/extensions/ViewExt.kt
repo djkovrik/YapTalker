@@ -6,12 +6,11 @@ import android.view.animation.OvershootInterpolator
 
 private const val ANIMATION_DELAY_DEFAULT = 150L
 private const val ANIMATION_DURATION = 250L
-private const val DEFAULT_INTERPOLATOR_TENSION = 1.5f
 
 fun View.moveWithAnimationAxisY(
     offset: Float,
     delay: Long = ANIMATION_DELAY_DEFAULT,
-    interpolator: Interpolator = OvershootInterpolator(DEFAULT_INTERPOLATOR_TENSION)) {
+    interpolator: Interpolator = OvershootInterpolator()) {
 
   this.animate()
       .translationY(offset)

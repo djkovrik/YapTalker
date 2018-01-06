@@ -14,6 +14,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
+import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.data.settings.SettingsManager
@@ -22,6 +23,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadThumbnailFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
@@ -126,7 +128,7 @@ class ChosenTopicFragment :
 
   override fun onBackPressed(): Boolean {
     if (fabMenu.isMenuExpanded) {
-      fabMenu.hideItems()
+      collapseMenu()
       return true
     }
 
@@ -208,11 +210,11 @@ class ChosenTopicFragment :
           .items(itemsArray)
           .itemsCallback { _, _, _, text ->
             if (text == plusItem) {
-              fabMenu.hideItems()
+              collapseMenu()
               presenter.changeTopicKarma(shouldIncrease = true)
             }
             if (text == minusItem) {
-              fabMenu.hideItems()
+              collapseMenu()
               presenter.changeTopicKarma(shouldIncrease = false)
             }
           }
@@ -268,6 +270,17 @@ class ChosenTopicFragment :
   override fun unblockScreenSleep() {
     activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     Timber.i("Screen always awake - disabled")
+  }
+
+  override fun showFab() {
+    fab_main_button_block?.moveWithAnimationAxisY(offset = 0f)
+  }
+
+  override fun hideFab() {
+    fab_main_button_block?.let { fab ->
+      val offset = fab.height + fab.paddingTop + fab.paddingBottom
+      fab.moveWithAnimationAxisY(offset = offset.toFloat())
+    }
   }
 
   override fun onPostItemClicked(postId: Int, postPosition: Int, isKarmaAvailable: Boolean) {
@@ -350,6 +363,11 @@ class ChosenTopicFragment :
         .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe { presenter.refreshCurrentPage() }
 
+    RxRecyclerView
+        .scrollEvents(topic_posts_list)
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
+        .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
+
     RxView
         .clicks(fab_menu)
         .autoDisposable(event(FragmentLifecycle.DESTROY))
@@ -359,7 +377,7 @@ class ChosenTopicFragment :
         .clicks(fab_refresh)
         .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe {
-          fabMenu.hideItems()
+          collapseMenu()
           presenter.refreshCurrentPage()
         }
 
@@ -367,7 +385,7 @@ class ChosenTopicFragment :
         .clicks(fab_bookmark)
         .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe {
-          fabMenu.hideItems()
+          collapseMenu()
           presenter.addCurrentTopicToBookmarks()
         }
 
@@ -375,7 +393,7 @@ class ChosenTopicFragment :
         .clicks(fab_share)
         .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe {
-          fabMenu.hideItems()
+          collapseMenu()
           presenter.shareCurrentTopic()
         }
 
@@ -388,24 +406,34 @@ class ChosenTopicFragment :
         .clicks(fab_new_message)
         .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe {
-          fabMenu.hideItems()
+          collapseMenu()
           presenter.navigateToMessagePostingScreen()
         }
 
     RxView
         .clicks(fab_overlay)
         .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { fabMenu.hideItems() }
+        .subscribe { collapseMenu() }
   }
 
   private fun initiateFabMenuDisplaying() {
     if (fabMenu.isMenuExpanded) {
-      fabMenu.hideItems()
+      collapseMenu()
 
     } else {
       refreshFabMenuState()
-      fabMenu.showItems()
+      expandMenu()
     }
+  }
+
+  private fun expandMenu() {
+    fabMenu.showItems()
+    topic_posts_list.isEnabled = !fabMenu.isMenuExpanded
+  }
+
+  private fun collapseMenu() {
+    fabMenu.hideItems()
+    topic_posts_list.isEnabled = !fabMenu.isMenuExpanded
   }
 
   private fun refreshFabMenuState() {

@@ -54,4 +54,8 @@ interface ChosenTopicView : BaseView {
   fun blockScreenSleep()
 
   fun unblockScreenSleep()
+
+  fun showFab()
+
+  fun hideFab()
 }
