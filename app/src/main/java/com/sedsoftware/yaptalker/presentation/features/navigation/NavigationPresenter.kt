@@ -170,6 +170,7 @@ class NavigationPresenter @Inject constructor(
       }
 
   private fun checkIfSignedOutSuccessfully(serverResponse: YapEntity) {
+
     serverResponse as ServerResponseModel
 
     if (serverResponse.text.contains(SIGN_OUT_SUCCESS_MARKER)) {
