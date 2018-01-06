@@ -6,7 +6,6 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.content.Context
 import android.view.View
-import android.view.animation.AnticipateInterpolator
 import android.view.animation.OvershootInterpolator
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
@@ -19,6 +18,7 @@ class FabMenuItemSecondary(
   override fun show() {
     val animator = AnimatorInflater.loadAnimator(context, R.animator.fab_menu_vertical_show) as AnimatorSet
     animator.interpolator = OvershootInterpolator()
+    animator.setTarget(view)
     animator.addListener(object : AnimatorListenerAdapter() {
       override fun onAnimationStart(animation: Animator?) {
         super.onAnimationStart(animation)
@@ -30,7 +30,8 @@ class FabMenuItemSecondary(
 
   override fun hide() {
     val animator = AnimatorInflater.loadAnimator(context, R.animator.fab_menu_vertical_hide) as AnimatorSet
-    animator.interpolator = AnticipateInterpolator()
+    animator.interpolator = OvershootInterpolator()
+    animator.setTarget(view)
     animator.addListener(object : AnimatorListenerAdapter() {
       override fun onAnimationEnd(animation: Animator?) {
         super.onAnimationEnd(animation)

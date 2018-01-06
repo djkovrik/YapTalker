@@ -30,7 +30,7 @@
       android:id="@+id/fab_menu"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="end"
+      android:layout_gravity="bottom|end"
       android:layout_marginBottom="@dimen/materialize_screen_edge"
       android:layout_marginEnd="@dimen/materialize_screen_edge"
       android:layout_marginStart="@dimen/materialize_screen_edge"
@@ -47,14 +47,16 @@
       android:id="@+id/fab_new_message_block"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="horizontal">
+      android:layout_gravity="bottom|end"
+      android:orientation="horizontal"
+      android:visibility="visible">
 
       <TextView
         android:id="@+id/fab_new_message_label"
         style="@style/FabMenuLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center_vertical|start"
         android:layout_margin="@dimen/mini_fab_label_margin"
         android:text="@string/fab_label_new_message"
         android:visibility="gone" />
