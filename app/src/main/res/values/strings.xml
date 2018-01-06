@@ -115,13 +115,13 @@
   <string name="action_share">Share</string>
   <string name="action_send">Send</string>
   <string name="action_bookmark">Bookmark</string>
+  <string name="action_new_message">New message</string>
   <string name="action_topic_karma_plus">Add +1</string>
   <string name="action_topic_karma_minus">Add -1</string>
-  <string name="action_new_message">New message</string>
-  <!-- Post context menu -->
-  <string name="title_post_context_menu">Choose an action</string>
   <string name="action_post_karma_plus">Add +1</string>
   <string name="action_post_karma_minus">Add -1</string>
+  <string name="title_topic_karma_menu">Rate topic:</string>
+  <string name="title_post_context_menu">Rate post:</string>
 
   <!-- SHORT DATE STRINGS -->
   <plurals name="short_date_years">

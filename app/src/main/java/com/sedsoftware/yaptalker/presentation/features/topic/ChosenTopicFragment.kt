@@ -178,7 +178,7 @@ class ChosenTopicFragment :
     context?.share("http://www.yaplakal.com/forum$forumId/st/$topicPage/topic$topicId.html", title)
   }
 
-  override fun displayPostContextMenu(postId: Int, postPosition: Int) {
+  override fun displayPostKarmaMenu(postId: Int, postPosition: Int) {
     val plusItem = context?.stringRes(R.string.action_post_karma_plus)
     val minusItem = context?.stringRes(R.string.action_post_karma_minus)
 
@@ -191,6 +191,30 @@ class ChosenTopicFragment :
           .itemsCallback { _, _, _, text ->
             if (text == plusItem) presenter.changePostKarma(postId, postPosition, shouldIncrease = true)
             if (text == minusItem) presenter.changePostKarma(postId, postPosition, shouldIncrease = false)
+          }
+          .show()
+    }
+  }
+
+  override fun displayTopicKarmaMenu() {
+    val plusItem = context?.stringRes(R.string.action_topic_karma_plus)
+    val minusItem = context?.stringRes(R.string.action_topic_karma_minus)
+
+    val itemsArray = arrayListOf(plusItem, minusItem)
+
+    context?.let { ctx ->
+      MaterialDialog.Builder(ctx)
+          .title(R.string.title_topic_karma_menu)
+          .items(itemsArray)
+          .itemsCallback { _, _, _, text ->
+            if (text == plusItem) {
+              fabMenu.hideItems()
+              presenter.changeTopicKarma(shouldIncrease = true)
+            }
+            if (text == minusItem) {
+              fabMenu.hideItems()
+              presenter.changeTopicKarma(shouldIncrease = false)
+            }
           }
           .show()
     }
@@ -248,7 +272,7 @@ class ChosenTopicFragment :
 
   override fun onPostItemClicked(postId: Int, postPosition: Int, isKarmaAvailable: Boolean) {
     if (isKarmaAvailable) {
-      presenter.showPostContextMenuIfAvailable(postId, postPosition)
+      presenter.showPostKarmaMenuIfAvailable(postId, postPosition)
     }
   }
 
@@ -330,11 +354,54 @@ class ChosenTopicFragment :
         .clicks(fab_menu)
         .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe { initiateFabMenuDisplaying() }
+
+    RxView
+        .clicks(fab_refresh)
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
+        .subscribe {
+          fabMenu.hideItems()
+          presenter.refreshCurrentPage()
+        }
+
+    RxView
+        .clicks(fab_bookmark)
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
+        .subscribe {
+          fabMenu.hideItems()
+          presenter.addCurrentTopicToBookmarks()
+        }
+
+    RxView
+        .clicks(fab_share)
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
+        .subscribe {
+          fabMenu.hideItems()
+          presenter.shareCurrentTopic()
+        }
+
+    RxView
+        .clicks(fab_karma)
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
+        .subscribe { presenter.showTopicKarmaMenuIfAvailable() }
+
+    RxView
+        .clicks(fab_new_message)
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
+        .subscribe {
+          fabMenu.hideItems()
+          presenter.navigateToMessagePostingScreen()
+        }
+
+    RxView
+        .clicks(fab_overlay)
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
+        .subscribe { fabMenu.hideItems() }
   }
 
   private fun initiateFabMenuDisplaying() {
     if (fabMenu.isMenuExpanded) {
       fabMenu.hideItems()
+
     } else {
       refreshFabMenuState()
       fabMenu.showItems()
