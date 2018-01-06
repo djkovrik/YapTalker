@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.features.authorization
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.settings.SettingsManager
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetSiteUserPreferences
 import com.sedsoftware.yaptalker.domain.interactor.SendSignInRequest
@@ -27,7 +28,8 @@ class AuthorizationPresenter @Inject constructor(
     private val signInRequestUseCase: SendSignInRequest,
     private val serverResponseMapper: ServerResponseModelMapper,
     private val getSitePreferencesUseCase: GetSiteUserPreferences,
-    private val sitePreferencesModelMapper: SitePreferencesModelMapper
+    private val sitePreferencesModelMapper: SitePreferencesModelMapper,
+    private val preferences: SettingsManager
 ) : BasePresenter<AuthorizationView>() {
 
   companion object {
@@ -101,10 +103,11 @@ class AuthorizationPresenter @Inject constructor(
       object : DisposableObserver<YapEntity>() {
 
         override fun onNext(response: YapEntity) {
+
           response as SitePreferencesModel
 
-          Timber.d("posts per page = ${response.messagesPerTopicPage}")
-          Timber.d("topics per page = ${response.topicsPerForumPage}")
+          preferences.saveMessagesPerPagePref(response.messagesPerTopicPage)
+          preferences.saveTopicsPerPagePref(response.topicsPerForumPage)
         }
 
         override fun onComplete() {

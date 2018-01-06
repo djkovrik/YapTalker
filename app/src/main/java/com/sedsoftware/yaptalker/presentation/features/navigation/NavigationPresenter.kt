@@ -37,6 +37,8 @@ class NavigationPresenter @Inject constructor(
 
   companion object {
     private const val SIGN_OUT_SUCCESS_MARKER = "Вы вышли"
+    private const val MESSAGES_PER_PAGE_DEFAULT = 25
+    private const val TOPICS_PER_PAGE_DEFAULT = 30
   }
 
   init {
@@ -158,6 +160,8 @@ class NavigationPresenter @Inject constructor(
 
         override fun onComplete() {
           Timber.i("Sign Out request completed.")
+          settings.saveMessagesPerPagePref(MESSAGES_PER_PAGE_DEFAULT)
+          settings.saveTopicsPerPagePref(TOPICS_PER_PAGE_DEFAULT)
         }
 
         override fun onError(e: Throwable) {

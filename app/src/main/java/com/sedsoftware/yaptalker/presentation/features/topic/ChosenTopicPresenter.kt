@@ -46,7 +46,6 @@ class ChosenTopicPresenter @Inject constructor(
 ) : BasePresenter<ChosenTopicView>() {
 
   companion object {
-    private const val POSTS_PER_PAGE = 25
     private const val OFFSET_FOR_PAGE_NUMBER = 1
     private const val BOOKMARK_SUCCESS_MARKER = "Закладка добавлена"
     private const val KARMA_SUCCESS_MARKER = "\"status\":1"
@@ -57,6 +56,7 @@ class ChosenTopicPresenter @Inject constructor(
     settings.isScreenAlwaysOnEnabled()
   }
 
+  private val postsPerPage = settings.getMessagesPerPage()
   private var currentForumId = 0
   private var currentTopicId = 0
   private var currentPage = 1
@@ -107,7 +107,7 @@ class ChosenTopicPresenter @Inject constructor(
     currentTopicId = topicId
 
     currentPage = when {
-      startingPost != 0 -> startingPost / POSTS_PER_PAGE + 1
+      startingPost != 0 -> startingPost / postsPerPage + 1
       else -> 1
     }
 
@@ -174,7 +174,7 @@ class ChosenTopicPresenter @Inject constructor(
   }
 
   fun shareCurrentTopic() {
-    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
     viewState.shareTopic(currentTitle, startingPost)
   }
 
@@ -196,7 +196,7 @@ class ChosenTopicPresenter @Inject constructor(
 
   fun addCurrentTopicToBookmarks() {
 
-    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
     addToBookmarksUseCase
         .buildUseCaseObservable(SendBookmarkAddRequest.Params(currentTopicId, startingPost))
@@ -259,7 +259,7 @@ class ChosenTopicPresenter @Inject constructor(
       return
     }
 
-    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
     sendMessageUseCase
         .buildUseCaseObservable(
@@ -277,7 +277,7 @@ class ChosenTopicPresenter @Inject constructor(
 
     viewState.saveScrollPosition()
 
-    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
     clearCurrentList = true
 
     getChosenTopicUseCase
