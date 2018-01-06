@@ -25,7 +25,7 @@ ext {
     final PICASSO_VERSION = "2.5.2"
     final CICERONE_VERSION = "2.1.0"
     final RETROFIT_VERSION = "2.3.0"
-    final JSPOON_VERSION = "1.0.1"
+    final JSPOON_VERSION = "1.1.0"
     final MOSHI_VERSION = "1.5.0"
     final PERSISTENT_COOKIE_JAR_VERSION = "v1.0.1"
 
@@ -44,10 +44,9 @@ ext {
     final MOCKITO_VERSION = "2.13.0"
     final MOCKITO_KOTLIN_VERSION = "1.5.0"
     final EXPEKT_VERSION = "0.5.0"
-    final ROBOLECTRIC_VERSION = "3.6.1"
 
     // Supporting tools
-    final ANDROID_CRASHALYTICS_VERSION = "2.7.1@aar"
+    final ANDROID_CRASHALYTICS_VERSION = "2.8.0@aar"
     final FIREBASE_CORE_VERSION = "11.8.0"
 
     // Development tools
@@ -127,7 +126,6 @@ ext {
             espresso                : "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION",
             mockitoAndroid          : "org.mockito:mockito-android:$MOCKITO_VERSION",
             mockitoKotlin           : "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
-            robolectric             : "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
     ]
 
     supportingToolsDependencies = [
