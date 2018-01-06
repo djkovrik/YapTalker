@@ -184,7 +184,7 @@ class ChosenTopicPresenter @Inject constructor(
       return
     }
 
-    viewState.displayPostKarmaMenu(postId, postPosition)
+    viewState.showPostKarmaMenu(postId, postPosition)
   }
 
   fun showTopicKarmaMenuIfAvailable() {
@@ -192,7 +192,7 @@ class ChosenTopicPresenter @Inject constructor(
       return
     }
 
-    viewState.displayTopicKarmaMenu()
+    viewState.showTopicKarmaMenu()
   }
 
   fun addCurrentTopicToBookmarks() {
@@ -228,7 +228,7 @@ class ChosenTopicPresenter @Inject constructor(
         .doOnError { setConnectionState(ConnectionState.ERROR) }
         .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getKarmaResponseObserver())
+        .subscribe(getKarmaResponseObserver(isTopic = true))
   }
 
   fun changePostKarma(postId: Int, postPosition: Int, shouldIncrease: Boolean) {
@@ -249,7 +249,7 @@ class ChosenTopicPresenter @Inject constructor(
         .doOnError { setConnectionState(ConnectionState.ERROR) }
         .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getKarmaResponseObserver())
+        .subscribe(getKarmaResponseObserver(isTopic = false))
   }
 
   fun requestThumbnail(videoUrl: String): Observable<String> =
@@ -326,7 +326,7 @@ class ChosenTopicPresenter @Inject constructor(
         }
       }
 
-  private fun getKarmaResponseObserver() =
+  private fun getKarmaResponseObserver(isTopic: Boolean) =
       object : DisposableObserver<YapEntity?>() {
 
         override fun onNext(response: YapEntity) {
@@ -334,8 +334,8 @@ class ChosenTopicPresenter @Inject constructor(
           Timber.d("Response from karma change request: ${response.text}")
 
           when {
-            response.text.contains(KARMA_SUCCESS_MARKER) -> viewState.showPostKarmaChangedMessage()
-            response.text.contains(KARMA_ALREADY_CHANGED_MARKER) -> viewState.showPostAlreadyRatedMessage()
+            response.text.contains(KARMA_SUCCESS_MARKER) -> viewState.showPostKarmaChangedMessage(isTopic)
+            response.text.contains(KARMA_ALREADY_CHANGED_MARKER) -> viewState.showPostAlreadyRatedMessage(isTopic)
           }
         }
 

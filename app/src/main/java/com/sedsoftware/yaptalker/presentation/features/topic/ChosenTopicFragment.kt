@@ -27,7 +27,6 @@ import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
-import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
 import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
 import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicAdapter
@@ -180,7 +179,7 @@ class ChosenTopicFragment :
     context?.share("http://www.yaplakal.com/forum$forumId/st/$topicPage/topic$topicId.html", title)
   }
 
-  override fun displayPostKarmaMenu(postId: Int, postPosition: Int) {
+  override fun showPostKarmaMenu(postId: Int, postPosition: Int) {
     val plusItem = context?.stringRes(R.string.action_post_karma_plus)
     val minusItem = context?.stringRes(R.string.action_post_karma_minus)
 
@@ -198,11 +197,12 @@ class ChosenTopicFragment :
     }
   }
 
-  override fun displayTopicKarmaMenu() {
+  override fun showTopicKarmaMenu() {
     val plusItem = context?.stringRes(R.string.action_topic_karma_plus)
     val minusItem = context?.stringRes(R.string.action_topic_karma_minus)
 
     val itemsArray = arrayListOf(plusItem, minusItem)
+    val currentPosition = topic_posts_list.layoutManager.
 
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
@@ -244,15 +244,21 @@ class ChosenTopicFragment :
     }
   }
 
-  override fun showPostKarmaChangedMessage() {
-    context?.stringRes(R.string.msg_karma_changed)?.let { message ->
-      toastSuccess(message)
+  override fun showPostKarmaChangedMessage(isTopic: Boolean) {
+    val message = if (isTopic) context?.stringRes(R.string.msg_karma_changed_topic)
+    else context?.stringRes(R.string.msg_karma_changed_post)
+
+    message?.let { text ->
+      toastSuccess(text)
     }
   }
 
-  override fun showPostAlreadyRatedMessage() {
-    context?.stringRes(R.string.msg_karma_already_rated)?.let { message ->
-      toastInfo(message)
+  override fun showPostAlreadyRatedMessage(isTopic: Boolean) {
+    val message = if (isTopic) context?.stringRes(R.string.msg_karma_already_rated_topic)
+    else context?.stringRes(R.string.msg_karma_already_rated_post)
+
+    message?.let { text ->
+      toastSuccess(text)
     }
   }
 

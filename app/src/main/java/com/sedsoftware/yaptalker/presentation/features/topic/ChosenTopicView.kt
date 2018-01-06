@@ -33,9 +33,9 @@ interface ChosenTopicView : BaseView {
 
   fun shareTopic(title: String, topicPage: Int)
 
-  fun displayPostKarmaMenu(postId: Int, postPosition: Int)
+  fun showPostKarmaMenu(postId: Int, postPosition: Int)
 
-  fun displayTopicKarmaMenu()
+  fun showTopicKarmaMenu()
 
   fun scrollToViewTop()
 
@@ -45,9 +45,9 @@ interface ChosenTopicView : BaseView {
 
   fun showBookmarkAddedMessage()
 
-  fun showPostKarmaChangedMessage()
+  fun showPostKarmaChangedMessage(isTopic: Boolean)
 
-  fun showPostAlreadyRatedMessage()
+  fun showPostAlreadyRatedMessage(isTopic: Boolean)
 
   fun showUnknownErrorMessage()
 
