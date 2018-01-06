@@ -41,6 +41,8 @@ interface ChosenTopicView : BaseView {
 
   fun restoreScrollPosition()
 
+  fun scrollToViewTop()
+
   fun showCantLoadPageMessage(page: Int)
 
   fun showBookmarkAddedMessage()

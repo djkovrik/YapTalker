@@ -28,6 +28,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
+import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
 import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
 import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicAdapter
@@ -233,6 +234,10 @@ class ChosenTopicFragment :
     topic_posts_list.layoutManager.onRestoreInstanceState(topicScrollState)
   }
 
+  override fun scrollToViewTop() {
+    topic_posts_list?.layoutManager?.scrollToPosition(0)
+  }
+
   override fun showCantLoadPageMessage(page: Int) {
     context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
       toastWarning(String.format(Locale.getDefault(), template, page))
@@ -259,7 +264,7 @@ class ChosenTopicFragment :
     else context?.stringRes(R.string.msg_karma_already_rated_post)
 
     message?.let { text ->
-      toastSuccess(text)
+      toastInfo(text)
     }
   }
 

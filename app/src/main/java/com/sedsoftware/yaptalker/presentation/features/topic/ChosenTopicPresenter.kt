@@ -111,37 +111,37 @@ class ChosenTopicPresenter @Inject constructor(
       else -> 1
     }
 
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
   }
 
   fun refreshCurrentPage() {
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(shouldScrollToViewTop = false)
   }
 
   fun goToFirstPage() {
     currentPage = 1
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
   }
 
   fun goToLastPage() {
     currentPage = totalPages
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
   }
 
   fun goToPreviousPage() {
     currentPage--
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
   }
 
   fun goToNextPage() {
     currentPage++
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
   }
 
   fun goToChosenPage(chosenPage: Int) {
     if (chosenPage in 1..totalPages) {
       currentPage = chosenPage
-      loadTopicCurrentPage()
+      loadTopicCurrentPage(shouldScrollToViewTop = true)
     } else {
       viewState.showCantLoadPageMessage(chosenPage)
     }
@@ -273,9 +273,12 @@ class ChosenTopicPresenter @Inject constructor(
         .subscribe(getMessageSendingObserver())
   }
 
-  private fun loadTopicCurrentPage() {
+  private fun loadTopicCurrentPage(shouldScrollToViewTop: Boolean) {
 
-    viewState.saveScrollPosition()
+
+    if (!shouldScrollToViewTop) {
+      viewState.saveScrollPosition()
+    }
 
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
     clearCurrentList = true
@@ -290,7 +293,7 @@ class ChosenTopicPresenter @Inject constructor(
         .doOnError { setConnectionState(ConnectionState.ERROR) }
         .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getTopicObserver())
+        .subscribe(getTopicObserver(shouldScrollToViewTop))
   }
 
   fun handleFabVisibility(diff: Int) {
@@ -340,7 +343,7 @@ class ChosenTopicPresenter @Inject constructor(
 
         override fun onComplete() {
           Timber.i("Karma changing request completed.")
-          loadTopicCurrentPage()
+          loadTopicCurrentPage(shouldScrollToViewTop = false)
         }
 
         override fun onError(e: Throwable) {
@@ -356,7 +359,7 @@ class ChosenTopicPresenter @Inject constructor(
 
         override fun onComplete() {
           Timber.i("Send message request completed.")
-          loadTopicCurrentPage()
+          loadTopicCurrentPage(shouldScrollToViewTop = false)
         }
 
         override fun onError(e: Throwable) {
@@ -364,7 +367,7 @@ class ChosenTopicPresenter @Inject constructor(
         }
       }
 
-  private fun getTopicObserver() =
+  private fun getTopicObserver(scrollToViewTop: Boolean) =
       object : DisposableObserver<YapEntity?>() {
 
         override fun onNext(item: YapEntity) {
@@ -399,8 +402,13 @@ class ChosenTopicPresenter @Inject constructor(
         override fun onComplete() {
           Timber.i("Topic page loading completed.")
           viewState.updateCurrentUiState(currentTitle)
-          setupMenuButtons()
-          viewState.restoreScrollPosition()
+          setupCurrentLoginSessionState()
+
+          if (scrollToViewTop) {
+            viewState.scrollToViewTop()
+          } else {
+            viewState.restoreScrollPosition()
+          }
         }
 
         override fun onError(e: Throwable) {
@@ -411,7 +419,7 @@ class ChosenTopicPresenter @Inject constructor(
 
   // ==== UTILITY ====
 
-  private fun setupMenuButtons() {
+  private fun setupCurrentLoginSessionState() {
     val loggedIn = authKey.isNotEmpty()
     val karmaAvailable = ratingPlusAvailable && ratingMinusAvailable
     viewState.setLoggedInState(loggedIn)
