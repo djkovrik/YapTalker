@@ -6,6 +6,7 @@ import com.sedsoftware.yaptalker.data.parsed.ForumPageParsed
 import com.sedsoftware.yaptalker.data.parsed.ForumsListParsed
 import com.sedsoftware.yaptalker.data.parsed.LoginSessionInfoParsed
 import com.sedsoftware.yaptalker.data.parsed.NewsPageParsed
+import com.sedsoftware.yaptalker.data.parsed.SitePreferencesPageParsed
 import com.sedsoftware.yaptalker.data.parsed.TopicPageParsed
 import com.sedsoftware.yaptalker.data.parsed.UserProfileParsed
 import io.reactivex.Observable
@@ -131,6 +132,19 @@ interface YapLoader {
       @Query("act") act: String,
       @Query("CODE") code: String): Observable<BookmarksParsed>
 
+
+  /**
+   * Load site preferences page.
+   *
+   * @param act Load user data action type.
+   * @param code Code for loading user CP forum settings page.
+   *
+   * @return Parsed forum settings page.
+   */
+  @GET("/")
+  fun loadSitePreferences(
+      @Query("act") act: String,
+      @Query("CODE") code: String): Observable<SitePreferencesPageParsed>
 
   /**
    * Send message posting request to the site.
