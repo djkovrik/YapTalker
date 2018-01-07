@@ -6,6 +6,7 @@ import com.sedsoftware.yaptalker.data.parsed.ForumPageParsed
 import com.sedsoftware.yaptalker.data.parsed.ForumsListParsed
 import com.sedsoftware.yaptalker.data.parsed.LoginSessionInfoParsed
 import com.sedsoftware.yaptalker.data.parsed.NewsPageParsed
+import com.sedsoftware.yaptalker.data.parsed.QuotedPostParsed
 import com.sedsoftware.yaptalker.data.parsed.SitePreferencesPageParsed
 import com.sedsoftware.yaptalker.data.parsed.TopicPageParsed
 import com.sedsoftware.yaptalker.data.parsed.UserProfileParsed
@@ -36,6 +37,7 @@ interface YapLoader {
    */
   @GET("/st/{startPage}/")
   fun loadNews(@Path("startPage") startPage: Int): Observable<NewsPageParsed>
+
 
   /**
    * Load forums list from the site.
@@ -149,6 +151,24 @@ interface YapLoader {
       @Query("CODE") code: String
   ): Observable<SitePreferencesPageParsed>
 
+
+  /**
+   * Load targeted post text prepared for quoting.
+   *
+   * @param forumId Current topic's parent forum id.
+   * @param topicId Current topic id.
+   * @param targetPostId Quoted post id.
+   *
+   * @return Parsed quoted text.
+   */
+  @GET("/act/Post/CODE/06/forum{forumId}/topic{topicId}/post/{targetPostId}/st/0/")
+  fun loadTargetPostQuotedText(
+      @Path("forumId") forumId: Int,
+      @Path("topicId") topicId: Int,
+      @Path("targetPostId") targetPostId: Int
+  ): Observable<QuotedPostParsed>
+
+
   /**
    * Send message posting request to the site.
    *
@@ -183,6 +203,7 @@ interface YapLoader {
       @Part("enabletag") enabletag: Int
   ): Observable<TopicPageParsed>
 
+
   /**
    * Send sign in request to the site.
    *
@@ -216,6 +237,7 @@ interface YapLoader {
    */
   @GET("/act/Login/CODE/03/")
   fun signOut(@Query("key") key: String): Observable<Response<ResponseBody>>
+
 
   /**
    * Send adding to bookmarks request.
