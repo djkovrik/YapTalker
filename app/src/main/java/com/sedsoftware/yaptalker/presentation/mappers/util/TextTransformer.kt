@@ -37,6 +37,14 @@ class TextTransformer @Inject constructor(private val context: Context) {
     context.getString(R.string.forum_comments_template)
   }
 
+  private val websiteTemplate: String by lazy {
+    context.stringRes(R.string.profile_web_site)
+  }
+
+  private val pagesLabelTemplate: String by lazy {
+    context.getString(R.string.navigation_pages_template)
+  }
+
   @Suppress("DEPRECATION")
   fun transformHtmlToSpanned(html: String): Spanned =
       if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -47,11 +55,8 @@ class TextTransformer @Inject constructor(private val context: Context) {
 
   @Suppress("DEPRECATION")
   fun transformWebsiteToSpanned(link: String): Spanned {
-
-    val template = context.stringRes(R.string.profile_web_site)
-
     val html = if (link.startsWith("http")) {
-      String.format(Locale.getDefault(), template, link)
+      String.format(Locale.getDefault(), websiteTemplate, link)
     } else {
       link
     }
@@ -76,18 +81,16 @@ class TextTransformer @Inject constructor(private val context: Context) {
     return transformHtmlToSpanned(html)
   }
 
-  fun transformNewsForumTitle(title: String): String =
-      String.format(Locale.getDefault(), forumTitleTemplate, title)
-
   fun transformCommentsLabel(comments: Int): String {
     val commentsTemplate: String = context.stringQuantityRes(R.plurals.news_comments_template, comments)
     return String.format(Locale.getDefault(), commentsTemplate, comments)
   }
 
-  fun createNavigationLabel(currentPage: Int, totalPages: Int): String {
-    val pagesLabelTemplate = context.getString(R.string.navigation_pages_template)
-    return String.format(Locale.getDefault(), pagesLabelTemplate, currentPage, totalPages)
-  }
+  fun transformNewsForumTitle(title: String): String =
+      String.format(Locale.getDefault(), forumTitleTemplate, title)
+
+  fun createNavigationLabel(currentPage: Int, totalPages: Int): String =
+      String.format(Locale.getDefault(), pagesLabelTemplate, currentPage, totalPages)
 
   fun createCommentsLabel(comments: Int): String =
       String.format(Locale.getDefault(), commentsTemplate, comments)

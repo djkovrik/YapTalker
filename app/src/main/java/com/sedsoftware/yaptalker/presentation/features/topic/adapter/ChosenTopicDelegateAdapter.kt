@@ -31,9 +31,10 @@ import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
 import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 
 class ChosenTopicDelegateAdapter(
-    val clickListener: ChosenTopicElementsClickListener,
-    val thumbnailLoader: ChosenTopicThumbnailLoader,
-    val settings: SettingsManager) : YapEntityDelegateAdapter {
+    private val clickListener: ChosenTopicElementsClickListener,
+    private val thumbnailLoader: ChosenTopicThumbnailLoader,
+    private val settings: SettingsManager
+) : YapEntityDelegateAdapter {
 
   companion object {
     private const val INITIAL_NESTING_LEVEL = 0
@@ -53,9 +54,9 @@ class ChosenTopicDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = PostViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
     holder as PostViewHolder
-    holder.bindTo(item as SinglePostModel, position)
+    holder.bindTo(item as SinglePostModel)
   }
 
   inner class PostViewHolder(parent: ViewGroup) :
@@ -68,11 +69,11 @@ class ChosenTopicDelegateAdapter(
     private val quoteBackgroundColor = parent.context.getColorFromAttr(R.attr.colorQuoteBackground)
     private val warnings = ArrayList<PostWarningModel>()
 
-    fun bindTo(postItem: SinglePostModel, position: Int) {
+    fun bindTo(postItem: SinglePostModel) {
       fillPostText(postItem.postContentParsed)
       fillPostImages(postItem.postContentParsed)
       fillPostVideos(postItem.postContentParsed)
-      fillPostHeader(postItem, position)
+      fillPostHeader(postItem)
     }
 
     @Suppress("NestedBlockDepth")
@@ -81,6 +82,7 @@ class ChosenTopicDelegateAdapter(
       var currentNestingLevel = INITIAL_NESTING_LEVEL
 
       itemView.post_content_text_container.removeAllViews()
+      warnings.clear()
 
       if (post.content.isNotEmpty()) {
         itemView.post_content_text_container.showView()
@@ -197,7 +199,7 @@ class ChosenTopicDelegateAdapter(
       }
     }
 
-    private fun fillPostHeader(post: SinglePostModel, position: Int) {
+    private fun fillPostHeader(post: SinglePostModel) {
       with(itemView) {
         post_author.text = post.authorNickname
         post_date.text = post.postDate
@@ -238,7 +240,7 @@ class ChosenTopicDelegateAdapter(
 
         post_rating_block.setOnClickListener {
           val isKarmaAvailable = post.postRankPlusAvailable && post.postRankMinusAvailable
-          clickListener.onPostItemClicked(post.postId, position, isKarmaAvailable)
+          clickListener.onPostItemClicked(post.postId, isKarmaAvailable)
         }
 
         post_author.textSize = normalFontSize

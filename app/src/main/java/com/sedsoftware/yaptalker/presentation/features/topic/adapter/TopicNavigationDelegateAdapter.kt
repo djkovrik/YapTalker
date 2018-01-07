@@ -15,7 +15,7 @@ class TopicNavigationDelegateAdapter(val navigationClick: ChosenTopicElementsCli
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = NavigationViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
     holder as NavigationViewHolder
     holder.bindTo(item as NavigationPanelModel)
   }

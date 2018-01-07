@@ -89,7 +89,9 @@ class NetworkModule {
 
   @Singleton
   @Provides
-  fun provideYapSearchIdLoader(@Named("siteClient") okHttpClient: OkHttpClient): YapSearchIdLoader =
+  fun provideYapSearchIdLoader(
+      @Named("siteClient") okHttpClient: OkHttpClient
+  ): YapSearchIdLoader =
       Retrofit
           .Builder()
           .baseUrl(SITE_ENDPOINT)

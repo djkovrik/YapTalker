@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_active_topics.*
 import java.util.Locale
 import javax.inject.Inject
 
+// TODO () Refactor layouts to display full topic name
 class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsElementsClickListener {
 
   companion object {
@@ -39,11 +40,11 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsEleme
   @InjectPresenter
   lateinit var presenter: ActiveTopicsPresenter
 
-  @ProvidePresenter
-  fun provideActiveTopicsPresenter() = presenter
-
   @Inject
   lateinit var settings: SettingsManager
+
+  @ProvidePresenter
+  fun provideActiveTopicsPresenter() = presenter
 
   private lateinit var topicsAdapter: ActiveTopicsAdapter
 

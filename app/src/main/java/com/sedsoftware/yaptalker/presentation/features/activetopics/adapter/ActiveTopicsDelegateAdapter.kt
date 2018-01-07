@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.*
 
 class ActiveTopicsDelegateAdapter(
     private val itemClick: ActiveTopicsElementsClickListener,
-    private val settings: SettingsManager) : YapEntityDelegateAdapter {
+    private val settings: SettingsManager
+) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {
     settings.getNormalFontSize()
@@ -22,7 +23,7 @@ class ActiveTopicsDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = TopicViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
     holder as TopicViewHolder
     holder.bindTo(item as ActiveTopicModel)
   }

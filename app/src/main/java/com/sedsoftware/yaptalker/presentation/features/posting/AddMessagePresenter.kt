@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.features.posting
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
-import com.sedsoftware.yaptalker.presentation.features.posting.MessageTags.Tag
+import com.sedsoftware.yaptalker.presentation.features.posting.MessageTagCodes.Tag
 import ru.terrakok.cicerone.Router
 import java.util.Locale
 import javax.inject.Inject
@@ -13,19 +13,9 @@ class AddMessagePresenter @Inject constructor(
     private val router: Router
 ) : BasePresenter<AddMessageView>() {
 
-  companion object {
-    private const val B_OPEN = "[b]"
-    private const val B_CLOSE = "[/b]"
-    private const val I_OPEN = "[i]"
-    private const val I_CLOSE = "[/i]"
-    private const val U_OPEN = "[u]"
-    private const val U_CLOSE = "[/u]"
-    private const val LINK_BLOCK = "[url=%s]%s[/url]"
-
-    private var isBOpened = false
-    private var isIOpened = false
-    private var isUOpened = false
-  }
+  private var isBOpened = false
+  private var isIOpened = false
+  private var isUOpened = false
 
   override fun attachView(view: AddMessageView?) {
     super.attachView(view)
@@ -39,14 +29,14 @@ class AddMessagePresenter @Inject constructor(
 
   fun insertChosenTag(selectionStart: Int, selectionEnd: Int, @Tag tag: Long) {
     when {
-      tag == MessageTags.TAG_LINK -> onLinkTagClicked()
+      tag == MessageTagCodes.TAG_LINK -> onLinkTagClicked()
       selectionStart != selectionEnd -> onTagClickedWithSelection(tag)
       else -> onTagClickedWithNoSelection(tag)
     }
   }
 
   fun insertVideoTag(url: String, title: String) {
-    val result = String.format(Locale.getDefault(), LINK_BLOCK, url, title)
+    val result = String.format(Locale.getDefault(), MessageTags.LINK_BLOCK, url, title)
     viewState.insertTag(result)
   }
 
@@ -56,41 +46,41 @@ class AddMessagePresenter @Inject constructor(
 
   private fun onTagClickedWithSelection(@Tag tag: Long) {
     when (tag) {
-      MessageTags.TAG_B -> {
-        viewState.insertTags(B_OPEN, B_CLOSE)
+      MessageTagCodes.TAG_B -> {
+        viewState.insertTags(MessageTags.B_OPEN, MessageTags.B_CLOSE)
       }
-      MessageTags.TAG_I -> {
-        viewState.insertTags(I_OPEN, I_CLOSE)
+      MessageTagCodes.TAG_I -> {
+        viewState.insertTags(MessageTags.I_OPEN, MessageTags.I_CLOSE)
       }
-      MessageTags.TAG_U -> {
-        viewState.insertTags(U_OPEN, U_CLOSE)
+      MessageTagCodes.TAG_U -> {
+        viewState.insertTags(MessageTags.U_OPEN, MessageTags.U_CLOSE)
       }
     }
   }
 
   private fun onTagClickedWithNoSelection(@Tag tag: Long) {
     when (tag) {
-      MessageTags.TAG_B -> {
+      MessageTagCodes.TAG_B -> {
         if (isBOpened) {
-          viewState.insertTag(B_CLOSE)
+          viewState.insertTag(MessageTags.B_CLOSE)
         } else {
-          viewState.insertTag(B_OPEN)
+          viewState.insertTag(MessageTags.B_OPEN)
         }
         isBOpened = !isBOpened
       }
-      MessageTags.TAG_I -> {
+      MessageTagCodes.TAG_I -> {
         if (isIOpened) {
-          viewState.insertTag(I_CLOSE)
+          viewState.insertTag(MessageTags.I_CLOSE)
         } else {
-          viewState.insertTag(I_OPEN)
+          viewState.insertTag(MessageTags.I_OPEN)
         }
         isIOpened = !isIOpened
       }
-      MessageTags.TAG_U -> {
+      MessageTagCodes.TAG_U -> {
         if (isUOpened) {
-          viewState.insertTag(U_CLOSE)
+          viewState.insertTag(MessageTags.U_CLOSE)
         } else {
-          viewState.insertTag(U_OPEN)
+          viewState.insertTag(MessageTags.U_OPEN)
         }
         isUOpened = !isUOpened
       }

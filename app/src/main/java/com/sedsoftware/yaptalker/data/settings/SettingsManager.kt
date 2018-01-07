@@ -19,6 +19,8 @@ class SettingsManager @Inject constructor(
 
   companion object {
     private const val TEXT_SIZE_OFFSET = 2f
+    private const val MESSAGES_PER_PAGE_DEFAULT = 25
+    private const val TOPICS_PER_PAGE_DEFAULT = 30
   }
 
   private val defaultCategories by lazy {
@@ -70,6 +72,7 @@ class SettingsManager @Inject constructor(
   fun isScreenAlwaysOnEnabled(): Boolean =
       getBooleanPref(R.string.pref_key_screen_always_on, false)
 
+  @Suppress("MagicNumber")
   fun isHttpsEnabled(): Boolean {
     val default = Build.VERSION.SDK_INT !in 19..20
     return getBooleanPref(R.string.pref_key_https_enabled, default)
@@ -77,6 +80,20 @@ class SettingsManager @Inject constructor(
 
   fun markEulaAccepted() {
     preferences.edit().putBoolean(context.resources.getString(R.string.pref_key_eula_accepted), true).apply()
+  }
+
+  fun getMessagesPerPage() =
+      getIntPref(R.string.pref_key_messages_per_page, MESSAGES_PER_PAGE_DEFAULT)
+
+  fun saveMessagesPerPagePref(value: Int) {
+    preferences.edit().putInt(context.resources.getString(R.string.pref_key_messages_per_page), value).apply()
+  }
+
+  fun getTopicsPerPage() =
+      getIntPref(R.string.pref_key_topics_per_page, TOPICS_PER_PAGE_DEFAULT)
+
+  fun saveTopicsPerPagePref(value: Int) {
+    preferences.edit().putInt(context.resources.getString(R.string.pref_key_topics_per_page), value).apply()
   }
 
   private fun getStringPref(@StringRes key: Int, default: String): String =
@@ -87,4 +104,7 @@ class SettingsManager @Inject constructor(
 
   private fun getBooleanPref(@StringRes key: Int, default: Boolean): Boolean =
       preferences.getBoolean(context.resources.getString(key), default)
+
+  private fun getIntPref(@StringRes key: Int, default: Int): Int =
+      preferences.getInt(context.resources.getString(key), default)
 }

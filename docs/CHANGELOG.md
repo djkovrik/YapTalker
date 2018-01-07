@@ -1,7 +1,18 @@
-### Current version: 0.8.6
+### Current version: 0.8.7
+# Changelog
+## [0.8.7] - 2018-01-07
+## Added
+- Sync with forums and topics displaying site preferences
+
+### Changed
+- Topic actions menu replaced with fab menu
+- Improved scroll position saving during topic refreshing
+
+### Fixed
+- More fixes for Unable to load publicsuffixes.gz error
 
 # Changelog
-## [0.8.5] - 2018-01-04
+## [0.8.6] - 2018-01-04
 ### Fixed
 - Own posts rating displaying bug
 - url links parsing

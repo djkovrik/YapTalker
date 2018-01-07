@@ -12,7 +12,8 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 class ChosenTopicAdapter(
     clickListener: ChosenTopicElementsClickListener,
     thumbnailLoader: ChosenTopicThumbnailLoader,
-    settings: SettingsManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    settings: SettingsManager
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<YapEntity>
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
@@ -30,7 +31,7 @@ class ChosenTopicAdapter(
       delegateAdapters.get(viewType).onCreateViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position], position)
+    delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])
   }
 
   override fun getItemViewType(position: Int): Int = items[position].getBaseEntityType()

@@ -146,7 +146,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
         .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe {
           with(new_post_edit_text) {
-            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTags.TAG_B)
+            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_B)
           }
         }
 
@@ -156,7 +156,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
         .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe {
           with(new_post_edit_text) {
-            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTags.TAG_I)
+            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_I)
           }
         }
 
@@ -166,7 +166,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
         .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe {
           with(new_post_edit_text) {
-            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTags.TAG_U)
+            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_U)
           }
         }
 
@@ -176,7 +176,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
         .autoDisposable(event(FragmentLifecycle.DESTROY))
         .subscribe {
           with(new_post_edit_text) {
-            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTags.TAG_LINK)
+            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_LINK)
           }
         }
   }

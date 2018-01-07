@@ -14,13 +14,22 @@ import io.reactivex.Maybe
 abstract class BaseFragment : MvpAppCompatFragment() {
 
   protected abstract val layoutId: Int
-
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
+  private lateinit var backPressHandler: BackPressHandler
+
+  open fun onBackPressed(): Boolean = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidSupportInjection.inject(this)
     super.onCreate(savedInstanceState)
+
     lifecycle.accept(FragmentLifecycle.CREATE)
+
+    if (activity is BackPressHandler) {
+      backPressHandler = activity as BackPressHandler
+    } else {
+      throw ClassCastException("Base activity must implement BackPressHandler interface.")
+    }
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
@@ -34,6 +43,7 @@ abstract class BaseFragment : MvpAppCompatFragment() {
   override fun onStart() {
     super.onStart()
     lifecycle.accept(FragmentLifecycle.START)
+    backPressHandler.setSelectedFragment(this)
   }
 
   override fun onResume() {

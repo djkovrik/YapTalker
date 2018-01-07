@@ -44,6 +44,16 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>() {
         })
   }
 
+  override fun attachView(view: View?) {
+    super.attachView(view)
+    lifecycle.accept(PresenterLifecycle.ATTACH_VIEW)
+  }
+
+  override fun detachView(view: View?) {
+    super.detachView(view)
+    lifecycle.accept(PresenterLifecycle.DETACH_VIEW)
+  }
+
   override fun onDestroy() {
     super.onDestroy()
     lifecycle.accept(PresenterLifecycle.DESTROY)

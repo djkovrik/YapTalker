@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.features.forum
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.settings.SettingsManager
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetChosenForum
 import com.sedsoftware.yaptalker.domain.interactor.GetChosenForum.Params
@@ -25,12 +26,12 @@ import javax.inject.Inject
 class ChosenForumPresenter @Inject constructor(
     private val router: Router,
     private val getChosenForumUseCase: GetChosenForum,
-    private val forumModelMapper: ForumModelMapper
+    private val forumModelMapper: ForumModelMapper,
+    private val preferences: SettingsManager
 ) : BasePresenter<ChosenForumView>() {
 
   companion object {
     private const val LAST_UPDATE_SORTER = "last_post"
-    private const val TOPICS_PER_PAGE = 30
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
 
@@ -87,7 +88,7 @@ class ChosenForumPresenter @Inject constructor(
 
   private fun loadForumCurrentPage() {
 
-    val startingTopic = (currentPage - OFFSET_FOR_PAGE_NUMBER) * TOPICS_PER_PAGE
+    val startingTopic = (currentPage - OFFSET_FOR_PAGE_NUMBER) * preferences.getTopicsPerPage()
 
     clearCurrentList = true
 

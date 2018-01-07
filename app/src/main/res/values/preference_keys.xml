@@ -9,4 +9,6 @@
   <string name="pref_key_screen_always_on" translatable="false">pref_screen_always_on</string>
   <string name="pref_key_eula_accepted" translatable="false">pref_key_accepted</string>
   <string name="pref_key_https_enabled" translatable="false">pref_https_enabled</string>
+  <string name="pref_key_messages_per_page" translatable="false">pref_messages_per_page</string>
+  <string name="pref_key_topics_per_page" translatable="false">pref_topics_per_page</string>
 </resources>

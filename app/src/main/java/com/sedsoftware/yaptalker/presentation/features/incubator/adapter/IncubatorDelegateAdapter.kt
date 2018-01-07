@@ -31,7 +31,7 @@ class IncubatorDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = IncubatorViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
     holder as IncubatorViewHolder
     holder.bindTo(item as IncubatorItemModel)
   }
@@ -74,7 +74,6 @@ class IncubatorDelegateAdapter(
     private fun setMediaContent(itemView: View, incubatorItem: IncubatorItemModel) {
 
       with(itemView) {
-
         incubator_topic_content_image.setOnClickListener(null)
         incubator_topic_content_image.setImageDrawable(null)
         incubator_topic_content_image.hideView()
@@ -83,17 +82,25 @@ class IncubatorDelegateAdapter(
           val url = incubatorItem.images.first()
           incubator_topic_content_image.loadFromUrl(url)
           incubator_topic_content_image.showView()
-          incubator_topic_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, "", false) }
+
+          incubator_topic_content_image.setOnClickListener {
+            clickListener.onMediaPreviewClicked(url, "", false)
+          }
         } else if (incubatorItem.videos.isNotEmpty() && incubatorItem.videosRaw.isNotEmpty()) {
           val url = incubatorItem.videos.first()
           val rawVideo = incubatorItem.videosRaw.first()
           thumbnailsLoader.loadThumbnail(url, incubator_topic_content_image)
           incubator_topic_content_image.showView()
-          incubator_topic_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawVideo, true) }
+
+          incubator_topic_content_image.setOnClickListener {
+            clickListener.onMediaPreviewClicked(url, rawVideo, true)
+          }
         }
 
         setOnClickListener {
-          if (incubatorItem.isYapLink) clickListener.onIncubatorItemClick(incubatorItem.forumId, incubatorItem.topicId)
+          if (incubatorItem.isYapLink) {
+            clickListener.onIncubatorItemClick(incubatorItem.forumId, incubatorItem.topicId)
+          }
         }
       }
     }

@@ -8,7 +8,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.presentation.base.BaseView
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 
-@Suppress("ComplexInterface")
+@Suppress("ComplexInterface", "TooManyFunctions")
 @StateStrategyType(SkipStrategy::class)
 interface ChosenTopicView : BaseView {
 
@@ -33,23 +33,31 @@ interface ChosenTopicView : BaseView {
 
   fun shareTopic(title: String, topicPage: Int)
 
-  fun displayPostContextMenu(postId: Int, postPosition: Int)
+  fun showPostKarmaMenu(postId: Int)
+
+  fun showTopicKarmaMenu()
+
+  fun saveScrollPosition()
+
+  fun restoreScrollPosition()
 
   fun scrollToViewTop()
-
-  fun scrollToPost(position: Int)
 
   fun showCantLoadPageMessage(page: Int)
 
   fun showBookmarkAddedMessage()
 
-  fun showPostKarmaChangedMessage()
+  fun showPostKarmaChangedMessage(isTopic: Boolean)
 
-  fun showPostAlreadyRatedMessage()
+  fun showPostAlreadyRatedMessage(isTopic: Boolean)
 
   fun showUnknownErrorMessage()
 
   fun blockScreenSleep()
 
   fun unblockScreenSleep()
+
+  fun showFab()
+
+  fun hideFab()
 }

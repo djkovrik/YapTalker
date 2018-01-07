@@ -6,6 +6,7 @@ import com.sedsoftware.yaptalker.data.parsed.ForumPageParsed
 import com.sedsoftware.yaptalker.data.parsed.ForumsListParsed
 import com.sedsoftware.yaptalker.data.parsed.LoginSessionInfoParsed
 import com.sedsoftware.yaptalker.data.parsed.NewsPageParsed
+import com.sedsoftware.yaptalker.data.parsed.SitePreferencesPageParsed
 import com.sedsoftware.yaptalker.data.parsed.TopicPageParsed
 import com.sedsoftware.yaptalker.data.parsed.UserProfileParsed
 import io.reactivex.Observable
@@ -34,8 +35,7 @@ interface YapLoader {
    * @return Parsed news page Observable.
    */
   @GET("/st/{startPage}/")
-  fun loadNews(
-      @Path("startPage") startPage: Int): Observable<NewsPageParsed>
+  fun loadNews(@Path("startPage") startPage: Int): Observable<NewsPageParsed>
 
   /**
    * Load forums list from the site.
@@ -59,7 +59,8 @@ interface YapLoader {
   fun loadForumPage(
       @Path("forumId") forumId: Int,
       @Path("startFrom") startFrom: Int,
-      @Path("sortingMode") sortingMode: String): Observable<ForumPageParsed>
+      @Path("sortingMode") sortingMode: String
+  ): Observable<ForumPageParsed>
 
 
   /**
@@ -75,7 +76,8 @@ interface YapLoader {
   fun loadTopicPage(
       @Path("forumId") forumId: Int,
       @Path("topicId") topicId: Int,
-      @Path("startFrom") startPostNumber: Int): Observable<TopicPageParsed>
+      @Path("startFrom") startPostNumber: Int
+  ): Observable<TopicPageParsed>
 
 
   /**
@@ -86,8 +88,7 @@ interface YapLoader {
    * @return Parsed user profile page Observable.
    */
   @GET("/members/member{profileId}.html")
-  fun loadUserProfile(
-      @Path("profileId") profileId: Int): Observable<UserProfileParsed>
+  fun loadUserProfile(@Path("profileId") profileId: Int): Observable<UserProfileParsed>
 
 
   /**
@@ -114,7 +115,8 @@ interface YapLoader {
       @Query("act") act: String,
       @Query("CODE") code: String,
       @Query("searchid") searchId: String,
-      @Query("st") startTopicNumber: Int): Observable<ActiveTopicsPageParsed>
+      @Query("st") startTopicNumber: Int
+  ): Observable<ActiveTopicsPageParsed>
 
 
   /**
@@ -129,8 +131,23 @@ interface YapLoader {
   @GET("/")
   fun loadBookmarks(
       @Query("act") act: String,
-      @Query("CODE") code: String): Observable<BookmarksParsed>
+      @Query("CODE") code: String
+  ): Observable<BookmarksParsed>
 
+
+  /**
+   * Load site preferences page.
+   *
+   * @param act Load user data action type.
+   * @param code Code for loading user CP forum settings page.
+   *
+   * @return Parsed forum settings page.
+   */
+  @GET("/")
+  fun loadSitePreferences(
+      @Query("act") act: String,
+      @Query("CODE") code: String
+  ): Observable<SitePreferencesPageParsed>
 
   /**
    * Send message posting request to the site.
@@ -163,7 +180,8 @@ interface YapLoader {
       @Part("auth_key") authKey: String,
       @Part("Post") postContent: String,
       @Part("MAX_FILE_SIZE") maxFileSize: Int,
-      @Part("enabletag") enabletag: Int): Observable<TopicPageParsed>
+      @Part("enabletag") enabletag: Int
+  ): Observable<TopicPageParsed>
 
   /**
    * Send sign in request to the site.
@@ -185,7 +203,8 @@ interface YapLoader {
       @Field("UserName") userName: String,
       @Field("referer") referer: String,
       @Field("submit") submit: String,
-      @Field("user_key") userKey: String): Observable<Response<ResponseBody>>
+      @Field("user_key") userKey: String
+  ): Observable<Response<ResponseBody>>
 
 
   /**
@@ -196,8 +215,7 @@ interface YapLoader {
    * @return Raw site response Observable.
    */
   @GET("/act/Login/CODE/03/")
-  fun signOut(
-      @Query("key") key: String): Observable<Response<ResponseBody>>
+  fun signOut(@Query("key") key: String): Observable<Response<ResponseBody>>
 
   /**
    * Send adding to bookmarks request.
@@ -216,7 +234,8 @@ interface YapLoader {
       @Query("CODE") code: String,
       @Query("item") item: Int,
       @Query("st") startPostNumber: Int,
-      @Query("type") type: Int): Observable<Response<ResponseBody>>
+      @Query("type") type: Int
+  ): Observable<Response<ResponseBody>>
 
 
   /**
@@ -233,7 +252,8 @@ interface YapLoader {
   fun removeFromBookmarks(
       @Query("act") act: String,
       @Query("CODE") code: String,
-      @Query("id") id: Int): Observable<Response<ResponseBody>>
+      @Query("id") id: Int
+  ): Observable<Response<ResponseBody>>
 
 
   /**
@@ -256,5 +276,6 @@ interface YapLoader {
       @Query("rank") rank: Int,
       @Query("p") postId: Int,
       @Query("t") topicId: Int,
-      @Query("n") type: Int): Observable<Response<ResponseBody>>
+      @Query("n") type: Int
+  ): Observable<Response<ResponseBody>>
 }

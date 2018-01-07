@@ -9,6 +9,5 @@ import retrofit2.http.Query
 interface RutubeLoader {
 
   @GET("/api/video/{id}")
-  fun loadThumbnail(
-      @Path("id") id: String, @Query("format") format: String): Observable<RutubeData>
+  fun loadThumbnail(@Path("id") id: String, @Query("format") format: String): Observable<RutubeData>
 }

@@ -31,7 +31,7 @@ class NewsDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = NewsViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
     holder as NewsViewHolder
     holder.bindTo(item as NewsItemModel)
   }

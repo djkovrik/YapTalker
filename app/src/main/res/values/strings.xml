@@ -49,6 +49,13 @@
   <string name="topic_post_karma_thumb_up" translatable="false" tools:keep="@string/topic_post_karma_thumb_up">{cmd-thumb-up} </string>
   <string name="topic_post_karma_thumb_down" translatable="false" tools:keep="@string/topic_post_karma_thumb_down">{cmd-thumb-down} </string>
 
+  <!-- FAB labels -->
+  <string name="fab_label_karma">Rate topic</string>
+  <string name="fab_label_bookmark">Bookmark</string>
+  <string name="fab_label_new_message">New message</string>
+  <string name="fab_label_refresh">Refresh</string>
+  <string name="fab_label_share">Share</string>
+
   <!-- ADD MESSAGE ACTIVITY -->
   <string name="post_message_hint">Enter your message…</string>
   <string name="post_insert_link">Link</string>
@@ -94,27 +101,26 @@
   <string name="msg_login_error">Login error!</string>
   <string name="msg_sign_out">Sign out successful.</string>
   <string name="msg_unknown_error">Unknown error!</string>
-  <string name="msg_unclosed_tag">Unclosed tag detected!</string>
   <string name="msg_bookmark_confirm_action">Delete topic from bookmarks?</string>
   <string name="msg_bookmark_confirm_yes">Delete</string>
   <string name="msg_bookmark_confirm_No">Cancel</string>
   <string name="msg_bookmark_topic_deleted">Topic successfully deleted from bookmarks.</string>
   <string name="msg_bookmark_topic_added">Topic added to bookmarks.</string>
-  <string name="msg_karma_changed">Post karma changed successfully.</string>
-  <string name="msg_karma_already_rated">You already rated this post.</string>
+  <string name="msg_karma_changed_post">Post karma changed successfully.</string>
+  <string name="msg_karma_already_rated_post">You already rated this post.</string>
+  <string name="msg_karma_changed_topic">Post karma changed successfully.</string>
+  <string name="msg_karma_already_rated_topic">You already rated this post.</string>
 
   <!-- MENUS -->
   <string name="action_save">Save</string>
   <string name="action_share">Share</string>
   <string name="action_send">Send</string>
-  <string name="action_bookmark">Bookmark</string>
   <string name="action_topic_karma_plus">Add +1</string>
   <string name="action_topic_karma_minus">Add -1</string>
-  <string name="action_new_message">New message</string>
-  <!-- Post context menu -->
-  <string name="title_post_context_menu">Choose an action</string>
   <string name="action_post_karma_plus">Add +1</string>
   <string name="action_post_karma_minus">Add -1</string>
+  <string name="title_topic_karma_menu">Rate topic:</string>
+  <string name="title_post_context_menu">Rate post:</string>
 
   <!-- SHORT DATE STRINGS -->
   <plurals name="short_date_years">

@@ -46,7 +46,6 @@ class ChosenTopicPresenter @Inject constructor(
 ) : BasePresenter<ChosenTopicView>() {
 
   companion object {
-    private const val POSTS_PER_PAGE = 25
     private const val OFFSET_FOR_PAGE_NUMBER = 1
     private const val BOOKMARK_SUCCESS_MARKER = "Закладка добавлена"
     private const val KARMA_SUCCESS_MARKER = "\"status\":1"
@@ -57,6 +56,7 @@ class ChosenTopicPresenter @Inject constructor(
     settings.isScreenAlwaysOnEnabled()
   }
 
+  private val postsPerPage = settings.getMessagesPerPage()
   private var currentForumId = 0
   private var currentTopicId = 0
   private var currentPage = 1
@@ -71,7 +71,6 @@ class ChosenTopicPresenter @Inject constructor(
   private var isClosed = false
   private var currentTitle = ""
   private var clearCurrentList = false
-  private var karmaTargetedPostPosition = -1
 
   init {
     router.setResultListener(RequestCode.MESSAGE_TEXT, { message -> sendMessage(message as String) })
@@ -108,41 +107,41 @@ class ChosenTopicPresenter @Inject constructor(
     currentTopicId = topicId
 
     currentPage = when {
-      startingPost != 0 -> startingPost / POSTS_PER_PAGE + 1
+      startingPost != 0 -> startingPost / postsPerPage + 1
       else -> 1
     }
 
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
   }
 
   fun refreshCurrentPage() {
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(shouldScrollToViewTop = false)
   }
 
   fun goToFirstPage() {
     currentPage = 1
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
   }
 
   fun goToLastPage() {
     currentPage = totalPages
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
   }
 
   fun goToPreviousPage() {
     currentPage--
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
   }
 
   fun goToNextPage() {
     currentPage++
-    loadTopicCurrentPage()
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
   }
 
   fun goToChosenPage(chosenPage: Int) {
     if (chosenPage in 1..totalPages) {
       currentPage = chosenPage
-      loadTopicCurrentPage()
+      loadTopicCurrentPage(shouldScrollToViewTop = true)
     } else {
       viewState.showCantLoadPageMessage(chosenPage)
     }
@@ -175,21 +174,29 @@ class ChosenTopicPresenter @Inject constructor(
   }
 
   fun shareCurrentTopic() {
-    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
     viewState.shareTopic(currentTitle, startingPost)
   }
 
-  fun showPostContextMenuIfAvailable(postId: Int, postPosition: Int) {
+  fun showPostKarmaMenuIfAvailable(postId: Int) {
     if (postId == 0 || authKey.isEmpty()) {
       return
     }
 
-    viewState.displayPostContextMenu(postId, postPosition)
+    viewState.showPostKarmaMenu(postId)
+  }
+
+  fun showTopicKarmaMenuIfAvailable() {
+    if (ratingTargetId == 0 || authKey.isEmpty()) {
+      return
+    }
+
+    viewState.showTopicKarmaMenu()
   }
 
   fun addCurrentTopicToBookmarks() {
 
-    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
     addToBookmarksUseCase
         .buildUseCaseObservable(SendBookmarkAddRequest.Params(currentTopicId, startingPost))
@@ -220,15 +227,13 @@ class ChosenTopicPresenter @Inject constructor(
         .doOnError { setConnectionState(ConnectionState.ERROR) }
         .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getKarmaResponseObserver())
+        .subscribe(getKarmaResponseObserver(isTopic = true))
   }
 
-  fun changePostKarma(postId: Int, postPosition: Int, shouldIncrease: Boolean) {
+  fun changePostKarma(postId: Int, shouldIncrease: Boolean) {
     if (authKey.isEmpty() || postId == 0 || currentTopicId == 0) {
       return
     }
-
-    karmaTargetedPostPosition = postPosition
 
     val diff = if (shouldIncrease) 1 else -1
 
@@ -241,7 +246,7 @@ class ChosenTopicPresenter @Inject constructor(
         .doOnError { setConnectionState(ConnectionState.ERROR) }
         .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getKarmaResponseObserver())
+        .subscribe(getKarmaResponseObserver(isTopic = false))
   }
 
   fun requestThumbnail(videoUrl: String): Observable<String> =
@@ -254,7 +259,7 @@ class ChosenTopicPresenter @Inject constructor(
       return
     }
 
-    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
     sendMessageUseCase
         .buildUseCaseObservable(
@@ -268,9 +273,14 @@ class ChosenTopicPresenter @Inject constructor(
         .subscribe(getMessageSendingObserver())
   }
 
-  private fun loadTopicCurrentPage() {
+  private fun loadTopicCurrentPage(shouldScrollToViewTop: Boolean) {
 
-    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * POSTS_PER_PAGE
+
+    if (!shouldScrollToViewTop) {
+      viewState.saveScrollPosition()
+    }
+
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
     clearCurrentList = true
 
     getChosenTopicUseCase
@@ -283,9 +293,15 @@ class ChosenTopicPresenter @Inject constructor(
         .doOnError { setConnectionState(ConnectionState.ERROR) }
         .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getTopicObserver())
+        .subscribe(getTopicObserver(shouldScrollToViewTop))
   }
 
+  fun handleFabVisibility(diff: Int) {
+    when {
+      diff > 0 -> viewState.hideFab()
+      diff < 0 -> viewState.showFab()
+    }
+  }
 
   // ==== OBSERVERS ====
 
@@ -312,7 +328,7 @@ class ChosenTopicPresenter @Inject constructor(
         }
       }
 
-  private fun getKarmaResponseObserver() =
+  private fun getKarmaResponseObserver(isTopic: Boolean) =
       object : DisposableObserver<YapEntity?>() {
 
         override fun onNext(response: YapEntity) {
@@ -320,14 +336,14 @@ class ChosenTopicPresenter @Inject constructor(
           Timber.d("Response from karma change request: ${response.text}")
 
           when {
-            response.text.contains(KARMA_SUCCESS_MARKER) -> viewState.showPostKarmaChangedMessage()
-            response.text.contains(KARMA_ALREADY_CHANGED_MARKER) -> viewState.showPostAlreadyRatedMessage()
+            response.text.contains(KARMA_SUCCESS_MARKER) -> viewState.showPostKarmaChangedMessage(isTopic)
+            response.text.contains(KARMA_ALREADY_CHANGED_MARKER) -> viewState.showPostAlreadyRatedMessage(isTopic)
           }
         }
 
         override fun onComplete() {
           Timber.i("Karma changing request completed.")
-          loadTopicCurrentPage()
+          loadTopicCurrentPage(shouldScrollToViewTop = false)
         }
 
         override fun onError(e: Throwable) {
@@ -343,7 +359,7 @@ class ChosenTopicPresenter @Inject constructor(
 
         override fun onComplete() {
           Timber.i("Send message request completed.")
-          loadTopicCurrentPage()
+          loadTopicCurrentPage(shouldScrollToViewTop = false)
         }
 
         override fun onError(e: Throwable) {
@@ -351,7 +367,7 @@ class ChosenTopicPresenter @Inject constructor(
         }
       }
 
-  private fun getTopicObserver() =
+  private fun getTopicObserver(scrollToViewTop: Boolean) =
       object : DisposableObserver<YapEntity?>() {
 
         override fun onNext(item: YapEntity) {
@@ -386,13 +402,12 @@ class ChosenTopicPresenter @Inject constructor(
         override fun onComplete() {
           Timber.i("Topic page loading completed.")
           viewState.updateCurrentUiState(currentTitle)
-          setupMenuButtons()
+          setupCurrentLoginSessionState()
 
-          if (karmaTargetedPostPosition == -1) {
+          if (scrollToViewTop) {
             viewState.scrollToViewTop()
           } else {
-            viewState.scrollToPost(karmaTargetedPostPosition)
-            karmaTargetedPostPosition = -1
+            viewState.restoreScrollPosition()
           }
         }
 
@@ -404,7 +419,7 @@ class ChosenTopicPresenter @Inject constructor(
 
   // ==== UTILITY ====
 
-  private fun setupMenuButtons() {
+  private fun setupCurrentLoginSessionState() {
     val loggedIn = authKey.isNotEmpty()
     val karmaAvailable = ratingPlusAvailable && ratingMinusAvailable
     viewState.setLoggedInState(loggedIn)

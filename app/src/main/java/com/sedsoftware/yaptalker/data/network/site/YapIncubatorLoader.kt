@@ -15,6 +15,5 @@ interface YapIncubatorLoader {
    * @return Parsed incubator page Observable.
    */
   @GET("/st/{startPage}/")
-  fun loadIncubator(
-      @Path("startPage") startPage: Int): Observable<IncubatorPageParsed>
+  fun loadIncubator(@Path("startPage") startPage: Int): Observable<IncubatorPageParsed>
 }

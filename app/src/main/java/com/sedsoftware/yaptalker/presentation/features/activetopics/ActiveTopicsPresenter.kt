@@ -104,14 +104,15 @@ class ActiveTopicsPresenter @Inject constructor(
 
   private fun loadActiveTopicsForCurrentPage() {
 
-    val startingTopicNumber = (currentPage - OFFSET_FOR_PAGE_NUMBER) * TOPICS_PER_PAGE
     clearCurrentList = true
+
+    val startingTopicNumber = (currentPage - OFFSET_FOR_PAGE_NUMBER) * TOPICS_PER_PAGE
 
     getActiveTopicsListUseCase
         .buildUseCaseObservable(Params(hash = searchIdKey, page = startingTopicNumber))
         .subscribeOn(Schedulers.io())
-        .map { item: List<BaseEntity> -> activeTopicsModelMapper.transform(item) }
-        .flatMap { list: List<YapEntity> -> Observable.fromIterable(list) }
+        .map { topics: List<BaseEntity> -> activeTopicsModelMapper.transform(topics) }
+        .flatMap { topics: List<YapEntity> -> Observable.fromIterable(topics) }
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
         .doOnError { setConnectionState(ConnectionState.ERROR) }

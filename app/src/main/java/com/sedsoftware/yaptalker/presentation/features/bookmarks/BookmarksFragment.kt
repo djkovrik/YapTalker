@@ -38,12 +38,11 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
   @InjectPresenter
   lateinit var presenter: BookmarksPresenter
 
-  @ProvidePresenter
-  fun provideBookmarksPresenter() = presenter
-
   @Inject
   lateinit var settings: SettingsManager
 
+  @ProvidePresenter
+  fun provideBookmarksPresenter() = presenter
   private lateinit var bookmarksAdapter: BookmarksAdapter
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,7 +50,6 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
 
     bookmarksAdapter = BookmarksAdapter(this, settings)
     bookmarksAdapter.setHasStableIds(true)
-
 
     with(bookmarks_list) {
       val linearLayout = LinearLayoutManager(context)

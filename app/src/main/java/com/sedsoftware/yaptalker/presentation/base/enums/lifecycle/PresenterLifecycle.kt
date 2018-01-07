@@ -6,7 +6,9 @@ class PresenterLifecycle {
 
   companion object {
     const val CREATE = 0L
-    const val DESTROY = 1L
+    const val ATTACH_VIEW = 1L
+    const val DETACH_VIEW = 2L
+    const val DESTROY = 3L
   }
 
   @Retention(AnnotationRetention.SOURCE)
