@@ -37,6 +37,8 @@
   <string name="authorization_button_login">Войти</string>
 
   <!-- TOPIC -->
+  <string name="topic_post_edit_button">{cmd-pencil} Редактировать</string>
+  <string name="topic_post_reply_button">{cmd-reply} Ответить</string>
   <!-- FAB labels -->
   <string name="fab_label_karma">Оценить тему</string>
   <string name="fab_label_bookmark">В закладки</string>
