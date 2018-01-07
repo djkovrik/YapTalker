@@ -9,8 +9,10 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
-class ForumsAdapter(itemClick: ForumsItemClickListener, settings: SettingsManager) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ForumsAdapter(
+    itemClick: ForumsItemClickListener,
+    settings: SettingsManager
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<YapEntity>
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()

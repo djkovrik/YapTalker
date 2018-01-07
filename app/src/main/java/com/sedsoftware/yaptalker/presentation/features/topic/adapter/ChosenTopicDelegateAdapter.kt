@@ -31,9 +31,10 @@ import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
 import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 
 class ChosenTopicDelegateAdapter(
-    val clickListener: ChosenTopicElementsClickListener,
-    val thumbnailLoader: ChosenTopicThumbnailLoader,
-    val settings: SettingsManager) : YapEntityDelegateAdapter {
+    private val clickListener: ChosenTopicElementsClickListener,
+    private val thumbnailLoader: ChosenTopicThumbnailLoader,
+    private val settings: SettingsManager
+) : YapEntityDelegateAdapter {
 
   companion object {
     private const val INITIAL_NESTING_LEVEL = 0

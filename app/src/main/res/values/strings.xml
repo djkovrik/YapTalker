@@ -101,7 +101,6 @@
   <string name="msg_login_error">Login error!</string>
   <string name="msg_sign_out">Sign out successful.</string>
   <string name="msg_unknown_error">Unknown error!</string>
-  <string name="msg_unclosed_tag">Unclosed tag detected!</string>
   <string name="msg_bookmark_confirm_action">Delete topic from bookmarks?</string>
   <string name="msg_bookmark_confirm_yes">Delete</string>
   <string name="msg_bookmark_confirm_No">Cancel</string>
@@ -116,8 +115,6 @@
   <string name="action_save">Save</string>
   <string name="action_share">Share</string>
   <string name="action_send">Send</string>
-  <string name="action_bookmark">Bookmark</string>
-  <string name="action_new_message">New message</string>
   <string name="action_topic_karma_plus">Add +1</string>
   <string name="action_topic_karma_minus">Add -1</string>
   <string name="action_post_karma_plus">Add +1</string>

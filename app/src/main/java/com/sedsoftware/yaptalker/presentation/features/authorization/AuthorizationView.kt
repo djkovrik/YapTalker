@@ -13,7 +13,7 @@ interface AuthorizationView : BaseView {
 
   fun loginErrorMessage()
 
-  fun signInButtonEnabled(enabled: Boolean)
+  fun setSignInButtonState(isEnabled: Boolean)
 
   fun hideKeyboard()
 }

@@ -13,7 +13,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.showView
 
 class FabMenuItemSecondary(
     private val context: Context?,
-    private val view: View) : FabMenuItem {
+    private val view: View
+) : FabMenuItem {
 
   override fun show() {
     val animator = AnimatorInflater.loadAnimator(context, R.animator.fab_menu_vertical_show) as AnimatorSet

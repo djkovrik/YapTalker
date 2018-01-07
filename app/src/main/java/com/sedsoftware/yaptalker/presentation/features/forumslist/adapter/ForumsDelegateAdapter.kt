@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.fragment_forums_list_item.view.*
 
 class ForumsDelegateAdapter(
     private val clickListener: ForumsItemClickListener,
-    private val settings: SettingsManager) : YapEntityDelegateAdapter {
+    private val settings: SettingsManager
+) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {
     settings.getNormalFontSize()

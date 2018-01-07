@@ -40,11 +40,11 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsEleme
   @InjectPresenter
   lateinit var presenter: ActiveTopicsPresenter
 
-  @ProvidePresenter
-  fun provideActiveTopicsPresenter() = presenter
-
   @Inject
   lateinit var settings: SettingsManager
+
+  @ProvidePresenter
+  fun provideActiveTopicsPresenter() = presenter
 
   private lateinit var topicsAdapter: ActiveTopicsAdapter
 

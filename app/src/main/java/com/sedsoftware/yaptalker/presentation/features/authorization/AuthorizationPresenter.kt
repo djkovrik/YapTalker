@@ -48,7 +48,7 @@ class AuthorizationPresenter @Inject constructor(
   }
 
   fun handleSignInButton(enabled: Boolean) {
-    viewState.signInButtonEnabled(enabled)
+    viewState.setSignInButtonState(enabled)
   }
 
   fun performLoginAttempt(userLogin: String, userPassword: String) {
@@ -102,12 +102,12 @@ class AuthorizationPresenter @Inject constructor(
   private fun getSitePreferencesObserver() =
       object : DisposableObserver<YapEntity>() {
 
-        override fun onNext(response: YapEntity) {
+        override fun onNext(sitePrefs: YapEntity) {
 
-          response as SitePreferencesModel
+          sitePrefs as SitePreferencesModel
 
-          preferences.saveMessagesPerPagePref(response.messagesPerTopicPage)
-          preferences.saveTopicsPerPagePref(response.topicsPerForumPage)
+          preferences.saveMessagesPerPagePref(sitePrefs.messagesPerTopicPage)
+          preferences.saveTopicsPerPagePref(sitePrefs.topicsPerForumPage)
         }
 
         override fun onComplete() {

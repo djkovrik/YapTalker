@@ -12,8 +12,9 @@ import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
 import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.*
 
 class BookmarksDelegateAdapter(
-    val clickListener: BookmarksElementsClickListener,
-    val settings: SettingsManager) : YapEntityDelegateAdapter {
+    private val clickListener: BookmarksElementsClickListener,
+    private val settings: SettingsManager
+) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {
     settings.getNormalFontSize()

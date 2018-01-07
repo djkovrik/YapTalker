@@ -14,16 +14,15 @@ import io.reactivex.Maybe
 abstract class BaseFragment : MvpAppCompatFragment() {
 
   protected abstract val layoutId: Int
-
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
-
-  lateinit var backPressHandler: BackPressHandler
+  private lateinit var backPressHandler: BackPressHandler
 
   open fun onBackPressed(): Boolean = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidSupportInjection.inject(this)
     super.onCreate(savedInstanceState)
+
     lifecycle.accept(FragmentLifecycle.CREATE)
 
     if (activity is BackPressHandler) {

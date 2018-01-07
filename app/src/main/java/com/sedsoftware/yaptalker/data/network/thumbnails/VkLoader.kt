@@ -11,5 +11,6 @@ interface VkLoader {
   fun loadThumbnail(
       @Query("videos") videos: String,
       @Query("access_token") access_token: String,
-      @Query("v") version: String): Observable<VkResponseWrapper>
+      @Query("v") version: String
+  ): Observable<VkResponseWrapper>
 }

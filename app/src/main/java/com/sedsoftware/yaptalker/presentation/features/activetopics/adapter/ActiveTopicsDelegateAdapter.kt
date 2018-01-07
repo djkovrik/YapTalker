@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.*
 
 class ActiveTopicsDelegateAdapter(
     private val itemClick: ActiveTopicsElementsClickListener,
-    private val settings: SettingsManager) : YapEntityDelegateAdapter {
+    private val settings: SettingsManager
+) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {
     settings.getNormalFontSize()

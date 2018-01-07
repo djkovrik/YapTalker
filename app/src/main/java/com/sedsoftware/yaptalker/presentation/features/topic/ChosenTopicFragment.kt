@@ -1,7 +1,5 @@
 package com.sedsoftware.yaptalker.presentation.features.topic
 
-import android.animation.AnimatorInflater
-import android.animation.AnimatorSet
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.content.ContextCompat
@@ -97,20 +95,15 @@ class ChosenTopicFragment :
     arguments?.getInt(STARTING_POST_KEY) ?: 0
   }
 
-  private lateinit var menuShowAnimator: AnimatorSet
-  private lateinit var menuHideAnimator: AnimatorSet
   private lateinit var topicAdapter: ChosenTopicAdapter
   private lateinit var topicScrollState: Parcelable
 
+  private var fabMenu = FabMenu(isMenuExpanded = false)
   private var isLoggedIn = false
   private var isKarmaAvailable = false
-  private var fabMenu = FabMenu(isMenuExpanded = false)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    menuShowAnimator = AnimatorInflater.loadAnimator(context, R.animator.fab_menu_vertical_show) as AnimatorSet
-    menuHideAnimator = AnimatorInflater.loadAnimator(context, R.animator.fab_menu_vertical_hide) as AnimatorSet
 
     topicAdapter = ChosenTopicAdapter(this, this, settings)
     topicAdapter.setHasStableIds(true)
@@ -295,14 +288,45 @@ class ChosenTopicFragment :
     }
   }
 
+  override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
+    presenter
+        .requestThumbnail(videoUrl)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .autoDisposable(event(FragmentLifecycle.DESTROY))
+        .subscribe({ url ->
+          if (url.isNotEmpty()) {
+            imageView.loadThumbnailFromUrl(url)
+          } else {
+            context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
+          }
+        }, { throwable ->
+          Timber.e("Can't load image: ${throwable.message}")
+        })
+  }
+
   override fun onPostItemClicked(postId: Int, isKarmaAvailable: Boolean) {
     if (isKarmaAvailable) {
       presenter.showPostKarmaMenuIfAvailable(postId)
     }
   }
 
-  override fun onUserAvatarClick(userId: Int) {
-    presenter.onUserProfileClicked(userId)
+  override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
+    when {
+      isVideo && url.contains("youtube") -> {
+        val videoId = url.extractYoutubeVideoId()
+        context?.browse("http://www.youtube.com/watch?v=$videoId")
+      }
+      isVideo && !url.contains("youtube") -> {
+        presenter.navigateToChosenVideo(html)
+      }
+      url.endsWith(GIF_EXT) -> {
+        presenter.navigateToChosenGif(url)
+      }
+      else -> {
+        presenter.navigateToChosenImage(url)
+      }
+    }
   }
 
   override fun onGoToFirstPageClick() {
@@ -333,39 +357,8 @@ class ChosenTopicFragment :
     }
   }
 
-  override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
-    presenter
-        .requestThumbnail(videoUrl)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe({ url ->
-          if (url.isNotEmpty()) {
-            imageView.loadThumbnailFromUrl(url)
-          } else {
-            context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
-          }
-        }, { throwable ->
-          Timber.e("Can't load image: ${throwable.message}")
-        })
-  }
-
-  override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
-    when {
-      isVideo && url.contains("youtube") -> {
-        val videoId = url.extractYoutubeVideoId()
-        context?.browse("http://www.youtube.com/watch?v=$videoId")
-      }
-      isVideo && !url.contains("youtube") -> {
-        presenter.navigateToChosenVideo(html)
-      }
-      url.endsWith(GIF_EXT) -> {
-        presenter.navigateToChosenGif(url)
-      }
-      else -> {
-        presenter.navigateToChosenImage(url)
-      }
-    }
+  override fun onUserAvatarClick(userId: Int) {
+    presenter.onUserProfileClicked(userId)
   }
 
   private fun subscribeViews() {
@@ -452,7 +445,7 @@ class ChosenTopicFragment :
 
     fabMenu.clear()
 
-    fabMenu.add(FabOverlay(context, fab_overlay))
+    fabMenu.add(FabOverlay(fab_overlay))
     fabMenu.add(FabMenuItemPrimary(context, fab_menu, fab_new_message, fab_new_message_label, isLoggedIn))
     fabMenu.add(FabMenuItemSecondary(context, fab_refresh_block))
 

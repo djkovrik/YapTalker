@@ -12,7 +12,8 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 class ChosenTopicAdapter(
     clickListener: ChosenTopicElementsClickListener,
     thumbnailLoader: ChosenTopicThumbnailLoader,
-    settings: SettingsManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    settings: SettingsManager
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<YapEntity>
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()

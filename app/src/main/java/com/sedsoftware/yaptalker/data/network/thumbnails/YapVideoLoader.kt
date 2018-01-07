@@ -12,5 +12,6 @@ interface YapVideoLoader {
   fun loadThumbnail(
       @Path("id") id: String,
       @Query("md5") md5: String,
-      @Query("type") type: String): Observable<YapVideoData>
+      @Query("type") type: String
+  ): Observable<YapVideoData>
 }

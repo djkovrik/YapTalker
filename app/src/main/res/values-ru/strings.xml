@@ -89,7 +89,6 @@
   <string name="msg_login_error">Ошибка входа!</string>
   <string name="msg_sign_out">Вы успешно вышли из аккаунта.</string>
   <string name="msg_unknown_error">Неизвестная ошибка!</string>
-  <string name="msg_unclosed_tag">Обнаружен незакрытый тег!</string>
   <string name="msg_bookmark_confirm_action">Удалить тему из закладок?</string>
   <string name="msg_bookmark_confirm_yes">Удалить</string>
   <string name="msg_bookmark_confirm_No">Отмена</string>
@@ -104,8 +103,6 @@
   <string name="action_save">Сохранить</string>
   <string name="action_share">Поделиться</string>
   <string name="action_send">Отправить</string>
-  <string name="action_bookmark">В закладки</string>
-  <string name="action_new_message">Новое сообщение</string>
   <string name="action_topic_karma_plus">Поставить +1</string>
   <string name="action_topic_karma_minus">Поставить -1</string>
   <string name="action_post_karma_plus">Поставить +1</string>

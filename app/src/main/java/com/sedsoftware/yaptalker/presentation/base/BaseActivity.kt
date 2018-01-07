@@ -24,12 +24,8 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
   lateinit var navigatorHolder: NavigatorHolder
 
   protected abstract val layoutId: Int
-
-  lateinit var backPressFragment: BaseFragment
-
+  protected lateinit var backPressFragment: BaseFragment
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
-
-  override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
@@ -65,6 +61,8 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
     super.onPause()
     lifecycle.accept(ActivityLifecycle.PAUSE)
   }
+
+  override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
 
   override fun setSelectedFragment(fragment: BaseFragment) {
     backPressFragment = fragment

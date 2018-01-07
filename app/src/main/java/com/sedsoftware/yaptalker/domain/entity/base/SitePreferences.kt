@@ -8,4 +8,4 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 class SitePreferences(
     val messagesPerTopicPage: Int,
     val topicsPerForumPage: Int
-): BaseEntity
+) : BaseEntity

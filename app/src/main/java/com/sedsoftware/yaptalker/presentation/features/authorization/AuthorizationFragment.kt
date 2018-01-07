@@ -60,8 +60,8 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
     toastError(message)
   }
 
-  override fun signInButtonEnabled(enabled: Boolean) {
-    button_sign_in?.isEnabled = enabled
+  override fun setSignInButtonState(isEnabled: Boolean) {
+    button_sign_in?.isEnabled = isEnabled
   }
 
   override fun hideKeyboard() {
@@ -70,6 +70,7 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
   }
 
   private fun subscribeViews() {
+
     Observable
         .combineLatest(
             RxTextView.textChanges(authorization_login),
