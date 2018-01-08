@@ -23,7 +23,7 @@ ext {
     final MOXY_VERSION = "1.5.3"
     final ANKO_VERSION = "0.10.4"
     final PICASSO_VERSION = "2.5.2"
-    final CICERONE_VERSION = "2.1.0"
+    final CICERONE_VERSION = "3.0.0"
     final RETROFIT_VERSION = "2.3.0"
     final JSPOON_VERSION = "1.1.0"
     final MOSHI_VERSION = "1.5.0"
