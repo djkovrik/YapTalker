@@ -9,15 +9,18 @@ import com.sedsoftware.yaptalker.domain.interactor.SendBookmarkAddRequest
 import com.sedsoftware.yaptalker.domain.interactor.SendChangeKarmaRequestPost
 import com.sedsoftware.yaptalker.domain.interactor.SendChangeKarmaRequestTopic
 import com.sedsoftware.yaptalker.domain.interactor.SendMessageRequest
+import com.sedsoftware.yaptalker.domain.service.GetPostQuotedTextService
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
+import com.sedsoftware.yaptalker.presentation.mappers.QuotedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mappers.ServerResponseModelMapper
 import com.sedsoftware.yaptalker.presentation.mappers.TopicModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
+import com.sedsoftware.yaptalker.presentation.model.base.QuotedPostModel
 import com.sedsoftware.yaptalker.presentation.model.base.ServerResponseModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicInfoBlockModel
@@ -42,7 +45,9 @@ class ChosenTopicPresenter @Inject constructor(
     private val sendMessageUseCase: SendMessageRequest,
     private val getChosenTopicUseCase: GetChosenTopic,
     private val topicMapper: TopicModelMapper,
-    private val getVideoThumbnailUseCase: GetVideoThumbnail
+    private val getVideoThumbnailUseCase: GetVideoThumbnail,
+    private val getQuotedTextService: GetPostQuotedTextService,
+    private val quoteDataMapper: QuotedPostModelMapper
 ) : BasePresenter<ChosenTopicView>() {
 
   companion object {
@@ -171,6 +176,20 @@ class ChosenTopicPresenter @Inject constructor(
     if (authKey.isNotEmpty()) {
       viewState.showUserProfile(userId)
     }
+  }
+
+  fun onReplyButtonClicked(forumId: Int, topicId: Int, postId: Int) {
+
+    getQuotedTextService
+        .requestPostTextAsQuote(forumId, topicId, postId)
+        .subscribeOn(Schedulers.io())
+        .map { quote: BaseEntity -> quoteDataMapper.transform(quote) }
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+        .doOnError { setConnectionState(ConnectionState.ERROR) }
+        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+        .autoDisposable(event(PresenterLifecycle.DESTROY))
+        .subscribe(getQuotingObserver())
   }
 
   fun shareCurrentTopic() {
@@ -416,6 +435,24 @@ class ChosenTopicPresenter @Inject constructor(
         }
       }
 
+  private fun getQuotingObserver() =
+      object : DisposableObserver<YapEntity?>() {
+
+        override fun onComplete() {
+          Timber.d("Quote loading completed.")
+        }
+
+        override fun onNext(post: YapEntity) {
+
+          post as QuotedPostModel
+
+          Timber.d("Loaded quote: ${post.text}")
+        }
+
+        override fun onError(e: Throwable) {
+          e.message?.let { viewState.showErrorMessage(it) }
+        }
+      }
 
   // ==== UTILITY ====
 

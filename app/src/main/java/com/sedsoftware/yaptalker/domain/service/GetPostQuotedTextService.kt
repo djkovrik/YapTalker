@@ -6,7 +6,7 @@ import io.reactivex.Observable
 /**
  * Interface that represents post quoting service.
  */
-interface GetPostQuotedText {
+interface GetPostQuotedTextService {
 
   fun requestPostTextAsQuote(forumId: Int, topicId: Int, targetPostId: Int): Observable<BaseEntity>
 }

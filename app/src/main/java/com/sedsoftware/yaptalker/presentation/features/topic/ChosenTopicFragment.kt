@@ -361,6 +361,10 @@ class ChosenTopicFragment :
     presenter.onUserProfileClicked(userId)
   }
 
+  override fun onReplyButtonClick(postId: Int) {
+    presenter.onReplyButtonClicked(forumId, topicId, postId)
+  }
+
   private fun subscribeViews() {
 
     RxSwipeRefreshLayout

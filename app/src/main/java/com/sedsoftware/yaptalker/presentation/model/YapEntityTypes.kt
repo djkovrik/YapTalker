@@ -15,4 +15,5 @@ object YapEntityTypes {
   const val SERVER_RESPONSE = 12
   const val INCUBATOR_TOPIC = 13
   const val USER_SITE_PREFERENCES = 14
+  const val QUOTED_POST_TEXT = 15
 }
