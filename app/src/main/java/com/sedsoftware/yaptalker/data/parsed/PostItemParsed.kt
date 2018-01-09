@@ -27,4 +27,6 @@ class PostItemParsed {
   lateinit var postContent: String
   @Selector("a[name~=entry]", attr = "outerHtml", format = "entry(\\d+)", defValue = "0")
   lateinit var postId: String
+  @Selector("a:containsOwn(цитировать)", attr = "href", defValue = "")
+  lateinit var hasQuoteButton: String
 }

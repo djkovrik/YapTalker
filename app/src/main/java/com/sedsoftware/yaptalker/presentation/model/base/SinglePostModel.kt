@@ -21,7 +21,8 @@ class SinglePostModel(
     val postRankPlusClicked: Boolean,
     val postRankMinusClicked: Boolean,
     val postContentParsed: SinglePostParsedModel,
-    val postId: Int
+    val postId: Int,
+    val hasQuoteButton: Boolean
 ) : YapEntity {
 
   override fun getBaseEntityType(): Int = YapEntityTypes.SINGLE_POST_ITEM
