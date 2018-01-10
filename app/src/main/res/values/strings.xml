@@ -40,10 +40,11 @@
   <string name="navigation_first" translatable="false" tools:keep="@string/navigation_first">&lt;&lt;</string>
   <string name="navigation_last" translatable="false" tools:keep="@string/navigation_last">&gt;&gt;</string>
 
-  <!-- AUTHORIZATION ACTIVITY -->
+  <!-- AUTHORIZATION -->
   <string name="authorization_login_label">Login</string>
   <string name="authorization_password_label">Password</string>
   <string name="authorization_button_login">Sign In</string>
+  <string name="authorization_anonymous">Sign In anonymously</string>
 
   <!-- TOPIC -->
   <string name="topic_post_edit_button">{cmd-pencil} Edit</string>
