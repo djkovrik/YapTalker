@@ -1,5 +1,9 @@
 ### Current version: 0.8.7
 # Changelog
+## [0.8.8] - 2018-01-10
+## Added
+- Post quoting
+
 ## [0.8.7] - 2018-01-07
 ## Added
 - Sync with forums and topics displaying site preferences
