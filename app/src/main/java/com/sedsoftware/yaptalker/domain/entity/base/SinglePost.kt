@@ -17,5 +17,6 @@ class SinglePost(
     val postRankPlusClicked: Boolean,
     val postRankMinusClicked: Boolean,
     val postContentParsed: SinglePostParsed,
-    val postId: Int
+    val postId: Int,
+    val hasQuoteButton: Boolean
 ) : BaseEntity

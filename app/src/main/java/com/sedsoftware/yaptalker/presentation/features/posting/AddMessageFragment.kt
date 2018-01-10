@@ -19,21 +19,28 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_new_post.*
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_bold
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_italic
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_link
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_underlined
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_edit_text
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_topic_title
 import javax.inject.Inject
 
 class AddMessageFragment : BaseFragment(), AddMessageView {
 
   companion object {
-    fun getNewInstance(title: String): AddMessageFragment {
+    fun getNewInstance(pair: Pair<String, String>): AddMessageFragment {
       val fragment = AddMessageFragment()
       val args = Bundle()
-      args.putString(TOPIC_TITLE_KEY, title)
+      args.putString(TOPIC_TITLE_KEY, pair.first)
+      args.putString(QUOTED_TEXT_KEY, pair.second)
       fragment.arguments = args
       return fragment
     }
 
     private const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
+    private const val QUOTED_TEXT_KEY = "QUOTE_KEY"
   }
 
   override val layoutId: Int
@@ -51,12 +58,20 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     arguments?.getString(TOPIC_TITLE_KEY) ?: ""
   }
 
+  private val quotedText: String by lazy {
+    arguments?.getString(QUOTED_TEXT_KEY) ?: ""
+  }
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHasOptionsMenu(true)
 
     if (currentTopicTitle.isNotEmpty()) {
       new_post_topic_title.text = currentTopicTitle
+    }
+
+    if (quotedText.isNotEmpty()) {
+      new_post_edit_text.append(quotedText)
     }
 
     subscribeViews()
