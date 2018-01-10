@@ -14,6 +14,7 @@ class SinglePostModel(
     val authorAvatar: String,
     val authorMessagesCount: Int,
     val postDate: String,
+    val postDateFull: String,
     val postRank: Int,
     val postRankText: Spanned,
     val postRankPlusAvailable: Boolean,

@@ -266,7 +266,9 @@ class ChosenTopicDelegateAdapter(
 
         if (post.hasQuoteButton) {
           post_button_reply.showView()
-          post_button_reply.setOnClickListener { clickListener.onReplyButtonClick(post.postId) }
+          post_button_reply.setOnClickListener {
+            clickListener.onReplyButtonClick(post.authorNickname, post.postDateFull, post.postId)
+          }
         } else {
           post_button_reply.hideView()
         }

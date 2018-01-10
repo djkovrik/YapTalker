@@ -361,8 +361,8 @@ class ChosenTopicFragment :
     presenter.onUserProfileClicked(userId)
   }
 
-  override fun onReplyButtonClick(postId: Int) {
-    presenter.onReplyButtonClicked(forumId, topicId, postId)
+  override fun onReplyButtonClick(authorNickname: String, postDate: String, postId: Int) {
+    presenter.onReplyButtonClicked(forumId, topicId, authorNickname, postDate, postId)
   }
 
   private fun subscribeViews() {

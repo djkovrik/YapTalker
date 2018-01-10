@@ -48,7 +48,7 @@ class MainActivityNavigator @Inject constructor(
     NavigationScreen.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Int)
     NavigationScreen.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
     NavigationScreen.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
-    NavigationScreen.ADD_MESSAGE_SCREEN -> AddMessageFragment.getNewInstance(data as String)
+    NavigationScreen.ADD_MESSAGE_SCREEN -> AddMessageFragment.getNewInstance(data as Pair<String, String>)
     else -> null
   }
 

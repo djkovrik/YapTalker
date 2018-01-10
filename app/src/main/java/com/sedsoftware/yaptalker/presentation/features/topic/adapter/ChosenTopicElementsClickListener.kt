@@ -18,5 +18,5 @@ interface ChosenTopicElementsClickListener {
 
   fun onUserAvatarClick(userId: Int)
 
-  fun onReplyButtonClick(postId: Int)
+  fun onReplyButtonClick(authorNickname: String, postDate: String, postId: Int)
 }

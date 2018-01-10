@@ -169,7 +169,7 @@ class ChosenTopicPresenter @Inject constructor(
   }
 
   fun navigateToMessagePostingScreen() {
-    router.navigateTo(NavigationScreen.ADD_MESSAGE_SCREEN, currentTitle)
+    router.navigateTo(NavigationScreen.ADD_MESSAGE_SCREEN, Pair(currentTitle, ""))
   }
 
   fun onUserProfileClicked(userId: Int) {
@@ -178,8 +178,7 @@ class ChosenTopicPresenter @Inject constructor(
     }
   }
 
-  fun onReplyButtonClicked(forumId: Int, topicId: Int, postId: Int) {
-
+  fun onReplyButtonClicked(forumId: Int, topicId: Int, authorNickname: String, postDate: String, postId: Int) {
     getQuotedTextService
         .requestPostTextAsQuote(forumId, topicId, postId)
         .subscribeOn(Schedulers.io())
@@ -189,7 +188,7 @@ class ChosenTopicPresenter @Inject constructor(
         .doOnError { setConnectionState(ConnectionState.ERROR) }
         .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getQuotingObserver())
+        .subscribe(getQuotingObserver(authorNickname, postDate))
   }
 
   fun shareCurrentTopic() {
@@ -435,7 +434,7 @@ class ChosenTopicPresenter @Inject constructor(
         }
       }
 
-  private fun getQuotingObserver() =
+  private fun getQuotingObserver(authorNickname: String, postDate: String) =
       object : DisposableObserver<YapEntity?>() {
 
         override fun onComplete() {
@@ -443,10 +442,9 @@ class ChosenTopicPresenter @Inject constructor(
         }
 
         override fun onNext(post: YapEntity) {
-
           post as QuotedPostModel
-
-          Timber.d("Loaded quote: ${post.text}")
+          val quote = "[QUOTE=$authorNickname,$postDate]${post.text}[/QUOTE]\n"
+          router.navigateTo(NavigationScreen.ADD_MESSAGE_SCREEN, Pair(currentTitle, quote))
         }
 
         override fun onError(e: Throwable) {
