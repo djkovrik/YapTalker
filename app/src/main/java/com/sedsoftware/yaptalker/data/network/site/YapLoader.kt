@@ -208,6 +208,7 @@ interface YapLoader {
    * Send sign in request to the site.
    *
    * @param cookieDate Cookie behaviour type (set to 1).
+   * @param privacy Anonymous sign in (1 or 0).
    * @param password User password.
    * @param userName User login.
    * @param referer Referer link.
@@ -219,7 +220,8 @@ interface YapLoader {
   @FormUrlEncoded
   @POST("/act/Login/CODE/01/")
   fun signIn(
-      @Field("CookieDate") cookieDate: String,
+      @Field("CookieDate") cookieDate: Int,
+      @Field("Privacy") privacy: Boolean,
       @Field("PassWord") password: String,
       @Field("UserName") userName: String,
       @Field("referer") referer: String,
