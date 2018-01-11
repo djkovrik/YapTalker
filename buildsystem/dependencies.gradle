@@ -59,6 +59,7 @@ ext {
             preferenceV14           : "com.android.support:preference-v14:$SUPPORT_LIBRARY_VERSION",
             cardView                : "com.android.support:cardview-v7:$SUPPORT_LIBRARY_VERSION",
             design                  : "com.android.support:design:$SUPPORT_LIBRARY_VERSION",
+            recyclerView            : "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION",
             constraintLayout        : "com.android.support.constraint:constraint-layout:$CONSTRAINT_LAYOUT_VERSION",
     ]
 

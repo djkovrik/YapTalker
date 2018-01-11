@@ -6,4 +6,6 @@
   <attr name="colorFabLabelBackground" format="color" />
   <attr name="colorFabLabelText" format="color" />
   <attr name="colorFabOverlay" format="color" />
+  <attr name="colorScrollbarThumb" format="color" />
+  <attr name="colorScrollbarBackground" format="color" />
 </resources>
