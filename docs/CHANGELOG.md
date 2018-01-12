@@ -1,6 +1,6 @@
-### Current version: 0.8.7
+### Current version: 0.8.8
 # Changelog
-## [0.8.8] - 2018-01-xx
+## [0.8.8] - 2018-01-12
 ## Added
 - Post quoting
 - Anonymous sign in
