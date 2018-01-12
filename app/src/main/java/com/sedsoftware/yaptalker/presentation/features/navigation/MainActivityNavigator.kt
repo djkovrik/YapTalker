@@ -2,6 +2,7 @@
 
 package com.sedsoftware.yaptalker.presentation.features.navigation
 
+import android.content.Context
 import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
@@ -29,7 +30,7 @@ class MainActivityNavigator @Inject constructor(
     private val activity: MainActivity
 ) : SupportAppNavigator(activity, activity.supportFragmentManager, R.id.content_frame) {
 
-  override fun createActivityIntent(screenKey: String?, data: Any?): Intent? = when (screenKey) {
+  override fun createActivityIntent(context: Context?, screenKey: String?, data: Any?): Intent? = when (screenKey) {
     NavigationScreen.SETTINGS_SCREEN -> SettingsActivity.getIntent(activity)
     NavigationScreen.IMAGE_DISPLAY_SCREEN -> ImageDisplayActivity.getIntent(activity, data as String)
     NavigationScreen.VIDEO_DISPLAY_SCREEN -> VideoDisplayActivity.getIntent(activity, data as String)
@@ -48,7 +49,7 @@ class MainActivityNavigator @Inject constructor(
     NavigationScreen.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Int)
     NavigationScreen.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
     NavigationScreen.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
-    NavigationScreen.ADD_MESSAGE_SCREEN -> AddMessageFragment.getNewInstance(data as String)
+    NavigationScreen.ADD_MESSAGE_SCREEN -> AddMessageFragment.getNewInstance(data as Pair<String, String>)
     else -> null
   }
 

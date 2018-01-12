@@ -36,7 +36,7 @@ import javax.inject.Inject
 class TopicModelMapper @Inject constructor(
     private val dateTransformer: DateTransformer,
     private val textTransformer: TextTransformer) {
-
+  
   fun transform(items: List<BaseEntity>): List<YapEntity> {
 
     val result: MutableList<YapEntity> = ArrayList(items.size)
@@ -68,6 +68,7 @@ class TopicModelMapper @Inject constructor(
             authorAvatar = item.authorAvatar,
             authorMessagesCount = item.authorMessagesCount,
             postDate = dateTransformer.transformDateToShortView(item.postDate),
+            postDateFull = item.postDate,
             postRank = item.postRank,
             postRankText = textTransformer.transformRankToFormattedText(item.postRank),
             postRankPlusAvailable = item.postRankPlusAvailable,
@@ -75,7 +76,8 @@ class TopicModelMapper @Inject constructor(
             postRankPlusClicked = item.postRankPlusClicked,
             postRankMinusClicked = item.postRankMinusClicked,
             postContentParsed = transform(item.postContentParsed),
-            postId = item.postId
+            postId = item.postId,
+            hasQuoteButton = item.hasQuoteButton
         ))
       }
     }

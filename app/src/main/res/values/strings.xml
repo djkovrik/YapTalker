@@ -40,14 +40,17 @@
   <string name="navigation_first" translatable="false" tools:keep="@string/navigation_first">&lt;&lt;</string>
   <string name="navigation_last" translatable="false" tools:keep="@string/navigation_last">&gt;&gt;</string>
 
-  <!-- AUTHORIZATION ACTIVITY -->
+  <!-- AUTHORIZATION -->
   <string name="authorization_login_label">Login</string>
   <string name="authorization_password_label">Password</string>
   <string name="authorization_button_login">Sign In</string>
+  <string name="authorization_anonymous">Sign In anonymously</string>
 
   <!-- TOPIC -->
-  <string name="topic_post_karma_thumb_up" translatable="false" tools:keep="@string/topic_post_karma_thumb_up">{cmd-thumb-up} </string>
-  <string name="topic_post_karma_thumb_down" translatable="false" tools:keep="@string/topic_post_karma_thumb_down">{cmd-thumb-down} </string>
+  <string name="topic_post_edit_button">{cmd-pencil} Edit</string>
+  <string name="topic_post_reply_button">{cmd-reply} Reply</string>
+  <string name="topic_post_karma_thumb_up" translatable="false">{cmd-thumb-up} </string>
+  <string name="topic_post_karma_thumb_down" translatable="false">{cmd-thumb-down} </string>
 
   <!-- FAB labels -->
   <string name="fab_label_karma">Rate topic</string>

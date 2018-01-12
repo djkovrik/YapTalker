@@ -111,6 +111,7 @@ dependencies {
     implementation androidDependencies.preferenceV14
     implementation androidDependencies.cardView
     implementation androidDependencies.design
+    implementation androidDependencies.recyclerView
     implementation androidDependencies.constraintLayout
 
     implementation coreDependencies.dagger

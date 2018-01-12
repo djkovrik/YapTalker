@@ -1,5 +1,11 @@
-### Current version: 0.8.7
+### Current version: 0.8.8
 # Changelog
+## [0.8.8] - 2018-01-12
+## Added
+- Post quoting
+- Anonymous sign in
+- Fast scrolling for topics
+
 ## [0.8.7] - 2018-01-07
 ## Added
 - Sync with forums and topics displaying site preferences

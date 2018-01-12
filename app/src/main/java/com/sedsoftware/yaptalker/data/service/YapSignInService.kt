@@ -13,18 +13,19 @@ class YapSignInService @Inject constructor(
 ) : SignInService {
 
   companion object {
-    private const val LOGIN_COOKIE_DATE = "1"
-    private const val LOGIN_REFERER = "http://www.yaplakal.com/forum/"
+    private const val LOGIN_COOKIE_DATE = 1
+    private const val LOGIN_REFERRER = "http://www.yaplakal.com/forum/"
     private const val LOGIN_SUBMIT = "Вход"
   }
 
-  override fun requestSignIn(userLogin: String, userPassword: String): Observable<BaseEntity> =
+  override fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Observable<BaseEntity> =
       dataLoader
           .signIn(
               cookieDate = LOGIN_COOKIE_DATE,
+              privacy = anonymously,
               password = userPassword,
               userName = userLogin,
-              referer = LOGIN_REFERER,
+              referer = LOGIN_REFERRER,
               submit = LOGIN_SUBMIT,
               userKey = "$userLogin${System.currentTimeMillis()}".toMd5()
           )

@@ -31,12 +31,15 @@
   <string name="navigation_go_to_page_hint">Введите номер страницы…</string>
   <string name="navigation_page_not_available">Страница <xliff:g id="page">%d</xliff:g> недоступна</string>
 
-  <!-- AUTHORIZATION ACTIVITY -->
+  <!-- AUTHORIZATION -->
   <string name="authorization_login_label">Логин</string>
   <string name="authorization_password_label">Пароль</string>
   <string name="authorization_button_login">Войти</string>
+  <string name="authorization_anonymous">Войти анонимно</string>
 
   <!-- TOPIC -->
+  <string name="topic_post_edit_button">{cmd-pencil} Редактировать</string>
+  <string name="topic_post_reply_button">{cmd-reply} Ответить</string>
   <!-- FAB labels -->
   <string name="fab_label_karma">Оценить тему</string>
   <string name="fab_label_bookmark">В закладки</string>

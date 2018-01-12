@@ -50,6 +50,13 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <CheckBox
+      android:id="@+id/authorization_anonymous"
+      style="@style/CheckboxStyle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/authorization_anonymous" />
+
     <Button
       android:id="@+id/button_sign_in"
       android:layout_width="match_parent"

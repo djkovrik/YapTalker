@@ -87,7 +87,8 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
         .subscribe {
           presenter.performLoginAttempt(
               authorization_login.text.toString(),
-              authorization_password.text.toString())
+              authorization_password.text.toString(),
+              authorization_anonymous.isChecked)
         }
   }
 }

@@ -51,9 +51,9 @@ class AuthorizationPresenter @Inject constructor(
     viewState.setSignInButtonState(enabled)
   }
 
-  fun performLoginAttempt(userLogin: String, userPassword: String) {
+  fun performLoginAttempt(userLogin: String, userPassword: String, isAnonymous: Boolean) {
     signInRequestUseCase
-        .buildUseCaseObservable(Params(login = userLogin, password = userPassword))
+        .buildUseCaseObservable(Params(login = userLogin, password = userPassword, anonymously = isAnonymous))
         .subscribeOn(Schedulers.io())
         .map { response: BaseEntity -> serverResponseMapper.transform(response) }
         .observeOn(AndroidSchedulers.mainThread())

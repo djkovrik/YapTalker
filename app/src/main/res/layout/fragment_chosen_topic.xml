@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:orientation="vertical">
 
   <android.support.v4.widget.SwipeRefreshLayout
@@ -14,8 +15,11 @@
       android:id="@+id/topic_posts_list"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:scrollbarStyle="outsideOverlay"
-      android:scrollbars="vertical" />
+      app:fastScrollEnabled="true"
+      app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
+      app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
+      app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
+      app:fastScrollVerticalTrackDrawable="@drawable/line_drawable" />
 
   </android.support.v4.widget.SwipeRefreshLayout>
 

@@ -17,4 +17,6 @@ interface ChosenTopicElementsClickListener {
   fun onGoToSelectedPageClick()
 
   fun onUserAvatarClick(userId: Int)
+
+  fun onReplyButtonClick(authorNickname: String, postDate: String, postId: Int)
 }

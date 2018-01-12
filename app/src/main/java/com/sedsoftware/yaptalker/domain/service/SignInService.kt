@@ -8,5 +8,5 @@ import io.reactivex.Observable
  */
 interface SignInService {
 
-  fun requestSignIn(userLogin: String, userPassword: String): Observable<BaseEntity>
+  fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Observable<BaseEntity>
 }

@@ -28,7 +28,19 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostTe
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWarningModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_author
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_author_avatar
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_button_reply
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_image_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_text_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_video_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_date
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_block
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_down
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_down_available
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_up
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_up_available
 
 class ChosenTopicDelegateAdapter(
     private val clickListener: ChosenTopicElementsClickListener,
@@ -73,7 +85,7 @@ class ChosenTopicDelegateAdapter(
       fillPostText(postItem.postContentParsed)
       fillPostImages(postItem.postContentParsed)
       fillPostVideos(postItem.postContentParsed)
-      fillPostHeader(postItem)
+      fillControls(postItem)
     }
 
     @Suppress("NestedBlockDepth")
@@ -199,7 +211,7 @@ class ChosenTopicDelegateAdapter(
       }
     }
 
-    private fun fillPostHeader(post: SinglePostModel) {
+    private fun fillControls(post: SinglePostModel) {
       with(itemView) {
         post_author.text = post.authorNickname
         post_date.text = post.postDate
@@ -249,14 +261,18 @@ class ChosenTopicDelegateAdapter(
 
         post_author_avatar.layoutParams.width = currentAvatarSize
         post_author_avatar.layoutParams.height = currentAvatarSize
-
         post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateUrl())
+        post_author_avatar.setOnClickListener { clickListener.onUserAvatarClick(post.authorProfileId) }
 
-        post_author_avatar.setOnClickListener {
-          clickListener.onUserAvatarClick(post.authorProfileId)
+        if (post.hasQuoteButton) {
+          post_button_reply.showView()
+          post_button_reply.setOnClickListener {
+            clickListener.onReplyButtonClick(post.authorNickname, post.postDateFull, post.postId)
+          }
+        } else {
+          post_button_reply.hideView()
         }
       }
-
     }
   }
 }
