@@ -7,8 +7,7 @@ import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
 import com.sedsoftware.yaptalker.domain.interactor.topic.GetChosenTopic
 import com.sedsoftware.yaptalker.domain.interactor.topic.GetQuotedText
 import com.sedsoftware.yaptalker.domain.interactor.topic.SendBookmarkAddRequest
-import com.sedsoftware.yaptalker.domain.interactor.topic.SendChangeKarmaRequestPost
-import com.sedsoftware.yaptalker.domain.interactor.topic.SendChangeKarmaRequestTopic
+import com.sedsoftware.yaptalker.domain.interactor.topic.SendChangeKarmaRequest
 import com.sedsoftware.yaptalker.domain.interactor.topic.SendMessageRequest
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
@@ -45,8 +44,7 @@ class ChosenTopicPresenter @Inject constructor(
     private val getQuotedTextUseCase: GetQuotedText,
     private val quoteDataMapper: QuotedPostModelMapper,
     private val addToBookmarksUseCase: SendBookmarkAddRequest,
-    private val changePostKarmaUseCase: SendChangeKarmaRequestPost,
-    private val changeTopicKarmaUseCase: SendChangeKarmaRequestTopic,
+    private val changeKarmaUseCase: SendChangeKarmaRequest,
     private val serverResponseMapper: ServerResponseModelMapper,
     private val sendMessageUseCase: SendMessageRequest,
     private val getVideoThumbnailUseCase: GetVideoThumbnail
@@ -248,16 +246,19 @@ class ChosenTopicPresenter @Inject constructor(
         })
   }
 
-  fun changeTopicKarma(shouldIncrease: Boolean) {
+  fun changeKarma(postId: Int = 0, isTopic: Boolean, shouldIncrease: Boolean) {
 
     if (authKey.isEmpty() || ratingTargetId == 0 || currentTopicId == 0) {
       return
     }
 
+    Timber.d("changeKarma(postId = $postId, isTopic = $isTopic, shouldIncrease = $shouldIncrease")
+
+    val targetPostId = if (isTopic || postId == 0) ratingTargetId else postId
     val diff = if (shouldIncrease) 1 else -1
 
-    changeTopicKarmaUseCase
-        .execute(SendChangeKarmaRequestTopic.Params(ratingTargetId, currentTopicId, diff))
+    changeKarmaUseCase
+        .execute(SendChangeKarmaRequest.Params(isTopic, targetPostId, currentTopicId, diff))
         .subscribeOn(Schedulers.io())
         .map { response: BaseEntity -> serverResponseMapper.transform(response) }
         .observeOn(AndroidSchedulers.mainThread())
@@ -265,26 +266,7 @@ class ChosenTopicPresenter @Inject constructor(
         .doOnError { setConnectionState(ConnectionState.ERROR) }
         .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getKarmaResponseObserver(isTopic = true))
-  }
-
-  fun changePostKarma(postId: Int, shouldIncrease: Boolean) {
-    if (authKey.isEmpty() || postId == 0 || currentTopicId == 0) {
-      return
-    }
-
-    val diff = if (shouldIncrease) 1 else -1
-
-    changePostKarmaUseCase
-        .execute(SendChangeKarmaRequestPost.Params(postId, currentTopicId, diff))
-        .subscribeOn(Schedulers.io())
-        .map { response: BaseEntity -> serverResponseMapper.transform(response) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getKarmaResponseObserver(isTopic = false))
+        .subscribe(getKarmaResponseObserver(isTopic))
   }
 
   fun requestThumbnail(videoUrl: String): Single<String> =
@@ -350,6 +332,8 @@ class ChosenTopicPresenter @Inject constructor(
         override fun onSuccess(response: YapEntity) {
           response as ServerResponseModel
 
+//          Timber.d("Karma response: ${response.text}")
+
           when {
             response.text.contains(KARMA_SUCCESS_MARKER) -> viewState.showPostKarmaChangedMessage(isTopic)
             response.text.contains(KARMA_ALREADY_CHANGED_MARKER) -> viewState.showPostAlreadyRatedMessage(isTopic)
@@ -359,8 +343,8 @@ class ChosenTopicPresenter @Inject constructor(
           loadTopicCurrentPage(shouldScrollToViewTop = false)
         }
 
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
+        override fun onError(error: Throwable) {
+          error.message?.let { viewState.showErrorMessage(it) }
         }
       }
 

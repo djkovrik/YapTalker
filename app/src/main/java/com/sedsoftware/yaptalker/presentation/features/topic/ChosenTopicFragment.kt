@@ -188,8 +188,8 @@ class ChosenTopicFragment :
           .title(R.string.title_post_context_menu)
           .items(itemsArray)
           .itemsCallback { _, _, _, text ->
-            if (text == plusItem) presenter.changePostKarma(postId, shouldIncrease = true)
-            if (text == minusItem) presenter.changePostKarma(postId, shouldIncrease = false)
+            if (text == plusItem) presenter.changeKarma(postId, isTopic = false, shouldIncrease = true)
+            if (text == minusItem) presenter.changeKarma(postId, isTopic = false, shouldIncrease = false)
           }
           .show()
     }
@@ -208,11 +208,11 @@ class ChosenTopicFragment :
           .itemsCallback { _, _, _, text ->
             if (text == plusItem) {
               collapseMenu()
-              presenter.changeTopicKarma(shouldIncrease = true)
+              presenter.changeKarma(isTopic = true, shouldIncrease = true)
             }
             if (text == minusItem) {
               collapseMenu()
-              presenter.changeTopicKarma(shouldIncrease = false)
+              presenter.changeKarma(isTopic = true, shouldIncrease = false)
             }
           }
           .show()

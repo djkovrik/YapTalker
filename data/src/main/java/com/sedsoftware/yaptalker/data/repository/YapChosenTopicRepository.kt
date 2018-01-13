@@ -38,6 +38,23 @@ class YapChosenTopicRepository @Inject constructor(
           .loadTargetPostQuotedText(forumId, topicId, targetPostId)
           .map { quotedText -> quoteMapper.transform(quotedText) }
 
+  override fun requestKarmaChange(
+      isTopic: Boolean, targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity> {
+
+    val karmaType = if (isTopic) KARMA_TYPE_TOPIC else KARMA_TYPE_POST
+
+    return dataLoader
+        .changeKarma(
+            act = KARMA_ACT,
+            code = KARMA_CODE,
+            rank = diff,
+            postId = targetPostId,
+            topicId = targetTopicId,
+            type = karmaType
+        )
+        .map { response -> responseMapper.transform(response) }
+  }
+
   override fun requestPostKarmaChange(targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity> =
       dataLoader
           .changeKarma(

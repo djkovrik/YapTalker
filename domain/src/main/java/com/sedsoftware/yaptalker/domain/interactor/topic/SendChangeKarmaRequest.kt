@@ -6,13 +6,13 @@ import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class SendChangeKarmaRequestPost @Inject constructor(
+class SendChangeKarmaRequest @Inject constructor(
     private val chosenTopicRepository: ChosenTopicRepository
-) : SingleUseCaseWithParameter<SendChangeKarmaRequestPost.Params, BaseEntity> {
+) : SingleUseCaseWithParameter<SendChangeKarmaRequest.Params, BaseEntity> {
 
   override fun execute(parameter: Params): Single<BaseEntity> =
       chosenTopicRepository
-          .requestPostKarmaChange(parameter.targetTopicId, parameter.targetPostId, parameter.diff)
+          .requestKarmaChange(parameter.isTopic, parameter.targetPostId, parameter.targetTopicId, parameter.diff)
 
-  class Params(val targetPostId: Int, val targetTopicId: Int, val diff: Int)
+  class Params(val isTopic: Boolean, val targetPostId: Int, val targetTopicId: Int, val diff: Int)
 }
