@@ -11,7 +11,7 @@ interface BookmarksRepository {
 
   fun getBookmarks(): Observable<BaseEntity>
 
-  fun requestBookmarkAdding(topicId: Int, startingPost: Int): Observable<BaseEntity>
+  fun requestBookmarkAdding(topicId: Int, startingPost: Int): Completable
 
   fun requestBookmarkDeletion(bookmarkId: Int): Completable
 }

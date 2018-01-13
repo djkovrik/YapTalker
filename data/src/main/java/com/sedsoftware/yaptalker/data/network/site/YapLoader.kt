@@ -73,14 +73,14 @@ interface YapLoader {
    * @param topicId Chosen topic id.
    * @param startPostNumber Starting page number.
    *
-   * @return Parsed topic page Observable.
+   * @return Parsed topic page Single.
    */
   @GET("/forum{forumId}/st/{startFrom}/topic{topicId}.html")
   fun loadTopicPage(
       @Path("forumId") forumId: Int,
       @Path("topicId") topicId: Int,
       @Path("startFrom") startPostNumber: Int
-  ): Observable<TopicPageParsed>
+  ): Single<TopicPageParsed>
 
 
   /**
@@ -160,14 +160,14 @@ interface YapLoader {
    * @param topicId Current topic id.
    * @param targetPostId Quoted post id.
    *
-   * @return Parsed quoted text.
+   * @return Parsed quoted text Single.
    */
   @GET("/act/Post/CODE/06/forum{forumId}/topic{topicId}/post/{targetPostId}/st/0/")
   fun loadTargetPostQuotedText(
       @Path("forumId") forumId: Int,
       @Path("topicId") topicId: Int,
       @Path("targetPostId") targetPostId: Int
-  ): Observable<QuotedPostParsed>
+  ): Single<QuotedPostParsed>
 
 
   /**
@@ -185,7 +185,7 @@ interface YapLoader {
    * @param maxFileSize File size limit.
    * @param enabletag Enable tags
    *
-   * @return Parsed topic page Observable.
+   * @return Parsed topic page Single.
    */
   @Suppress("LongParameterList")
   @Multipart
@@ -202,7 +202,7 @@ interface YapLoader {
       @Part("Post") postContent: String,
       @Part("MAX_FILE_SIZE") maxFileSize: Int,
       @Part("enabletag") enabletag: Int
-  ): Observable<TopicPageParsed>
+  ): Single<TopicPageParsed>
 
 
   /**
@@ -291,7 +291,7 @@ interface YapLoader {
    * @param topicId Target topic id.
    * @param type Karma type (1 for topic and 0 for post).
    *
-   * @return Raw site response Observable.
+   * @return Raw site response Single.
    */
   @Headers("X-Requested-With:XMLHttpRequest")
   @GET("/")
@@ -302,5 +302,5 @@ interface YapLoader {
       @Query("p") postId: Int,
       @Query("t") topicId: Int,
       @Query("n") type: Int
-  ): Observable<Response<ResponseBody>>
+  ): Single<Response<ResponseBody>>
 }
