@@ -11,7 +11,7 @@ interface LoginSessionRepository {
 
   fun getLoginSessionInfo(): Single<BaseEntity>
 
-  fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Single<BaseEntity>
+  fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Completable
 
   fun requestSignOut(userKey: String): Completable
 }

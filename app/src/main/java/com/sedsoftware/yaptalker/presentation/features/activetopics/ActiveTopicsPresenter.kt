@@ -88,7 +88,7 @@ class ActiveTopicsPresenter @Inject constructor(
         .execute()
         .flatMap { hash: String ->
           searchIdKey = hash
-          getActiveTopicsListUseCase.execute(GetActiveTopics.Parameter(hash = searchIdKey, page = 0))
+          getActiveTopicsListUseCase.execute(GetActiveTopics.Params(hash = searchIdKey, page = 0))
         }
         .subscribeOn(Schedulers.io())
         .map { topics: List<BaseEntity> -> activeTopicsModelMapper.transform(topics) }
@@ -108,7 +108,7 @@ class ActiveTopicsPresenter @Inject constructor(
     val startingTopicNumber = (currentPage - OFFSET_FOR_PAGE_NUMBER) * TOPICS_PER_PAGE
 
     getActiveTopicsListUseCase
-        .execute(GetActiveTopics.Parameter(hash = searchIdKey, page = startingTopicNumber))
+        .execute(GetActiveTopics.Params(hash = searchIdKey, page = startingTopicNumber))
         .subscribeOn(Schedulers.io())
         .map { topics: List<BaseEntity> -> activeTopicsModelMapper.transform(topics) }
         .flatMapObservable { topics: List<YapEntity> -> Observable.fromIterable(topics) }

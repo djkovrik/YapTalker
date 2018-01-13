@@ -8,11 +8,11 @@ import javax.inject.Inject
 
 class GetActiveTopics @Inject constructor(
     private val activeTopicsRepository: ActiveTopicsRepository
-) : SingleUseCaseWithParameter<GetActiveTopics.Parameter, List<BaseEntity>> {
+) : SingleUseCaseWithParameter<GetActiveTopics.Params, List<BaseEntity>> {
 
-  override fun execute(parameter: Parameter): Single<List<BaseEntity>> =
+  override fun execute(parameter: Params): Single<List<BaseEntity>> =
       activeTopicsRepository
           .getActiveTopics(parameter.hash, parameter.page)
 
-  class Parameter(val hash: String, val page: Int)
+  class Params(val hash: String, val page: Int)
 }

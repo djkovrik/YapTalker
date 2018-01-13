@@ -23,6 +23,7 @@ class YapLoginSessionRepository @Inject constructor(
     private const val LOGIN_SUBMIT = "Вход"
 
     private const val SIGN_OUT_SUCCESS_MARKER = "Вы вышли"
+    private const val SIGN_IN_SUCCESS_MARKER = "Спасибо"
   }
 
   override fun getLoginSessionInfo(): Single<BaseEntity> =
@@ -30,7 +31,7 @@ class YapLoginSessionRepository @Inject constructor(
           .loadAuthorizedUserInfo()
           .map { parsedSessionInfo -> dataMapper.transform(parsedSessionInfo) }
 
-  override fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Single<BaseEntity> =
+  override fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Completable =
       dataLoader
           .signIn(
               cookieDate = LOGIN_COOKIE_DATE,
@@ -42,6 +43,14 @@ class YapLoginSessionRepository @Inject constructor(
               userKey = "$userLogin${System.currentTimeMillis()}".toMd5()
           )
           .map { response -> responseMapper.transform(response) }
+          .flatMapCompletable { response ->
+            response as ServerResponse
+            if (response.text.contains(SIGN_IN_SUCCESS_MARKER)) {
+              Completable.complete()
+            } else {
+              Completable.error(RequestErrorException("Unable to complete sign in request."))
+            }
+          }
 
   override fun requestSignOut(userKey: String): Completable =
       dataLoader

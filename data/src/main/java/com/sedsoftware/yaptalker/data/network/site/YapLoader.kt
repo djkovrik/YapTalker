@@ -144,13 +144,13 @@ interface YapLoader {
    * @param act Load user data action type.
    * @param code Code for loading user CP forum settings page.
    *
-   * @return Parsed forum settings page.
+   * @return Parsed forum settings page Single.
    */
   @GET("/")
   fun loadSitePreferences(
       @Query("act") act: String,
       @Query("CODE") code: String
-  ): Observable<SitePreferencesPageParsed>
+  ): Single<SitePreferencesPageParsed>
 
 
   /**
