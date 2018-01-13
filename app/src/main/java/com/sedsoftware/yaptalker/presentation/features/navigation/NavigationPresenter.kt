@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.presentation.features.navigation
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.device.settings.DefaultHomeScreen
-import com.sedsoftware.yaptalker.device.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.old.GetLoginSessionInfo
 import com.sedsoftware.yaptalker.domain.interactor.old.SendSignOutRequest
@@ -28,7 +28,7 @@ import javax.inject.Inject
 @InjectViewState
 class NavigationPresenter @Inject constructor(
     private val router: Router,
-    private val settings: SettingsManager,
+    private val settings: Settings,
     private val getSessionInfoUseCase: GetLoginSessionInfo,
     private val sessionInfoMapper: LoginSessionInfoModelMapper,
     private val signOutUseCase: SendSignOutRequest,

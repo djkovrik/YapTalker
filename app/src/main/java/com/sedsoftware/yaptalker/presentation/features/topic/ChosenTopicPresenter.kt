@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.features.topic
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.device.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.old.GetChosenTopic
 import com.sedsoftware.yaptalker.domain.interactor.old.GetVideoThumbnail
@@ -36,7 +36,7 @@ import javax.inject.Inject
 @InjectViewState
 class ChosenTopicPresenter @Inject constructor(
     private val router: Router,
-    private val settings: SettingsManager,
+    private val settings: Settings,
     private val addToBookmarksUseCase: SendBookmarkAddRequest,
     private val changeTopicKarmaUseCase: SendChangeKarmaRequestTopic,
     private val changePostKarmaUseCase: SendChangeKarmaRequestPost,

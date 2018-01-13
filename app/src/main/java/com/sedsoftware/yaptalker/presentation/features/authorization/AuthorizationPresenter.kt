@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.features.authorization
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.device.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.old.GetSiteUserPreferences
 import com.sedsoftware.yaptalker.domain.interactor.old.SendSignInRequest
@@ -29,7 +29,7 @@ class AuthorizationPresenter @Inject constructor(
     private val serverResponseMapper: ServerResponseModelMapper,
     private val getSitePreferencesUseCase: GetSiteUserPreferences,
     private val sitePreferencesModelMapper: SitePreferencesModelMapper,
-    private val preferences: SettingsManager
+    private val preferences: Settings
 ) : BasePresenter<AuthorizationView>() {
 
   companion object {

@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.device.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.*
 
 class BookmarksDelegateAdapter(
     private val clickListener: BookmarksElementsClickListener,
-    private val settings: SettingsManager
+    private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.device.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.currentDensity
 import com.sedsoftware.yaptalker.presentation.extensions.getColorFromAttr
@@ -34,7 +34,7 @@ import java.util.ArrayList
 class ChosenTopicDelegateAdapter(
     private val clickListener: ChosenTopicElementsClickListener,
     private val thumbnailLoader: ChosenTopicThumbnailLoader,
-    private val settings: SettingsManager
+    private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
   companion object {

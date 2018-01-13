@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.device.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
@@ -15,7 +15,7 @@ import java.util.ArrayList
 class NewsAdapter(
     clickListener: NewsItemElementsClickListener,
     thumbnailsLoader: NewsItemThumbnailsLoader,
-    settings: SettingsManager
+    settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<YapEntity>

@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.features.forum
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.device.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.old.GetChosenForum
 import com.sedsoftware.yaptalker.domain.interactor.old.GetChosenForum.Params
@@ -27,7 +27,7 @@ class ChosenForumPresenter @Inject constructor(
     private val router: Router,
     private val getChosenForumUseCase: GetChosenForum,
     private val forumModelMapper: ForumModelMapper,
-    private val preferences: SettingsManager
+    private val preferences: Settings
 ) : BasePresenter<ChosenForumView>() {
 
   companion object {

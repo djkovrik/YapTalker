@@ -9,7 +9,7 @@ import com.sedsoftware.yaptalker.data.network.thumbnails.RutubeLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.VkLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapFileLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapVideoLoader
-import com.sedsoftware.yaptalker.device.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.di.modules.network.HttpClientsModule
 import dagger.Module
 import dagger.Provides
@@ -43,7 +43,7 @@ class NetworkModule {
   @Provides
   fun provideYapLoader(
       @Named("siteClient") okHttpClient: OkHttpClient,
-      settings: SettingsManager
+      settings: Settings
   ): YapLoader {
 
     val endpoint = if (settings.isHttpsEnabled()) {
@@ -67,7 +67,7 @@ class NetworkModule {
   @Provides
   fun provideYapIncubatorLoader(
       @Named("siteClient") okHttpClient: OkHttpClient,
-      settings: SettingsManager
+      settings: Settings
   ): YapIncubatorLoader {
 
     val endpoint = if (settings.isHttpsEnabled()) {
