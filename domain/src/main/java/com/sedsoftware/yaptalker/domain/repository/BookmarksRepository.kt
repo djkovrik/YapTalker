@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.domain.repository
 
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import io.reactivex.Completable
 import io.reactivex.Observable
 
 /**
@@ -12,5 +13,5 @@ interface BookmarksRepository {
 
   fun requestBookmarkAdding(topicId: Int, startingPost: Int): Observable<BaseEntity>
 
-  fun requestBookmarkDeletion(bookmarkId: Int): Observable<BaseEntity>
+  fun requestBookmarkDeletion(bookmarkId: Int): Completable
 }

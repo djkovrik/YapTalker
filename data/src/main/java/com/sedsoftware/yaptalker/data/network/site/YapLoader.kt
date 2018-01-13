@@ -270,7 +270,7 @@ interface YapLoader {
    * @param code Add to bookmarks action code.
    * @param id Bookmark id.
    *
-   * @return Raw site response Observable.
+   * @return Raw site response Single.
    */
   @Headers("X-Requested-With:XMLHttpRequest")
   @GET("/")
@@ -278,7 +278,7 @@ interface YapLoader {
       @Query("act") act: String,
       @Query("CODE") code: String,
       @Query("id") id: Int
-  ): Observable<Response<ResponseBody>>
+  ): Single<Response<ResponseBody>>
 
 
   /**

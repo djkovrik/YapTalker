@@ -1,15 +1,16 @@
-package com.sedsoftware.yaptalker.domain.interactor.old
+package com.sedsoftware.yaptalker.domain.interactor.bookmarks
 
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.interactor.UseCase
 import com.sedsoftware.yaptalker.domain.repository.BookmarksRepository
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class GetBookmarksList @Inject constructor(
+class GetBookmarks @Inject constructor(
     private val bookmarksRepository: BookmarksRepository
-) : UseCaseOld<BaseEntity, Unit> {
+) : UseCase<BaseEntity> {
 
-  override fun buildUseCaseObservable(params: Unit): Observable<BaseEntity> =
+  override fun execute(): Observable<BaseEntity> =
       bookmarksRepository
           .getBookmarks()
 }
