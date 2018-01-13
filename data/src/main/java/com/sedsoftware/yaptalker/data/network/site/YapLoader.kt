@@ -111,7 +111,7 @@ interface YapLoader {
    * @param searchId Current searchId.
    * @param startTopicNumber Starting page number.
    *
-   * @return Parsed active topics page Observable.
+   * @return Parsed active topics page Single.
    */
   @GET("/")
   fun loadActiveTopics(
@@ -119,7 +119,7 @@ interface YapLoader {
       @Query("CODE") code: String,
       @Query("searchid") searchId: String,
       @Query("st") startTopicNumber: Int
-  ): Observable<ActiveTopicsPageParsed>
+  ): Single<ActiveTopicsPageParsed>
 
 
   /**

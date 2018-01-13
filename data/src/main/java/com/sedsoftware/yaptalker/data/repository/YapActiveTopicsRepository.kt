@@ -4,7 +4,7 @@ import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.data.parsed.mappers.ActiveTopicsPageMapper
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.repository.ActiveTopicsRepository
-import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class YapActiveTopicsRepository @Inject constructor(
@@ -17,7 +17,7 @@ class YapActiveTopicsRepository @Inject constructor(
     private const val ACTIVE_TOPICS_CODE = "getactive"
   }
 
-  override fun getActiveTopics(hash: String, page: Int): Observable<List<BaseEntity>> =
+  override fun getActiveTopics(hash: String, page: Int): Single<List<BaseEntity>> =
       dataLoader
           .loadActiveTopics(
               act = ACTIVE_TOPICS_ACT,

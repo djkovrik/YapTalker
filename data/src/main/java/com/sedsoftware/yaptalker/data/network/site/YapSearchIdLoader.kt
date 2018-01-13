@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.data.network.site
 
-import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.GET
 
 /**
@@ -8,5 +8,5 @@ import retrofit2.http.GET
  */
 interface YapSearchIdLoader {
   @GET("/act/Search/CODE/getactive")
-  fun loadSearchIdHash(): Observable<String>
+  fun loadSearchIdHash(): Single<String>
 }
