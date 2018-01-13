@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.data.repository.thumbnail
 
 import com.sedsoftware.yaptalker.data.BuildConfig
 import com.sedsoftware.yaptalker.data.network.thumbnails.VkLoader
-import io.reactivex.Observable
+import io.reactivex.Single
 import java.util.regex.Pattern
 
 class VkThumbnailSource(
@@ -19,7 +19,7 @@ class VkThumbnailSource(
     getVkVideoId(videoLink)
   }
 
-  override fun getThumbnailUrl(): Observable<String> =
+  override fun getThumbnailUrl(): Single<String> =
       vkLoader
           .loadThumbnail(videos = videoId, access_token = VK_ACCESS_TOKEN, version = VK_API_VERSION)
           .map { vkInfo -> vkInfo.response.items.first().photo_320 }

@@ -3,8 +3,8 @@ package com.sedsoftware.yaptalker.presentation.features.topic
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
 import com.sedsoftware.yaptalker.domain.interactor.old.GetChosenTopic
-import com.sedsoftware.yaptalker.domain.interactor.old.GetVideoThumbnail
 import com.sedsoftware.yaptalker.domain.interactor.old.SendBookmarkAddRequest
 import com.sedsoftware.yaptalker.domain.interactor.old.SendChangeKarmaRequestPost
 import com.sedsoftware.yaptalker.domain.interactor.old.SendChangeKarmaRequestTopic
@@ -25,6 +25,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicInfoBlockModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
@@ -265,9 +266,9 @@ class ChosenTopicPresenter @Inject constructor(
         .subscribe(getKarmaResponseObserver(isTopic = false))
   }
 
-  fun requestThumbnail(videoUrl: String): Observable<String> =
+  fun requestThumbnail(videoUrl: String): Single<String> =
       getVideoThumbnailUseCase
-          .buildUseCaseObservable(GetVideoThumbnail.Params(videoUrl))
+          .execute(GetVideoThumbnail.Params(videoUrl))
 
   private fun sendMessage(message: String) {
 

@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.data.repository.thumbnail
 
-import io.reactivex.Observable
+import io.reactivex.Single
 
 class YoutubeThumbnailSource(private val videoLink: String) : ThumbnailSource {
 
@@ -8,8 +8,8 @@ class YoutubeThumbnailSource(private val videoLink: String) : ThumbnailSource {
     getYoutubeVideoId(videoLink)
   }
 
-  override fun getThumbnailUrl(): Observable<String> =
-      Observable.just("http://img.youtube.com/vi/$videoId/0.jpg")
+  override fun getThumbnailUrl(): Single<String> =
+      Single.just("http://img.youtube.com/vi/$videoId/0.jpg")
 
   private fun getYoutubeVideoId(link: String): String {
     val startPosition = link.lastIndexOf("/")

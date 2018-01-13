@@ -2,8 +2,8 @@ package com.sedsoftware.yaptalker.presentation.features.news
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
 import com.sedsoftware.yaptalker.domain.interactor.old.GetNewsList
-import com.sedsoftware.yaptalker.domain.interactor.old.GetVideoThumbnail
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSc
 import com.sedsoftware.yaptalker.presentation.mappers.NewsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
@@ -51,9 +51,9 @@ class NewsPresenter @Inject constructor(
     }
   }
 
-  fun requestThumbnail(videoUrl: String): Observable<String> =
+  fun requestThumbnail(videoUrl: String): Single<String> =
       getVideoThumbnail
-          .buildUseCaseObservable(GetVideoThumbnail.Params(videoUrl))
+          .execute(GetVideoThumbnail.Params(videoUrl))
 
   fun loadNews(loadFromFirstPage: Boolean) {
 

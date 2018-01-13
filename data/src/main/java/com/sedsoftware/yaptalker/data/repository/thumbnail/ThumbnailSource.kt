@@ -1,8 +1,8 @@
 package com.sedsoftware.yaptalker.data.repository.thumbnail
 
-import io.reactivex.Observable
+import io.reactivex.Single
 
 interface ThumbnailSource {
 
-  fun getThumbnailUrl(): Observable<String>
+  fun getThumbnailUrl(): Single<String>
 }
