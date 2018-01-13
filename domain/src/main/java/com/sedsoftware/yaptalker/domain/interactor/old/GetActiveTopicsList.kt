@@ -1,13 +1,14 @@
-package com.sedsoftware.yaptalker.domain.interactor
+package com.sedsoftware.yaptalker.domain.interactor.old
 
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.interactor.old.GetActiveTopicsList.Params
 import com.sedsoftware.yaptalker.domain.repository.ActiveTopicsRepository
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class GetActiveTopicsList @Inject constructor(
     private val activeTopicsRepository: ActiveTopicsRepository
-) : UseCase<List<BaseEntity>, GetActiveTopicsList.Params> {
+) : UseCaseOld<List<BaseEntity>, Params> {
 
   override fun buildUseCaseObservable(params: Params): Observable<List<BaseEntity>> =
       activeTopicsRepository

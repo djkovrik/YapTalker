@@ -3,8 +3,8 @@ package com.sedsoftware.yaptalker.presentation.features.forum
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.device.settings.SettingsManager
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.GetChosenForum
-import com.sedsoftware.yaptalker.domain.interactor.GetChosenForum.Params
+import com.sedsoftware.yaptalker.domain.interactor.old.GetChosenForum
+import com.sedsoftware.yaptalker.domain.interactor.old.GetChosenForum.Params
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle

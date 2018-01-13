@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.domain.interactor
 
 import io.reactivex.Observable
 
-interface UseCase<T> {
+interface UseCaseWithParameter<in P, R> {
 
-  fun execute(): Observable<T>
+  fun execute(parameter: P): Observable<R>
 }

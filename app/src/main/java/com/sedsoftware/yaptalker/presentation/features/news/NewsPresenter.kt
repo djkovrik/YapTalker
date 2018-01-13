@@ -2,8 +2,8 @@ package com.sedsoftware.yaptalker.presentation.features.news
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.GetNewsList
-import com.sedsoftware.yaptalker.domain.interactor.GetVideoThumbnail
+import com.sedsoftware.yaptalker.domain.interactor.old.GetNewsList
+import com.sedsoftware.yaptalker.domain.interactor.old.GetVideoThumbnail
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle

@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.domain.interactor
+package com.sedsoftware.yaptalker.domain.interactor.old
 
 import com.sedsoftware.yaptalker.domain.repository.SearchIdRepository
 import io.reactivex.Observable
@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class GetSearchId @Inject constructor(
     private val searchIdRepository: SearchIdRepository
-) : UseCase<String, Unit> {
+) : UseCaseOld<String, Unit> {
 
   override fun buildUseCaseObservable(params: Unit): Observable<String> =
       searchIdRepository

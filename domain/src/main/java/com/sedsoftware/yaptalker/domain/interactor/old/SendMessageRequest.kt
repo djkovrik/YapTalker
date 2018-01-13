@@ -1,13 +1,14 @@
-package com.sedsoftware.yaptalker.domain.interactor
+package com.sedsoftware.yaptalker.domain.interactor.old
 
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.interactor.old.SendMessageRequest.Params
 import com.sedsoftware.yaptalker.domain.service.SendMessageService
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class SendMessageRequest @Inject constructor(
     private val sendMessageService: SendMessageService
-) : UseCase<BaseEntity, SendMessageRequest.Params> {
+) : UseCaseOld<BaseEntity, Params> {
 
   override fun buildUseCaseObservable(params: Params): Observable<BaseEntity> =
       sendMessageService

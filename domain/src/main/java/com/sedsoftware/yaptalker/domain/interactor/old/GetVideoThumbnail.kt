@@ -1,12 +1,13 @@
-package com.sedsoftware.yaptalker.domain.interactor
+package com.sedsoftware.yaptalker.domain.interactor.old
 
+import com.sedsoftware.yaptalker.domain.interactor.old.GetVideoThumbnail.Params
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class GetVideoThumbnail @Inject constructor(
     private val thumbnailRepository: ThumbnailRepository
-) : UseCase<String, GetVideoThumbnail.Params> {
+) : UseCaseOld<String, Params> {
 
   override fun buildUseCaseObservable(params: Params): Observable<String> =
       thumbnailRepository

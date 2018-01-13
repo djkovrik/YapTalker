@@ -4,9 +4,9 @@ import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.device.settings.DefaultHomeScreen
 import com.sedsoftware.yaptalker.device.settings.SettingsManager
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.GetLoginSessionInfo
-import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest
-import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest.Params
+import com.sedsoftware.yaptalker.domain.interactor.old.GetLoginSessionInfo
+import com.sedsoftware.yaptalker.domain.interactor.old.SendSignOutRequest
+import com.sedsoftware.yaptalker.domain.interactor.old.SendSignOutRequest.Params
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen

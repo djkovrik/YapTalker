@@ -3,9 +3,9 @@ package com.sedsoftware.yaptalker.presentation.features.authorization
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.device.settings.SettingsManager
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.GetSiteUserPreferences
-import com.sedsoftware.yaptalker.domain.interactor.SendSignInRequest
-import com.sedsoftware.yaptalker.domain.interactor.SendSignInRequest.Params
+import com.sedsoftware.yaptalker.domain.interactor.old.GetSiteUserPreferences
+import com.sedsoftware.yaptalker.domain.interactor.old.SendSignInRequest
+import com.sedsoftware.yaptalker.domain.interactor.old.SendSignInRequest.Params
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode

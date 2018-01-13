@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.domain.interactor
+package com.sedsoftware.yaptalker.domain.interactor.old
 
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.repository.LoginSessionInfoRepository
@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetLoginSessionInfo @Inject constructor(
     private val sessionInfoRepository: LoginSessionInfoRepository
-) : UseCase<BaseEntity, Unit> {
+) : UseCaseOld<BaseEntity, Unit> {
 
   override fun buildUseCaseObservable(params: Unit): Observable<BaseEntity> =
       sessionInfoRepository

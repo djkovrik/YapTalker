@@ -2,9 +2,9 @@ package com.sedsoftware.yaptalker.presentation.features.activetopics
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.GetActiveTopicsList
-import com.sedsoftware.yaptalker.domain.interactor.GetActiveTopicsList.Params
-import com.sedsoftware.yaptalker.domain.interactor.GetSearchId
+import com.sedsoftware.yaptalker.domain.interactor.old.GetActiveTopicsList
+import com.sedsoftware.yaptalker.domain.interactor.old.GetActiveTopicsList.Params
+import com.sedsoftware.yaptalker.domain.interactor.old.GetSearchId
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle

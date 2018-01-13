@@ -2,9 +2,9 @@ package com.sedsoftware.yaptalker.presentation.features.bookmarks
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.GetBookmarksList
-import com.sedsoftware.yaptalker.domain.interactor.SendBookmarkDeleteRequest
-import com.sedsoftware.yaptalker.domain.interactor.SendBookmarkDeleteRequest.Params
+import com.sedsoftware.yaptalker.domain.interactor.old.GetBookmarksList
+import com.sedsoftware.yaptalker.domain.interactor.old.SendBookmarkDeleteRequest
+import com.sedsoftware.yaptalker.domain.interactor.old.SendBookmarkDeleteRequest.Params
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
