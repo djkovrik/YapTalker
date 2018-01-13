@@ -24,5 +24,4 @@ abstract class MainActivityModule {
   @ActivityScope
   @Binds
   abstract fun loginSessionRepository(repo: YapLoginSessionRepository): LoginSessionRepository
-
 }

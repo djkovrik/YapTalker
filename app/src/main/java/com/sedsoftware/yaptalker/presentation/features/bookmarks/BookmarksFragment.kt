@@ -43,6 +43,7 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
 
   @ProvidePresenter
   fun provideBookmarksPresenter() = presenter
+
   private lateinit var bookmarksAdapter: BookmarksAdapter
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

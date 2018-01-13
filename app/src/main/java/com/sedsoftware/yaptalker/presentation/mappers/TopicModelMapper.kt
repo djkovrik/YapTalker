@@ -37,7 +37,7 @@ import javax.inject.Inject
 class TopicModelMapper @Inject constructor(
     private val dateTransformer: DateTransformer,
     private val textTransformer: TextTransformer) {
-  
+
   fun transform(items: List<BaseEntity>): List<YapEntity> {
 
     val result: MutableList<YapEntity> = ArrayList(items.size)

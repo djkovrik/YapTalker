@@ -3,8 +3,8 @@ package com.sedsoftware.yaptalker.di.modules
 import android.content.Context
 import android.content.SharedPreferences
 import android.support.v7.preference.PreferenceManager
-import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.device.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

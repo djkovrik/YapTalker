@@ -13,6 +13,7 @@ class SendSignInRequest @Inject constructor(
   override fun buildUseCaseObservable(params: Params): Observable<BaseEntity> =
       loginSessionRepository
           .requestSignIn(params.login, params.password, params.anonymously)
+          .toObservable()
 
   class Params(val login: String, val password: String, val anonymously: Boolean)
 }

@@ -11,6 +11,7 @@ import com.sedsoftware.yaptalker.data.parsed.SitePreferencesPageParsed
 import com.sedsoftware.yaptalker.data.parsed.TopicPageParsed
 import com.sedsoftware.yaptalker.data.parsed.UserProfileParsed
 import io.reactivex.Observable
+import io.reactivex.Single
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Field
@@ -96,10 +97,10 @@ interface YapLoader {
   /**
    * Load current authorization session info.
    *
-   * @return Parsed authorization status summary Observable.
+   * @return Parsed authorization status summary Single.
    */
   @GET("/forum")
-  fun loadAuthorizedUserInfo(): Observable<LoginSessionInfoParsed>
+  fun loadAuthorizedUserInfo(): Single<LoginSessionInfoParsed>
 
 
   /**
@@ -215,7 +216,7 @@ interface YapLoader {
    * @param submit Submit action type.
    * @param userKey Generated md5 user hash key.
    *
-   * @return Raw site response Observable.
+   * @return Raw site response Single.
    */
   @FormUrlEncoded
   @POST("/act/Login/CODE/01/")
@@ -227,7 +228,7 @@ interface YapLoader {
       @Field("referer") referer: String,
       @Field("submit") submit: String,
       @Field("user_key") userKey: String
-  ): Observable<Response<ResponseBody>>
+  ): Single<Response<ResponseBody>>
 
 
   /**
@@ -235,10 +236,10 @@ interface YapLoader {
    *
    * @param key Current user hash key.
    *
-   * @return Raw site response Observable.
+   * @return Raw site response Single.
    */
   @GET("/act/Login/CODE/03/")
-  fun signOut(@Query("key") key: String): Observable<Response<ResponseBody>>
+  fun signOut(@Query("key") key: String): Single<Response<ResponseBody>>
 
 
   /**

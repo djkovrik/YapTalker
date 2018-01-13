@@ -1,16 +1,17 @@
 package com.sedsoftware.yaptalker.domain.repository
 
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import io.reactivex.Observable
+import io.reactivex.Completable
+import io.reactivex.Single
 
 /**
  * Interface that represents a Repository for getting user login session related data.
  */
 interface LoginSessionRepository {
 
-  fun getLoginSessionInfo(): Observable<BaseEntity>
+  fun getLoginSessionInfo(): Single<BaseEntity>
 
-  fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Observable<BaseEntity>
+  fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Single<BaseEntity>
 
-  fun requestSignOut(userKey: String): Observable<BaseEntity>
+  fun requestSignOut(userKey: String): Completable
 }
