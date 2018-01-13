@@ -9,7 +9,6 @@ import com.sedsoftware.yaptalker.domain.interactor.old.SendBookmarkAddRequest
 import com.sedsoftware.yaptalker.domain.interactor.old.SendChangeKarmaRequestPost
 import com.sedsoftware.yaptalker.domain.interactor.old.SendChangeKarmaRequestTopic
 import com.sedsoftware.yaptalker.domain.interactor.old.SendMessageRequest
-import com.sedsoftware.yaptalker.domain.service.GetPostQuotedTextService
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -46,7 +45,6 @@ class ChosenTopicPresenter @Inject constructor(
     private val getChosenTopicUseCase: GetChosenTopic,
     private val topicMapper: TopicModelMapper,
     private val getVideoThumbnailUseCase: GetVideoThumbnail,
-    private val getQuotedTextService: GetPostQuotedTextService,
     private val quoteDataMapper: QuotedPostModelMapper
 ) : BasePresenter<ChosenTopicView>() {
 
@@ -179,16 +177,16 @@ class ChosenTopicPresenter @Inject constructor(
   }
 
   fun onReplyButtonClicked(forumId: Int, topicId: Int, authorNickname: String, postDate: String, postId: Int) {
-    getQuotedTextService
-        .requestPostTextAsQuote(forumId, topicId, postId)
-        .subscribeOn(Schedulers.io())
-        .map { quote: BaseEntity -> quoteDataMapper.transform(quote) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getQuotingObserver(authorNickname, postDate))
+//    getQuotedTextService
+//        .requestPostTextAsQuote(forumId, topicId, postId)
+//        .subscribeOn(Schedulers.io())
+//        .map { quote: BaseEntity -> quoteDataMapper.transform(quote) }
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+//        .doOnError { setConnectionState(ConnectionState.ERROR) }
+//        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+//        .autoDisposable(event(PresenterLifecycle.DESTROY))
+//        .subscribe(getQuotingObserver(authorNickname, postDate))
   }
 
   fun shareCurrentTopic() {

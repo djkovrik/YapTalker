@@ -1,7 +1,7 @@
-package com.sedsoftware.yaptalker.data.repository.thumbnailsource
+package com.sedsoftware.yaptalker.data.repository.thumbnail
 
 import com.sedsoftware.yaptalker.data.network.thumbnails.CoubLoader
-import com.sedsoftware.yaptalker.data.thumbnail.CoubData
+import com.sedsoftware.yaptalker.data.repository.thumbnail.data.CoubData
 import io.reactivex.Observable
 
 class CoubThumbnailSource(

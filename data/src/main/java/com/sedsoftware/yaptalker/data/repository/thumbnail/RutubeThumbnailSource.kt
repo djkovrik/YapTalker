@@ -1,7 +1,7 @@
-package com.sedsoftware.yaptalker.data.repository.thumbnailsource
+package com.sedsoftware.yaptalker.data.repository.thumbnail
 
 import com.sedsoftware.yaptalker.data.network.thumbnails.RutubeLoader
-import com.sedsoftware.yaptalker.data.thumbnail.RutubeData
+import com.sedsoftware.yaptalker.data.repository.thumbnail.data.RutubeData
 import io.reactivex.Observable
 
 class RutubeThumbnailSource(

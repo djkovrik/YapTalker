@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.repository.thumbnailsource
+package com.sedsoftware.yaptalker.data.repository.thumbnail
 
 import com.sedsoftware.yaptalker.data.BuildConfig
 import com.sedsoftware.yaptalker.data.network.thumbnails.VkLoader

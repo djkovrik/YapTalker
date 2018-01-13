@@ -9,4 +9,8 @@ import io.reactivex.Observable
 interface BookmarksRepository {
 
   fun getBookmarks(): Observable<BaseEntity>
+
+  fun requestBookmarkAdding(topicId: Int, startingPost: Int): Observable<BaseEntity>
+
+  fun requestBookmarkDeletion(bookmarkId: Int): Observable<BaseEntity>
 }

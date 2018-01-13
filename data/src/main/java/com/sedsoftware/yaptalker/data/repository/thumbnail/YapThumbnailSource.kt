@@ -1,8 +1,8 @@
-package com.sedsoftware.yaptalker.data.repository.thumbnailsource
+package com.sedsoftware.yaptalker.data.repository.thumbnail
 
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapFileLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapVideoLoader
-import com.sedsoftware.yaptalker.data.thumbnail.YapVideoData
+import com.sedsoftware.yaptalker.data.repository.thumbnail.data.YapVideoData
 import io.reactivex.Observable
 
 class YapThumbnailSource(

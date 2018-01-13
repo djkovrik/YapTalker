@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.repository.thumbnailsource
+package com.sedsoftware.yaptalker.data.repository.thumbnail
 
 import io.reactivex.Observable
 

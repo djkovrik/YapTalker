@@ -9,6 +9,7 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import com.sedsoftware.yaptalker.presentation.model.base.ActiveTopicModel
+import java.util.ArrayList
 
 class ActiveTopicsAdapter(
     clickListener: ActiveTopicsElementsClickListener,

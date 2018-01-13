@@ -2,16 +2,16 @@ package com.sedsoftware.yaptalker.domain.interactor.old
 
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.old.SendMessageRequest.Params
-import com.sedsoftware.yaptalker.domain.service.SendMessageService
+import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class SendMessageRequest @Inject constructor(
-    private val sendMessageService: SendMessageService
+    private val topicRepository: ChosenTopicRepository
 ) : UseCaseOld<BaseEntity, Params> {
 
   override fun buildUseCaseObservable(params: Params): Observable<BaseEntity> =
-      sendMessageService
+      topicRepository
           .requestMessageSending(
               targetForumId = params.forumId,
               targetTopicId = params.topicId,

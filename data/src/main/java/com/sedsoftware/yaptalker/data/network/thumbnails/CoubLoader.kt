@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.data.network.thumbnails
 
-import com.sedsoftware.yaptalker.data.thumbnail.CoubData
+import com.sedsoftware.yaptalker.data.repository.thumbnail.data.CoubData
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

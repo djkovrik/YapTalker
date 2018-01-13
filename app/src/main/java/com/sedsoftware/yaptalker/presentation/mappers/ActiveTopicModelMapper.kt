@@ -9,6 +9,7 @@ import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.ActiveTopicModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
+import java.util.ArrayList
 import javax.inject.Inject
 
 /**

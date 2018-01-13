@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.data.network.thumbnails
 
-import com.sedsoftware.yaptalker.data.thumbnail.YapVideoData
+import com.sedsoftware.yaptalker.data.repository.thumbnail.data.YapVideoData
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path

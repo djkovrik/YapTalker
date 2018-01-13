@@ -8,6 +8,7 @@ import com.sedsoftware.yaptalker.device.settings.SettingsManager
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import java.util.ArrayList
 
 class ChosenTopicAdapter(
     clickListener: ChosenTopicElementsClickListener,

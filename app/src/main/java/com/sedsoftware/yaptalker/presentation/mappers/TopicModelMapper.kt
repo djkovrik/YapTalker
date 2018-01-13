@@ -27,6 +27,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWa
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicInfoBlockModel
+import java.util.ArrayList
 import javax.inject.Inject
 
 /**
