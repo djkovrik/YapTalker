@@ -6,6 +6,7 @@ allprojects {
 
 ext {
     // Android
+    final KOTLIN_VERSION = "1.2.10"
     final SUPPORT_LIBRARY_VERSION = "27.0.2"
     final CONSTRAINT_LAYOUT_VERSION = "1.1.0-beta4"
 
@@ -20,6 +21,7 @@ ext {
 
     // Core
     final DAGGER_VERSION = "2.14.1"
+    final JAVAX_INJECT_VERSION = "1"
     final MOXY_VERSION = "1.5.3"
     final ANKO_VERSION = "0.10.4"
     final PICASSO_VERSION = "2.5.2"
@@ -53,7 +55,49 @@ ext {
     final TIMBER_VERSION = "4.6.0"
     final LEAK_CANARY_VERSION = "1.5.4"
 
-    androidDependencies = [
+    domainDependencies = [
+            kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
+            javax                   : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
+            rxJava                  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
+    ]
+
+    domainTestDependencies = [
+            junit                   : "junit:junit:$JUNIT_VERSION",
+            expekt                  : "com.winterbe:expekt:$EXPEKT_VERSION",
+    ]
+
+    dataDependencies = [
+            kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
+            javax                   : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
+            rxJava                  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
+            retrofit                : "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION",
+            jspoon                  : "pl.droidsonroids:jspoon:$JSPOON_VERSION",
+    ]
+
+    dataTestDependencies = [
+            junit                   : "junit:junit:$JUNIT_VERSION",
+            mockito                 : "org.mockito:mockito-core:$MOCKITO_VERSION",
+            mockitoKotlin           : "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
+            expekt                  : "com.winterbe:expekt:$EXPEKT_VERSION",
+    ]
+
+    deviceDependencies = [
+            kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
+            javax                   : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
+            rxJava                  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
+            appCompat               : "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION",
+    ]
+
+    deviceTestDependencies = [
+            junit                   : "junit:junit:$JUNIT_VERSION",
+            mockito                 : "org.mockito:mockito-core:$MOCKITO_VERSION",
+            mockitoKotlin           : "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
+            expekt                  : "com.winterbe:expekt:$EXPEKT_VERSION",
+    ]
+
+    presentationDependencies = [
+            kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
+
             appCompat               : "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION",
             preferenceV7            : "com.android.support:preference-v7:$SUPPORT_LIBRARY_VERSION",
             preferenceV14           : "com.android.support:preference-v14:$SUPPORT_LIBRARY_VERSION",
@@ -61,9 +105,7 @@ ext {
             design                  : "com.android.support:design:$SUPPORT_LIBRARY_VERSION",
             recyclerView            : "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION",
             constraintLayout        : "com.android.support.constraint:constraint-layout:$CONSTRAINT_LAYOUT_VERSION",
-    ]
 
-    coreDependencies = [
             dagger                  : "com.google.dagger:dagger:$DAGGER_VERSION",
             daggerCompiler          : "com.google.dagger:dagger-compiler:$DAGGER_VERSION",
             daggerAndroid           : "com.google.dagger:dagger-android:$DAGGER_VERSION",
@@ -75,10 +117,8 @@ ext {
             moxyAppCompat           : "com.arello-mobile:moxy-app-compat:$MOXY_VERSION",
             cicerone                : "ru.terrakok.cicerone:cicerone:$CICERONE_VERSION",
             anko                    : "org.jetbrains.anko:anko-commons:$ANKO_VERSION",
-            ankoDesign              : "org.jetbrains.anko:anko-design:$ANKO_VERSION"
-    ]
+            ankoDesign              : "org.jetbrains.anko:anko-design:$ANKO_VERSION",
 
-    rxDependencies = [
             rxAndroid               : "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION",
             rxJava                  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
             rxKotlin                : "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
@@ -89,22 +129,17 @@ ext {
             rxBindingRecyclerView   : "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:$RX_BINDING_VERSION",
             rxBindingSupport        : "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$RX_BINDING_VERSION",
             autoDispose             : "com.uber.autodispose:autodispose:$AUTO_DISPOSE_VERSION",
-            autoDisposeKotlin       : "com.uber.autodispose:autodispose-kotlin:$AUTO_DISPOSE_VERSION"
-    ]
+            autoDisposeKotlin       : "com.uber.autodispose:autodispose-kotlin:$AUTO_DISPOSE_VERSION",
 
-    networkingDependencies = [
-            jspoon                  : "pl.droidsonroids:jspoon:$JSPOON_VERSION",
             moshi                   : "com.squareup.moshi:moshi:$MOSHI_VERSION",
             persistentCookies       : "com.github.franmontiel:persistentcookiejar:$PERSISTENT_COOKIE_JAR_VERSION",
-            picasso                 : "com.squareup.picasso:picasso:$PICASSO_VERSION",
             retrofit                : "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION",
             retrofitRxAdapter       : "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION",
             retrofitMoshiConverter  : "com.squareup.retrofit2:converter-moshi:$RETROFIT_VERSION",
             retrofitScalarsConverter: "com.squareup.retrofit2:converter-scalars:$RETROFIT_VERSION",
             retrofitJspoonConverter : "pl.droidsonroids.retrofit2:converter-jspoon:$JSPOON_VERSION",
-    ]
+            picasso                 : "com.squareup.picasso:picasso:$PICASSO_VERSION",
 
-    uiDependencies = [
             materialValues          : "blue.aodev:material-values:$MATERIAL_VALUES_VERSION",
             materialDrawer          : "com.mikepenz:materialdrawer:$MATERIAL_DRAWER_VERSION",
             iconicsCore             : "com.mikepenz:iconics-core:$ICONICS_VERSION",
@@ -113,30 +148,26 @@ ext {
             materialDialogs         : "com.afollestad.material-dialogs:core:$MATERIAL_DIALOGUES_VERSION",
             materialDialogsCommons  : "com.afollestad.material-dialogs:commons:$MATERIAL_DIALOGUES_VERSION",
             toasty                  : "com.github.grenderg:toasty:$TOASTY_VERSION",
-            photoView               : "com.github.chrisbanes:PhotoView:$PHOTOVIEW_VERSION"
+            photoView               : "com.github.chrisbanes:PhotoView:$PHOTOVIEW_VERSION",
     ]
 
-    testDependencies = [
+    presentationTestDependencies = [
             junit                   : "junit:junit:$JUNIT_VERSION",
+            expekt                  : "com.winterbe:expekt:$EXPEKT_VERSION",
             mockito                 : "org.mockito:mockito-core:$MOCKITO_VERSION",
             mockitoKotlin           : "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
-            expekt                  : "com.winterbe:expekt:$EXPEKT_VERSION"
-    ]
-
-    androidTestDependencies = [
-            espresso                : "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION",
             mockitoAndroid          : "org.mockito:mockito-android:$MOCKITO_VERSION",
-            mockitoKotlin           : "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
+            espresso                : "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION",
     ]
 
     supportingToolsDependencies = [
             crashalytics            : "com.crashlytics.sdk.android:crashlytics:$ANDROID_CRASHALYTICS_VERSION",
-            firebaseCore            : "com.google.firebase:firebase-core:$FIREBASE_CORE_VERSION"
+            firebaseCore            : "com.google.firebase:firebase-core:$FIREBASE_CORE_VERSION",
     ]
 
     developmentDependencies = [
             timber                  : "com.jakewharton.timber:timber:$TIMBER_VERSION",
             leakCanary              : "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION",
-            leakCanaryNoOp          : "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
+            leakCanaryNoOp          : "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION",
     ]
 }

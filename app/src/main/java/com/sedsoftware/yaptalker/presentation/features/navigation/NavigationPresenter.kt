@@ -1,8 +1,8 @@
 package com.sedsoftware.yaptalker.presentation.features.navigation
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.data.settings.DefaultHomeScreen
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.device.settings.DefaultHomeScreen
+import com.sedsoftware.yaptalker.device.settings.SettingsManager
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetLoginSessionInfo
 import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest

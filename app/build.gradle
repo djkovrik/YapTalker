@@ -67,9 +67,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildTypes.each {
-        it.buildConfigField 'String', 'VK_ACCESS_TOKEN', VK_ACCESS_TOKEN
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -94,80 +91,76 @@ androidExtensions {
 
 dependencies {
 
-    def androidDependencies = rootProject.ext.androidDependencies
-    def coreDependencies = rootProject.ext.coreDependencies
-    def rxDependencies = rootProject.ext.rxDependencies
-    def networkingDependencies = rootProject.ext.networkingDependencies
-    def uiDependencies = rootProject.ext.uiDependencies
-    def testDependencies = rootProject.ext.testDependencies
-    def androidTestDependencies = rootProject.ext.androidTestDependencies
+    def presentationDependencies = rootProject.ext.presentationDependencies
+    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
     def supportingToolsDependencies = rootProject.ext.supportingToolsDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation project(':domain')
+    implementation project(':data')
+    implementation project(':device')
 
-    implementation androidDependencies.appCompat
-    implementation androidDependencies.preferenceV7
-    implementation androidDependencies.preferenceV14
-    implementation androidDependencies.cardView
-    implementation androidDependencies.design
-    implementation androidDependencies.recyclerView
-    implementation androidDependencies.constraintLayout
+    implementation presentationDependencies.kotlin
 
-    implementation coreDependencies.dagger
-    implementation coreDependencies.daggerAndroid
-    implementation coreDependencies.daggerAndroidSupport
-    implementation coreDependencies.moxy
-    implementation coreDependencies.moxyAndroid
-    implementation coreDependencies.moxyAppCompat
-    implementation coreDependencies.cicerone
-    implementation coreDependencies.anko
-    implementation coreDependencies.ankoDesign
+    implementation presentationDependencies.appCompat
+    implementation presentationDependencies.preferenceV7
+    implementation presentationDependencies.preferenceV14
+    implementation presentationDependencies.cardView
+    implementation presentationDependencies.design
+    implementation presentationDependencies.recyclerView
+    implementation presentationDependencies.constraintLayout
 
-    kapt coreDependencies.daggerCompiler
-    kapt coreDependencies.daggerAndroidCompiler
-    kapt coreDependencies.moxyCompiler
+    implementation presentationDependencies.dagger
+    implementation presentationDependencies.daggerAndroid
+    implementation presentationDependencies.daggerAndroidSupport
+    implementation presentationDependencies.moxy
+    implementation presentationDependencies.moxyAndroid
+    implementation presentationDependencies.moxyAppCompat
+    implementation presentationDependencies.cicerone
+    implementation presentationDependencies.anko
+    implementation presentationDependencies.ankoDesign
 
-    implementation rxDependencies.rxAndroid
-    implementation rxDependencies.rxJava
-    implementation rxDependencies.rxKotlin
-    implementation rxDependencies.rxRelay
-    implementation rxDependencies.rxLint
-    implementation rxDependencies.rxBinding
-    implementation rxDependencies.rxBindingAppCompat
-    implementation rxDependencies.rxBindingRecyclerView
-    implementation rxDependencies.rxBindingSupport
-    implementation rxDependencies.autoDispose
-    implementation rxDependencies.autoDisposeKotlin
+    implementation presentationDependencies.rxJava
+    implementation presentationDependencies.rxAndroid
+    implementation presentationDependencies.rxKotlin
+    implementation presentationDependencies.rxRelay
+    implementation presentationDependencies.rxLint
+    implementation presentationDependencies.rxBinding
+    implementation presentationDependencies.rxBindingAppCompat
+    implementation presentationDependencies.rxBindingRecyclerView
+    implementation presentationDependencies.rxBindingSupport
+    implementation presentationDependencies.autoDispose
+    implementation presentationDependencies.autoDisposeKotlin
 
-    implementation networkingDependencies.jspoon
-    implementation networkingDependencies.moshi
-    implementation networkingDependencies.persistentCookies
-    implementation networkingDependencies.picasso
-    implementation networkingDependencies.retrofit
-    implementation networkingDependencies.retrofitRxAdapter
-    implementation networkingDependencies.retrofitMoshiConverter
-    implementation networkingDependencies.retrofitScalarsConverter
-    implementation networkingDependencies.retrofitJspoonConverter
+    implementation presentationDependencies.moshi
+    implementation presentationDependencies.persistentCookies
+    implementation presentationDependencies.retrofit
+    implementation presentationDependencies.retrofitRxAdapter
+    implementation presentationDependencies.retrofitMoshiConverter
+    implementation presentationDependencies.retrofitScalarsConverter
+    implementation presentationDependencies.retrofitJspoonConverter
+    implementation presentationDependencies.picasso
 
-    implementation uiDependencies.materialValues
-    implementation(uiDependencies.materialDrawer) { transitive = true }
-    implementation uiDependencies.iconicsCore
-    implementation uiDependencies.iconicsView
-    implementation uiDependencies.materialTypeface
-    implementation uiDependencies.materialDialogs
-    implementation uiDependencies.materialDialogsCommons
-    implementation uiDependencies.toasty
-    implementation uiDependencies.photoView
+    implementation presentationDependencies.materialValues
+    implementation(presentationDependencies.materialDrawer) { transitive = true }
+    implementation presentationDependencies.iconicsCore
+    implementation presentationDependencies.iconicsView
+    implementation presentationDependencies.materialTypeface
+    implementation presentationDependencies.materialDialogs
+    implementation presentationDependencies.materialDialogsCommons
+    implementation presentationDependencies.toasty
+    implementation presentationDependencies.photoView
 
-    testImplementation testDependencies.junit
-    testImplementation testDependencies.mockito
-    testImplementation testDependencies.mockitoKotlin
-    testImplementation testDependencies.expekt
+    kapt presentationDependencies.daggerCompiler
+    kapt presentationDependencies.daggerAndroidCompiler
+    kapt presentationDependencies.moxyCompiler
 
-    androidTestImplementation androidTestDependencies.espresso
-    androidTestImplementation androidTestDependencies.mockitoAndroid
-    androidTestImplementation androidTestDependencies.mockitoKotlin
+    testImplementation presentationTestDependencies.junit
+    testImplementation presentationTestDependencies.mockito
+    testImplementation presentationTestDependencies.mockitoKotlin
+    testImplementation presentationTestDependencies.expekt
+    androidTestImplementation presentationTestDependencies.espresso
+    androidTestImplementation presentationTestDependencies.mockitoAndroid
 
     implementation(supportingToolsDependencies.crashalytics) { transitive = true }
     implementation supportingToolsDependencies.firebaseCore

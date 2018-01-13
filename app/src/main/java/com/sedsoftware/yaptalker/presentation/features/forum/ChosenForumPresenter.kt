@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.features.forum
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.device.settings.SettingsManager
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.GetChosenForum
 import com.sedsoftware.yaptalker.domain.interactor.GetChosenForum.Params

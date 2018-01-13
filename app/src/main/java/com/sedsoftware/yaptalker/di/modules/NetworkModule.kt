@@ -9,7 +9,7 @@ import com.sedsoftware.yaptalker.data.network.thumbnails.RutubeLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.VkLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapFileLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapVideoLoader
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.device.settings.SettingsManager
 import com.sedsoftware.yaptalker.di.modules.network.HttpClientsModule
 import dagger.Module
 import dagger.Provides
