@@ -1,10 +1,8 @@
 package com.sedsoftware.yaptalker.presentation.features.navigation.di
 
-import com.sedsoftware.yaptalker.data.repository.YapEulaTextRepository
 import com.sedsoftware.yaptalker.data.repository.YapLoginSessionInfoRepository
 import com.sedsoftware.yaptalker.data.service.YapSignOutService
 import com.sedsoftware.yaptalker.di.scopes.ActivityScope
-import com.sedsoftware.yaptalker.domain.repository.EulaTextRepository
 import com.sedsoftware.yaptalker.domain.repository.LoginSessionInfoRepository
 import com.sedsoftware.yaptalker.domain.service.SignOutService
 import com.sedsoftware.yaptalker.presentation.features.navigation.MainActivity
@@ -28,10 +26,6 @@ abstract class MainActivityModule {
   @ActivityScope
   @Binds
   abstract fun loginSessionInfoRepository(repo: YapLoginSessionInfoRepository): LoginSessionInfoRepository
-
-  @ActivityScope
-  @Binds
-  abstract fun eulaTextRepository(repo: YapEulaTextRepository): EulaTextRepository
 
   @ActivityScope
   @Binds

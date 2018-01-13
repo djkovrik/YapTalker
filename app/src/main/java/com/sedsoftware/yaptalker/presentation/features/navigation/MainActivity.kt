@@ -3,10 +3,7 @@ package com.sedsoftware.yaptalker.presentation.features.navigation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Spanned
 import android.widget.ImageView.ScaleType
-import android.widget.TextView
-import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
@@ -130,18 +127,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
 
   override fun selectNavDrawerItem(item: Long) {
     navDrawer.setSelection(item, false)
-  }
-
-  override fun displayFormattedEulaText(spanned: Spanned) {
-    val dialog = MaterialDialog.Builder(this)
-        .title(R.string.eula_title)
-        .customView(R.layout.custom_view_eula, true)
-        .positiveText(R.string.eula_button_ok)
-        .onPositive { _, _ -> presenter.markEulaAsAccepted() }
-        .build()
-
-    dialog.customView?.findViewById<TextView>(R.id.eula_text_view)?.text = spanned
-    dialog.show()
   }
 
   override fun updateNavDrawerProfile(userInfo: LoginSessionInfoModel) {

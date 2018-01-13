@@ -66,9 +66,6 @@ class SettingsManager @Inject constructor(
 
   fun isNsfwEnabled(): Boolean = getBooleanPref(R.string.pref_key_nswf, false)
 
-  fun isEulaAccepted(): Boolean =
-      getBooleanPref(R.string.pref_key_eula_accepted, false)
-
   fun isScreenAlwaysOnEnabled(): Boolean =
       getBooleanPref(R.string.pref_key_screen_always_on, false)
 
@@ -76,10 +73,6 @@ class SettingsManager @Inject constructor(
   fun isHttpsEnabled(): Boolean {
     val default = Build.VERSION.SDK_INT !in 19..20
     return getBooleanPref(R.string.pref_key_https_enabled, default)
-  }
-
-  fun markEulaAccepted() {
-    preferences.edit().putBoolean(context.resources.getString(R.string.pref_key_eula_accepted), true).apply()
   }
 
   fun getMessagesPerPage() =
