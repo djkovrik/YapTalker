@@ -17,6 +17,32 @@ android {
         flavorDimensions "variant"
         resConfigs "en", "ru"
     }
+    productFlavors {
+        dev {
+            dimension "variant"
+            minSdkVersion globalConfiguration["minSdkDevVersion"]
+        }
+        prod {
+            dimension "variant"
+            minSdkVersion globalConfiguration["minSdkVersion"]
+        }
+    }
+    buildTypes {
+        beta {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            versionNameSuffix "-beta"
+            matchingFallbacks = ['debug', 'release']
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
