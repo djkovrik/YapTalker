@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.presentation.features.userprofile
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.old.GetUserProfile
+import com.sedsoftware.yaptalker.domain.interactor.userprofile.GetUserProfile
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -10,8 +10,9 @@ import com.sedsoftware.yaptalker.presentation.mappers.UserProfileModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.UserProfileModel
 import com.uber.autodispose.kotlin.autoDisposable
+import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableObserver
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,29 +25,28 @@ class UserProfilePresenter @Inject constructor(
 
   fun loadUserProfile(profileId: Int) {
     getUserProfileUseCase
-        .buildUseCaseObservable(GetUserProfile.Params(profileId))
+        .execute(GetUserProfile.Params(profileId))
         .subscribeOn(Schedulers.io())
         .map { profile: BaseEntity -> userProfileModelMapper.transform(profile) }
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
         .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+        .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
         .subscribe(getUserProfileObserver())
   }
 
   private fun getUserProfileObserver() =
-      object : DisposableObserver<YapEntity?>() {
+      object : SingleObserver<YapEntity> {
 
-        override fun onNext(profile: YapEntity) {
+        override fun onSuccess(profile: YapEntity) {
           profile as UserProfileModel
           viewState.displayProfile(profile)
           viewState.updateCurrentUiState(profile.nickname)
+          Timber.i("User profile loaded successfully.")
         }
 
-        override fun onComplete() {
-          Timber.i("User profile loaded successfully.")
-
+        override fun onSubscribe(d: Disposable) {
         }
 
         override fun onError(e: Throwable) {

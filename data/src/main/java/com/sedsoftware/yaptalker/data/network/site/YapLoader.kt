@@ -88,10 +88,10 @@ interface YapLoader {
    *
    * @param profileId Chosen user id.
    *
-   * @return Parsed user profile page Observable.
+   * @return Parsed user profile page Single.
    */
   @GET("/members/member{profileId}.html")
-  fun loadUserProfile(@Path("profileId") profileId: Int): Observable<UserProfileParsed>
+  fun loadUserProfile(@Path("profileId") profileId: Int): Single<UserProfileParsed>
 
 
   /**
