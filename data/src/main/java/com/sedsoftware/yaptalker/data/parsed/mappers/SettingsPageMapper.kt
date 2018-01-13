@@ -10,9 +10,29 @@ import javax.inject.Inject
  */
 class SettingsPageMapper @Inject constructor() {
 
-  fun transform(sitePreferences: SitePreferencesPageParsed): BaseEntity =
-      SitePreferences(
-          messagesPerTopicPage = sitePreferences.messagesPerTopicPage.toInt(),
-          topicsPerForumPage = sitePreferences.topicsPerForumPage.toInt()
-      )
+  companion object {
+    private const val MESSAGES_PER_PAGE_DEFAULT = 25
+    private const val TOPICS_PER_PAGE_DEFAULT = 30
+  }
+
+  fun transform(sitePreferences: SitePreferencesPageParsed): BaseEntity {
+
+    val messages = sitePreferences.messagesPerTopicPage.toInt()
+    val topics = sitePreferences.topicsPerForumPage.toInt()
+
+    val mappedMessages = if (messages == -1)
+      MESSAGES_PER_PAGE_DEFAULT
+    else
+      messages
+
+    val mappedTopics = if (topics == -1)
+      TOPICS_PER_PAGE_DEFAULT
+    else
+      topics
+
+    return SitePreferences(
+        messagesPerTopicPage = mappedMessages,
+        topicsPerForumPage = mappedTopics
+    )
+  }
 }
