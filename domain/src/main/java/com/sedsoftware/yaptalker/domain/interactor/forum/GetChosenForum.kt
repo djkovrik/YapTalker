@@ -1,18 +1,18 @@
-package com.sedsoftware.yaptalker.domain.interactor.old
+package com.sedsoftware.yaptalker.domain.interactor.forum
 
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.old.GetChosenForum.Params
+import com.sedsoftware.yaptalker.domain.interactor.UseCaseWithParameter
 import com.sedsoftware.yaptalker.domain.repository.ChosenForumRepository
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class GetChosenForum @Inject constructor(
     private val chosenForumRepository: ChosenForumRepository
-) : UseCaseOld<List<BaseEntity>, Params> {
+) : UseCaseWithParameter<GetChosenForum.Params, List<BaseEntity>> {
 
-  override fun buildUseCaseObservable(params: Params): Observable<List<BaseEntity>> =
+  override fun execute(parameter: Params): Observable<List<BaseEntity>> =
       chosenForumRepository
-          .getChosenForum(params.forumId, params.startPage, params.sortingMode)
+          .getChosenForum(parameter.forumId, parameter.startPage, parameter.sortingMode)
 
   class Params(val forumId: Int, val startPage: Int, val sortingMode: String)
 }

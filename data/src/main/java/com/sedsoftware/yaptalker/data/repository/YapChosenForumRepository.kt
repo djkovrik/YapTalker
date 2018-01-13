@@ -15,5 +15,5 @@ class YapChosenForumRepository @Inject constructor(
   override fun getChosenForum(forumId: Int, startPageNumber: Int, sortingMode: String): Observable<List<BaseEntity>> =
       dataLoader
           .loadForumPage(forumId, startPageNumber, sortingMode)
-          .map { parsedForumPage -> dataMapper.transform(parsedForumPage) }
+          .map { forumPageParsed -> dataMapper.transform(forumPageParsed) }
 }
