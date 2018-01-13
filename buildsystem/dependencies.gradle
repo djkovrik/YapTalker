@@ -59,6 +59,7 @@ ext {
             kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
             javax                   : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
             rxJava                  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
+            rxKotlin                : "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
     ]
 
     domainTestDependencies = [
@@ -70,6 +71,7 @@ ext {
             kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
             javax                   : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
             rxJava                  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
+            rxKotlin                : "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
             retrofit                : "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION",
             jspoon                  : "pl.droidsonroids:jspoon:$JSPOON_VERSION",
     ]

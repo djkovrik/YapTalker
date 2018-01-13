@@ -62,6 +62,7 @@ dependencies {
 
     implementation dataDependencies.javax
     implementation dataDependencies.rxJava
+    implementation dataDependencies.rxKotlin
     implementation dataDependencies.retrofit
     implementation dataDependencies.jspoon
 
