@@ -11,7 +11,7 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
@@ -52,7 +52,7 @@ class NewsFragment :
   fun provideNewsPresenter() = presenter
 
   @Inject
-  lateinit var settings: SettingsManager
+  lateinit var settings: Settings
 
   private lateinit var newsAdapter: NewsAdapter
 

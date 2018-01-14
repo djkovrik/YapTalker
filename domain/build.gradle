@@ -1,0 +1,16 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+
+dependencies {
+    def domainDependencies = rootProject.ext.domainDependencies
+    def domainTestDependencies = rootProject.ext.domainTestDependencies
+
+    implementation domainDependencies.kotlin
+    implementation domainDependencies.javax
+    implementation domainDependencies.rxJava
+    implementation domainDependencies.rxKotlin
+
+    testImplementation domainTestDependencies.junit
+    testImplementation domainTestDependencies.expekt
+}

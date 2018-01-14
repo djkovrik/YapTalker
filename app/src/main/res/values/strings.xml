@@ -111,7 +111,7 @@
   <string name="msg_bookmark_topic_added">Topic added to bookmarks.</string>
   <string name="msg_karma_changed_post">Post karma changed successfully.</string>
   <string name="msg_karma_already_rated_post">You already rated this post.</string>
-  <string name="msg_karma_changed_topic">Post karma changed successfully.</string>
+  <string name="msg_karma_changed_topic">Topic karma changed successfully.</string>
   <string name="msg_karma_already_rated_topic">You already rated this post.</string>
 
   <!-- MENUS -->

@@ -1,15 +1,14 @@
 package com.sedsoftware.yaptalker.presentation.features.topic
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.GetChosenTopic
-import com.sedsoftware.yaptalker.domain.interactor.GetVideoThumbnail
-import com.sedsoftware.yaptalker.domain.interactor.SendBookmarkAddRequest
-import com.sedsoftware.yaptalker.domain.interactor.SendChangeKarmaRequestPost
-import com.sedsoftware.yaptalker.domain.interactor.SendChangeKarmaRequestTopic
-import com.sedsoftware.yaptalker.domain.interactor.SendMessageRequest
-import com.sedsoftware.yaptalker.domain.service.GetPostQuotedTextService
+import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
+import com.sedsoftware.yaptalker.domain.interactor.topic.GetChosenTopic
+import com.sedsoftware.yaptalker.domain.interactor.topic.GetQuotedText
+import com.sedsoftware.yaptalker.domain.interactor.topic.SendBookmarkAddRequest
+import com.sedsoftware.yaptalker.domain.interactor.topic.SendChangeKarmaRequest
+import com.sedsoftware.yaptalker.domain.interactor.topic.SendMessageRequest
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -26,33 +25,33 @@ import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicInfoBlockModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions", "LargeClass")
 @InjectViewState
 class ChosenTopicPresenter @Inject constructor(
     private val router: Router,
-    private val settings: SettingsManager,
-    private val addToBookmarksUseCase: SendBookmarkAddRequest,
-    private val changeTopicKarmaUseCase: SendChangeKarmaRequestTopic,
-    private val changePostKarmaUseCase: SendChangeKarmaRequestPost,
-    private val serverResponseMapper: ServerResponseModelMapper,
-    private val sendMessageUseCase: SendMessageRequest,
+    private val settings: Settings,
     private val getChosenTopicUseCase: GetChosenTopic,
     private val topicMapper: TopicModelMapper,
-    private val getVideoThumbnailUseCase: GetVideoThumbnail,
-    private val getQuotedTextService: GetPostQuotedTextService,
-    private val quoteDataMapper: QuotedPostModelMapper
+    private val getQuotedTextUseCase: GetQuotedText,
+    private val quoteDataMapper: QuotedPostModelMapper,
+    private val addToBookmarksUseCase: SendBookmarkAddRequest,
+    private val changeKarmaUseCase: SendChangeKarmaRequest,
+    private val serverResponseMapper: ServerResponseModelMapper,
+    private val sendMessageUseCase: SendMessageRequest,
+    private val getVideoThumbnailUseCase: GetVideoThumbnail
 ) : BasePresenter<ChosenTopicView>() {
 
   companion object {
     private const val OFFSET_FOR_PAGE_NUMBER = 1
-    private const val BOOKMARK_SUCCESS_MARKER = "Закладка добавлена"
     private const val KARMA_SUCCESS_MARKER = "\"status\":1"
     private const val KARMA_ALREADY_CHANGED_MARKER = "\"status\":-1"
   }
@@ -178,19 +177,6 @@ class ChosenTopicPresenter @Inject constructor(
     }
   }
 
-  fun onReplyButtonClicked(forumId: Int, topicId: Int, authorNickname: String, postDate: String, postId: Int) {
-    getQuotedTextService
-        .requestPostTextAsQuote(forumId, topicId, postId)
-        .subscribeOn(Schedulers.io())
-        .map { quote: BaseEntity -> quoteDataMapper.transform(quote) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getQuotingObserver(authorNickname, postDate))
-  }
-
   fun shareCurrentTopic() {
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
     viewState.shareTopic(currentTitle, startingPost)
@@ -212,64 +198,80 @@ class ChosenTopicPresenter @Inject constructor(
     viewState.showTopicKarmaMenu()
   }
 
+  fun handleFabVisibility(diff: Int) {
+    when {
+      diff > 0 -> viewState.hideFab()
+      diff < 0 -> viewState.showFab()
+    }
+  }
+
+  fun onReplyButtonClicked(forumId: Int, topicId: Int, authorNickname: String, postDate: String, postId: Int) {
+    getQuotedTextUseCase
+        .execute(GetQuotedText.Params(forumId, topicId, postId))
+        .subscribeOn(Schedulers.io())
+        .map { quote: BaseEntity -> quoteDataMapper.transform(quote) }
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+        .doOnError { setConnectionState(ConnectionState.ERROR) }
+        .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
+        .autoDisposable(event(PresenterLifecycle.DESTROY))
+        .subscribe({ post ->
+          post as QuotedPostModel
+          val quote = "[QUOTE=$authorNickname,$postDate]${post.text}[/QUOTE]\n"
+          router.navigateTo(NavigationScreen.ADD_MESSAGE_SCREEN, Pair(currentTitle, quote))
+        }, { error ->
+          error.message?.let { viewState.showErrorMessage(it) }
+        })
+  }
+
+
   fun addCurrentTopicToBookmarks() {
 
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
     addToBookmarksUseCase
-        .buildUseCaseObservable(SendBookmarkAddRequest.Params(currentTopicId, startingPost))
+        .execute(SendBookmarkAddRequest.Params(currentTopicId, startingPost))
         .subscribeOn(Schedulers.io())
-        .map { response: BaseEntity -> serverResponseMapper.transform(response) }
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
         .doOnError { setConnectionState(ConnectionState.ERROR) }
         .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getBookmarksResponseObserver())
+        .subscribe({
+          // onComplete
+          Timber.i("Current topic added to bookmarks.")
+          viewState.showBookmarkAddedMessage()
+        }, { error ->
+          error.message?.let { viewState.showErrorMessage(it) }
+        })
   }
 
-  fun changeTopicKarma(shouldIncrease: Boolean) {
+  fun changeKarma(postId: Int = 0, isTopic: Boolean, shouldIncrease: Boolean) {
 
     if (authKey.isEmpty() || ratingTargetId == 0 || currentTopicId == 0) {
       return
     }
 
+    Timber.d("changeKarma(postId = $postId, isTopic = $isTopic, shouldIncrease = $shouldIncrease")
+
+    val targetPostId = if (isTopic || postId == 0) ratingTargetId else postId
     val diff = if (shouldIncrease) 1 else -1
 
-    changeTopicKarmaUseCase
-        .buildUseCaseObservable(SendChangeKarmaRequestTopic.Params(ratingTargetId, currentTopicId, diff))
+    changeKarmaUseCase
+        .execute(SendChangeKarmaRequest.Params(isTopic, targetPostId, currentTopicId, diff))
         .subscribeOn(Schedulers.io())
         .map { response: BaseEntity -> serverResponseMapper.transform(response) }
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
         .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+        .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getKarmaResponseObserver(isTopic = true))
+        .subscribe(getKarmaResponseObserver(isTopic))
   }
 
-  fun changePostKarma(postId: Int, shouldIncrease: Boolean) {
-    if (authKey.isEmpty() || postId == 0 || currentTopicId == 0) {
-      return
-    }
-
-    val diff = if (shouldIncrease) 1 else -1
-
-    changePostKarmaUseCase
-        .buildUseCaseObservable(SendChangeKarmaRequestPost.Params(postId, currentTopicId, diff))
-        .subscribeOn(Schedulers.io())
-        .map { response: BaseEntity -> serverResponseMapper.transform(response) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getKarmaResponseObserver(isTopic = false))
-  }
-
-  fun requestThumbnail(videoUrl: String): Observable<String> =
+  fun requestThumbnail(videoUrl: String): Single<String> =
       getVideoThumbnailUseCase
-          .buildUseCaseObservable(GetVideoThumbnail.Params(videoUrl))
+          .execute(GetVideoThumbnail.Params(videoUrl))
 
   private fun sendMessage(message: String) {
 
@@ -280,19 +282,24 @@ class ChosenTopicPresenter @Inject constructor(
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
     sendMessageUseCase
-        .buildUseCaseObservable(
-            SendMessageRequest.Params(currentForumId, currentTopicId, startingPost, authKey, message))
+        .execute(SendMessageRequest.Params(currentForumId, currentTopicId, startingPost, authKey, message))
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
         .doOnError { setConnectionState(ConnectionState.ERROR) }
         .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
         .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getMessageSendingObserver())
+        .subscribe({
+          // onComplete
+          Timber.i("Send message request completed.")
+          loadTopicCurrentPage(shouldScrollToViewTop = false)
+        }, { error ->
+          // onError
+          error.message?.let { viewState.showErrorMessage(it) }
+        })
   }
 
   private fun loadTopicCurrentPage(shouldScrollToViewTop: Boolean) {
-
 
     if (!shouldScrollToViewTop) {
       viewState.saveScrollPosition()
@@ -302,10 +309,10 @@ class ChosenTopicPresenter @Inject constructor(
     clearCurrentList = true
 
     getChosenTopicUseCase
-        .buildUseCaseObservable(GetChosenTopic.Params(currentForumId, currentTopicId, startingPost))
+        .execute(GetChosenTopic.Params(currentForumId, currentTopicId, startingPost))
         .subscribeOn(Schedulers.io())
         .map { topicItems: List<BaseEntity> -> topicMapper.transform(topicItems) }
-        .flatMap { items: List<YapEntity> -> Observable.fromIterable(items) }
+        .flatMapObservable { items: List<YapEntity> -> Observable.fromIterable(items) }
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
         .doOnError { setConnectionState(ConnectionState.ERROR) }
@@ -314,74 +321,30 @@ class ChosenTopicPresenter @Inject constructor(
         .subscribe(getTopicObserver(shouldScrollToViewTop))
   }
 
-  fun handleFabVisibility(diff: Int) {
-    when {
-      diff > 0 -> viewState.hideFab()
-      diff < 0 -> viewState.showFab()
-    }
-  }
-
   // ==== OBSERVERS ====
 
-  private fun getBookmarksResponseObserver() =
-      object : DisposableObserver<YapEntity?>() {
-
-        override fun onNext(response: YapEntity) {
-
-          response as ServerResponseModel
-
-          if (response.text.contains(BOOKMARK_SUCCESS_MARKER)) {
-            viewState.showBookmarkAddedMessage()
-          } else {
-            viewState.showUnknownErrorMessage()
-          }
-        }
-
-        override fun onComplete() {
-          Timber.i("Current topic added to bookmarks.")
-        }
-
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
-        }
-      }
-
   private fun getKarmaResponseObserver(isTopic: Boolean) =
-      object : DisposableObserver<YapEntity?>() {
+      object : SingleObserver<YapEntity?> {
 
-        override fun onNext(response: YapEntity) {
+        override fun onSubscribe(d: Disposable) {
+        }
+
+        override fun onSuccess(response: YapEntity) {
           response as ServerResponseModel
-          Timber.d("Response from karma change request: ${response.text}")
+
+//          Timber.d("Karma response: ${response.text}")
 
           when {
             response.text.contains(KARMA_SUCCESS_MARKER) -> viewState.showPostKarmaChangedMessage(isTopic)
             response.text.contains(KARMA_ALREADY_CHANGED_MARKER) -> viewState.showPostAlreadyRatedMessage(isTopic)
           }
-        }
 
-        override fun onComplete() {
           Timber.i("Karma changing request completed.")
           loadTopicCurrentPage(shouldScrollToViewTop = false)
         }
 
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
-        }
-      }
-
-  private fun getMessageSendingObserver() =
-      object : DisposableObserver<BaseEntity?>() {
-
-        override fun onNext(t: BaseEntity) {
-        }
-
-        override fun onComplete() {
-          Timber.i("Send message request completed.")
-          loadTopicCurrentPage(shouldScrollToViewTop = false)
-        }
-
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
+        override fun onError(error: Throwable) {
+          error.message?.let { viewState.showErrorMessage(it) }
         }
       }
 
@@ -429,26 +392,8 @@ class ChosenTopicPresenter @Inject constructor(
           }
         }
 
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
-        }
-      }
-
-  private fun getQuotingObserver(authorNickname: String, postDate: String) =
-      object : DisposableObserver<YapEntity?>() {
-
-        override fun onComplete() {
-          Timber.d("Quote loading completed.")
-        }
-
-        override fun onNext(post: YapEntity) {
-          post as QuotedPostModel
-          val quote = "[QUOTE=$authorNickname,$postDate]${post.text}[/QUOTE]\n"
-          router.navigateTo(NavigationScreen.ADD_MESSAGE_SCREEN, Pair(currentTitle, quote))
-        }
-
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
+        override fun onError(error: Throwable) {
+          error.message?.let { viewState.showErrorMessage(it) }
         }
       }
 

@@ -1,5 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.features.topic.fabmenu
 
+import java.util.ArrayList
+
 class FabMenu(var isMenuExpanded: Boolean) {
 
   fun add(item: FabMenuItem) {

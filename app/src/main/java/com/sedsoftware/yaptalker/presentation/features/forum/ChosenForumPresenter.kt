@@ -1,10 +1,9 @@
 package com.sedsoftware.yaptalker.presentation.features.forum
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.GetChosenForum
-import com.sedsoftware.yaptalker.domain.interactor.GetChosenForum.Params
+import com.sedsoftware.yaptalker.domain.interactor.forum.GetChosenForum
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -27,7 +26,7 @@ class ChosenForumPresenter @Inject constructor(
     private val router: Router,
     private val getChosenForumUseCase: GetChosenForum,
     private val forumModelMapper: ForumModelMapper,
-    private val preferences: SettingsManager
+    private val settings: Settings
 ) : BasePresenter<ChosenForumView>() {
 
   companion object {
@@ -88,12 +87,12 @@ class ChosenForumPresenter @Inject constructor(
 
   private fun loadForumCurrentPage() {
 
-    val startingTopic = (currentPage - OFFSET_FOR_PAGE_NUMBER) * preferences.getTopicsPerPage()
+    val startingTopic = (currentPage - OFFSET_FOR_PAGE_NUMBER) * settings.getTopicsPerPage()
 
     clearCurrentList = true
 
     getChosenForumUseCase
-        .buildUseCaseObservable(Params(currentForumId, startingTopic, currentSorting))
+        .execute(GetChosenForum.Params(currentForumId, startingTopic, currentSorting))
         .subscribeOn(Schedulers.io())
         .map { topics: List<BaseEntity> -> forumModelMapper.transform(topics) }
         .flatMap { topics: List<YapEntity> -> Observable.fromIterable(topics) }

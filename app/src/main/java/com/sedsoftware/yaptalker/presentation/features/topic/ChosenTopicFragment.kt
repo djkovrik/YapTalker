@@ -16,7 +16,7 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
@@ -81,7 +81,7 @@ class ChosenTopicFragment :
   fun provideTopicPresenter() = presenter
 
   @Inject
-  lateinit var settings: SettingsManager
+  lateinit var settings: Settings
 
   private val forumId: Int by lazy {
     arguments?.getInt(FORUM_ID_KEY) ?: 0
@@ -188,8 +188,8 @@ class ChosenTopicFragment :
           .title(R.string.title_post_context_menu)
           .items(itemsArray)
           .itemsCallback { _, _, _, text ->
-            if (text == plusItem) presenter.changePostKarma(postId, shouldIncrease = true)
-            if (text == minusItem) presenter.changePostKarma(postId, shouldIncrease = false)
+            if (text == plusItem) presenter.changeKarma(postId, isTopic = false, shouldIncrease = true)
+            if (text == minusItem) presenter.changeKarma(postId, isTopic = false, shouldIncrease = false)
           }
           .show()
     }
@@ -208,11 +208,11 @@ class ChosenTopicFragment :
           .itemsCallback { _, _, _, text ->
             if (text == plusItem) {
               collapseMenu()
-              presenter.changeTopicKarma(shouldIncrease = true)
+              presenter.changeKarma(isTopic = true, shouldIncrease = true)
             }
             if (text == minusItem) {
               collapseMenu()
-              presenter.changeTopicKarma(shouldIncrease = false)
+              presenter.changeKarma(isTopic = true, shouldIncrease = false)
             }
           }
           .show()

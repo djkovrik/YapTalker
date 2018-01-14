@@ -19,12 +19,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_bold
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_italic
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_link
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_underlined
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_edit_text
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_topic_title
+import kotlinx.android.synthetic.main.fragment_new_post.*
 import javax.inject.Inject
 
 class AddMessageFragment : BaseFragment(), AddMessageView {

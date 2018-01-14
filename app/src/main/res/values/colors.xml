@@ -19,7 +19,7 @@
   <color name="colorNavMainPage">@color/material_color_red_600</color>
   <color name="colorNavForums">@color/material_color_purple_500</color>
   <color name="colorNavActiveTopics">@color/material_color_green_500</color>
-  <color name="colorNavIncubator">@color/md_light_blue_700</color>
+  <color name="colorNavIncubator">@color/material_color_light_blue_700</color>
   <color name="colorNavBookmarks">@color/material_color_orange_800</color>
   <color name="colorNavSettings">@color/material_color_grey_700</color>
   <color name="colorNavSignIn">@color/material_color_grey_700</color>

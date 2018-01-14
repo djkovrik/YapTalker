@@ -2,8 +2,8 @@ package com.sedsoftware.yaptalker.presentation.features.incubator
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.GetIncubatorTopics
-import com.sedsoftware.yaptalker.domain.interactor.GetVideoThumbnail
+import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
+import com.sedsoftware.yaptalker.domain.interactor.incubator.GetIncubatorTopics
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSc
 import com.sedsoftware.yaptalker.presentation.mappers.IncubatorModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
@@ -51,9 +51,9 @@ class IncubatorPresenter @Inject constructor(
     }
   }
 
-  fun requestThumbnail(videoUrl: String): Observable<String> =
+  fun requestThumbnail(videoUrl: String): Single<String> =
       getVideoThumbnail
-          .buildUseCaseObservable(GetVideoThumbnail.Params(videoUrl))
+          .execute(GetVideoThumbnail.Params(videoUrl))
 
   fun loadIncubator(loadFromFirstPage: Boolean) {
 
@@ -68,9 +68,21 @@ class IncubatorPresenter @Inject constructor(
     loadDataForCurrentPage()
   }
 
+  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
+    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
+  }
+
+  fun navigateToChosenVideo(html: String) {
+    router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
+  }
+
+  fun navigateToChosenImage(url: String) {
+    router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
+  }
+
   private fun loadDataForCurrentPage() {
     getIncubatorTopics
-        .buildUseCaseObservable(GetIncubatorTopics.Params(pageNumber = currentPage))
+        .execute(GetIncubatorTopics.Params(pageNumber = currentPage))
         .subscribeOn(Schedulers.io())
         .map { incubatorItem: BaseEntity -> incubatorModelMapper.transform(incubatorItem) }
         .observeOn(AndroidSchedulers.mainThread())
@@ -101,16 +113,4 @@ class IncubatorPresenter @Inject constructor(
           e.message?.let { viewState.showErrorMessage(it) }
         }
       }
-
-  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
-    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
-  }
-
-  fun navigateToChosenVideo(html: String) {
-    router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
-  }
-
-  fun navigateToChosenImage(url: String) {
-    router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
-  }
 }

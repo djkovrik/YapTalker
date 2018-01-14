@@ -11,6 +11,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.ForumInfoBlockModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicModel
+import java.util.ArrayList
 import javax.inject.Inject
 
 /**
