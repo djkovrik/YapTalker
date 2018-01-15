@@ -29,4 +29,6 @@ class PostItemParsed {
   lateinit var postId: String
   @Selector("a:containsOwn(цитировать)", attr = "href", defValue = "")
   lateinit var hasQuoteButton: String
+  @Selector("a:containsOwn(правка)", attr = "href", defValue = "")
+  lateinit var hasEditButton: String
 }

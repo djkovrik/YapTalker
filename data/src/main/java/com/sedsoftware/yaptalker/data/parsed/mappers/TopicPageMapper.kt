@@ -55,7 +55,8 @@ class TopicPageMapper @Inject constructor() {
             postRankMinusClicked = post.postRankMinusClicked.isNotEmpty(),
             postContentParsed = PostContentParser(post.postContent).getParsedPost(),
             postId = post.postId.toInt(),
-            hasQuoteButton = post.hasQuoteButton.isNotEmpty()
+            hasQuoteButton = post.hasQuoteButton.isNotEmpty(),
+            hasEditButton = post.hasEditButton.isNotEmpty()
         ))
       }
 
