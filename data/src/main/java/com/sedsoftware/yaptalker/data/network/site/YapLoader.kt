@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.data.network.site
 
 import com.sedsoftware.yaptalker.data.parsed.ActiveTopicsPageParsed
 import com.sedsoftware.yaptalker.data.parsed.BookmarksParsed
+import com.sedsoftware.yaptalker.data.parsed.EditedPostParsed
 import com.sedsoftware.yaptalker.data.parsed.ForumPageParsed
 import com.sedsoftware.yaptalker.data.parsed.ForumsListParsed
 import com.sedsoftware.yaptalker.data.parsed.LoginSessionInfoParsed
@@ -168,6 +169,25 @@ interface YapLoader {
       @Path("topicId") topicId: Int,
       @Path("targetPostId") targetPostId: Int
   ): Single<QuotedPostParsed>
+
+
+  /**
+   * Load target post prepared for editing.
+   *
+   * @param forumId Current topic's parent forum id.
+   * @param topicId Current topic id.
+   * @param targetPostId Quoted post id.
+   * @param startingPost Current topic page.
+   *
+   * @return Parsed quoted text Single.
+   */
+  @GET("/act/Post/CODE/08/forum{forumId}/topic{topicId}/post/{targetPostId}/st/{startingPost}/")
+  fun loadTargetPostEditedText(
+      @Path("forumId") forumId: Int,
+      @Path("topicId") topicId: Int,
+      @Path("targetPostId") targetPostId: Int,
+      @Path("startingPost") startingPost: Int
+  ): Single<EditedPostParsed>
 
 
   /**
