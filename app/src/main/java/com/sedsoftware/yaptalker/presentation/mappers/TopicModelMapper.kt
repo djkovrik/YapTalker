@@ -78,7 +78,8 @@ class TopicModelMapper @Inject constructor(
             postRankMinusClicked = item.postRankMinusClicked,
             postContentParsed = transform(item.postContentParsed),
             postId = item.postId,
-            hasQuoteButton = item.hasQuoteButton
+            hasQuoteButton = item.hasQuoteButton,
+            hasEditButton = item.hasEditButton
         ))
       }
     }

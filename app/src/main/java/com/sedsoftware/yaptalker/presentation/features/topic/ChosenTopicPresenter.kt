@@ -224,6 +224,9 @@ class ChosenTopicPresenter @Inject constructor(
         })
   }
 
+  fun onEditButtonClicked(postId: Int) {
+
+  }
 
   fun addCurrentTopicToBookmarks() {
 

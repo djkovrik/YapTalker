@@ -1,2 +1,4 @@
 /build
 /src/prod/google-services.json
+/src/release/google-services.json
+/src/beta/google-services.json

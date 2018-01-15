@@ -365,6 +365,10 @@ class ChosenTopicFragment :
     presenter.onReplyButtonClicked(forumId, topicId, authorNickname, postDate, postId)
   }
 
+  override fun onEditButtonClick(postId: Int) {
+    presenter.onEditButtonClicked(postId)
+  }
+
   private fun subscribeViews() {
 
     RxSwipeRefreshLayout
