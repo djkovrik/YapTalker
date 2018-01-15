@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.data.repository
 
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
+import com.sedsoftware.yaptalker.data.parsed.mappers.EditedPostMapper
 import com.sedsoftware.yaptalker.data.parsed.mappers.QuotedPostMapper
 import com.sedsoftware.yaptalker.data.parsed.mappers.ServerResponseMapper
 import com.sedsoftware.yaptalker.data.parsed.mappers.TopicPageMapper
@@ -14,6 +15,7 @@ class YapChosenTopicRepository @Inject constructor(
     private val dataLoader: YapLoader,
     private val dataMapper: TopicPageMapper,
     private val quoteMapper: QuotedPostMapper,
+    private val editedPostMapper: EditedPostMapper,
     private val responseMapper: ServerResponseMapper
 ) : ChosenTopicRepository {
 
@@ -37,6 +39,11 @@ class YapChosenTopicRepository @Inject constructor(
       dataLoader
           .loadTargetPostQuotedText(forumId, topicId, targetPostId)
           .map { quotedText -> quoteMapper.transform(quotedText) }
+
+  override fun requestPostTextForEditing(forumId: Int, topicId: Int, targetPostId: Int, startingPost: Int): Single<BaseEntity> =
+      dataLoader
+          .loadTargetPostEditedText(forumId, topicId, targetPostId, startingPost)
+          .map { editedText -> editedPostMapper.transform(editedText) }
 
   override fun requestKarmaChange(
       isTopic: Boolean, targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity> {

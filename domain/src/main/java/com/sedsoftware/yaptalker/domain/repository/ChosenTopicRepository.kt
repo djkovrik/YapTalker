@@ -13,6 +13,8 @@ interface ChosenTopicRepository {
 
   fun requestPostTextAsQuote(forumId: Int, topicId: Int, targetPostId: Int): Single<BaseEntity>
 
+  fun requestPostTextForEditing(forumId: Int, topicId: Int, targetPostId: Int, startingPost: Int): Single<BaseEntity>
+
   fun requestKarmaChange(isTopic: Boolean, targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity>
 
   fun requestPostKarmaChange(targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity>
