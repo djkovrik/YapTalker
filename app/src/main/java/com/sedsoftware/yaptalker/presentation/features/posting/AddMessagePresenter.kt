@@ -40,8 +40,12 @@ class AddMessagePresenter @Inject constructor(
     viewState.insertTag(result)
   }
 
-  fun sendMessageTextBackToView(message: String) {
-    router.exitWithResult(RequestCode.MESSAGE_TEXT, message)
+  fun sendMessageTextBackToView(message: String, isEdited: Boolean) {
+    if (isEdited) {
+      router.exitWithResult(RequestCode.EDITED_MESSAGE_TEXT, message)
+    } else {
+      router.exitWithResult(RequestCode.MESSAGE_TEXT, message)
+    }
   }
 
   private fun onTagClickedWithSelection(@Tag tag: Long) {

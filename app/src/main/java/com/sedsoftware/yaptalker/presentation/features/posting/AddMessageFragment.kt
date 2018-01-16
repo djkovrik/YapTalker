@@ -19,23 +19,30 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_new_post.*
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_bold
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_italic
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_link
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_underlined
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_edit_text
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_topic_title
 import javax.inject.Inject
 
 class AddMessageFragment : BaseFragment(), AddMessageView {
 
   companion object {
-    fun getNewInstance(pair: Pair<String, String>): AddMessageFragment {
+    fun getNewInstance(pair: Triple<String, String, String>): AddMessageFragment {
       val fragment = AddMessageFragment()
       val args = Bundle()
       args.putString(TOPIC_TITLE_KEY, pair.first)
       args.putString(QUOTED_TEXT_KEY, pair.second)
+      args.putString(EDITED_TEXT_KEY, pair.third)
       fragment.arguments = args
       return fragment
     }
 
     private const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
-    private const val QUOTED_TEXT_KEY = "QUOTE_KEY"
+    private const val QUOTED_TEXT_KEY = "QUOTED_TEXT_KEY"
+    private const val EDITED_TEXT_KEY = "EDITED_TEXT_KEY"
   }
 
   override val layoutId: Int
@@ -57,6 +64,10 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     arguments?.getString(QUOTED_TEXT_KEY) ?: ""
   }
 
+  private val editedText: String by lazy {
+    arguments?.getString(EDITED_TEXT_KEY) ?: ""
+  }
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHasOptionsMenu(true)
@@ -67,6 +78,8 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
 
     if (quotedText.isNotEmpty()) {
       new_post_edit_text.append(quotedText)
+    } else if (editedText.isNotEmpty()) {
+      new_post_edit_text.append(editedText)
     }
 
     subscribeViews()
@@ -193,8 +206,9 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
 
   private fun returnMessageText() {
     val message = new_post_edit_text.text.toString()
+    val isEdited = editedText.isNotEmpty()
     if (message.isNotEmpty()) {
-      presenter.sendMessageTextBackToView(message)
+      presenter.sendMessageTextBackToView(message, isEdited)
     }
   }
 }

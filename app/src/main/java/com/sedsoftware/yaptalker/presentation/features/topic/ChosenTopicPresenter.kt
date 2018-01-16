@@ -5,19 +5,23 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
 import com.sedsoftware.yaptalker.domain.interactor.topic.GetChosenTopic
+import com.sedsoftware.yaptalker.domain.interactor.topic.GetEditedText
 import com.sedsoftware.yaptalker.domain.interactor.topic.GetQuotedText
 import com.sedsoftware.yaptalker.domain.interactor.topic.SendBookmarkAddRequest
 import com.sedsoftware.yaptalker.domain.interactor.topic.SendChangeKarmaRequest
+import com.sedsoftware.yaptalker.domain.interactor.topic.SendEditedMessageRequest
 import com.sedsoftware.yaptalker.domain.interactor.topic.SendMessageRequest
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
+import com.sedsoftware.yaptalker.presentation.mappers.EditedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mappers.QuotedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mappers.ServerResponseModelMapper
 import com.sedsoftware.yaptalker.presentation.mappers.TopicModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.EditedPostModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.sedsoftware.yaptalker.presentation.model.base.QuotedPostModel
 import com.sedsoftware.yaptalker.presentation.model.base.ServerResponseModel
@@ -43,10 +47,13 @@ class ChosenTopicPresenter @Inject constructor(
     private val topicMapper: TopicModelMapper,
     private val getQuotedTextUseCase: GetQuotedText,
     private val quoteDataMapper: QuotedPostModelMapper,
+    private val getEditedTextUseCase: GetEditedText,
+    private val editedTextDataMapper: EditedPostModelMapper,
     private val addToBookmarksUseCase: SendBookmarkAddRequest,
     private val changeKarmaUseCase: SendChangeKarmaRequest,
     private val serverResponseMapper: ServerResponseModelMapper,
     private val sendMessageUseCase: SendMessageRequest,
+    private val sendEditedMessageUseCase: SendEditedMessageRequest,
     private val getVideoThumbnailUseCase: GetVideoThumbnail
 ) : BasePresenter<ChosenTopicView>() {
 
@@ -63,6 +70,7 @@ class ChosenTopicPresenter @Inject constructor(
   private val postsPerPage = settings.getMessagesPerPage()
   private var currentForumId = 0
   private var currentTopicId = 0
+  private var currentEditedPost = 0
   private var currentPage = 1
   private var totalPages = 1
   private var rating = 0
@@ -78,6 +86,7 @@ class ChosenTopicPresenter @Inject constructor(
 
   init {
     router.setResultListener(RequestCode.MESSAGE_TEXT, { message -> sendMessage(message as String) })
+    router.setResultListener(RequestCode.EDITED_MESSAGE_TEXT, { message -> sendEditedMessage(message as String) })
   }
 
   override fun onFirstViewAttach() {
@@ -104,6 +113,7 @@ class ChosenTopicPresenter @Inject constructor(
   override fun onDestroy() {
     super.onDestroy()
     router.removeResultListener(RequestCode.MESSAGE_TEXT)
+    router.removeResultListener(RequestCode.EDITED_MESSAGE_TEXT)
   }
 
   fun loadTopic(forumId: Int, topicId: Int, startingPost: Int = 0) {
@@ -168,7 +178,7 @@ class ChosenTopicPresenter @Inject constructor(
   }
 
   fun navigateToMessagePostingScreen() {
-    router.navigateTo(NavigationScreen.ADD_MESSAGE_SCREEN, Pair(currentTitle, ""))
+    router.navigateTo(NavigationScreen.MESSAGE_EDITOR_SCREEN, Triple(currentTitle, "", ""))
   }
 
   fun onUserProfileClicked(userId: Int) {
@@ -218,7 +228,7 @@ class ChosenTopicPresenter @Inject constructor(
         .subscribe({ post ->
           post as QuotedPostModel
           val quote = "[QUOTE=$authorNickname,$postDate]${post.text}[/QUOTE]\n"
-          router.navigateTo(NavigationScreen.ADD_MESSAGE_SCREEN, Pair(currentTitle, quote))
+          router.navigateTo(NavigationScreen.MESSAGE_EDITOR_SCREEN, Triple(currentTitle, quote, ""))
         }, { error ->
           error.message?.let { viewState.showErrorMessage(it) }
         })
@@ -226,6 +236,24 @@ class ChosenTopicPresenter @Inject constructor(
 
   fun onEditButtonClicked(postId: Int) {
 
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
+    currentEditedPost = postId
+
+    getEditedTextUseCase
+        .execute(GetEditedText.Params(currentForumId, currentTopicId, postId, startingPost))
+        .subscribeOn(Schedulers.io())
+        .map { text: BaseEntity -> editedTextDataMapper.transform(text) }
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+        .doOnError { setConnectionState(ConnectionState.ERROR) }
+        .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
+        .autoDisposable(event(PresenterLifecycle.DESTROY))
+        .subscribe({ post ->
+          post as EditedPostModel
+          router.navigateTo(NavigationScreen.MESSAGE_EDITOR_SCREEN, Triple(currentTitle, "", post.text))
+        }, { error ->
+          error.message?.let { viewState.showErrorMessage(it) }
+        })
   }
 
   fun addCurrentTopicToBookmarks() {
@@ -295,6 +323,32 @@ class ChosenTopicPresenter @Inject constructor(
         .subscribe({
           // onComplete
           Timber.i("Send message request completed.")
+          loadTopicCurrentPage(shouldScrollToViewTop = false)
+        }, { error ->
+          // onError
+          error.message?.let { viewState.showErrorMessage(it) }
+        })
+  }
+
+  private fun sendEditedMessage(message: String) {
+
+    if (authKey.isEmpty() || currentEditedPost == 0) {
+      return
+    }
+
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
+
+    sendEditedMessageUseCase
+        .execute(SendEditedMessageRequest.Params(currentTopicId, currentEditedPost, startingPost, authKey, message))
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+        .doOnError { setConnectionState(ConnectionState.ERROR) }
+        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+        .autoDisposable(event(PresenterLifecycle.DESTROY))
+        .subscribe({
+          // onComplete
+          Timber.i("Send edited message request completed.")
           loadTopicCurrentPage(shouldScrollToViewTop = false)
         }, { error ->
           // onError
