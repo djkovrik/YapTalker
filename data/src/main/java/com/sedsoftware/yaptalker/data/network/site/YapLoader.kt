@@ -226,6 +226,46 @@ interface YapLoader {
 
 
   /**
+   * Send edited message posting request to the site.
+   *
+   * @param st Starting page.
+   * @param act Message posting action type.
+   * @param s Unknown for now (empty).
+   * @param f Unknown for now (1).
+   * @param enableemo Enable emoji.
+   * @param enablesig Enable signature.
+   * @param authKey Authorization key.
+   * @param maxFileSize File size limit.
+   * @param code Message posting action code.
+   * @param topic Current topic id.
+   * @param post Edited post id.
+   * @param postContent Message content.
+   * @param enabletag Enable tags.
+   * @param fileupload File upload marker.
+   *
+   * @return Parsed topic page Single.
+   */
+  @Suppress("LongParameterList")
+  @Multipart
+  @POST("/")
+  fun postEditedMessage(
+      @Part("st") st: Int,
+      @Part("act") act: String,
+      @Part("s") s: String,
+      @Part("f") f: Int,
+      @Part("enableemo") enableemo: String,
+      @Part("enablesig") enablesig: String,
+      @Part("auth_key") authKey: String,
+      @Part("MAX_FILE_SIZE") maxFileSize: Int,
+      @Part("CODE") code: String,
+      @Part("t") topic: Int,
+      @Part("p") post: Int,
+      @Part("Post") postContent: String,
+      @Part("enabletag") enabletag: Int,
+      @Part("FILE_UPLOAD") fileupload: String
+  ): Single<TopicPageParsed>
+
+  /**
    * Send sign in request to the site.
    *
    * @param cookieDate Cookie behaviour type (set to 1).
