@@ -23,4 +23,7 @@ interface ChosenTopicRepository {
 
   fun requestMessageSending(
       targetForumId: Int, targetTopicId: Int, page: Int, authKey: String, message: String): Completable
+
+  fun requestEditedMessageSending(
+      targetTopicId: Int, targetPostId: Int, page: Int, authKey: String, message: String): Completable
 }

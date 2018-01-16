@@ -28,6 +28,8 @@ class YapChosenTopicRepository @Inject constructor(
     private const val POST_ACT = "Post"
     private const val POST_CODE = "03"
     private const val POST_MAX_FILE_SIZE = 512000
+
+    private const val POST_EDIT_CODE = "09"
   }
 
   override fun getChosenTopic(forumId: Int, topicId: Int, startPostNumber: Int): Single<List<BaseEntity>> =
@@ -101,6 +103,28 @@ class YapChosenTopicRepository @Inject constructor(
               postContent = message,
               maxFileSize = POST_MAX_FILE_SIZE,
               enabletag = 1
+          )
+          .map { response -> dataMapper.transform(response) }
+          .toCompletable()
+
+  override fun requestEditedMessageSending(
+      targetTopicId: Int, targetPostId: Int, page: Int, authKey: String, message: String): Completable =
+      dataLoader
+          .postEditedMessage(
+              st = page,
+              act = POST_ACT,
+              s = "",
+              f = 1,
+              enableemo = "yes",
+              enablesig = "yes",
+              authKey = authKey,
+              maxFileSize = POST_MAX_FILE_SIZE,
+              code = POST_EDIT_CODE,
+              topic = targetTopicId,
+              post = targetPostId,
+              postContent = message,
+              enabletag = 1,
+              fileupload = ""
           )
           .map { response -> dataMapper.transform(response) }
           .toCompletable()
