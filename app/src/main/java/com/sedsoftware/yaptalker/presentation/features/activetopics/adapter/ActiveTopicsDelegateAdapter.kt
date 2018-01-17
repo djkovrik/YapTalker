@@ -10,11 +10,15 @@ import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadRatingBackground
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.ActiveTopicModel
-import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.*
+import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.active_topic_answers
+import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.active_topic_forum
+import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.active_topic_last_post_date
+import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.active_topic_name
+import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.active_topic_rating
 
 class ActiveTopicsDelegateAdapter(
-    private val itemClick: ActiveTopicsElementsClickListener,
-    private val settings: Settings
+  private val itemClick: ActiveTopicsElementsClickListener,
+  private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {
@@ -29,7 +33,7 @@ class ActiveTopicsDelegateAdapter(
   }
 
   inner class TopicViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_active_topics_list_item)) {
+    RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_active_topics_list_item)) {
 
     fun bindTo(topicItem: ActiveTopicModel) {
       with(itemView) {

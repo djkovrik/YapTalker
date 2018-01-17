@@ -22,7 +22,8 @@ import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.Bookmar
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.BookmarksElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_bookmarks.*
+import kotlinx.android.synthetic.main.fragment_bookmarks.bookmarks_list
+import kotlinx.android.synthetic.main.fragment_bookmarks.bookmarks_refresh_layout
 import javax.inject.Inject
 
 class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickListener {
@@ -93,11 +94,11 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
   override fun showDeleteConfirmationDialog(bookmarkId: Int) {
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-          .content(R.string.msg_bookmark_confirm_action)
-          .positiveText(R.string.msg_bookmark_confirm_yes)
-          .negativeText(R.string.msg_bookmark_confirm_No)
-          .onPositive { _, _ -> presenter.deleteSelectedBookmark(bookmarkId) }
-          .show()
+        .content(R.string.msg_bookmark_confirm_action)
+        .positiveText(R.string.msg_bookmark_confirm_yes)
+        .negativeText(R.string.msg_bookmark_confirm_No)
+        .onPositive { _, _ -> presenter.deleteSelectedBookmark(bookmarkId) }
+        .show()
     }
   }
 
@@ -119,8 +120,8 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
   private fun subscribeViews() {
 
     RxSwipeRefreshLayout
-        .refreshes(bookmarks_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.loadBookmarks() }
+      .refreshes(bookmarks_refresh_layout)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.loadBookmarks() }
   }
 }

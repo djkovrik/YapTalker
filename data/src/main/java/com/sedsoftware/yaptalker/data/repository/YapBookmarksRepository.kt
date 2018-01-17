@@ -12,9 +12,9 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class YapBookmarksRepository @Inject constructor(
-    private val dataLoader: YapLoader,
-    private val dataMapper: BookmarksMapper,
-    private val responseMapper: ServerResponseMapper
+  private val dataLoader: YapLoader,
+  private val dataMapper: BookmarksMapper,
+  private val responseMapper: ServerResponseMapper
 ) : BookmarksRepository {
 
   companion object {
@@ -27,39 +27,39 @@ class YapBookmarksRepository @Inject constructor(
   }
 
   override fun getBookmarks(): Observable<BaseEntity> =
-      dataLoader
-          .loadBookmarks(
-              act = BOOKMARKS_ACT,
-              code = BOOKMARKS_CODE_LOAD
-          )
-          .map { parsedBookmarks -> dataMapper.transform(parsedBookmarks) }
-          .flatMap { bookmarksList -> Observable.fromIterable(bookmarksList) }
+    dataLoader
+      .loadBookmarks(
+        act = BOOKMARKS_ACT,
+        code = BOOKMARKS_CODE_LOAD
+      )
+      .map { parsedBookmarks -> dataMapper.transform(parsedBookmarks) }
+      .flatMap { bookmarksList -> Observable.fromIterable(bookmarksList) }
 
   override fun requestBookmarkAdding(topicId: Int, startingPost: Int): Completable =
-      dataLoader
-          .addToBookmarks(
-              act = BOOKMARKS_ACT,
-              code = BOOKMARKS_CODE_ADD,
-              item = topicId,
-              startPostNumber = startingPost,
-              type = BOOKMARKS_TYPE
-          )
-          .map { response -> responseMapper.transform(response) }
-          .flatMapCompletable { response ->
-            response as ServerResponse
-            if (response.text.contains(BOOKMARK_SUCCESS_MARKER)) {
-              Completable.complete()
-            } else {
-              Completable.error(RequestErrorException("Failed to add new bookmark"))
-            }
-          }
+    dataLoader
+      .addToBookmarks(
+        act = BOOKMARKS_ACT,
+        code = BOOKMARKS_CODE_ADD,
+        item = topicId,
+        startPostNumber = startingPost,
+        type = BOOKMARKS_TYPE
+      )
+      .map { response -> responseMapper.transform(response) }
+      .flatMapCompletable { response ->
+        response as ServerResponse
+        if (response.text.contains(BOOKMARK_SUCCESS_MARKER)) {
+          Completable.complete()
+        } else {
+          Completable.error(RequestErrorException("Failed to add new bookmark"))
+        }
+      }
 
   override fun requestBookmarkDeletion(bookmarkId: Int): Completable =
-      dataLoader
-          .removeFromBookmarks(
-              act = BOOKMARKS_ACT,
-              code = BOOKMARKS_CODE_REMOVE,
-              id = bookmarkId
-          )
-          .toCompletable()
+    dataLoader
+      .removeFromBookmarks(
+        act = BOOKMARKS_ACT,
+        code = BOOKMARKS_CODE_REMOVE,
+        id = bookmarkId
+      )
+      .toCompletable()
 }

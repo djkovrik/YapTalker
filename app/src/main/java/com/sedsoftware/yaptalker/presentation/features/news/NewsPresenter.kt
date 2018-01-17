@@ -21,10 +21,10 @@ import javax.inject.Inject
 
 @InjectViewState
 class NewsPresenter @Inject constructor(
-    private val router: Router,
-    private val getNewsListUseCase: GetNewsList,
-    private val getVideoThumbnail: GetVideoThumbnail,
-    private val newsModelMapper: NewsModelMapper
+  private val router: Router,
+  private val getNewsListUseCase: GetNewsList,
+  private val getVideoThumbnail: GetVideoThumbnail,
+  private val newsModelMapper: NewsModelMapper
 ) : BasePresenter<NewsView>() {
 
   companion object {
@@ -52,8 +52,8 @@ class NewsPresenter @Inject constructor(
   }
 
   fun requestThumbnail(videoUrl: String): Single<String> =
-      getVideoThumbnail
-          .execute(GetVideoThumbnail.Params(videoUrl))
+    getVideoThumbnail
+      .execute(GetVideoThumbnail.Params(videoUrl))
 
   fun loadNews(loadFromFirstPage: Boolean) {
 
@@ -82,34 +82,34 @@ class NewsPresenter @Inject constructor(
 
   private fun loadDataForCurrentPage() {
     getNewsListUseCase
-        .execute(GetNewsList.Params(pageNumber = currentPage))
-        .subscribeOn(Schedulers.io())
-        .map { newsItem: BaseEntity -> newsModelMapper.transform(newsItem) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getNewsObserver())
+      .execute(GetNewsList.Params(pageNumber = currentPage))
+      .subscribeOn(Schedulers.io())
+      .map { newsItem: BaseEntity -> newsModelMapper.transform(newsItem) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(getNewsObserver())
   }
 
   private fun getNewsObserver() =
-      object : DisposableObserver<YapEntity>() {
-        override fun onNext(item: YapEntity) {
-          if (backToFirstPage) {
-            viewState.clearNewsList()
-            backToFirstPage = false
-          }
-
-          viewState.appendNewsItem(item)
+    object : DisposableObserver<YapEntity>() {
+      override fun onNext(item: YapEntity) {
+        if (backToFirstPage) {
+          viewState.clearNewsList()
+          backToFirstPage = false
         }
 
-        override fun onComplete() {
-          Timber.i("News page loading completed.")
-        }
-
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
-        }
+        viewState.appendNewsItem(item)
       }
+
+      override fun onComplete() {
+        Timber.i("News page loading completed.")
+      }
+
+      override fun onError(e: Throwable) {
+        e.message?.let { viewState.showErrorMessage(it) }
+      }
+    }
 }

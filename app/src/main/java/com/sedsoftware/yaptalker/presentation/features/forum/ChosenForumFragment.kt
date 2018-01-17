@@ -22,7 +22,8 @@ import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ChosenForum
 import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ChosenForumElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_chosen_forum.*
+import kotlinx.android.synthetic.main.fragment_chosen_forum.forum_refresh_layout
+import kotlinx.android.synthetic.main.fragment_chosen_forum.forum_topics_list
 import java.util.Locale
 import javax.inject.Inject
 
@@ -140,20 +141,20 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElements
   override fun onGoToSelectedPageClick() {
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-          .title(R.string.navigation_go_to_page_title)
-          .inputType(InputType.TYPE_CLASS_NUMBER)
-          .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
-            presenter.goToChosenPage(input.toString().toInt())
-          })
-          .show()
+        .title(R.string.navigation_go_to_page_title)
+        .inputType(InputType.TYPE_CLASS_NUMBER)
+        .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
+          presenter.goToChosenPage(input.toString().toInt())
+        })
+        .show()
     }
   }
 
   private fun subscribeViews() {
 
     RxSwipeRefreshLayout
-        .refreshes(forum_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.loadForum(currentForumId) }
+      .refreshes(forum_refresh_layout)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.loadForum(currentForumId) }
   }
 }

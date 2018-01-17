@@ -6,10 +6,10 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class YapSearchIdRepository @Inject constructor(
-    private val searchIdLoader: YapSearchIdLoader
+  private val searchIdLoader: YapSearchIdLoader
 ) : SearchIdRepository {
 
   override fun getSearchId(): Single<String> =
-      searchIdLoader
-          .loadSearchIdHash()
+    searchIdLoader
+      .loadSearchIdHash()
 }

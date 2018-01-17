@@ -23,13 +23,16 @@ class ForumPageMapper @Inject constructor() {
 
     with(forumPage) {
 
-      result.add(ForumInfoBlock(
+      result.add(
+        ForumInfoBlock(
           forumTitle = forumTitle,
           forumId = forumId.toInt()
-      ))
+        )
+      )
 
       topics.forEach { topic ->
-        result.add(Topic(
+        result.add(
+          Topic(
             title = topic.title,
             link = topic.link,
             isPinned = topic.isPinned.isNotEmpty(),
@@ -40,13 +43,16 @@ class ForumPageMapper @Inject constructor() {
             answers = topic.answers.toInt(),
             lastPostDate = topic.lastPostDate,
             lastPostAuthor = topic.lastPostAuthor
-        ))
+          )
+        )
       }
 
-      result.add(NavigationPanel(
+      result.add(
+        NavigationPanel(
           currentPage = navigation.currentPage.toInt(),
           totalPages = navigation.totalPages.toInt()
-      ))
+        )
+      )
     }
 
     return result

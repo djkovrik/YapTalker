@@ -11,11 +11,11 @@ import javax.inject.Inject
 class LoginSessionInfoMapper @Inject constructor() {
 
   fun transform(userInfo: LoginSessionInfoParsed): BaseEntity =
-      LoginSessionInfo(
-          nickname = userInfo.nickname,
-          title = userInfo.title,
-          uq = userInfo.uq.toInt(),
-          avatar = userInfo.avatar,
-          sessionId = userInfo.sessionId
-      )
+    LoginSessionInfo(
+      nickname = userInfo.nickname,
+      title = userInfo.title,
+      uq = userInfo.uq.toInt(),
+      avatar = userInfo.avatar,
+      sessionId = userInfo.sessionId
+    )
 }

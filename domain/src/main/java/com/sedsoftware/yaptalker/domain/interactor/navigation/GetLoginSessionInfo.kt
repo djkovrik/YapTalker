@@ -7,10 +7,10 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetLoginSessionInfo @Inject constructor(
-    private val loginSessionRepository: LoginSessionRepository
+  private val loginSessionRepository: LoginSessionRepository
 ) : SingleUseCase<BaseEntity> {
 
   override fun execute(): Single<BaseEntity> =
-      loginSessionRepository
-          .getLoginSessionInfo()
+    loginSessionRepository
+      .getLoginSessionInfo()
 }

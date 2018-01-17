@@ -27,7 +27,7 @@ import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
 
 class MainActivityNavigator @Inject constructor(
-    private val activity: MainActivity
+  private val activity: MainActivity
 ) : SupportAppNavigator(activity, activity.supportFragmentManager, R.id.content_frame) {
 
   override fun createActivityIntent(context: Context?, screenKey: String?, data: Any?): Intent? = when (screenKey) {
@@ -53,10 +53,12 @@ class MainActivityNavigator @Inject constructor(
     else -> null
   }
 
-  override fun setupFragmentTransactionAnimation(command: Command?,
-                                                 currentFragment: Fragment?,
-                                                 nextFragment: Fragment?,
-                                                 fragmentTransaction: FragmentTransaction?) {
+  override fun setupFragmentTransactionAnimation(
+    command: Command?,
+    currentFragment: Fragment?,
+    nextFragment: Fragment?,
+    fragmentTransaction: FragmentTransaction?
+  ) {
 
     fragmentTransaction?.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
   }

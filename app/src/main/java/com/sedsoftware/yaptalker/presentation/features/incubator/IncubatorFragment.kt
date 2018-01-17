@@ -29,13 +29,15 @@ import com.sedsoftware.yaptalker.presentation.utility.InfiniteScrollListener
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_incubator.*
+import kotlinx.android.synthetic.main.fragment_incubator.incubator_fab
+import kotlinx.android.synthetic.main.fragment_incubator.incubator_refresh_layout
+import kotlinx.android.synthetic.main.fragment_incubator.incubator_topics_list
 import org.jetbrains.anko.browse
 import timber.log.Timber
 import javax.inject.Inject
 
 class IncubatorFragment :
-    BaseFragment(), IncubatorView, IncubatorThumbnailsLoader, IncubatorElementsClickListener {
+  BaseFragment(), IncubatorView, IncubatorThumbnailsLoader, IncubatorElementsClickListener {
 
   companion object {
     fun getNewInstance() = IncubatorFragment()
@@ -121,19 +123,19 @@ class IncubatorFragment :
 
   override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
     presenter
-        .requestThumbnail(videoUrl)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe({ url ->
-          if (url.isNotEmpty()) {
-            imageView.loadThumbnailFromUrl(url)
-          } else {
-            context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
-          }
-        }, { throwable ->
-          Timber.e("Can't load image: ${throwable.message}")
-        })
+      .requestThumbnail(videoUrl)
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe({ url ->
+        if (url.isNotEmpty()) {
+          imageView.loadThumbnailFromUrl(url)
+        } else {
+          context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
+        }
+      }, { throwable ->
+        Timber.e("Can't load image: ${throwable.message}")
+      })
   }
 
   override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
@@ -154,18 +156,18 @@ class IncubatorFragment :
   private fun subscribeViews() {
 
     RxSwipeRefreshLayout
-        .refreshes(incubator_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.loadIncubator(loadFromFirstPage = true) }
+      .refreshes(incubator_refresh_layout)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.loadIncubator(loadFromFirstPage = true) }
 
     RxRecyclerView
-        .scrollEvents(incubator_topics_list)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
+      .scrollEvents(incubator_topics_list)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
 
     RxView
-        .clicks(incubator_fab)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.loadIncubator(loadFromFirstPage = true) }
+      .clicks(incubator_fab)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.loadIncubator(loadFromFirstPage = true) }
   }
 }

@@ -13,9 +13,9 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import java.util.ArrayList
 
 class IncubatorAdapter(
-    clickListener: IncubatorElementsClickListener,
-    thumbnailsLoader: IncubatorThumbnailsLoader,
-    settings: Settings
+  clickListener: IncubatorElementsClickListener,
+  thumbnailsLoader: IncubatorThumbnailsLoader,
+  settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<YapEntity>
@@ -23,7 +23,8 @@ class IncubatorAdapter(
 
   init {
     delegateAdapters.put(
-        YapEntityTypes.INCUBATOR_TOPIC, IncubatorDelegateAdapter(clickListener, thumbnailsLoader, settings))
+      YapEntityTypes.INCUBATOR_TOPIC, IncubatorDelegateAdapter(clickListener, thumbnailsLoader, settings)
+    )
 
     items = ArrayList()
   }
@@ -44,7 +45,7 @@ class IncubatorAdapter(
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-      delegateAdapters.get(viewType).onCreateViewHolder(parent)
+    delegateAdapters.get(viewType).onCreateViewHolder(parent)
 
   override fun getItemCount(): Int = items.size
 

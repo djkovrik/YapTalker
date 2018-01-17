@@ -11,8 +11,8 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import java.util.ArrayList
 
 class BookmarksAdapter(
-    clickListener: BookmarksElementsClickListener,
-    settings: Settings
+  clickListener: BookmarksElementsClickListener,
+  settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<YapEntity>
@@ -20,12 +20,13 @@ class BookmarksAdapter(
 
   init {
     delegateAdapters.put(
-        YapEntityTypes.BOOKMARKED_TOPIC_ITEM, BookmarksDelegateAdapter(clickListener, settings))
+      YapEntityTypes.BOOKMARKED_TOPIC_ITEM, BookmarksDelegateAdapter(clickListener, settings)
+    )
     items = ArrayList()
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-      delegateAdapters.get(viewType).onCreateViewHolder(parent)
+    delegateAdapters.get(viewType).onCreateViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])

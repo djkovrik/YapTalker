@@ -6,12 +6,12 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetVideoThumbnail @Inject constructor(
-    private val thumbnailRepository: ThumbnailRepository
+  private val thumbnailRepository: ThumbnailRepository
 ) : SingleUseCaseWithParameter<GetVideoThumbnail.Params, String> {
 
   override fun execute(parameter: Params): Single<String> =
-      thumbnailRepository
-          .getThumbnail(parameter.link)
+    thumbnailRepository
+      .getThumbnail(parameter.link)
 
   class Params(val link: String)
 }

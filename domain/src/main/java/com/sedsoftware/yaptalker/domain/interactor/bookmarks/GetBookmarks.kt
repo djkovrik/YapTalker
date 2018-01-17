@@ -7,10 +7,10 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class GetBookmarks @Inject constructor(
-    private val bookmarksRepository: BookmarksRepository
+  private val bookmarksRepository: BookmarksRepository
 ) : UseCase<BaseEntity> {
 
   override fun execute(): Observable<BaseEntity> =
-      bookmarksRepository
-          .getBookmarks()
+    bookmarksRepository
+      .getBookmarks()
 }

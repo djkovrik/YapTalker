@@ -11,5 +11,6 @@ class MessageTagCodes {
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @IntDef(TAG_B, TAG_I, TAG_U, TAG_LINK) annotation class Tag
+  @IntDef(TAG_B, TAG_I, TAG_U, TAG_LINK)
+  annotation class Tag
 }

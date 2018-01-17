@@ -12,8 +12,8 @@ import com.sedsoftware.yaptalker.presentation.model.base.TopicModel
 import java.util.ArrayList
 
 class ChosenForumAdapter(
-    clickListener: ChosenForumElementsClickListener,
-    settings: Settings
+  clickListener: ChosenForumElementsClickListener,
+  settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<YapEntity>
@@ -26,7 +26,7 @@ class ChosenForumAdapter(
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-      delegateAdapters.get(viewType).onCreateViewHolder(parent)
+    delegateAdapters.get(viewType).onCreateViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])
@@ -37,7 +37,7 @@ class ChosenForumAdapter(
   override fun getItemCount() = items.size
 
   override fun getItemId(position: Int): Long =
-      (items[position] as? TopicModel)?.id?.toLong() ?: position.toLong()
+    (items[position] as? TopicModel)?.id?.toLong() ?: position.toLong()
 
   fun addTopicItem(item: YapEntity) {
     val insertPosition = items.size

@@ -19,8 +19,9 @@ import javax.inject.Inject
  * in the presentation layer.
  */
 class ForumModelMapper @Inject constructor(
-    private val textTransformer: TextTransformer,
-    private val dateTransformer: DateTransformer) {
+  private val textTransformer: TextTransformer,
+  private val dateTransformer: DateTransformer
+) {
 
   fun transform(items: List<BaseEntity>): List<YapEntity> {
 
@@ -28,16 +29,21 @@ class ForumModelMapper @Inject constructor(
 
     items.forEach { item ->
       when (item) {
-        is ForumInfoBlock -> result.add(ForumInfoBlockModel(
+        is ForumInfoBlock -> result.add(
+          ForumInfoBlockModel(
             forumTitle = item.forumTitle,
             forumId = item.forumId
-        ))
-        is NavigationPanel -> result.add(NavigationPanelModel(
+          )
+        )
+        is NavigationPanel -> result.add(
+          NavigationPanelModel(
             currentPage = item.currentPage,
             totalPages = item.totalPages,
             navigationLabel = textTransformer.createNavigationLabel(item.currentPage, item.totalPages)
-        ))
-        is Topic -> result.add(TopicModel(
+          )
+        )
+        is Topic -> result.add(
+          TopicModel(
             title = textTransformer.createForumTopicTitle(item.isPinned, item.isClosed, item.title),
             link = item.link,
             id = item.link.getLastDigits(),
@@ -50,7 +56,8 @@ class ForumModelMapper @Inject constructor(
             answers = textTransformer.createCommentsLabel(item.answers),
             lastPostDate = dateTransformer.transformDateToShortView(item.lastPostDate),
             lastPostAuthor = item.lastPostAuthor
-        ))
+          )
+        )
       }
     }
 

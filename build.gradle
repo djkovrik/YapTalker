@@ -1,20 +1,20 @@
 apply from: 'buildsystem/dependencies.gradle'
 
 buildscript {
-    ext.kotlin_version = '1.2.10'
-    ext.goole_play_services_version = '3.1.2'
-    ext.fabric_version = '1.24.4'
-    repositories {
-        google()
-        jcenter()
-        maven { url "https://maven.fabric.io/public" }
-    }
-    dependencies {
-        classpath "com.android.tools.build:gradle:3.0.1"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.google.gms:google-services:$goole_play_services_version"
-        classpath "io.fabric.tools:gradle:$fabric_version"
-    }
+  ext.kotlin_version = '1.2.20'
+  ext.goole_play_services_version = '3.1.2'
+  ext.fabric_version = '1.24.4'
+  repositories {
+    google()
+    jcenter()
+    maven { url "https://maven.fabric.io/public" }
+  }
+  dependencies {
+    classpath "com.android.tools.build:gradle:3.0.1"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    classpath "com.google.gms:google-services:$goole_play_services_version"
+    classpath "io.fabric.tools:gradle:$fabric_version"
+  }
 }
 
 // Versioning convention from ribot:
@@ -25,27 +25,27 @@ def versionMinor = 8
 def versionPatch = 8
 
 allprojects {
-    ext {
-        compileSdkVersion = 27
-        buildToolsVersion = "27.0.3"
-        minSdkVersion = 19
-        minSdkDevVersion = 22
-        targetSdkVersion = 27
-        androidApplicationId = "com.sedsoftware.yaptalker"
-        androidVersionCode = versionMajor * 1000000 + versionMinor * 1000 + versionPatch
-        androidVersionName = "${versionMajor}.${versionMinor}.${versionPatch}"
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
-        testApplicationId = "com.sedsoftware.yaptalker.test"
-    }
-    repositories {
-        google()
-        jcenter()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-        maven { url "https://maven.google.com/" }
-    }
+  ext {
+    compileSdkVersion = 27
+    buildToolsVersion = "27.0.3"
+    minSdkVersion = 19
+    minSdkDevVersion = 22
+    targetSdkVersion = 27
+    androidApplicationId = "com.sedsoftware.yaptalker"
+    androidVersionCode = versionMajor * 1000000 + versionMinor * 1000 + versionPatch
+    androidVersionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+    testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+    testApplicationId = "com.sedsoftware.yaptalker.test"
+  }
+  repositories {
+    google()
+    jcenter()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+    maven { url "https://maven.google.com/" }
+  }
 }
 
 task clean(type: Delete) {
-    delete rootProject.buildDir
+  delete rootProject.buildDir
 }

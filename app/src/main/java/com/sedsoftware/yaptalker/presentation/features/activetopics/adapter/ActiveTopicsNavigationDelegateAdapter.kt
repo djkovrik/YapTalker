@@ -8,10 +8,14 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
-import kotlinx.android.synthetic.main.item_navigation_panel.view.*
+import kotlinx.android.synthetic.main.item_navigation_panel.view.navigation_go_first
+import kotlinx.android.synthetic.main.item_navigation_panel.view.navigation_go_last
+import kotlinx.android.synthetic.main.item_navigation_panel.view.navigation_go_next
+import kotlinx.android.synthetic.main.item_navigation_panel.view.navigation_go_previous
+import kotlinx.android.synthetic.main.item_navigation_panel.view.navigation_pages_label
 
 class ActiveTopicsNavigationDelegateAdapter(val navigationClick: ActiveTopicsElementsClickListener) :
-    YapEntityDelegateAdapter {
+  YapEntityDelegateAdapter {
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = NavigationViewHolder(parent)
 
@@ -21,7 +25,7 @@ class ActiveTopicsNavigationDelegateAdapter(val navigationClick: ActiveTopicsEle
   }
 
   inner class NavigationViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.item_navigation_panel)) {
+    RecyclerView.ViewHolder(parent.inflate(R.layout.item_navigation_panel)) {
 
     fun bindTo(navigation: NavigationPanelModel) {
       with(itemView) {

@@ -24,7 +24,8 @@ class TopicPageMapper @Inject constructor() {
     val result: MutableList<BaseEntity> = ArrayList(POSTS_PER_PAGE)
 
     with(topicPage) {
-      result.add(TopicInfoBlock(
+      result.add(
+        TopicInfoBlock(
           topicTitle = topicTitle,
           isClosed = isClosed.isNotEmpty(),
           authKey = authKey,
@@ -34,15 +35,19 @@ class TopicPageMapper @Inject constructor() {
           topicRatingPlusClicked = topicRatingPlusClicked.isNotEmpty(),
           topicRatingMinusClicked = topicRatingMinusClicked.isNotEmpty(),
           topicRatingTargetId = topicRatingTargetId.toInt()
-      ))
+        )
+      )
 
-      result.add(NavigationPanel(
+      result.add(
+        NavigationPanel(
           currentPage = navigation.currentPage.toInt(),
           totalPages = navigation.totalPages.toInt()
-      ))
+        )
+      )
 
       posts.forEach { post ->
-        result.add(SinglePost(
+        result.add(
+          SinglePost(
             authorNickname = post.authorNickname,
             authorProfile = post.authorProfile,
             authorAvatar = post.authorAvatar,
@@ -57,13 +62,16 @@ class TopicPageMapper @Inject constructor() {
             postId = post.postId.toInt(),
             hasQuoteButton = post.hasQuoteButton.isNotEmpty(),
             hasEditButton = post.hasEditButton.isNotEmpty()
-        ))
+          )
+        )
       }
 
-      result.add(NavigationPanel(
+      result.add(
+        NavigationPanel(
           currentPage = navigation.currentPage.toInt(),
           totalPages = navigation.totalPages.toInt()
-      ))
+        )
+      )
     }
 
     return result

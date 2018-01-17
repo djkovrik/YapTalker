@@ -10,11 +10,15 @@ import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.ForumModel
-import kotlinx.android.synthetic.main.fragment_forums_list_item.view.*
+import kotlinx.android.synthetic.main.fragment_forums_list_item.view.forum_image
+import kotlinx.android.synthetic.main.fragment_forums_list_item.view.forum_last_topic_author
+import kotlinx.android.synthetic.main.fragment_forums_list_item.view.forum_last_topic_date
+import kotlinx.android.synthetic.main.fragment_forums_list_item.view.forum_last_topic_title
+import kotlinx.android.synthetic.main.fragment_forums_list_item.view.forum_title
 
 class ForumsDelegateAdapter(
-    private val clickListener: ForumsItemClickListener,
-    private val settings: Settings
+  private val clickListener: ForumsItemClickListener,
+  private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {
@@ -29,7 +33,7 @@ class ForumsDelegateAdapter(
   }
 
   inner class ForumsViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_forums_list_item)) {
+    RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_forums_list_item)) {
 
     fun bindTo(forumItem: ForumModel) {
       with(itemView) {

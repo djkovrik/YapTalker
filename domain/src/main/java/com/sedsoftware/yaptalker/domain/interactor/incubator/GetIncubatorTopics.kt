@@ -7,12 +7,12 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class GetIncubatorTopics @Inject constructor(
-    private val incubatorRepository: IncubatorRepository
+  private val incubatorRepository: IncubatorRepository
 ) : UseCaseWithParameter<GetIncubatorTopics.Params, BaseEntity> {
 
   override fun execute(parameter: Params): Observable<BaseEntity> =
-      incubatorRepository
-          .getIncubatorTopics(parameter.pageNumber)
+    incubatorRepository
+      .getIncubatorTopics(parameter.pageNumber)
 
   class Params(val pageNumber: Int)
 }

@@ -13,12 +13,19 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
-import kotlinx.android.synthetic.main.fragment_news_item.view.*
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_author
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_comments_counter
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_content_image
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_content_text
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_date
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_forum
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_rating
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_title
 
 class NewsDelegateAdapter(
-    private val clickListener: NewsItemElementsClickListener,
-    private val thumbnailsLoader: NewsItemThumbnailsLoader,
-    private val settings: Settings
+  private val clickListener: NewsItemElementsClickListener,
+  private val thumbnailsLoader: NewsItemThumbnailsLoader,
+  private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {
@@ -37,7 +44,7 @@ class NewsDelegateAdapter(
   }
 
   inner class NewsViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_news_item)) {
+    RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_news_item)) {
 
     fun bindTo(newsItem: NewsItemModel) {
       setViewsTextSize(itemView)

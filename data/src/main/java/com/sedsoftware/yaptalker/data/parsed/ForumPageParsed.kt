@@ -9,10 +9,11 @@ class ForumPageParsed {
   @Selector("a[href~=.*/forum\\d+/].title", defValue = "Unknown")
   lateinit var forumTitle: String
   @Selector(
-      value = "a[href~=.*/forum\\d+/].title",
-      attr = "href",
-      format = "//www.yaplakal.com/forum(\\d+)/",
-      defValue = "0")
+    value = "a[href~=.*/forum\\d+/].title",
+    attr = "href",
+    format = "//www.yaplakal.com/forum(\\d+)/",
+    defValue = "0"
+  )
   lateinit var forumId: String
   @Selector("table[width=100%]")
   lateinit var navigation: ForumNavigationPanel

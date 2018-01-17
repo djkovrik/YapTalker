@@ -15,8 +15,9 @@ import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
-import kotlinx.android.synthetic.main.activity_video_display.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.activity_video_display.video_view
+import kotlinx.android.synthetic.main.include_main_appbar.appbar
+import kotlinx.android.synthetic.main.include_main_appbar.toolbar
 import javax.inject.Inject
 
 class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
@@ -43,9 +44,9 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
 
   private val videoHtml: String by lazy {
     val iframe = intent
-        .getStringExtra(VIDEO_HTML_KEY)
-        .replace(Regex("width=\"\\d+\" height=\"\\d+\""), "")
-        .replace("src=\"//", "src=\"http://")
+      .getStringExtra(VIDEO_HTML_KEY)
+      .replace(Regex("width=\"\\d+\" height=\"\\d+\""), "")
+      .replace("src=\"//", "src=\"http://")
 
     """
     <html>
@@ -93,8 +94,10 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
   }
 
   override fun displayWebViewContent() {
-    video_view.loadDataWithBaseURL("file:///android_asset/", videoHtml,
-        "text/html", "utf-8", null)
+    video_view.loadDataWithBaseURL(
+      "file:///android_asset/", videoHtml,
+      "text/html", "utf-8", null
+    )
   }
 
   override fun clearWebView() {

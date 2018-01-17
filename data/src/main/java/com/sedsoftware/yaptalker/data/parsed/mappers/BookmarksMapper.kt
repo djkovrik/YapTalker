@@ -16,11 +16,13 @@ class BookmarksMapper @Inject constructor() {
     val result: MutableList<BaseEntity> = ArrayList()
 
     bookmarks.topics.forEach { topic ->
-      result.add(BookmarkedTopic(
+      result.add(
+        BookmarkedTopic(
           bookmarkId = topic.bookmarkId.toInt(),
           title = topic.title,
           link = topic.link
-      ))
+        )
+      )
     }
 
     return result

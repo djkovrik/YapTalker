@@ -22,7 +22,8 @@ import com.sedsoftware.yaptalker.presentation.features.activetopics.adapter.Acti
 import com.sedsoftware.yaptalker.presentation.features.activetopics.adapter.ActiveTopicsElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_active_topics.*
+import kotlinx.android.synthetic.main.fragment_active_topics.active_topics_list
+import kotlinx.android.synthetic.main.fragment_active_topics.active_topics_refresh_layout
 import java.util.Locale
 import javax.inject.Inject
 
@@ -125,19 +126,19 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsEleme
   override fun onGoToSelectedPageClick() {
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-          .title(R.string.navigation_go_to_page_title)
-          .inputType(InputType.TYPE_CLASS_NUMBER)
-          .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
-            presenter.goToChosenPage(input.toString().toInt())
-          })
-          .show()
+        .title(R.string.navigation_go_to_page_title)
+        .inputType(InputType.TYPE_CLASS_NUMBER)
+        .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
+          presenter.goToChosenPage(input.toString().toInt())
+        })
+        .show()
     }
   }
 
   private fun subscribeViews() {
     RxSwipeRefreshLayout
-        .refreshes(active_topics_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.refreshActiveTopicsList() }
+      .refreshes(active_topics_refresh_layout)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.refreshActiveTopicsList() }
   }
 }

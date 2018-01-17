@@ -9,8 +9,8 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import javax.inject.Inject
 
 class SettingsManager @Inject constructor(
-    private val context: Context,
-    private val preferences: SharedPreferences
+  private val context: Context,
+  private val preferences: SharedPreferences
 ) : Settings {
 
   companion object {
@@ -38,30 +38,34 @@ class SettingsManager @Inject constructor(
   }
 
   override fun getAvatarSize(): Int =
-      getStringPref(
-          R.string.pref_key_avatar_size,
-          context.resources.getString(R.string.pref_appearance_avatar_size_value_small)).toInt()
+    getStringPref(
+      R.string.pref_key_avatar_size,
+      context.resources.getString(R.string.pref_appearance_avatar_size_value_small)
+    ).toInt()
 
   override fun getNormalFontSize(): Float =
-      getStringPref(
-          R.string.pref_key_font_size,
-          context.getString(R.string.pref_appearance_font_size_value_14)).toFloat()
+    getStringPref(
+      R.string.pref_key_font_size,
+      context.getString(R.string.pref_appearance_font_size_value_14)
+    ).toFloat()
 
   override fun getBigFontSize(): Float =
-      getStringPref(
-          R.string.pref_key_font_size,
-          context.getString(R.string.pref_appearance_font_size_value_14)).toFloat() + TEXT_SIZE_OFFSET
+    getStringPref(
+      R.string.pref_key_font_size,
+      context.getString(R.string.pref_appearance_font_size_value_14)
+    ).toFloat() + TEXT_SIZE_OFFSET
 
   override fun getSmallFontSize(): Float =
-      getStringPref(
-          R.string.pref_key_font_size,
-          context.getString(R.string.pref_appearance_font_size_value_14)).toFloat() - TEXT_SIZE_OFFSET
+    getStringPref(
+      R.string.pref_key_font_size,
+      context.getString(R.string.pref_appearance_font_size_value_14)
+    ).toFloat() - TEXT_SIZE_OFFSET
 
   override fun getMessagesPerPage(): Int =
-      getIntPref(R.string.pref_key_messages_per_page, MESSAGES_PER_PAGE_DEFAULT)
+    getIntPref(R.string.pref_key_messages_per_page, MESSAGES_PER_PAGE_DEFAULT)
 
   override fun getTopicsPerPage(): Int =
-      getIntPref(R.string.pref_key_topics_per_page, TOPICS_PER_PAGE_DEFAULT)
+    getIntPref(R.string.pref_key_topics_per_page, TOPICS_PER_PAGE_DEFAULT)
 
   override fun saveMessagesPerPagePref(value: Int) {
     preferences.edit().putInt(context.resources.getString(R.string.pref_key_messages_per_page), value).apply()
@@ -72,13 +76,13 @@ class SettingsManager @Inject constructor(
   }
 
   override fun getNewsCategories(): Set<String> =
-      getStringSetPref(R.string.pref_key_categorizer, defaultCategories)
+    getStringSetPref(R.string.pref_key_categorizer, defaultCategories)
 
   override fun isNsfwEnabled(): Boolean =
-      getBooleanPref(R.string.pref_key_nswf, false)
+    getBooleanPref(R.string.pref_key_nswf, false)
 
   override fun isScreenAlwaysOnEnabled(): Boolean =
-      getBooleanPref(R.string.pref_key_screen_always_on, false)
+    getBooleanPref(R.string.pref_key_screen_always_on, false)
 
   @Suppress("MagicNumber")
   override fun isHttpsEnabled(): Boolean {
@@ -87,14 +91,14 @@ class SettingsManager @Inject constructor(
   }
 
   private fun getStringPref(@StringRes key: Int, default: String): String =
-      preferences.getString(context.resources.getString(key), default)
+    preferences.getString(context.resources.getString(key), default)
 
   private fun getStringSetPref(@StringRes key: Int, default: Set<String>): Set<String> =
-      preferences.getStringSet(context.resources.getString(key), default)
+    preferences.getStringSet(context.resources.getString(key), default)
 
   private fun getBooleanPref(@StringRes key: Int, default: Boolean): Boolean =
-      preferences.getBoolean(context.resources.getString(key), default)
+    preferences.getBoolean(context.resources.getString(key), default)
 
   private fun getIntPref(@StringRes key: Int, default: Int): Int =
-      preferences.getInt(context.resources.getString(key), default)
+    preferences.getInt(context.resources.getString(key), default)
 }

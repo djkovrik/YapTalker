@@ -11,8 +11,8 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
-import kotlinx.android.synthetic.main.activity_gif_display.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.activity_gif_display.gif_view
+import kotlinx.android.synthetic.main.include_main_appbar.toolbar
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -40,7 +40,7 @@ class GifDisplayActivity : BaseActivity(), GifDisplayView {
 
   private val gifHtml: String by lazy {
     val url = intent
-        .getStringExtra(GIF_URL_KEY)
+      .getStringExtra(GIF_URL_KEY)
 
     """
     <html>

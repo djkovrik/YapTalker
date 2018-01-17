@@ -41,20 +41,20 @@ import javax.inject.Inject
 
 @InjectViewState
 class ChosenTopicPresenter @Inject constructor(
-    private val router: Router,
-    private val settings: Settings,
-    private val getChosenTopicUseCase: GetChosenTopic,
-    private val topicMapper: TopicModelMapper,
-    private val getQuotedTextUseCase: GetQuotedText,
-    private val quoteDataMapper: QuotedPostModelMapper,
-    private val getEditedTextUseCase: GetEditedText,
-    private val editedTextDataMapper: EditedPostModelMapper,
-    private val addToBookmarksUseCase: SendBookmarkAddRequest,
-    private val changeKarmaUseCase: SendChangeKarmaRequest,
-    private val serverResponseMapper: ServerResponseModelMapper,
-    private val sendMessageUseCase: SendMessageRequest,
-    private val sendEditedMessageUseCase: SendEditedMessageRequest,
-    private val getVideoThumbnailUseCase: GetVideoThumbnail
+  private val router: Router,
+  private val settings: Settings,
+  private val getChosenTopicUseCase: GetChosenTopic,
+  private val topicMapper: TopicModelMapper,
+  private val getQuotedTextUseCase: GetQuotedText,
+  private val quoteDataMapper: QuotedPostModelMapper,
+  private val getEditedTextUseCase: GetEditedText,
+  private val editedTextDataMapper: EditedPostModelMapper,
+  private val addToBookmarksUseCase: SendBookmarkAddRequest,
+  private val changeKarmaUseCase: SendChangeKarmaRequest,
+  private val serverResponseMapper: ServerResponseModelMapper,
+  private val sendMessageUseCase: SendMessageRequest,
+  private val sendEditedMessageUseCase: SendEditedMessageRequest,
+  private val getVideoThumbnailUseCase: GetVideoThumbnail
 ) : BasePresenter<ChosenTopicView>() {
 
   companion object {
@@ -217,21 +217,21 @@ class ChosenTopicPresenter @Inject constructor(
 
   fun onReplyButtonClicked(forumId: Int, topicId: Int, authorNickname: String, postDate: String, postId: Int) {
     getQuotedTextUseCase
-        .execute(GetQuotedText.Params(forumId, topicId, postId))
-        .subscribeOn(Schedulers.io())
-        .map { quote: BaseEntity -> quoteDataMapper.transform(quote) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe({ post ->
-          post as QuotedPostModel
-          val quote = "[QUOTE=$authorNickname,$postDate]${post.text}[/QUOTE]\n"
-          router.navigateTo(NavigationScreen.MESSAGE_EDITOR_SCREEN, Triple(currentTitle, quote, ""))
-        }, { error ->
-          error.message?.let { viewState.showErrorMessage(it) }
-        })
+      .execute(GetQuotedText.Params(forumId, topicId, postId))
+      .subscribeOn(Schedulers.io())
+      .map { quote: BaseEntity -> quoteDataMapper.transform(quote) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({ post ->
+        post as QuotedPostModel
+        val quote = "[QUOTE=$authorNickname,$postDate]${post.text}[/QUOTE]\n"
+        router.navigateTo(NavigationScreen.MESSAGE_EDITOR_SCREEN, Triple(currentTitle, quote, ""))
+      }, { error ->
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
   }
 
   fun onEditButtonClicked(postId: Int) {
@@ -240,20 +240,20 @@ class ChosenTopicPresenter @Inject constructor(
     currentEditedPost = postId
 
     getEditedTextUseCase
-        .execute(GetEditedText.Params(currentForumId, currentTopicId, postId, startingPost))
-        .subscribeOn(Schedulers.io())
-        .map { text: BaseEntity -> editedTextDataMapper.transform(text) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe({ post ->
-          post as EditedPostModel
-          router.navigateTo(NavigationScreen.MESSAGE_EDITOR_SCREEN, Triple(currentTitle, "", post.text))
-        }, { error ->
-          error.message?.let { viewState.showErrorMessage(it) }
-        })
+      .execute(GetEditedText.Params(currentForumId, currentTopicId, postId, startingPost))
+      .subscribeOn(Schedulers.io())
+      .map { text: BaseEntity -> editedTextDataMapper.transform(text) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({ post ->
+        post as EditedPostModel
+        router.navigateTo(NavigationScreen.MESSAGE_EDITOR_SCREEN, Triple(currentTitle, "", post.text))
+      }, { error ->
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
   }
 
   fun addCurrentTopicToBookmarks() {
@@ -261,20 +261,20 @@ class ChosenTopicPresenter @Inject constructor(
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
     addToBookmarksUseCase
-        .execute(SendBookmarkAddRequest.Params(currentTopicId, startingPost))
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe({
-          // onComplete
-          Timber.i("Current topic added to bookmarks.")
-          viewState.showBookmarkAddedMessage()
-        }, { error ->
-          error.message?.let { viewState.showErrorMessage(it) }
-        })
+      .execute(SendBookmarkAddRequest.Params(currentTopicId, startingPost))
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({
+        // onComplete
+        Timber.i("Current topic added to bookmarks.")
+        viewState.showBookmarkAddedMessage()
+      }, { error ->
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
   }
 
   fun changeKarma(postId: Int = 0, isTopic: Boolean, shouldIncrease: Boolean) {
@@ -289,20 +289,20 @@ class ChosenTopicPresenter @Inject constructor(
     val diff = if (shouldIncrease) 1 else -1
 
     changeKarmaUseCase
-        .execute(SendChangeKarmaRequest.Params(isTopic, targetPostId, currentTopicId, diff))
-        .subscribeOn(Schedulers.io())
-        .map { response: BaseEntity -> serverResponseMapper.transform(response) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getKarmaResponseObserver(isTopic))
+      .execute(SendChangeKarmaRequest.Params(isTopic, targetPostId, currentTopicId, diff))
+      .subscribeOn(Schedulers.io())
+      .map { response: BaseEntity -> serverResponseMapper.transform(response) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(getKarmaResponseObserver(isTopic))
   }
 
   fun requestThumbnail(videoUrl: String): Single<String> =
-      getVideoThumbnailUseCase
-          .execute(GetVideoThumbnail.Params(videoUrl))
+    getVideoThumbnailUseCase
+      .execute(GetVideoThumbnail.Params(videoUrl))
 
   private fun sendMessage(message: String) {
 
@@ -313,21 +313,21 @@ class ChosenTopicPresenter @Inject constructor(
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
     sendMessageUseCase
-        .execute(SendMessageRequest.Params(currentForumId, currentTopicId, startingPost, authKey, message))
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe({
-          // onComplete
-          Timber.i("Send message request completed.")
-          loadTopicCurrentPage(shouldScrollToViewTop = false)
-        }, { error ->
-          // onError
-          error.message?.let { viewState.showErrorMessage(it) }
-        })
+      .execute(SendMessageRequest.Params(currentForumId, currentTopicId, startingPost, authKey, message))
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({
+        // onComplete
+        Timber.i("Send message request completed.")
+        loadTopicCurrentPage(shouldScrollToViewTop = false)
+      }, { error ->
+        // onError
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
   }
 
   private fun sendEditedMessage(message: String) {
@@ -339,21 +339,21 @@ class ChosenTopicPresenter @Inject constructor(
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
     sendEditedMessageUseCase
-        .execute(SendEditedMessageRequest.Params(currentTopicId, currentEditedPost, startingPost, authKey, message))
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe({
-          // onComplete
-          Timber.i("Send edited message request completed.")
-          loadTopicCurrentPage(shouldScrollToViewTop = false)
-        }, { error ->
-          // onError
-          error.message?.let { viewState.showErrorMessage(it) }
-        })
+      .execute(SendEditedMessageRequest.Params(currentTopicId, currentEditedPost, startingPost, authKey, message))
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({
+        // onComplete
+        Timber.i("Send edited message request completed.")
+        loadTopicCurrentPage(shouldScrollToViewTop = false)
+      }, { error ->
+        // onError
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
   }
 
   private fun loadTopicCurrentPage(shouldScrollToViewTop: Boolean) {
@@ -366,93 +366,93 @@ class ChosenTopicPresenter @Inject constructor(
     clearCurrentList = true
 
     getChosenTopicUseCase
-        .execute(GetChosenTopic.Params(currentForumId, currentTopicId, startingPost))
-        .subscribeOn(Schedulers.io())
-        .map { topicItems: List<BaseEntity> -> topicMapper.transform(topicItems) }
-        .flatMapObservable { items: List<YapEntity> -> Observable.fromIterable(items) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getTopicObserver(shouldScrollToViewTop))
+      .execute(GetChosenTopic.Params(currentForumId, currentTopicId, startingPost))
+      .subscribeOn(Schedulers.io())
+      .map { topicItems: List<BaseEntity> -> topicMapper.transform(topicItems) }
+      .flatMapObservable { items: List<YapEntity> -> Observable.fromIterable(items) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(getTopicObserver(shouldScrollToViewTop))
   }
 
   // ==== OBSERVERS ====
 
   private fun getKarmaResponseObserver(isTopic: Boolean) =
-      object : SingleObserver<YapEntity?> {
+    object : SingleObserver<YapEntity?> {
 
-        override fun onSubscribe(d: Disposable) {
-        }
+      override fun onSubscribe(d: Disposable) {
+      }
 
-        override fun onSuccess(response: YapEntity) {
-          response as ServerResponseModel
+      override fun onSuccess(response: YapEntity) {
+        response as ServerResponseModel
 
 //          Timber.d("Karma response: ${response.text}")
 
-          when {
-            response.text.contains(KARMA_SUCCESS_MARKER) -> viewState.showPostKarmaChangedMessage(isTopic)
-            response.text.contains(KARMA_ALREADY_CHANGED_MARKER) -> viewState.showPostAlreadyRatedMessage(isTopic)
-          }
-
-          Timber.i("Karma changing request completed.")
-          loadTopicCurrentPage(shouldScrollToViewTop = false)
+        when {
+          response.text.contains(KARMA_SUCCESS_MARKER) -> viewState.showPostKarmaChangedMessage(isTopic)
+          response.text.contains(KARMA_ALREADY_CHANGED_MARKER) -> viewState.showPostAlreadyRatedMessage(isTopic)
         }
 
-        override fun onError(error: Throwable) {
-          error.message?.let { viewState.showErrorMessage(it) }
-        }
+        Timber.i("Karma changing request completed.")
+        loadTopicCurrentPage(shouldScrollToViewTop = false)
       }
+
+      override fun onError(error: Throwable) {
+        error.message?.let { viewState.showErrorMessage(it) }
+      }
+    }
 
   private fun getTopicObserver(scrollToViewTop: Boolean) =
-      object : DisposableObserver<YapEntity?>() {
+    object : DisposableObserver<YapEntity?>() {
 
-        override fun onNext(item: YapEntity) {
-          if (clearCurrentList) {
-            clearCurrentList = false
-            viewState.clearPostsList()
-          }
-
-          when (item) {
-            is TopicInfoBlockModel -> {
-              rating = item.topicRating
-              ratingPlusAvailable = item.topicRatingPlusAvailable
-              ratingMinusAvailable = item.topicRatingMinusAvailable
-              ratingPlusClicked = item.topicRatingPlusClicked
-              ratingMinusClicked = item.topicRatingMinusClicked
-              ratingTargetId = item.topicRatingTargetId
-              authKey = item.authKey
-              isClosed = item.isClosed
-              currentTitle = item.topicTitle
-            }
-            is NavigationPanelModel -> {
-              currentPage = item.currentPage
-              totalPages = item.totalPages
-              viewState.appendPostItem(item)
-            }
-            is SinglePostModel -> {
-              viewState.appendPostItem(item)
-            }
-          }
+      override fun onNext(item: YapEntity) {
+        if (clearCurrentList) {
+          clearCurrentList = false
+          viewState.clearPostsList()
         }
 
-        override fun onComplete() {
-          Timber.i("Topic page loading completed.")
-          viewState.updateCurrentUiState(currentTitle)
-          setupCurrentLoginSessionState()
-
-          if (scrollToViewTop) {
-            viewState.scrollToViewTop()
-          } else {
-            viewState.restoreScrollPosition()
+        when (item) {
+          is TopicInfoBlockModel -> {
+            rating = item.topicRating
+            ratingPlusAvailable = item.topicRatingPlusAvailable
+            ratingMinusAvailable = item.topicRatingMinusAvailable
+            ratingPlusClicked = item.topicRatingPlusClicked
+            ratingMinusClicked = item.topicRatingMinusClicked
+            ratingTargetId = item.topicRatingTargetId
+            authKey = item.authKey
+            isClosed = item.isClosed
+            currentTitle = item.topicTitle
           }
-        }
-
-        override fun onError(error: Throwable) {
-          error.message?.let { viewState.showErrorMessage(it) }
+          is NavigationPanelModel -> {
+            currentPage = item.currentPage
+            totalPages = item.totalPages
+            viewState.appendPostItem(item)
+          }
+          is SinglePostModel -> {
+            viewState.appendPostItem(item)
+          }
         }
       }
+
+      override fun onComplete() {
+        Timber.i("Topic page loading completed.")
+        viewState.updateCurrentUiState(currentTitle)
+        setupCurrentLoginSessionState()
+
+        if (scrollToViewTop) {
+          viewState.scrollToViewTop()
+        } else {
+          viewState.restoreScrollPosition()
+        }
+      }
+
+      override fun onError(error: Throwable) {
+        error.message?.let { viewState.showErrorMessage(it) }
+      }
+    }
 
   // ==== UTILITY ====
 

@@ -11,7 +11,7 @@ import javax.inject.Inject
 class QuotedPostMapper @Inject constructor() {
 
   fun transform(quotedPost: QuotedPostParsed): BaseEntity =
-      QuotedPost(
-          text = quotedPost.quotedText
-      )
+    QuotedPost(
+      text = quotedPost.quotedText
+    )
 }

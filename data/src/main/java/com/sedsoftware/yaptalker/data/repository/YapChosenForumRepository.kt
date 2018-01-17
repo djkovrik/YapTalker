@@ -8,12 +8,12 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class YapChosenForumRepository @Inject constructor(
-    private val dataLoader: YapLoader,
-    private val dataMapper: ForumPageMapper
+  private val dataLoader: YapLoader,
+  private val dataMapper: ForumPageMapper
 ) : ChosenForumRepository {
 
   override fun getChosenForum(forumId: Int, startPageNumber: Int, sortingMode: String): Observable<List<BaseEntity>> =
-      dataLoader
-          .loadForumPage(forumId, startPageNumber, sortingMode)
-          .map { forumPageParsed -> dataMapper.transform(forumPageParsed) }
+    dataLoader
+      .loadForumPage(forumId, startPageNumber, sortingMode)
+      .map { forumPageParsed -> dataMapper.transform(forumPageParsed) }
 }

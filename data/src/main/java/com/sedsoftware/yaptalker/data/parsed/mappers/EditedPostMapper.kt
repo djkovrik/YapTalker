@@ -11,7 +11,7 @@ import javax.inject.Inject
 class EditedPostMapper @Inject constructor() {
 
   fun transform(editedPost: EditedPostParsed): BaseEntity =
-      EditedPost(
-          text = editedPost.editedText
-      )
+    EditedPost(
+      text = editedPost.editedText
+    )
 }

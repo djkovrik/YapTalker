@@ -8,8 +8,8 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class YapSitePreferencesRepository @Inject constructor(
-    private val dataLoader: YapLoader,
-    private val dataMapper: SettingsPageMapper
+  private val dataLoader: YapLoader,
+  private val dataMapper: SettingsPageMapper
 ) : SitePreferencesRepository {
 
   companion object {
@@ -18,10 +18,10 @@ class YapSitePreferencesRepository @Inject constructor(
   }
 
   override fun getSitePreferences(): Single<BaseEntity> =
-      dataLoader
-          .loadSitePreferences(
-              act = SETTINGS_ACT,
-              code = SETTINGS_CODE
-          )
-          .map { parsedPrefsPage -> dataMapper.transform(parsedPrefsPage) }
+    dataLoader
+      .loadSitePreferences(
+        act = SETTINGS_ACT,
+        code = SETTINGS_CODE
+      )
+      .map { parsedPrefsPage -> dataMapper.transform(parsedPrefsPage) }
 }

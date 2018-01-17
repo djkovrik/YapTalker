@@ -6,12 +6,12 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class SendBookmarkDeleteRequest @Inject constructor(
-    private val bookmarksRepository: BookmarksRepository
+  private val bookmarksRepository: BookmarksRepository
 ) : CompletableUseCaseWithParameter<SendBookmarkDeleteRequest.Params> {
 
   override fun execute(parameter: Params): Completable =
-      bookmarksRepository
-          .requestBookmarkDeletion(parameter.bookmarkId)
+    bookmarksRepository
+      .requestBookmarkDeletion(parameter.bookmarkId)
 
   class Params(val bookmarkId: Int)
 }

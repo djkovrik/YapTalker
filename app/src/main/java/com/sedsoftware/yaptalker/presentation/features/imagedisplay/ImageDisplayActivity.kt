@@ -17,8 +17,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
-import kotlinx.android.synthetic.main.activity_image_display.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.activity_image_display.photo_view
+import kotlinx.android.synthetic.main.include_main_appbar.toolbar
 import java.util.Locale
 import javax.inject.Inject
 
@@ -66,17 +66,17 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean =
-      when (item.itemId) {
-        R.id.action_share -> {
-          presenter.shareImage(this, imageUrl)
-          true
-        }
-        R.id.action_save -> {
-          checkPermissionAndSaveImage()
-          true
-        }
-        else -> super.onOptionsItemSelected(item)
+    when (item.itemId) {
+      R.id.action_share -> {
+        presenter.shareImage(this, imageUrl)
+        true
       }
+      R.id.action_save -> {
+        checkPermissionAndSaveImage()
+        true
+      }
+      else -> super.onOptionsItemSelected(item)
+    }
 
   override fun showErrorMessage(message: String) {
     toastError(message)
@@ -93,9 +93,10 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
   }
 
   override fun onRequestPermissionsResult(
-      requestCode: Int,
-      permissions: Array<out String>,
-      grantResults: IntArray) {
+    requestCode: Int,
+    permissions: Array<out String>,
+    grantResults: IntArray
+  ) {
 
     when (requestCode) {
       STORAGE_WRITE_PERMISSION -> {
@@ -105,13 +106,16 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
   }
 
   private fun checkPermissionAndSaveImage() {
-    if (ContextCompat.checkSelfPermission(this,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+    if (ContextCompat.checkSelfPermission(
+        this,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+      ) != PackageManager.PERMISSION_GRANTED) {
 
       ActivityCompat.requestPermissions(
-          this,
-          arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-          STORAGE_WRITE_PERMISSION)
+        this,
+        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+        STORAGE_WRITE_PERMISSION
+      )
     } else {
       presenter.saveImage(imageUrl)
     }

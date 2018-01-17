@@ -7,8 +7,8 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class SendSignOutRequest @Inject constructor(
-    private val loginSessionRepository: LoginSessionRepository,
-    private val settings: Settings
+  private val loginSessionRepository: LoginSessionRepository,
+  private val settings: Settings
 ) : CompletableUseCaseWithParameter<String> {
 
   companion object {
@@ -17,10 +17,10 @@ class SendSignOutRequest @Inject constructor(
   }
 
   override fun execute(parameter: String): Completable =
-      loginSessionRepository
-          .requestSignOut(userKey = parameter)
-          .doOnComplete {
-            settings.saveMessagesPerPagePref(MESSAGES_PER_PAGE_DEFAULT)
-            settings.saveTopicsPerPagePref(TOPICS_PER_PAGE_DEFAULT)
-          }
+    loginSessionRepository
+      .requestSignOut(userKey = parameter)
+      .doOnComplete {
+        settings.saveMessagesPerPagePref(MESSAGES_PER_PAGE_DEFAULT)
+        settings.saveTopicsPerPagePref(TOPICS_PER_PAGE_DEFAULT)
+      }
 }

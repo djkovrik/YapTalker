@@ -6,10 +6,10 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetSearchId @Inject constructor(
-    private val searchIdRepository: SearchIdRepository
+  private val searchIdRepository: SearchIdRepository
 ) : SingleUseCase<String> {
 
   override fun execute(): Single<String> =
-      searchIdRepository
-          .getSearchId()
+    searchIdRepository
+      .getSearchId()
 }

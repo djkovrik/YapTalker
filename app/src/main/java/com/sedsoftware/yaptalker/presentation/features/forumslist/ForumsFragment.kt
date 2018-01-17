@@ -19,7 +19,8 @@ import com.sedsoftware.yaptalker.presentation.features.forumslist.adapter.Forums
 import com.sedsoftware.yaptalker.presentation.features.forumslist.adapter.ForumsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_forums_list.*
+import kotlinx.android.synthetic.main.fragment_forums_list.forums_list
+import kotlinx.android.synthetic.main.fragment_forums_list.forums_list_refresh_layout
 import javax.inject.Inject
 
 class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
@@ -93,8 +94,8 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
 
   private fun subscribeViews() {
     RxSwipeRefreshLayout
-        .refreshes(forums_list_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.loadForumsList() }
+      .refreshes(forums_list_refresh_layout)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.loadForumsList() }
   }
 }

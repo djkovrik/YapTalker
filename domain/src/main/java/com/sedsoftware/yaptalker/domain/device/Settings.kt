@@ -12,7 +12,7 @@ interface Settings {
 
   fun getSmallFontSize(): Float
 
-  fun getMessagesPerPage() : Int
+  fun getMessagesPerPage(): Int
 
   fun getTopicsPerPage(): Int
 

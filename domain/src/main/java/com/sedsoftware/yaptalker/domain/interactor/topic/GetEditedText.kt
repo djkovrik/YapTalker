@@ -7,13 +7,14 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetEditedText @Inject constructor(
-    private val chosenTopicRepository: ChosenTopicRepository
+  private val chosenTopicRepository: ChosenTopicRepository
 ) : SingleUseCaseWithParameter<GetEditedText.Params, BaseEntity> {
 
   override fun execute(parameter: Params): Single<BaseEntity> =
-      chosenTopicRepository
-          .requestPostTextForEditing(
-              parameter.forumId, parameter.topicId, parameter.targetPostId, parameter.startingPost)
+    chosenTopicRepository
+      .requestPostTextForEditing(
+        parameter.forumId, parameter.topicId, parameter.targetPostId, parameter.startingPost
+      )
 
   class Params(val forumId: Int, val topicId: Int, val targetPostId: Int, val startingPost: Int)
 }

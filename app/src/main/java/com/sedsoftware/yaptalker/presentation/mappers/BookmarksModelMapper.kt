@@ -17,9 +17,9 @@ class BookmarksModelMapper @Inject constructor() {
     item as BookmarkedTopic
 
     return BookmarkedTopicModel(
-        bookmarkId = item.bookmarkId,
-        title = item.title,
-        link = item.link
+      bookmarkId = item.bookmarkId,
+      title = item.title,
+      link = item.link
     )
   }
 }

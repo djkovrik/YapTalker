@@ -15,9 +15,9 @@ import javax.inject.Inject
 
 @InjectViewState
 class AuthorizationPresenter @Inject constructor(
-    private val router: Router,
-    private val signInRequestUseCase: SendSignInRequest,
-    private val getSitePreferencesUseCase: GetSiteUserPreferences
+  private val router: Router,
+  private val signInRequestUseCase: SendSignInRequest,
+  private val getSitePreferencesUseCase: GetSiteUserPreferences
 ) : BasePresenter<AuthorizationView>() {
 
   override fun attachView(view: AuthorizationView?) {
@@ -36,34 +36,34 @@ class AuthorizationPresenter @Inject constructor(
 
   fun performLoginAttempt(userLogin: String, userPassword: String, isAnonymous: Boolean) {
     signInRequestUseCase
-        .execute(SendSignInRequest.Params(login = userLogin, password = userPassword, anonymously = isAnonymous))
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe({
-          // onComplete
-          viewState.loginSuccessMessage()
-          Timber.i("Sign In request completed, start site preferences loading...")
-          loadSitePreferences()
-        }, { _ ->
-          // onError
-          viewState.loginErrorMessage()
-        })
+      .execute(SendSignInRequest.Params(login = userLogin, password = userPassword, anonymously = isAnonymous))
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({
+        // onComplete
+        viewState.loginSuccessMessage()
+        Timber.i("Sign In request completed, start site preferences loading...")
+        loadSitePreferences()
+      }, { _ ->
+        // onError
+        viewState.loginErrorMessage()
+      })
   }
 
   private fun loadSitePreferences() {
     getSitePreferencesUseCase
-        .execute()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe({
-          // onComplete
-          Timber.i("Site preferences loading completed.")
-          router.exitWithResult(RequestCode.SIGN_IN, true)
-        }, { error ->
-          // onError
-          error.message?.let { viewState.showErrorMessage(it) }
-        })
+      .execute()
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({
+        // onComplete
+        Timber.i("Site preferences loading completed.")
+        router.exitWithResult(RequestCode.SIGN_IN, true)
+      }, { error ->
+        // onError
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
   }
 }

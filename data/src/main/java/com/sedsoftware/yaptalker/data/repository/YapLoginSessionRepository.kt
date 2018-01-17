@@ -12,9 +12,9 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class YapLoginSessionRepository @Inject constructor(
-    private val dataLoader: YapLoader,
-    private val dataMapper: LoginSessionInfoMapper,
-    private val responseMapper: ServerResponseMapper
+  private val dataLoader: YapLoader,
+  private val dataMapper: LoginSessionInfoMapper,
+  private val responseMapper: ServerResponseMapper
 ) : LoginSessionRepository {
 
   companion object {
@@ -27,43 +27,43 @@ class YapLoginSessionRepository @Inject constructor(
   }
 
   override fun getLoginSessionInfo(): Single<BaseEntity> =
-      dataLoader
-          .loadAuthorizedUserInfo()
-          .map { parsedSessionInfo -> dataMapper.transform(parsedSessionInfo) }
+    dataLoader
+      .loadAuthorizedUserInfo()
+      .map { parsedSessionInfo -> dataMapper.transform(parsedSessionInfo) }
 
   override fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Completable =
-      dataLoader
-          .signIn(
-              cookieDate = LOGIN_COOKIE_DATE,
-              privacy = anonymously,
-              password = userPassword,
-              userName = userLogin,
-              referer = LOGIN_REFERRER,
-              submit = LOGIN_SUBMIT,
-              userKey = "$userLogin${System.currentTimeMillis()}".toMd5()
-          )
-          .map { response -> responseMapper.transform(response) }
-          .flatMapCompletable { response ->
-            response as ServerResponse
-            if (response.text.contains(SIGN_IN_SUCCESS_MARKER)) {
-              Completable.complete()
-            } else {
-              Completable.error(RequestErrorException("Unable to complete sign in request."))
-            }
-          }
+    dataLoader
+      .signIn(
+        cookieDate = LOGIN_COOKIE_DATE,
+        privacy = anonymously,
+        password = userPassword,
+        userName = userLogin,
+        referer = LOGIN_REFERRER,
+        submit = LOGIN_SUBMIT,
+        userKey = "$userLogin${System.currentTimeMillis()}".toMd5()
+      )
+      .map { response -> responseMapper.transform(response) }
+      .flatMapCompletable { response ->
+        response as ServerResponse
+        if (response.text.contains(SIGN_IN_SUCCESS_MARKER)) {
+          Completable.complete()
+        } else {
+          Completable.error(RequestErrorException("Unable to complete sign in request."))
+        }
+      }
 
   override fun requestSignOut(userKey: String): Completable =
-      dataLoader
-          .signOut(userKey)
-          .map { response -> responseMapper.transform(response) }
-          .flatMapCompletable { response ->
-            response as ServerResponse
-            if (response.text.contains(SIGN_OUT_SUCCESS_MARKER)) {
-              Completable.complete()
-            } else {
-              Completable.error(RequestErrorException("Unable to complete sign out request."))
-            }
-          }
+    dataLoader
+      .signOut(userKey)
+      .map { response -> responseMapper.transform(response) }
+      .flatMapCompletable { response ->
+        response as ServerResponse
+        if (response.text.contains(SIGN_OUT_SUCCESS_MARKER)) {
+          Completable.complete()
+        } else {
+          Completable.error(RequestErrorException("Unable to complete sign out request."))
+        }
+      }
 
 
   @Suppress("MagicNumber")

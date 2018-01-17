@@ -21,10 +21,10 @@ import javax.inject.Inject
 
 @InjectViewState
 class IncubatorPresenter @Inject constructor(
-    private val router: Router,
-    private val getIncubatorTopics: GetIncubatorTopics,
-    private val getVideoThumbnail: GetVideoThumbnail,
-    private val incubatorModelMapper: IncubatorModelMapper
+  private val router: Router,
+  private val getIncubatorTopics: GetIncubatorTopics,
+  private val getVideoThumbnail: GetVideoThumbnail,
+  private val incubatorModelMapper: IncubatorModelMapper
 ) : BasePresenter<IncubatorView>() {
 
   companion object {
@@ -52,8 +52,8 @@ class IncubatorPresenter @Inject constructor(
   }
 
   fun requestThumbnail(videoUrl: String): Single<String> =
-      getVideoThumbnail
-          .execute(GetVideoThumbnail.Params(videoUrl))
+    getVideoThumbnail
+      .execute(GetVideoThumbnail.Params(videoUrl))
 
   fun loadIncubator(loadFromFirstPage: Boolean) {
 
@@ -82,35 +82,35 @@ class IncubatorPresenter @Inject constructor(
 
   private fun loadDataForCurrentPage() {
     getIncubatorTopics
-        .execute(GetIncubatorTopics.Params(pageNumber = currentPage))
-        .subscribeOn(Schedulers.io())
-        .map { incubatorItem: BaseEntity -> incubatorModelMapper.transform(incubatorItem) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getIncubatorObserver())
+      .execute(GetIncubatorTopics.Params(pageNumber = currentPage))
+      .subscribeOn(Schedulers.io())
+      .map { incubatorItem: BaseEntity -> incubatorModelMapper.transform(incubatorItem) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(getIncubatorObserver())
   }
 
   private fun getIncubatorObserver() =
-      object : DisposableObserver<YapEntity>() {
+    object : DisposableObserver<YapEntity>() {
 
-        override fun onNext(item: YapEntity) {
-          if (backToFirstPage) {
-            viewState.clearIncubatorsList()
-            backToFirstPage = false
-          }
-
-          viewState.appendIncubatorItem(item)
+      override fun onNext(item: YapEntity) {
+        if (backToFirstPage) {
+          viewState.clearIncubatorsList()
+          backToFirstPage = false
         }
 
-        override fun onComplete() {
-          Timber.i("Incubator page loading completed.")
-        }
-
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
-        }
+        viewState.appendIncubatorItem(item)
       }
+
+      override fun onComplete() {
+        Timber.i("Incubator page loading completed.")
+      }
+
+      override fun onError(e: Throwable) {
+        e.message?.let { viewState.showErrorMessage(it) }
+      }
+    }
 }

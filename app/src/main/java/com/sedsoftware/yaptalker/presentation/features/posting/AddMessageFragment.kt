@@ -90,13 +90,13 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean =
-      when (item.itemId) {
-        R.id.action_send -> {
-          returnMessageText()
-          true
-        }
-        else -> super.onOptionsItemSelected(item)
+    when (item.itemId) {
+      R.id.action_send -> {
+        returnMessageText()
+        true
       }
+      else -> super.onOptionsItemSelected(item)
+    }
 
   override fun updateCurrentUiState() {
     presenter.setAppbarTitle("")
@@ -123,35 +123,35 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
 
     val titleDialog = context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-          .title(R.string.post_insert_link_title)
-          .positiveText(R.string.post_button_submit)
-          .negativeText(R.string.post_button_dismiss)
-          .inputType(InputType.TYPE_CLASS_TEXT)
-          .alwaysCallInputCallback()
-          .input(R.string.post_insert_link_title_hint, 0, false, { _, _ -> })
-          .onPositive { secondDialog, _ ->
-            title = secondDialog.inputEditText?.text.toString()
+        .title(R.string.post_insert_link_title)
+        .positiveText(R.string.post_button_submit)
+        .negativeText(R.string.post_button_dismiss)
+        .inputType(InputType.TYPE_CLASS_TEXT)
+        .alwaysCallInputCallback()
+        .input(R.string.post_insert_link_title_hint, 0, false, { _, _ -> })
+        .onPositive { secondDialog, _ ->
+          title = secondDialog.inputEditText?.text.toString()
 
-            if (url.isNotEmpty() || title.isNotEmpty()) {
-              presenter.insertVideoTag(url, title)
-            }
+          if (url.isNotEmpty() || title.isNotEmpty()) {
+            presenter.insertVideoTag(url, title)
           }
+        }
     }
 
     val linkDialog = context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-          .title(R.string.post_insert_link)
-          .positiveText(R.string.post_button_submit)
-          .negativeText(R.string.post_button_dismiss)
-          .inputType(InputType.TYPE_CLASS_TEXT)
-          .alwaysCallInputCallback()
-          .input(R.string.post_insert_link_hint, 0, false, { firstDialog, firstInput ->
-            firstDialog.getActionButton(DialogAction.POSITIVE).isEnabled = firstInput.toString().startsWith("http")
-          })
-          .onPositive { firstDialog, _ ->
-            url = firstDialog.inputEditText?.text.toString()
-            titleDialog?.show()
-          }
+        .title(R.string.post_insert_link)
+        .positiveText(R.string.post_button_submit)
+        .negativeText(R.string.post_button_dismiss)
+        .inputType(InputType.TYPE_CLASS_TEXT)
+        .alwaysCallInputCallback()
+        .input(R.string.post_insert_link_hint, 0, false, { firstDialog, firstInput ->
+          firstDialog.getActionButton(DialogAction.POSITIVE).isEnabled = firstInput.toString().startsWith("http")
+        })
+        .onPositive { firstDialog, _ ->
+          url = firstDialog.inputEditText?.text.toString()
+          titleDialog?.show()
+        }
     }
 
     linkDialog?.show()
@@ -165,43 +165,43 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
   private fun subscribeViews() {
     // B
     RxView
-        .clicks(new_post_button_bold)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          with(new_post_edit_text) {
-            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_B)
-          }
+      .clicks(new_post_button_bold)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        with(new_post_edit_text) {
+          presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_B)
         }
+      }
 
     // I
     RxView
-        .clicks(new_post_button_italic)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          with(new_post_edit_text) {
-            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_I)
-          }
+      .clicks(new_post_button_italic)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        with(new_post_edit_text) {
+          presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_I)
         }
+      }
 
     // U
     RxView
-        .clicks(new_post_button_underlined)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          with(new_post_edit_text) {
-            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_U)
-          }
+      .clicks(new_post_button_underlined)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        with(new_post_edit_text) {
+          presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_U)
         }
+      }
 
     // Link
     RxView
-        .clicks(new_post_button_link)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          with(new_post_edit_text) {
-            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_LINK)
-          }
+      .clicks(new_post_button_link)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        with(new_post_edit_text) {
+          presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_LINK)
         }
+      }
   }
 
   private fun returnMessageText() {

@@ -7,10 +7,10 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class GetForumsList @Inject constructor(
-    private val forumsListRepository: ForumsListRepository
+  private val forumsListRepository: ForumsListRepository
 ) : UseCase<BaseEntity> {
 
   override fun execute(): Observable<BaseEntity> =
-      forumsListRepository
-          .getMainForumsList()
+    forumsListRepository
+      .getMainForumsList()
 }

@@ -29,13 +29,15 @@ import com.sedsoftware.yaptalker.presentation.utility.InfiniteScrollListener
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_news.*
+import kotlinx.android.synthetic.main.fragment_news.news_fab
+import kotlinx.android.synthetic.main.fragment_news.news_list
+import kotlinx.android.synthetic.main.fragment_news.refresh_layout
 import org.jetbrains.anko.browse
 import timber.log.Timber
 import javax.inject.Inject
 
 class NewsFragment :
-    BaseFragment(), NewsView, NewsItemThumbnailsLoader, NewsItemElementsClickListener {
+  BaseFragment(), NewsView, NewsItemThumbnailsLoader, NewsItemElementsClickListener {
 
   companion object {
     fun getNewInstance() = NewsFragment()
@@ -121,19 +123,19 @@ class NewsFragment :
 
   override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
     presenter
-        .requestThumbnail(videoUrl)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe({ url ->
-          if (url.isNotEmpty()) {
-            imageView.loadThumbnailFromUrl(url)
-          } else {
-            context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
-          }
-        }, { throwable ->
-          Timber.e("Can't load image: ${throwable.message}")
-        })
+      .requestThumbnail(videoUrl)
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe({ url ->
+        if (url.isNotEmpty()) {
+          imageView.loadThumbnailFromUrl(url)
+        } else {
+          context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
+        }
+      }, { throwable ->
+        Timber.e("Can't load image: ${throwable.message}")
+      })
   }
 
   override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
@@ -154,18 +156,18 @@ class NewsFragment :
   private fun subscribeViews() {
 
     RxSwipeRefreshLayout
-        .refreshes(refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.loadNews(loadFromFirstPage = true) }
+      .refreshes(refresh_layout)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.loadNews(loadFromFirstPage = true) }
 
     RxRecyclerView
-        .scrollEvents(news_list)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
+      .scrollEvents(news_list)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
 
     RxView
-        .clicks(news_fab)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.loadNews(loadFromFirstPage = true) }
+      .clicks(news_fab)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.loadNews(loadFromFirstPage = true) }
   }
 }

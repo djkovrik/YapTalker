@@ -26,7 +26,8 @@ class IncubatorPageMapper @Inject constructor() {
       check(contents.size == bottoms.size) { "Contents size should match bottoms size" }
 
       headers.forEachIndexed { index, _ ->
-        result.add(IncubatorItem(
+        result.add(
+          IncubatorItem(
             title = headers[index].title,
             link = headers[index].link,
             rating = headers[index].rating.toInt(),
@@ -41,7 +42,8 @@ class IncubatorPageMapper @Inject constructor() {
             forumLink = bottoms[index].forumLink,
             comments = bottoms[index].comments.toInt(),
             cleanedDescription = cleanDescription(contents[index].description)
-        ))
+          )
+        )
       }
     }
 
@@ -50,10 +52,10 @@ class IncubatorPageMapper @Inject constructor() {
 
   private fun cleanDescription(description: String) =
 
-      with(Jsoup.clean(description, Whitelist().addTags("i", "u", "b", "br"))) {
-        if (this.contains("<br>"))
-          this.substring(0, this.indexOf("<br>"))
-        else
-          this
-      }
+    with(Jsoup.clean(description, Whitelist().addTags("i", "u", "b", "br"))) {
+      if (this.contains("<br>"))
+        this.substring(0, this.indexOf("<br>"))
+      else
+        this
+    }
 }

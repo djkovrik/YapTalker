@@ -10,9 +10,9 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class YapNewsRepository @Inject constructor(
-    private val dataLoader: YapLoader,
-    private val dataMapper: NewsPageMapper,
-    private val settings: Settings
+  private val dataLoader: YapLoader,
+  private val dataMapper: NewsPageMapper,
+  private val settings: Settings
 ) : NewsRepository {
 
   private val newsCategories by lazy {
@@ -20,12 +20,12 @@ class YapNewsRepository @Inject constructor(
   }
 
   override fun getNews(page: Int): Observable<BaseEntity> =
-      dataLoader
-          .loadNews(startPage = page)
-          .map { parsedNewsPage -> dataMapper.transform(parsedNewsPage) }
-          .flatMap { newsList -> Observable.fromIterable(newsList) }
-          .filter { newsEntity ->
-            newsEntity as NewsItem
-            newsCategories.contains(newsEntity.forumLink)
-          }
+    dataLoader
+      .loadNews(startPage = page)
+      .map { parsedNewsPage -> dataMapper.transform(parsedNewsPage) }
+      .flatMap { newsList -> Observable.fromIterable(newsList) }
+      .filter { newsEntity ->
+        newsEntity as NewsItem
+        newsCategories.contains(newsEntity.forumLink)
+      }
 }

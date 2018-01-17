@@ -16,14 +16,14 @@ class MainActivityPresenter @Inject constructor() : BasePresenter<MainActivityVi
     super.onFirstViewAttach()
 
     eventBus
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe({ event ->
-          when (event) {
-            is AppbarEvent -> viewState.setAppbarTitle(event.title)
-            is NavDrawerEvent -> viewState.selectNavDrawerItem(event.itemId)
-          }
-        }, { throwable ->
-          Timber.e("Error while handling app event: ${throwable.message}")
-        })
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({ event ->
+        when (event) {
+          is AppbarEvent -> viewState.setAppbarTitle(event.title)
+          is NavDrawerEvent -> viewState.selectNavDrawerItem(event.itemId)
+        }
+      }, { throwable ->
+        Timber.e("Error while handling app event: ${throwable.message}")
+      })
   }
 }

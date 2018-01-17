@@ -7,12 +7,12 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetUserProfile @Inject constructor(
-    private val userProfileRepository: UserProfileRepository
+  private val userProfileRepository: UserProfileRepository
 ) : SingleUseCaseWithParameter<GetUserProfile.Params, BaseEntity> {
 
   override fun execute(parameter: Params): Single<BaseEntity> =
-      userProfileRepository
-          .getUserProfile(parameter.userId)
+    userProfileRepository
+      .getUserProfile(parameter.userId)
 
   class Params(val userId: Int)
 }

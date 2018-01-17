@@ -5,8 +5,8 @@ import com.sedsoftware.yaptalker.data.repository.thumbnail.data.RutubeData
 import io.reactivex.Single
 
 class RutubeThumbnailSource(
-    private val rutubeLoader: RutubeLoader,
-    private val videoLink: String
+  private val rutubeLoader: RutubeLoader,
+  private val videoLink: String
 ) : ThumbnailSource {
 
   private val videoId: String by lazy {
@@ -14,7 +14,7 @@ class RutubeThumbnailSource(
   }
 
   override fun getThumbnailUrl(): Single<String> =
-      rutubeLoader
-          .loadThumbnail(id = videoId, format = "json")
-          .map { rutubeInfo: RutubeData -> rutubeInfo.thumbnail_url }
+    rutubeLoader
+      .loadThumbnail(id = videoId, format = "json")
+      .map { rutubeInfo: RutubeData -> rutubeInfo.thumbnail_url }
 }

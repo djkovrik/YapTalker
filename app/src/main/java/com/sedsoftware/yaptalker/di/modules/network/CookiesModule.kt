@@ -25,5 +25,5 @@ class CookiesModule {
   @Singleton
   @Provides
   fun provideCookieJar(cache: CookieCache, persistor: CookiePersistor): CookieJar =
-      PersistentCookieJar(cache, persistor)
+    PersistentCookieJar(cache, persistor)
 }

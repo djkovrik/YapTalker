@@ -41,10 +41,10 @@ class YapTalkerApp : Application(), HasActivityInjector {
     LeakCanary.install(this)
 
     DaggerAppComponent
-        .builder()
-        .context(this)
-        .build()
-        .inject(this)
+      .builder()
+      .context(this)
+      .build()
+      .inject(this)
 
     initTimber()
     initToasty()
@@ -66,11 +66,11 @@ class YapTalkerApp : Application(), HasActivityInjector {
 
   private fun initToasty() {
     Toasty.Config.getInstance()
-        .setErrorColor(color(R.color.toastyColorError))
-        .setInfoColor(color(R.color.toastyColorInfo))
-        .setSuccessColor(color(R.color.toastyColorSuccess))
-        .setWarningColor(color(R.color.toastyColorWarning))
-        .apply()
+      .setErrorColor(color(R.color.toastyColorError))
+      .setInfoColor(color(R.color.toastyColorInfo))
+      .setSuccessColor(color(R.color.toastyColorSuccess))
+      .setWarningColor(color(R.color.toastyColorWarning))
+      .apply()
   }
 
   private fun initMaterialDrawerImageLoader() {
@@ -84,16 +84,16 @@ class YapTalkerApp : Application(), HasActivityInjector {
       }
 
       override fun placeholder(ctx: Context?, tag: String?): Drawable =
-          when (tag) {
-            DrawerImageLoader.Tags.PROFILE.name ->
-              IconicsDrawable(ctx)
-                  .icon(CommunityMaterial.Icon.cmd_account)
-                  .colorRes(R.color.colorGuestProfile)
-                  .backgroundColorRes(R.color.colorGuestProfileBackground)
-                  .paddingDp(NAV_DRAWER_AVATAR_PADDING)
+        when (tag) {
+          DrawerImageLoader.Tags.PROFILE.name ->
+            IconicsDrawable(ctx)
+              .icon(CommunityMaterial.Icon.cmd_account)
+              .colorRes(R.color.colorGuestProfile)
+              .backgroundColorRes(R.color.colorGuestProfileBackground)
+              .paddingDp(NAV_DRAWER_AVATAR_PADDING)
 
-            else -> super.placeholder(ctx, tag)
-          }
+          else -> super.placeholder(ctx, tag)
+        }
     })
   }
 }

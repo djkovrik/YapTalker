@@ -8,11 +8,12 @@ import com.sedsoftware.yaptalker.data.network.thumbnails.YapVideoLoader
 import javax.inject.Inject
 
 class ThumbnailSourceFactory @Inject constructor(
-    private val coubLoader: CoubLoader,
-    private val rutubeLoader: RutubeLoader,
-    private val yapFileLoader: YapFileLoader,
-    private val yapVideoLoader: YapVideoLoader,
-    private val vkLoader: VkLoader) {
+  private val coubLoader: CoubLoader,
+  private val rutubeLoader: RutubeLoader,
+  private val yapFileLoader: YapFileLoader,
+  private val yapVideoLoader: YapVideoLoader,
+  private val vkLoader: VkLoader
+) {
 
   companion object {
     private const val COUB_SELECTOR = "coub.com/embed"
@@ -23,12 +24,12 @@ class ThumbnailSourceFactory @Inject constructor(
   }
 
   fun createThumbnailSource(link: String): ThumbnailSource =
-      when {
-        link.contains(COUB_SELECTOR) -> CoubThumbnailSource(coubLoader, link)
-        link.contains(YOUTUBE_SELECTOR) -> YoutubeThumbnailSource(link)
-        link.contains(RUTUBE_SELECTOR) -> RutubeThumbnailSource(rutubeLoader, link)
-        link.contains(YAPFILES_SELECTOR) -> YapThumbnailSource(yapFileLoader, yapVideoLoader, link)
-        link.contains(VK_SELECTOR) -> VkThumbnailSource(vkLoader, link)
-        else -> UnknownThumbnailSource()
-      }
+    when {
+      link.contains(COUB_SELECTOR) -> CoubThumbnailSource(coubLoader, link)
+      link.contains(YOUTUBE_SELECTOR) -> YoutubeThumbnailSource(link)
+      link.contains(RUTUBE_SELECTOR) -> RutubeThumbnailSource(rutubeLoader, link)
+      link.contains(YAPFILES_SELECTOR) -> YapThumbnailSource(yapFileLoader, yapVideoLoader, link)
+      link.contains(VK_SELECTOR) -> VkThumbnailSource(vkLoader, link)
+      else -> UnknownThumbnailSource()
+    }
 }

@@ -10,8 +10,8 @@ interface YapVideoLoader {
 
   @GET("/load/{id}")
   fun loadThumbnail(
-      @Path("id") id: String,
-      @Query("md5") md5: String,
-      @Query("type") type: String
+    @Path("id") id: String,
+    @Query("md5") md5: String,
+    @Query("type") type: String
   ): Single<YapVideoData>
 }

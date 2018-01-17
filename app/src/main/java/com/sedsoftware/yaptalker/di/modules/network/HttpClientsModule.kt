@@ -14,14 +14,14 @@ class HttpClientsModule {
   @Provides
   @Named("siteClient")
   fun provideSiteClient(jar: CookieJar): OkHttpClient =
-      OkHttpClient
-          .Builder()
-          .cookieJar(jar)
-          .addInterceptor { chain ->
-            val request = chain.request().newBuilder().addHeader("User-Agent", "YapTalker").build()
-            chain.proceed(request)
-          }
-          .build()
+    OkHttpClient
+      .Builder()
+      .cookieJar(jar)
+      .addInterceptor { chain ->
+        val request = chain.request().newBuilder().addHeader("User-Agent", "YapTalker").build()
+        chain.proceed(request)
+      }
+      .build()
 
   @Singleton
   @Provides

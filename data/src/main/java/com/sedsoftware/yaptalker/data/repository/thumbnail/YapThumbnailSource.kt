@@ -6,9 +6,9 @@ import com.sedsoftware.yaptalker.data.repository.thumbnail.data.YapVideoData
 import io.reactivex.Single
 
 class YapThumbnailSource(
-    private val yapFileLoader: YapFileLoader,
-    private val yapVideoLoader: YapVideoLoader,
-    private val videoLink: String
+  private val yapFileLoader: YapFileLoader,
+  private val yapVideoLoader: YapVideoLoader,
+  private val videoLink: String
 ) : ThumbnailSource {
 
   companion object {
@@ -20,13 +20,13 @@ class YapThumbnailSource(
   }
 
   override fun getThumbnailUrl(): Single<String> =
-      yapFileLoader
-          .loadHash(videoId)
-          .flatMap { hash: String -> getYapPlayerObservable(videoId, hash) }
+    yapFileLoader
+      .loadHash(videoId)
+      .flatMap { hash: String -> getYapPlayerObservable(videoId, hash) }
 
 
   private fun getYapPlayerObservable(id: String, hash: String): Single<String> =
-      yapVideoLoader
-          .loadThumbnail(id, hash, YAP_RESULT_TYPE)
-          .map { yapInfo: YapVideoData -> yapInfo.player.poster }
+    yapVideoLoader
+      .loadThumbnail(id, hash, YAP_RESULT_TYPE)
+      .map { yapInfo: YapVideoData -> yapInfo.player.poster }
 }

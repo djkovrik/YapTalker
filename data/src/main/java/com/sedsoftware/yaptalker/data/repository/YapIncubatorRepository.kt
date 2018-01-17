@@ -8,13 +8,13 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class YapIncubatorRepository @Inject constructor(
-    private val dataLoader: YapIncubatorLoader,
-    private val dataMapper: IncubatorPageMapper
+  private val dataLoader: YapIncubatorLoader,
+  private val dataMapper: IncubatorPageMapper
 ) : IncubatorRepository {
 
   override fun getIncubatorTopics(page: Int): Observable<BaseEntity> =
-      dataLoader
-          .loadIncubator(startPage = page)
-          .map { parsedIncubatorPage -> dataMapper.transform(parsedIncubatorPage) }
-          .flatMap { topicsList -> Observable.fromIterable(topicsList) }
+    dataLoader
+      .loadIncubator(startPage = page)
+      .map { parsedIncubatorPage -> dataMapper.transform(parsedIncubatorPage) }
+      .flatMap { topicsList -> Observable.fromIterable(topicsList) }
 }

@@ -15,10 +15,10 @@ class AppModule {
   @Singleton
   @Provides
   fun provideSharedPreferences(ctx: Context): SharedPreferences =
-      PreferenceManager.getDefaultSharedPreferences(ctx)
+    PreferenceManager.getDefaultSharedPreferences(ctx)
 
   @Singleton
   @Provides
   fun provideSettingsManager(ctx: Context, prefs: SharedPreferences): Settings =
-      SettingsManager(ctx, prefs)
+    SettingsManager(ctx, prefs)
 }

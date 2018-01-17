@@ -19,38 +19,38 @@ import javax.inject.Inject
 
 @InjectViewState
 class UserProfilePresenter @Inject constructor(
-    private val getUserProfileUseCase: GetUserProfile,
-    private val userProfileModelMapper: UserProfileModelMapper
+  private val getUserProfileUseCase: GetUserProfile,
+  private val userProfileModelMapper: UserProfileModelMapper
 ) : BasePresenter<UserProfileView>() {
 
   fun loadUserProfile(profileId: Int) {
     getUserProfileUseCase
-        .execute(GetUserProfile.Params(profileId))
-        .subscribeOn(Schedulers.io())
-        .map { profile: BaseEntity -> userProfileModelMapper.transform(profile) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getUserProfileObserver())
+      .execute(GetUserProfile.Params(profileId))
+      .subscribeOn(Schedulers.io())
+      .map { profile: BaseEntity -> userProfileModelMapper.transform(profile) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(getUserProfileObserver())
   }
 
   private fun getUserProfileObserver() =
-      object : SingleObserver<YapEntity> {
+    object : SingleObserver<YapEntity> {
 
-        override fun onSuccess(profile: YapEntity) {
-          profile as UserProfileModel
-          viewState.displayProfile(profile)
-          viewState.updateCurrentUiState(profile.nickname)
-          Timber.i("User profile loaded successfully.")
-        }
-
-        override fun onSubscribe(d: Disposable) {
-        }
-
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
-        }
+      override fun onSuccess(profile: YapEntity) {
+        profile as UserProfileModel
+        viewState.displayProfile(profile)
+        viewState.updateCurrentUiState(profile.nickname)
+        Timber.i("User profile loaded successfully.")
       }
+
+      override fun onSubscribe(d: Disposable) {
+      }
+
+      override fun onError(e: Throwable) {
+        e.message?.let { viewState.showErrorMessage(it) }
+      }
+    }
 }

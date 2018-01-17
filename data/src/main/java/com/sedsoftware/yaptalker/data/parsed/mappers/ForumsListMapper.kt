@@ -25,13 +25,15 @@ class ForumsListMapper @Inject constructor() {
       check(ids.size == topics.size) { "Topics list size should match ids list size" }
 
       titles.forEachIndexed { index, _ ->
-        result.add(Forum(
+        result.add(
+          Forum(
             title = titles[index],
             forumId = ids[index].toInt(),
             lastTopicTitle = topics[index].title,
             lastTopicAuthor = topics[index].author,
             date = topics[index].date
-        ))
+          )
+        )
       }
     }
 

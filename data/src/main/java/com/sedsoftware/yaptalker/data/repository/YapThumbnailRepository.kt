@@ -6,11 +6,11 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class YapThumbnailRepository @Inject constructor(
-    private val thumbnailSourceFactory: ThumbnailSourceFactory
+  private val thumbnailSourceFactory: ThumbnailSourceFactory
 ) : ThumbnailRepository {
 
   override fun getThumbnail(videoLink: String): Single<String> =
-      thumbnailSourceFactory
-          .createThumbnailSource(videoLink)
-          .getThumbnailUrl()
+    thumbnailSourceFactory
+      .createThumbnailSource(videoLink)
+      .getThumbnailUrl()
 }

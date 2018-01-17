@@ -13,12 +13,19 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
-import kotlinx.android.synthetic.main.fragment_incubator_item.view.*
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_author
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_comments_counter
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_content_image
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_content_text
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_date
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_forum
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_rating
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_title
 
 class IncubatorDelegateAdapter(
-    private val clickListener: IncubatorElementsClickListener,
-    private val thumbnailsLoader: IncubatorThumbnailsLoader,
-    private val settings: Settings
+  private val clickListener: IncubatorElementsClickListener,
+  private val thumbnailsLoader: IncubatorThumbnailsLoader,
+  private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {
@@ -37,7 +44,7 @@ class IncubatorDelegateAdapter(
   }
 
   inner class IncubatorViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_incubator_item)) {
+    RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_incubator_item)) {
 
     fun bindTo(incubatorItem: IncubatorItemModel) {
       setViewsTextSize(itemView)

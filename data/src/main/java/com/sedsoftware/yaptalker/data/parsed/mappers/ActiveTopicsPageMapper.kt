@@ -23,7 +23,8 @@ class ActiveTopicsPageMapper @Inject constructor() {
 
     with(activeTopicsPage) {
       topics.forEach { topic ->
-        result.add(ActiveTopic(
+        result.add(
+          ActiveTopic(
             title = topic.title,
             link = topic.link,
             isPinned = topic.isPinned.isNotEmpty(),
@@ -33,13 +34,16 @@ class ActiveTopicsPageMapper @Inject constructor() {
             rating = topic.rating.toInt(),
             answers = topic.answers.toInt(),
             lastPostDate = topic.lastPostDate
-        ))
+          )
+        )
       }
 
-      result.add(NavigationPanel(
+      result.add(
+        NavigationPanel(
           currentPage = navigation.currentPage.toInt(),
           totalPages = navigation.totalPages.toInt()
-      ))
+        )
+      )
     }
 
     return result

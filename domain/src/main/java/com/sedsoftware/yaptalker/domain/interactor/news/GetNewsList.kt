@@ -7,12 +7,12 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class GetNewsList @Inject constructor(
-    private val newsRepository: NewsRepository
+  private val newsRepository: NewsRepository
 ) : UseCaseWithParameter<GetNewsList.Params, BaseEntity> {
 
   override fun execute(parameter: Params): Observable<BaseEntity> =
-      newsRepository
-          .getNews(parameter.pageNumber)
+    newsRepository
+      .getNews(parameter.pageNumber)
 
   class Params(val pageNumber: Int)
 }

@@ -23,11 +23,11 @@ import javax.inject.Inject
 
 @InjectViewState
 class NavigationPresenter @Inject constructor(
-    private val router: Router,
-    private val settings: Settings,
-    private val getLoginSessionInfoUseCase: GetLoginSessionInfo,
-    private val sessionInfoMapper: LoginSessionInfoModelMapper,
-    private val signOutUseCase: SendSignOutRequest
+  private val router: Router,
+  private val settings: Settings,
+  private val getLoginSessionInfoUseCase: GetLoginSessionInfo,
+  private val sessionInfoMapper: LoginSessionInfoModelMapper,
+  private val signOutUseCase: SendSignOutRequest
 ) : BasePresenter<NavigationView>() {
 
   init {
@@ -91,17 +91,17 @@ class NavigationPresenter @Inject constructor(
 
   private fun refreshAuthorization() {
     getLoginSessionInfoUseCase
-        .execute()
-        .subscribeOn(Schedulers.io())
-        .map { loginSessionInfo: BaseEntity -> sessionInfoMapper.transform(loginSessionInfo) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe({ info ->
-          displayLoginSessionInfo(info)
-          Timber.i("Login session info updated.")
-        }, { error ->
-          error.message?.let { viewState.showErrorMessage(it) }
-        })
+      .execute()
+      .subscribeOn(Schedulers.io())
+      .map { loginSessionInfo: BaseEntity -> sessionInfoMapper.transform(loginSessionInfo) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({ info ->
+        displayLoginSessionInfo(info)
+        Timber.i("Login session info updated.")
+      }, { error ->
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
   }
 
   private fun displayLoginSessionInfo(sessionInfo: YapEntity) {
@@ -121,19 +121,19 @@ class NavigationPresenter @Inject constructor(
 
   private fun sendSignOutRequest() {
     signOutUseCase
-        .execute(parameter = currentUserKey)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe({
-          // onComplete
-          viewState.showSignOutMessage()
-          refreshAuthorization()
-          navigateToDefaultHomePage()
-          Timber.i("Sign Out request completed.")
-        }, { error ->
-          // onError
-          error.message?.let { viewState.showErrorMessage(it) }
-        })
+      .execute(parameter = currentUserKey)
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({
+        // onComplete
+        viewState.showSignOutMessage()
+        refreshAuthorization()
+        navigateToDefaultHomePage()
+        Timber.i("Sign Out request completed.")
+      }, { error ->
+        // onError
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
   }
 }

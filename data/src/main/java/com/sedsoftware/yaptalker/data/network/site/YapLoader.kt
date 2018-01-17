@@ -61,9 +61,9 @@ interface YapLoader {
    */
   @GET("/forum{forumId}/st/{startFrom}/100/Z-A/{sortingMode}")
   fun loadForumPage(
-      @Path("forumId") forumId: Int,
-      @Path("startFrom") startFrom: Int,
-      @Path("sortingMode") sortingMode: String
+    @Path("forumId") forumId: Int,
+    @Path("startFrom") startFrom: Int,
+    @Path("sortingMode") sortingMode: String
   ): Observable<ForumPageParsed>
 
 
@@ -78,9 +78,9 @@ interface YapLoader {
    */
   @GET("/forum{forumId}/st/{startFrom}/topic{topicId}.html")
   fun loadTopicPage(
-      @Path("forumId") forumId: Int,
-      @Path("topicId") topicId: Int,
-      @Path("startFrom") startPostNumber: Int
+    @Path("forumId") forumId: Int,
+    @Path("topicId") topicId: Int,
+    @Path("startFrom") startPostNumber: Int
   ): Single<TopicPageParsed>
 
 
@@ -116,10 +116,10 @@ interface YapLoader {
    */
   @GET("/")
   fun loadActiveTopics(
-      @Query("act") act: String,
-      @Query("CODE") code: String,
-      @Query("searchid") searchId: String,
-      @Query("st") startTopicNumber: Int
+    @Query("act") act: String,
+    @Query("CODE") code: String,
+    @Query("searchid") searchId: String,
+    @Query("st") startTopicNumber: Int
   ): Single<ActiveTopicsPageParsed>
 
 
@@ -134,8 +134,8 @@ interface YapLoader {
   @Headers("X-Requested-With:XMLHttpRequest")
   @GET("/")
   fun loadBookmarks(
-      @Query("act") act: String,
-      @Query("CODE") code: String
+    @Query("act") act: String,
+    @Query("CODE") code: String
   ): Observable<BookmarksParsed>
 
 
@@ -149,8 +149,8 @@ interface YapLoader {
    */
   @GET("/")
   fun loadSitePreferences(
-      @Query("act") act: String,
-      @Query("CODE") code: String
+    @Query("act") act: String,
+    @Query("CODE") code: String
   ): Single<SitePreferencesPageParsed>
 
 
@@ -165,9 +165,9 @@ interface YapLoader {
    */
   @GET("/act/Post/CODE/06/forum{forumId}/topic{topicId}/post/{targetPostId}/st/0/")
   fun loadTargetPostQuotedText(
-      @Path("forumId") forumId: Int,
-      @Path("topicId") topicId: Int,
-      @Path("targetPostId") targetPostId: Int
+    @Path("forumId") forumId: Int,
+    @Path("topicId") topicId: Int,
+    @Path("targetPostId") targetPostId: Int
   ): Single<QuotedPostParsed>
 
 
@@ -183,10 +183,10 @@ interface YapLoader {
    */
   @GET("/act/Post/CODE/08/forum{forumId}/topic{topicId}/post/{targetPostId}/st/{startingPost}/")
   fun loadTargetPostEditedText(
-      @Path("forumId") forumId: Int,
-      @Path("topicId") topicId: Int,
-      @Path("targetPostId") targetPostId: Int,
-      @Path("startingPost") startingPost: Int
+    @Path("forumId") forumId: Int,
+    @Path("topicId") topicId: Int,
+    @Path("targetPostId") targetPostId: Int,
+    @Path("startingPost") startingPost: Int
   ): Single<EditedPostParsed>
 
 
@@ -211,17 +211,17 @@ interface YapLoader {
   @Multipart
   @POST("/")
   fun postMessage(
-      @Part("act") act: String,
-      @Part("CODE") code: String,
-      @Part("f") forum: Int,
-      @Part("t") topic: Int,
-      @Part("st") st: Int,
-      @Part("enableemo") enableemo: Boolean,
-      @Part("enablesig") enablesig: Boolean,
-      @Part("auth_key") authKey: String,
-      @Part("Post") postContent: String,
-      @Part("MAX_FILE_SIZE") maxFileSize: Int,
-      @Part("enabletag") enabletag: Int
+    @Part("act") act: String,
+    @Part("CODE") code: String,
+    @Part("f") forum: Int,
+    @Part("t") topic: Int,
+    @Part("st") st: Int,
+    @Part("enableemo") enableemo: Boolean,
+    @Part("enablesig") enablesig: Boolean,
+    @Part("auth_key") authKey: String,
+    @Part("Post") postContent: String,
+    @Part("MAX_FILE_SIZE") maxFileSize: Int,
+    @Part("enabletag") enabletag: Int
   ): Single<TopicPageParsed>
 
 
@@ -249,20 +249,20 @@ interface YapLoader {
   @Multipart
   @POST("/")
   fun postEditedMessage(
-      @Part("st") st: Int,
-      @Part("act") act: String,
-      @Part("s") s: String,
-      @Part("f") f: Int,
-      @Part("enableemo") enableemo: String,
-      @Part("enablesig") enablesig: String,
-      @Part("auth_key") authKey: String,
-      @Part("MAX_FILE_SIZE") maxFileSize: Int,
-      @Part("CODE") code: String,
-      @Part("t") topic: Int,
-      @Part("p") post: Int,
-      @Part("Post") postContent: String,
-      @Part("enabletag") enabletag: Int,
-      @Part("FILE_UPLOAD") fileupload: String
+    @Part("st") st: Int,
+    @Part("act") act: String,
+    @Part("s") s: String,
+    @Part("f") f: Int,
+    @Part("enableemo") enableemo: String,
+    @Part("enablesig") enablesig: String,
+    @Part("auth_key") authKey: String,
+    @Part("MAX_FILE_SIZE") maxFileSize: Int,
+    @Part("CODE") code: String,
+    @Part("t") topic: Int,
+    @Part("p") post: Int,
+    @Part("Post") postContent: String,
+    @Part("enabletag") enabletag: Int,
+    @Part("FILE_UPLOAD") fileupload: String
   ): Single<TopicPageParsed>
 
   /**
@@ -281,13 +281,13 @@ interface YapLoader {
   @FormUrlEncoded
   @POST("/act/Login/CODE/01/")
   fun signIn(
-      @Field("CookieDate") cookieDate: Int,
-      @Field("Privacy") privacy: Boolean,
-      @Field("PassWord") password: String,
-      @Field("UserName") userName: String,
-      @Field("referer") referer: String,
-      @Field("submit") submit: String,
-      @Field("user_key") userKey: String
+    @Field("CookieDate") cookieDate: Int,
+    @Field("Privacy") privacy: Boolean,
+    @Field("PassWord") password: String,
+    @Field("UserName") userName: String,
+    @Field("referer") referer: String,
+    @Field("submit") submit: String,
+    @Field("user_key") userKey: String
   ): Single<Response<ResponseBody>>
 
 
@@ -315,11 +315,11 @@ interface YapLoader {
   @Headers("X-Requested-With:XMLHttpRequest")
   @GET("/")
   fun addToBookmarks(
-      @Query("act") act: String,
-      @Query("CODE") code: String,
-      @Query("item") item: Int,
-      @Query("st") startPostNumber: Int,
-      @Query("type") type: Int
+    @Query("act") act: String,
+    @Query("CODE") code: String,
+    @Query("item") item: Int,
+    @Query("st") startPostNumber: Int,
+    @Query("type") type: Int
   ): Observable<Response<ResponseBody>>
 
 
@@ -335,9 +335,9 @@ interface YapLoader {
   @Headers("X-Requested-With:XMLHttpRequest")
   @GET("/")
   fun removeFromBookmarks(
-      @Query("act") act: String,
-      @Query("CODE") code: String,
-      @Query("id") id: Int
+    @Query("act") act: String,
+    @Query("CODE") code: String,
+    @Query("id") id: Int
   ): Single<Response<ResponseBody>>
 
 
@@ -356,11 +356,11 @@ interface YapLoader {
   @Headers("X-Requested-With:XMLHttpRequest")
   @GET("/")
   fun changeKarma(
-      @Query("act") act: String,
-      @Query("CODE") code: String,
-      @Query("rank") rank: Int,
-      @Query("p") postId: Int,
-      @Query("t") topicId: Int,
-      @Query("n") type: Int
+    @Query("act") act: String,
+    @Query("CODE") code: String,
+    @Query("rank") rank: Int,
+    @Query("p") postId: Int,
+    @Query("t") topicId: Int,
+    @Query("n") type: Int
   ): Single<Response<ResponseBody>>
 }

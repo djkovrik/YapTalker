@@ -4,8 +4,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 
 class InfiniteScrollListener(
-    private val func: () -> Unit,
-    val layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
+  private val func: () -> Unit,
+  val layoutManager: LinearLayoutManager
+) : RecyclerView.OnScrollListener() {
 
   companion object {
     private const val VISIBLE_THRESHOLD = 4
@@ -33,7 +34,7 @@ class InfiniteScrollListener(
         }
       }
       if (!loading && (totalItemCount - visibleItemCount)
-          <= (firstVisibleItem + visibleThreshold)) {
+        <= (firstVisibleItem + visibleThreshold)) {
         func()
         loading = true
       }

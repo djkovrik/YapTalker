@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @InjectViewState
 class AddMessagePresenter @Inject constructor(
-    private val router: Router
+  private val router: Router
 ) : BasePresenter<AddMessageView>() {
 
   private var isBOpened = false

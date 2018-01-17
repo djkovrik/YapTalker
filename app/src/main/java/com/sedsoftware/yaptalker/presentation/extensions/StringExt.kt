@@ -3,10 +3,10 @@ package com.sedsoftware.yaptalker.presentation.extensions
 import java.util.regex.Pattern
 
 fun String.validateUrl(): String =
-    when {
-      startsWith("http") -> this
-      else -> "http:$this"
-    }
+  when {
+    startsWith("http") -> this
+    else -> "http:$this"
+  }
 
 fun String.getLastDigits(): Int {
 

@@ -42,8 +42,8 @@ class NetworkModule {
   @Singleton
   @Provides
   fun provideYapLoader(
-      @Named("siteClient") okHttpClient: OkHttpClient,
-      settings: Settings
+    @Named("siteClient") okHttpClient: OkHttpClient,
+    settings: Settings
   ): YapLoader {
 
     val endpoint = if (settings.isHttpsEnabled()) {
@@ -53,21 +53,21 @@ class NetworkModule {
     }
 
     return Retrofit
-        .Builder()
-        .baseUrl(endpoint)
-        .client(okHttpClient)
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(JspoonConverterFactory.create())
-        .addConverterFactory(ScalarsConverterFactory.create())
-        .build()
-        .create(YapLoader::class.java)
+      .Builder()
+      .baseUrl(endpoint)
+      .client(okHttpClient)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(JspoonConverterFactory.create())
+      .addConverterFactory(ScalarsConverterFactory.create())
+      .build()
+      .create(YapLoader::class.java)
   }
 
   @Singleton
   @Provides
   fun provideYapIncubatorLoader(
-      @Named("siteClient") okHttpClient: OkHttpClient,
-      settings: Settings
+    @Named("siteClient") okHttpClient: OkHttpClient,
+    settings: Settings
   ): YapIncubatorLoader {
 
     val endpoint = if (settings.isHttpsEnabled()) {
@@ -77,80 +77,80 @@ class NetworkModule {
     }
 
     return Retrofit
-        .Builder()
-        .baseUrl(endpoint)
-        .client(okHttpClient)
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(JspoonConverterFactory.create())
-        .addConverterFactory(ScalarsConverterFactory.create())
-        .build()
-        .create(YapIncubatorLoader::class.java)
+      .Builder()
+      .baseUrl(endpoint)
+      .client(okHttpClient)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(JspoonConverterFactory.create())
+      .addConverterFactory(ScalarsConverterFactory.create())
+      .build()
+      .create(YapIncubatorLoader::class.java)
   }
 
   @Singleton
   @Provides
   fun provideYapSearchIdLoader(
-      @Named("siteClient") okHttpClient: OkHttpClient
+    @Named("siteClient") okHttpClient: OkHttpClient
   ): YapSearchIdLoader =
-      Retrofit
-          .Builder()
-          .baseUrl(SITE_ENDPOINT)
-          .client(okHttpClient)
-          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-          .addConverterFactory(HashSearchConverterFactory.create(YAP_SEARCH_ID_HASH_MARKER))
-          .build()
-          .create(YapSearchIdLoader::class.java)
+    Retrofit
+      .Builder()
+      .baseUrl(SITE_ENDPOINT)
+      .client(okHttpClient)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(HashSearchConverterFactory.create(YAP_SEARCH_ID_HASH_MARKER))
+      .build()
+      .create(YapSearchIdLoader::class.java)
 
 
   @Singleton
   @Provides
   fun provideCoubLoader(): CoubLoader =
-      Retrofit
-          .Builder()
-          .baseUrl(COUB_VIDEO_ENDPOINT)
-          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-          .addConverterFactory(MoshiConverterFactory.create())
-          .build()
-          .create(CoubLoader::class.java)
+    Retrofit
+      .Builder()
+      .baseUrl(COUB_VIDEO_ENDPOINT)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(MoshiConverterFactory.create())
+      .build()
+      .create(CoubLoader::class.java)
 
   @Singleton
   @Provides
   fun provideRutubeLoader(): RutubeLoader =
-      Retrofit
-          .Builder()
-          .baseUrl(RUTUBE_VIDEO_ENDPOINT)
-          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-          .addConverterFactory(MoshiConverterFactory.create())
-          .build()
-          .create(RutubeLoader::class.java)
+    Retrofit
+      .Builder()
+      .baseUrl(RUTUBE_VIDEO_ENDPOINT)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(MoshiConverterFactory.create())
+      .build()
+      .create(RutubeLoader::class.java)
 
   @Singleton
   @Provides
   fun provideYapFileLoader(): YapFileLoader =
-      Retrofit.Builder()
-          .baseUrl(YAP_FILES_ENDPOINT)
-          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-          .addConverterFactory(HashSearchConverterFactory.create(YAP_FILE_HASH_MARKER))
-          .build()
-          .create(YapFileLoader::class.java)
+    Retrofit.Builder()
+      .baseUrl(YAP_FILES_ENDPOINT)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(HashSearchConverterFactory.create(YAP_FILE_HASH_MARKER))
+      .build()
+      .create(YapFileLoader::class.java)
 
   @Singleton
   @Provides
   fun provideYapVideoLoader(): YapVideoLoader =
-      Retrofit.Builder()
-          .baseUrl(YAP_API_ENDPOINT)
-          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-          .addConverterFactory(MoshiConverterFactory.create())
-          .build()
-          .create(YapVideoLoader::class.java)
+    Retrofit.Builder()
+      .baseUrl(YAP_API_ENDPOINT)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(MoshiConverterFactory.create())
+      .build()
+      .create(YapVideoLoader::class.java)
 
   @Singleton
   @Provides
   fun provideVkLoader(): VkLoader =
-      Retrofit.Builder()
-          .baseUrl(VK_VIDEO_ENDPOINT)
-          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-          .addConverterFactory(MoshiConverterFactory.create())
-          .build()
-          .create(VkLoader::class.java)
+    Retrofit.Builder()
+      .baseUrl(VK_VIDEO_ENDPOINT)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(MoshiConverterFactory.create())
+      .build()
+      .create(VkLoader::class.java)
 }

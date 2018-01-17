@@ -11,9 +11,9 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import java.util.ArrayList
 
 class ChosenTopicAdapter(
-    clickListener: ChosenTopicElementsClickListener,
-    thumbnailLoader: ChosenTopicThumbnailLoader,
-    settings: Settings
+  clickListener: ChosenTopicElementsClickListener,
+  thumbnailLoader: ChosenTopicThumbnailLoader,
+  settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<YapEntity>
@@ -21,7 +21,8 @@ class ChosenTopicAdapter(
 
   init {
     delegateAdapters.put(
-        YapEntityTypes.SINGLE_POST_ITEM, ChosenTopicDelegateAdapter(clickListener, thumbnailLoader, settings))
+      YapEntityTypes.SINGLE_POST_ITEM, ChosenTopicDelegateAdapter(clickListener, thumbnailLoader, settings)
+    )
 
     delegateAdapters.put(YapEntityTypes.NAVIGATION_PANEL_ITEM, TopicNavigationDelegateAdapter(clickListener))
 
@@ -29,7 +30,7 @@ class ChosenTopicAdapter(
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-      delegateAdapters.get(viewType).onCreateViewHolder(parent)
+    delegateAdapters.get(viewType).onCreateViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])

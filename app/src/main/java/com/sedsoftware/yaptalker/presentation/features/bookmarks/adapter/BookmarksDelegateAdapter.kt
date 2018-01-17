@@ -9,11 +9,12 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
-import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.*
+import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.bookmark_delete_icon
+import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.bookmark_title
 
 class BookmarksDelegateAdapter(
-    private val clickListener: BookmarksElementsClickListener,
-    private val settings: Settings
+  private val clickListener: BookmarksElementsClickListener,
+  private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
   private val normalFontSize by lazy {
@@ -28,7 +29,7 @@ class BookmarksDelegateAdapter(
   }
 
   inner class BookmarkViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_bookmarks_item)) {
+    RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_bookmarks_item)) {
 
     fun bindTo(topicItem: BookmarkedTopicModel) {
       with(itemView) {

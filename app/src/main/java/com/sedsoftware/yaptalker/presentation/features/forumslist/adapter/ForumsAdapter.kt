@@ -11,8 +11,8 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import java.util.ArrayList
 
 class ForumsAdapter(
-    itemClick: ForumsItemClickListener,
-    settings: Settings
+  itemClick: ForumsItemClickListener,
+  settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<YapEntity>
@@ -24,7 +24,7 @@ class ForumsAdapter(
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-      delegateAdapters.get(viewType).onCreateViewHolder(parent)
+    delegateAdapters.get(viewType).onCreateViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])

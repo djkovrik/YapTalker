@@ -13,9 +13,9 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import java.util.ArrayList
 
 class NewsAdapter(
-    clickListener: NewsItemElementsClickListener,
-    thumbnailsLoader: NewsItemThumbnailsLoader,
-    settings: Settings
+  clickListener: NewsItemElementsClickListener,
+  thumbnailsLoader: NewsItemThumbnailsLoader,
+  settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<YapEntity>
@@ -23,7 +23,8 @@ class NewsAdapter(
 
   init {
     delegateAdapters.put(
-        YapEntityTypes.NEWS_ITEM, NewsDelegateAdapter(clickListener, thumbnailsLoader, settings))
+      YapEntityTypes.NEWS_ITEM, NewsDelegateAdapter(clickListener, thumbnailsLoader, settings)
+    )
 
     items = ArrayList()
   }
@@ -44,7 +45,7 @@ class NewsAdapter(
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-      delegateAdapters.get(viewType).onCreateViewHolder(parent)
+    delegateAdapters.get(viewType).onCreateViewHolder(parent)
 
   override fun getItemCount(): Int = items.size
 

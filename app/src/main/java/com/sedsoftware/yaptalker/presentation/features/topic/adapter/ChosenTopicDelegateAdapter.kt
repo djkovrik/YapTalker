@@ -45,9 +45,9 @@ import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_ratin
 import java.util.ArrayList
 
 class ChosenTopicDelegateAdapter(
-    private val clickListener: ChosenTopicElementsClickListener,
-    private val thumbnailLoader: ChosenTopicThumbnailLoader,
-    private val settings: Settings
+  private val clickListener: ChosenTopicElementsClickListener,
+  private val thumbnailLoader: ChosenTopicThumbnailLoader,
+  private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
   companion object {
@@ -74,7 +74,7 @@ class ChosenTopicDelegateAdapter(
   }
 
   inner class PostViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_chosen_topic_item)) {
+    RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_chosen_topic_item)) {
 
     private val currentAvatarSize = avatarSize * parent.context.currentDensity
     private val textPadding = parent.context.resources.getDimension(R.dimen.post_text_horizontal_padding).toInt()
@@ -173,7 +173,8 @@ class ChosenTopicDelegateAdapter(
     private fun fillPostImages(post: SinglePostParsedModel) {
 
       val imagePadding = itemView.context.resources.getDimension(
-          R.dimen.post_image_vertical_padding).toInt()
+        R.dimen.post_image_vertical_padding
+      ).toInt()
 
       itemView.post_content_image_container.removeAllViews()
       itemView.post_content_image_container.hideView()
@@ -194,7 +195,8 @@ class ChosenTopicDelegateAdapter(
     private fun fillPostVideos(post: SinglePostParsedModel) {
 
       val imagePadding = itemView.context.resources.getDimension(
-          R.dimen.post_image_vertical_padding).toInt()
+        R.dimen.post_image_vertical_padding
+      ).toInt()
 
       itemView.post_content_video_container.removeAllViews()
       itemView.post_content_video_container.hideView()

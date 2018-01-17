@@ -12,11 +12,11 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class YapChosenTopicRepository @Inject constructor(
-    private val dataLoader: YapLoader,
-    private val dataMapper: TopicPageMapper,
-    private val quoteMapper: QuotedPostMapper,
-    private val editedPostMapper: EditedPostMapper,
-    private val responseMapper: ServerResponseMapper
+  private val dataLoader: YapLoader,
+  private val dataMapper: TopicPageMapper,
+  private val quoteMapper: QuotedPostMapper,
+  private val editedPostMapper: EditedPostMapper,
+  private val responseMapper: ServerResponseMapper
 ) : ChosenTopicRepository {
 
   companion object {
@@ -33,99 +33,107 @@ class YapChosenTopicRepository @Inject constructor(
   }
 
   override fun getChosenTopic(forumId: Int, topicId: Int, startPostNumber: Int): Single<List<BaseEntity>> =
-      dataLoader
-          .loadTopicPage(forumId, topicId, startPostNumber)
-          .map { parsedTopicPage -> dataMapper.transform(parsedTopicPage) }
+    dataLoader
+      .loadTopicPage(forumId, topicId, startPostNumber)
+      .map { parsedTopicPage -> dataMapper.transform(parsedTopicPage) }
 
   override fun requestPostTextAsQuote(forumId: Int, topicId: Int, targetPostId: Int): Single<BaseEntity> =
-      dataLoader
-          .loadTargetPostQuotedText(forumId, topicId, targetPostId)
-          .map { quotedText -> quoteMapper.transform(quotedText) }
+    dataLoader
+      .loadTargetPostQuotedText(forumId, topicId, targetPostId)
+      .map { quotedText -> quoteMapper.transform(quotedText) }
 
-  override fun requestPostTextForEditing(forumId: Int, topicId: Int, targetPostId: Int, startingPost: Int): Single<BaseEntity> =
-      dataLoader
-          .loadTargetPostEditedText(forumId, topicId, targetPostId, startingPost)
-          .map { editedText -> editedPostMapper.transform(editedText) }
+  override fun requestPostTextForEditing(
+    forumId: Int,
+    topicId: Int,
+    targetPostId: Int,
+    startingPost: Int
+  ): Single<BaseEntity> =
+    dataLoader
+      .loadTargetPostEditedText(forumId, topicId, targetPostId, startingPost)
+      .map { editedText -> editedPostMapper.transform(editedText) }
 
   override fun requestKarmaChange(
-      isTopic: Boolean, targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity> {
+    isTopic: Boolean, targetPostId: Int, targetTopicId: Int, diff: Int
+  ): Single<BaseEntity> {
 
     val karmaType = if (isTopic) KARMA_TYPE_TOPIC else KARMA_TYPE_POST
 
     return dataLoader
-        .changeKarma(
-            act = KARMA_ACT,
-            code = KARMA_CODE,
-            rank = diff,
-            postId = targetPostId,
-            topicId = targetTopicId,
-            type = karmaType
-        )
-        .map { response -> responseMapper.transform(response) }
+      .changeKarma(
+        act = KARMA_ACT,
+        code = KARMA_CODE,
+        rank = diff,
+        postId = targetPostId,
+        topicId = targetTopicId,
+        type = karmaType
+      )
+      .map { response -> responseMapper.transform(response) }
   }
 
   override fun requestPostKarmaChange(targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity> =
-      dataLoader
-          .changeKarma(
-              act = KARMA_ACT,
-              code = KARMA_CODE,
-              rank = diff,
-              postId = targetPostId,
-              topicId = targetTopicId,
-              type = KARMA_TYPE_POST
-          )
-          .map { response -> responseMapper.transform(response) }
+    dataLoader
+      .changeKarma(
+        act = KARMA_ACT,
+        code = KARMA_CODE,
+        rank = diff,
+        postId = targetPostId,
+        topicId = targetTopicId,
+        type = KARMA_TYPE_POST
+      )
+      .map { response -> responseMapper.transform(response) }
 
   override fun requestTopicKarmaChange(targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity> =
-      dataLoader
-          .changeKarma(
-              act = KARMA_ACT,
-              code = KARMA_CODE,
-              rank = diff,
-              postId = targetPostId,
-              topicId = targetTopicId,
-              type = KARMA_TYPE_TOPIC
-          )
-          .map { response -> responseMapper.transform(response) }
+    dataLoader
+      .changeKarma(
+        act = KARMA_ACT,
+        code = KARMA_CODE,
+        rank = diff,
+        postId = targetPostId,
+        topicId = targetTopicId,
+        type = KARMA_TYPE_TOPIC
+      )
+      .map { response -> responseMapper.transform(response) }
 
   override fun requestMessageSending(
-      targetForumId: Int, targetTopicId: Int, page: Int, authKey: String, message: String): Completable =
-      dataLoader
-          .postMessage(
-              act = POST_ACT,
-              code = POST_CODE,
-              forum = targetForumId,
-              topic = targetTopicId,
-              st = page,
-              enableemo = true,
-              enablesig = true,
-              authKey = authKey,
-              postContent = message,
-              maxFileSize = POST_MAX_FILE_SIZE,
-              enabletag = 1
-          )
-          .map { response -> dataMapper.transform(response) }
-          .toCompletable()
+    targetForumId: Int, targetTopicId: Int, page: Int, authKey: String, message: String
+  ): Completable =
+    dataLoader
+      .postMessage(
+        act = POST_ACT,
+        code = POST_CODE,
+        forum = targetForumId,
+        topic = targetTopicId,
+        st = page,
+        enableemo = true,
+        enablesig = true,
+        authKey = authKey,
+        postContent = message,
+        maxFileSize = POST_MAX_FILE_SIZE,
+        enabletag = 1
+      )
+      .map { response -> dataMapper.transform(response) }
+      .toCompletable()
 
   override fun requestEditedMessageSending(
-      targetTopicId: Int, targetPostId: Int, page: Int, authKey: String, message: String): Completable =
-      dataLoader
-          .postEditedMessage(
-              st = page,
-              act = POST_ACT,
-              s = "",
-              f = 1,
-              enableemo = "yes",
-              enablesig = "yes",
-              authKey = authKey,
-              maxFileSize = POST_MAX_FILE_SIZE,
-              code = POST_EDIT_CODE,
-              topic = targetTopicId,
-              post = targetPostId,
-              postContent = message,
-              enabletag = 1,
-              fileupload = ""
-          )
-          .map { response -> dataMapper.transform(response) }
-          .toCompletable()
+    targetTopicId: Int, targetPostId: Int, page: Int, authKey: String, message: String
+  ): Completable =
+    dataLoader
+      .postEditedMessage(
+        st = page,
+        act = POST_ACT,
+        s = "",
+        f = 1,
+        enableemo = "yes",
+        enablesig = "yes",
+        authKey = authKey,
+        maxFileSize = POST_MAX_FILE_SIZE,
+        code = POST_EDIT_CODE,
+        topic = targetTopicId,
+        post = targetPostId,
+        postContent = message,
+        enabletag = 1,
+        fileupload = ""
+      )
+      .map { response -> dataMapper.transform(response) }
+      .toCompletable()
 }

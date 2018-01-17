@@ -9,8 +9,8 @@ interface VkLoader {
 
   @GET("/method/video.get")
   fun loadThumbnail(
-      @Query("videos") videos: String,
-      @Query("access_token") access_token: String,
-      @Query("v") version: String
+    @Query("videos") videos: String,
+    @Query("access_token") access_token: String,
+    @Query("v") version: String
   ): Single<VkResponseWrapper>
 }

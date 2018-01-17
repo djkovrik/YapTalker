@@ -23,10 +23,10 @@ import javax.inject.Inject
 
 @InjectViewState
 class ChosenForumPresenter @Inject constructor(
-    private val router: Router,
-    private val getChosenForumUseCase: GetChosenForum,
-    private val forumModelMapper: ForumModelMapper,
-    private val settings: Settings
+  private val router: Router,
+  private val getChosenForumUseCase: GetChosenForum,
+  private val forumModelMapper: ForumModelMapper,
+  private val settings: Settings
 ) : BasePresenter<ChosenForumView>() {
 
   companion object {
@@ -92,50 +92,50 @@ class ChosenForumPresenter @Inject constructor(
     clearCurrentList = true
 
     getChosenForumUseCase
-        .execute(GetChosenForum.Params(currentForumId, startingTopic, currentSorting))
-        .subscribeOn(Schedulers.io())
-        .map { topics: List<BaseEntity> -> forumModelMapper.transform(topics) }
-        .flatMap { topics: List<YapEntity> -> Observable.fromIterable(topics) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getChosenForumObserver())
+      .execute(GetChosenForum.Params(currentForumId, startingTopic, currentSorting))
+      .subscribeOn(Schedulers.io())
+      .map { topics: List<BaseEntity> -> forumModelMapper.transform(topics) }
+      .flatMap { topics: List<YapEntity> -> Observable.fromIterable(topics) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(getChosenForumObserver())
   }
 
   private fun getChosenForumObserver() =
-      object : DisposableObserver<YapEntity?>() {
+    object : DisposableObserver<YapEntity?>() {
 
-        override fun onNext(item: YapEntity) {
-          if (clearCurrentList) {
-            clearCurrentList = false
-            viewState.clearTopicsList()
-          }
-
-          when (item) {
-            is ForumInfoBlockModel -> {
-              currentForumId = item.forumId
-              viewState.updateCurrentUiState(item.forumTitle)
-            }
-            is NavigationPanelModel -> {
-              currentPage = item.currentPage
-              totalPages = item.totalPages
-              viewState.addTopicItem(item)
-            }
-            else -> {
-              viewState.addTopicItem(item)
-            }
-          }
+      override fun onNext(item: YapEntity) {
+        if (clearCurrentList) {
+          clearCurrentList = false
+          viewState.clearTopicsList()
         }
 
-        override fun onComplete() {
-          Timber.i("Forum page loading completed.")
-          viewState.scrollToViewTop()
-        }
-
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
+        when (item) {
+          is ForumInfoBlockModel -> {
+            currentForumId = item.forumId
+            viewState.updateCurrentUiState(item.forumTitle)
+          }
+          is NavigationPanelModel -> {
+            currentPage = item.currentPage
+            totalPages = item.totalPages
+            viewState.addTopicItem(item)
+          }
+          else -> {
+            viewState.addTopicItem(item)
+          }
         }
       }
+
+      override fun onComplete() {
+        Timber.i("Forum page loading completed.")
+        viewState.scrollToViewTop()
+      }
+
+      override fun onError(e: Throwable) {
+        e.message?.let { viewState.showErrorMessage(it) }
+      }
+    }
 }

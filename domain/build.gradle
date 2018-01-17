@@ -3,14 +3,14 @@ apply plugin: 'kotlin'
 
 
 dependencies {
-    def domainDependencies = rootProject.ext.domainDependencies
-    def domainTestDependencies = rootProject.ext.domainTestDependencies
+  def domainDependencies = rootProject.ext.domainDependencies
+  def domainTestDependencies = rootProject.ext.domainTestDependencies
 
-    implementation domainDependencies.kotlin
-    implementation domainDependencies.javax
-    implementation domainDependencies.rxJava
-    implementation domainDependencies.rxKotlin
+  implementation domainDependencies.kotlin
+  implementation domainDependencies.javax
+  implementation domainDependencies.rxJava
+  implementation domainDependencies.rxKotlin
 
-    testImplementation domainTestDependencies.junit
-    testImplementation domainTestDependencies.expekt
+  testImplementation domainTestDependencies.junit
+  testImplementation domainTestDependencies.expekt
 }

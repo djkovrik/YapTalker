@@ -12,8 +12,8 @@ import com.sedsoftware.yaptalker.presentation.model.base.ActiveTopicModel
 import java.util.ArrayList
 
 class ActiveTopicsAdapter(
-    clickListener: ActiveTopicsElementsClickListener,
-    settings: Settings
+  clickListener: ActiveTopicsElementsClickListener,
+  settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private var items: ArrayList<YapEntity>
@@ -26,7 +26,7 @@ class ActiveTopicsAdapter(
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-      delegateAdapters.get(viewType).onCreateViewHolder(parent)
+    delegateAdapters.get(viewType).onCreateViewHolder(parent)
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])
@@ -37,7 +37,7 @@ class ActiveTopicsAdapter(
   override fun getItemViewType(position: Int): Int = items[position].getBaseEntityType()
 
   override fun getItemId(position: Int): Long =
-      (items[position] as? ActiveTopicModel)?.topicId?.toLong() ?: position.toLong()
+    (items[position] as? ActiveTopicModel)?.topicId?.toLong() ?: position.toLong()
 
   fun addActiveTopicItem(item: YapEntity) {
     val insertPosition = items.size

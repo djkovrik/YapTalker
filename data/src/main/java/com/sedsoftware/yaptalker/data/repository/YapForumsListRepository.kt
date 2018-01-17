@@ -10,9 +10,9 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class YapForumsListRepository @Inject constructor(
-    private val dataLoader: YapLoader,
-    private val dataMapper: ForumsListMapper,
-    private val settings: Settings
+  private val dataLoader: YapLoader,
+  private val dataMapper: ForumsListMapper,
+  private val settings: Settings
 ) : ForumsListRepository {
 
   @Suppress("MagicNumber")
@@ -21,15 +21,15 @@ class YapForumsListRepository @Inject constructor(
   }
 
   override fun getMainForumsList(): Observable<BaseEntity> =
-      dataLoader
-          .loadForumsList()
-          .map { parsedList -> dataMapper.transform(parsedList) }
-          .flatMap { forumsList -> Observable.fromIterable(forumsList) }
-          .filter { forumItem ->
-            forumItem as Forum
-            if (settings.isNsfwEnabled())
-              true
-            else
-              !nsfwForumSections.contains(forumItem.forumId)
-          }
+    dataLoader
+      .loadForumsList()
+      .map { parsedList -> dataMapper.transform(parsedList) }
+      .flatMap { forumsList -> Observable.fromIterable(forumsList) }
+      .filter { forumItem ->
+        forumItem as Forum
+        if (settings.isNsfwEnabled())
+          true
+        else
+          !nsfwForumSections.contains(forumItem.forumId)
+      }
 }

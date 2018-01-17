@@ -8,8 +8,8 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class YapActiveTopicsRepository @Inject constructor(
-    private val dataLoader: YapLoader,
-    private val dataMapper: ActiveTopicsPageMapper
+  private val dataLoader: YapLoader,
+  private val dataMapper: ActiveTopicsPageMapper
 ) : ActiveTopicsRepository {
 
   companion object {
@@ -18,12 +18,12 @@ class YapActiveTopicsRepository @Inject constructor(
   }
 
   override fun getActiveTopics(hash: String, page: Int): Single<List<BaseEntity>> =
-      dataLoader
-          .loadActiveTopics(
-              act = ACTIVE_TOPICS_ACT,
-              code = ACTIVE_TOPICS_CODE,
-              searchId = hash,
-              startTopicNumber = page
-          )
-          .map { parsedActiveTopics -> dataMapper.transform(parsedActiveTopics) }
+    dataLoader
+      .loadActiveTopics(
+        act = ACTIVE_TOPICS_ACT,
+        code = ACTIVE_TOPICS_CODE,
+        searchId = hash,
+        startTopicNumber = page
+      )
+      .map { parsedActiveTopics -> dataMapper.transform(parsedActiveTopics) }
 }

@@ -9,7 +9,7 @@ class YoutubeThumbnailSource(private val videoLink: String) : ThumbnailSource {
   }
 
   override fun getThumbnailUrl(): Single<String> =
-      Single.just("http://img.youtube.com/vi/$videoId/0.jpg")
+    Single.just("http://img.youtube.com/vi/$videoId/0.jpg")
 
   private fun getYoutubeVideoId(link: String): String {
     val startPosition = link.lastIndexOf("/")

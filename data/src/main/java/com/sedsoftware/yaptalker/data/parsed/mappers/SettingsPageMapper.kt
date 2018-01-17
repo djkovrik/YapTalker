@@ -31,8 +31,8 @@ class SettingsPageMapper @Inject constructor() {
       topics
 
     return SitePreferences(
-        messagesPerTopicPage = mappedMessages,
-        topicsPerForumPage = mappedTopics
+      messagesPerTopicPage = mappedMessages,
+      topicsPerForumPage = mappedTopics
     )
   }
 }
