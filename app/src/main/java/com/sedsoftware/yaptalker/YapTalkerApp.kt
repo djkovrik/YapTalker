@@ -40,11 +40,7 @@ class YapTalkerApp : Application(), HasActivityInjector {
 
     LeakCanary.install(this)
 
-    DaggerAppComponent
-      .builder()
-      .context(this)
-      .build()
-      .inject(this)
+    DaggerAppComponent.builder().create(this).inject(this)
 
     initTimber()
     initToasty()
