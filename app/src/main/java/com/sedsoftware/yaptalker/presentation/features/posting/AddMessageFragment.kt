@@ -19,12 +19,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_bold
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_italic
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_link
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_underlined
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_edit_text
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_topic_title
+import kotlinx.android.synthetic.main.fragment_new_post.*
 import javax.inject.Inject
 
 class AddMessageFragment : BaseFragment(), AddMessageView {
@@ -133,7 +128,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
           title = secondDialog.inputEditText?.text.toString()
 
           if (url.isNotEmpty() || title.isNotEmpty()) {
-            presenter.insertVideoTag(url, title)
+            presenter.insertLinkTag(url, title)
           }
         }
     }
@@ -155,6 +150,23 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     }
 
     linkDialog?.show()
+  }
+
+  override fun showVideoLinkParametersDialog() {
+    context?.let { ctx ->
+      MaterialDialog.Builder(ctx)
+        .title(R.string.post_insert_video)
+        .positiveText(R.string.post_button_submit)
+        .negativeText(R.string.post_button_dismiss)
+        .inputType(InputType.TYPE_CLASS_TEXT)
+        .alwaysCallInputCallback()
+        .input(R.string.post_insert_video_hint, 0, false, { _, _ -> })
+        .onPositive { dialog, which ->
+          val url = dialog.inputEditText?.text.toString()
+          presenter.insertVideoTag(url)
+        }
+        .show()
+    }
   }
 
   override fun hideKeyboard() {
@@ -200,6 +212,16 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
       .subscribe {
         with(new_post_edit_text) {
           presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_LINK)
+        }
+      }
+
+    // Video
+    RxView
+      .clicks(new_post_button_video)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        with(new_post_edit_text) {
+          presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_VIDEO)
         }
       }
   }

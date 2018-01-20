@@ -87,4 +87,16 @@
     app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
     tools:targetApi="lollipop" />
 
+  <Button
+    android:id="@+id/new_post_button_video"
+    android:layout_width="@dimen/post_editor_square_button_size"
+    android:layout_height="@dimen/post_editor_square_button_size"
+    android:layout_marginStart="@dimen/post_editor_margin"
+    android:layout_marginTop="@dimen/post_editor_margin"
+    android:drawableStart="?attr/iconEditorVideo"
+    android:stateListAnimator="@null"
+    app:layout_constraintStart_toEndOf="@+id/new_post_button_link"
+    app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
+    tools:targetApi="lollipop" />
+
 </android.support.constraint.ConstraintLayout>

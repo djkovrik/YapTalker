@@ -30,13 +30,19 @@ class AddMessagePresenter @Inject constructor(
   fun insertChosenTag(selectionStart: Int, selectionEnd: Int, @Tag tag: Long) {
     when {
       tag == MessageTagCodes.TAG_LINK -> onLinkTagClicked()
+      tag == MessageTagCodes.TAG_VIDEO -> onVideoLinkTagClicked()
       selectionStart != selectionEnd -> onTagClickedWithSelection(tag)
       else -> onTagClickedWithNoSelection(tag)
     }
   }
 
-  fun insertVideoTag(url: String, title: String) {
+  fun insertLinkTag(url: String, title: String) {
     val result = String.format(Locale.getDefault(), MessageTags.LINK_BLOCK, url, title)
+    viewState.insertTag(result)
+  }
+
+  fun insertVideoTag(url: String) {
+    val result = String.format(Locale.getDefault(), MessageTags.VIDEO_BLOCK, url)
     viewState.insertTag(result)
   }
 
@@ -93,5 +99,9 @@ class AddMessagePresenter @Inject constructor(
 
   private fun onLinkTagClicked() {
     viewState.showLinkParametersDialogs()
+  }
+
+  private fun onVideoLinkTagClicked() {
+    viewState.showVideoLinkParametersDialog()
   }
 }

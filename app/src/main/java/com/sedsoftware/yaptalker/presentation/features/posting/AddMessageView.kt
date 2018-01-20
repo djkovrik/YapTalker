@@ -15,5 +15,7 @@ interface AddMessageView : BaseView {
 
   fun showLinkParametersDialogs()
 
+  fun showVideoLinkParametersDialog()
+
   fun hideKeyboard()
 }
