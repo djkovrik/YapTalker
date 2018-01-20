@@ -203,7 +203,7 @@ interface YapLoader {
    * @param authKey Authorization key.
    * @param postContent Message content.
    * @param maxFileSize File size limit.
-   * @param enabletag Enable tags
+   * @param enabletag Enable site sign for image.
    *
    * @return Parsed topic page Single.
    */
@@ -231,7 +231,7 @@ interface YapLoader {
    * @param st Starting page.
    * @param act Message posting action type.
    * @param s Unknown for now (empty).
-   * @param f Unknown for now (1).
+   * @param forum Topic's parent forum id.
    * @param enableemo Enable emoji.
    * @param enablesig Enable signature.
    * @param authKey Authorization key.
@@ -240,7 +240,7 @@ interface YapLoader {
    * @param topic Current topic id.
    * @param post Edited post id.
    * @param postContent Message content.
-   * @param enabletag Enable tags.
+   * @param enabletag Enable site sign for image.
    * @param fileupload File upload marker.
    *
    * @return Parsed topic page Single.
@@ -252,7 +252,7 @@ interface YapLoader {
     @Part("st") st: Int,
     @Part("act") act: String,
     @Part("s") s: String,
-    @Part("f") f: Int,
+    @Part("f") forum: Int,
     @Part("enableemo") enableemo: String,
     @Part("enablesig") enablesig: String,
     @Part("auth_key") authKey: String,
@@ -264,6 +264,7 @@ interface YapLoader {
     @Part("enabletag") enabletag: Int,
     @Part("FILE_UPLOAD") fileupload: String
   ): Single<TopicPageParsed>
+
 
   /**
    * Send sign in request to the site.

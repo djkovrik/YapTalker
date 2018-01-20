@@ -109,20 +109,20 @@ class YapChosenTopicRepository @Inject constructor(
         authKey = authKey,
         postContent = message,
         maxFileSize = POST_MAX_FILE_SIZE,
-        enabletag = 1
+        enabletag = 0
       )
       .map { response -> dataMapper.transform(response) }
       .toCompletable()
 
   override fun requestEditedMessageSending(
-    targetTopicId: Int, targetPostId: Int, page: Int, authKey: String, message: String
+    targetForumId: Int, targetTopicId: Int, targetPostId: Int, page: Int, authKey: String, message: String
   ): Completable =
     dataLoader
       .postEditedMessage(
         st = page,
         act = POST_ACT,
         s = "",
-        f = 1,
+        forum = targetForumId,
         enableemo = "yes",
         enablesig = "yes",
         authKey = authKey,
@@ -131,7 +131,7 @@ class YapChosenTopicRepository @Inject constructor(
         topic = targetTopicId,
         post = targetPostId,
         postContent = message,
-        enabletag = 1,
+        enabletag = 0,
         fileupload = ""
       )
       .map { response -> dataMapper.transform(response) }

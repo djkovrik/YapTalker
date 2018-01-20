@@ -339,7 +339,8 @@ class ChosenTopicPresenter @Inject constructor(
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
     sendEditedMessageUseCase
-      .execute(SendEditedMessageRequest.Params(currentTopicId, currentEditedPost, startingPost, authKey, message))
+      .execute(SendEditedMessageRequest.Params(
+        currentForumId, currentTopicId, currentEditedPost, startingPost, authKey, message))
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }

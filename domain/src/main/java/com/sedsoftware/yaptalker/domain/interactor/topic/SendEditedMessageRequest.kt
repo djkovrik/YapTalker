@@ -13,6 +13,7 @@ class SendEditedMessageRequest @Inject constructor(
   override fun execute(parameter: Params): Completable =
     chosenTopicRepository
       .requestEditedMessageSending(
+        targetForumId = parameter.forumId,
         targetTopicId = parameter.topicId,
         targetPostId = parameter.postId,
         page = parameter.page,
@@ -20,5 +21,6 @@ class SendEditedMessageRequest @Inject constructor(
         message = parameter.message
       )
 
-  class Params(val topicId: Int, val postId: Int, val page: Int, val authKey: String, val message: String)
+  class Params(
+    val forumId: Int, val topicId: Int, val postId: Int, val page: Int, val authKey: String, val message: String)
 }
