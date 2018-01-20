@@ -22,8 +22,7 @@ import com.sedsoftware.yaptalker.presentation.features.activetopics.adapter.Acti
 import com.sedsoftware.yaptalker.presentation.features.activetopics.adapter.ActiveTopicsElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_active_topics.active_topics_list
-import kotlinx.android.synthetic.main.fragment_active_topics.active_topics_refresh_layout
+import kotlinx.android.synthetic.main.fragment_active_topics.*
 import java.util.Locale
 import javax.inject.Inject
 

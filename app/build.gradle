@@ -5,154 +5,154 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 
 android {
-  def globalConfiguration = rootProject.extensions.getByName("ext")
+    def globalConfiguration = rootProject.extensions.getByName("ext")
 
-  compileSdkVersion globalConfiguration["compileSdkVersion"]
-  buildToolsVersion globalConfiguration["buildToolsVersion"]
+    compileSdkVersion globalConfiguration["compileSdkVersion"]
+    buildToolsVersion globalConfiguration["buildToolsVersion"]
 
-  defaultConfig {
-    minSdkVersion globalConfiguration["minSdkVersion"]
-    targetSdkVersion globalConfiguration["targetSdkVersion"]
-    applicationId globalConfiguration["androidApplicationId"]
-    versionCode globalConfiguration["androidVersionCode"]
-    versionName globalConfiguration["androidVersionName"]
-    testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
-    testApplicationId globalConfiguration["testApplicationId"]
-    flavorDimensions "variant"
-    resConfigs "en", "ru"
-  }
-  productFlavors {
-    dev {
-      dimension "variant"
-      minSdkVersion globalConfiguration["minSdkDevVersion"]
-      multiDexEnabled true
+    defaultConfig {
+        minSdkVersion globalConfiguration["minSdkVersion"]
+        targetSdkVersion globalConfiguration["targetSdkVersion"]
+        applicationId globalConfiguration["androidApplicationId"]
+        versionCode globalConfiguration["androidVersionCode"]
+        versionName globalConfiguration["androidVersionName"]
+        testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+        testApplicationId globalConfiguration["testApplicationId"]
+        flavorDimensions "variant"
+        resConfigs "en", "ru"
     }
-    prod {
-      dimension "variant"
-      minSdkVersion globalConfiguration["minSdkVersion"]
+    productFlavors {
+        dev {
+            dimension "variant"
+            minSdkVersion globalConfiguration["minSdkDevVersion"]
+            multiDexEnabled true
+        }
+        prod {
+            dimension "variant"
+            minSdkVersion globalConfiguration["minSdkVersion"]
+        }
     }
-  }
-  signingConfigs {
-    release {
-      storeFile file(RELEASE_STORE_FILE)
-      storePassword RELEASE_STORE_PASSWORD
-      keyAlias RELEASE_KEY_ALIAS
-      keyPassword RELEASE_KEY_PASSWORD
+    signingConfigs {
+        release {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
     }
-  }
-  buildTypes {
-    beta {
-      signingConfig signingConfigs.release
-      minifyEnabled true
-      shrinkResources true
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
-      proguardFiles fileTree('proguard').asList().toArray()
-      versionNameSuffix "-beta"
-      matchingFallbacks = ['debug', 'release']
+    buildTypes {
+        beta {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles fileTree('proguard').asList().toArray()
+            versionNameSuffix "-beta"
+            matchingFallbacks = ['debug', 'release']
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles fileTree('proguard').asList().toArray()
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
-    release {
-      signingConfig signingConfigs.release
-      minifyEnabled true
-      shrinkResources true
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
-      proguardFiles fileTree('proguard').asList().toArray()
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-    debug {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-    }
-  }
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
 }
 
 androidExtensions {
-  experimental = true
+    experimental = true
 }
 
 dependencies {
 
-  def presentationDependencies = rootProject.ext.presentationDependencies
-  def presentationTestDependencies = rootProject.ext.presentationTestDependencies
-  def supportingToolsDependencies = rootProject.ext.supportingToolsDependencies
-  def developmentDependencies = rootProject.ext.developmentDependencies
+    def presentationDependencies = rootProject.ext.presentationDependencies
+    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
+    def supportingToolsDependencies = rootProject.ext.supportingToolsDependencies
+    def developmentDependencies = rootProject.ext.developmentDependencies
 
-  implementation project(':domain')
-  implementation project(':data')
-  implementation project(':device')
+    implementation project(':domain')
+    implementation project(':data')
+    implementation project(':device')
 
-  implementation presentationDependencies.kotlin
+    implementation presentationDependencies.kotlin
 
-  implementation presentationDependencies.appCompat
-  implementation presentationDependencies.preferenceV7
-  implementation presentationDependencies.preferenceV14
-  implementation presentationDependencies.cardView
-  implementation presentationDependencies.design
-  implementation presentationDependencies.recyclerView
-  implementation presentationDependencies.constraintLayout
+    implementation presentationDependencies.appCompat
+    implementation presentationDependencies.preferenceV7
+    implementation presentationDependencies.preferenceV14
+    implementation presentationDependencies.cardView
+    implementation presentationDependencies.design
+    implementation presentationDependencies.recyclerView
+    implementation presentationDependencies.constraintLayout
 
-  implementation presentationDependencies.dagger
-  implementation presentationDependencies.daggerAndroid
-  implementation presentationDependencies.daggerAndroidSupport
-  implementation presentationDependencies.moxy
-  implementation presentationDependencies.moxyAndroid
-  implementation presentationDependencies.moxyAppCompat
-  implementation presentationDependencies.cicerone
-  implementation presentationDependencies.anko
-  implementation presentationDependencies.ankoDesign
+    implementation presentationDependencies.dagger
+    implementation presentationDependencies.daggerAndroid
+    implementation presentationDependencies.daggerAndroidSupport
+    implementation presentationDependencies.moxy
+    implementation presentationDependencies.moxyAndroid
+    implementation presentationDependencies.moxyAppCompat
+    implementation presentationDependencies.cicerone
+    implementation presentationDependencies.anko
+    implementation presentationDependencies.ankoDesign
 
-  implementation presentationDependencies.rxJava
-  implementation presentationDependencies.rxAndroid
-  implementation presentationDependencies.rxKotlin
-  implementation presentationDependencies.rxRelay
-  implementation presentationDependencies.rxLint
-  implementation presentationDependencies.rxBinding
-  implementation presentationDependencies.rxBindingAppCompat
-  implementation presentationDependencies.rxBindingRecyclerView
-  implementation presentationDependencies.rxBindingSupport
-  implementation presentationDependencies.autoDispose
-  implementation presentationDependencies.autoDisposeKotlin
+    implementation presentationDependencies.rxJava
+    implementation presentationDependencies.rxAndroid
+    implementation presentationDependencies.rxKotlin
+    implementation presentationDependencies.rxRelay
+    implementation presentationDependencies.rxLint
+    implementation presentationDependencies.rxBinding
+    implementation presentationDependencies.rxBindingAppCompat
+    implementation presentationDependencies.rxBindingRecyclerView
+    implementation presentationDependencies.rxBindingSupport
+    implementation presentationDependencies.autoDispose
+    implementation presentationDependencies.autoDisposeKotlin
 
-  implementation presentationDependencies.moshi
-  implementation presentationDependencies.persistentCookies
-  implementation presentationDependencies.retrofit
-  implementation presentationDependencies.retrofitRxAdapter
-  implementation presentationDependencies.retrofitMoshiConverter
-  implementation presentationDependencies.retrofitScalarsConverter
-  implementation presentationDependencies.retrofitJspoonConverter
-  implementation presentationDependencies.picasso
+    implementation presentationDependencies.moshi
+    implementation presentationDependencies.persistentCookies
+    implementation presentationDependencies.retrofit
+    implementation presentationDependencies.retrofitRxAdapter
+    implementation presentationDependencies.retrofitMoshiConverter
+    implementation presentationDependencies.retrofitScalarsConverter
+    implementation presentationDependencies.retrofitJspoonConverter
+    implementation presentationDependencies.picasso
 
-  implementation presentationDependencies.materialValues
-  implementation(presentationDependencies.materialDrawer) { transitive = true }
-  implementation presentationDependencies.iconicsCore
-  implementation presentationDependencies.iconicsView
-  implementation presentationDependencies.materialTypeface
-  implementation presentationDependencies.materialDialogs
-  implementation presentationDependencies.materialDialogsCommons
-  implementation presentationDependencies.toasty
-  implementation presentationDependencies.photoView
+    implementation presentationDependencies.materialValues
+    implementation(presentationDependencies.materialDrawer) { transitive = true }
+    implementation presentationDependencies.iconicsCore
+    implementation presentationDependencies.iconicsView
+    implementation presentationDependencies.materialTypeface
+    implementation presentationDependencies.materialDialogs
+    implementation presentationDependencies.materialDialogsCommons
+    implementation presentationDependencies.toasty
+    implementation presentationDependencies.photoView
 
-  kapt presentationDependencies.daggerCompiler
-  kapt presentationDependencies.daggerAndroidCompiler
-  kapt presentationDependencies.moxyCompiler
+    kapt presentationDependencies.daggerCompiler
+    kapt presentationDependencies.daggerAndroidCompiler
+    kapt presentationDependencies.moxyCompiler
 
-  testImplementation presentationTestDependencies.junit
-  testImplementation presentationTestDependencies.mockito
-  testImplementation presentationTestDependencies.mockitoKotlin
-  testImplementation presentationTestDependencies.expekt
-  androidTestImplementation presentationTestDependencies.espresso
-  androidTestImplementation presentationTestDependencies.mockitoAndroid
+    testImplementation presentationTestDependencies.junit
+    testImplementation presentationTestDependencies.mockito
+    testImplementation presentationTestDependencies.mockitoKotlin
+    testImplementation presentationTestDependencies.expekt
+    androidTestImplementation presentationTestDependencies.espresso
+    androidTestImplementation presentationTestDependencies.mockitoAndroid
 
-  implementation(supportingToolsDependencies.crashalytics) { transitive = true }
-  implementation supportingToolsDependencies.firebaseCore
+    implementation(supportingToolsDependencies.crashalytics) { transitive = true }
+    implementation supportingToolsDependencies.firebaseCore
 
-  implementation developmentDependencies.timber
-  debugImplementation developmentDependencies.leakCanary
-  releaseImplementation developmentDependencies.leakCanaryNoOp
-  betaImplementation developmentDependencies.leakCanaryNoOp
-  testImplementation developmentDependencies.leakCanaryNoOp
+    implementation developmentDependencies.timber
+    debugImplementation developmentDependencies.leakCanary
+    releaseImplementation developmentDependencies.leakCanaryNoOp
+    betaImplementation developmentDependencies.leakCanaryNoOp
+    testImplementation developmentDependencies.leakCanaryNoOp
 }
 
 apply plugin: 'com.google.gms.google-services'

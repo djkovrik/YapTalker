@@ -13,14 +13,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_author
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_comments_counter
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_content_image
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_content_text
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_date
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_forum
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_rating
-import kotlinx.android.synthetic.main.fragment_news_item.view.news_title
+import kotlinx.android.synthetic.main.fragment_news_item.view.*
 
 class NewsDelegateAdapter(
   private val clickListener: NewsItemElementsClickListener,

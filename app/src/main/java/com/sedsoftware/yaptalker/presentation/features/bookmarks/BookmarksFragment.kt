@@ -22,8 +22,7 @@ import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.Bookmar
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.BookmarksElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_bookmarks.bookmarks_list
-import kotlinx.android.synthetic.main.fragment_bookmarks.bookmarks_refresh_layout
+import kotlinx.android.synthetic.main.fragment_bookmarks.*
 import javax.inject.Inject
 
 class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickListener {

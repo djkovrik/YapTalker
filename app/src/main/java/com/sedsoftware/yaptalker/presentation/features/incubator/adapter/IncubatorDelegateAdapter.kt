@@ -13,14 +13,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
-import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_author
-import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_comments_counter
-import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_content_image
-import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_content_text
-import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_date
-import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_forum
-import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_rating
-import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_title
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.*
 
 class IncubatorDelegateAdapter(
   private val clickListener: IncubatorElementsClickListener,

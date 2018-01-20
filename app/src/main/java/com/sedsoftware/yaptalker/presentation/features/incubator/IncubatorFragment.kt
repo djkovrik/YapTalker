@@ -29,9 +29,7 @@ import com.sedsoftware.yaptalker.presentation.utility.InfiniteScrollListener
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_incubator.incubator_fab
-import kotlinx.android.synthetic.main.fragment_incubator.incubator_refresh_layout
-import kotlinx.android.synthetic.main.fragment_incubator.incubator_topics_list
+import kotlinx.android.synthetic.main.fragment_incubator.*
 import org.jetbrains.anko.browse
 import timber.log.Timber
 import javax.inject.Inject

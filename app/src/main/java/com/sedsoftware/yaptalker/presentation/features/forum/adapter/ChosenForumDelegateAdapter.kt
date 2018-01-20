@@ -10,11 +10,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadRatingBackground
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.TopicModel
-import kotlinx.android.synthetic.main.fragment_chosen_forum_item.view.topic_answers
-import kotlinx.android.synthetic.main.fragment_chosen_forum_item.view.topic_last_post_author
-import kotlinx.android.synthetic.main.fragment_chosen_forum_item.view.topic_last_post_date
-import kotlinx.android.synthetic.main.fragment_chosen_forum_item.view.topic_name
-import kotlinx.android.synthetic.main.fragment_chosen_forum_item.view.topic_rating
+import kotlinx.android.synthetic.main.fragment_chosen_forum_item.view.*
 
 class ChosenForumDelegateAdapter(
   private val itemClick: ChosenForumElementsClickListener,

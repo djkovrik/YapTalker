@@ -15,9 +15,8 @@ import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
-import kotlinx.android.synthetic.main.activity_video_display.video_view
-import kotlinx.android.synthetic.main.include_main_appbar.appbar
-import kotlinx.android.synthetic.main.include_main_appbar.toolbar
+import kotlinx.android.synthetic.main.activity_video_display.*
+import kotlinx.android.synthetic.main.include_main_appbar.*
 import javax.inject.Inject
 
 class VideoDisplayActivity : BaseActivity(), VideoDisplayView {

@@ -9,8 +9,7 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
-import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.bookmark_delete_icon
-import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.bookmark_title
+import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.*
 
 class BookmarksDelegateAdapter(
   private val clickListener: BookmarksElementsClickListener,
