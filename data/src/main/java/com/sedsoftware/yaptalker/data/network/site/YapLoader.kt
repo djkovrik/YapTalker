@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.data.network.site
 import com.sedsoftware.yaptalker.data.parsed.ActiveTopicsPageParsed
 import com.sedsoftware.yaptalker.data.parsed.BookmarksParsed
 import com.sedsoftware.yaptalker.data.parsed.EditedPostParsed
+import com.sedsoftware.yaptalker.data.parsed.EmojiListParsed
 import com.sedsoftware.yaptalker.data.parsed.ForumPageParsed
 import com.sedsoftware.yaptalker.data.parsed.ForumsListParsed
 import com.sedsoftware.yaptalker.data.parsed.LoginSessionInfoParsed
@@ -121,6 +122,21 @@ interface YapLoader {
     @Query("searchid") searchId: String,
     @Query("st") startTopicNumber: Int
   ): Single<ActiveTopicsPageParsed>
+
+
+  /**
+   * Load active emojis list page.
+   *
+   * @param act Emoji list action type.
+   * @param code Emoji list action code.
+   *
+   * @return Parsed emojis page Single.
+   */
+  @GET("/")
+  fun loadEmojiList(
+    @Query("act") act: String,
+    @Query("CODE") code: String
+  ): Single<EmojiListParsed>
 
 
   /**
