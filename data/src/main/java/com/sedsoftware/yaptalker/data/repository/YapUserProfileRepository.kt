@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.data.repository
 
+import com.sedsoftware.yaptalker.data.mappers.UserProfileMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
-import com.sedsoftware.yaptalker.data.parsed.mappers.UserProfileMapper
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.repository.UserProfileRepository
 import io.reactivex.Single
@@ -15,5 +15,5 @@ class YapUserProfileRepository @Inject constructor(
   override fun getUserProfile(userId: Int): Single<BaseEntity> =
     dataLoader
       .loadUserProfile(userId)
-      .map { parsedUserProfile -> dataMapper.transform(parsedUserProfile) }
+      .map(dataMapper)
 }

@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.data.parsed.mappers.util
+package com.sedsoftware.yaptalker.data.mappers.util
 
 import com.sedsoftware.yaptalker.domain.entity.base.PostContent.PostHiddenText
 import com.sedsoftware.yaptalker.domain.entity.base.PostContent.PostQuote
@@ -9,6 +9,7 @@ import com.sedsoftware.yaptalker.domain.entity.base.PostContent.PostWarning
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePostParsed
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
+import java.util.ArrayList
 
 /**
  * Utility class for post content parsing.

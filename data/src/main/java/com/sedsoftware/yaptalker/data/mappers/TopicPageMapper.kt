@@ -1,11 +1,12 @@
-package com.sedsoftware.yaptalker.data.parsed.mappers
+package com.sedsoftware.yaptalker.data.mappers
 
+import com.sedsoftware.yaptalker.data.mappers.util.PostContentParser
 import com.sedsoftware.yaptalker.data.parsed.TopicPageParsed
-import com.sedsoftware.yaptalker.data.parsed.mappers.util.PostContentParser
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.NavigationPanel
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePost
 import com.sedsoftware.yaptalker.domain.entity.base.TopicInfoBlock
+import io.reactivex.functions.Function
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -13,17 +14,17 @@ import javax.inject.Inject
  * Mapper class used to transform parsed topic page from the data layer into BaseEntity list
  * in the domain layer.
  */
-class TopicPageMapper @Inject constructor() {
+class TopicPageMapper @Inject constructor() : Function<TopicPageParsed, List<BaseEntity>> {
 
   companion object {
     private const val POSTS_PER_PAGE = 25
   }
 
-  fun transform(topicPage: TopicPageParsed): List<BaseEntity> {
+  override fun apply(from: TopicPageParsed): List<BaseEntity> {
 
     val result: MutableList<BaseEntity> = ArrayList(POSTS_PER_PAGE)
 
-    with(topicPage) {
+    with(from) {
       result.add(
         TopicInfoBlock(
           topicTitle = topicTitle,

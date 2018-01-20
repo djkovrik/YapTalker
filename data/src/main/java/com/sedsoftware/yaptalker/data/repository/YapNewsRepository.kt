@@ -1,7 +1,8 @@
 package com.sedsoftware.yaptalker.data.repository
 
+import com.sedsoftware.yaptalker.data.mappers.ListToObservablesMapper
+import com.sedsoftware.yaptalker.data.mappers.NewsPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
-import com.sedsoftware.yaptalker.data.parsed.mappers.NewsPageMapper
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.NewsItem
@@ -12,6 +13,7 @@ import javax.inject.Inject
 class YapNewsRepository @Inject constructor(
   private val dataLoader: YapLoader,
   private val dataMapper: NewsPageMapper,
+  private val listMapper: ListToObservablesMapper,
   private val settings: Settings
 ) : NewsRepository {
 
@@ -21,9 +23,9 @@ class YapNewsRepository @Inject constructor(
 
   override fun getNews(page: Int): Observable<BaseEntity> =
     dataLoader
-      .loadNews(startPage = page)
-      .map { parsedNewsPage -> dataMapper.transform(parsedNewsPage) }
-      .flatMap { newsList -> Observable.fromIterable(newsList) }
+      .loadNews(page)
+      .map(dataMapper)
+      .flatMap(listMapper)
       .filter { newsEntity ->
         newsEntity as NewsItem
         newsCategories.contains(newsEntity.forumLink)

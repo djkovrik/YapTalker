@@ -1,10 +1,10 @@
 package com.sedsoftware.yaptalker.data.repository
 
+import com.sedsoftware.yaptalker.data.mappers.EditedPostMapper
+import com.sedsoftware.yaptalker.data.mappers.QuotedPostMapper
+import com.sedsoftware.yaptalker.data.mappers.ServerResponseMapper
+import com.sedsoftware.yaptalker.data.mappers.TopicPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
-import com.sedsoftware.yaptalker.data.parsed.mappers.EditedPostMapper
-import com.sedsoftware.yaptalker.data.parsed.mappers.QuotedPostMapper
-import com.sedsoftware.yaptalker.data.parsed.mappers.ServerResponseMapper
-import com.sedsoftware.yaptalker.data.parsed.mappers.TopicPageMapper
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
 import io.reactivex.Completable
@@ -35,12 +35,12 @@ class YapChosenTopicRepository @Inject constructor(
   override fun getChosenTopic(forumId: Int, topicId: Int, startPostNumber: Int): Single<List<BaseEntity>> =
     dataLoader
       .loadTopicPage(forumId, topicId, startPostNumber)
-      .map { parsedTopicPage -> dataMapper.transform(parsedTopicPage) }
+      .map(dataMapper)
 
   override fun requestPostTextAsQuote(forumId: Int, topicId: Int, targetPostId: Int): Single<BaseEntity> =
     dataLoader
       .loadTargetPostQuotedText(forumId, topicId, targetPostId)
-      .map { quotedText -> quoteMapper.transform(quotedText) }
+      .map(quoteMapper)
 
   override fun requestPostTextForEditing(
     forumId: Int,
@@ -50,25 +50,21 @@ class YapChosenTopicRepository @Inject constructor(
   ): Single<BaseEntity> =
     dataLoader
       .loadTargetPostEditedText(forumId, topicId, targetPostId, startingPost)
-      .map { editedText -> editedPostMapper.transform(editedText) }
+      .map(editedPostMapper)
 
   override fun requestKarmaChange(
     isTopic: Boolean, targetPostId: Int, targetTopicId: Int, diff: Int
-  ): Single<BaseEntity> {
-
-    val karmaType = if (isTopic) KARMA_TYPE_TOPIC else KARMA_TYPE_POST
-
-    return dataLoader
+  ): Single<BaseEntity> =
+    dataLoader
       .changeKarma(
         act = KARMA_ACT,
         code = KARMA_CODE,
         rank = diff,
         postId = targetPostId,
         topicId = targetTopicId,
-        type = karmaType
+        type = if (isTopic) KARMA_TYPE_TOPIC else KARMA_TYPE_POST
       )
-      .map { response -> responseMapper.transform(response) }
-  }
+      .map(responseMapper)
 
   override fun requestPostKarmaChange(targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity> =
     dataLoader
@@ -80,7 +76,7 @@ class YapChosenTopicRepository @Inject constructor(
         topicId = targetTopicId,
         type = KARMA_TYPE_POST
       )
-      .map { response -> responseMapper.transform(response) }
+      .map(responseMapper)
 
   override fun requestTopicKarmaChange(targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity> =
     dataLoader
@@ -92,7 +88,7 @@ class YapChosenTopicRepository @Inject constructor(
         topicId = targetTopicId,
         type = KARMA_TYPE_TOPIC
       )
-      .map { response -> responseMapper.transform(response) }
+      .map(responseMapper)
 
   override fun requestMessageSending(
     targetForumId: Int, targetTopicId: Int, page: Int, authKey: String, message: String
@@ -111,7 +107,7 @@ class YapChosenTopicRepository @Inject constructor(
         maxFileSize = POST_MAX_FILE_SIZE,
         enabletag = 0
       )
-      .map { response -> dataMapper.transform(response) }
+      .map(dataMapper)
       .toCompletable()
 
   override fun requestEditedMessageSending(
@@ -134,6 +130,6 @@ class YapChosenTopicRepository @Inject constructor(
         enabletag = 0,
         fileupload = ""
       )
-      .map { response -> dataMapper.transform(response) }
+      .map(dataMapper)
       .toCompletable()
 }

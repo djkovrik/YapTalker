@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.data.repository
 
+import com.sedsoftware.yaptalker.data.mappers.ForumPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
-import com.sedsoftware.yaptalker.data.parsed.mappers.ForumPageMapper
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.repository.ChosenForumRepository
 import io.reactivex.Observable
@@ -15,5 +15,5 @@ class YapChosenForumRepository @Inject constructor(
   override fun getChosenForum(forumId: Int, startPageNumber: Int, sortingMode: String): Observable<List<BaseEntity>> =
     dataLoader
       .loadForumPage(forumId, startPageNumber, sortingMode)
-      .map { forumPageParsed -> dataMapper.transform(forumPageParsed) }
+      .map(dataMapper)
 }

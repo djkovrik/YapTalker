@@ -22,7 +22,7 @@ class VkThumbnailSource(
   override fun getThumbnailUrl(): Single<String> =
     vkLoader
       .loadThumbnail(videos = videoId, access_token = VK_ACCESS_TOKEN, version = VK_API_VERSION)
-      .map { vkInfo -> vkInfo.response.items.first().photo_320 }
+      .map { it.response.items.first().photo_320 }
 
   private fun getVkVideoId(link: String): String {
     val regex = "(?<=oid=)([-\\d]+).*(?<=id=)([\\d]+)"

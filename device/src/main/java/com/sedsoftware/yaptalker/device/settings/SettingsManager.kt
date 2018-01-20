@@ -52,13 +52,13 @@ class SettingsManager @Inject constructor(
   override fun getBigFontSize(): Float =
     getStringPref(
       R.string.pref_key_font_size,
-      context.getString(R.string.pref_appearance_font_size_value_14)
+      context.getString(R.string.pref_appearance_font_size_value_16)
     ).toFloat() + TEXT_SIZE_OFFSET
 
   override fun getSmallFontSize(): Float =
     getStringPref(
       R.string.pref_key_font_size,
-      context.getString(R.string.pref_appearance_font_size_value_14)
+      context.getString(R.string.pref_appearance_font_size_value_12)
     ).toFloat() - TEXT_SIZE_OFFSET
 
   override fun getMessagesPerPage(): Int =

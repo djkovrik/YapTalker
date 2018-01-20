@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.data.repository
 
+import com.sedsoftware.yaptalker.data.mappers.SettingsPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
-import com.sedsoftware.yaptalker.data.parsed.mappers.SettingsPageMapper
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.repository.SitePreferencesRepository
 import io.reactivex.Single
@@ -23,5 +23,5 @@ class YapSitePreferencesRepository @Inject constructor(
         act = SETTINGS_ACT,
         code = SETTINGS_CODE
       )
-      .map { parsedPrefsPage -> dataMapper.transform(parsedPrefsPage) }
+      .map(dataMapper)
 }

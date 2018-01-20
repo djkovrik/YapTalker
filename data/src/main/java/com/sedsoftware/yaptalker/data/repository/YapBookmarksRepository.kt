@@ -1,9 +1,10 @@
 package com.sedsoftware.yaptalker.data.repository
 
 import com.sedsoftware.yaptalker.data.exception.RequestErrorException
+import com.sedsoftware.yaptalker.data.mappers.BookmarksMapper
+import com.sedsoftware.yaptalker.data.mappers.ListToObservablesMapper
+import com.sedsoftware.yaptalker.data.mappers.ServerResponseMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
-import com.sedsoftware.yaptalker.data.parsed.mappers.BookmarksMapper
-import com.sedsoftware.yaptalker.data.parsed.mappers.ServerResponseMapper
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.ServerResponse
 import com.sedsoftware.yaptalker.domain.repository.BookmarksRepository
@@ -14,7 +15,8 @@ import javax.inject.Inject
 class YapBookmarksRepository @Inject constructor(
   private val dataLoader: YapLoader,
   private val dataMapper: BookmarksMapper,
-  private val responseMapper: ServerResponseMapper
+  private val responseMapper: ServerResponseMapper,
+  private val listMapper: ListToObservablesMapper
 ) : BookmarksRepository {
 
   companion object {
@@ -32,8 +34,8 @@ class YapBookmarksRepository @Inject constructor(
         act = BOOKMARKS_ACT,
         code = BOOKMARKS_CODE_LOAD
       )
-      .map { parsedBookmarks -> dataMapper.transform(parsedBookmarks) }
-      .flatMap { bookmarksList -> Observable.fromIterable(bookmarksList) }
+      .map(dataMapper)
+      .flatMap(listMapper)
 
   override fun requestBookmarkAdding(topicId: Int, startingPost: Int): Completable =
     dataLoader
@@ -44,7 +46,7 @@ class YapBookmarksRepository @Inject constructor(
         startPostNumber = startingPost,
         type = BOOKMARKS_TYPE
       )
-      .map { response -> responseMapper.transform(response) }
+      .map(responseMapper)
       .flatMapCompletable { response ->
         response as ServerResponse
         if (response.text.contains(BOOKMARK_SUCCESS_MARKER)) {

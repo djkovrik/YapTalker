@@ -2,66 +2,66 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-  def globalConfiguration = rootProject.extensions.getByName("ext")
+    def globalConfiguration = rootProject.extensions.getByName("ext")
 
-  compileSdkVersion globalConfiguration["compileSdkVersion"]
-  buildToolsVersion globalConfiguration["buildToolsVersion"]
+    compileSdkVersion globalConfiguration["compileSdkVersion"]
+    buildToolsVersion globalConfiguration["buildToolsVersion"]
 
-  defaultConfig {
-    minSdkVersion globalConfiguration["minSdkVersion"]
-    targetSdkVersion globalConfiguration["targetSdkVersion"]
-    versionCode globalConfiguration["androidVersionCode"]
-    versionName globalConfiguration["androidVersionName"]
+    defaultConfig {
+        minSdkVersion globalConfiguration["minSdkVersion"]
+        targetSdkVersion globalConfiguration["targetSdkVersion"]
+        versionCode globalConfiguration["androidVersionCode"]
+        versionName globalConfiguration["androidVersionName"]
 
-    testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
-    flavorDimensions "variant"
-    resConfigs "en", "ru"
-  }
-  productFlavors {
-    dev {
-      dimension "variant"
-      minSdkVersion globalConfiguration["minSdkDevVersion"]
+        testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+        flavorDimensions "variant"
+        resConfigs "en", "ru"
     }
-    prod {
-      dimension "variant"
-      minSdkVersion globalConfiguration["minSdkVersion"]
+    productFlavors {
+        dev {
+            dimension "variant"
+            minSdkVersion globalConfiguration["minSdkDevVersion"]
+        }
+        prod {
+            dimension "variant"
+            minSdkVersion globalConfiguration["minSdkVersion"]
+        }
     }
-  }
-  buildTypes {
-    beta {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      versionNameSuffix "-beta"
-      matchingFallbacks = ['debug', 'release']
+    buildTypes {
+        beta {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            versionNameSuffix "-beta"
+            matchingFallbacks = ['debug', 'release']
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-    debug {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-    }
-  }
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
 }
 
 dependencies {
-  def deviceDependencies = rootProject.ext.deviceDependencies
-  def deviceTestDependencies = rootProject.ext.deviceTestDependencies
+    def deviceDependencies = rootProject.ext.deviceDependencies
+    def deviceTestDependencies = rootProject.ext.deviceTestDependencies
 
-  implementation project(':domain')
+    implementation project(':domain')
 
-  implementation deviceDependencies.kotlin
-  implementation deviceDependencies.javax
-  implementation deviceDependencies.rxJava
-  implementation deviceDependencies.appCompat
+    implementation deviceDependencies.kotlin
+    implementation deviceDependencies.javax
+    implementation deviceDependencies.rxJava
+    implementation deviceDependencies.appCompat
 
-  testImplementation deviceTestDependencies.junit
-  testImplementation deviceTestDependencies.mockito
-  testImplementation deviceTestDependencies.mockitoKotlin
-  testImplementation deviceTestDependencies.expekt
+    testImplementation deviceTestDependencies.junit
+    testImplementation deviceTestDependencies.mockito
+    testImplementation deviceTestDependencies.mockitoKotlin
+    testImplementation deviceTestDependencies.expekt
 }

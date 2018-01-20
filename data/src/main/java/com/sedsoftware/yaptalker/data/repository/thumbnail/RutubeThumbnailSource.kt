@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.data.repository.thumbnail
 
 import com.sedsoftware.yaptalker.data.network.thumbnails.RutubeLoader
-import com.sedsoftware.yaptalker.data.repository.thumbnail.data.RutubeData
 import io.reactivex.Single
 
 class RutubeThumbnailSource(
@@ -16,5 +15,5 @@ class RutubeThumbnailSource(
   override fun getThumbnailUrl(): Single<String> =
     rutubeLoader
       .loadThumbnail(id = videoId, format = "json")
-      .map { rutubeInfo: RutubeData -> rutubeInfo.thumbnail_url }
+      .map { it.thumbnail_url }
 }

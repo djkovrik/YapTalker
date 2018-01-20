@@ -2,7 +2,6 @@ package com.sedsoftware.yaptalker.data.repository.thumbnail
 
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapFileLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapVideoLoader
-import com.sedsoftware.yaptalker.data.repository.thumbnail.data.YapVideoData
 import io.reactivex.Single
 
 class YapThumbnailSource(
@@ -22,11 +21,11 @@ class YapThumbnailSource(
   override fun getThumbnailUrl(): Single<String> =
     yapFileLoader
       .loadHash(videoId)
-      .flatMap { hash: String -> getYapPlayerObservable(videoId, hash) }
+      .flatMap { hash -> getYapPlayerObservable(videoId, hash) }
 
 
   private fun getYapPlayerObservable(id: String, hash: String): Single<String> =
     yapVideoLoader
       .loadThumbnail(id, hash, YAP_RESULT_TYPE)
-      .map { yapInfo: YapVideoData -> yapInfo.player.poster }
+      .map { it.player.poster }
 }

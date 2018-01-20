@@ -1,9 +1,9 @@
 package com.sedsoftware.yaptalker.data.repository
 
 import com.sedsoftware.yaptalker.data.exception.RequestErrorException
+import com.sedsoftware.yaptalker.data.mappers.LoginSessionInfoMapper
+import com.sedsoftware.yaptalker.data.mappers.ServerResponseMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
-import com.sedsoftware.yaptalker.data.parsed.mappers.LoginSessionInfoMapper
-import com.sedsoftware.yaptalker.data.parsed.mappers.ServerResponseMapper
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.ServerResponse
 import com.sedsoftware.yaptalker.domain.repository.LoginSessionRepository
@@ -29,7 +29,7 @@ class YapLoginSessionRepository @Inject constructor(
   override fun getLoginSessionInfo(): Single<BaseEntity> =
     dataLoader
       .loadAuthorizedUserInfo()
-      .map { parsedSessionInfo -> dataMapper.transform(parsedSessionInfo) }
+      .map(dataMapper)
 
   override fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Completable =
     dataLoader
@@ -42,7 +42,7 @@ class YapLoginSessionRepository @Inject constructor(
         submit = LOGIN_SUBMIT,
         userKey = "$userLogin${System.currentTimeMillis()}".toMd5()
       )
-      .map { response -> responseMapper.transform(response) }
+      .map(responseMapper)
       .flatMapCompletable { response ->
         response as ServerResponse
         if (response.text.contains(SIGN_IN_SUCCESS_MARKER)) {
@@ -55,7 +55,7 @@ class YapLoginSessionRepository @Inject constructor(
   override fun requestSignOut(userKey: String): Completable =
     dataLoader
       .signOut(userKey)
-      .map { response -> responseMapper.transform(response) }
+      .map(responseMapper)
       .flatMapCompletable { response ->
         response as ServerResponse
         if (response.text.contains(SIGN_OUT_SUCCESS_MARKER)) {

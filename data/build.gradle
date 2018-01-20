@@ -2,72 +2,72 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-  def globalConfiguration = rootProject.extensions.getByName("ext")
+    def globalConfiguration = rootProject.extensions.getByName("ext")
 
-  compileSdkVersion globalConfiguration["compileSdkVersion"]
-  buildToolsVersion globalConfiguration["buildToolsVersion"]
+    compileSdkVersion globalConfiguration["compileSdkVersion"]
+    buildToolsVersion globalConfiguration["buildToolsVersion"]
 
-  defaultConfig {
-    minSdkVersion globalConfiguration["minSdkVersion"]
-    targetSdkVersion globalConfiguration["targetSdkVersion"]
-    versionCode globalConfiguration["androidVersionCode"]
-    versionName globalConfiguration["androidVersionName"]
+    defaultConfig {
+        minSdkVersion globalConfiguration["minSdkVersion"]
+        targetSdkVersion globalConfiguration["targetSdkVersion"]
+        versionCode globalConfiguration["androidVersionCode"]
+        versionName globalConfiguration["androidVersionName"]
 
-    testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
-    flavorDimensions "variant"
-    resConfigs "en", "ru"
-  }
-  productFlavors {
-    dev {
-      dimension "variant"
-      minSdkVersion globalConfiguration["minSdkDevVersion"]
+        testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+        flavorDimensions "variant"
+        resConfigs "en", "ru"
     }
-    prod {
-      dimension "variant"
-      minSdkVersion globalConfiguration["minSdkVersion"]
+    productFlavors {
+        dev {
+            dimension "variant"
+            minSdkVersion globalConfiguration["minSdkDevVersion"]
+        }
+        prod {
+            dimension "variant"
+            minSdkVersion globalConfiguration["minSdkVersion"]
+        }
     }
-  }
-  buildTypes {
-    beta {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      versionNameSuffix "-beta"
-      matchingFallbacks = ['debug', 'release']
+    buildTypes {
+        beta {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            versionNameSuffix "-beta"
+            matchingFallbacks = ['debug', 'release']
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    buildTypes.each {
+        it.buildConfigField 'String', 'VK_ACCESS_TOKEN', VK_ACCESS_TOKEN
     }
-    debug {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-  }
-  buildTypes.each {
-    it.buildConfigField 'String', 'VK_ACCESS_TOKEN', VK_ACCESS_TOKEN
-  }
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
 }
 
 dependencies {
-  def dataDependencies = rootProject.ext.dataDependencies
-  def dataTestDependencies = rootProject.ext.dataTestDependencies
+    def dataDependencies = rootProject.ext.dataDependencies
+    def dataTestDependencies = rootProject.ext.dataTestDependencies
 
-  implementation project(':domain')
+    implementation project(':domain')
 
-  implementation dataDependencies.kotlin
+    implementation dataDependencies.kotlin
 
-  implementation dataDependencies.javax
-  implementation dataDependencies.rxJava
-  implementation dataDependencies.rxKotlin
-  implementation dataDependencies.retrofit
-  implementation dataDependencies.jspoon
+    implementation dataDependencies.javax
+    implementation dataDependencies.rxJava
+    implementation dataDependencies.rxKotlin
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.jspoon
 
-  testImplementation dataTestDependencies.junit
-  testImplementation dataTestDependencies.mockito
-  testImplementation dataTestDependencies.mockitoKotlin
-  testImplementation dataTestDependencies.expekt
+    testImplementation dataTestDependencies.junit
+    testImplementation dataTestDependencies.mockito
+    testImplementation dataTestDependencies.mockitoKotlin
+    testImplementation dataTestDependencies.expekt
 }

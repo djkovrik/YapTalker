@@ -22,5 +22,6 @@ class SendEditedMessageRequest @Inject constructor(
       )
 
   class Params(
-    val forumId: Int, val topicId: Int, val postId: Int, val page: Int, val authKey: String, val message: String)
+    val forumId: Int, val topicId: Int, val postId: Int, val page: Int, val authKey: String, val message: String
+  )
 }
