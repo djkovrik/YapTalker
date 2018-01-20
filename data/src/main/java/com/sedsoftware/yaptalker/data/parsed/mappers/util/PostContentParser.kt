@@ -44,7 +44,7 @@ class PostContentParser(private val content: String) {
       setOf("#root", "html", "head", "body", "table", "tbody", "tr", "br", "b", "i", "u")
     private val attrsToSkip = setOf("rating", "clear")
     private val contentWhitelist: Whitelist = Whitelist()
-      .addTags("i", "u", "b", "br", "img", "a")
+      .addTags("i", "u", "b", "br", "img", "a", "li", "ul")
       .addAttributes("img", "src")
       .addAttributes("a", "href")
   }
