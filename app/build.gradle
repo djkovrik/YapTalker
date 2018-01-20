@@ -1,8 +1,3 @@
-plugins {
-  id "io.gitlab.arturbosch.detekt" version "1.0.0.RC6-1"
-  id "com.github.ben-manes.versions" version "0.17.0"
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -70,18 +65,6 @@ android {
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
-  }
-}
-
-detekt {
-  version = "1.0.0.RC6-1"
-
-  profile("main") {
-    input = "$projectDir/src/main/java"
-    config = "$rootDir/tools/static-analysis/detekt-config.yml"
-    filters = ".*test.*,.*/resources/.*,.*/tmp/.*"
-    output = "$projectDir/build/reports/detekt.xml"
-    baseline = "$projectDir/build/reports/baseline.xml"
   }
 }
 
