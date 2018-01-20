@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/emojis_bottom_sheet"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:layout_margin="@dimen/materialize_screen_edge"
+  app:behavior_hideable="true"
+  app:behavior_peekHeight="@dimen/bottom_sheet_peek"
+  app:cardElevation="@dimen/material_card_elevation_resting"
+  app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/emojis_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/materialize_screen_edge" />
+
+</android.support.v7.widget.CardView>

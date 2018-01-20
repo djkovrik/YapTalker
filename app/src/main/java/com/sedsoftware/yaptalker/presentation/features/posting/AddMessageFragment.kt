@@ -2,6 +2,9 @@ package com.sedsoftware.yaptalker.presentation.features.posting
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.BottomSheetBehavior
+import android.support.design.widget.BottomSheetBehavior.BottomSheetCallback
+import android.support.v7.widget.GridLayoutManager
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuInflater
@@ -18,11 +21,15 @@ import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
+import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiAdapter
+import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiClickListener
+import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_new_post.*
+import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.*
 import javax.inject.Inject
 
-class AddMessageFragment : BaseFragment(), AddMessageView {
+class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
 
   companion object {
     fun getNewInstance(pair: Triple<String, String, String>): AddMessageFragment {
@@ -63,9 +70,25 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     arguments?.getString(EDITED_TEXT_KEY) ?: ""
   }
 
+  private lateinit var emojiAdapter: EmojiAdapter
+  private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHasOptionsMenu(true)
+
+    bottomSheetBehavior = BottomSheetBehavior.from(emojis_bottom_sheet)
+    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+    emojiAdapter = EmojiAdapter(this)
+    emojiAdapter.setHasStableIds(true)
+
+    with(emojis_list) {
+      val linearLayout = GridLayoutManager(context, 2)
+      layoutManager = linearLayout
+      adapter = emojiAdapter
+      setHasFixedSize(true)
+    }
 
     if (currentTopicTitle.isNotEmpty()) {
       new_post_topic_title.text = currentTopicTitle
@@ -80,6 +103,15 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     subscribeViews()
   }
 
+  override fun onBackPressed(): Boolean {
+    if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_HIDDEN) {
+      bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+      return true
+    }
+
+    return false
+  }
+
   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
     inflater.inflate(R.menu.menu_post_editor, menu)
   }
@@ -92,6 +124,14 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
       }
       else -> super.onOptionsItemSelected(item)
     }
+
+  override fun appendEmojiItem(emoji: YapEntity) {
+    emojiAdapter.addEmojiItem(emoji)
+  }
+
+  override fun clearEmojiList() {
+    emojiAdapter.clearEmojiList()
+  }
 
   override fun updateCurrentUiState() {
     presenter.setAppbarTitle("")
@@ -174,7 +214,37 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     imm.hideSoftInputFromWindow(view?.windowToken, 0)
   }
 
+  override fun onEmojiClick(code: String) {
+    presenter.insertEmoji(code)
+  }
+
   private fun subscribeViews() {
+
+    // Bottom sheet
+    bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetCallback() {
+      override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+      }
+
+      override fun onStateChanged(bottomSheet: View, newState: Int) {
+        when (newState) {
+          BottomSheetBehavior.STATE_HIDDEN -> {
+            emojis_fab.show()
+            emojis_list.scrollToPosition(0)
+          }
+          else -> {
+            emojis_fab.hide()
+          }
+        }
+      }
+    })
+
+    // Fab
+    RxView
+      .clicks(emojis_fab)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
+
     // B
     RxView
       .clicks(new_post_button_bold)

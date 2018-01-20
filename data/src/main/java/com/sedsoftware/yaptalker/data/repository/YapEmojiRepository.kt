@@ -4,7 +4,7 @@ import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.data.parsed.mappers.EmojiListMapper
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.repository.EmojiRepository
-import io.reactivex.Single
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class YapEmojiRepository @Inject constructor(
@@ -17,11 +17,12 @@ class YapEmojiRepository @Inject constructor(
     private const val EMOJI_CODE = "emoticons"
   }
 
-  override fun getEmojiList(): Single<List<BaseEntity>> =
+  override fun getEmojiList(): Observable<BaseEntity> =
     dataLoader
       .loadEmojiList(
         act = EMOJI_ACT,
         code = EMOJI_CODE
       )
       .map { emojiList -> dataMapper.transform(emojiList) }
+      .flatMapObservable { emojiList -> Observable.fromIterable(emojiList) }
 }

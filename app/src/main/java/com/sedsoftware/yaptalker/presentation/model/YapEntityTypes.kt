@@ -17,4 +17,5 @@ object YapEntityTypes {
   const val USER_SITE_PREFERENCES = 14
   const val QUOTED_POST_TEXT = 15
   const val EDITED_POST_TEXT = 16
+  const val EMOJI = 17
 }

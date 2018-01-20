@@ -29,10 +29,13 @@
   <!-- Other -->
   <dimen name="post_editor_margin">8dp</dimen>
   <dimen name="post_editor_square_button_size">48dp</dimen>
+  <dimen name="post_editor_emoji_size">16dp</dimen>
+  <dimen name="post_editor_emoji_item_margin">4dp</dimen>
   <dimen name="auth_edit_text_drawable_padding">8dp</dimen>
   <dimen name="scrollbar_thumb_padding">4dp</dimen>
   <dimen name="scrollbar_thumb_corner_radius">4dp</dimen>
   <dimen name="scrollbar_background_line_padding">2dp</dimen>
+  <dimen name="bottom_sheet_peek">140dp</dimen>
 
   <!-- TABLETS DIMENSION VARIATIONS -->
   <dimen name="navigation_drawer_width">280dp</dimen>
