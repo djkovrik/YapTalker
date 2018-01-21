@@ -1,6 +1,8 @@
 package com.sedsoftware.yaptalker.di.modules.network
 
 import com.sedsoftware.yaptalker.di.modules.network.interceptors.CustomHeadersInterceptor
+import com.sedsoftware.yaptalker.di.modules.network.interceptors.SaveReceivedCookiesInterceptor
+import com.sedsoftware.yaptalker.di.modules.network.interceptors.SendSavedCookiesInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -23,8 +25,8 @@ class HttpClientsModule {
     OkHttpClient
       .Builder()
       .addInterceptor(CustomHeadersInterceptor())
-//      .addInterceptor(SaveReceivedCookiesInterceptor())
-//      .addInterceptor(SendSavedCookiesInterceptor())
+      .addInterceptor(SaveReceivedCookiesInterceptor())
+      .addInterceptor(SendSavedCookiesInterceptor())
       .addInterceptor(loggingInterceptor)
       .build()
 
