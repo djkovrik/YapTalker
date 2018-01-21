@@ -2,6 +2,12 @@ package com.sedsoftware.yaptalker.domain.device
 
 interface Settings {
 
+  fun saveCookies(cookies: String)
+
+  fun getCookies() : String
+
+  fun clearCookies()
+
   fun getStartingPage(): String
 
   fun getAvatarSize(): Int

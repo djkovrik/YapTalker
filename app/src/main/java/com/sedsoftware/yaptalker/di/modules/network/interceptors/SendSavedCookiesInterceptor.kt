@@ -1,10 +1,10 @@
 package com.sedsoftware.yaptalker.di.modules.network.interceptors
 
+import com.sedsoftware.yaptalker.di.modules.network.cookies.CustomCookieStorage
 import okhttp3.Interceptor
 import okhttp3.Response
-import timber.log.Timber
 
-class SendSavedCookiesInterceptor : Interceptor {
+class SendSavedCookiesInterceptor(private val cookieStorage: CustomCookieStorage) : Interceptor {
 
   companion object {
     private const val COOKIE_HEADER = "Cookie"
@@ -13,14 +13,9 @@ class SendSavedCookiesInterceptor : Interceptor {
   override fun intercept(chain: Interceptor.Chain): Response {
 
     val builder = chain.request().newBuilder()
-
-    val cookies = listOf(
-      "remote_authorised=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/; domain=.yaplakal.com",
-      "SID=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/; domain=alpha.yaplakal.com"
-    )
+    val cookies = cookieStorage.getFromPrefs()
 
     cookies.forEach { cookie ->
-      Timber.d(">>> Send cookie: $cookie")
       builder.addHeader(COOKIE_HEADER, cookie)
     }
 

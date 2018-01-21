@@ -22,5 +22,6 @@ class SendSignOutRequest @Inject constructor(
       .doOnComplete {
         settings.saveMessagesPerPagePref(MESSAGES_PER_PAGE_DEFAULT)
         settings.saveTopicsPerPagePref(TOPICS_PER_PAGE_DEFAULT)
+        settings.clearCookies()
       }
 }

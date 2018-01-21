@@ -23,6 +23,17 @@ class SettingsManager @Inject constructor(
     context.resources.getStringArray(R.array.pref_categorizer_values).toSet()
   }
 
+  override fun saveCookies(cookies: String) {
+    preferences.edit().putString(context.resources.getString(R.string.pref_key_cookies), cookies).apply()
+  }
+
+  override fun getCookies(): String =
+    getStringPref(R.string.pref_key_cookies, "")
+
+  override fun clearCookies() {
+    saveCookies("")
+  }
+
   override fun getStartingPage(): String {
     val current = getStringPref(R.string.pref_key_start_page, "")
     val forums = context.resources.getString(R.string.pref_general_start_page_value_forums)
