@@ -10,4 +10,5 @@
   <string name="pref_key_https_enabled" translatable="false">pref_https_enabled</string>
   <string name="pref_key_messages_per_page" translatable="false">pref_messages_per_page</string>
   <string name="pref_key_topics_per_page" translatable="false">pref_topics_per_page</string>
+  <string name="pref_key_cookies" translatable="false">pref_cookies</string>
 </resources>
