@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.di.modules.network.interceptors
 import com.sedsoftware.yaptalker.di.modules.network.cookies.CustomCookieStorage
 import okhttp3.Interceptor
 import okhttp3.Response
+import timber.log.Timber
 
 class SendSavedCookiesInterceptor(private val cookieStorage: CustomCookieStorage) : Interceptor {
 
@@ -13,10 +14,11 @@ class SendSavedCookiesInterceptor(private val cookieStorage: CustomCookieStorage
   override fun intercept(chain: Interceptor.Chain): Response {
 
     val builder = chain.request().newBuilder()
-    val cookies = cookieStorage.getFromPrefs()
+    val sid = cookieStorage.getFromPrefs()
+    Timber.tag("OkHttp").d("+++ Extracted sid from prefs: $sid")
 
-    cookies.forEach { cookie ->
-      builder.addHeader(COOKIE_HEADER, cookie)
+    if (sid.isNotEmpty()) {
+      builder.addHeader(COOKIE_HEADER, "SID=$sid")
     }
 
     return chain.proceed(builder.build())
