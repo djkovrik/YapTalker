@@ -1,30 +1,35 @@
 package com.sedsoftware.yaptalker.di.modules.network
 
+import com.sedsoftware.yaptalker.di.modules.network.interceptors.CustomHeadersInterceptor
 import dagger.Module
 import dagger.Provides
-import okhttp3.CookieJar
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level
 import javax.inject.Named
 import javax.inject.Singleton
 
-@Module(includes = [(CookiesModule::class)])
+@Module
 class HttpClientsModule {
+
+  private val loggingInterceptor: HttpLoggingInterceptor by lazy {
+    HttpLoggingInterceptor().setLevel(Level.HEADERS)
+  }
 
   @Singleton
   @Provides
   @Named("siteClient")
-  fun provideSiteClient(jar: CookieJar): OkHttpClient =
+  fun provideSiteClient(): OkHttpClient =
     OkHttpClient
       .Builder()
-      .cookieJar(jar)
-      .addInterceptor { chain ->
-        val request = chain.request().newBuilder().addHeader("User-Agent", "YapTalker").build()
-        chain.proceed(request)
-      }
+      .addInterceptor(CustomHeadersInterceptor())
+//      .addInterceptor(SaveReceivedCookiesInterceptor())
+//      .addInterceptor(SendSavedCookiesInterceptor())
+      .addInterceptor(loggingInterceptor)
       .build()
 
   @Singleton
   @Provides
   @Named("fileClient")
-  fun provideFileClient(): OkHttpClient = OkHttpClient()
+  fun provideFileClient(): OkHttpClient = OkHttpClient.Builder().build()
 }

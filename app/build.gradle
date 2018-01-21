@@ -116,12 +116,12 @@ dependencies {
     implementation presentationDependencies.autoDisposeKotlin
 
     implementation presentationDependencies.moshi
-    implementation presentationDependencies.persistentCookies
     implementation presentationDependencies.retrofit
     implementation presentationDependencies.retrofitRxAdapter
     implementation presentationDependencies.retrofitMoshiConverter
     implementation presentationDependencies.retrofitScalarsConverter
     implementation presentationDependencies.retrofitJspoonConverter
+    implementation presentationDependencies.okhttpInterceptor
     implementation presentationDependencies.picasso
 
     implementation presentationDependencies.materialValues
