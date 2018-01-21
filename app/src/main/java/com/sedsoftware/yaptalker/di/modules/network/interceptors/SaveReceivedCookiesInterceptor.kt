@@ -1,13 +1,8 @@
 package com.sedsoftware.yaptalker.di.modules.network.interceptors
 
 import com.sedsoftware.yaptalker.di.modules.network.cookies.CustomCookieStorage
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 import okhttp3.Interceptor
 import okhttp3.Response
-import timber.log.Timber
-import java.util.ArrayList
 
 class SaveReceivedCookiesInterceptor(private val cookieStorage: CustomCookieStorage) : Interceptor {
 
