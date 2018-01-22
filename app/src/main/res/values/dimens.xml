@@ -29,7 +29,7 @@
   <!-- Other -->
   <dimen name="post_editor_margin">8dp</dimen>
   <dimen name="post_editor_square_button_size">48dp</dimen>
-  <dimen name="post_editor_emoji_size">16dp</dimen>
+  <dimen name="post_editor_emoji_size">20dp</dimen>
   <dimen name="post_editor_emoji_item_margin">4dp</dimen>
   <dimen name="auth_edit_text_drawable_padding">8dp</dimen>
   <dimen name="scrollbar_thumb_padding">4dp</dimen>
