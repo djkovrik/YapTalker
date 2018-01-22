@@ -3,14 +3,16 @@ package com.sedsoftware.yaptalker.di.modules
 import android.content.Context
 import android.content.SharedPreferences
 import android.support.v7.preference.PreferenceManager
+import com.sedsoftware.yaptalker.device.cookies.YapCookieStorage
 import com.sedsoftware.yaptalker.device.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.CookieStorage
 import com.sedsoftware.yaptalker.domain.device.Settings
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class SettingsModule {
+class DeviceModule {
 
   @Singleton
   @Provides
@@ -19,6 +21,11 @@ class SettingsModule {
 
   @Singleton
   @Provides
-  fun provideSettingsManager(ctx: Context, prefs: SharedPreferences): Settings =
+  fun provideSettings(ctx: Context, prefs: SharedPreferences): Settings =
     SettingsManager(ctx, prefs)
+
+  @Singleton
+  @Provides
+  fun provideCookieStorage(settings: Settings): CookieStorage =
+    YapCookieStorage(settings)
 }

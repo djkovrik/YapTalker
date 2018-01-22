@@ -1,11 +1,10 @@
 package com.sedsoftware.yaptalker.di.modules.network
 
 import com.sedsoftware.yaptalker.BuildConfig
-import com.sedsoftware.yaptalker.di.modules.network.cookies.CookiesModule
-import com.sedsoftware.yaptalker.di.modules.network.cookies.CustomCookieStorage
 import com.sedsoftware.yaptalker.di.modules.network.interceptors.CustomHeadersInterceptor
 import com.sedsoftware.yaptalker.di.modules.network.interceptors.SaveReceivedCookiesInterceptor
 import com.sedsoftware.yaptalker.di.modules.network.interceptors.SendSavedCookiesInterceptor
+import com.sedsoftware.yaptalker.domain.device.CookieStorage
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -14,7 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level
 import javax.inject.Named
 import javax.inject.Singleton
 
-@Module(includes = [(CookiesModule::class)])
+@Module
 class HttpClientsModule {
 
   private val loggingLevel: Level by lazy {
@@ -29,7 +28,7 @@ class HttpClientsModule {
   @Singleton
   @Provides
   @Named("siteClient")
-  fun provideSiteClient(cookieStorage: CustomCookieStorage): OkHttpClient =
+  fun provideSiteClient(cookieStorage: CookieStorage): OkHttpClient =
     OkHttpClient
       .Builder()
       .addInterceptor(CustomHeadersInterceptor())

@@ -2,11 +2,9 @@ package com.sedsoftware.yaptalker.domain.device
 
 interface Settings {
 
-  fun saveCookieSid(sid: String)
+  fun saveSingleCookie(cookie: String)
 
-  fun getCookieSid(): String
-
-  fun clearCookieSid()
+  fun getSingleCookie(): String
 
   fun getStartingPage(): String
 

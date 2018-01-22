@@ -23,16 +23,12 @@ class SettingsManager @Inject constructor(
     context.resources.getStringArray(R.array.pref_categorizer_values).toSet()
   }
 
-  override fun saveCookieSid(sid: String) {
-    preferences.edit().putString(context.resources.getString(R.string.pref_key_cookie_sid), sid).apply()
+  override fun saveSingleCookie(cookie: String) {
+    preferences.edit().putString(context.resources.getString(R.string.pref_key_cookie), cookie).apply()
   }
 
-  override fun getCookieSid(): String =
-    getStringPref(R.string.pref_key_cookie_sid, "")
-
-  override fun clearCookieSid() {
-    saveCookieSid("")
-  }
+  override fun getSingleCookie(): String =
+    getStringPref(R.string.pref_key_cookie, "")
 
   override fun getStartingPage(): String {
     val current = getStringPref(R.string.pref_key_start_page, "")

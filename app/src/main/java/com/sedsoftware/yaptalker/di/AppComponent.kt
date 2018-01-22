@@ -5,7 +5,7 @@ import com.sedsoftware.yaptalker.di.modules.AppModule
 import com.sedsoftware.yaptalker.di.modules.NavigationModule
 import com.sedsoftware.yaptalker.di.modules.NetworkModule
 import com.sedsoftware.yaptalker.di.modules.RxModule
-import com.sedsoftware.yaptalker.di.modules.SettingsModule
+import com.sedsoftware.yaptalker.di.modules.DeviceModule
 import com.sedsoftware.yaptalker.di.modules.contribution.ActivityContributionModule
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -17,9 +17,9 @@ import javax.inject.Singleton
   modules = [
     (ActivityContributionModule::class),
     (AppModule::class),
+    (DeviceModule::class),
     (NavigationModule::class),
     (NetworkModule::class),
-    (SettingsModule::class),
     (RxModule::class)
   ]
 )
