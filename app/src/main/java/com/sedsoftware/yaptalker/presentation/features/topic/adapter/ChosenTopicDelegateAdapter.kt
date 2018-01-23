@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.currentDensity
 import com.sedsoftware.yaptalker.presentation.extensions.getColorFromAttr
@@ -28,24 +28,13 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostTe
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWarningModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_author
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_author_avatar
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_button_reply
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_image_container
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_text_container
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_video_container
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_date
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_block
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_down
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_down_available
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_up
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_up_available
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
+import java.util.ArrayList
 
 class ChosenTopicDelegateAdapter(
-    private val clickListener: ChosenTopicElementsClickListener,
-    private val thumbnailLoader: ChosenTopicThumbnailLoader,
-    private val settings: SettingsManager
+  private val clickListener: ChosenTopicElementsClickListener,
+  private val thumbnailLoader: ChosenTopicThumbnailLoader,
+  private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
   companion object {
@@ -72,7 +61,7 @@ class ChosenTopicDelegateAdapter(
   }
 
   inner class PostViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_chosen_topic_item)) {
+    RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_chosen_topic_item)) {
 
     private val currentAvatarSize = avatarSize * parent.context.currentDensity
     private val textPadding = parent.context.resources.getDimension(R.dimen.post_text_horizontal_padding).toInt()
@@ -171,7 +160,8 @@ class ChosenTopicDelegateAdapter(
     private fun fillPostImages(post: SinglePostParsedModel) {
 
       val imagePadding = itemView.context.resources.getDimension(
-          R.dimen.post_image_vertical_padding).toInt()
+        R.dimen.post_image_vertical_padding
+      ).toInt()
 
       itemView.post_content_image_container.removeAllViews()
       itemView.post_content_image_container.hideView()
@@ -192,7 +182,8 @@ class ChosenTopicDelegateAdapter(
     private fun fillPostVideos(post: SinglePostParsedModel) {
 
       val imagePadding = itemView.context.resources.getDimension(
-          R.dimen.post_image_vertical_padding).toInt()
+        R.dimen.post_image_vertical_padding
+      ).toInt()
 
       itemView.post_content_video_container.removeAllViews()
       itemView.post_content_video_container.hideView()
@@ -271,6 +262,15 @@ class ChosenTopicDelegateAdapter(
           }
         } else {
           post_button_reply.hideView()
+        }
+
+        if (post.hasEditButton) {
+          post_button_edit.showView()
+          post_button_edit.setOnClickListener {
+            clickListener.onEditButtonClick(post.postId)
+          }
+        } else {
+          post_button_edit.hideView()
         }
       }
     }

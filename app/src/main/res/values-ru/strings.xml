@@ -53,6 +53,8 @@
   <string name="post_insert_link_hint">Вставьте ссылку…</string>
   <string name="post_insert_link_title">Заголовок</string>
   <string name="post_insert_link_title_hint">Введите заголовок для ссылки…</string>
+  <string name="post_insert_video">Видео</string>
+  <string name="post_insert_video_hint">Втавьте ссылку на видео…</string>
   <string name="post_button_submit">Ок</string>
   <string name="post_button_dismiss">Отмена</string>
 

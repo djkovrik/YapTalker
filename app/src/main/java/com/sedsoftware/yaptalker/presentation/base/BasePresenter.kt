@@ -31,17 +31,17 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>() {
     super.onFirstViewAttach()
 
     eventBus
-        .filter { event -> event is ConnectionEvent }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe({ event ->
-          event as ConnectionEvent
-          when (event.state) {
-            ConnectionState.LOADING -> viewState.showLoadingIndicator()
-            else -> viewState.hideLoadingIndicator()
-          }
-        }, { throwable ->
-          Timber.e("Error while handling app event: ${throwable.message}")
-        })
+      .filter { event -> event is ConnectionEvent }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({ event ->
+        event as ConnectionEvent
+        when (event.state) {
+          ConnectionState.LOADING -> viewState.showLoadingIndicator()
+          else -> viewState.hideLoadingIndicator()
+        }
+      }, { throwable ->
+        Timber.e("Error while handling app event: ${throwable.message}")
+      })
   }
 
   override fun attachView(view: View?) {
@@ -61,28 +61,28 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>() {
 
   fun setAppbarTitle(title: String) {
     Observable
-        .just(AppbarEvent(title))
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(eventBus)
+      .just(AppbarEvent(title))
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(eventBus)
   }
 
   fun setConnectionState(@ConnectionState.Event state: Long) {
     Observable
-        .just(ConnectionEvent(state))
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(eventBus)
+      .just(ConnectionEvent(state))
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(eventBus)
   }
 
   fun setNavDrawerItem(@NavigationSection.Section section: Long) {
     Observable
-        .just(NavDrawerEvent(section))
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(eventBus)
+      .just(NavDrawerEvent(section))
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(eventBus)
   }
 
   protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> =
-      lifecycle.filter({ e -> e == event }).firstElement()
+    lifecycle.filter({ e -> e == event }).firstElement()
 }

@@ -8,16 +8,17 @@ private const val ANIMATION_DELAY_DEFAULT = 150L
 private const val ANIMATION_DURATION = 250L
 
 fun View.moveWithAnimationAxisY(
-    offset: Float,
-    delay: Long = ANIMATION_DELAY_DEFAULT,
-    interpolator: Interpolator = OvershootInterpolator()) {
+  offset: Float,
+  delay: Long = ANIMATION_DELAY_DEFAULT,
+  interpolator: Interpolator = OvershootInterpolator()
+) {
 
   this.animate()
-      .translationY(offset)
-      .setInterpolator(interpolator)
-      .setStartDelay(delay)
-      .setDuration(ANIMATION_DURATION)
-      .start()
+    .translationY(offset)
+    .setInterpolator(interpolator)
+    .setStartDelay(delay)
+    .setDuration(ANIMATION_DURATION)
+    .start()
 }
 
 fun View.hideView() {

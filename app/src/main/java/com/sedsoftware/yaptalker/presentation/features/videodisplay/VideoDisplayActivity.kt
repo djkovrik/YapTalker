@@ -43,9 +43,9 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
 
   private val videoHtml: String by lazy {
     val iframe = intent
-        .getStringExtra(VIDEO_HTML_KEY)
-        .replace(Regex("width=\"\\d+\" height=\"\\d+\""), "")
-        .replace("src=\"//", "src=\"http://")
+      .getStringExtra(VIDEO_HTML_KEY)
+      .replace(Regex("width=\"\\d+\" height=\"\\d+\""), "")
+      .replace("src=\"//", "src=\"http://")
 
     """
     <html>
@@ -93,8 +93,10 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
   }
 
   override fun displayWebViewContent() {
-    video_view.loadDataWithBaseURL("file:///android_asset/", videoHtml,
-        "text/html", "utf-8", null)
+    video_view.loadDataWithBaseURL(
+      "file:///android_asset/", videoHtml,
+      "text/html", "utf-8", null
+    )
   }
 
   override fun clearWebView() {

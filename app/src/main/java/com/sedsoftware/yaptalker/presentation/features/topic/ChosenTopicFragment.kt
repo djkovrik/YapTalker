@@ -16,7 +16,7 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
@@ -50,7 +50,7 @@ import javax.inject.Inject
 
 @Suppress("LargeClass", "TooManyFunctions")
 class ChosenTopicFragment :
-    BaseFragment(), ChosenTopicView, ChosenTopicThumbnailLoader, ChosenTopicElementsClickListener {
+  BaseFragment(), ChosenTopicView, ChosenTopicThumbnailLoader, ChosenTopicElementsClickListener {
 
   companion object {
     fun getNewInstance(triple: Triple<Int, Int, Int>): ChosenTopicFragment {
@@ -81,7 +81,7 @@ class ChosenTopicFragment :
   fun provideTopicPresenter() = presenter
 
   @Inject
-  lateinit var settings: SettingsManager
+  lateinit var settings: Settings
 
   private val forumId: Int by lazy {
     arguments?.getInt(FORUM_ID_KEY) ?: 0
@@ -185,13 +185,13 @@ class ChosenTopicFragment :
 
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-          .title(R.string.title_post_context_menu)
-          .items(itemsArray)
-          .itemsCallback { _, _, _, text ->
-            if (text == plusItem) presenter.changePostKarma(postId, shouldIncrease = true)
-            if (text == minusItem) presenter.changePostKarma(postId, shouldIncrease = false)
-          }
-          .show()
+        .title(R.string.title_post_context_menu)
+        .items(itemsArray)
+        .itemsCallback { _, _, _, text ->
+          if (text == plusItem) presenter.changeKarma(postId, isTopic = false, shouldIncrease = true)
+          if (text == minusItem) presenter.changeKarma(postId, isTopic = false, shouldIncrease = false)
+        }
+        .show()
     }
   }
 
@@ -203,19 +203,19 @@ class ChosenTopicFragment :
 
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-          .title(R.string.title_topic_karma_menu)
-          .items(itemsArray)
-          .itemsCallback { _, _, _, text ->
-            if (text == plusItem) {
-              collapseMenu()
-              presenter.changeTopicKarma(shouldIncrease = true)
-            }
-            if (text == minusItem) {
-              collapseMenu()
-              presenter.changeTopicKarma(shouldIncrease = false)
-            }
+        .title(R.string.title_topic_karma_menu)
+        .items(itemsArray)
+        .itemsCallback { _, _, _, text ->
+          if (text == plusItem) {
+            collapseMenu()
+            presenter.changeKarma(isTopic = true, shouldIncrease = true)
           }
-          .show()
+          if (text == minusItem) {
+            collapseMenu()
+            presenter.changeKarma(isTopic = true, shouldIncrease = false)
+          }
+        }
+        .show()
     }
   }
 
@@ -290,19 +290,19 @@ class ChosenTopicFragment :
 
   override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
     presenter
-        .requestThumbnail(videoUrl)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe({ url ->
-          if (url.isNotEmpty()) {
-            imageView.loadThumbnailFromUrl(url)
-          } else {
-            context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
-          }
-        }, { throwable ->
-          Timber.e("Can't load image: ${throwable.message}")
-        })
+      .requestThumbnail(videoUrl)
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe({ url ->
+        if (url.isNotEmpty()) {
+          imageView.loadThumbnailFromUrl(url)
+        } else {
+          context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
+        }
+      }, { throwable ->
+        Timber.e("Can't load image: ${throwable.message}")
+      })
   }
 
   override fun onPostItemClicked(postId: Int, isKarmaAvailable: Boolean) {
@@ -348,12 +348,12 @@ class ChosenTopicFragment :
   override fun onGoToSelectedPageClick() {
     view?.context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-          .title(R.string.navigation_go_to_page_title)
-          .inputType(InputType.TYPE_CLASS_NUMBER)
-          .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
-            presenter.goToChosenPage(input.toString().toInt())
-          })
-          .show()
+        .title(R.string.navigation_go_to_page_title)
+        .inputType(InputType.TYPE_CLASS_NUMBER)
+        .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
+          presenter.goToChosenPage(input.toString().toInt())
+        })
+        .show()
     }
   }
 
@@ -365,64 +365,68 @@ class ChosenTopicFragment :
     presenter.onReplyButtonClicked(forumId, topicId, authorNickname, postDate, postId)
   }
 
+  override fun onEditButtonClick(postId: Int) {
+    presenter.onEditButtonClicked(postId)
+  }
+
   private fun subscribeViews() {
 
     RxSwipeRefreshLayout
-        .refreshes(topic_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.refreshCurrentPage() }
+      .refreshes(topic_refresh_layout)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.refreshCurrentPage() }
 
     RxRecyclerView
-        .scrollEvents(topic_posts_list)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
+      .scrollEvents(topic_posts_list)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
 
     RxView
-        .clicks(fab_menu)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { initiateFabMenuDisplaying() }
+      .clicks(fab_menu)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { initiateFabMenuDisplaying() }
 
     RxView
-        .clicks(fab_refresh)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          collapseMenu()
-          presenter.refreshCurrentPage()
-        }
+      .clicks(fab_refresh)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        collapseMenu()
+        presenter.refreshCurrentPage()
+      }
 
     RxView
-        .clicks(fab_bookmark)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          collapseMenu()
-          presenter.addCurrentTopicToBookmarks()
-        }
+      .clicks(fab_bookmark)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        collapseMenu()
+        presenter.addCurrentTopicToBookmarks()
+      }
 
     RxView
-        .clicks(fab_share)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          collapseMenu()
-          presenter.shareCurrentTopic()
-        }
+      .clicks(fab_share)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        collapseMenu()
+        presenter.shareCurrentTopic()
+      }
 
     RxView
-        .clicks(fab_karma)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.showTopicKarmaMenuIfAvailable() }
+      .clicks(fab_karma)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.showTopicKarmaMenuIfAvailable() }
 
     RxView
-        .clicks(fab_new_message)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          collapseMenu()
-          presenter.navigateToMessagePostingScreen()
-        }
+      .clicks(fab_new_message)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        collapseMenu()
+        presenter.navigateToMessagePostingScreen()
+      }
 
     RxView
-        .clicks(fab_overlay)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { collapseMenu() }
+      .clicks(fab_overlay)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { collapseMenu() }
   }
 
   private fun initiateFabMenuDisplaying() {

@@ -13,16 +13,16 @@ val Context.currentDensity: Int
   get() = resources.displayMetrics.density.toInt()
 
 fun Context.color(@ColorRes colorId: Int) =
-    ContextCompat.getColor(this, colorId)
+  ContextCompat.getColor(this, colorId)
 
 fun Context.stringRes(@StringRes resId: Int): String =
-    resources.getString(resId)
+  resources.getString(resId)
 
 fun Context.booleanRes(@BoolRes resId: Int): Boolean =
-    resources.getBoolean(resId)
+  resources.getBoolean(resId)
 
 fun Context.stringQuantityRes(@PluralsRes resId: Int, value: Int): String =
-    resources.getQuantityString(resId, value)
+  resources.getQuantityString(resId, value)
 
 fun Context.getColorFromAttr(@AttrRes res: Int): Int {
   val typedValue = TypedValue()

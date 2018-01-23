@@ -69,7 +69,7 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
   }
 
   protected fun event(@ActivityLifecycle.Event event: Long): Maybe<*> =
-      lifecycle.filter({ e -> e == event }).firstElement()
+    lifecycle.filter({ e -> e == event }).firstElement()
 
   private fun applyTheme() {
     val dark = getString(R.string.pref_appearance_theme_value_dark)

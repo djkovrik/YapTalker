@@ -65,6 +65,8 @@
   <string name="post_insert_link_hint">Insert link here…</string>
   <string name="post_insert_link_title">Link title</string>
   <string name="post_insert_link_title_hint">Enter link title…</string>
+  <string name="post_insert_video">Video</string>
+  <string name="post_insert_video_hint">Insert video link here…</string>
   <string name="post_button_submit">OK</string>
   <string name="post_button_dismiss">Cancel</string>
 
@@ -111,7 +113,7 @@
   <string name="msg_bookmark_topic_added">Topic added to bookmarks.</string>
   <string name="msg_karma_changed_post">Post karma changed successfully.</string>
   <string name="msg_karma_already_rated_post">You already rated this post.</string>
-  <string name="msg_karma_changed_topic">Post karma changed successfully.</string>
+  <string name="msg_karma_changed_topic">Topic karma changed successfully.</string>
   <string name="msg_karma_already_rated_topic">You already rated this post.</string>
 
   <!-- MENUS -->

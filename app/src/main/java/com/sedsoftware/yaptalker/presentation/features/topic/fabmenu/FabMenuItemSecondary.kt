@@ -12,8 +12,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 
 class FabMenuItemSecondary(
-    private val context: Context?,
-    private val view: View
+  private val context: Context?,
+  private val view: View
 ) : FabMenuItem {
 
   override fun show() {

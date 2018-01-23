@@ -23,7 +23,7 @@ class SettingsActivity : BaseActivity() {
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     fragmentManager.beginTransaction()
-        .replace(R.id.settings_container, SettingsFragment())
-        .commit()
+      .replace(R.id.settings_container, SettingsFragment())
+      .commit()
   }
 }

@@ -8,8 +8,10 @@ class MessageTagCodes {
     const val TAG_I = 1L
     const val TAG_U = 2L
     const val TAG_LINK = 3L
+    const val TAG_VIDEO = 4L
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @IntDef(TAG_B, TAG_I, TAG_U, TAG_LINK) annotation class Tag
+  @IntDef(TAG_B, TAG_I, TAG_U, TAG_LINK, TAG_VIDEO)
+  annotation class Tag
 }

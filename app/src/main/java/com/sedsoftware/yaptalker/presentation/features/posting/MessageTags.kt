@@ -8,4 +8,5 @@ object MessageTags {
   const val U_OPEN = "[u]"
   const val U_CLOSE = "[/u]"
   const val LINK_BLOCK = "[url=%s]%s[/url]"
+  const val VIDEO_BLOCK = "[video]%s[/video]"
 }

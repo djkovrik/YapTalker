@@ -11,7 +11,7 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
@@ -35,7 +35,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class NewsFragment :
-    BaseFragment(), NewsView, NewsItemThumbnailsLoader, NewsItemElementsClickListener {
+  BaseFragment(), NewsView, NewsItemThumbnailsLoader, NewsItemElementsClickListener {
 
   companion object {
     fun getNewInstance() = NewsFragment()
@@ -52,7 +52,7 @@ class NewsFragment :
   fun provideNewsPresenter() = presenter
 
   @Inject
-  lateinit var settings: SettingsManager
+  lateinit var settings: Settings
 
   private lateinit var newsAdapter: NewsAdapter
 
@@ -121,19 +121,19 @@ class NewsFragment :
 
   override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
     presenter
-        .requestThumbnail(videoUrl)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe({ url ->
-          if (url.isNotEmpty()) {
-            imageView.loadThumbnailFromUrl(url)
-          } else {
-            context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
-          }
-        }, { throwable ->
-          Timber.e("Can't load image: ${throwable.message}")
-        })
+      .requestThumbnail(videoUrl)
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe({ url ->
+        if (url.isNotEmpty()) {
+          imageView.loadThumbnailFromUrl(url)
+        } else {
+          context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
+        }
+      }, { throwable ->
+        Timber.e("Can't load image: ${throwable.message}")
+      })
   }
 
   override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
@@ -154,18 +154,18 @@ class NewsFragment :
   private fun subscribeViews() {
 
     RxSwipeRefreshLayout
-        .refreshes(refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.loadNews(loadFromFirstPage = true) }
+      .refreshes(refresh_layout)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.loadNews(loadFromFirstPage = true) }
 
     RxRecyclerView
-        .scrollEvents(news_list)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
+      .scrollEvents(news_list)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
 
     RxView
-        .clicks(news_fab)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.loadNews(loadFromFirstPage = true) }
+      .clicks(news_fab)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.loadNews(loadFromFirstPage = true) }
   }
 }

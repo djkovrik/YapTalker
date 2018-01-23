@@ -1,17 +1,26 @@
 package com.sedsoftware.yaptalker.di.modules
 
+import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
-import android.support.v7.preference.PreferenceManager
+import com.sedsoftware.yaptalker.YapTalkerApp
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
-@Module
-class AppModule {
+@Module(includes = [(AndroidInjectionModule::class)])
+abstract class AppModule {
 
-  @Singleton
-  @Provides
-  fun provideSharedPreferences(ctx: Context): SharedPreferences =
-      PreferenceManager.getDefaultSharedPreferences(ctx)
+  @Module
+  companion object {
+
+    @Provides
+    @Singleton
+    @JvmStatic
+    fun provideContext(app: YapTalkerApp): Context = app
+  }
+
+  @Binds
+  abstract fun application(app: YapTalkerApp): Application
 }

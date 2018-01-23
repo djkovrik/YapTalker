@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import kotlinx.android.synthetic.main.item_navigation_panel.view.*
 
 class ForumNavigationDelegateAdapter(
-    private val navigationClick: ChosenForumElementsClickListener
+  private val navigationClick: ChosenForumElementsClickListener
 ) : YapEntityDelegateAdapter {
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = NavigationViewHolder(parent)
@@ -22,7 +22,7 @@ class ForumNavigationDelegateAdapter(
   }
 
   inner class NavigationViewHolder(parent: ViewGroup) :
-      RecyclerView.ViewHolder(parent.inflate(R.layout.item_navigation_panel)) {
+    RecyclerView.ViewHolder(parent.inflate(R.layout.item_navigation_panel)) {
 
     fun bindTo(navigation: NavigationPanelModel) {
       with(itemView) {

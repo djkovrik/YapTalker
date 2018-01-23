@@ -33,7 +33,7 @@ abstract class BaseFragment : MvpAppCompatFragment() {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-      inflater.inflate(layoutId, container, false)
+    inflater.inflate(layoutId, container, false)
 
   override fun onAttach(context: Context?) {
     super.onAttach(context)
@@ -72,5 +72,5 @@ abstract class BaseFragment : MvpAppCompatFragment() {
   }
 
   protected fun event(@FragmentLifecycle.Event event: Long): Maybe<*> =
-      lifecycle.filter({ e -> e == event }).firstElement()
+    lifecycle.filter({ e -> e == event }).firstElement()
 }

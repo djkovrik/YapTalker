@@ -55,34 +55,35 @@ class DateTransformer @Inject constructor(private val context: Context) {
   }
 
   private fun buildString(time: CalculatedTime): String =
-      when {
-        time.years > 0 -> {
-          val template = context.stringQuantityRes(R.plurals.short_date_years, time.years)
-          String.format(Locale.getDefault(), template, time.years)
-        }
-        time.months > 0 -> {
-          val template = context.stringRes(R.string.short_date_month)
-          String.format(Locale.getDefault(), template, time.months)
-        }
-        time.days > 0 -> {
-          val template = context.stringQuantityRes(R.plurals.short_date_days, time.days)
-          String.format(Locale.getDefault(), template, time.days)
-        }
-        time.hours > 0 -> {
-          val template = context.stringQuantityRes(R.plurals.short_date_hours, time.hours)
-          String.format(Locale.getDefault(), template, time.hours)
-        }
-        time.minutes > 0 -> {
-          val template = context.stringRes(R.string.short_date_minutes)
-          String.format(Locale.getDefault(), template, time.minutes)
-        }
-        else -> context.stringRes(R.string.short_date_seconds_now)
+    when {
+      time.years > 0 -> {
+        val template = context.stringQuantityRes(R.plurals.short_date_years, time.years)
+        String.format(Locale.getDefault(), template, time.years)
       }
+      time.months > 0 -> {
+        val template = context.stringRes(R.string.short_date_month)
+        String.format(Locale.getDefault(), template, time.months)
+      }
+      time.days > 0 -> {
+        val template = context.stringQuantityRes(R.plurals.short_date_days, time.days)
+        String.format(Locale.getDefault(), template, time.days)
+      }
+      time.hours > 0 -> {
+        val template = context.stringQuantityRes(R.plurals.short_date_hours, time.hours)
+        String.format(Locale.getDefault(), template, time.hours)
+      }
+      time.minutes > 0 -> {
+        val template = context.stringRes(R.string.short_date_minutes)
+        String.format(Locale.getDefault(), template, time.minutes)
+      }
+      else -> context.stringRes(R.string.short_date_seconds_now)
+    }
 
   private inner class CalculatedTime(
-      val minutes: Int,
-      val hours: Int,
-      val days: Int,
-      val months: Int,
-      val years: Int)
+    val minutes: Int,
+    val hours: Int,
+    val days: Int,
+    val months: Int,
+    val years: Int
+  )
 }

@@ -2,9 +2,8 @@ package com.sedsoftware.yaptalker.presentation.features.activetopics
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.GetActiveTopicsList
-import com.sedsoftware.yaptalker.domain.interactor.GetActiveTopicsList.Params
-import com.sedsoftware.yaptalker.domain.interactor.GetSearchId
+import com.sedsoftware.yaptalker.domain.interactor.activetopics.GetActiveTopics
+import com.sedsoftware.yaptalker.domain.interactor.activetopics.GetSearchId
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -22,10 +21,10 @@ import javax.inject.Inject
 
 @InjectViewState
 class ActiveTopicsPresenter @Inject constructor(
-    private val router: Router,
-    private val getSearchIdUseCase: GetSearchId,
-    private val getActiveTopicsListUseCase: GetActiveTopicsList,
-    private val activeTopicsModelMapper: ActiveTopicModelMapper
+  private val router: Router,
+  private val getSearchIdUseCase: GetSearchId,
+  private val getActiveTopicsListUseCase: GetActiveTopics,
+  private val activeTopicsModelMapper: ActiveTopicModelMapper
 ) : BasePresenter<ActiveTopicsView>() {
 
   companion object {
@@ -86,20 +85,20 @@ class ActiveTopicsPresenter @Inject constructor(
     clearCurrentList = true
 
     getSearchIdUseCase
-        .buildUseCaseObservable(Unit)
-        .flatMap { hash: String ->
-          searchIdKey = hash
-          getActiveTopicsListUseCase.buildUseCaseObservable(Params(hash = searchIdKey, page = 0))
-        }
-        .subscribeOn(Schedulers.io())
-        .map { topics: List<BaseEntity> -> activeTopicsModelMapper.transform(topics) }
-        .flatMap { topics: List<YapEntity> -> Observable.fromIterable(topics) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getActiveTopicsObserver())
+      .execute()
+      .flatMap { hash: String ->
+        searchIdKey = hash
+        getActiveTopicsListUseCase.execute(GetActiveTopics.Params(hash = searchIdKey, page = 0))
+      }
+      .subscribeOn(Schedulers.io())
+      .map { topics: List<BaseEntity> -> activeTopicsModelMapper.transform(topics) }
+      .flatMapObservable { topics: List<YapEntity> -> Observable.fromIterable(topics) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(getActiveTopicsObserver())
   }
 
   private fun loadActiveTopicsForCurrentPage() {
@@ -109,41 +108,41 @@ class ActiveTopicsPresenter @Inject constructor(
     val startingTopicNumber = (currentPage - OFFSET_FOR_PAGE_NUMBER) * TOPICS_PER_PAGE
 
     getActiveTopicsListUseCase
-        .buildUseCaseObservable(Params(hash = searchIdKey, page = startingTopicNumber))
-        .subscribeOn(Schedulers.io())
-        .map { topics: List<BaseEntity> -> activeTopicsModelMapper.transform(topics) }
-        .flatMap { topics: List<YapEntity> -> Observable.fromIterable(topics) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getActiveTopicsObserver())
+      .execute(GetActiveTopics.Params(hash = searchIdKey, page = startingTopicNumber))
+      .subscribeOn(Schedulers.io())
+      .map { topics: List<BaseEntity> -> activeTopicsModelMapper.transform(topics) }
+      .flatMapObservable { topics: List<YapEntity> -> Observable.fromIterable(topics) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(getActiveTopicsObserver())
   }
 
   private fun getActiveTopicsObserver() =
-      object : DisposableObserver<YapEntity?>() {
+    object : DisposableObserver<YapEntity?>() {
 
-        override fun onNext(item: YapEntity) {
-          if (item is NavigationPanelModel) {
-            currentPage = item.currentPage
-            totalPages = item.totalPages
-          }
-
-          if (clearCurrentList) {
-            clearCurrentList = false
-            viewState.clearActiveTopicsList()
-          }
-
-          viewState.appendActiveTopicItem(item)
+      override fun onNext(item: YapEntity) {
+        if (item is NavigationPanelModel) {
+          currentPage = item.currentPage
+          totalPages = item.totalPages
         }
 
-        override fun onComplete() {
-          viewState.scrollToViewTop()
+        if (clearCurrentList) {
+          clearCurrentList = false
+          viewState.clearActiveTopicsList()
         }
 
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
-        }
+        viewState.appendActiveTopicItem(item)
       }
+
+      override fun onComplete() {
+        viewState.scrollToViewTop()
+      }
+
+      override fun onError(e: Throwable) {
+        e.message?.let { viewState.showErrorMessage(it) }
+      }
+    }
 }

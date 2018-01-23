@@ -17,10 +17,11 @@ class LoginSessionInfoModelMapper @Inject constructor() {
     info as LoginSessionInfo
 
     return LoginSessionInfoModel(
-        nickname = info.nickname,
-        title = info.title,
-        uq = info.uq,
-        avatar = info.avatar,
-        sessionId = info.sessionId)
+      nickname = info.nickname,
+      title = info.title,
+      uq = info.uq,
+      avatar = info.avatar,
+      sessionId = info.sessionId
+    )
   }
 }

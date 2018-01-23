@@ -32,7 +32,7 @@ import com.squareup.picasso.Target as ImageTarget
 
 @InjectViewState
 class ImageDisplayPresenter @Inject constructor(
-    @Named("fileClient") private val httpClient: OkHttpClient
+  @Named("fileClient") private val httpClient: OkHttpClient
 ) : BasePresenter<ImageDisplayView>() {
 
   companion object {
@@ -42,85 +42,88 @@ class ImageDisplayPresenter @Inject constructor(
   fun saveImage(url: String) {
 
     loadImageFromUrl(url.validateUrl())
-        .flatMap { response -> saveToDisk(response, url.substringAfterLast("/")) }
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe({ file ->
-          viewState.fileSavedMessage(file.absolutePath)
-        }, { _ ->
-          viewState.fileNotSavedMessage()
-        })
+      .flatMap { response -> saveToDisk(response, url.substringAfterLast("/")) }
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({ file ->
+        viewState.fileSavedMessage(file.absolutePath)
+      }, { _ ->
+        viewState.fileNotSavedMessage()
+      })
   }
 
   fun shareImage(context: Context, url: String) {
     if (url.isNotEmpty()) {
       Picasso
-          .with(context)
-          .load(url.validateUrl())
-          .into(ShareTarget(context))
+        .with(context)
+        .load(url.validateUrl())
+        .into(ShareTarget(context))
     }
   }
 
   private fun loadImageFromUrl(url: String): Single<Response> =
 
-      Single.create<Response> { emitter ->
-        try {
-          val request = Request.Builder().url(url).build()
-          val response = httpClient.newCall(request).execute()
-          emitter.onSuccess(response)
-        } catch (e: IOException) {
-          emitter.onError(e)
-        }
+    Single.create<Response> { emitter ->
+      try {
+        val request = Request.Builder().url(url).build()
+        val response = httpClient.newCall(request).execute()
+        emitter.onSuccess(response)
+      } catch (e: IOException) {
+        emitter.onError(e)
       }
+    }
 
   private fun saveToDisk(response: Response, filename: String): Single<File> =
 
-      Single.create({ emitter ->
+    Single.create({ emitter ->
 
-        try {
+      try {
 
-          val storageDir = Environment.getExternalStoragePublicDirectory(
-              "${Environment.DIRECTORY_PICTURES}/YapTalker")
+        val storageDir = Environment.getExternalStoragePublicDirectory(
+          "${Environment.DIRECTORY_PICTURES}/YapTalker"
+        )
 
-          if (!storageDir.exists() && !storageDir.mkdir()) {
-            throw IOException("Can't create file path")
-          }
-
-          val file = File(storageDir, filename)
-          val sink = Okio.buffer(Okio.sink(file))
-
-          response.body()?.source()?.let { bufferedSource -> sink.writeAll(bufferedSource) }
-          sink.close()
-          emitter.onSuccess(file)
-        } catch (e: IOException) {
-          e.printStackTrace()
-          emitter.onError(e)
+        if (!storageDir.exists() && !storageDir.mkdir()) {
+          throw IOException("Can't create file path")
         }
-      })
+
+        val file = File(storageDir, filename)
+        val sink = Okio.buffer(Okio.sink(file))
+
+        response.body()?.source()?.let { bufferedSource -> sink.writeAll(bufferedSource) }
+        sink.close()
+        emitter.onSuccess(file)
+      } catch (e: IOException) {
+        e.printStackTrace()
+        emitter.onError(e)
+      }
+    })
 
   private fun getBitmapUriSingle(context: Context, bmp: Bitmap): Single<Uri> =
 
-      Single.create { emitter ->
+    Single.create { emitter ->
 
-        val bmpUri: Uri?
+      val bmpUri: Uri?
 
-        try {
+      try {
 
-          val file = File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-              "shared_image_${System.currentTimeMillis()}.png")
+        val file = File(
+          context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+          "shared_image_${System.currentTimeMillis()}.png"
+        )
 
-          val out = FileOutputStream(file)
-          bmp.compress(Bitmap.CompressFormat.PNG, ENCODING_IMAGE_QUALITY, out)
-          out.close()
+        val out = FileOutputStream(file)
+        bmp.compress(Bitmap.CompressFormat.PNG, ENCODING_IMAGE_QUALITY, out)
+        out.close()
 
-          bmpUri = FileProvider.getUriForFile(context, context.packageName, file)
-          emitter.onSuccess(bmpUri)
+        bmpUri = FileProvider.getUriForFile(context, context.packageName, file)
+        emitter.onSuccess(bmpUri)
 
-        } catch (e: IOException) {
-          emitter.onError(e)
-        }
+      } catch (e: IOException) {
+        emitter.onError(e)
       }
+    }
 
   private inner class ShareTarget(val context: Context) : ImageTarget {
     override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
@@ -132,19 +135,19 @@ class ImageDisplayPresenter @Inject constructor(
     override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom?) {
 
       getBitmapUriSingle(context, bitmap)
-          .observeOn(Schedulers.io())
-          .subscribeOn(AndroidSchedulers.mainThread())
-          .autoDisposable(event(PresenterLifecycle.DESTROY))
-          .subscribe({ uri ->
-            // onSuccess
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.type = "image/png"
-            intent.putExtra(Intent.EXTRA_STREAM, uri)
-            context.startActivity(Intent.createChooser(intent, context.stringRes(R.string.title_share_image)))
-          }, { throwable ->
-            // onError
-            Timber.e("Image sharing error: ${throwable.message}")
-          })
+        .observeOn(Schedulers.io())
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .autoDisposable(event(PresenterLifecycle.DESTROY))
+        .subscribe({ uri ->
+          // onSuccess
+          val intent = Intent(Intent.ACTION_SEND)
+          intent.type = "image/png"
+          intent.putExtra(Intent.EXTRA_STREAM, uri)
+          context.startActivity(Intent.createChooser(intent, context.stringRes(R.string.title_share_image)))
+        }, { throwable ->
+          // onError
+          Timber.e("Image sharing error: ${throwable.message}")
+        })
     }
   }
 }

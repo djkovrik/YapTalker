@@ -72,23 +72,24 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
   private fun subscribeViews() {
 
     Observable
-        .combineLatest(
-            RxTextView.textChanges(authorization_login),
-            RxTextView.textChanges(authorization_password),
-            BiFunction { login: CharSequence, password: CharSequence ->
-              login.isNotEmpty() && password.isNotEmpty()
-            })
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { enabled -> presenter.handleSignInButton(enabled) }
+      .combineLatest(
+        RxTextView.textChanges(authorization_login),
+        RxTextView.textChanges(authorization_password),
+        BiFunction { login: CharSequence, password: CharSequence ->
+          login.isNotEmpty() && password.isNotEmpty()
+        })
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { enabled -> presenter.handleSignInButton(enabled) }
 
     RxView
-        .clicks(button_sign_in)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          presenter.performLoginAttempt(
-              authorization_login.text.toString(),
-              authorization_password.text.toString(),
-              authorization_anonymous.isChecked)
-        }
+      .clicks(button_sign_in)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        presenter.performLoginAttempt(
+          authorization_login.text.toString(),
+          authorization_password.text.toString(),
+          authorization_anonymous.isChecked
+        )
+      }
   }
 }

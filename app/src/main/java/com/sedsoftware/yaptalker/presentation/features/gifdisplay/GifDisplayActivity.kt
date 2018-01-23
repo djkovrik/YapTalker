@@ -40,7 +40,7 @@ class GifDisplayActivity : BaseActivity(), GifDisplayView {
 
   private val gifHtml: String by lazy {
     val url = intent
-        .getStringExtra(GIF_URL_KEY)
+      .getStringExtra(GIF_URL_KEY)
 
     """
     <html>

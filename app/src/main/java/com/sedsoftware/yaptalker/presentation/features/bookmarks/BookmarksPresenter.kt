@@ -2,15 +2,13 @@ package com.sedsoftware.yaptalker.presentation.features.bookmarks
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.GetBookmarksList
-import com.sedsoftware.yaptalker.domain.interactor.SendBookmarkDeleteRequest
-import com.sedsoftware.yaptalker.domain.interactor.SendBookmarkDeleteRequest.Params
+import com.sedsoftware.yaptalker.domain.interactor.bookmarks.GetBookmarks
+import com.sedsoftware.yaptalker.domain.interactor.bookmarks.SendBookmarkDeleteRequest
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.mappers.BookmarksModelMapper
-import com.sedsoftware.yaptalker.presentation.mappers.ServerResponseModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,11 +20,10 @@ import javax.inject.Inject
 
 @InjectViewState
 class BookmarksPresenter @Inject constructor(
-    private val router: Router,
-    private val getBookmarksUseCase: GetBookmarksList,
-    private val bookmarksMapper: BookmarksModelMapper,
-    private val deleteBookmarkUseCase: SendBookmarkDeleteRequest,
-    private val serverResponseMapper: ServerResponseModelMapper
+  private val router: Router,
+  private val getBookmarksUseCase: GetBookmarks,
+  private val bookmarksMapper: BookmarksModelMapper,
+  private val deleteBookmarkUseCase: SendBookmarkDeleteRequest
 ) : BasePresenter<BookmarksView>() {
 
   private var clearCurrentList = false
@@ -58,62 +55,52 @@ class BookmarksPresenter @Inject constructor(
     clearCurrentList = true
 
     getBookmarksUseCase
-        .buildUseCaseObservable(Unit)
-        .subscribeOn(Schedulers.io())
-        .map { bookmarkItem: BaseEntity -> bookmarksMapper.transform(bookmarkItem) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getBookmarksObserver())
+      .execute()
+      .subscribeOn(Schedulers.io())
+      .map { bookmarkItem: BaseEntity -> bookmarksMapper.transform(bookmarkItem) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(getBookmarksObserver())
   }
 
   private fun getBookmarksObserver() =
-      object : DisposableObserver<YapEntity?>() {
+    object : DisposableObserver<YapEntity?>() {
 
-        override fun onNext(item: YapEntity) {
-          if (clearCurrentList) {
-            clearCurrentList = false
-            viewState.clearBookmarksList()
-          }
-
-          viewState.appendBookmarkItem(item)
+      override fun onNext(item: YapEntity) {
+        if (clearCurrentList) {
+          clearCurrentList = false
+          viewState.clearBookmarksList()
         }
 
-        override fun onComplete() {
-          Timber.i("Bookmarks loading completed.")
-        }
-
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
-        }
+        viewState.appendBookmarkItem(item)
       }
+
+      override fun onComplete() {
+        Timber.i("Bookmarks loading completed.")
+      }
+
+      override fun onError(e: Throwable) {
+        e.message?.let { viewState.showErrorMessage(it) }
+      }
+    }
 
   private fun deleteBookmark(bookmarkId: Int) {
     deleteBookmarkUseCase
-        .buildUseCaseObservable(Params(bookmarkId))
-        .subscribeOn(Schedulers.io())
-        .map { response: BaseEntity -> serverResponseMapper.transform(response) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getBookmarksResponseObserver())
+      .execute(SendBookmarkDeleteRequest.Params(bookmarkId))
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({
+        // onComplete
+        Timber.i("Bookmark deletion completed.")
+        viewState.showBookmarkDeletedMessage()
+        loadBookmarks()
+      }, { error ->
+        // onError
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
   }
-
-  private fun getBookmarksResponseObserver() =
-      object : DisposableObserver<YapEntity?>() {
-
-        override fun onNext(response: YapEntity) {
-        }
-
-        override fun onComplete() {
-          Timber.i("Bookmark deletion completed.")
-          viewState.showBookmarkDeletedMessage()
-          loadBookmarks()
-        }
-
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
-        }
-      }
 }

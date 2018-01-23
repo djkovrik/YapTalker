@@ -47,11 +47,11 @@ class TextTransformer @Inject constructor(private val context: Context) {
 
   @Suppress("DEPRECATION")
   fun transformHtmlToSpanned(html: String): Spanned =
-      if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-        Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
-      } else {
-        Html.fromHtml(html)
-      }
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+      Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
+    } else {
+      Html.fromHtml(html)
+    }
 
   @Suppress("DEPRECATION")
   fun transformWebsiteToSpanned(link: String): Spanned {
@@ -87,13 +87,13 @@ class TextTransformer @Inject constructor(private val context: Context) {
   }
 
   fun transformNewsForumTitle(title: String): String =
-      String.format(Locale.getDefault(), forumTitleTemplate, title)
+    String.format(Locale.getDefault(), forumTitleTemplate, title)
 
   fun createNavigationLabel(currentPage: Int, totalPages: Int): String =
-      String.format(Locale.getDefault(), pagesLabelTemplate, currentPage, totalPages)
+    String.format(Locale.getDefault(), pagesLabelTemplate, currentPage, totalPages)
 
   fun createCommentsLabel(comments: Int): String =
-      String.format(Locale.getDefault(), commentsTemplate, comments)
+    String.format(Locale.getDefault(), commentsTemplate, comments)
 
   fun createForumTopicTitle(isPinned: Boolean, isClosed: Boolean, title: String): String = when {
     isPinned && isClosed -> String.format(Locale.getDefault(), pinnedAndClosedTopicTemplate, title)
