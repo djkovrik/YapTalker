@@ -11,7 +11,7 @@ class CustomHeadersInterceptor : Interceptor {
       "Accept" to "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
       "Accept-Language" to "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3",
       "Connection" to "keep-alive",
-      "Host" to "www.yaplakal.com",
+//      "Host" to "www.yaplakal.com",
       "Referer" to "http://www.yaplakal.com/",
       "User-Agent" to "YapTalker"
     )
