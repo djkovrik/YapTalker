@@ -66,7 +66,7 @@ class AddMessagePresenter @Inject constructor(
   }
 
   fun insertEmoji(code: String) {
-    viewState.insertTag(code)
+    viewState.insertTag(" $code ")
   }
 
   fun sendMessageTextBackToView(message: String, isEdited: Boolean) {
