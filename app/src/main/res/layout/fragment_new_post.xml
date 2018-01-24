@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
@@ -25,15 +24,18 @@
       style="?android:attr/buttonBarStyle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/post_editor_margin"
+      android:layout_marginEnd="@dimen/post_editor_margin"
+      android:layout_marginTop="@dimen/post_editor_margin"
+      android:layout_marginBottom="@dimen/post_editor_margin"
       android:orientation="horizontal">
 
       <Button
         android:id="@+id/new_post_button_bold"
         android:layout_width="@dimen/post_editor_square_button_size"
         android:layout_height="@dimen/post_editor_square_button_size"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="@dimen/post_editor_margin"
-        android:drawablePadding="5dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="@dimen/post_editor_buttons_margin"
         android:drawableStart="?attr/iconEditorBold"
         tools:ignore="ButtonStyle"
         tools:targetApi="lollipop" />
@@ -42,8 +44,8 @@
         android:id="@+id/new_post_button_italic"
         android:layout_width="@dimen/post_editor_square_button_size"
         android:layout_height="@dimen/post_editor_square_button_size"
-        android:layout_marginStart="@dimen/post_editor_margin"
-        android:layout_marginTop="@dimen/post_editor_margin"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="@dimen/post_editor_buttons_margin"
         android:drawableStart="?attr/iconEditorItalic"
         android:stateListAnimator="@null"
         tools:ignore="ButtonStyle"
@@ -53,8 +55,8 @@
         android:id="@+id/new_post_button_underlined"
         android:layout_width="@dimen/post_editor_square_button_size"
         android:layout_height="@dimen/post_editor_square_button_size"
-        android:layout_marginStart="@dimen/post_editor_margin"
-        android:layout_marginTop="@dimen/post_editor_margin"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="@dimen/post_editor_buttons_margin"
         android:drawableStart="?attr/iconEditorUnderlined"
         android:stateListAnimator="@null"
         tools:ignore="ButtonStyle"
@@ -64,8 +66,8 @@
         android:id="@+id/new_post_button_link"
         android:layout_width="@dimen/post_editor_square_button_size"
         android:layout_height="@dimen/post_editor_square_button_size"
-        android:layout_marginStart="@dimen/post_editor_margin"
-        android:layout_marginTop="@dimen/post_editor_margin"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="@dimen/post_editor_buttons_margin"
         android:drawableStart="?attr/iconEditorLink"
         android:stateListAnimator="@null"
         tools:ignore="ButtonStyle"
@@ -75,9 +77,20 @@
         android:id="@+id/new_post_button_video"
         android:layout_width="@dimen/post_editor_square_button_size"
         android:layout_height="@dimen/post_editor_square_button_size"
-        android:layout_marginStart="@dimen/post_editor_margin"
-        android:layout_marginTop="@dimen/post_editor_margin"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="@dimen/post_editor_buttons_margin"
         android:drawableStart="?attr/iconEditorVideo"
+        android:stateListAnimator="@null"
+        tools:ignore="ButtonStyle"
+        tools:targetApi="lollipop" />
+
+      <Button
+        android:id="@+id/new_post_button_smiles"
+        android:layout_width="@dimen/post_editor_square_button_size"
+        android:layout_height="@dimen/post_editor_square_button_size"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="@dimen/post_editor_buttons_margin"
+        android:drawableStart="?attr/iconEditorSmiles"
         android:stateListAnimator="@null"
         tools:ignore="ButtonStyle"
         tools:targetApi="lollipop" />
@@ -99,19 +112,6 @@
       android:inputType="textMultiLine" />
 
   </LinearLayout>
-
-  <android.support.design.widget.FloatingActionButton
-    android:id="@+id/emojis_fab"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="end|bottom"
-    android:layout_margin="@dimen/materialize_screen_edge"
-    android:elevation="@dimen/material_elevation_fab_resting"
-    app:fabSize="normal"
-    app:ico_color="?attr/colorFabIcon"
-    app:ico_icon="cmd-emoticon-happy"
-    app:ico_padding="@dimen/fab_icon_padding"
-    tools:targetApi="lollipop" />
 
   <include layout="@layout/fragment_new_post_bottom_sheet" />
 

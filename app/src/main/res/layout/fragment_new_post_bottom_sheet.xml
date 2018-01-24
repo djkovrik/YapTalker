@@ -4,7 +4,6 @@
   android:id="@+id/emojis_bottom_sheet"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:layout_margin="@dimen/materialize_screen_edge"
   app:behavior_hideable="true"
   app:behavior_peekHeight="@dimen/bottom_sheet_peek"
   app:cardElevation="@dimen/material_card_elevation_resting"

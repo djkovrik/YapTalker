@@ -28,6 +28,7 @@
 
   <!-- Other -->
   <dimen name="post_editor_margin">8dp</dimen>
+  <dimen name="post_editor_buttons_margin">6dp</dimen>
   <dimen name="post_editor_square_button_size">48dp</dimen>
   <dimen name="post_editor_emoji_size">20dp</dimen>
   <dimen name="post_editor_emoji_item_margin">4dp</dimen>

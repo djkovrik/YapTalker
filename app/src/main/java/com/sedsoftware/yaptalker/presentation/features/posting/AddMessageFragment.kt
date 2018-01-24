@@ -3,7 +3,6 @@ package com.sedsoftware.yaptalker.presentation.features.posting
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
-import android.support.design.widget.BottomSheetBehavior.BottomSheetCallback
 import android.support.v7.widget.GridLayoutManager
 import android.text.InputType
 import android.view.Menu
@@ -16,6 +15,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
@@ -25,8 +25,16 @@ import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiAdap
 import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_new_post.*
-import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.*
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_bold
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_italic
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_link
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_smiles
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_underlined
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_video
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_edit_text
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_topic_title
+import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.emojis_bottom_sheet
+import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.emojis_list
 import javax.inject.Inject
 
 class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
@@ -214,36 +222,24 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     imm.hideSoftInputFromWindow(view?.windowToken, 0)
   }
 
+  override fun callForSmilesBottomSheet() {
+    when (bottomSheetBehavior.state) {
+      BottomSheetBehavior.STATE_COLLAPSED -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+      BottomSheetBehavior.STATE_EXPANDED -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+      BottomSheetBehavior.STATE_HIDDEN -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+      else -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    }
+  }
+
   override fun onEmojiClick(code: String) {
     presenter.insertEmoji(code)
   }
 
   private fun subscribeViews() {
-
-    // Bottom sheet
-    bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetCallback() {
-      override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
-      }
-
-      override fun onStateChanged(bottomSheet: View, newState: Int) {
-        when (newState) {
-          BottomSheetBehavior.STATE_HIDDEN -> {
-            emojis_fab.show()
-            emojis_list.scrollToPosition(0)
-          }
-          else -> {
-            emojis_fab.hide()
-          }
-        }
-      }
-    })
-
-    // Fab
-    RxView
-      .clicks(emojis_fab)
+    RxTextView
+      .textChangeEvents(new_post_edit_text)
       .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe { bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
+      .subscribe { bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN }
 
     // B
     RxView
@@ -294,6 +290,12 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
           presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_VIDEO)
         }
       }
+
+    // Smiles
+    RxView
+      .clicks(new_post_button_smiles)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.onSmilesButtonClicked() }
   }
 
   private fun returnMessageText() {

@@ -42,6 +42,7 @@
     <item name="iconEditorUnderlined">@drawable/ic_bb_underline</item>
     <item name="iconEditorLink">@drawable/ic_bb_link</item>
     <item name="iconEditorVideo">@drawable/ic_bb_video</item>
+    <item name="iconEditorSmiles">@drawable/ic_bb_smiles</item>
     <item name="iconProfileData">@drawable/ic_account</item>
     <item name="iconProfileInfo">@drawable/ic_face_profile</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline</item>
@@ -99,6 +100,7 @@
     <item name="iconEditorUnderlined">@drawable/ic_bb_underline_dark</item>
     <item name="iconEditorLink">@drawable/ic_bb_link_dark</item>
     <item name="iconEditorVideo">@drawable/ic_bb_video_dark</item>
+    <item name="iconEditorSmiles">@drawable/ic_bb_smiles_dark</item>
     <item name="iconProfileData">@drawable/ic_account_dark</item>
     <item name="iconProfileInfo">@drawable/ic_face_profile_dark</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_dark</item>

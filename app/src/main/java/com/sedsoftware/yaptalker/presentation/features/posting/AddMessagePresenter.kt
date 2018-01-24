@@ -128,6 +128,11 @@ class AddMessagePresenter @Inject constructor(
     viewState.showVideoLinkParametersDialog()
   }
 
+  fun onSmilesButtonClicked() {
+    viewState.hideKeyboard()
+    viewState.callForSmilesBottomSheet()
+  }
+
   private fun loadEmojiList() {
 
     clearCurrentList = true

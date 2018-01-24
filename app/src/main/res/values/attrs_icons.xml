@@ -7,6 +7,7 @@
   <attr name="iconEditorUnderlined" format="reference" />
   <attr name="iconEditorLink" format="reference" />
   <attr name="iconEditorVideo" format="reference" />
+  <attr name="iconEditorSmiles" format="reference" />
   <attr name="iconProfileData" format="reference" />
   <attr name="iconProfileInfo" format="reference" />
   <attr name="iconProfileStatistic" format="reference" />
