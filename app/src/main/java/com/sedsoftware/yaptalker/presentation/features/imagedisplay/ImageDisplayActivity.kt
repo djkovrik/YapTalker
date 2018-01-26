@@ -12,6 +12,7 @@ import android.view.MenuItem
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.include_main_appbar.*
 import java.util.Locale
 import javax.inject.Inject
 
+@LayoutResource(value = R.layout.activity_image_display)
 class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
 
   companion object {
@@ -41,9 +43,6 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
 
   @ProvidePresenter
   fun provideImagePresenter() = presenter
-
-  override val layoutId: Int
-    get() = R.layout.activity_image_display
 
   private val imageUrl: String by lazy {
     intent.getStringExtra(IMAGE_URL_KEY)

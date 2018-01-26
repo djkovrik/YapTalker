@@ -17,6 +17,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.booleanRes
@@ -33,14 +34,12 @@ import ru.terrakok.cicerone.Navigator
 import timber.log.Timber
 import javax.inject.Inject
 
+@LayoutResource(value = R.layout.activity_main)
 class MainActivity : BaseActivity(), MainActivityView, NavigationView {
 
   companion object {
     private const val BOOKMARKS_ITEM_INSERT_POSITION = 4
   }
-
-  override val layoutId: Int
-    get() = R.layout.activity_main
 
   @Inject
   lateinit var navigator: Navigator

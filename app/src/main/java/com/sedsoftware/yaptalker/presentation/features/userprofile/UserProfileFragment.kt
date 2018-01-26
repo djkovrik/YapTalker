@@ -6,6 +6,7 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_user_profile.*
 import java.util.Locale
 import javax.inject.Inject
 
+@LayoutResource(value = R.layout.fragment_user_profile)
 class UserProfileFragment : BaseFragment(), UserProfileView {
 
   companion object {
@@ -30,9 +32,6 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
 
     private const val USER_ID_KEY = "USER_ID_KEY"
   }
-
-  override val layoutId: Int
-    get() = R.layout.fragment_user_profile
 
   @Inject
   @InjectPresenter

@@ -11,6 +11,7 @@ import android.webkit.WebView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_video_display.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import javax.inject.Inject
 
+@LayoutResource(value = R.layout.activity_video_display)
 class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
 
   companion object {
@@ -37,9 +39,6 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
 
   @ProvidePresenter
   fun provideVideoPresenter() = presenter
-
-  override val layoutId: Int
-    get() = R.layout.activity_video_display
 
   private val videoHtml: String by lazy {
     val iframe = intent

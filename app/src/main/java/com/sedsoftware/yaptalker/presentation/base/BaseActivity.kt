@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
+import com.sedsoftware.yaptalker.commons.exception.MissingAnnotationException
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.ActivityLifecycle
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
@@ -23,7 +25,6 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
   @Inject
   lateinit var navigatorHolder: NavigatorHolder
 
-  protected abstract val layoutId: Int
   protected lateinit var backPressFragment: BaseFragment
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
 
@@ -32,7 +33,12 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
     applyTheme()
     super.onCreate(savedInstanceState)
 
-    setContentView(layoutId)
+    val clazz = this::class.java
+    if (clazz.isAnnotationPresent(LayoutResource::class.java)) {
+      setContentView(clazz.getAnnotation(LayoutResource::class.java).value)
+    } else {
+      throw MissingAnnotationException("$this must be annotated with @LayoutResource annotation.")
+    }
 
     lifecycle.accept(ActivityLifecycle.CREATE)
   }

@@ -11,6 +11,7 @@ import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
@@ -34,15 +35,13 @@ import org.jetbrains.anko.browse
 import timber.log.Timber
 import javax.inject.Inject
 
+@LayoutResource(value = R.layout.fragment_incubator)
 class IncubatorFragment :
   BaseFragment(), IncubatorView, IncubatorThumbnailsLoader, IncubatorElementsClickListener {
 
   companion object {
     fun getNewInstance() = IncubatorFragment()
   }
-
-  override val layoutId: Int
-    get() = R.layout.fragment_incubator
 
   @Inject
   @InjectPresenter

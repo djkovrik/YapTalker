@@ -10,6 +10,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_chosen_forum.*
 import java.util.Locale
 import javax.inject.Inject
 
+@LayoutResource(value = R.layout.fragment_chosen_forum)
 class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElementsClickListener {
 
   companion object {
@@ -39,9 +41,6 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElements
 
     private const val FORUM_ID_KEY = "FORUM_ID_KEY"
   }
-
-  override val layoutId: Int
-    get() = R.layout.fragment_chosen_forum
 
   @Inject
   @InjectPresenter

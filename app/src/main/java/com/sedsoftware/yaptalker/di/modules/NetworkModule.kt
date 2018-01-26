@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.di.modules
 
-import com.sedsoftware.yaptalker.commons.converters.HashSearchConverterFactory
+import com.sedsoftware.yaptalker.commons.converter.HashSearchConverterFactory
 import com.sedsoftware.yaptalker.data.network.site.YapIncubatorLoader
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.data.network.site.YapSearchIdLoader

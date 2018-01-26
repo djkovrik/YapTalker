@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
+import com.sedsoftware.yaptalker.commons.exception.MissingAnnotationException
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Maybe
 
 abstract class BaseFragment : MvpAppCompatFragment() {
 
-  protected abstract val layoutId: Int
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
   private lateinit var backPressHandler: BackPressHandler
 
@@ -32,8 +33,16 @@ abstract class BaseFragment : MvpAppCompatFragment() {
     }
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-    inflater.inflate(layoutId, container, false)
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+    val clazz = this::class.java
+    if (clazz.isAnnotationPresent(LayoutResource::class.java)) {
+      val layoutId = clazz.getAnnotation(LayoutResource::class.java).value
+      return inflater.inflate(layoutId, container, false)
+    } else {
+      throw MissingAnnotationException("$this must be annotated with @LayoutResource annotation.")
+    }
+  }
 
   override fun onAttach(context: Context?) {
     super.onAttach(context)

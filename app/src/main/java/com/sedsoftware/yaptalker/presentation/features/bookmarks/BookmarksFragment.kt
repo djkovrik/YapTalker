@@ -9,6 +9,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
@@ -25,14 +26,12 @@ import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_bookmarks.*
 import javax.inject.Inject
 
+@LayoutResource(value = R.layout.fragment_bookmarks)
 class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickListener {
 
   companion object {
     fun getNewInstance() = BookmarksFragment()
   }
-
-  override val layoutId: Int
-    get() = R.layout.fragment_bookmarks
 
   @Inject
   @InjectPresenter

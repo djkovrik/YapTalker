@@ -17,6 +17,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
@@ -25,18 +26,11 @@ import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiAdap
 import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_bold
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_italic
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_link
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_smiles
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_underlined
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_video
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_edit_text
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_topic_title
-import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.emojis_bottom_sheet
-import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.emojis_list
+import kotlinx.android.synthetic.main.fragment_new_post.*
+import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.*
 import javax.inject.Inject
 
+@LayoutResource(value = R.layout.fragment_new_post)
 class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
 
   companion object {
@@ -54,10 +48,6 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     private const val QUOTED_TEXT_KEY = "QUOTED_TEXT_KEY"
     private const val EDITED_TEXT_KEY = "EDITED_TEXT_KEY"
   }
-
-  override val layoutId: Int
-    get() = R.layout.fragment_new_post
-
 
   @Inject
   @InjectPresenter
