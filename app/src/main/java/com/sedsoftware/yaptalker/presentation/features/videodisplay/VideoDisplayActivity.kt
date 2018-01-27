@@ -3,21 +3,18 @@ package com.sedsoftware.yaptalker.presentation.features.videodisplay
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
-import com.sedsoftware.yaptalker.presentation.extensions.hideView
-import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
+import com.sedsoftware.yaptalker.presentation.features.videodisplay.client.VideoEnabledWebChromeClient
+import com.sedsoftware.yaptalker.presentation.features.videodisplay.client.VideoEnabledWebChromeClient.ToggledFullscreenCallback
 import kotlinx.android.synthetic.main.activity_video_display.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.activity_video_display)
@@ -31,6 +28,7 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
     }
 
     private const val VIDEO_HTML_KEY = "IMAGE_URL_KEY"
+    private const val SYSTEM_UI_HIDE_DELAY = 500L
   }
 
   @Inject
@@ -49,7 +47,7 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
     """
     <html>
     <head>
-      <link href="video.css" type="text/css" rel="stylesheet"/>
+    <link href="video.css" type="text/css" rel="stylesheet"/>
     </head>
       <body style='margin:0;padding:0;'>
         $iframe
@@ -58,22 +56,34 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
     """
   }
 
+
+  private val handler = Handler()
+  private var isSystemUiShown = true
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    setSupportActionBar(toolbar)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-    if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-      hideSystemUI()
-    } else {
-      showSystemUI()
-    }
+    window.decorView.setOnSystemUiVisibilityChangeListener({ visibility ->
+      isSystemUiShown = if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
+        handler.postDelayed(checkSystemUiRunnable, SYSTEM_UI_HIDE_DELAY)
+        true
+      } else {
+        false
+      }
+    })
   }
 
   override fun onResume() {
     super.onResume()
     presenter.loadVideoContent()
+  }
+
+  override fun onWindowFocusChanged(hasFocus: Boolean) {
+    super.onWindowFocusChanged(hasFocus)
+
+    if (hasFocus) {
+      checkHideSystemUI()
+    }
   }
 
   override fun showErrorMessage(message: String) {
@@ -82,13 +92,19 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
 
   @SuppressLint("SetJavaScriptEnabled")
   override fun initWebView() {
-    video_view?.settings?.javaScriptEnabled = true
-    video_view?.settings?.setAppCacheEnabled(false)
-    video_view?.webChromeClient = WebChromeClient()
-    video_view?.settings?.loadWithOverviewMode = true
-    video_view?.settings?.useWideViewPort = true
-    video_view?.scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
-    video_view?.isScrollbarFadingEnabled = false
+
+    val webChromeClient = VideoEnabledWebChromeClient(non_video_layout, video_layout, video_loading, video_view)
+
+    webChromeClient.setOnToggledFullscreen(object : ToggledFullscreenCallback {
+      override fun toggledFullscreen(fullscreen: Boolean) {
+        if (fullscreen) {
+          checkHideSystemUI()
+        }
+      }
+    })
+
+    video_view.settings?.setAppCacheEnabled(false)
+    video_view.webChromeClient = webChromeClient
   }
 
   override fun displayWebViewContent() {
@@ -103,26 +119,23 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
     video_view?.loadUrl("about:blank")
   }
 
+  private fun checkHideSystemUI() {
+    if (isSystemUiShown) {
+      handler.postDelayed(checkSystemUiRunnable, SYSTEM_UI_HIDE_DELAY)
+    }
+  }
+
+  private val checkSystemUiRunnable = Runnable {
+    hideSystemUI()
+  }
+
   private fun hideSystemUI() {
-
-    appbar.hideView()
-
     window.decorView.systemUiVisibility =
         (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
             or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
             or View.SYSTEM_UI_FLAG_FULLSCREEN
-            or View.SYSTEM_UI_FLAG_IMMERSIVE)
-  }
-
-  private fun showSystemUI() {
-
-    appbar.showView()
-
-    window.decorView.systemUiVisibility =
-        (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
   }
 }
