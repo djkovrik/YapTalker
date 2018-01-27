@@ -14,30 +14,31 @@ import javax.inject.Inject
  * in the presentation layer.
  */
 class NewsModelMapper @Inject constructor(
-    private val textTransformer: TextTransformer,
-    private val dateTransformer: DateTransformer) {
+  private val textTransformer: TextTransformer,
+  private val dateTransformer: DateTransformer
+) {
 
   fun transform(item: BaseEntity): YapEntity {
 
     item as NewsItem
 
     return NewsItemModel(
-        title = item.title,
-        link = item.link,
-        topicId = item.link.getLastDigits(),
-        rating = textTransformer.transformRankToFormattedText(item.rating),
-        images = item.images,
-        videos = item.videos,
-        videosRaw = item.videosRaw,
-        author = item.author,
-        authorLink = item.authorLink,
-        date = dateTransformer.transformDateToShortView(item.date),
-        forumName = textTransformer.transformNewsForumTitle(item.forumName),
-        forumLink = item.forumLink,
-        forumId = item.forumLink.getLastDigits(),
-        comments = textTransformer.transformCommentsLabel(item.comments),
-        cleanedDescription = textTransformer.transformHtmlToSpanned(item.cleanedDescription),
-        isYapLink = item.link.contains("yaplakal") && !item.link.contains("/go/")
+      title = item.title,
+      link = item.link,
+      topicId = item.link.getLastDigits(),
+      rating = textTransformer.transformRankToFormattedText(item.rating),
+      images = item.images,
+      videos = item.videos,
+      videosRaw = item.videosRaw,
+      author = item.author,
+      authorLink = item.authorLink,
+      date = dateTransformer.transformDateToShortView(item.date),
+      forumName = textTransformer.transformNewsForumTitle(item.forumName),
+      forumLink = item.forumLink,
+      forumId = item.forumLink.getLastDigits(),
+      comments = textTransformer.transformCommentsLabel(item.comments),
+      cleanedDescription = textTransformer.transformHtmlToSpanned(item.cleanedDescription),
+      isYapLink = item.link.contains("yaplakal") && !item.link.contains("/go/")
     )
   }
 }

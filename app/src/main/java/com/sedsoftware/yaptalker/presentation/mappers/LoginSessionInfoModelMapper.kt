@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.presentation.mappers
 
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.LoginSessionInfo
+import com.sedsoftware.yaptalker.presentation.extensions.getLastDigits
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
 import javax.inject.Inject
@@ -17,10 +18,12 @@ class LoginSessionInfoModelMapper @Inject constructor() {
     info as LoginSessionInfo
 
     return LoginSessionInfoModel(
-        nickname = info.nickname,
-        title = info.title,
-        uq = info.uq,
-        avatar = info.avatar,
-        sessionId = info.sessionId)
+      nickname = info.nickname,
+      userId = if (info.profileLink.isEmpty()) 0 else info.profileLink.getLastDigits(),
+      title = info.title,
+      uq = info.uq,
+      avatar = info.avatar,
+      sessionId = info.sessionId
+    )
   }
 }

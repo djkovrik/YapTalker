@@ -1,90 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:layout_editor_absoluteY="25dp">
+  android:layout_height="match_parent">
 
-  <TextView
-    android:id="@+id/new_post_topic_title"
-    style="@style/NewPostTopicTitle"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/post_editor_margin"
-    android:layout_marginStart="@dimen/post_editor_margin"
-    android:layout_marginTop="@dimen/post_editor_margin"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:text="Topic title" />
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-  <EditText
-    android:id="@+id/new_post_edit_text"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:layout_marginBottom="@dimen/post_editor_margin"
-    android:layout_marginEnd="@dimen/post_editor_margin"
-    android:layout_marginStart="@dimen/post_editor_margin"
-    android:layout_marginTop="@dimen/post_editor_margin"
-    android:background="@android:color/transparent"
-    android:ems="10"
-    android:gravity="top|start"
-    android:hint="@string/post_message_hint"
-    android:inputType="textMultiLine"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/new_post_button_bold" />
+    <TextView
+      android:id="@+id/new_post_topic_title"
+      style="@style/NewPostTopicTitle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/post_editor_margin"
+      android:layout_marginEnd="@dimen/post_editor_margin"
+      android:layout_marginStart="@dimen/post_editor_margin"
+      android:layout_marginTop="@dimen/post_editor_margin"
+      tools:text="Topic title" />
 
-  <Button
-    android:id="@+id/new_post_button_bold"
-    android:layout_width="@dimen/post_editor_square_button_size"
-    android:layout_height="@dimen/post_editor_square_button_size"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="@dimen/post_editor_margin"
-    android:drawablePadding="5dp"
-    android:drawableStart="?attr/iconEditorBold"
-    android:stateListAnimator="@null"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
-    tools:targetApi="lollipop" />
+    <LinearLayout
+      style="?android:attr/buttonBarStyle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/post_editor_margin"
+      android:layout_marginEnd="@dimen/post_editor_margin"
+      android:layout_marginStart="@dimen/post_editor_margin"
+      android:layout_marginTop="@dimen/post_editor_margin"
+      android:orientation="horizontal">
 
-  <Button
-    android:id="@+id/new_post_button_italic"
-    android:layout_width="@dimen/post_editor_square_button_size"
-    android:layout_height="@dimen/post_editor_square_button_size"
-    android:layout_marginStart="@dimen/post_editor_margin"
-    android:layout_marginTop="@dimen/post_editor_margin"
-    android:drawableStart="?attr/iconEditorItalic"
-    android:stateListAnimator="@null"
-    app:layout_constraintStart_toEndOf="@+id/new_post_button_bold"
-    app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
-    tools:targetApi="lollipop" />
+      <Button
+        android:id="@+id/new_post_button_bold"
+        android:layout_width="@dimen/post_editor_square_button_size"
+        android:layout_height="@dimen/post_editor_square_button_size"
+        android:layout_marginEnd="@dimen/post_editor_buttons_margin"
+        android:layout_marginStart="0dp"
+        android:drawableStart="?attr/iconEditorBold"
+        tools:ignore="ButtonStyle"
+        tools:targetApi="lollipop" />
 
-  <Button
-    android:id="@+id/new_post_button_underlined"
-    android:layout_width="@dimen/post_editor_square_button_size"
-    android:layout_height="@dimen/post_editor_square_button_size"
-    android:layout_marginStart="@dimen/post_editor_margin"
-    android:layout_marginTop="@dimen/post_editor_margin"
-    android:drawableStart="?attr/iconEditorUnderlined"
-    android:stateListAnimator="@null"
-    app:layout_constraintStart_toEndOf="@+id/new_post_button_italic"
-    app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
-    tools:targetApi="lollipop" />
+      <Button
+        android:id="@+id/new_post_button_italic"
+        android:layout_width="@dimen/post_editor_square_button_size"
+        android:layout_height="@dimen/post_editor_square_button_size"
+        android:layout_marginEnd="@dimen/post_editor_buttons_margin"
+        android:layout_marginStart="0dp"
+        android:drawableStart="?attr/iconEditorItalic"
+        android:stateListAnimator="@null"
+        tools:ignore="ButtonStyle"
+        tools:targetApi="lollipop" />
 
-  <Button
-    android:id="@+id/new_post_button_link"
-    android:layout_width="@dimen/post_editor_square_button_size"
-    android:layout_height="@dimen/post_editor_square_button_size"
-    android:layout_marginStart="@dimen/post_editor_margin"
-    android:layout_marginTop="@dimen/post_editor_margin"
-    android:drawableStart="?attr/iconEditorLink"
-    android:stateListAnimator="@null"
-    app:layout_constraintStart_toEndOf="@+id/new_post_button_underlined"
-    app:layout_constraintTop_toBottomOf="@+id/new_post_topic_title"
-    tools:targetApi="lollipop" />
+      <Button
+        android:id="@+id/new_post_button_underlined"
+        android:layout_width="@dimen/post_editor_square_button_size"
+        android:layout_height="@dimen/post_editor_square_button_size"
+        android:layout_marginEnd="@dimen/post_editor_buttons_margin"
+        android:layout_marginStart="0dp"
+        android:drawableStart="?attr/iconEditorUnderlined"
+        android:stateListAnimator="@null"
+        tools:ignore="ButtonStyle"
+        tools:targetApi="lollipop" />
 
-</android.support.constraint.ConstraintLayout>
+      <Button
+        android:id="@+id/new_post_button_link"
+        android:layout_width="@dimen/post_editor_square_button_size"
+        android:layout_height="@dimen/post_editor_square_button_size"
+        android:layout_marginEnd="@dimen/post_editor_buttons_margin"
+        android:layout_marginStart="0dp"
+        android:drawableStart="?attr/iconEditorLink"
+        android:stateListAnimator="@null"
+        tools:ignore="ButtonStyle"
+        tools:targetApi="lollipop" />
+
+      <Button
+        android:id="@+id/new_post_button_video"
+        android:layout_width="@dimen/post_editor_square_button_size"
+        android:layout_height="@dimen/post_editor_square_button_size"
+        android:layout_marginEnd="@dimen/post_editor_buttons_margin"
+        android:layout_marginStart="0dp"
+        android:drawableStart="?attr/iconEditorVideo"
+        android:stateListAnimator="@null"
+        tools:ignore="ButtonStyle"
+        tools:targetApi="lollipop" />
+
+      <Button
+        android:id="@+id/new_post_button_smiles"
+        android:layout_width="@dimen/post_editor_square_button_size"
+        android:layout_height="@dimen/post_editor_square_button_size"
+        android:layout_marginEnd="@dimen/post_editor_buttons_margin"
+        android:layout_marginStart="0dp"
+        android:drawableStart="?attr/iconEditorSmiles"
+        android:stateListAnimator="@null"
+        tools:ignore="ButtonStyle"
+        tools:targetApi="lollipop" />
+
+    </LinearLayout>
+
+    <EditText
+      android:id="@+id/new_post_edit_text"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginBottom="@dimen/post_editor_margin"
+      android:layout_marginEnd="@dimen/post_editor_margin"
+      android:layout_marginStart="@dimen/post_editor_margin"
+      android:layout_marginTop="@dimen/post_editor_margin"
+      android:background="@android:color/transparent"
+      android:ems="10"
+      android:gravity="top|start"
+      android:hint="@string/post_message_hint"
+      android:inputType="textMultiLine" />
+
+  </LinearLayout>
+
+  <include layout="@layout/fragment_new_post_bottom_sheet" />
+
+</android.support.design.widget.CoordinatorLayout>

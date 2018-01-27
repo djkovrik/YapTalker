@@ -35,8 +35,8 @@ class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPrefere
         val groupCount = group.preferenceCount
 
         (0 until groupCount)
-            .map { group.getPreference(it) }
-            .forEach { setListPreferenceSummary(sharedPreferences, it) }
+          .map { group.getPreference(it) }
+          .forEach { setListPreferenceSummary(sharedPreferences, it) }
       }
     }
 

@@ -7,7 +7,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
  * Class which represents server response string in presentation layer.
  */
 class ServerResponseModel(
-    val text: String
+  val text: String
 ) : YapEntity {
 
   override fun getBaseEntityType(): Int = YapEntityTypes.SERVER_RESPONSE

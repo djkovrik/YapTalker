@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.presentation.features.forumslist
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.GetForumsList
+import com.sedsoftware.yaptalker.domain.interactor.forumslist.GetForumsList
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -19,9 +19,9 @@ import javax.inject.Inject
 
 @InjectViewState
 class ForumsPresenter @Inject constructor(
-    private val router: Router,
-    private val forumsListUseCase: GetForumsList,
-    private val forumsListModelMapper: ForumsListModelMapper
+  private val router: Router,
+  private val forumsListUseCase: GetForumsList,
+  private val forumsListModelMapper: ForumsListModelMapper
 ) : BasePresenter<ForumsView>() {
 
   private var clearCurrentList = false
@@ -45,36 +45,36 @@ class ForumsPresenter @Inject constructor(
     clearCurrentList = true
 
     forumsListUseCase
-        .buildUseCaseObservable(Unit)
-        .subscribeOn(Schedulers.io())
-        .map { forumItem: BaseEntity -> forumsListModelMapper.transform(forumItem) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-        .doOnError { setConnectionState(ConnectionState.ERROR) }
-        .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getForumsListObserver())
+      .execute()
+      .subscribeOn(Schedulers.io())
+      .map { forumItem: BaseEntity -> forumsListModelMapper.transform(forumItem) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
+      .doOnError { setConnectionState(ConnectionState.ERROR) }
+      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(getForumsListObserver())
   }
 
   private fun getForumsListObserver() =
-      object : DisposableObserver<YapEntity>() {
+    object : DisposableObserver<YapEntity>() {
 
-        override fun onNext(item: YapEntity) {
+      override fun onNext(item: YapEntity) {
 
-          if (clearCurrentList) {
-            clearCurrentList = false
-            viewState.clearForumsList()
-          }
-
-          viewState.appendForumItem(item)
+        if (clearCurrentList) {
+          clearCurrentList = false
+          viewState.clearForumsList()
         }
 
-        override fun onComplete() {
-          Timber.i("Forums list loading completed.")
-        }
-
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
-        }
+        viewState.appendForumItem(item)
       }
+
+      override fun onComplete() {
+        Timber.i("Forums list loading completed.")
+      }
+
+      override fun onError(e: Throwable) {
+        e.message?.let { viewState.showErrorMessage(it) }
+      }
+    }
 }

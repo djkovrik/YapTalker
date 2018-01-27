@@ -8,7 +8,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
@@ -22,14 +23,12 @@ import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_forums_list.*
 import javax.inject.Inject
 
+@LayoutResource(value = R.layout.fragment_forums_list)
 class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
 
   companion object {
     fun getNewInstance() = ForumsFragment()
   }
-
-  override val layoutId: Int
-    get() = R.layout.fragment_forums_list
 
   @Inject
   @InjectPresenter
@@ -39,7 +38,7 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
   fun provideForumsPresenter() = presenter
 
   @Inject
-  lateinit var settings: SettingsManager
+  lateinit var settings: Settings
 
   private lateinit var forumsAdapter: ForumsAdapter
 
@@ -93,8 +92,8 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
 
   private fun subscribeViews() {
     RxSwipeRefreshLayout
-        .refreshes(forums_list_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.loadForumsList() }
+      .refreshes(forums_list_refresh_layout)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.loadForumsList() }
   }
 }

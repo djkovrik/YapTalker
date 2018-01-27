@@ -27,6 +27,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWa
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicInfoBlockModel
+import java.util.ArrayList
 import javax.inject.Inject
 
 /**
@@ -34,16 +35,18 @@ import javax.inject.Inject
  * in the presentation layer.
  */
 class TopicModelMapper @Inject constructor(
-    private val dateTransformer: DateTransformer,
-    private val textTransformer: TextTransformer) {
-  
+  private val dateTransformer: DateTransformer,
+  private val textTransformer: TextTransformer
+) {
+
   fun transform(items: List<BaseEntity>): List<YapEntity> {
 
     val result: MutableList<YapEntity> = ArrayList(items.size)
 
     items.forEach { item ->
       when (item) {
-        is TopicInfoBlock -> result.add(TopicInfoBlockModel(
+        is TopicInfoBlock -> result.add(
+          TopicInfoBlockModel(
             topicTitle = item.topicTitle,
             isClosed = item.isClosed,
             authKey = item.authKey,
@@ -53,15 +56,19 @@ class TopicModelMapper @Inject constructor(
             topicRatingPlusClicked = item.topicRatingPlusClicked,
             topicRatingMinusClicked = item.topicRatingMinusClicked,
             topicRatingTargetId = item.topicRatingTargetId
-        ))
+          )
+        )
 
-        is NavigationPanel -> result.add(NavigationPanelModel(
+        is NavigationPanel -> result.add(
+          NavigationPanelModel(
             currentPage = item.currentPage,
             totalPages = item.totalPages,
             navigationLabel = textTransformer.createNavigationLabel(item.currentPage, item.totalPages)
-        ))
+          )
+        )
 
-        is SinglePost -> result.add(SinglePostModel(
+        is SinglePost -> result.add(
+          SinglePostModel(
             authorNickname = item.authorNickname,
             authorProfile = item.authorProfile,
             authorProfileId = item.authorProfile.getLastDigits(),
@@ -77,8 +84,10 @@ class TopicModelMapper @Inject constructor(
             postRankMinusClicked = item.postRankMinusClicked,
             postContentParsed = transform(item.postContentParsed),
             postId = item.postId,
-            hasQuoteButton = item.hasQuoteButton
-        ))
+            hasQuoteButton = item.hasQuoteButton,
+            hasEditButton = item.hasEditButton
+          )
+        )
       }
     }
 
@@ -86,23 +95,23 @@ class TopicModelMapper @Inject constructor(
   }
 
   private fun transform(content: PostContent): PostContentModel =
-      when (content) {
-        is PostText -> PostTextModel(content.text)
-        is PostQuote -> PostQuoteModel(content.text)
-        is PostQuoteAuthor -> PostQuoteAuthorModel(textTransformer.transformHtmlToSpanned(content.text))
-        is PostHiddenText -> PostHiddenTextModel(content.text)
-        is PostScript -> PostScriptModel(textTransformer.transformHtmlToSpanned(content.text))
-        is PostWarning -> PostWarningModel(textTransformer.transformHtmlToSpanned(content.text))
-      }
+    when (content) {
+      is PostText -> PostTextModel(content.text)
+      is PostQuote -> PostQuoteModel(content.text)
+      is PostQuoteAuthor -> PostQuoteAuthorModel(textTransformer.transformHtmlToSpanned(content.text))
+      is PostHiddenText -> PostHiddenTextModel(content.text)
+      is PostScript -> PostScriptModel(textTransformer.transformHtmlToSpanned(content.text))
+      is PostWarning -> PostWarningModel(textTransformer.transformHtmlToSpanned(content.text))
+    }
 
   private fun transform(post: SinglePostParsed): SinglePostParsedModel =
-      SinglePostParsedModel(
-          content = post
-              .content
-              .map { item -> transform(item) }
-              .toMutableList(),
-          images = post.images,
-          videos = post.videos,
-          videosRaw = post.videosRaw
-      )
+    SinglePostParsedModel(
+      content = post
+        .content
+        .map { item -> transform(item) }
+        .toMutableList(),
+      images = post.images,
+      videos = post.videos,
+      videosRaw = post.videosRaw
+    )
 }

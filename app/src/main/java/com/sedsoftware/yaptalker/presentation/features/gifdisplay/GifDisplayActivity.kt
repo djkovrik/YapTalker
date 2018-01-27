@@ -9,6 +9,7 @@ import android.webkit.WebView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import kotlinx.android.synthetic.main.activity_gif_display.*
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.include_main_appbar.*
 import timber.log.Timber
 import javax.inject.Inject
 
+@LayoutResource(value = R.layout.activity_gif_display)
 class GifDisplayActivity : BaseActivity(), GifDisplayView {
 
   companion object {
@@ -28,9 +30,6 @@ class GifDisplayActivity : BaseActivity(), GifDisplayView {
     private const val GIF_URL_KEY = "GIF_URL_KEY"
   }
 
-  override val layoutId: Int
-    get() = R.layout.activity_gif_display
-
   @Inject
   @InjectPresenter
   lateinit var presenter: GifDisplayPresenter
@@ -40,7 +39,7 @@ class GifDisplayActivity : BaseActivity(), GifDisplayView {
 
   private val gifHtml: String by lazy {
     val url = intent
-        .getStringExtra(GIF_URL_KEY)
+      .getStringExtra(GIF_URL_KEY)
 
     """
     <html>

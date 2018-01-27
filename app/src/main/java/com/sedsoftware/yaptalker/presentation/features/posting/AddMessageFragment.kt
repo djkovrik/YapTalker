@@ -2,6 +2,8 @@ package com.sedsoftware.yaptalker.presentation.features.posting
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.BottomSheetBehavior
+import android.support.v7.widget.GridLayoutManager
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuInflater
@@ -13,39 +15,39 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
+import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiAdapter
+import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiClickListener
+import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_bold
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_italic
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_link
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_underlined
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_edit_text
-import kotlinx.android.synthetic.main.fragment_new_post.new_post_topic_title
+import kotlinx.android.synthetic.main.fragment_new_post.*
+import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.*
 import javax.inject.Inject
 
-class AddMessageFragment : BaseFragment(), AddMessageView {
+@LayoutResource(value = R.layout.fragment_new_post)
+class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
 
   companion object {
-    fun getNewInstance(pair: Pair<String, String>): AddMessageFragment {
+    fun getNewInstance(pair: Triple<String, String, String>): AddMessageFragment {
       val fragment = AddMessageFragment()
       val args = Bundle()
       args.putString(TOPIC_TITLE_KEY, pair.first)
       args.putString(QUOTED_TEXT_KEY, pair.second)
+      args.putString(EDITED_TEXT_KEY, pair.third)
       fragment.arguments = args
       return fragment
     }
 
     private const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
-    private const val QUOTED_TEXT_KEY = "QUOTE_KEY"
+    private const val QUOTED_TEXT_KEY = "QUOTED_TEXT_KEY"
+    private const val EDITED_TEXT_KEY = "EDITED_TEXT_KEY"
   }
-
-  override val layoutId: Int
-    get() = R.layout.fragment_new_post
-
 
   @Inject
   @InjectPresenter
@@ -62,9 +64,29 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     arguments?.getString(QUOTED_TEXT_KEY) ?: ""
   }
 
+  private val editedText: String by lazy {
+    arguments?.getString(EDITED_TEXT_KEY) ?: ""
+  }
+
+  private lateinit var emojiAdapter: EmojiAdapter
+  private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHasOptionsMenu(true)
+
+    bottomSheetBehavior = BottomSheetBehavior.from(emojis_bottom_sheet)
+    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+    emojiAdapter = EmojiAdapter(this)
+    emojiAdapter.setHasStableIds(true)
+
+    with(emojis_list) {
+      val linearLayout = GridLayoutManager(context, 2)
+      layoutManager = linearLayout
+      adapter = emojiAdapter
+      setHasFixedSize(true)
+    }
 
     if (currentTopicTitle.isNotEmpty()) {
       new_post_topic_title.text = currentTopicTitle
@@ -72,9 +94,20 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
 
     if (quotedText.isNotEmpty()) {
       new_post_edit_text.append(quotedText)
+    } else if (editedText.isNotEmpty()) {
+      new_post_edit_text.append(editedText)
     }
 
     subscribeViews()
+  }
+
+  override fun onBackPressed(): Boolean {
+    if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_HIDDEN) {
+      bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+      return true
+    }
+
+    return false
   }
 
   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
@@ -82,13 +115,21 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean =
-      when (item.itemId) {
-        R.id.action_send -> {
-          returnMessageText()
-          true
-        }
-        else -> super.onOptionsItemSelected(item)
+    when (item.itemId) {
+      R.id.action_send -> {
+        returnMessageText()
+        true
       }
+      else -> super.onOptionsItemSelected(item)
+    }
+
+  override fun appendEmojiItem(emoji: YapEntity) {
+    emojiAdapter.addEmojiItem(emoji)
+  }
+
+  override fun clearEmojiList() {
+    emojiAdapter.clearEmojiList()
+  }
 
   override fun updateCurrentUiState() {
     presenter.setAppbarTitle("")
@@ -115,38 +156,55 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
 
     val titleDialog = context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-          .title(R.string.post_insert_link_title)
-          .positiveText(R.string.post_button_submit)
-          .negativeText(R.string.post_button_dismiss)
-          .inputType(InputType.TYPE_CLASS_TEXT)
-          .alwaysCallInputCallback()
-          .input(R.string.post_insert_link_title_hint, 0, false, { _, _ -> })
-          .onPositive { secondDialog, _ ->
-            title = secondDialog.inputEditText?.text.toString()
+        .title(R.string.post_insert_link_title)
+        .positiveText(R.string.post_button_submit)
+        .negativeText(R.string.post_button_dismiss)
+        .inputType(InputType.TYPE_CLASS_TEXT)
+        .alwaysCallInputCallback()
+        .input(R.string.post_insert_link_title_hint, 0, false, { _, _ -> })
+        .onPositive { secondDialog, _ ->
+          title = secondDialog.inputEditText?.text.toString()
 
-            if (url.isNotEmpty() || title.isNotEmpty()) {
-              presenter.insertVideoTag(url, title)
-            }
+          if (url.isNotEmpty() || title.isNotEmpty()) {
+            presenter.insertLinkTag(url, title)
           }
+        }
     }
 
     val linkDialog = context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-          .title(R.string.post_insert_link)
-          .positiveText(R.string.post_button_submit)
-          .negativeText(R.string.post_button_dismiss)
-          .inputType(InputType.TYPE_CLASS_TEXT)
-          .alwaysCallInputCallback()
-          .input(R.string.post_insert_link_hint, 0, false, { firstDialog, firstInput ->
-            firstDialog.getActionButton(DialogAction.POSITIVE).isEnabled = firstInput.toString().startsWith("http")
-          })
-          .onPositive { firstDialog, _ ->
-            url = firstDialog.inputEditText?.text.toString()
-            titleDialog?.show()
-          }
+        .title(R.string.post_insert_link)
+        .positiveText(R.string.post_button_submit)
+        .negativeText(R.string.post_button_dismiss)
+        .inputType(InputType.TYPE_CLASS_TEXT)
+        .alwaysCallInputCallback()
+        .input(R.string.post_insert_link_hint, 0, false, { firstDialog, firstInput ->
+          firstDialog.getActionButton(DialogAction.POSITIVE).isEnabled = firstInput.toString().startsWith("http")
+        })
+        .onPositive { firstDialog, _ ->
+          url = firstDialog.inputEditText?.text.toString()
+          titleDialog?.show()
+        }
     }
 
     linkDialog?.show()
+  }
+
+  override fun showVideoLinkParametersDialog() {
+    context?.let { ctx ->
+      MaterialDialog.Builder(ctx)
+        .title(R.string.post_insert_video)
+        .positiveText(R.string.post_button_submit)
+        .negativeText(R.string.post_button_dismiss)
+        .inputType(InputType.TYPE_CLASS_TEXT)
+        .alwaysCallInputCallback()
+        .input(R.string.post_insert_video_hint, 0, false, { _, _ -> })
+        .onPositive { dialog, which ->
+          val url = dialog.inputEditText?.text.toString()
+          presenter.insertVideoTag(url)
+        }
+        .show()
+    }
   }
 
   override fun hideKeyboard() {
@@ -154,52 +212,87 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     imm.hideSoftInputFromWindow(view?.windowToken, 0)
   }
 
+  override fun callForSmilesBottomSheet() {
+    when (bottomSheetBehavior.state) {
+      BottomSheetBehavior.STATE_COLLAPSED -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+      BottomSheetBehavior.STATE_EXPANDED -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+      BottomSheetBehavior.STATE_HIDDEN -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+      else -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    }
+  }
+
+  override fun onEmojiClick(code: String) {
+    presenter.insertEmoji(code)
+  }
+
   private fun subscribeViews() {
+    RxTextView
+      .textChangeEvents(new_post_edit_text)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN }
+
     // B
     RxView
-        .clicks(new_post_button_bold)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          with(new_post_edit_text) {
-            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_B)
-          }
+      .clicks(new_post_button_bold)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        with(new_post_edit_text) {
+          presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_B)
         }
+      }
 
     // I
     RxView
-        .clicks(new_post_button_italic)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          with(new_post_edit_text) {
-            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_I)
-          }
+      .clicks(new_post_button_italic)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        with(new_post_edit_text) {
+          presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_I)
         }
+      }
 
     // U
     RxView
-        .clicks(new_post_button_underlined)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          with(new_post_edit_text) {
-            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_U)
-          }
+      .clicks(new_post_button_underlined)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        with(new_post_edit_text) {
+          presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_U)
         }
+      }
 
     // Link
     RxView
-        .clicks(new_post_button_link)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          with(new_post_edit_text) {
-            presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_LINK)
-          }
+      .clicks(new_post_button_link)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        with(new_post_edit_text) {
+          presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_LINK)
         }
+      }
+
+    // Video
+    RxView
+      .clicks(new_post_button_video)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        with(new_post_edit_text) {
+          presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_VIDEO)
+        }
+      }
+
+    // Smiles
+    RxView
+      .clicks(new_post_button_smiles)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.onSmilesButtonClicked() }
   }
 
   private fun returnMessageText() {
     val message = new_post_edit_text.text.toString()
+    val isEdited = editedText.isNotEmpty()
     if (message.isNotEmpty()) {
-      presenter.sendMessageTextBackToView(message)
+      presenter.sendMessageTextBackToView(message, isEdited)
     }
   }
 }

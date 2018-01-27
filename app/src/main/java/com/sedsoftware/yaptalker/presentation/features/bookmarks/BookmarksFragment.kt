@@ -9,7 +9,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
@@ -25,24 +26,23 @@ import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_bookmarks.*
 import javax.inject.Inject
 
+@LayoutResource(value = R.layout.fragment_bookmarks)
 class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickListener {
 
   companion object {
     fun getNewInstance() = BookmarksFragment()
   }
 
-  override val layoutId: Int
-    get() = R.layout.fragment_bookmarks
-
   @Inject
   @InjectPresenter
   lateinit var presenter: BookmarksPresenter
 
   @Inject
-  lateinit var settings: SettingsManager
+  lateinit var settings: Settings
 
   @ProvidePresenter
   fun provideBookmarksPresenter() = presenter
+
   private lateinit var bookmarksAdapter: BookmarksAdapter
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,11 +92,11 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
   override fun showDeleteConfirmationDialog(bookmarkId: Int) {
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-          .content(R.string.msg_bookmark_confirm_action)
-          .positiveText(R.string.msg_bookmark_confirm_yes)
-          .negativeText(R.string.msg_bookmark_confirm_No)
-          .onPositive { _, _ -> presenter.deleteSelectedBookmark(bookmarkId) }
-          .show()
+        .content(R.string.msg_bookmark_confirm_action)
+        .positiveText(R.string.msg_bookmark_confirm_yes)
+        .negativeText(R.string.msg_bookmark_confirm_No)
+        .onPositive { _, _ -> presenter.deleteSelectedBookmark(bookmarkId) }
+        .show()
     }
   }
 
@@ -118,8 +118,8 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
   private fun subscribeViews() {
 
     RxSwipeRefreshLayout
-        .refreshes(bookmarks_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.loadBookmarks() }
+      .refreshes(bookmarks_refresh_layout)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.loadBookmarks() }
   }
 }

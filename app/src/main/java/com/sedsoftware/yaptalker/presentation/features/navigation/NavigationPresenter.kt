@@ -1,25 +1,21 @@
 package com.sedsoftware.yaptalker.presentation.features.navigation
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.data.settings.DefaultHomeScreen
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.device.settings.DefaultHomeScreen
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.GetLoginSessionInfo
-import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest
-import com.sedsoftware.yaptalker.domain.interactor.SendSignOutRequest.Params
+import com.sedsoftware.yaptalker.domain.interactor.navigation.GetLoginSessionInfo
+import com.sedsoftware.yaptalker.domain.interactor.navigation.SendSignOutRequest
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.mappers.LoginSessionInfoModelMapper
-import com.sedsoftware.yaptalker.presentation.mappers.ServerResponseModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
-import com.sedsoftware.yaptalker.presentation.model.base.ServerResponseModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
@@ -27,19 +23,12 @@ import javax.inject.Inject
 
 @InjectViewState
 class NavigationPresenter @Inject constructor(
-    private val router: Router,
-    private val settings: SettingsManager,
-    private val getSessionInfoUseCase: GetLoginSessionInfo,
-    private val sessionInfoMapper: LoginSessionInfoModelMapper,
-    private val signOutUseCase: SendSignOutRequest,
-    private val serverResponseMapper: ServerResponseModelMapper
+  private val router: Router,
+  private val settings: Settings,
+  private val getLoginSessionInfoUseCase: GetLoginSessionInfo,
+  private val sessionInfoMapper: LoginSessionInfoModelMapper,
+  private val signOutUseCase: SendSignOutRequest
 ) : BasePresenter<NavigationView>() {
-
-  companion object {
-    private const val SIGN_OUT_SUCCESS_MARKER = "Вы вышли"
-    private const val MESSAGES_PER_PAGE_DEFAULT = 25
-    private const val TOPICS_PER_PAGE_DEFAULT = 30
-  }
 
   init {
     router.setResultListener(RequestCode.SIGN_IN, {
@@ -49,6 +38,7 @@ class NavigationPresenter @Inject constructor(
   }
 
   private var currentUserKey = ""
+  private var currentUserId = 0
   private var isLinkNavigationPending = false
 
   override fun onFirstViewAttach() {
@@ -85,6 +75,14 @@ class NavigationPresenter @Inject constructor(
     router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
   }
 
+  fun navigateToUserProfile() {
+
+    if (currentUserId != 0) {
+      viewState.closeNavigationDrawer()
+      router.navigateTo(NavigationScreen.USER_PROFILE_SCREEN, currentUserId)
+    }
+  }
+
   private fun navigateToDefaultHomePage() {
 
     if (isLinkNavigationPending) {
@@ -101,36 +99,27 @@ class NavigationPresenter @Inject constructor(
   }
 
   private fun refreshAuthorization() {
-    getSessionInfoUseCase
-        .buildUseCaseObservable(Unit)
-        .subscribeOn(Schedulers.io())
-        .map { sessionInfo: BaseEntity -> sessionInfoMapper.transform(sessionInfo) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getLoginSessionInfoObserver())
+    getLoginSessionInfoUseCase
+      .execute()
+      .subscribeOn(Schedulers.io())
+      .map { loginSessionInfo: BaseEntity -> sessionInfoMapper.transform(loginSessionInfo) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({ info ->
+        displayLoginSessionInfo(info)
+        Timber.i("Login session info updated.")
+      }, { error ->
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
   }
-
-  private fun getLoginSessionInfoObserver() =
-      object : DisposableObserver<YapEntity>() {
-
-        override fun onNext(info: YapEntity) {
-          displayLoginSessionInfo(info)
-        }
-
-        override fun onComplete() {
-          Timber.i("Login session info updated.")
-        }
-
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
-        }
-      }
 
   private fun displayLoginSessionInfo(sessionInfo: YapEntity) {
 
     sessionInfo as LoginSessionInfoModel
 
     currentUserKey = sessionInfo.sessionId
+    currentUserId = sessionInfo.userId
+
     viewState.updateNavDrawerProfile(sessionInfo)
     viewState.clearDynamicNavigationItems()
 
@@ -143,40 +132,19 @@ class NavigationPresenter @Inject constructor(
 
   private fun sendSignOutRequest() {
     signOutUseCase
-        .buildUseCaseObservable(Params(userKey = currentUserKey))
-        .subscribeOn(Schedulers.io())
-        .map { response: BaseEntity -> serverResponseMapper.transform(response) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .autoDisposable(event(PresenterLifecycle.DESTROY))
-        .subscribe(getSignOutResponseObserver())
-  }
-
-  private fun getSignOutResponseObserver() =
-      object : DisposableObserver<YapEntity>() {
-
-        override fun onNext(response: YapEntity) {
-          checkIfSignedOutSuccessfully(response)
-        }
-
-        override fun onComplete() {
-          Timber.i("Sign Out request completed.")
-          settings.saveMessagesPerPagePref(MESSAGES_PER_PAGE_DEFAULT)
-          settings.saveTopicsPerPagePref(TOPICS_PER_PAGE_DEFAULT)
-        }
-
-        override fun onError(e: Throwable) {
-          e.message?.let { viewState.showErrorMessage(it) }
-        }
-      }
-
-  private fun checkIfSignedOutSuccessfully(serverResponse: YapEntity) {
-
-    serverResponse as ServerResponseModel
-
-    if (serverResponse.text.contains(SIGN_OUT_SUCCESS_MARKER)) {
-      viewState.showSignOutMessage()
-      refreshAuthorization()
-      navigateToDefaultHomePage()
-    }
+      .execute(parameter = currentUserKey)
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({
+        // onComplete
+        viewState.showSignOutMessage()
+        refreshAuthorization()
+        navigateToDefaultHomePage()
+        Timber.i("Sign Out request completed.")
+      }, { error ->
+        // onError
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
   }
 }

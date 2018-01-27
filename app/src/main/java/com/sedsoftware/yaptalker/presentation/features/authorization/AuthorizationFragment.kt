@@ -9,6 +9,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
@@ -21,14 +22,12 @@ import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.fragment_authorization.*
 import javax.inject.Inject
 
+@LayoutResource(value = R.layout.fragment_authorization)
 class AuthorizationFragment : BaseFragment(), AuthorizationView {
 
   companion object {
     fun getNewInstance() = AuthorizationFragment()
   }
-
-  override val layoutId: Int
-    get() = R.layout.fragment_authorization
 
   @Inject
   @InjectPresenter
@@ -72,23 +71,24 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
   private fun subscribeViews() {
 
     Observable
-        .combineLatest(
-            RxTextView.textChanges(authorization_login),
-            RxTextView.textChanges(authorization_password),
-            BiFunction { login: CharSequence, password: CharSequence ->
-              login.isNotEmpty() && password.isNotEmpty()
-            })
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { enabled -> presenter.handleSignInButton(enabled) }
+      .combineLatest(
+        RxTextView.textChanges(authorization_login),
+        RxTextView.textChanges(authorization_password),
+        BiFunction { login: CharSequence, password: CharSequence ->
+          login.isNotEmpty() && password.isNotEmpty()
+        })
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { enabled -> presenter.handleSignInButton(enabled) }
 
     RxView
-        .clicks(button_sign_in)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe {
-          presenter.performLoginAttempt(
-              authorization_login.text.toString(),
-              authorization_password.text.toString(),
-              authorization_anonymous.isChecked)
-        }
+      .clicks(button_sign_in)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        presenter.performLoginAttempt(
+          authorization_login.text.toString(),
+          authorization_password.text.toString(),
+          authorization_anonymous.isChecked
+        )
+      }
   }
 }

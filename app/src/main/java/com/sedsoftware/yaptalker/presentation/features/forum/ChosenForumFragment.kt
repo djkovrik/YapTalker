@@ -10,7 +10,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.data.settings.SettingsManager
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_chosen_forum.*
 import java.util.Locale
 import javax.inject.Inject
 
+@LayoutResource(value = R.layout.fragment_chosen_forum)
 class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElementsClickListener {
 
   companion object {
@@ -40,9 +42,6 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElements
     private const val FORUM_ID_KEY = "FORUM_ID_KEY"
   }
 
-  override val layoutId: Int
-    get() = R.layout.fragment_chosen_forum
-
   @Inject
   @InjectPresenter
   lateinit var presenter: ChosenForumPresenter
@@ -51,7 +50,7 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElements
   fun provideForumPresenter() = presenter
 
   @Inject
-  lateinit var settings: SettingsManager
+  lateinit var settings: Settings
 
   private val currentForumId: Int by lazy {
     arguments?.getInt(FORUM_ID_KEY) ?: 0
@@ -140,20 +139,20 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElements
   override fun onGoToSelectedPageClick() {
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
-          .title(R.string.navigation_go_to_page_title)
-          .inputType(InputType.TYPE_CLASS_NUMBER)
-          .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
-            presenter.goToChosenPage(input.toString().toInt())
-          })
-          .show()
+        .title(R.string.navigation_go_to_page_title)
+        .inputType(InputType.TYPE_CLASS_NUMBER)
+        .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
+          presenter.goToChosenPage(input.toString().toInt())
+        })
+        .show()
     }
   }
 
   private fun subscribeViews() {
 
     RxSwipeRefreshLayout
-        .refreshes(forum_refresh_layout)
-        .autoDisposable(event(FragmentLifecycle.DESTROY))
-        .subscribe { presenter.loadForum(currentForumId) }
+      .refreshes(forum_refresh_layout)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.loadForum(currentForumId) }
   }
 }

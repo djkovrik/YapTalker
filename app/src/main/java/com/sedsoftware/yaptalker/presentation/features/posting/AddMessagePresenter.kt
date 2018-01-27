@@ -1,21 +1,40 @@
 package com.sedsoftware.yaptalker.presentation.features.posting
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.domain.interactor.topic.GetEmojiList
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.features.posting.MessageTagCodes.Tag
+import com.sedsoftware.yaptalker.presentation.mappers.EmojiModelMapper
+import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.uber.autodispose.kotlin.autoDisposable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.observers.DisposableObserver
+import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
+import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 
 @InjectViewState
 class AddMessagePresenter @Inject constructor(
-    private val router: Router
+  private val router: Router,
+  private val getEmojiListUseCase: GetEmojiList,
+  private val emojiMapper: EmojiModelMapper
 ) : BasePresenter<AddMessageView>() {
+
+  private var clearCurrentList = false
 
   private var isBOpened = false
   private var isIOpened = false
   private var isUOpened = false
+
+  override fun onFirstViewAttach() {
+    super.onFirstViewAttach()
+
+    loadEmojiList()
+  }
 
   override fun attachView(view: AddMessageView?) {
     super.attachView(view)
@@ -30,18 +49,32 @@ class AddMessagePresenter @Inject constructor(
   fun insertChosenTag(selectionStart: Int, selectionEnd: Int, @Tag tag: Long) {
     when {
       tag == MessageTagCodes.TAG_LINK -> onLinkTagClicked()
+      tag == MessageTagCodes.TAG_VIDEO -> onVideoLinkTagClicked()
       selectionStart != selectionEnd -> onTagClickedWithSelection(tag)
       else -> onTagClickedWithNoSelection(tag)
     }
   }
 
-  fun insertVideoTag(url: String, title: String) {
+  fun insertLinkTag(url: String, title: String) {
     val result = String.format(Locale.getDefault(), MessageTags.LINK_BLOCK, url, title)
     viewState.insertTag(result)
   }
 
-  fun sendMessageTextBackToView(message: String) {
-    router.exitWithResult(RequestCode.MESSAGE_TEXT, message)
+  fun insertVideoTag(url: String) {
+    val result = String.format(Locale.getDefault(), MessageTags.VIDEO_BLOCK, url)
+    viewState.insertTag(result)
+  }
+
+  fun insertEmoji(code: String) {
+    viewState.insertTag(" $code ")
+  }
+
+  fun sendMessageTextBackToView(message: String, isEdited: Boolean) {
+    if (isEdited) {
+      router.exitWithResult(RequestCode.EDITED_MESSAGE_TEXT, message)
+    } else {
+      router.exitWithResult(RequestCode.MESSAGE_TEXT, message)
+    }
   }
 
   private fun onTagClickedWithSelection(@Tag tag: Long) {
@@ -90,4 +123,48 @@ class AddMessagePresenter @Inject constructor(
   private fun onLinkTagClicked() {
     viewState.showLinkParametersDialogs()
   }
+
+  private fun onVideoLinkTagClicked() {
+    viewState.showVideoLinkParametersDialog()
+  }
+
+  fun onSmilesButtonClicked() {
+    viewState.hideKeyboard()
+    viewState.callForSmilesBottomSheet()
+  }
+
+  private fun loadEmojiList() {
+
+    clearCurrentList = true
+
+    getEmojiListUseCase
+      .execute()
+      .subscribeOn(Schedulers.io())
+      .map { emoji -> emojiMapper.transform(emoji) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(getEmojiObserver())
+  }
+
+  private fun getEmojiObserver() =
+    object : DisposableObserver<YapEntity>() {
+
+      override fun onNext(item: YapEntity) {
+
+        if (clearCurrentList) {
+          clearCurrentList = false
+          viewState.clearEmojiList()
+        }
+
+        viewState.appendEmojiItem(item)
+      }
+
+      override fun onComplete() {
+        Timber.i("Emojis list loading completed.")
+      }
+
+      override fun onError(error: Throwable) {
+        error.message?.let { viewState.showErrorMessage(it) }
+      }
+    }
 }
