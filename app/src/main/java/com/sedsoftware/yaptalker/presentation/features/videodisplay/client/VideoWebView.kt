@@ -9,14 +9,12 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 
-class VideoEnabledWebView : WebView {
+class VideoWebView : WebView {
 
-  private var videoEnabledWebChromeClient: VideoEnabledWebChromeClient? = null
-
+  private var videoEnabledWebChromeClient: VideoWebChromeClient? = null
   private var addedJavascriptInterface: Boolean = false
 
   interface ToggledFullscreenCallback {
-
     fun toggledFullscreen(fullscreen: Boolean)
   }
 
@@ -36,7 +34,7 @@ class VideoEnabledWebView : WebView {
   override fun setWebChromeClient(client: WebChromeClient) {
     settings.javaScriptEnabled = true
 
-    if (client is VideoEnabledWebChromeClient) {
+    if (client is VideoWebChromeClient) {
       this.videoEnabledWebChromeClient = client
     }
 
@@ -78,7 +76,7 @@ class VideoEnabledWebView : WebView {
 
           Handler(Looper.getMainLooper()).post {
             if (videoEnabledWebChromeClient != null) {
-              videoEnabledWebChromeClient!!.onHideCustomView()
+              videoEnabledWebChromeClient?.onHideCustomView()
             }
           }
         }
