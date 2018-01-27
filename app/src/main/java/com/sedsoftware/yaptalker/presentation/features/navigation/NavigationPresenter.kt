@@ -38,6 +38,7 @@ class NavigationPresenter @Inject constructor(
   }
 
   private var currentUserKey = ""
+  private var currentUserId = 0
   private var isLinkNavigationPending = false
 
   override fun onFirstViewAttach() {
@@ -72,6 +73,14 @@ class NavigationPresenter @Inject constructor(
   fun navigateWithIntentLink(triple: Triple<Int, Int, Int>) {
     isLinkNavigationPending = true
     router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
+  }
+
+  fun navigateToUserProfile() {
+
+    if (currentUserId != 0) {
+      viewState.closeNavigationDrawer()
+      router.navigateTo(NavigationScreen.USER_PROFILE_SCREEN, currentUserId)
+    }
   }
 
   private fun navigateToDefaultHomePage() {
@@ -109,6 +118,8 @@ class NavigationPresenter @Inject constructor(
     sessionInfo as LoginSessionInfoModel
 
     currentUserKey = sessionInfo.sessionId
+    currentUserId = sessionInfo.userId
+
     viewState.updateNavDrawerProfile(sessionInfo)
     viewState.clearDynamicNavigationItems()
 

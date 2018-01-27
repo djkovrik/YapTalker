@@ -3,18 +3,21 @@ package com.sedsoftware.yaptalker.presentation.features.navigation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView.ScaleType
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.context.IconicsContextWrapper
 import com.mikepenz.materialdrawer.AccountHeader
+import com.mikepenz.materialdrawer.AccountHeader.OnAccountHeaderProfileImageListener
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
@@ -165,6 +168,10 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     toastInfo(stringRes(R.string.msg_sign_out))
   }
 
+  override fun closeNavigationDrawer() {
+    navDrawer.closeDrawer()
+  }
+
   @Suppress("PLUGIN_WARNING")
   private fun initializeNavigationDrawer(savedInstanceState: Bundle?) {
 
@@ -255,6 +262,14 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .withCompactStyle(true)
       .withSelectionListEnabledForSingleProfile(false)
       .withSavedInstance(savedInstanceState)
+      .withOnAccountHeaderProfileImageListener(object : OnAccountHeaderProfileImageListener {
+        override fun onProfileImageClick(view: View?, profile: IProfile<*>?, current: Boolean): Boolean {
+          navigationPresenter.navigateToUserProfile()
+          return true
+        }
+
+        override fun onProfileImageLongClick(view: View?, profile: IProfile<*>?, current: Boolean) = false
+      })
       .build()
 
     val drawerBuilder = DrawerBuilder()

@@ -14,6 +14,7 @@ class LoginSessionInfoMapper @Inject constructor() : Function<LoginSessionInfoPa
   override fun apply(from: LoginSessionInfoParsed): BaseEntity =
     LoginSessionInfo(
       nickname = from.nickname,
+      profileLink = from.profileLink,
       title = from.title,
       uq = from.uq.toInt(),
       avatar = from.avatar,

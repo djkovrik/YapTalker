@@ -9,6 +9,8 @@ import pl.droidsonroids.jspoon.annotation.Selector
 class LoginSessionInfoParsed {
   @Selector("div.user-name > a", defValue = "")
   lateinit var nickname: String
+  @Selector("div.user-name > a", attr = "href", defValue = "")
+  lateinit var profileLink: String
   @Selector("div.user-title", defValue = "")
   lateinit var title: String
   @Selector("span.user-rank", defValue = "0")

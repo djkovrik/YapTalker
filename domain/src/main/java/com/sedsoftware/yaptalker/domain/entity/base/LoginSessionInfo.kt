@@ -7,6 +7,7 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
  */
 class LoginSessionInfo(
   val nickname: String,
+  val profileLink: String,
   val title: String,
   val uq: Int,
   val avatar: String,

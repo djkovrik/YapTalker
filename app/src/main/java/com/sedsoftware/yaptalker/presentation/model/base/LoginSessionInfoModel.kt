@@ -8,6 +8,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
  */
 class LoginSessionInfoModel(
   val nickname: String,
+  val userId: Int,
   val title: String,
   val uq: Int,
   val avatar: String,

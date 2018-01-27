@@ -17,4 +17,6 @@ interface NavigationView : BaseView {
   fun displaySignedOutNavigation()
 
   fun showSignOutMessage()
+
+  fun closeNavigationDrawer()
 }
