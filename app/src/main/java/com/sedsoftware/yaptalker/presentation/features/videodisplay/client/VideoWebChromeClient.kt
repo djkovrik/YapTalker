@@ -11,26 +11,19 @@ import android.webkit.WebChromeClient
 import android.widget.FrameLayout
 import android.widget.VideoView
 
-class VideoEnabledWebChromeClient : WebChromeClient, OnPreparedListener, OnCompletionListener, OnErrorListener {
+@Suppress("NestedBlockDepth", "UnsafeCallOnNullableType")
+class VideoWebChromeClient : WebChromeClient, OnPreparedListener, OnCompletionListener, OnErrorListener {
 
   private var activityNonVideoView: View? = null
-
   private var activityVideoView: ViewGroup? = null
-
   private var loadingView: View? = null
-
-  private var webView: VideoEnabledWebView? = null
-
-  var isVideoFullscreen: Boolean = false
-    private set
-
+  private var webView: VideoWebView? = null
+  private var isVideoFullscreen: Boolean = false
   private var videoViewContainer: FrameLayout? = null
-
   private var videoViewCallback: WebChromeClient.CustomViewCallback? = null
+  private var toggledFullscreenCallback: FullscreenCallback? = null
 
-  private var toggledFullscreenCallback: ToggledFullscreenCallback? = null
-
-  interface ToggledFullscreenCallback {
+  interface FullscreenCallback {
     fun toggledFullscreen(fullscreen: Boolean)
   }
 
@@ -53,7 +46,7 @@ class VideoEnabledWebChromeClient : WebChromeClient, OnPreparedListener, OnCompl
 
   constructor(
     activityNonVideoView: View, activityVideoView: ViewGroup, loadingView: View,
-    webView: VideoEnabledWebView
+    webView: VideoWebView
   ) {
     this.activityNonVideoView = activityNonVideoView
     this.activityVideoView = activityVideoView
@@ -62,7 +55,7 @@ class VideoEnabledWebChromeClient : WebChromeClient, OnPreparedListener, OnCompl
     this.isVideoFullscreen = false
   }
 
-  fun setOnToggledFullscreen(callback: ToggledFullscreenCallback) {
+  fun setOnToggledFullscreen(callback: FullscreenCallback) {
     this.toggledFullscreenCallback = callback
   }
 
@@ -75,46 +68,44 @@ class VideoEnabledWebChromeClient : WebChromeClient, OnPreparedListener, OnCompl
       this.videoViewContainer = view
       this.videoViewCallback = callback
 
-      activityNonVideoView!!.visibility = View.INVISIBLE
-      activityVideoView!!
-        .addView(videoViewContainer, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
-      activityVideoView!!.visibility = View.VISIBLE
+      activityNonVideoView?.visibility = View.INVISIBLE
+      activityVideoView?.addView(
+        videoViewContainer,
+        LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+      )
+      activityVideoView?.visibility = View.VISIBLE
 
       if (focusedChild is VideoView) {
-
         focusedChild.setOnPreparedListener(this)
         focusedChild.setOnCompletionListener(this)
         focusedChild.setOnErrorListener(this)
       } else {
         if (webView != null && webView!!.settings.javaScriptEnabled) {
 
-          var js = "javascript:"
-          js += "_ytrp_html5_video = document.getElementsByTagName('video')[0];"
-          js += "if (_ytrp_html5_video !== undefined) {"
+          var javascript = "javascript:"
+          javascript += "_ytrp_html5_video = document.getElementsByTagName('video')[0];"
+          javascript += "if (_ytrp_html5_video !== undefined) {"
           run {
-            js += "function _ytrp_html5_video_ended() {"
+            javascript += "function _ytrp_html5_video_ended() {"
             run {
-              js += "_ytrp_html5_video.removeEventListener('ended', _ytrp_html5_video_ended);"
-              js += "_VideoEnabledWebView.notifyVideoEnd();" // Must match Javascript interface name and method of VideoEnableWebView
+              javascript += "_ytrp_html5_video.removeEventListener('ended', _ytrp_html5_video_ended);"
+              javascript += "_VideoEnabledWebView.notifyVideoEnd();"
             }
-            js += "}"
-            js += "_ytrp_html5_video.addEventListener('ended', _ytrp_html5_video_ended);"
+            javascript += "}"
+            javascript += "_ytrp_html5_video.addEventListener('ended', _ytrp_html5_video_ended);"
           }
-          js += "}"
-          webView!!.loadUrl(js)
+          javascript += "}"
+          webView?.loadUrl(javascript)
         }
       }
 
       if (toggledFullscreenCallback != null) {
-        toggledFullscreenCallback!!.toggledFullscreen(true)
+        toggledFullscreenCallback?.toggledFullscreen(true)
       }
     }
   }
 
-  override fun onShowCustomView(
-    view: View, requestedOrientation: Int,
-    callback: WebChromeClient.CustomViewCallback
-  ) {
+  override fun onShowCustomView(view: View, requestedOrientation: Int, callback: WebChromeClient.CustomViewCallback) {
     onShowCustomView(view, callback)
   }
 
@@ -122,12 +113,12 @@ class VideoEnabledWebChromeClient : WebChromeClient, OnPreparedListener, OnCompl
 
     if (isVideoFullscreen) {
 
-      activityVideoView!!.visibility = View.INVISIBLE
-      activityVideoView!!.removeView(videoViewContainer)
-      activityNonVideoView!!.visibility = View.VISIBLE
+      activityVideoView?.visibility = View.INVISIBLE
+      activityVideoView?.removeView(videoViewContainer)
+      activityNonVideoView?.visibility = View.VISIBLE
 
       if (videoViewCallback != null) {
-        videoViewCallback!!.onCustomViewHidden()
+        videoViewCallback?.onCustomViewHidden()
       }
 
       isVideoFullscreen = false
@@ -135,44 +126,36 @@ class VideoEnabledWebChromeClient : WebChromeClient, OnPreparedListener, OnCompl
       videoViewCallback = null
 
       if (toggledFullscreenCallback != null) {
-        toggledFullscreenCallback!!.toggledFullscreen(false)
+        toggledFullscreenCallback?.toggledFullscreen(false)
       }
     }
   }
 
-  override fun getVideoLoadingProgressView(): View {
-    return if (loadingView != null) {
-      loadingView!!.visibility = View.VISIBLE
+  override fun getVideoLoadingProgressView(): View =
+    if (loadingView != null) {
+      loadingView?.visibility = View.VISIBLE
       loadingView as View
     } else {
       super.getVideoLoadingProgressView()
     }
-  }
 
-  override fun onPrepared(
-    mp: MediaPlayer
-  ) {
+  override fun onPrepared(mp: MediaPlayer) {
     if (loadingView != null) {
-      loadingView!!.visibility = View.GONE
+      loadingView?.visibility = View.GONE
     }
   }
 
-  override fun onCompletion(
-    mp: MediaPlayer
-  ) {
+  override fun onCompletion(mp: MediaPlayer) {
     onHideCustomView()
   }
 
-  override fun onError(mp: MediaPlayer, what: Int, extra: Int): Boolean {
-    return false
-  }
+  override fun onError(mp: MediaPlayer, what: Int, extra: Int) = false
 
-  fun onBackPressed(): Boolean {
-    return if (isVideoFullscreen) {
+  fun onBackPressed(): Boolean =
+    if (isVideoFullscreen) {
       onHideCustomView()
       true
     } else {
       false
     }
-  }
 }

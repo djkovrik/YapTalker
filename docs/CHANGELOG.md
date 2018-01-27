@@ -1,4 +1,11 @@
-### Current version: 0.8.9
+### Current version: 0.8.10
+
+## [0.8.10] - 2018-01-27
+### Changed
+- Smiles button moved to post editor toolbar
+- Forced landscape orientation for video activity
+- Click on navigation drawer avatar opens user profile
+
 # Changelog
 ## [0.8.9] - 2018-01-23
 ## Added

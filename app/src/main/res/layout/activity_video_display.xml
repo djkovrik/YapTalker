@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.sedsoftware.yaptalker.presentation.features.videodisplay.client.VideoEnabledWebView
+    <com.sedsoftware.yaptalker.presentation.features.videodisplay.client.VideoWebView
       android:id="@+id/video_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent" />

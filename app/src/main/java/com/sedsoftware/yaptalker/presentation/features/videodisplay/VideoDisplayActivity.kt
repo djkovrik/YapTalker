@@ -12,8 +12,8 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
-import com.sedsoftware.yaptalker.presentation.features.videodisplay.client.VideoEnabledWebChromeClient
-import com.sedsoftware.yaptalker.presentation.features.videodisplay.client.VideoEnabledWebChromeClient.ToggledFullscreenCallback
+import com.sedsoftware.yaptalker.presentation.features.videodisplay.client.VideoWebChromeClient
+import com.sedsoftware.yaptalker.presentation.features.videodisplay.client.VideoWebChromeClient.FullscreenCallback
 import kotlinx.android.synthetic.main.activity_video_display.*
 import javax.inject.Inject
 
@@ -93,9 +93,9 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
   @SuppressLint("SetJavaScriptEnabled")
   override fun initWebView() {
 
-    val webChromeClient = VideoEnabledWebChromeClient(non_video_layout, video_layout, video_loading, video_view)
+    val webChromeClient = VideoWebChromeClient(non_video_layout, video_layout, video_loading, video_view)
 
-    webChromeClient.setOnToggledFullscreen(object : ToggledFullscreenCallback {
+    webChromeClient.setOnToggledFullscreen(object : FullscreenCallback {
       override fun toggledFullscreen(fullscreen: Boolean) {
         if (fullscreen) {
           checkHideSystemUI()
