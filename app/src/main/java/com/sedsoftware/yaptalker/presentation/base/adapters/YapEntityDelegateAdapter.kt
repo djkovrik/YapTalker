@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.base.adapter
+package com.sedsoftware.yaptalker.presentation.base.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
