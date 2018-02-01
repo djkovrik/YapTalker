@@ -25,9 +25,14 @@ With this app you can:
 
 Build Notes
 -----------
-* The app uses access token to download vk.com videos thumbnail images, you can obtain new access token [here](https://vk.com/dev/access_token)
-* To build the app you must add **VK_ACCESS_TOKEN** into your local *gradle.properties* file
+* To build the app you must add these lines into your local *gradle.properties* file (use actual values or dummy data):
+```groovy
+VK_ACCESS_TOKEN="Access token"
+RELEASE_STORE_FILE="File path"
+RELEASE_STORE_PASSWORD="Store password"
+RELEASE_KEY_ALIAS="Key alias"
+RELEASE_KEY_PASSWORD="Key password"
+```
+* The app uses access token to download vk.com video thumbnails, you can obtain a new token [here](https://vk.com/dev/access_token)
 
-Download
---------
-Google Play publication planned for version 1.0.0
+
