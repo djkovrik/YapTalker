@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter
+package com.sedsoftware.yaptalker.presentation.features.bookmarks.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder

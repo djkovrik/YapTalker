@@ -19,8 +19,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
-import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.BookmarksAdapter
-import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.BookmarksElementsClickListener
+import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapters.BookmarksAdapter
+import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapters.BookmarksElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_bookmarks.*
@@ -34,22 +34,20 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
   }
 
   @Inject
-  @InjectPresenter
-  lateinit var presenter: BookmarksPresenter
+  lateinit var bookmarksAdapter: BookmarksAdapter
 
   @Inject
   lateinit var settings: Settings
 
+  @Inject
+  @InjectPresenter
+  lateinit var presenter: BookmarksPresenter
+
   @ProvidePresenter
   fun provideBookmarksPresenter() = presenter
 
-  private lateinit var bookmarksAdapter: BookmarksAdapter
-
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    bookmarksAdapter = BookmarksAdapter(this, settings)
-    bookmarksAdapter.setHasStableIds(true)
 
     with(bookmarks_list) {
       val linearLayout = LinearLayoutManager(context)

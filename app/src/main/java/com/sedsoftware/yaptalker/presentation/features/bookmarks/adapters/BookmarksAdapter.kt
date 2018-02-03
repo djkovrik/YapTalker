@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter
+package com.sedsoftware.yaptalker.presentation.features.bookmarks.adapters
 
 import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
@@ -9,8 +9,9 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import java.util.ArrayList
+import javax.inject.Inject
 
-class BookmarksAdapter(
+class BookmarksAdapter @Inject constructor(
   clickListener: BookmarksElementsClickListener,
   settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -22,7 +23,10 @@ class BookmarksAdapter(
     delegateAdapters.put(
       YapEntityTypes.BOOKMARKED_TOPIC_ITEM, BookmarksDelegateAdapter(clickListener, settings)
     )
+
     items = ArrayList()
+
+    setHasStableIds(true)
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
