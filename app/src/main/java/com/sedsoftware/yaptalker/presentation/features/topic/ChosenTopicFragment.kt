@@ -21,6 +21,8 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
+import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadThumbnailFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
@@ -32,7 +34,6 @@ import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
 import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicAdapter
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicElementsClickListener
-import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicThumbnailLoader
 import com.sedsoftware.yaptalker.presentation.features.topic.fabmenu.FabMenu
 import com.sedsoftware.yaptalker.presentation.features.topic.fabmenu.FabMenuItemPrimary
 import com.sedsoftware.yaptalker.presentation.features.topic.fabmenu.FabMenuItemSecondary
@@ -51,8 +52,8 @@ import javax.inject.Inject
 
 @Suppress("LargeClass", "TooManyFunctions")
 @LayoutResource(value = R.layout.fragment_chosen_topic)
-class ChosenTopicFragment :
-  BaseFragment(), ChosenTopicView, ChosenTopicThumbnailLoader, ChosenTopicElementsClickListener {
+class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElementsClickListener,
+  NavigationPanelClickListener, ThumbnailsLoader {
 
   companion object {
     fun getNewInstance(triple: Triple<Int, Int, Int>): ChosenTopicFragment {
@@ -73,14 +74,17 @@ class ChosenTopicFragment :
   }
 
   @Inject
+  lateinit var topicAdapter: ChosenTopicAdapter
+
+  @Inject
+  lateinit var settings: Settings
+
+  @Inject
   @InjectPresenter
   lateinit var presenter: ChosenTopicPresenter
 
   @ProvidePresenter
   fun provideTopicPresenter() = presenter
-
-  @Inject
-  lateinit var settings: Settings
 
   private val forumId: Int by lazy {
     arguments?.getInt(FORUM_ID_KEY) ?: 0
@@ -94,7 +98,6 @@ class ChosenTopicFragment :
     arguments?.getInt(STARTING_POST_KEY) ?: 0
   }
 
-  private lateinit var topicAdapter: ChosenTopicAdapter
   private lateinit var topicScrollState: Parcelable
 
   private var fabMenu = FabMenu(isMenuExpanded = false)
@@ -103,9 +106,6 @@ class ChosenTopicFragment :
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    topicAdapter = ChosenTopicAdapter(this, this, settings)
-    topicAdapter.setHasStableIds(true)
 
     with(topic_posts_list) {
       val linearLayout = LinearLayoutManager(context)
@@ -356,15 +356,15 @@ class ChosenTopicFragment :
     }
   }
 
-  override fun onUserAvatarClick(userId: Int) {
+  override fun onUserAvatarClicked(userId: Int) {
     presenter.onUserProfileClicked(userId)
   }
 
-  override fun onReplyButtonClick(authorNickname: String, postDate: String, postId: Int) {
+  override fun onReplyButtonClicked(authorNickname: String, postDate: String, postId: Int) {
     presenter.onReplyButtonClicked(forumId, topicId, authorNickname, postDate, postId)
   }
 
-  override fun onEditButtonClick(postId: Int) {
+  override fun onEditButtonClicked(postId: Int) {
     presenter.onEditButtonClicked(postId)
   }
 

@@ -394,8 +394,6 @@ class ChosenTopicPresenter @Inject constructor(
       override fun onSuccess(response: YapEntity) {
         response as ServerResponseModel
 
-//          Timber.d("Karma response: ${response.text}")
-
         when {
           response.text.contains(KARMA_SUCCESS_MARKER) -> viewState.showPostKarmaChangedMessage(isTopic)
           response.text.contains(KARMA_ALREADY_CHANGED_MARKER) -> viewState.showPostAlreadyRatedMessage(isTopic)

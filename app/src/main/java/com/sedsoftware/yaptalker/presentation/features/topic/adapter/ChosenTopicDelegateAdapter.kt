@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
+import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.currentDensity
 import com.sedsoftware.yaptalker.presentation.extensions.getColorFromAttr
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
@@ -33,7 +34,7 @@ import java.util.ArrayList
 
 class ChosenTopicDelegateAdapter(
   private val clickListener: ChosenTopicElementsClickListener,
-  private val thumbnailLoader: ChosenTopicThumbnailLoader,
+  private val thumbnailLoader: ThumbnailsLoader,
   private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
@@ -253,12 +254,12 @@ class ChosenTopicDelegateAdapter(
         post_author_avatar.layoutParams.width = currentAvatarSize
         post_author_avatar.layoutParams.height = currentAvatarSize
         post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateUrl())
-        post_author_avatar.setOnClickListener { clickListener.onUserAvatarClick(post.authorProfileId) }
+        post_author_avatar.setOnClickListener { clickListener.onUserAvatarClicked(post.authorProfileId) }
 
         if (post.hasQuoteButton) {
           post_button_reply.showView()
           post_button_reply.setOnClickListener {
-            clickListener.onReplyButtonClick(post.authorNickname, post.postDateFull, post.postId)
+            clickListener.onReplyButtonClicked(post.authorNickname, post.postDateFull, post.postId)
           }
         } else {
           post_button_reply.hideView()
@@ -267,7 +268,7 @@ class ChosenTopicDelegateAdapter(
         if (post.hasEditButton) {
           post_button_edit.showView()
           post_button_edit.setOnClickListener {
-            clickListener.onEditButtonClick(post.postId)
+            clickListener.onEditButtonClicked(post.postId)
           }
         } else {
           post_button_edit.hideView()

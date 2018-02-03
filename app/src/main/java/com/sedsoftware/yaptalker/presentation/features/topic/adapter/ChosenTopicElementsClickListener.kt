@@ -6,19 +6,9 @@ interface ChosenTopicElementsClickListener {
 
   fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean)
 
-  fun onGoToFirstPageClick()
+  fun onUserAvatarClicked(userId: Int)
 
-  fun onGoToLastPageClick()
+  fun onReplyButtonClicked(authorNickname: String, postDate: String, postId: Int)
 
-  fun onGoToPreviousPageClick()
-
-  fun onGoToNextPageClick()
-
-  fun onGoToSelectedPageClick()
-
-  fun onUserAvatarClick(userId: Int)
-
-  fun onReplyButtonClick(authorNickname: String, postDate: String, postId: Int)
-
-  fun onEditButtonClick(postId: Int)
+  fun onEditButtonClicked(postId: Int)
 }
