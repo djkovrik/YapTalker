@@ -8,13 +8,15 @@ import android.view.animation.AnimationUtils
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
+import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import java.util.ArrayList
+import javax.inject.Inject
 
-class NewsAdapter(
+class NewsAdapter @Inject constructor(
   clickListener: NewsItemElementsClickListener,
-  thumbnailsLoader: NewsItemThumbnailsLoader,
+  thumbnailsLoader: ThumbnailsLoader,
   settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

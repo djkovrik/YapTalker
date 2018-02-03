@@ -16,6 +16,7 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadThumbnailFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
@@ -24,7 +25,6 @@ import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemElementsClickListener
-import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.utility.InfiniteScrollListener
 import com.uber.autodispose.kotlin.autoDisposable
@@ -36,12 +36,17 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_news)
-class NewsFragment :
-  BaseFragment(), NewsView, NewsItemThumbnailsLoader, NewsItemElementsClickListener {
+class NewsFragment : BaseFragment(), NewsView, NewsItemElementsClickListener, ThumbnailsLoader {
 
   companion object {
     fun getNewInstance() = NewsFragment()
   }
+
+  @Inject
+  lateinit var newsAdapter: NewsAdapter
+
+  @Inject
+  lateinit var settings: Settings
 
   @Inject
   @InjectPresenter
@@ -50,16 +55,8 @@ class NewsFragment :
   @ProvidePresenter
   fun provideNewsPresenter() = presenter
 
-  @Inject
-  lateinit var settings: Settings
-
-  private lateinit var newsAdapter: NewsAdapter
-
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    newsAdapter = NewsAdapter(this, this, settings)
-    newsAdapter.setHasStableIds(true)
 
     with(news_list) {
       val linearLayout = LinearLayoutManager(context)
@@ -114,7 +111,7 @@ class NewsFragment :
     }
   }
 
-  override fun onNewsItemClick(forumId: Int, topicId: Int) {
+  override fun onNewsItemClicked(forumId: Int, topicId: Int) {
     presenter.navigateToChosenTopic(Triple(forumId, topicId, 0))
   }
 

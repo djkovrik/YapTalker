@@ -20,7 +20,7 @@ abstract class IncubatorFragmentModule {
 
   @FragmentScope
   @Binds
-  abstract fun  incubatorThumbnailsRepository(repo: YapThumbnailRepository): ThumbnailRepository
+  abstract fun incubatorThumbnailsRepository(repo: YapThumbnailRepository): ThumbnailRepository
 
   @FragmentScope
   @Binds

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
+import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_news_item.view.*
 
 class NewsDelegateAdapter(
   private val clickListener: NewsItemElementsClickListener,
-  private val thumbnailsLoader: NewsItemThumbnailsLoader,
+  private val thumbnailsLoader: ThumbnailsLoader,
   private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
@@ -93,7 +94,7 @@ class NewsDelegateAdapter(
         }
 
         setOnClickListener {
-          if (newsItem.isYapLink) clickListener.onNewsItemClick(newsItem.forumId, newsItem.topicId)
+          if (newsItem.isYapLink) clickListener.onNewsItemClicked(newsItem.forumId, newsItem.topicId)
         }
       }
     }
