@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.features.forumslist
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.forumslist.GetForumsList
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
@@ -47,7 +46,7 @@ class ForumsPresenter @Inject constructor(
     forumsListUseCase
       .execute()
       .subscribeOn(Schedulers.io())
-      .map { forumItem: BaseEntity -> forumsListModelMapper.transform(forumItem) }
+      .map(forumsListModelMapper)
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
       .doOnError { setConnectionState(ConnectionState.ERROR) }

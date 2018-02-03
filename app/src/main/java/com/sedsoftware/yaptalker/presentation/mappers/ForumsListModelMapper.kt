@@ -5,6 +5,7 @@ import com.sedsoftware.yaptalker.domain.entity.base.Forum
 import com.sedsoftware.yaptalker.presentation.mappers.util.DateTransformer
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.ForumModel
+import io.reactivex.functions.Function
 import javax.inject.Inject
 
 /**
@@ -13,9 +14,9 @@ import javax.inject.Inject
  */
 class ForumsListModelMapper @Inject constructor(
   private val dateTransformer: DateTransformer
-) {
+) : Function<BaseEntity, YapEntity> {
 
-  fun transform(item: BaseEntity): YapEntity {
+  override fun apply(item: BaseEntity): YapEntity {
 
     item as Forum
 

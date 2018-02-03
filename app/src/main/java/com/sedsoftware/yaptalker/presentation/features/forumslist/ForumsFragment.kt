@@ -31,22 +31,20 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
   }
 
   @Inject
+  lateinit var forumsAdapter: ForumsAdapter
+
+  @Inject
+  lateinit var settings: Settings
+
+  @Inject
   @InjectPresenter
   lateinit var presenter: ForumsPresenter
 
   @ProvidePresenter
   fun provideForumsPresenter() = presenter
 
-  @Inject
-  lateinit var settings: Settings
-
-  private lateinit var forumsAdapter: ForumsAdapter
-
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    forumsAdapter = ForumsAdapter(this, settings)
-    forumsAdapter.setHasStableIds(true)
 
     with(forums_list) {
       val linearLayout = LinearLayoutManager(context)
