@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.features.posting
+package com.sedsoftware.yaptalker.presentation.features.posting.tags
 
 object MessageTags {
   const val B_OPEN = "[b]"

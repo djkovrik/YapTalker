@@ -24,6 +24,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSe
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiAdapter
 import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiClickListener
+import com.sedsoftware.yaptalker.presentation.features.posting.tags.MessageTagCodes
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_new_post.*
@@ -50,6 +51,9 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
   }
 
   @Inject
+  lateinit var emojiAdapter: EmojiAdapter
+
+  @Inject
   @InjectPresenter
   lateinit var presenter: AddMessagePresenter
 
@@ -68,7 +72,6 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     arguments?.getString(EDITED_TEXT_KEY) ?: ""
   }
 
-  private lateinit var emojiAdapter: EmojiAdapter
   private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,9 +80,6 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
 
     bottomSheetBehavior = BottomSheetBehavior.from(emojis_bottom_sheet)
     bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-
-    emojiAdapter = EmojiAdapter(this)
-    emojiAdapter.setHasStableIds(true)
 
     with(emojis_list) {
       val linearLayout = GridLayoutManager(context, 2)
@@ -221,7 +221,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     }
   }
 
-  override fun onEmojiClick(code: String) {
+  override fun onEmojiClicked(code: String) {
     presenter.insertEmoji(code)
   }
 

@@ -5,7 +5,9 @@ import com.sedsoftware.yaptalker.domain.interactor.topic.GetEmojiList
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
-import com.sedsoftware.yaptalker.presentation.features.posting.MessageTagCodes.Tag
+import com.sedsoftware.yaptalker.presentation.features.posting.tags.MessageTagCodes
+import com.sedsoftware.yaptalker.presentation.features.posting.tags.MessageTagCodes.Tag
+import com.sedsoftware.yaptalker.presentation.features.posting.tags.MessageTags
 import com.sedsoftware.yaptalker.presentation.mappers.EmojiModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
