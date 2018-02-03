@@ -46,6 +46,10 @@ class ActiveTopicsPresenter @Inject constructor(
     viewState.updateCurrentUiState()
   }
 
+  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
+    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
+  }
+
   fun goToFirstPage() {
     currentPage = 1
     loadActiveTopicsForCurrentPage()
@@ -73,10 +77,6 @@ class ActiveTopicsPresenter @Inject constructor(
     } else {
       viewState.showCantLoadPageMessage(chosenPage)
     }
-  }
-
-  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
-    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
   }
 
   fun refreshActiveTopicsList() {

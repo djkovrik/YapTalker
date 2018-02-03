@@ -21,6 +21,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
 import com.sedsoftware.yaptalker.presentation.features.activetopics.adapters.ActiveTopicsAdapter
+import com.sedsoftware.yaptalker.presentation.features.activetopics.adapters.ActiveTopicsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_active_topics.*
@@ -29,7 +30,7 @@ import javax.inject.Inject
 
 // TODO () Refactor layouts to display full topic name
 @LayoutResource(value = R.layout.fragment_active_topics)
-class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView,
+class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsItemClickListener,
   NavigationPanelClickListener {
 
   companion object {
@@ -98,6 +99,10 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView,
     context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
       toastWarning(String.format(Locale.getDefault(), template, page))
     }
+  }
+
+  override fun onActiveTopicItemClick(triple: Triple<Int, Int, Int>) {
+    presenter.navigateToChosenTopic(triple)
   }
 
   override fun onGoToFirstPageClick() {

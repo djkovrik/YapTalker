@@ -7,6 +7,7 @@ import com.sedsoftware.yaptalker.domain.repository.ActiveTopicsRepository
 import com.sedsoftware.yaptalker.domain.repository.SearchIdRepository
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.features.activetopics.ActiveTopicsFragment
+import com.sedsoftware.yaptalker.presentation.features.activetopics.adapters.ActiveTopicsItemClickListener
 import dagger.Binds
 import dagger.Module
 
@@ -20,6 +21,10 @@ abstract class ActiveTopicsFragmentModule {
   @FragmentScope
   @Binds
   abstract fun thumbnailsRepository(repo: YapActiveTopicsRepository): ActiveTopicsRepository
+
+  @FragmentScope
+  @Binds
+  abstract fun activeTopicsItemClickListener(fragment: ActiveTopicsFragment): ActiveTopicsItemClickListener
 
   @FragmentScope
   @Binds

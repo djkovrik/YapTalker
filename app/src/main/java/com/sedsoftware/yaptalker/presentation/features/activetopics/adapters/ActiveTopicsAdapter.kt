@@ -8,7 +8,6 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelDelegateAdapter
-import com.sedsoftware.yaptalker.presentation.features.activetopics.ActiveTopicsPresenter
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import com.sedsoftware.yaptalker.presentation.model.base.ActiveTopicModel
@@ -16,8 +15,8 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 class ActiveTopicsAdapter @Inject constructor(
-  clickListener: NavigationPanelClickListener,
-  presenter: ActiveTopicsPresenter,
+  itemClickListener: ActiveTopicsItemClickListener,
+  navigationClickListener: NavigationPanelClickListener,
   settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -25,17 +24,19 @@ class ActiveTopicsAdapter @Inject constructor(
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
   init {
-    delegateAdapters.put(
-      YapEntityTypes.NAVIGATION_PANEL_ITEM,
-      NavigationPanelDelegateAdapter(clickListener)
-    )
+
     delegateAdapters.put(
       YapEntityTypes.ACTIVE_TOPIC_ITEM,
       ActiveTopicsDelegateAdapter(
-        presenter,
-        settings
+        itemClickListener, settings
       )
     )
+
+    delegateAdapters.put(
+      YapEntityTypes.NAVIGATION_PANEL_ITEM,
+      NavigationPanelDelegateAdapter(navigationClickListener)
+    )
+
     items = ArrayList()
 
     setHasStableIds(true)

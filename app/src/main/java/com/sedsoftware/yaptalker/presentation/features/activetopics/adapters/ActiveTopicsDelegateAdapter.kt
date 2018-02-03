@@ -8,13 +8,12 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadRatingBackground
-import com.sedsoftware.yaptalker.presentation.features.activetopics.ActiveTopicsPresenter
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.ActiveTopicModel
 import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.*
 
 class ActiveTopicsDelegateAdapter(
-  private val presenter: ActiveTopicsPresenter,
+  private val itemClickListener: ActiveTopicsItemClickListener,
   private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
@@ -47,7 +46,10 @@ class ActiveTopicsDelegateAdapter(
         active_topic_last_post_date.textSize = normalFontSize
         active_topic_answers.textSize = normalFontSize
 
-        setOnClickListener { presenter.navigateToChosenTopic(Triple(topicItem.forumId, topicItem.topicId, 0)) }
+        setOnClickListener {
+          val triple = Triple(topicItem.forumId, topicItem.topicId, 0)
+          itemClickListener.onActiveTopicItemClick(triple)
+        }
       }
     }
   }
