@@ -142,7 +142,7 @@ class AddMessagePresenter @Inject constructor(
     getEmojiListUseCase
       .execute()
       .subscribeOn(Schedulers.io())
-      .map { emoji -> emojiMapper.transform(emoji) }
+      .map(emojiMapper)
       .observeOn(AndroidSchedulers.mainThread())
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getEmojiObserver())

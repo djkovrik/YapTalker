@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.features.incubator
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
 import com.sedsoftware.yaptalker.domain.interactor.incubator.GetIncubatorTopics
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
@@ -84,7 +83,7 @@ class IncubatorPresenter @Inject constructor(
     getIncubatorTopics
       .execute(GetIncubatorTopics.Params(pageNumber = currentPage))
       .subscribeOn(Schedulers.io())
-      .map { incubatorItem: BaseEntity -> incubatorModelMapper.transform(incubatorItem) }
+      .map(incubatorModelMapper)
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
       .doOnError { setConnectionState(ConnectionState.ERROR) }
