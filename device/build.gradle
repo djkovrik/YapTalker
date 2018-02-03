@@ -52,13 +52,20 @@ android {
 dependencies {
     def deviceDependencies = rootProject.ext.deviceDependencies
     def deviceTestDependencies = rootProject.ext.deviceTestDependencies
+    def developmentDependencies = rootProject.ext.developmentDependencies
 
     implementation project(':domain')
 
+    implementation deviceDependencies.appCompat
     implementation deviceDependencies.kotlin
     implementation deviceDependencies.javax
+    implementation deviceDependencies.rxAndroid
     implementation deviceDependencies.rxJava
-    implementation deviceDependencies.appCompat
+    implementation deviceDependencies.rxKotlin
+    implementation deviceDependencies.okhttp
+    implementation deviceDependencies.picasso
+
+    implementation developmentDependencies.timber
 
     testImplementation deviceTestDependencies.junit
     testImplementation deviceTestDependencies.mockito

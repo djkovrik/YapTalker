@@ -84,10 +84,14 @@ ext {
     ]
 
     deviceDependencies = [
+            appCompat: "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION",
             kotlin   : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
             javax    : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
+            rxAndroid: "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION",
             rxJava   : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
-            appCompat: "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION",
+            rxKotlin : "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
+            okhttp   : "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION",
+            picasso  : "com.squareup.picasso:picasso:$PICASSO_VERSION",
     ]
 
     deviceTestDependencies = [
@@ -139,6 +143,7 @@ ext {
             retrofitMoshiConverter  : "com.squareup.retrofit2:converter-moshi:$RETROFIT_VERSION",
             retrofitScalarsConverter: "com.squareup.retrofit2:converter-scalars:$RETROFIT_VERSION",
             retrofitJspoonConverter : "pl.droidsonroids.retrofit2:converter-jspoon:$JSPOON_VERSION",
+            okhttp                  : "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION",
             okhttpInterceptor       : "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION",
             picasso                 : "com.squareup.picasso:picasso:$PICASSO_VERSION",
 

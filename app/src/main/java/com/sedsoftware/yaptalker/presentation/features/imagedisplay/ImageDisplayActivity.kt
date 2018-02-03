@@ -67,7 +67,7 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
   override fun onOptionsItemSelected(item: MenuItem): Boolean =
     when (item.itemId) {
       R.id.action_share -> {
-        presenter.shareImage(this, imageUrl)
+        presenter.shareImage(imageUrl)
         true
       }
       R.id.action_save -> {

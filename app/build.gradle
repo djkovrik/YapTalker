@@ -121,6 +121,7 @@ dependencies {
     implementation presentationDependencies.retrofitMoshiConverter
     implementation presentationDependencies.retrofitScalarsConverter
     implementation presentationDependencies.retrofitJspoonConverter
+    implementation presentationDependencies.okhttp
     implementation presentationDependencies.okhttpInterceptor
     implementation presentationDependencies.picasso
 

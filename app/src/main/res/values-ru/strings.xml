@@ -87,7 +87,6 @@
   <string name="profile_icq">ICQ: <xliff:g id="icq">%s</xliff:g></string>
 
   <!-- MESSAGES AND TITLES -->
-  <string name="title_share_image">Поделиться изображением</string>
   <string name="msg_file_saved">Файл сохранен в <xliff:g id="filepath">%s</xliff:g></string>
   <string name="msg_file_not_saved">Не удалось сохранить файл!</string>
   <string name="msg_login_success">Успешный вход!</string>
