@@ -13,23 +13,24 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
-import com.sedsoftware.yaptalker.presentation.base.adapters.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
+import com.sedsoftware.yaptalker.presentation.features.activetopics.adapters.ActiveTopicsAdapter
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_active_topics.active_topics_list
-import kotlinx.android.synthetic.main.fragment_active_topics.active_topics_refresh_layout
+import kotlinx.android.synthetic.main.fragment_active_topics.*
 import java.util.Locale
 import javax.inject.Inject
 
 // TODO () Refactor layouts to display full topic name
 @LayoutResource(value = R.layout.fragment_active_topics)
-class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, NavigationPanelClickListener {
+class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView,
+  NavigationPanelClickListener {
 
   companion object {
     fun getNewInstance() = ActiveTopicsFragment()

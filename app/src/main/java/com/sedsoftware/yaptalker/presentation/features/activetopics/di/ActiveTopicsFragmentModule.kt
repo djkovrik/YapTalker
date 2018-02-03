@@ -5,7 +5,7 @@ import com.sedsoftware.yaptalker.data.repository.YapSearchIdRepository
 import com.sedsoftware.yaptalker.di.scopes.FragmentScope
 import com.sedsoftware.yaptalker.domain.repository.ActiveTopicsRepository
 import com.sedsoftware.yaptalker.domain.repository.SearchIdRepository
-import com.sedsoftware.yaptalker.presentation.base.adapters.NavigationPanelClickListener
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.features.activetopics.ActiveTopicsFragment
 import dagger.Binds
 import dagger.Module

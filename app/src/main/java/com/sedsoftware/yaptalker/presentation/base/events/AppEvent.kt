@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.base.event
+package com.sedsoftware.yaptalker.presentation.base.events
 
 sealed class AppEvent {
 

@@ -3,8 +3,8 @@ package com.sedsoftware.yaptalker.presentation.features.navigation
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
-import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.AppbarEvent
-import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.NavDrawerEvent
+import com.sedsoftware.yaptalker.presentation.base.events.AppEvent.AppbarEvent
+import com.sedsoftware.yaptalker.presentation.base.events.AppEvent.NavDrawerEvent
 import com.uber.autodispose.kotlin.autoDisposable
 import timber.log.Timber
 import javax.inject.Inject

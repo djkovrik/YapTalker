@@ -1,19 +1,14 @@
-package com.sedsoftware.yaptalker.presentation.base.adapters.delegates
+package com.sedsoftware.yaptalker.presentation.base.navigation
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.base.adapters.NavigationPanelClickListener
-import com.sedsoftware.yaptalker.presentation.base.adapters.YapEntityDelegateAdapter
+import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
-import kotlinx.android.synthetic.main.item_navigation_panel.view.navigation_go_first
-import kotlinx.android.synthetic.main.item_navigation_panel.view.navigation_go_last
-import kotlinx.android.synthetic.main.item_navigation_panel.view.navigation_go_next
-import kotlinx.android.synthetic.main.item_navigation_panel.view.navigation_go_previous
-import kotlinx.android.synthetic.main.item_navigation_panel.view.navigation_pages_label
+import kotlinx.android.synthetic.main.item_navigation_panel.view.*
 
 class NavigationPanelDelegateAdapter(
   val navigationClick: NavigationPanelClickListener

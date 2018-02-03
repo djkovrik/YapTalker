@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.base.adapters
+package com.sedsoftware.yaptalker.presentation.base.navigation
 
 interface NavigationPanelClickListener {
 
