@@ -102,7 +102,7 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
     toastInfo(getString(R.string.msg_bookmark_topic_deleted))
   }
 
-  override fun onTopicClick(link: String) {
+  override fun onTopicItemClick(link: String) {
     val triple = link.extractYapIds()
     if (triple.first != 0) {
       presenter.navigateToBookmarkedTopic(triple)

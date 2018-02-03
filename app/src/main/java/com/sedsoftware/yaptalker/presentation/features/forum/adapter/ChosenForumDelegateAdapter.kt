@@ -13,7 +13,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.TopicModel
 import kotlinx.android.synthetic.main.fragment_chosen_forum_item.view.*
 
 class ChosenForumDelegateAdapter(
-  private val itemClick: ChosenForumElementsClickListener,
+  private val itemClick: ChosenForumItemClickListener,
   private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
@@ -45,7 +45,7 @@ class ChosenForumDelegateAdapter(
         topic_last_post_date.textSize = normalFontSize
         topic_answers.textSize = normalFontSize
 
-        setOnClickListener { itemClick.onTopicClick(topicItem.id) }
+        setOnClickListener { itemClick.onTopicItemClick(topicItem.id) }
       }
     }
   }

@@ -4,5 +4,5 @@ interface BookmarksElementsClickListener {
 
   fun onDeleteIconClick(bookmarkId: Int)
 
-  fun onTopicClick(link: String)
+  fun onTopicItemClick(link: String)
 }
