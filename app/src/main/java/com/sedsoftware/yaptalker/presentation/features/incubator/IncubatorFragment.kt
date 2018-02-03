@@ -16,6 +16,7 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadThumbnailFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
@@ -24,7 +25,6 @@ import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.incubator.adapter.IncubatorAdapter
 import com.sedsoftware.yaptalker.presentation.features.incubator.adapter.IncubatorElementsClickListener
-import com.sedsoftware.yaptalker.presentation.features.incubator.adapter.IncubatorThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.utility.InfiniteScrollListener
 import com.uber.autodispose.kotlin.autoDisposable
@@ -36,12 +36,17 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_incubator)
-class IncubatorFragment :
-  BaseFragment(), IncubatorView, IncubatorThumbnailsLoader, IncubatorElementsClickListener {
+class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader, IncubatorElementsClickListener {
 
   companion object {
     fun getNewInstance() = IncubatorFragment()
   }
+
+  @Inject
+  lateinit var incubatorAdapter: IncubatorAdapter
+
+  @Inject
+  lateinit var settings: Settings
 
   @Inject
   @InjectPresenter
@@ -50,16 +55,8 @@ class IncubatorFragment :
   @ProvidePresenter
   fun provideNewsPresenter() = presenter
 
-  @Inject
-  lateinit var settings: Settings
-
-  private lateinit var incubatorAdapter: IncubatorAdapter
-
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    incubatorAdapter = IncubatorAdapter(this, this, settings)
-    incubatorAdapter.setHasStableIds(true)
 
     with(incubator_topics_list) {
       val linearLayout = LinearLayoutManager(context)
@@ -114,7 +111,7 @@ class IncubatorFragment :
     }
   }
 
-  override fun onIncubatorItemClick(forumId: Int, topicId: Int) {
+  override fun onIncubatorItemClicked(forumId: Int, topicId: Int) {
     presenter.navigateToChosenTopic(Triple(forumId, topicId, 0))
   }
 

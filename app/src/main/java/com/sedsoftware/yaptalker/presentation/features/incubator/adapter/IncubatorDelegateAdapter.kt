@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
+import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_incubator_item.view.*
 
 class IncubatorDelegateAdapter(
   private val clickListener: IncubatorElementsClickListener,
-  private val thumbnailsLoader: IncubatorThumbnailsLoader,
+  private val thumbnailsLoader: ThumbnailsLoader,
   private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
@@ -99,7 +100,7 @@ class IncubatorDelegateAdapter(
 
         setOnClickListener {
           if (incubatorItem.isYapLink) {
-            clickListener.onIncubatorItemClick(incubatorItem.forumId, incubatorItem.topicId)
+            clickListener.onIncubatorItemClicked(incubatorItem.forumId, incubatorItem.topicId)
           }
         }
       }
