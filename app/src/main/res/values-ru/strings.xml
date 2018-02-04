@@ -86,6 +86,23 @@
   <string name="profile_email">Email: <xliff:g id="email">%s</xliff:g></string>
   <string name="profile_icq">ICQ: <xliff:g id="icq">%s</xliff:g></string>
 
+  <!-- SEARCH SCREEN -->
+  <string name="btn_search">Поиск</string>
+  <string name="search_text_hint">Фраза для поиска…</string>
+  <string name="search_messages_only">Искать только сообщения</string>
+  <string name="search_rb_date">По дате</string>
+  <string name="search_rb_relevant">По релевантности</string>
+  <string name="search_rb_words_any">Любое слово</string>
+  <string name="search_rb_words_all">Все слова</string>
+  <string name="search_rb_words_phrase">Фраза целиком</string>
+  <string name="search_label_sorting">Опции сортировки</string>
+  <string name="search_label_conditions">Условия поиска</string>
+  <string name="search_label_target">Где искать</string>
+  <string name="search_box_everywhere">Везде</string>
+  <string name="search_box_feed">Лента</string>
+  <string name="search_box_communication">Общение</string>
+  <string name="search_box_chaos">Хаос</string>
+
   <!-- MESSAGES AND TITLES -->
   <string name="msg_file_saved">Файл сохранен в <xliff:g id="filepath">%s</xliff:g></string>
   <string name="msg_file_not_saved">Не удалось сохранить файл!</string>

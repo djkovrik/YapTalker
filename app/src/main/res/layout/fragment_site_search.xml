@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <EditText
+    android:id="@+id/search_target_text"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/search_inner_margin"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/materialize_screen_edge"
+    android:hint="@string/search_text_hint"
+    android:inputType="textNoSuggestions"
+    android:singleLine="true"
+    app:layout_constraintEnd_toStartOf="@+id/search_button"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <Button
+    android:id="@+id/search_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/materialize_screen_edge"
+    android:text="@string/btn_search"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <CheckBox
+    android:id="@+id/search_messages_only"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:text="@string/search_messages_only"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/search_target_text" />
+
+  <RadioGroup
+    android:id="@+id/search_group_sorting"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/search_inner_margin"
+    android:orientation="horizontal"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView">
+
+    <RadioButton
+      android:id="@+id/search_rb_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:checked="true"
+      android:text="@string/search_rb_date" />
+
+    <RadioButton
+      android:id="@+id/search_rb_relevant"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="@string/search_rb_relevant" />
+  </RadioGroup>
+
+  <TextView
+    android:id="@+id/textView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/materialize_screen_edge"
+    android:text="@string/search_label_sorting"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/search_group_conditions" />
+
+  <TextView
+    android:id="@+id/textView2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/search_inner_margin"
+    android:text="@string/search_label_conditions"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/search_messages_only" />
+
+  <RadioGroup
+    android:id="@+id/search_group_conditions"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/search_inner_margin"
+    android:orientation="horizontal"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+    <RadioButton
+      android:id="@+id/search_rb_words_any"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:checked="true"
+      android:text="@string/search_rb_words_any" />
+
+    <RadioButton
+      android:id="@+id/search_rb_words_all"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="@string/search_rb_words_all" />
+
+    <RadioButton
+      android:id="@+id/search_rb_words_phrase"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="@string/search_rb_words_phrase" />
+
+  </RadioGroup>
+
+  <TextView
+    android:id="@+id/textView3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/search_inner_margin"
+    android:text="@string/search_label_target"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/search_group_sorting" />
+
+  <Spinner
+    android:id="@+id/search_period_spinner"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/search_inner_margin"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
+    android:layout_marginStart="@dimen/search_inner_margin"
+    android:layout_marginTop="@dimen/search_inner_margin"
+    android:entries="@array/pref_avatar_size_labels"
+    app:layout_constraintBottom_toBottomOf="@+id/search_messages_only"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/search_messages_only"
+    app:layout_constraintTop_toTopOf="@+id/search_messages_only" />
+
+  <CheckBox
+    android:id="@+id/search_box_everywhere"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/search_inner_margin"
+    android:text="@string/search_box_everywhere"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+  <CheckBox
+    android:id="@+id/search_box_feed"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/search_inner_margin"
+    android:text="@string/search_box_feed"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/search_box_everywhere" />
+
+  <CheckBox
+    android:id="@+id/search_box_communication"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/search_inner_margin"
+    android:text="@string/search_box_communication"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/search_box_feed" />
+
+  <CheckBox
+    android:id="@+id/search_box_chaos"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/search_inner_margin"
+    android:text="@string/search_box_chaos"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/search_box_communication" />
+
+</android.support.constraint.ConstraintLayout>
