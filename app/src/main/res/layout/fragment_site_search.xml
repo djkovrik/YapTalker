@@ -28,15 +28,6 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
-  <CheckBox
-    android:id="@+id/search_messages_only"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/materialize_screen_edge"
-    android:text="@string/search_messages_only"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/search_target_text" />
-
   <RadioGroup
     android:id="@+id/search_group_sorting"
     android:layout_width="0dp"
@@ -81,7 +72,7 @@
     android:layout_marginTop="@dimen/search_inner_margin"
     android:text="@string/search_label_conditions"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/search_messages_only" />
+    app:layout_constraintTop_toBottomOf="@+id/search_period_spinner" />
 
   <RadioGroup
     android:id="@+id/search_group_conditions"
@@ -131,15 +122,11 @@
     android:id="@+id/search_period_spinner"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/search_inner_margin"
-    android:layout_marginEnd="@dimen/materialize_screen_edge"
-    android:layout_marginStart="@dimen/search_inner_margin"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
     android:layout_marginTop="@dimen/search_inner_margin"
     android:entries="@array/pref_avatar_size_labels"
-    app:layout_constraintBottom_toBottomOf="@+id/search_messages_only"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@+id/search_messages_only"
-    app:layout_constraintTop_toTopOf="@+id/search_messages_only" />
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/search_target_text" />
 
   <CheckBox
     android:id="@+id/search_box_everywhere"
