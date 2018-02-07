@@ -8,7 +8,7 @@ import io.reactivex.functions.Function
 import java.util.ArrayList
 import javax.inject.Inject
 
-class SearchPageParsedMapper @Inject constructor() : Function<SearchTopicsPageParsed, List<BaseEntity>> {
+class SearchPageResultsMapper @Inject constructor() : Function<SearchTopicsPageParsed, List<BaseEntity>> {
 
   companion object {
     private const val TOPICS_PER_PAGE = 25
