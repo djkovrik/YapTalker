@@ -124,7 +124,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/materialize_screen_edge"
     android:layout_marginTop="@dimen/search_inner_margin"
-    android:entries="@array/pref_avatar_size_labels"
+    android:entries="@array/search_array_period"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/search_target_text" />
 
