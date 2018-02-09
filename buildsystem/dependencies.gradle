@@ -8,7 +8,7 @@ ext {
     // Android
     final KOTLIN_VERSION = "1.2.21"
     final SUPPORT_LIBRARY_VERSION = "27.0.2"
-    final CONSTRAINT_LAYOUT_VERSION = "1.1.0-beta4"
+    final CONSTRAINT_LAYOUT_VERSION = "1.1.0-beta5"
 
     // Rx
     final RX_ANDROID_VERSION = "2.0.1"
@@ -16,8 +16,8 @@ ext {
     final RX_KOTLIN_VERSION = "2.2.0"
     final RX_RELAY_VERSION = "2.0.0"
     final RX_LINT_VERSION = "1.6"
-    final RX_BINDING_VERSION = "2.0.0"
-    final AUTO_DISPOSE_VERSION = "0.5.1"
+    final RX_BINDING_VERSION = "2.1.0"
+    final AUTO_DISPOSE_VERSION = "0.6.0"
 
     // Core
     final DAGGER_VERSION = "2.14.1"
@@ -27,13 +27,13 @@ ext {
     final PICASSO_VERSION = "2.5.2"
     final CICERONE_VERSION = "3.0.0"
     final RETROFIT_VERSION = "2.3.0"
-    final JSPOON_VERSION = "1.2.0"
+    final JSPOON_VERSION = "1.2.1"
     final MOSHI_VERSION = "1.5.0"
     final OKHTTP_VERSION = "3.9.1"
 
     // UI
     final MATERIAL_VALUES_VERSION = "1.1.1"
-    final MATERIAL_DRAWER_VERSION = "6.0.2@aar"
+    final MATERIAL_DRAWER_VERSION = "6.0.6@aar"
     final ICONICS_VERSION = "3.0.2@aar"
     final COMMUNITY_MATERIAL_ICONS_VERSION = "2.0.46.1@aar"
     final MATERIAL_DIALOGUES_VERSION = "0.9.6.0"
@@ -48,7 +48,7 @@ ext {
     final EXPEKT_VERSION = "0.5.0"
 
     // Supporting tools
-    final ANDROID_CRASHALYTICS_VERSION = "2.8.0@aar"
+    final ANDROID_CRASHALYTICS_VERSION = "2.9.0@aar"
     final FIREBASE_CORE_VERSION = "11.8.0"
 
     // Development tools
