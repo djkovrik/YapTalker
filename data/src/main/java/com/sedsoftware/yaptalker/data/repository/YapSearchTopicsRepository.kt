@@ -15,6 +15,7 @@ class YapSearchTopicsRepository @Inject constructor(
   companion object {
     private const val SEARCH_ACT = "Search"
     private const val SEARCH_CODE = "01"
+    private const val SEARCH_CODE_NEXT_PAGE = "show"
     private const val SEARCH_SUBS = 1
   }
 
@@ -49,7 +50,7 @@ class YapSearchTopicsRepository @Inject constructor(
     dataLoader
       .loadSearchedTopicsNextPage(
         act = SEARCH_ACT,
-        code = SEARCH_CODE,
+        code = SEARCH_CODE_NEXT_PAGE,
         hl = keyword,
         nav = "",
         resultType = "",
