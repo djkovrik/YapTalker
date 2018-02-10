@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.features.search.options
 
 import android.support.annotation.IntDef
-import android.support.annotation.StringDef
 
 class TargetPeriod {
   companion object {
