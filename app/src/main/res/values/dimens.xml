@@ -39,6 +39,7 @@
   <dimen name="scrollbar_thumb_corner_radius">4dp</dimen>
   <dimen name="scrollbar_background_line_padding">2dp</dimen>
   <dimen name="bottom_sheet_peek">140dp</dimen>
+  <dimen name="video_thumbnail_icon_size">64dp</dimen>
 
   <!-- TABLETS DIMENSION VARIATIONS -->
   <dimen name="navigation_drawer_width">280dp</dimen>

@@ -23,7 +23,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSe
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
-import com.sedsoftware.yaptalker.presentation.extensions.loadThumbnailFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
@@ -291,7 +291,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
       .autoDisposable(event(FragmentLifecycle.DESTROY))
       .subscribe({ url ->
         if (url.isNotEmpty()) {
-          imageView.loadThumbnailFromUrl(url)
+          imageView.loadFromUrl(url)
         } else {
           context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
         }
