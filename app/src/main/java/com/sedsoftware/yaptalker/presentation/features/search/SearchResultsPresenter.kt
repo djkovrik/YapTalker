@@ -7,9 +7,6 @@ import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
-import com.sedsoftware.yaptalker.presentation.features.search.options.SearchConditions
-import com.sedsoftware.yaptalker.presentation.features.search.options.SortingMode
-import com.sedsoftware.yaptalker.presentation.features.search.options.TargetPeriod
 import com.sedsoftware.yaptalker.presentation.mappers.SearchResultsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.SearchTopicsPageInfoModel
@@ -23,12 +20,12 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState
-class SearchPresenter @Inject constructor(
+class SearchResultsPresenter @Inject constructor(
   private val router: Router,
   private val initialSearchUseCase: GetSearchResults,
   private val nextPageSearchResultsUseCase: GetSearchResultsPage,
   private val searchResultsMapper: SearchResultsModelMapper
-) : BasePresenter<SearchView>() {
+) : BasePresenter<SearchResultsView>() {
 
   companion object {
     private const val TOPICS_PER_PAGE = 25
@@ -37,11 +34,10 @@ class SearchPresenter @Inject constructor(
   private var searchIdKey = ""
   private var searchKeyword = ""
   private var searchInParam = ""
-  private var clearCurrentList = false
   private var hasNextPage = false
   private var currentPage = 1
 
-  override fun attachView(view: SearchView?) {
+  override fun attachView(view: SearchResultsView?) {
     super.attachView(view)
     viewState.updateCurrentUiState()
   }
@@ -50,28 +46,20 @@ class SearchPresenter @Inject constructor(
     router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
   }
 
-  fun searchForFirstTime(
-    searchFor: String,
-    targetForums: List<String>,
-    searchIn: String,
-    @SearchConditions.Value searchHow: String,
-    @SortingMode.Value sortBy: String,
-    @TargetPeriod.Value periodInDays: Long
-  ) {
+  fun searchForFirstTime(request: SearchRequest) {
 
-    searchKeyword = searchFor
-    searchInParam = searchIn
-    clearCurrentList = true
+    searchKeyword = request.searchFor
+    searchInParam = request.searchIn
 
     initialSearchUseCase
       .execute(
         GetSearchResults.Params(
-          keyword = searchFor,
-          searchIn = searchIn,
-          searchHow = searchHow,
-          sortBy = sortBy,
-          targetForums = targetForums,
-          prune = periodInDays.toInt()
+          keyword = request.searchFor,
+          searchIn = request.searchIn,
+          searchHow = request.searchHow,
+          sortBy = request.sortBy,
+          targetForums = request.targetForums,
+          prune = request.periodInDays.toInt()
         )
       )
       .subscribeOn(Schedulers.io())
@@ -118,14 +106,9 @@ class SearchPresenter @Inject constructor(
         if (item is SearchTopicsPageInfoModel) {
           searchIdKey = if (item.searchId.isNotEmpty()) item.searchId else searchIdKey
           hasNextPage = item.hasNextPage
+        } else {
+          viewState.appendSearchResultsTopicItem(item)
         }
-
-        if (clearCurrentList) {
-          clearCurrentList = false
-          viewState.clearSearchResultsList()
-        }
-
-        viewState.appendSearchResultsTopicItem(item)
       }
 
       override fun onComplete() {

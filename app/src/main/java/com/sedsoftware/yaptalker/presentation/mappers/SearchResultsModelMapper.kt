@@ -36,7 +36,8 @@ class SearchResultsModelMapper @Inject constructor(
               forumLink = item.forumLink,
               forumId = item.forumLink.getLastDigits(),
               rating = item.rating,
-              answers = item.answers,
+              ratingText = item.rating.toString(),
+              answers = textTransformer.createCommentsLabel(item.answers),
               lastPostDate = dateTransformer.transformDateToShortView(item.lastPostDate)
             )
           )

@@ -129,41 +129,36 @@
     app:layout_constraintTop_toBottomOf="@+id/search_target_text" />
 
   <CheckBox
-    android:id="@+id/search_box_everywhere"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/materialize_screen_edge"
-    android:layout_marginTop="@dimen/search_inner_margin"
-    android:text="@string/search_box_everywhere"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-  <CheckBox
     android:id="@+id/search_box_feed"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:checked="true"
     android:layout_marginTop="@dimen/search_inner_margin"
     android:text="@string/search_box_feed"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/search_box_everywhere" />
+    app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
   <CheckBox
     android:id="@+id/search_box_communication"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:checked="true"
     android:layout_marginStart="@dimen/search_inner_margin"
     android:text="@string/search_box_communication"
-    app:layout_constraintStart_toEndOf="@+id/search_box_everywhere"
-    app:layout_constraintTop_toTopOf="@+id/search_box_everywhere" />
+    app:layout_constraintBottom_toBottomOf="@+id/search_box_feed"
+    app:layout_constraintStart_toEndOf="@+id/search_box_feed"
+    app:layout_constraintTop_toTopOf="@+id/search_box_feed" />
 
   <CheckBox
     android:id="@+id/search_box_chaos"
     android:layout_width="wrap_content"
+    android:layout_marginStart="@dimen/search_inner_margin"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/search_inner_margin"
+    android:checked="true"
     android:text="@string/search_box_chaos"
-    app:layout_constraintStart_toStartOf="@+id/search_box_communication"
-    app:layout_constraintTop_toBottomOf="@+id/search_box_communication" />
+    app:layout_constraintBottom_toBottomOf="@+id/search_box_communication"
+    app:layout_constraintStart_toEndOf="@+id/search_box_communication"
+    app:layout_constraintTop_toTopOf="@+id/search_box_communication" />
 
 </android.support.constraint.ConstraintLayout>

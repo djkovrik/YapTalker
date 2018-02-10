@@ -13,7 +13,8 @@ class SearchTopicItemModel(
   val forumLink: String,
   val forumId: Int,
   val rating: Int,
-  val answers: Int,
+  val ratingText: String,
+  val answers: String,
   val lastPostDate: String
 ) : YapEntity {
 

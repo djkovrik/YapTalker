@@ -72,6 +72,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   private lateinit var drawerItemActiveTopics: PrimaryDrawerItem
   private lateinit var drawerItemIncubator: PrimaryDrawerItem
   private lateinit var drawerItemBookmarks: PrimaryDrawerItem
+  private lateinit var drawerItemSearch: PrimaryDrawerItem
   private lateinit var drawerItemSettings: PrimaryDrawerItem
   private lateinit var drawerItemSignIn: PrimaryDrawerItem
   private lateinit var drawerItemSignOut: PrimaryDrawerItem
@@ -225,6 +226,16 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .withSelectedTextColor(color(R.color.colorNavBookmarks))
       .withSelectedIconColorRes(R.color.colorNavBookmarks)
 
+    drawerItemSearch = PrimaryDrawerItem()
+      .withIdentifier(NavigationSection.SITE_SEARCH)
+      .withName(R.string.nav_drawer_search)
+//      .withSelectable(false)
+      .withIcon(CommunityMaterial.Icon.cmd_magnify)
+      .withTextColor(color(R.color.colorNavDefaultText))
+      .withIconColorRes(R.color.colorNavSearch)
+      .withSelectedTextColor(color(R.color.colorNavSearch))
+      .withSelectedIconColorRes(R.color.colorNavSearch)
+
     drawerItemSettings = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.SETTINGS)
       .withIcon(CommunityMaterial.Icon.cmd_settings)
@@ -280,6 +291,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .addDrawerItems(drawerItemForums)
       .addDrawerItems(drawerItemActiveTopics)
       .addDrawerItems(drawerItemIncubator)
+      .addDrawerItems(drawerItemSearch)
       .addDrawerItems(DividerDrawerItem())
       .addDrawerItems(drawerItemSettings)
       .withOnDrawerItemClickListener { _, _, drawerItem ->
