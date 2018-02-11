@@ -199,7 +199,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
         .inputType(InputType.TYPE_CLASS_TEXT)
         .alwaysCallInputCallback()
         .input(R.string.post_insert_video_hint, 0, false, { _, _ -> })
-        .onPositive { dialog, which ->
+        .onPositive { dialog, _ ->
           val url = dialog.inputEditText?.text.toString()
           presenter.insertVideoTag(url)
         }

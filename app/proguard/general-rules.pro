@@ -9,8 +9,11 @@
 -dontnote com.google.firebase.iid.*
 -dontnote com.github.chrisbanes.photoview.**
 -dontnote io.fabric.sdk.**
--dontnote com.sedsoftware.yaptalker.data.parsed.**
+-dontnote com.sedsoftware.yaptalker.data.**
 -dontnote com.squareup.picasso.**
 -dontnote okhttp3.internal.**
 -dontnote kotlin.internal.**
 -dontnote kotlin.jvm.internal.**
+-dontnote io.reactivex.**
+
+-dontwarn com.jakewharton.rxbinding2.**
