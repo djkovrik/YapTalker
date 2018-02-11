@@ -47,6 +47,7 @@ class SearchFormFragment : BaseFragment(), SearchFormView {
   @ProvidePresenter
   fun provideSearchFormPresenter() = presenter
 
+  @Suppress("MagicNumber")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 

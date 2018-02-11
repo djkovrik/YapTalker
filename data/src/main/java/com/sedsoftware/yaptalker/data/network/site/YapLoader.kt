@@ -30,6 +30,7 @@ import retrofit2.http.Query
 /**
  * Retrofit 2 interface definition for sending and retrieving data from the site.
  */
+@Suppress("ComplexInterface", "LongParameterList", "TooManyFunctions")
 interface YapLoader {
 
   /**
