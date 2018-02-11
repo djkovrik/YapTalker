@@ -17,14 +17,13 @@ import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
-import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
-import com.sedsoftware.yaptalker.presentation.extensions.loadThumbnailFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
@@ -75,9 +74,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
 
   @Inject
   lateinit var topicAdapter: ChosenTopicAdapter
-
-  @Inject
-  lateinit var settings: Settings
 
   @Inject
   @InjectPresenter
@@ -295,7 +291,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
       .autoDisposable(event(FragmentLifecycle.DESTROY))
       .subscribe({ url ->
         if (url.isNotEmpty()) {
-          imageView.loadThumbnailFromUrl(url)
+          imageView.loadFromUrl(url)
         } else {
           context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
         }

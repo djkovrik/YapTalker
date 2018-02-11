@@ -9,7 +9,6 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
-import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
@@ -32,9 +31,6 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
 
   @Inject
   lateinit var forumsAdapter: ForumsAdapter
-
-  @Inject
-  lateinit var settings: Settings
 
   @Inject
   @InjectPresenter

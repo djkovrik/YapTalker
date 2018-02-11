@@ -11,6 +11,7 @@
   <string name="nav_drawer_incubator">Инкубатор</string>
   <string name="nav_drawer_settings">Настройки</string>
   <string name="nav_drawer_bookmarks">Закладки</string>
+  <string name="nav_drawer_search">Поиск</string>
   <string name="nav_drawer_sign_in">Вход</string>
   <string name="nav_drawer_sign_out">Выход</string>
 
@@ -85,6 +86,33 @@
   <string name="profile_label_contacts"> Связь</string>
   <string name="profile_email">Email: <xliff:g id="email">%s</xliff:g></string>
   <string name="profile_icq">ICQ: <xliff:g id="icq">%s</xliff:g></string>
+
+  <!-- SEARCH SCREEN -->
+  <string name="btn_search">Поиск</string>
+  <string name="search_text_hint">Фраза для поиска…</string>
+  <string name="search_messages_only">Искать только сообщения</string>
+  <string name="search_rb_date">По дате</string>
+  <string name="search_rb_relevant">По релевантности</string>
+  <string name="search_rb_words_any">Любое слово</string>
+  <string name="search_rb_words_all">Все слова</string>
+  <string name="search_rb_words_phrase">Фраза целиком</string>
+  <string name="search_label_sorting">Опции сортировки</string>
+  <string name="search_label_conditions">Условия поиска</string>
+  <string name="search_label_target">Где искать</string>
+  <string name="search_box_feed">Лента</string>
+  <string name="search_box_communication">Общение</string>
+  <string name="search_box_chaos">Хаос</string>
+
+  <string-array name="search_array_period">
+    <item>Все время</item>
+    <item>Сегодня</item>
+    <item>За 7 дней</item>
+    <item>За 30 дней</item>
+    <item>За 60 дней</item>
+    <item>За 90 дней</item>
+    <item>За 180 дней</item>
+    <item>За 365 дней</item>
+  </string-array>
 
   <!-- MESSAGES AND TITLES -->
   <string name="msg_file_saved">Файл сохранен в <xliff:g id="filepath">%s</xliff:g></string>

@@ -78,18 +78,20 @@ class NewsDelegateAdapter(
 
         news_content_image.setOnClickListener(null)
         news_content_image.setImageDrawable(null)
-        news_content_image.hideView()
+        news_content_image_container.hideView()
+        news_content_image_overlay.hideView()
 
         if (newsItem.images.isNotEmpty()) {
           val url = newsItem.images.first()
           news_content_image.loadFromUrl(url)
-          news_content_image.showView()
+          news_content_image_container.showView()
           news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, "", false) }
         } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
           val url = newsItem.videos.first()
           val rawVideo = newsItem.videosRaw.first()
           thumbnailsLoader.loadThumbnail(url, news_content_image)
-          news_content_image.showView()
+          news_content_image_container.showView()
+          news_content_image_overlay.showView()
           news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawVideo, true) }
         }
 
