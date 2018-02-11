@@ -279,7 +279,7 @@ class ChosenTopicPresenter @Inject constructor(
 
   fun changeKarma(postId: Int = 0, isTopic: Boolean, shouldIncrease: Boolean) {
 
-    if (authKey.isEmpty() || ratingTargetId == 0 || currentTopicId == 0) {
+    if (authKey.isEmpty() || currentTopicId == 0) {
       return
     }
 
