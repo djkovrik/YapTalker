@@ -2,7 +2,6 @@ package com.sedsoftware.yaptalker.presentation.features.topic
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.device.Settings
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
 import com.sedsoftware.yaptalker.domain.interactor.topic.GetChosenTopic
 import com.sedsoftware.yaptalker.domain.interactor.topic.GetEditedText
@@ -220,7 +219,7 @@ class ChosenTopicPresenter @Inject constructor(
     getQuotedTextUseCase
       .execute(GetQuotedText.Params(forumId, topicId, postId))
       .subscribeOn(Schedulers.io())
-      .map { quote: BaseEntity -> quoteDataMapper.transform(quote) }
+      .map(quoteDataMapper)
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
       .doOnError { setConnectionState(ConnectionState.ERROR) }
@@ -243,7 +242,7 @@ class ChosenTopicPresenter @Inject constructor(
     getEditedTextUseCase
       .execute(GetEditedText.Params(currentForumId, currentTopicId, postId, startingPost))
       .subscribeOn(Schedulers.io())
-      .map { text: BaseEntity -> editedTextDataMapper.transform(text) }
+      .map(editedTextDataMapper)
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
       .doOnError { setConnectionState(ConnectionState.ERROR) }
@@ -280,7 +279,7 @@ class ChosenTopicPresenter @Inject constructor(
 
   fun changeKarma(postId: Int = 0, isTopic: Boolean, shouldIncrease: Boolean) {
 
-    if (authKey.isEmpty() || ratingTargetId == 0 || currentTopicId == 0) {
+    if (authKey.isEmpty() || currentTopicId == 0) {
       return
     }
 
@@ -292,7 +291,7 @@ class ChosenTopicPresenter @Inject constructor(
     changeKarmaUseCase
       .execute(SendChangeKarmaRequest.Params(isTopic, targetPostId, currentTopicId, diff))
       .subscribeOn(Schedulers.io())
-      .map { response: BaseEntity -> serverResponseMapper.transform(response) }
+      .map(serverResponseMapper)
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
       .doOnError { setConnectionState(ConnectionState.ERROR) }
@@ -373,7 +372,7 @@ class ChosenTopicPresenter @Inject constructor(
     getChosenTopicUseCase
       .execute(GetChosenTopic.Params(currentForumId, currentTopicId, startingPost))
       .subscribeOn(Schedulers.io())
-      .map { topicItems: List<BaseEntity> -> topicMapper.transform(topicItems) }
+      .map(topicMapper)
       .flatMapObservable { items: List<YapEntity> -> Observable.fromIterable(items) }
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
@@ -393,8 +392,6 @@ class ChosenTopicPresenter @Inject constructor(
 
       override fun onSuccess(response: YapEntity) {
         response as ServerResponseModel
-
-//          Timber.d("Karma response: ${response.text}")
 
         when {
           response.text.contains(KARMA_SUCCESS_MARKER) -> viewState.showPostKarmaChangedMessage(isTopic)

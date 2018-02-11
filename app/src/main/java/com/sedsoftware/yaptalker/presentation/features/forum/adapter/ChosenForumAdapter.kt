@@ -6,13 +6,17 @@ import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import com.sedsoftware.yaptalker.presentation.model.base.TopicModel
 import java.util.ArrayList
+import javax.inject.Inject
 
-class ChosenForumAdapter(
-  clickListener: ChosenForumElementsClickListener,
+class ChosenForumAdapter @Inject constructor(
+  itemClickListener: ChosenForumItemClickListener,
+  navigationClickListener: NavigationPanelClickListener,
   settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -20,9 +24,19 @@ class ChosenForumAdapter(
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
   init {
-    delegateAdapters.put(YapEntityTypes.TOPIC_ITEM, ChosenForumDelegateAdapter(clickListener, settings))
-    delegateAdapters.put(YapEntityTypes.NAVIGATION_PANEL_ITEM, ForumNavigationDelegateAdapter(clickListener))
+    delegateAdapters.put(
+      YapEntityTypes.TOPIC_ITEM,
+      ChosenForumDelegateAdapter(itemClickListener, settings)
+    )
+
+    delegateAdapters.put(
+      YapEntityTypes.NAVIGATION_PANEL_ITEM,
+      NavigationPanelDelegateAdapter(navigationClickListener)
+    )
+
     items = ArrayList()
+
+    setHasStableIds(true)
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =

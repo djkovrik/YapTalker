@@ -9,6 +9,7 @@ import com.sedsoftware.yaptalker.data.parsed.ForumsListParsed
 import com.sedsoftware.yaptalker.data.parsed.LoginSessionInfoParsed
 import com.sedsoftware.yaptalker.data.parsed.NewsPageParsed
 import com.sedsoftware.yaptalker.data.parsed.QuotedPostParsed
+import com.sedsoftware.yaptalker.data.parsed.SearchTopicsPageParsed
 import com.sedsoftware.yaptalker.data.parsed.SitePreferencesPageParsed
 import com.sedsoftware.yaptalker.data.parsed.TopicPageParsed
 import com.sedsoftware.yaptalker.data.parsed.UserProfileParsed
@@ -29,6 +30,7 @@ import retrofit2.http.Query
 /**
  * Retrofit 2 interface definition for sending and retrieving data from the site.
  */
+@Suppress("ComplexInterface", "LongParameterList", "TooManyFunctions")
 interface YapLoader {
 
   /**
@@ -123,6 +125,62 @@ interface YapLoader {
     @Query("st") startTopicNumber: Int
   ): Single<ActiveTopicsPageParsed>
 
+
+  /**
+   * Loads search result topics list.
+   *
+   * @param act Search request action type.
+   * @param code Search request action code.
+   * @param forums Forums for searching.
+   * @param keywords Target search keyword of phrase.
+   * @param prune Search period.
+   * @param searchHow Search type.
+   * @param searchIn Search targets.
+   * @param searchSubs Search in subforums flag.
+   * @param sortBy Sorting mode.
+   *
+   * @return Parsed search results page.
+   */
+  @POST("/")
+  @Multipart
+  fun loadSearchedTopics(
+    @Query("act") act: String,
+    @Query("CODE") code: String,
+    @Part("forums[]") forums: List<String>,
+    @Part("keywords") keywords: String,
+    @Part("prune") prune: Int,
+    @Part("search_how") searchHow: String,
+    @Part("search_in") searchIn: String,
+    @Part("searchsubs") searchSubs: Int,
+    @Part("sort_by") sortBy: String
+  ): Single<SearchTopicsPageParsed>
+
+
+  /**
+   * Loads next page of search result topics list.
+   *
+   * @param act Search request action type.
+   * @param code Search request action code.
+   * @param hl Highlighted word.
+   * @param nav Unknown (empty).
+   * @param resultType Results type (empty for now).
+   * @param searchIn Search targets.
+   * @param searchId Constant search id.
+   * @param st Results page, should be multiple of 25.
+   *
+   * @return Parsed search results page.
+   */
+  @GET("/")
+  fun loadSearchedTopicsNextPage(
+    @Query("act") act: String,
+    @Query("CODE") code: String,
+    @Query("hl") hl: String,
+    @Query("nav") nav: String,
+    @Query("result_type") resultType: String,
+    @Query("search_in") searchIn: String,
+    @Query("searchid") searchId: String,
+    @Query("st") st: Int
+  ): Single<SearchTopicsPageParsed>
 
   /**
    * Load active emojis list page.
@@ -232,8 +290,8 @@ interface YapLoader {
     @Part("f") forum: Int,
     @Part("t") topic: Int,
     @Part("st") st: Int,
-    @Part("enableemo") enableemo: Boolean,
-    @Part("enablesig") enablesig: Boolean,
+    @Part("enableemo") enableemo: String,
+    @Part("enablesig") enablesig: String,
     @Part("auth_key") authKey: String,
     @Part("Post") postContent: String,
     @Part("MAX_FILE_SIZE") maxFileSize: Int,

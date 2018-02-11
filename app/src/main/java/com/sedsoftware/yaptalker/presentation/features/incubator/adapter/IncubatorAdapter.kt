@@ -8,13 +8,15 @@ import android.view.animation.AnimationUtils
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
+import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import java.util.ArrayList
+import javax.inject.Inject
 
-class IncubatorAdapter(
+class IncubatorAdapter @Inject constructor(
   clickListener: IncubatorElementsClickListener,
-  thumbnailsLoader: IncubatorThumbnailsLoader,
+  thumbnailsLoader: ThumbnailsLoader,
   settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -27,6 +29,8 @@ class IncubatorAdapter(
     )
 
     items = ArrayList()
+
+    setHasStableIds(true)
   }
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {

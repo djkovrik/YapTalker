@@ -5,6 +5,7 @@ import com.sedsoftware.yaptalker.domain.entity.base.UserProfile
 import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.UserProfileModel
+import io.reactivex.functions.Function
 import javax.inject.Inject
 
 /**
@@ -12,9 +13,9 @@ import javax.inject.Inject
  */
 class UserProfileModelMapper @Inject constructor(
   private val textTransformer: TextTransformer
-) {
+) : Function<BaseEntity, YapEntity> {
 
-  fun transform(profile: BaseEntity): YapEntity {
+  override fun apply(profile: BaseEntity): YapEntity {
 
     profile as UserProfile
 

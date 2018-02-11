@@ -18,6 +18,9 @@ import com.sedsoftware.yaptalker.presentation.features.imagedisplay.ImageDisplay
 import com.sedsoftware.yaptalker.presentation.features.incubator.IncubatorFragment
 import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.features.posting.AddMessageFragment
+import com.sedsoftware.yaptalker.presentation.features.search.SearchFormFragment
+import com.sedsoftware.yaptalker.presentation.features.search.SearchRequest
+import com.sedsoftware.yaptalker.presentation.features.search.SearchResultsFragment
 import com.sedsoftware.yaptalker.presentation.features.settings.SettingsActivity
 import com.sedsoftware.yaptalker.presentation.features.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.presentation.features.userprofile.UserProfileFragment
@@ -50,6 +53,8 @@ class MainActivityNavigator @Inject constructor(
     NavigationScreen.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
     NavigationScreen.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
     NavigationScreen.MESSAGE_EDITOR_SCREEN -> AddMessageFragment.getNewInstance(data as Triple<String, String, String>)
+    NavigationScreen.SEARCH_FORM -> SearchFormFragment.getNewInstance()
+    NavigationScreen.SEARCH_RESULTS -> SearchResultsFragment.getNewInstance(data as SearchRequest)
     else -> null
   }
 

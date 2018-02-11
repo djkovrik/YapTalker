@@ -3,7 +3,6 @@ package com.sedsoftware.yaptalker.presentation.features.navigation
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.device.settings.DefaultHomeScreen
 import com.sedsoftware.yaptalker.domain.device.Settings
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.navigation.GetLoginSessionInfo
 import com.sedsoftware.yaptalker.domain.interactor.navigation.SendSignOutRequest
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
@@ -65,6 +64,7 @@ class NavigationPresenter @Inject constructor(
       NavigationSection.SIGN_IN -> router.navigateTo(NavigationScreen.AUTHORIZATION_SCREEN)
       NavigationSection.SIGN_OUT -> sendSignOutRequest()
       NavigationSection.BOOKMARKS -> router.newRootScreen(NavigationScreen.BOOKMARKS_SCREEN)
+      NavigationSection.SITE_SEARCH -> router.newRootScreen(NavigationScreen.SEARCH_FORM)
       NavigationSection.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
       NavigationSection.SETTINGS -> router.navigateTo(NavigationScreen.SETTINGS_SCREEN)
     }
@@ -102,7 +102,7 @@ class NavigationPresenter @Inject constructor(
     getLoginSessionInfoUseCase
       .execute()
       .subscribeOn(Schedulers.io())
-      .map { loginSessionInfo: BaseEntity -> sessionInfoMapper.transform(loginSessionInfo) }
+      .map(sessionInfoMapper)
       .observeOn(AndroidSchedulers.mainThread())
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe({ info ->

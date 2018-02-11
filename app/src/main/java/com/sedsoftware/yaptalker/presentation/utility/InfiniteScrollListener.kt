@@ -5,16 +5,12 @@ import android.support.v7.widget.RecyclerView
 
 class InfiniteScrollListener(
   private val func: () -> Unit,
-  val layoutManager: LinearLayoutManager
+  val layoutManager: LinearLayoutManager,
+  val visibleThreshold: Int = 4
 ) : RecyclerView.OnScrollListener() {
-
-  companion object {
-    private const val VISIBLE_THRESHOLD = 4
-  }
 
   private var previousTotal = 0
   private var loading = true
-  private var visibleThreshold = VISIBLE_THRESHOLD
   private var firstVisibleItem = 0
   private var visibleItemCount = 0
   private var totalItemCount = 0

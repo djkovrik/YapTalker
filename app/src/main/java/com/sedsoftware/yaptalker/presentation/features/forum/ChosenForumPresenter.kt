@@ -2,7 +2,6 @@ package com.sedsoftware.yaptalker.presentation.features.forum
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.device.Settings
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.forum.GetChosenForum
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
@@ -94,7 +93,7 @@ class ChosenForumPresenter @Inject constructor(
     getChosenForumUseCase
       .execute(GetChosenForum.Params(currentForumId, startingTopic, currentSorting))
       .subscribeOn(Schedulers.io())
-      .map { topics: List<BaseEntity> -> forumModelMapper.transform(topics) }
+      .map(forumModelMapper)
       .flatMap { topics: List<YapEntity> -> Observable.fromIterable(topics) }
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }

@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.features.news
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
 import com.sedsoftware.yaptalker.domain.interactor.news.GetNewsList
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
@@ -84,7 +83,7 @@ class NewsPresenter @Inject constructor(
     getNewsListUseCase
       .execute(GetNewsList.Params(pageNumber = currentPage))
       .subscribeOn(Schedulers.io())
-      .map { newsItem: BaseEntity -> newsModelMapper.transform(newsItem) }
+      .map(newsModelMapper)
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
       .doOnError { setConnectionState(ConnectionState.ERROR) }

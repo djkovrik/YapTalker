@@ -22,6 +22,10 @@ import com.sedsoftware.yaptalker.presentation.features.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.features.news.di.NewsFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.posting.AddMessageFragment
 import com.sedsoftware.yaptalker.presentation.features.posting.di.AddMessageFragmentModule
+import com.sedsoftware.yaptalker.presentation.features.search.SearchFormFragment
+import com.sedsoftware.yaptalker.presentation.features.search.SearchResultsFragment
+import com.sedsoftware.yaptalker.presentation.features.search.di.SearchFormFragmentModule
+import com.sedsoftware.yaptalker.presentation.features.search.di.SearchResultsFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.presentation.features.topic.di.ChosenTopicFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.userprofile.UserProfileFragment
@@ -86,4 +90,12 @@ abstract class MainActivityModule {
   @FragmentScope
   @ContributesAndroidInjector(modules = [(IncubatorFragmentModule::class)])
   abstract fun incubatorFragmentInjector(): IncubatorFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [(SearchFormFragmentModule::class)])
+  abstract fun searchFormFragmentInjector(): SearchFormFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [(SearchResultsFragmentModule::class)])
+  abstract fun searchResultsFragmentInjector(): SearchResultsFragment
 }

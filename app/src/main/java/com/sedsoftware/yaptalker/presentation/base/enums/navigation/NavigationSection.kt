@@ -9,12 +9,13 @@ class NavigationSection {
     const val ACTIVE_TOPICS = 2L
     const val INCUBATOR = 3L
     const val BOOKMARKS = 4L
-    const val SETTINGS = 5L
-    const val SIGN_IN = 6L
-    const val SIGN_OUT = 7L
+    const val SITE_SEARCH = 5L
+    const val SETTINGS = 6L
+    const val SIGN_IN = 7L
+    const val SIGN_OUT = 8L
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @IntDef(MAIN_PAGE, FORUMS, ACTIVE_TOPICS, INCUBATOR, BOOKMARKS, SETTINGS, SIGN_IN, SIGN_OUT)
+  @IntDef(MAIN_PAGE, FORUMS, ACTIVE_TOPICS, INCUBATOR, BOOKMARKS, SITE_SEARCH, SETTINGS, SIGN_IN, SIGN_OUT)
   annotation class Section
 }

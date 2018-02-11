@@ -10,7 +10,6 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
-import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
@@ -19,8 +18,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
-import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.BookmarksAdapter
-import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapter.BookmarksElementsClickListener
+import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapters.BookmarksAdapter
+import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapters.BookmarksElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_bookmarks.*
@@ -34,22 +33,17 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
   }
 
   @Inject
-  @InjectPresenter
-  lateinit var presenter: BookmarksPresenter
+  lateinit var bookmarksAdapter: BookmarksAdapter
 
   @Inject
-  lateinit var settings: Settings
+  @InjectPresenter
+  lateinit var presenter: BookmarksPresenter
 
   @ProvidePresenter
   fun provideBookmarksPresenter() = presenter
 
-  private lateinit var bookmarksAdapter: BookmarksAdapter
-
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    bookmarksAdapter = BookmarksAdapter(this, settings)
-    bookmarksAdapter.setHasStableIds(true)
 
     with(bookmarks_list) {
       val linearLayout = LinearLayoutManager(context)
@@ -104,7 +98,7 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
     toastInfo(getString(R.string.msg_bookmark_topic_deleted))
   }
 
-  override fun onTopicClick(link: String) {
+  override fun onTopicItemClick(link: String) {
     val triple = link.extractYapIds()
     if (triple.first != 0) {
       presenter.navigateToBookmarkedTopic(triple)

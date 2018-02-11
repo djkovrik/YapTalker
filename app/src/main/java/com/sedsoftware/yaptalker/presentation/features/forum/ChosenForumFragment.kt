@@ -11,16 +11,16 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
-import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
 import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ChosenForumAdapter
-import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ChosenForumElementsClickListener
+import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ChosenForumItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_chosen_forum.*
@@ -28,7 +28,8 @@ import java.util.Locale
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_chosen_forum)
-class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElementsClickListener {
+class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumItemClickListener,
+  NavigationPanelClickListener {
 
   companion object {
     fun getNewInstance(forumId: Int): ChosenForumFragment {
@@ -43,26 +44,21 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElements
   }
 
   @Inject
+  lateinit var forumAdapter: ChosenForumAdapter
+
+  @Inject
   @InjectPresenter
   lateinit var presenter: ChosenForumPresenter
 
   @ProvidePresenter
   fun provideForumPresenter() = presenter
 
-  @Inject
-  lateinit var settings: Settings
-
   private val currentForumId: Int by lazy {
     arguments?.getInt(FORUM_ID_KEY) ?: 0
   }
 
-  private lateinit var forumAdapter: ChosenForumAdapter
-
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    forumAdapter = ChosenForumAdapter(this, settings)
-    forumAdapter.setHasStableIds(true)
 
     with(forum_topics_list) {
       val linearLayout = LinearLayoutManager(context)
@@ -116,7 +112,7 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumElements
     }
   }
 
-  override fun onTopicClick(topicId: Int) {
+  override fun onTopicItemClick(topicId: Int) {
     presenter.navigateToChosenTopic(Triple(currentForumId, topicId, 0))
   }
 

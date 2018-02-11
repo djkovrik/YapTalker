@@ -9,9 +9,10 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 import java.util.ArrayList
+import javax.inject.Inject
 
-class ForumsAdapter(
-  itemClick: ForumsItemClickListener,
+class ForumsAdapter @Inject constructor(
+  itemClickListener: ForumsItemClickListener,
   settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -19,8 +20,11 @@ class ForumsAdapter(
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
   init {
-    delegateAdapters.put(YapEntityTypes.FORUM_ITEM, ForumsDelegateAdapter(itemClick, settings))
+    delegateAdapters.put(YapEntityTypes.FORUM_ITEM, ForumsDelegateAdapter(itemClickListener, settings))
+
     items = ArrayList()
+
+    setHasStableIds(true)
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =

@@ -105,10 +105,6 @@ class VideoWebChromeClient : WebChromeClient, OnPreparedListener, OnCompletionLi
     }
   }
 
-  override fun onShowCustomView(view: View, requestedOrientation: Int, callback: WebChromeClient.CustomViewCallback) {
-    onShowCustomView(view, callback)
-  }
-
   override fun onHideCustomView() {
 
     if (isVideoFullscreen) {

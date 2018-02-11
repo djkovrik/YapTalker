@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -72,8 +73,8 @@
       android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
       tools:text="Here is a long news text, here is a long news text here" />
 
-    <ImageView
-      android:id="@+id/news_content_image"
+    <FrameLayout
+      android:id="@+id/news_content_image_container"
       android:layout_width="@dimen/news_content_media_width"
       android:layout_height="wrap_content"
       android:layout_below="@id/news_content_text"
@@ -83,7 +84,26 @@
       android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
       android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
       android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-      android:visibility="gone" />
+      android:visibility="gone">
+
+      <ImageView
+        android:id="@+id/news_content_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/a11y_news_image" />
+
+      <ImageView
+        android:id="@+id/news_content_image_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:visibility="gone"
+        app:srcCompat="?attr/iconVideoOverlay"
+        tools:ignore="ContentDescription" />
+
+    </FrameLayout>
 
     <com.mikepenz.iconics.view.IconicsTextView
       android:id="@+id/news_comments_counter"
@@ -91,7 +111,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
-      android:layout_below="@id/news_content_image"
+      android:layout_below="@id/news_content_image_container"
       android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
       android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
       android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
@@ -103,7 +123,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
-      android:layout_below="@id/news_content_image"
+      android:layout_below="@id/news_content_image_container"
       android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
       android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
       android:paddingStart="@dimen/material_card_title_block_padding_horizontal"

@@ -4,15 +4,16 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.ServerResponse
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.ServerResponseModel
+import io.reactivex.functions.Function
 import javax.inject.Inject
 
 /**
  * Mapper class used to transform server response entity from the domain layer into YapEntity in the
  * presentation layer.
  */
-class ServerResponseModelMapper @Inject constructor() {
+class ServerResponseModelMapper @Inject constructor() : Function<BaseEntity, YapEntity> {
 
-  fun transform(response: BaseEntity): YapEntity {
+  override fun apply(response: BaseEntity): YapEntity {
 
     response as ServerResponse
 

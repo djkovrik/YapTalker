@@ -5,11 +5,16 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.text.method.LinkMovementMethod
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.ImageView.ScaleType
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
+import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.currentDensity
 import com.sedsoftware.yaptalker.presentation.extensions.getColorFromAttr
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
@@ -31,9 +36,10 @@ import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
 import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 import java.util.ArrayList
 
+
 class ChosenTopicDelegateAdapter(
   private val clickListener: ChosenTopicElementsClickListener,
-  private val thumbnailLoader: ChosenTopicThumbnailLoader,
+  private val thumbnailLoader: ThumbnailsLoader,
   private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
@@ -191,12 +197,40 @@ class ChosenTopicDelegateAdapter(
       if (post.videos.isNotEmpty() && post.videosRaw.isNotEmpty()) {
         itemView.post_content_video_container.showView()
         post.videos.forEachIndexed { index, url ->
+
           val rawHtml = post.videosRaw[index]
+
+          // Thumbnail
           val thumbnail = ImageView(itemView.context)
           thumbnail.adjustViewBounds = true
           thumbnail.setPadding(0, imagePadding, 0, imagePadding)
-          itemView.post_content_video_container.addView(thumbnail)
+
+          // Overlay
+          val overlay = ImageView(itemView.context)
+          val layoutParams = LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+          overlay.layoutParams = layoutParams
+          overlay.scaleType = ScaleType.CENTER
+
+          // Container
+          val container = FrameLayout(itemView.context)
+          val containerParams = FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+          container.layoutParams = containerParams
+
+
+          container.addView(thumbnail)
+          container.addView(overlay)
+          itemView.post_content_video_container.addView(container)
+
+          // Load thumbnail
           thumbnailLoader.loadThumbnail(url, thumbnail)
+
+          // Load overlay
+          val a = itemView.context.theme.obtainStyledAttributes(R.style.AppTheme, intArrayOf(R.attr.iconVideoOverlay))
+          val attributeResourceId = a.getResourceId(0, 0)
+          val drawable = itemView.context.resources.getDrawable(attributeResourceId, itemView.context.theme)
+          a.recycle()
+          overlay.setImageDrawable(drawable)
+
           thumbnail.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawHtml, true) }
         }
       }
@@ -253,12 +287,12 @@ class ChosenTopicDelegateAdapter(
         post_author_avatar.layoutParams.width = currentAvatarSize
         post_author_avatar.layoutParams.height = currentAvatarSize
         post_author_avatar.loadAvatarFromUrl(post.authorAvatar.validateUrl())
-        post_author_avatar.setOnClickListener { clickListener.onUserAvatarClick(post.authorProfileId) }
+        post_author_avatar.setOnClickListener { clickListener.onUserAvatarClicked(post.authorProfileId) }
 
         if (post.hasQuoteButton) {
           post_button_reply.showView()
           post_button_reply.setOnClickListener {
-            clickListener.onReplyButtonClick(post.authorNickname, post.postDateFull, post.postId)
+            clickListener.onReplyButtonClicked(post.authorNickname, post.postDateFull, post.postId)
           }
         } else {
           post_button_reply.hideView()
@@ -267,7 +301,7 @@ class ChosenTopicDelegateAdapter(
         if (post.hasEditButton) {
           post_button_edit.showView()
           post_button_edit.setOnClickListener {
-            clickListener.onEditButtonClick(post.postId)
+            clickListener.onEditButtonClicked(post.postId)
           }
         } else {
           post_button_edit.hideView()

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
+import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_incubator_item.view.*
 
 class IncubatorDelegateAdapter(
   private val clickListener: IncubatorElementsClickListener,
-  private val thumbnailsLoader: IncubatorThumbnailsLoader,
+  private val thumbnailsLoader: ThumbnailsLoader,
   private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
@@ -76,12 +77,13 @@ class IncubatorDelegateAdapter(
       with(itemView) {
         incubator_topic_content_image.setOnClickListener(null)
         incubator_topic_content_image.setImageDrawable(null)
-        incubator_topic_content_image.hideView()
+        incubator_topic_content_image_container.hideView()
+        incubator_topic_content_image_overlay.hideView()
 
         if (incubatorItem.images.isNotEmpty()) {
           val url = incubatorItem.images.first()
           incubator_topic_content_image.loadFromUrl(url)
-          incubator_topic_content_image.showView()
+          incubator_topic_content_image_container.showView()
 
           incubator_topic_content_image.setOnClickListener {
             clickListener.onMediaPreviewClicked(url, "", false)
@@ -90,7 +92,8 @@ class IncubatorDelegateAdapter(
           val url = incubatorItem.videos.first()
           val rawVideo = incubatorItem.videosRaw.first()
           thumbnailsLoader.loadThumbnail(url, incubator_topic_content_image)
-          incubator_topic_content_image.showView()
+          incubator_topic_content_image_container.showView()
+          incubator_topic_content_image_overlay.showView()
 
           incubator_topic_content_image.setOnClickListener {
             clickListener.onMediaPreviewClicked(url, rawVideo, true)
@@ -99,7 +102,7 @@ class IncubatorDelegateAdapter(
 
         setOnClickListener {
           if (incubatorItem.isYapLink) {
-            clickListener.onIncubatorItemClick(incubatorItem.forumId, incubatorItem.topicId)
+            clickListener.onIncubatorItemClicked(incubatorItem.forumId, incubatorItem.topicId)
           }
         }
       }

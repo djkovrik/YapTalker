@@ -11,16 +11,16 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
-import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
-import com.sedsoftware.yaptalker.presentation.features.activetopics.adapter.ActiveTopicsAdapter
-import com.sedsoftware.yaptalker.presentation.features.activetopics.adapter.ActiveTopicsElementsClickListener
+import com.sedsoftware.yaptalker.presentation.features.activetopics.adapters.ActiveTopicsAdapter
+import com.sedsoftware.yaptalker.presentation.features.activetopics.adapters.ActiveTopicsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_active_topics.*
@@ -29,29 +29,25 @@ import javax.inject.Inject
 
 // TODO () Refactor layouts to display full topic name
 @LayoutResource(value = R.layout.fragment_active_topics)
-class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsElementsClickListener {
+class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsItemClickListener,
+  NavigationPanelClickListener {
 
   companion object {
     fun getNewInstance() = ActiveTopicsFragment()
   }
 
   @Inject
-  @InjectPresenter
-  lateinit var presenter: ActiveTopicsPresenter
+  lateinit var topicsAdapter: ActiveTopicsAdapter
 
   @Inject
-  lateinit var settings: Settings
+  @InjectPresenter
+  lateinit var presenter: ActiveTopicsPresenter
 
   @ProvidePresenter
   fun provideActiveTopicsPresenter() = presenter
 
-  private lateinit var topicsAdapter: ActiveTopicsAdapter
-
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    topicsAdapter = ActiveTopicsAdapter(this, settings)
-    topicsAdapter.setHasStableIds(true)
 
     with(active_topics_list) {
       val linearLayout = LinearLayoutManager(context)
@@ -101,8 +97,8 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsEleme
     }
   }
 
-  override fun onTopicClick(forumId: Int, topicId: Int) {
-    presenter.navigateToChosenTopic(Triple(forumId, topicId, 0))
+  override fun onActiveTopicItemClick(triple: Triple<Int, Int, Int>) {
+    presenter.navigateToChosenTopic(triple)
   }
 
   override fun onGoToFirstPageClick() {

@@ -8,24 +8,22 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.EmojiModel
 import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet_item.view.*
-import timber.log.Timber
 import java.util.ArrayList
+import javax.inject.Inject
 
-class EmojiAdapter(
+class EmojiAdapter @Inject constructor(
   private val clickListener: EmojiClickListener
 ) : RecyclerView.Adapter<EmojiAdapter.EmojiViewHolder>() {
 
   private var items: ArrayList<YapEntity> = ArrayList()
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmojiViewHolder {
-
-    Timber.d("onCreateViewHolder")
-
-    return EmojiViewHolder(parent)
+  init {
+    setHasStableIds(true)
   }
 
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = EmojiViewHolder(parent)
+
   override fun onBindViewHolder(holder: EmojiViewHolder, position: Int) {
-    Timber.d("onBindViewHolder")
     holder.bindTo(items[position])
   }
 
@@ -51,11 +49,9 @@ class EmojiAdapter(
 
       emoji as EmojiModel
 
-      Timber.d("Bind with ${emoji.link}")
-
       itemView.emoji_code.text = emoji.code
       itemView.emoji_image.loadFromUrl(emoji.link)
-      itemView.emoji_container.setOnClickListener { clickListener.onEmojiClick(emoji.code) }
+      itemView.emoji_container.setOnClickListener { clickListener.onEmojiClicked(emoji.code) }
     }
   }
 }

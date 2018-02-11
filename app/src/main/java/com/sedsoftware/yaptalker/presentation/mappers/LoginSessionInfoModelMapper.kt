@@ -5,15 +5,16 @@ import com.sedsoftware.yaptalker.domain.entity.base.LoginSessionInfo
 import com.sedsoftware.yaptalker.presentation.extensions.getLastDigits
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
+import io.reactivex.functions.Function
 import javax.inject.Inject
 
 /**
  * Mapper class used to transform user authorization info entity from the domain layer into YapEntity in the
  * presentation layer.
  */
-class LoginSessionInfoModelMapper @Inject constructor() {
+class LoginSessionInfoModelMapper @Inject constructor() : Function<BaseEntity, YapEntity> {
 
-  fun transform(info: BaseEntity): YapEntity {
+  override fun apply(info: BaseEntity): YapEntity {
 
     info as LoginSessionInfo
 

@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.features.bookmarks
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.bookmarks.GetBookmarks
 import com.sedsoftware.yaptalker.domain.interactor.bookmarks.SendBookmarkDeleteRequest
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
@@ -57,7 +56,7 @@ class BookmarksPresenter @Inject constructor(
     getBookmarksUseCase
       .execute()
       .subscribeOn(Schedulers.io())
-      .map { bookmarkItem: BaseEntity -> bookmarksMapper.transform(bookmarkItem) }
+      .map(bookmarksMapper)
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
       .doOnError { setConnectionState(ConnectionState.ERROR) }

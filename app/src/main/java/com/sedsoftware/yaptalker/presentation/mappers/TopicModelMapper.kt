@@ -27,6 +27,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWa
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicInfoBlockModel
+import io.reactivex.functions.Function
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -37,9 +38,9 @@ import javax.inject.Inject
 class TopicModelMapper @Inject constructor(
   private val dateTransformer: DateTransformer,
   private val textTransformer: TextTransformer
-) {
+) : Function<List<BaseEntity>, List<YapEntity>> {
 
-  fun transform(items: List<BaseEntity>): List<YapEntity> {
+  override fun apply(items: List<BaseEntity>): List<YapEntity> {
 
     val result: MutableList<YapEntity> = ArrayList(items.size)
 

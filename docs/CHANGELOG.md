@@ -1,4 +1,15 @@
-### Current version: 0.8.10
+### Current version: 0.8.11
+# Changelog
+
+## [0.8.11] - 2018-02-11
+## Added
+- Site search
+
+### Changed
+- Optimized video icon overlay scaling
+
+## Fixed
+- Karma request bugfixes
 
 ## [0.8.10] - 2018-01-27
 ### Changed
@@ -6,7 +17,6 @@
 - Forced landscape orientation for video activity
 - Click on navigation drawer avatar opens user profile
 
-# Changelog
 ## [0.8.9] - 2018-01-23
 ## Added
 - Post editing

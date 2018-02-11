@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
+import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_news_item.view.*
 
 class NewsDelegateAdapter(
   private val clickListener: NewsItemElementsClickListener,
-  private val thumbnailsLoader: NewsItemThumbnailsLoader,
+  private val thumbnailsLoader: ThumbnailsLoader,
   private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
@@ -77,23 +78,25 @@ class NewsDelegateAdapter(
 
         news_content_image.setOnClickListener(null)
         news_content_image.setImageDrawable(null)
-        news_content_image.hideView()
+        news_content_image_container.hideView()
+        news_content_image_overlay.hideView()
 
         if (newsItem.images.isNotEmpty()) {
           val url = newsItem.images.first()
           news_content_image.loadFromUrl(url)
-          news_content_image.showView()
+          news_content_image_container.showView()
           news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, "", false) }
         } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
           val url = newsItem.videos.first()
           val rawVideo = newsItem.videosRaw.first()
           thumbnailsLoader.loadThumbnail(url, news_content_image)
-          news_content_image.showView()
+          news_content_image_container.showView()
+          news_content_image_overlay.showView()
           news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawVideo, true) }
         }
 
         setOnClickListener {
-          if (newsItem.isYapLink) clickListener.onNewsItemClick(newsItem.forumId, newsItem.topicId)
+          if (newsItem.isYapLink) clickListener.onNewsItemClicked(newsItem.forumId, newsItem.topicId)
         }
       }
     }

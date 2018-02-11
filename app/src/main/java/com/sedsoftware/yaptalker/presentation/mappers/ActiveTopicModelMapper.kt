@@ -9,6 +9,7 @@ import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.ActiveTopicModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
+import io.reactivex.functions.Function
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -19,9 +20,9 @@ import javax.inject.Inject
 class ActiveTopicModelMapper @Inject constructor(
   private val textTransformer: TextTransformer,
   private val dateTransformer: DateTransformer
-) {
+) : Function<List<BaseEntity>, List<YapEntity>> {
 
-  fun transform(items: List<BaseEntity>): List<YapEntity> {
+  override fun apply(items: List<BaseEntity>): List<YapEntity> {
 
     val result: MutableList<YapEntity> = ArrayList(items.size)
 

@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.features.activetopics
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.interactor.activetopics.GetActiveTopics
 import com.sedsoftware.yaptalker.domain.interactor.activetopics.GetSearchId
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
@@ -47,6 +46,10 @@ class ActiveTopicsPresenter @Inject constructor(
     viewState.updateCurrentUiState()
   }
 
+  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
+    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
+  }
+
   fun goToFirstPage() {
     currentPage = 1
     loadActiveTopicsForCurrentPage()
@@ -76,10 +79,6 @@ class ActiveTopicsPresenter @Inject constructor(
     }
   }
 
-  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
-    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
-  }
-
   fun refreshActiveTopicsList() {
 
     clearCurrentList = true
@@ -91,7 +90,7 @@ class ActiveTopicsPresenter @Inject constructor(
         getActiveTopicsListUseCase.execute(GetActiveTopics.Params(hash = searchIdKey, page = 0))
       }
       .subscribeOn(Schedulers.io())
-      .map { topics: List<BaseEntity> -> activeTopicsModelMapper.transform(topics) }
+      .map(activeTopicsModelMapper)
       .flatMapObservable { topics: List<YapEntity> -> Observable.fromIterable(topics) }
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
@@ -110,7 +109,7 @@ class ActiveTopicsPresenter @Inject constructor(
     getActiveTopicsListUseCase
       .execute(GetActiveTopics.Params(hash = searchIdKey, page = startingTopicNumber))
       .subscribeOn(Schedulers.io())
-      .map { topics: List<BaseEntity> -> activeTopicsModelMapper.transform(topics) }
+      .map(activeTopicsModelMapper)
       .flatMapObservable { topics: List<YapEntity> -> Observable.fromIterable(topics) }
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
