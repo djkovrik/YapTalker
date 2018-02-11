@@ -96,10 +96,9 @@
 
       <ImageView
         android:id="@+id/incubator_topic_content_image_overlay"
-        android:layout_width="@dimen/video_thumbnail_icon_size"
-        android:layout_height="@dimen/video_thumbnail_icon_size"
-        android:layout_gravity="center"
-        android:adjustViewBounds="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
         android:visibility="gone"
         app:srcCompat="?attr/iconVideoOverlay"
         tools:ignore="ContentDescription" />
