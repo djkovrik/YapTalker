@@ -7,7 +7,9 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResourceTablets
 import com.sedsoftware.yaptalker.commons.exception.MissingAnnotationException
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.ActivityLifecycle
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
@@ -25,7 +27,11 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
   @Inject
   lateinit var navigatorHolder: NavigatorHolder
 
+  @Inject
+  lateinit var settings: Settings
+
   protected lateinit var backPressFragment: BaseFragment
+
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +40,22 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
     super.onCreate(savedInstanceState)
 
     val clazz = this::class.java
-    if (clazz.isAnnotationPresent(LayoutResource::class.java)) {
-      setContentView(clazz.getAnnotation(LayoutResource::class.java).value)
-    } else {
-      throw MissingAnnotationException("$this must be annotated with @LayoutResource annotation.")
+
+    when {
+      clazz.isAnnotationPresent(LayoutResourceTablets::class.java) -> {
+        if (settings.isInTwoPaneMode()) {
+          setContentView(clazz.getAnnotation(LayoutResourceTablets::class.java).tabletsValue)
+        } else {
+          setContentView(clazz.getAnnotation(LayoutResourceTablets::class.java).normalValue)
+        }
+      }
+
+      clazz.isAnnotationPresent(LayoutResource::class.java) -> {
+        setContentView(clazz.getAnnotation(LayoutResource::class.java).value)
+      }
+      else -> {
+        throw MissingAnnotationException("$this must be annotated with specific LayoutResource annotation.")
+      }
     }
 
     lifecycle.accept(ActivityLifecycle.CREATE)

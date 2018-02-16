@@ -20,10 +20,9 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResourceTablets
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.extensions.booleanRes
 import com.sedsoftware.yaptalker.presentation.extensions.color
 import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
@@ -31,13 +30,13 @@ import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main_tablets.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.Navigator
 import timber.log.Timber
 import javax.inject.Inject
 
-@LayoutResource(value = R.layout.activity_main)
+@LayoutResourceTablets(normalValue = R.layout.activity_main, tabletsValue = R.layout.activity_main_tablets)
 class MainActivity : BaseActivity(), MainActivityView, NavigationView {
 
   companion object {
@@ -62,7 +61,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   fun provideNavigationPresenter(): NavigationPresenter = navigationPresenter
 
   private val isInTwoPaneMode: Boolean by lazy {
-    booleanRes(R.bool.two_pane_mode)
+    settings.isInTwoPaneMode()
   }
 
   private lateinit var navDrawer: Drawer
