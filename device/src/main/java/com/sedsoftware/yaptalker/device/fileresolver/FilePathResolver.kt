@@ -11,6 +11,7 @@ import javax.inject.Inject
 
 class FilePathResolver @Inject constructor(private val context: Context) {
 
+  @Suppress("ReturnCount")
   fun getFilePathFromUri(uri: Uri): String? {
 
     if (DocumentsContract.isDocumentUri(context, uri)) {
@@ -27,7 +28,7 @@ class FilePathResolver @Inject constructor(private val context: Context) {
 
         val id = DocumentsContract.getDocumentId(uri)
         val contentUri = ContentUris.withAppendedId(
-          Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)!!
+          Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)
         )
         return getDataColumn(contentUri, null, null)
       } else if (isMediaDocument(uri)) {
@@ -75,15 +76,12 @@ class FilePathResolver @Inject constructor(private val context: Context) {
     return null
   }
 
-  private fun isExternalStorageDocument(uri: Uri): Boolean {
-    return "com.android.externalstorage.documents" == uri.authority
-  }
+  private fun isExternalStorageDocument(uri: Uri): Boolean =
+    "com.android.externalstorage.documents" == uri.authority
 
-  private fun isDownloadsDocument(uri: Uri): Boolean {
-    return "com.android.providers.downloads.documents" == uri.authority
-  }
+  private fun isDownloadsDocument(uri: Uri): Boolean =
+    "com.android.providers.downloads.documents" == uri.authority
 
-  private fun isMediaDocument(uri: Uri): Boolean {
-    return "com.android.providers.media.documents" == uri.authority
-  }
+  private fun isMediaDocument(uri: Uri): Boolean =
+    "com.android.providers.media.documents" == uri.authority
 }

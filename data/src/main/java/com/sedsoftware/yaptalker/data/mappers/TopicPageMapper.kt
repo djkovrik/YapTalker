@@ -18,6 +18,7 @@ class TopicPageMapper @Inject constructor() : Function<TopicPageParsed, List<Bas
 
   companion object {
     private const val POSTS_PER_PAGE = 25
+    private const val SECOND_NAV_PANEL_THRESHOLD = 3
   }
 
   override fun apply(from: TopicPageParsed): List<BaseEntity> {
@@ -67,12 +68,14 @@ class TopicPageMapper @Inject constructor() : Function<TopicPageParsed, List<Bas
         )
       }
 
-      result.add(
-        NavigationPanel(
-          currentPage = navigation.currentPage.toInt(),
-          totalPages = navigation.totalPages.toInt()
+      if (posts.size >= SECOND_NAV_PANEL_THRESHOLD) {
+        result.add(
+          NavigationPanel(
+            currentPage = navigation.currentPage.toInt(),
+            totalPages = navigation.totalPages.toInt()
+          )
         )
-      )
+      }
     }
 
     return result
