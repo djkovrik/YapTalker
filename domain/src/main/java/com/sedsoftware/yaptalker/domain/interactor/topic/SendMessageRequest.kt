@@ -17,7 +17,7 @@ class SendMessageRequest @Inject constructor(
         page = parameter.page,
         authKey = parameter.authKey,
         message = parameter.message,
-        file = parameter.file
+        filePath = parameter.filePath
       )
 
   class Params(
@@ -26,6 +26,6 @@ class SendMessageRequest @Inject constructor(
     val page: Int,
     val authKey: String,
     val message: String,
-    val file: String = ""
+    val filePath: String = ""
   )
 }
