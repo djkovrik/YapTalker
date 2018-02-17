@@ -20,10 +20,10 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
+import com.sedsoftware.yaptalker.device.fileresolver.FilePathResolver
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.extensions.getFilePath
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
@@ -60,6 +60,9 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
 
   @Inject
   lateinit var emojiAdapter: EmojiAdapter
+
+  @Inject
+  lateinit var pathResolver: FilePathResolver
 
   @Inject
   @InjectPresenter
@@ -141,7 +144,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     super.onActivityResult(requestCode, resultCode, data)
 
     if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_REQUEST) {
-      chosenImagePath = activity?.contentResolver?.let { data?.data?.getFilePath(it) } ?: ""
+      chosenImagePath = data?.let { pathResolver.getFilePathFromUri(data.data) } ?: ""
       handleAttachmentCardState()
     }
   }
@@ -252,7 +255,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     val pickIntent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
     pickIntent.type = IMAGE_TYPE
 
-    val chooserIntent = Intent.createChooser(getIntent, "Select your image")
+    val chooserIntent = Intent.createChooser(getIntent, context?.getString(R.string.title_image_selection))
     chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
 
     startActivityForResult(chooserIntent, PICK_IMAGE_REQUEST)
@@ -338,7 +341,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     val message = new_post_edit_text.text.toString()
     val isEdited = editedText.isNotEmpty()
     if (message.isNotEmpty()) {
-      presenter.sendMessageTextBackToView(message, isEdited)
+      presenter.sendMessageTextBackToView(message, isEdited, chosenImagePath)
     }
   }
 

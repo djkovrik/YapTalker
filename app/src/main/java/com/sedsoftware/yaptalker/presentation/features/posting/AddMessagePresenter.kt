@@ -71,11 +71,11 @@ class AddMessagePresenter @Inject constructor(
     viewState.insertTag(" $code ")
   }
 
-  fun sendMessageTextBackToView(message: String, isEdited: Boolean) {
+  fun sendMessageTextBackToView(message: String, isEdited: Boolean, chosenImagePath: String) {
     if (isEdited) {
       router.exitWithResult(RequestCode.EDITED_MESSAGE_TEXT, message)
     } else {
-      router.exitWithResult(RequestCode.MESSAGE_TEXT, message)
+      router.exitWithResult(RequestCode.MESSAGE_TEXT, Pair(message, chosenImagePath))
     }
   }
 

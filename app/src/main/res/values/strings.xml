@@ -142,6 +142,7 @@
   <string name="msg_karma_already_rated_post">You already rated this post.</string>
   <string name="msg_karma_changed_topic">Topic karma changed successfully.</string>
   <string name="msg_karma_already_rated_topic">You already rated this post.</string>
+  <string name="title_image_selection">Select image</string>
 
   <!-- MENUS -->
   <string name="action_save">Save</string>
