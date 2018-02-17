@@ -23,6 +23,9 @@ import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.extensions.getFilePath
+import com.sedsoftware.yaptalker.presentation.extensions.hideView
+import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiAdapter
 import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiClickListener
@@ -31,7 +34,6 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_new_post.*
 import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.*
-import timber.log.Timber
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_new_post)
@@ -79,6 +81,8 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
   }
 
   private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+
+  private var chosenImagePath = ""
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -137,7 +141,8 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     super.onActivityResult(requestCode, resultCode, data)
 
     if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_REQUEST) {
-      Timber.d(data.toString())
+      chosenImagePath = activity?.contentResolver?.let { data?.data?.getFilePath(it) } ?: ""
+      handleAttachmentCardState()
     }
   }
 
@@ -318,6 +323,15 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
       .clicks(new_post_button_smiles)
       .autoDisposable(event(FragmentLifecycle.DESTROY))
       .subscribe { presenter.onSmilesButtonClicked() }
+
+    // Attachment
+    RxView
+      .clicks(chosen_image_card)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        chosenImagePath = ""
+        handleAttachmentCardState()
+      }
   }
 
   private fun returnMessageText() {
@@ -325,6 +339,15 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     val isEdited = editedText.isNotEmpty()
     if (message.isNotEmpty()) {
       presenter.sendMessageTextBackToView(message, isEdited)
+    }
+  }
+
+  private fun handleAttachmentCardState() {
+    if (chosenImagePath.isEmpty()) {
+      chosen_image_card.hideView()
+    } else {
+      chosen_image_card.showView()
+      chosen_image_name.text = chosenImagePath.substringAfterLast("/")
     }
   }
 }

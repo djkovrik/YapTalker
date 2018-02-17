@@ -113,6 +113,26 @@
 
   </LinearLayout>
 
+  <android.support.v7.widget.CardView
+    android:id="@+id/chosen_image_card"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|start"
+    android:layout_margin="@dimen/material_card_edge_margin"
+    android:visibility="gone">
+
+    <TextView
+      android:id="@+id/chosen_image_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:drawablePadding="@dimen/attachment_card_drawable_padding"
+      android:drawableStart="?attr/iconRemoveAttachment"
+      android:gravity="center"
+      android:padding="@dimen/attachment_card_padding"
+      tools:text="My super photo.jpg" />
+
+  </android.support.v7.widget.CardView>
+
   <include layout="@layout/fragment_new_post_bottom_sheet" />
 
 </android.support.design.widget.CoordinatorLayout>
