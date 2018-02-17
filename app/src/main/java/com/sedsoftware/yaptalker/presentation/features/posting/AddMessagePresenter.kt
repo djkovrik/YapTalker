@@ -79,6 +79,15 @@ class AddMessagePresenter @Inject constructor(
     }
   }
 
+  fun onSmilesButtonClicked() {
+    viewState.hideKeyboard()
+    viewState.callForSmilesBottomSheet()
+  }
+
+  fun onImageAttachButtonClicked() {
+    viewState.showImagePickerDialog()
+  }
+
   private fun onTagClickedWithSelection(@Tag tag: Long) {
     when (tag) {
       MessageTagCodes.TAG_B -> {
@@ -128,11 +137,6 @@ class AddMessagePresenter @Inject constructor(
 
   private fun onVideoLinkTagClicked() {
     viewState.showVideoLinkParametersDialog()
-  }
-
-  fun onSmilesButtonClicked() {
-    viewState.hideKeyboard()
-    viewState.callForSmilesBottomSheet()
   }
 
   private fun loadEmojiList() {

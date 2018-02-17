@@ -1,6 +1,8 @@
 package com.sedsoftware.yaptalker.presentation.features.posting
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.GridLayoutManager
@@ -29,6 +31,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_new_post.*
 import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.*
+import timber.log.Timber
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_new_post)
@@ -48,6 +51,9 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     private const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
     private const val QUOTED_TEXT_KEY = "QUOTED_TEXT_KEY"
     private const val EDITED_TEXT_KEY = "EDITED_TEXT_KEY"
+
+    private const val IMAGE_TYPE = "image/*"
+    private const val PICK_IMAGE_REQUEST = 42
   }
 
   @Inject
@@ -116,12 +122,24 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean =
     when (item.itemId) {
+      R.id.action_attach -> {
+        presenter.onImageAttachButtonClicked()
+        true
+      }
       R.id.action_send -> {
         returnMessageText()
         true
       }
       else -> super.onOptionsItemSelected(item)
     }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+
+    if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_REQUEST) {
+      Timber.d(data.toString())
+    }
+  }
 
   override fun appendEmojiItem(emoji: YapEntity) {
     emojiAdapter.addEmojiItem(emoji)
@@ -219,6 +237,20 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
       BottomSheetBehavior.STATE_HIDDEN -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
       else -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
+  }
+
+  override fun showImagePickerDialog() {
+
+    val getIntent = Intent(Intent.ACTION_GET_CONTENT)
+    getIntent.type = IMAGE_TYPE
+
+    val pickIntent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+    pickIntent.type = IMAGE_TYPE
+
+    val chooserIntent = Intent.createChooser(getIntent, "Select your image")
+    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
+
+    startActivityForResult(chooserIntent, PICK_IMAGE_REQUEST)
   }
 
   override fun onEmojiClicked(code: String) {
