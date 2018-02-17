@@ -9,6 +9,10 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
 import io.reactivex.Completable
 import io.reactivex.Single
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import javax.inject.Inject
 
 class YapChosenTopicRepository @Inject constructor(
@@ -30,6 +34,9 @@ class YapChosenTopicRepository @Inject constructor(
     private const val POST_MAX_FILE_SIZE = 512000
 
     private const val POST_EDIT_CODE = "09"
+
+    private const val FILE_PART_NAME = "FILE_UPLOAD"
+    private const val UPLOADED_FILE_TYPE = "image/jpeg"
   }
 
   override fun getChosenTopic(forumId: Int, topicId: Int, startPostNumber: Int): Single<List<BaseEntity>> =
@@ -96,7 +103,7 @@ class YapChosenTopicRepository @Inject constructor(
     page: Int,
     authKey: String,
     message: String,
-    file: String
+    filePath: String
   ): Completable =
     dataLoader
       .postMessage(
@@ -109,9 +116,9 @@ class YapChosenTopicRepository @Inject constructor(
         enablesig = "yes",
         authKey = authKey,
         postContent = message,
+        enabletag = 0,
         maxFileSize = POST_MAX_FILE_SIZE,
-        fileupload = file,
-        enabletag = 0
+        uploadedFile = createMultiPartForFile(FILE_PART_NAME, filePath)
       )
       .map(dataMapper)
       .toCompletable()
@@ -144,4 +151,13 @@ class YapChosenTopicRepository @Inject constructor(
       )
       .map(dataMapper)
       .toCompletable()
+
+  private fun createMultiPartForFile(partName: String, path: String): MultipartBody.Part? =
+    if (path.isNotEmpty()) {
+      val file = File(path)
+      val requestFile = RequestBody.create(MediaType.parse(UPLOADED_FILE_TYPE), file)
+      MultipartBody.Part.createFormData(partName, file.name, requestFile)
+    } else {
+      null
+    }
 }

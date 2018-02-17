@@ -27,7 +27,7 @@ interface ChosenTopicRepository {
     page: Int,
     authKey: String,
     message: String,
-    file: String
+    filePath: String
   ): Completable
 
   fun requestEditedMessageSending(

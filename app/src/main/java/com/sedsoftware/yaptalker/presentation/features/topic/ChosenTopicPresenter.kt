@@ -85,7 +85,7 @@ class ChosenTopicPresenter @Inject constructor(
   private var clearCurrentList = false
 
   init {
-    router.setResultListener(RequestCode.MESSAGE_TEXT, { message -> sendMessage(message as String) })
+    router.setResultListener(RequestCode.MESSAGE_TEXT, { message -> sendMessage(message as Pair<String, String>) })
     router.setResultListener(RequestCode.EDITED_MESSAGE_TEXT, { message -> sendEditedMessage(message as String) })
   }
 
@@ -304,7 +304,7 @@ class ChosenTopicPresenter @Inject constructor(
     getVideoThumbnailUseCase
       .execute(GetVideoThumbnail.Params(videoUrl))
 
-  private fun sendMessage(message: String) {
+  private fun sendMessage(message: Pair<String, String>) {
 
     if (authKey.isEmpty()) {
       return
@@ -313,7 +313,16 @@ class ChosenTopicPresenter @Inject constructor(
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
     sendMessageUseCase
-      .execute(SendMessageRequest.Params(currentForumId, currentTopicId, startingPost, authKey, message))
+      .execute(
+        SendMessageRequest.Params(
+          currentForumId,
+          currentTopicId,
+          startingPost,
+          authKey,
+          message.first,
+          message.second
+        )
+      )
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }

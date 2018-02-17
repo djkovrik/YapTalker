@@ -15,6 +15,7 @@ import com.sedsoftware.yaptalker.data.parsed.TopicPageParsed
 import com.sedsoftware.yaptalker.data.parsed.UserProfileParsed
 import io.reactivex.Observable
 import io.reactivex.Single
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Field
@@ -294,9 +295,9 @@ interface YapLoader {
     @Part("enablesig") enablesig: String,
     @Part("auth_key") authKey: String,
     @Part("Post") postContent: String,
+    @Part("enabletag") enabletag: Int,
     @Part("MAX_FILE_SIZE") maxFileSize: Int,
-    @Part("FILE_UPLOAD") fileupload: String,
-    @Part("enabletag") enabletag: Int
+    @Part uploadedFile: MultipartBody.Part?
   ): Single<TopicPageParsed>
 
 
