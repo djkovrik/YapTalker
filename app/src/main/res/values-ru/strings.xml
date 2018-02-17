@@ -135,6 +135,7 @@
   <string name="action_save">Сохранить</string>
   <string name="action_share">Поделиться</string>
   <string name="action_send">Отправить</string>
+  <string name="action_attach">Прикрепить изображение</string>
   <string name="action_topic_karma_plus">Поставить +1</string>
   <string name="action_topic_karma_minus">Поставить -1</string>
   <string name="action_post_karma_plus">Поставить +1</string>
