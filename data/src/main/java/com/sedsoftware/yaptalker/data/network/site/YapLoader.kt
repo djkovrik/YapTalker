@@ -298,7 +298,7 @@ interface YapLoader {
     @Part("enabletag") enabletag: Int,
     @Part("MAX_FILE_SIZE") maxFileSize: Int,
     @Part uploadedFile: MultipartBody.Part?
-  ): Single<TopicPageParsed>
+  ): Single<Response<ResponseBody>>
 
 
   /**
@@ -339,7 +339,7 @@ interface YapLoader {
     @Part("FILE_UPLOAD") fileupload: String,
     @Part("enabletag") enabletag: Int,
     @Part("p") post: Int
-  ): Single<TopicPageParsed>
+  ): Single<Response<ResponseBody>>
 
 
   /**

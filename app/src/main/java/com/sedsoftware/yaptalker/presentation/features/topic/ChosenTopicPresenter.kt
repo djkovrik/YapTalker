@@ -332,7 +332,7 @@ class ChosenTopicPresenter @Inject constructor(
       .subscribe({
         // onComplete
         Timber.i("Send message request completed.")
-        loadTopicCurrentPage(shouldScrollToViewTop = false)
+        refreshCurrentPage()
       }, { error ->
         // onError
         error.message?.let { viewState.showErrorMessage(it) }
@@ -362,7 +362,7 @@ class ChosenTopicPresenter @Inject constructor(
       .subscribe({
         // onComplete
         Timber.i("Send edited message request completed.")
-        loadTopicCurrentPage(shouldScrollToViewTop = false)
+        refreshCurrentPage()
       }, { error ->
         // onError
         error.message?.let { viewState.showErrorMessage(it) }
@@ -408,7 +408,7 @@ class ChosenTopicPresenter @Inject constructor(
         }
 
         Timber.i("Karma changing request completed.")
-        loadTopicCurrentPage(shouldScrollToViewTop = false)
+        refreshCurrentPage()
       }
 
       override fun onError(error: Throwable) {
