@@ -1,5 +1,9 @@
-### Current version: 0.8.11
+### Current version: 0.9.0
 # Changelog
+## [0.9.0] - 2018-02-20
+## Added
+- Images posting
+- Two pane mode checkbox for tablets
 
 ## [0.8.11] - 2018-02-11
 ## Added
