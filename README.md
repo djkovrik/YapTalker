@@ -36,3 +36,6 @@ RELEASE_KEY_PASSWORD="Key password"
 * The app uses access token to download vk.com video thumbnails, you can obtain a new token [here](https://vk.com/dev/access_token)
 
 
+Download
+--------
+[![4pda](https://github.com/djkovrik/YapTalker/blob/master/graphics/4pda.png)](http://4pda.ru/forum/index.php?showtopic=881650)
