@@ -98,7 +98,7 @@ class SettingsManager @Inject constructor(
   }
 
   override fun isInTwoPaneMode(): Boolean =
-    getBooleanPref(R.string.pref_key_two_pane_mode, false)
+    getBooleanPref(R.string.pref_key_two_pane_mode, context.resources.getBoolean(R.bool.two_pane_mode))
 
   private fun getStringPref(@StringRes key: Int, default: String): String =
     preferences.getString(context.resources.getString(key), default)
