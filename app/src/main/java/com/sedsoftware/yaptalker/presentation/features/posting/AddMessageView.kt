@@ -29,4 +29,6 @@ interface AddMessageView : BaseView {
   fun hideKeyboard()
 
   fun callForSmilesBottomSheet()
+
+  fun showImagePickerDialog()
 }

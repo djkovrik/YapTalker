@@ -41,15 +41,6 @@ android {
         }
     }
     buildTypes {
-        beta {
-            signingConfig signingConfigs.release
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
-            proguardFiles fileTree('proguard').asList().toArray()
-            versionNameSuffix "-beta"
-            matchingFallbacks = ['debug', 'release']
-        }
         release {
             signingConfig signingConfigs.release
             minifyEnabled true
@@ -152,7 +143,6 @@ dependencies {
     implementation developmentDependencies.timber
     debugImplementation developmentDependencies.leakCanary
     releaseImplementation developmentDependencies.leakCanaryNoOp
-    betaImplementation developmentDependencies.leakCanaryNoOp
     testImplementation developmentDependencies.leakCanaryNoOp
 }
 

@@ -18,10 +18,17 @@ class SendEditedMessageRequest @Inject constructor(
         targetPostId = parameter.postId,
         page = parameter.page,
         authKey = parameter.authKey,
-        message = parameter.message
+        message = parameter.message,
+        file = parameter.file
       )
 
   class Params(
-    val forumId: Int, val topicId: Int, val postId: Int, val page: Int, val authKey: String, val message: String
+    val forumId: Int,
+    val topicId: Int,
+    val postId: Int,
+    val page: Int,
+    val authKey: String,
+    val message: String,
+    val file: String = ""
   )
 }

@@ -31,4 +31,6 @@ interface Settings {
   fun isScreenAlwaysOnEnabled(): Boolean
 
   fun isHttpsEnabled(): Boolean
+
+  fun isInTwoPaneMode(): Boolean
 }

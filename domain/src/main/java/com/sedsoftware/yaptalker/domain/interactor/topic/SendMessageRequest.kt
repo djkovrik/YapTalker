@@ -16,8 +16,16 @@ class SendMessageRequest @Inject constructor(
         targetTopicId = parameter.topicId,
         page = parameter.page,
         authKey = parameter.authKey,
-        message = parameter.message
+        message = parameter.message,
+        filePath = parameter.filePath
       )
 
-  class Params(val forumId: Int, val topicId: Int, val page: Int, val authKey: String, val message: String)
+  class Params(
+    val forumId: Int,
+    val topicId: Int,
+    val page: Int,
+    val authKey: String,
+    val message: String,
+    val filePath: String = ""
+  )
 }

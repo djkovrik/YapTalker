@@ -71,12 +71,21 @@ class AddMessagePresenter @Inject constructor(
     viewState.insertTag(" $code ")
   }
 
-  fun sendMessageTextBackToView(message: String, isEdited: Boolean) {
+  fun sendMessageTextBackToView(message: String, isEdited: Boolean, chosenImagePath: String) {
     if (isEdited) {
       router.exitWithResult(RequestCode.EDITED_MESSAGE_TEXT, message)
     } else {
-      router.exitWithResult(RequestCode.MESSAGE_TEXT, message)
+      router.exitWithResult(RequestCode.MESSAGE_TEXT, Pair(message, chosenImagePath))
     }
+  }
+
+  fun onSmilesButtonClicked() {
+    viewState.hideKeyboard()
+    viewState.callForSmilesBottomSheet()
+  }
+
+  fun onImageAttachButtonClicked() {
+    viewState.showImagePickerDialog()
   }
 
   private fun onTagClickedWithSelection(@Tag tag: Long) {
@@ -128,11 +137,6 @@ class AddMessagePresenter @Inject constructor(
 
   private fun onVideoLinkTagClicked() {
     viewState.showVideoLinkParametersDialog()
-  }
-
-  fun onSmilesButtonClicked() {
-    viewState.hideKeyboard()
-    viewState.callForSmilesBottomSheet()
   }
 
   private fun loadEmojiList() {

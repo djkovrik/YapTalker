@@ -1,6 +1,8 @@
 package com.sedsoftware.yaptalker.presentation.features.posting
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.GridLayoutManager
@@ -18,9 +20,12 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
+import com.sedsoftware.yaptalker.device.fileresolver.FilePathResolver
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.extensions.hideView
+import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiAdapter
 import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiClickListener
@@ -48,10 +53,16 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     private const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
     private const val QUOTED_TEXT_KEY = "QUOTED_TEXT_KEY"
     private const val EDITED_TEXT_KEY = "EDITED_TEXT_KEY"
+
+    private const val IMAGE_TYPE = "image/*"
+    private const val PICK_IMAGE_REQUEST = 42
   }
 
   @Inject
   lateinit var emojiAdapter: EmojiAdapter
+
+  @Inject
+  lateinit var pathResolver: FilePathResolver
 
   @Inject
   @InjectPresenter
@@ -73,6 +84,8 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
   }
 
   private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+
+  private var chosenImagePath = ""
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -116,12 +129,25 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean =
     when (item.itemId) {
+      R.id.action_attach -> {
+        presenter.onImageAttachButtonClicked()
+        true
+      }
       R.id.action_send -> {
         returnMessageText()
         true
       }
       else -> super.onOptionsItemSelected(item)
     }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+
+    if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_REQUEST) {
+      chosenImagePath = data?.let { pathResolver.getFilePathFromUri(data.data) } ?: ""
+      handleAttachmentCardState()
+    }
+  }
 
   override fun appendEmojiItem(emoji: YapEntity) {
     emojiAdapter.addEmojiItem(emoji)
@@ -221,6 +247,20 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     }
   }
 
+  override fun showImagePickerDialog() {
+
+    val getIntent = Intent(Intent.ACTION_GET_CONTENT)
+    getIntent.type = IMAGE_TYPE
+
+    val pickIntent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+    pickIntent.type = IMAGE_TYPE
+
+    val chooserIntent = Intent.createChooser(getIntent, context?.getString(R.string.title_image_selection))
+    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
+
+    startActivityForResult(chooserIntent, PICK_IMAGE_REQUEST)
+  }
+
   override fun onEmojiClicked(code: String) {
     presenter.insertEmoji(code)
   }
@@ -286,13 +326,31 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
       .clicks(new_post_button_smiles)
       .autoDisposable(event(FragmentLifecycle.DESTROY))
       .subscribe { presenter.onSmilesButtonClicked() }
+
+    // Attachment
+    RxView
+      .clicks(chosen_image_card)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        chosenImagePath = ""
+        handleAttachmentCardState()
+      }
   }
 
   private fun returnMessageText() {
     val message = new_post_edit_text.text.toString()
     val isEdited = editedText.isNotEmpty()
     if (message.isNotEmpty()) {
-      presenter.sendMessageTextBackToView(message, isEdited)
+      presenter.sendMessageTextBackToView(message, isEdited, chosenImagePath)
+    }
+  }
+
+  private fun handleAttachmentCardState() {
+    if (chosenImagePath.isEmpty()) {
+      chosen_image_card.hideView()
+    } else {
+      chosen_image_card.showView()
+      chosen_image_name.text = chosenImagePath.substringAfterLast("/")
     }
   }
 }

@@ -48,6 +48,7 @@
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail</item>
     <item name="iconVideoOverlay">@drawable/ic_video_play</item>
+    <item name="iconRemoveAttachment">@drawable/ic_close</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.AppBarOverlay</item>
     <item name="PopupOverlay">@style/AppTheme.PopupOverlay</item>
@@ -106,6 +107,7 @@
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_dark</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail_dark</item>
     <item name="iconVideoOverlay">@drawable/ic_video_play_dark</item>
+    <item name="iconRemoveAttachment">@drawable/ic_close_dark</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.Dark.AppBarOverlay</item>
     <item name="PopupOverlay">@style/AppTheme.Dark.PopupOverlay</item>

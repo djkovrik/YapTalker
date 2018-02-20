@@ -15,6 +15,7 @@ import com.sedsoftware.yaptalker.data.parsed.TopicPageParsed
 import com.sedsoftware.yaptalker.data.parsed.UserProfileParsed
 import io.reactivex.Observable
 import io.reactivex.Single
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Field
@@ -294,28 +295,29 @@ interface YapLoader {
     @Part("enablesig") enablesig: String,
     @Part("auth_key") authKey: String,
     @Part("Post") postContent: String,
+    @Part("enabletag") enabletag: Int,
     @Part("MAX_FILE_SIZE") maxFileSize: Int,
-    @Part("enabletag") enabletag: Int
-  ): Single<TopicPageParsed>
+    @Part uploadedFile: MultipartBody.Part?
+  ): Single<Response<ResponseBody>>
 
 
   /**
    * Send edited message posting request to the site.
    *
-   * @param st Starting page.
    * @param act Message posting action type.
-   * @param s Unknown for now (empty).
+   * @param code Message posting action code.
    * @param forum Topic's parent forum id.
+   * @param topic Current topic id.
+   * @param st Starting page.
+   * @param s Unknown for now (empty).
    * @param enableemo Enable emoji.
    * @param enablesig Enable signature.
    * @param authKey Authorization key.
-   * @param maxFileSize File size limit.
-   * @param code Message posting action code.
-   * @param topic Current topic id.
-   * @param post Edited post id.
    * @param postContent Message content.
-   * @param enabletag Enable site sign for image.
+   * @param maxFileSize File size limit.
    * @param fileupload File upload marker.
+   * @param enabletag Enable site sign for image.
+   * @param post Edited post id.
    *
    * @return Parsed topic page Single.
    */
@@ -323,21 +325,21 @@ interface YapLoader {
   @Multipart
   @POST("/")
   fun postEditedMessage(
-    @Part("st") st: Int,
     @Part("act") act: String,
-    @Part("s") s: String,
+    @Part("CODE") code: String,
     @Part("f") forum: Int,
+    @Part("t") topic: Int,
+    @Part("st") st: Int,
+    @Part("s") s: String,
     @Part("enableemo") enableemo: String,
     @Part("enablesig") enablesig: String,
     @Part("auth_key") authKey: String,
-    @Part("MAX_FILE_SIZE") maxFileSize: Int,
-    @Part("CODE") code: String,
-    @Part("t") topic: Int,
-    @Part("p") post: Int,
     @Part("Post") postContent: String,
+    @Part("MAX_FILE_SIZE") maxFileSize: Int,
+    @Part("FILE_UPLOAD") fileupload: String,
     @Part("enabletag") enabletag: Int,
-    @Part("FILE_UPLOAD") fileupload: String
-  ): Single<TopicPageParsed>
+    @Part("p") post: Int
+  ): Single<Response<ResponseBody>>
 
 
   /**

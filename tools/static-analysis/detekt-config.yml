@@ -196,8 +196,8 @@ complexity:
     threshold: 5
   TooManyFunctions:
     active: true
-    thresholdInFiles: 20
-    thresholdInClasses: 20
+    thresholdInFiles: 25
+    thresholdInClasses: 25
     thresholdInInterfaces: 20
     thresholdInObjects: 15
     thresholdInEnums: 15

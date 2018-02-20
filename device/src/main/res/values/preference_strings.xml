@@ -39,6 +39,9 @@
   <string name="pref_appearance_theme_label_dark">Dark</string>
   <string name="pref_appearance_theme_value_light" translatable="false">light</string>
   <string name="pref_appearance_theme_value_dark" translatable="false">dark</string>
+  <!-- Two-pane mode -->
+  <string name="pref_appearance_two_pane_mode_title">Two pane mode</string>
+  <string name="pref_appearance_two_pane_mode_summary">Use tablets-designed layout variation.</string>
 
   <!-- CONTENT -->
   <string name="pref_category_title_content">Content</string>

@@ -130,11 +130,13 @@
   <string name="msg_karma_already_rated_post">Вы уже изменяли рейтинг этого поста.</string>
   <string name="msg_karma_changed_topic">Рейтинг темы успешно изменен.</string>
   <string name="msg_karma_already_rated_topic">Вы уже изменяли рейтинг этой темы.</string>
+  <string name="title_image_selection">Выберите изображение</string>
 
   <!-- MENUS -->
   <string name="action_save">Сохранить</string>
   <string name="action_share">Поделиться</string>
   <string name="action_send">Отправить</string>
+  <string name="action_attach">Прикрепить изображение</string>
   <string name="action_topic_karma_plus">Поставить +1</string>
   <string name="action_topic_karma_minus">Поставить -1</string>
   <string name="action_post_karma_plus">Поставить +1</string>

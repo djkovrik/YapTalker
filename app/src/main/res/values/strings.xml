@@ -142,11 +142,13 @@
   <string name="msg_karma_already_rated_post">You already rated this post.</string>
   <string name="msg_karma_changed_topic">Topic karma changed successfully.</string>
   <string name="msg_karma_already_rated_topic">You already rated this post.</string>
+  <string name="title_image_selection">Select image</string>
 
   <!-- MENUS -->
   <string name="action_save">Save</string>
   <string name="action_share">Share</string>
   <string name="action_send">Send</string>
+  <string name="action_attach">Attach image</string>
   <string name="action_topic_karma_plus">Add +1</string>
   <string name="action_topic_karma_minus">Add -1</string>
   <string name="action_post_karma_plus">Add +1</string>
