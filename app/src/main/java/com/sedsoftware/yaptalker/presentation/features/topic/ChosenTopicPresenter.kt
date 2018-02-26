@@ -192,6 +192,11 @@ class ChosenTopicPresenter @Inject constructor(
     viewState.shareTopic(currentTitle, startingPost)
   }
 
+
+  fun openTopicGallery() {
+    // TODO Implement this
+  }
+
   fun showPostKarmaMenuIfAvailable(postId: Int) {
     if (postId == 0 || authKey.isEmpty()) {
       return
