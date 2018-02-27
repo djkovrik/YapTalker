@@ -17,4 +17,5 @@ object NavigationScreen {
   const val INCUBATOR_SCREEN = "INCUBATOR_SCREEN"
   const val SEARCH_FORM = "SEARCH_FORM"
   const val SEARCH_RESULTS = "SEARCH_RESULTS"
+  const val TOPIC_GALLERY = "TOPIC_GALLERY"
 }
