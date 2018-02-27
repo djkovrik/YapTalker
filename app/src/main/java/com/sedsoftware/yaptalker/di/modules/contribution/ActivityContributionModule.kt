@@ -1,6 +1,8 @@
 package com.sedsoftware.yaptalker.di.modules.contribution
 
 import com.sedsoftware.yaptalker.di.scopes.ActivityScope
+import com.sedsoftware.yaptalker.presentation.features.gallery.TopicGalleryActivity
+import com.sedsoftware.yaptalker.presentation.features.gallery.di.TopicGalleryActivityModule
 import com.sedsoftware.yaptalker.presentation.features.gifdisplay.GifDisplayActivity
 import com.sedsoftware.yaptalker.presentation.features.gifdisplay.di.GifDisplayActivityModule
 import com.sedsoftware.yaptalker.presentation.features.imagedisplay.ImageDisplayActivity
@@ -37,4 +39,8 @@ interface ActivityContributionModule {
   @ActivityScope
   @ContributesAndroidInjector(modules = [(GifDisplayActivityModule::class)])
   fun gifActivityInjector(): GifDisplayActivity
+
+  @ActivityScope
+  @ContributesAndroidInjector(modules = [(TopicGalleryActivityModule::class)])
+  fun galleryActivityInjector(): TopicGalleryActivity
 }
