@@ -127,8 +127,8 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     supportActionBar?.title = title
   }
 
-  override fun selectNavDrawerItem(item: Long) {
-    navDrawer.setSelection(item, false)
+  override fun selectNavDrawerItem(item: Int) {
+    navDrawer.setSelection(item.toLong(), false)
   }
 
   override fun updateNavDrawerProfile(userInfo: LoginSessionInfoModel) {
@@ -150,9 +150,9 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   }
 
   override fun clearDynamicNavigationItems() {
-    navDrawer.removeItem(NavigationSection.SIGN_IN)
-    navDrawer.removeItem(NavigationSection.SIGN_OUT)
-    navDrawer.removeItem(NavigationSection.BOOKMARKS)
+    navDrawer.removeItem(NavigationSection.SIGN_IN.toLong())
+    navDrawer.removeItem(NavigationSection.SIGN_OUT.toLong())
+    navDrawer.removeItem(NavigationSection.BOOKMARKS.toLong())
   }
 
   override fun displaySignedInNavigation() {
@@ -176,7 +176,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   private fun initializeNavigationDrawer(savedInstanceState: Bundle?) {
 
     drawerItemMainPage = PrimaryDrawerItem()
-      .withIdentifier(NavigationSection.MAIN_PAGE)
+      .withIdentifier(NavigationSection.MAIN_PAGE.toLong())
       .withName(R.string.nav_drawer_main_page)
 //      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_home)
@@ -186,7 +186,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .withSelectedIconColorRes(R.color.colorNavMainPage)
 
     drawerItemForums = PrimaryDrawerItem()
-      .withIdentifier(NavigationSection.FORUMS)
+      .withIdentifier(NavigationSection.FORUMS.toLong())
       .withName(R.string.nav_drawer_forums)
 //      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_forum)
@@ -196,7 +196,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .withSelectedIconColorRes(R.color.colorNavForums)
 
     drawerItemActiveTopics = PrimaryDrawerItem()
-      .withIdentifier(NavigationSection.ACTIVE_TOPICS)
+      .withIdentifier(NavigationSection.ACTIVE_TOPICS.toLong())
       .withName(R.string.nav_drawer_active_topics)
 //      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_bulletin_board)
@@ -206,7 +206,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .withSelectedIconColorRes(R.color.colorNavActiveTopics)
 
     drawerItemIncubator = PrimaryDrawerItem()
-      .withIdentifier(NavigationSection.INCUBATOR)
+      .withIdentifier(NavigationSection.INCUBATOR.toLong())
       .withName(R.string.nav_drawer_incubator)
 //      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_human_child)
@@ -216,7 +216,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .withSelectedIconColorRes(R.color.colorNavIncubator)
 
     drawerItemBookmarks = PrimaryDrawerItem()
-      .withIdentifier(NavigationSection.BOOKMARKS)
+      .withIdentifier(NavigationSection.BOOKMARKS.toLong())
       .withName(R.string.nav_drawer_bookmarks)
 //      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_bookmark_outline)
@@ -226,7 +226,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .withSelectedIconColorRes(R.color.colorNavBookmarks)
 
     drawerItemSearch = PrimaryDrawerItem()
-      .withIdentifier(NavigationSection.SITE_SEARCH)
+      .withIdentifier(NavigationSection.SITE_SEARCH.toLong())
       .withName(R.string.nav_drawer_search)
 //      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_magnify)
@@ -236,7 +236,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .withSelectedIconColorRes(R.color.colorNavSearch)
 
     drawerItemSettings = PrimaryDrawerItem()
-      .withIdentifier(NavigationSection.SETTINGS)
+      .withIdentifier(NavigationSection.SETTINGS.toLong())
       .withIcon(CommunityMaterial.Icon.cmd_settings)
       .withName(R.string.nav_drawer_settings)
 //      .withSelectable(false)
@@ -246,7 +246,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .withSelectedIconColorRes(R.color.colorNavSettings)
 
     drawerItemSignIn = PrimaryDrawerItem()
-      .withIdentifier(NavigationSection.SIGN_IN)
+      .withIdentifier(NavigationSection.SIGN_IN.toLong())
       .withName(R.string.nav_drawer_sign_in)
 //      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_login)
@@ -256,7 +256,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .withSelectedIconColorRes(R.color.colorNavSignIn)
 
     drawerItemSignOut = PrimaryDrawerItem()
-      .withIdentifier(NavigationSection.SIGN_OUT)
+      .withIdentifier(NavigationSection.SIGN_OUT.toLong())
       .withName(R.string.nav_drawer_sign_out)
 //      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_logout)
@@ -295,7 +295,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .addDrawerItems(drawerItemSettings)
       .withOnDrawerItemClickListener { _, _, drawerItem ->
         if (drawerItem is Nameable<*>) {
-          navigationPresenter.navigateToChosenSection(drawerItem.identifier)
+          navigationPresenter.navigateToChosenSection(drawerItem.identifier.toInt())
         }
         false
       }

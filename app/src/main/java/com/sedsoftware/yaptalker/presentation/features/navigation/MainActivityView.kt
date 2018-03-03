@@ -9,5 +9,5 @@ interface MainActivityView : BaseView {
 
   fun setAppbarTitle(title: String)
 
-  fun selectNavDrawerItem(item: Long)
+  fun selectNavDrawerItem(item: Int)
 }

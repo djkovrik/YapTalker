@@ -4,7 +4,6 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.NavigationPanel
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePost
 import com.sedsoftware.yaptalker.domain.entity.base.TopicInfoBlock
-import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
@@ -57,7 +56,7 @@ class TopicGalleryModelMapper @Inject constructor(
           )
         }
 
-        is SinglePost -> imagesList.addAll(item.postContentParsed.images.map { url -> url.validateUrl() })
+        is SinglePost -> imagesList.addAll(item.postContentParsed.images)
       }
     }
 

@@ -4,14 +4,14 @@ import android.support.annotation.IntDef
 
 class TargetPeriod {
   companion object {
-    const val ALL_TIME = 0L
-    const val TODAY = 1L
-    const val DAYS_7 = 7L
-    const val DAYS_30 = 30L
-    const val DAYS_60 = 60L
-    const val DAYS_90 = 90L
-    const val DAYS_180 = 180L
-    const val DAYS_365 = 365L
+    const val ALL_TIME = 0
+    const val TODAY = 1
+    const val DAYS_7 = 7
+    const val DAYS_30 = 30
+    const val DAYS_60 = 60
+    const val DAYS_90 = 90
+    const val DAYS_180 = 180
+    const val DAYS_365 = 365
   }
 
   @Retention(AnnotationRetention.SOURCE)

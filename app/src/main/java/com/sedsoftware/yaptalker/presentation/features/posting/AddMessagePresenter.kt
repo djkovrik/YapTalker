@@ -48,7 +48,7 @@ class AddMessagePresenter @Inject constructor(
     super.detachView(view)
   }
 
-  fun insertChosenTag(selectionStart: Int, selectionEnd: Int, @Tag tag: Long) {
+  fun insertChosenTag(selectionStart: Int, selectionEnd: Int, @Tag tag: Int) {
     when {
       tag == MessageTagCodes.TAG_LINK -> onLinkTagClicked()
       tag == MessageTagCodes.TAG_VIDEO -> onVideoLinkTagClicked()
@@ -88,7 +88,7 @@ class AddMessagePresenter @Inject constructor(
     viewState.showImagePickerDialog()
   }
 
-  private fun onTagClickedWithSelection(@Tag tag: Long) {
+  private fun onTagClickedWithSelection(@Tag tag: Int) {
     when (tag) {
       MessageTagCodes.TAG_B -> {
         viewState.insertTags(MessageTags.B_OPEN, MessageTags.B_CLOSE)
@@ -102,7 +102,7 @@ class AddMessagePresenter @Inject constructor(
     }
   }
 
-  private fun onTagClickedWithNoSelection(@Tag tag: Long) {
+  private fun onTagClickedWithNoSelection(@Tag tag: Int) {
     when (tag) {
       MessageTagCodes.TAG_B -> {
         if (isBOpened) {

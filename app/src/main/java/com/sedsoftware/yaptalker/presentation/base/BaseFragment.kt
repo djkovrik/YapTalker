@@ -15,7 +15,7 @@ import io.reactivex.Maybe
 
 abstract class BaseFragment : MvpAppCompatFragment() {
 
-  private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
+  private val lifecycle: BehaviorRelay<Int> = BehaviorRelay.create()
   private lateinit var backPressHandler: BackPressHandler
 
   open fun onBackPressed(): Boolean = false
@@ -80,6 +80,6 @@ abstract class BaseFragment : MvpAppCompatFragment() {
     lifecycle.accept(FragmentLifecycle.DETACH)
   }
 
-  protected fun event(@FragmentLifecycle.Event event: Long): Maybe<*> =
+  protected fun event(@FragmentLifecycle.Event event: Int): Maybe<*> =
     lifecycle.filter({ e -> e == event }).firstElement()
 }

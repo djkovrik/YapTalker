@@ -5,10 +5,10 @@ import android.support.annotation.IntDef
 class PresenterLifecycle {
 
   companion object {
-    const val CREATE = 0L
-    const val ATTACH_VIEW = 1L
-    const val DETACH_VIEW = 2L
-    const val DESTROY = 3L
+    const val CREATE = 0
+    const val ATTACH_VIEW = 1
+    const val DETACH_VIEW = 2
+    const val DESTROY = 3
   }
 
   @Retention(AnnotationRetention.SOURCE)

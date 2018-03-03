@@ -41,7 +41,7 @@ class NewsAdapter @Inject constructor(
     }
   }
 
-  override fun onViewDetachedFromWindow(holder: ViewHolder?) {
+  override fun onViewDetachedFromWindow(holder: ViewHolder) {
     super.onViewDetachedFromWindow(holder)
     holder?.itemView?.clearAnimation()
   }

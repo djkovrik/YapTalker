@@ -32,7 +32,7 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
 
   protected lateinit var backPressFragment: BaseFragment
 
-  private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
+  private val lifecycle: BehaviorRelay<Int> = BehaviorRelay.create()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
@@ -92,7 +92,7 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
     backPressFragment = fragment
   }
 
-  protected fun event(@ActivityLifecycle.Event event: Long): Maybe<*> =
+  protected fun event(@ActivityLifecycle.Event event: Int): Maybe<*> =
     lifecycle.filter({ e -> e == event }).firstElement()
 
   private fun applyTheme() {

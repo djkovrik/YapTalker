@@ -5,10 +5,10 @@ import android.support.annotation.IntDef
 class ConnectionState {
 
   companion object {
-    const val IDLE = 0L
-    const val LOADING = 1L
-    const val COMPLETED = 2L
-    const val ERROR = 3L
+    const val IDLE = 0
+    const val LOADING = 1
+    const val COMPLETED = 2
+    const val ERROR = 3
   }
 
   @Retention(AnnotationRetention.SOURCE)
