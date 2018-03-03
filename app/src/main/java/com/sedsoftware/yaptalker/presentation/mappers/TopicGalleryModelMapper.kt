@@ -1,0 +1,75 @@
+package com.sedsoftware.yaptalker.presentation.mappers
+
+import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.NavigationPanel
+import com.sedsoftware.yaptalker.domain.entity.base.SinglePost
+import com.sedsoftware.yaptalker.domain.entity.base.TopicInfoBlock
+import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.mappers.util.TextTransformer
+import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
+import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
+import com.sedsoftware.yaptalker.presentation.model.base.TopicInfoBlockModel
+import io.reactivex.functions.Function
+import java.util.ArrayList
+import javax.inject.Inject
+
+/**
+ * Mapper class used to transform single topic image list entities from the domain layer into YapEntity list
+ * in the presentation layer.
+ */
+class TopicGalleryModelMapper @Inject constructor(
+  private val textTransformer: TextTransformer
+) : Function<List<BaseEntity>, List<YapEntity>> {
+
+  override fun apply(items: List<BaseEntity>): List<YapEntity> {
+
+    val result: MutableList<YapEntity> = ArrayList()
+    val imagesList: MutableList<String> = ArrayList()
+    var currentPage = 0
+    var totalPage = 0
+
+    items.forEach { item ->
+      when (item) {
+        is TopicInfoBlock -> result.add(
+          TopicInfoBlockModel(
+            topicTitle = item.topicTitle,
+            isClosed = item.isClosed,
+            authKey = item.authKey,
+            topicRating = item.topicRating,
+            topicRatingPlusAvailable = item.topicRatingPlusAvailable,
+            topicRatingMinusAvailable = item.topicRatingMinusAvailable,
+            topicRatingPlusClicked = item.topicRatingPlusClicked,
+            topicRatingMinusClicked = item.topicRatingMinusClicked,
+            topicRatingTargetId = item.topicRatingTargetId
+          )
+        )
+
+        is NavigationPanel -> {
+          currentPage = item.currentPage
+          totalPage = item.totalPages
+          result.add(
+            NavigationPanelModel(
+              currentPage = item.currentPage,
+              totalPages = item.totalPages,
+              navigationLabel = textTransformer.createNavigationLabel(item.currentPage, item.totalPages)
+            )
+          )
+        }
+
+        is SinglePost -> imagesList.addAll(item.postContentParsed.images.map { url -> url.validateUrl() })
+      }
+    }
+
+    imagesList.forEachIndexed { index, imageUrl ->
+      result.add(
+        SinglePostGalleryImageModel(
+          url = imageUrl,
+          showLoadMore = index == imagesList.lastIndex && currentPage != totalPage
+        )
+      )
+    }
+
+    return result
+  }
+}
