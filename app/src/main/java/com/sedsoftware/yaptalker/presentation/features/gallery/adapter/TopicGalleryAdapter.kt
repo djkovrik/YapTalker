@@ -18,7 +18,7 @@ class TopicGalleryAdapter @Inject constructor(
   private val loadMoreCallback: TopicGalleryLoadMoreClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-  private var items: MutableList<SinglePostGalleryImageModel> = ArrayList()
+  var items: MutableList<SinglePostGalleryImageModel> = ArrayList()
 
   init {
     setHasStableIds(true)

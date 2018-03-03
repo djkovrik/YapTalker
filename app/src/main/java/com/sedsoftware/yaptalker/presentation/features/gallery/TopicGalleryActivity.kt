@@ -1,10 +1,16 @@
 package com.sedsoftware.yaptalker.presentation.features.gallery
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
+import android.view.Menu
+import android.view.MenuItem
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
@@ -12,6 +18,8 @@ import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
+import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
+import com.sedsoftware.yaptalker.presentation.extensions.visibleItemPosition
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.LinePagerIndicatorDecoration
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryAdapter
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryLoadMoreClickListener
@@ -37,6 +45,7 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
     private const val FORUM_ID_KEY = "FORUM_ID_KEY"
     private const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
     private const val CURRENT_PAGE_KEY = "CURRENT_PAGE_KEY"
+    private const val STORAGE_WRITE_PERMISSION = 0
   }
 
   private val titleTemplate: String by lazy {
@@ -85,6 +94,33 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
     presenter.loadTopicGallery(forumId, topicId, currentPage)
   }
 
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_image_display, menu)
+    return true
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    val itemPosition = topic_gallery.visibleItemPosition()
+
+    if (itemPosition == -1) {
+      return false
+    }
+
+    val imageUrl = galleryAdapter.items[itemPosition]
+
+    return when (item.itemId) {
+      R.id.action_share -> {
+        presenter.shareImage(imageUrl.url)
+        true
+      }
+      R.id.action_save -> {
+        checkPermissionAndSaveImage(imageUrl.url)
+        true
+      }
+      else -> super.onOptionsItemSelected(item)
+    }
+  }
+
   override fun showErrorMessage(message: String) {
     toastError(message)
   }
@@ -97,7 +133,33 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
     supportActionBar?.title = String.format(Locale.getDefault(), titleTemplate, title)
   }
 
+  override fun fileSavedMessage(filepath: String) {
+    String.format(Locale.getDefault(), stringRes(R.string.msg_file_saved), filepath).apply {
+      toastSuccess(this)
+    }
+  }
+
+  override fun fileNotSavedMessage() {
+    toastError(stringRes(R.string.msg_file_not_saved))
+  }
+
   override fun onLoadMoreClicked() {
     presenter.loadMoreImages()
+  }
+
+  private fun checkPermissionAndSaveImage(imageUrl: String) {
+    if (ContextCompat.checkSelfPermission(
+        this,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+      ) != PackageManager.PERMISSION_GRANTED) {
+
+      ActivityCompat.requestPermissions(
+        this,
+        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+        STORAGE_WRITE_PERMISSION
+      )
+    } else {
+      presenter.saveImage(imageUrl)
+    }
   }
 }
