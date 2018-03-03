@@ -6,18 +6,18 @@ allprojects {
 
 ext {
     // Android
-    final KOTLIN_VERSION = "1.2.21"
-    final SUPPORT_LIBRARY_VERSION = "27.0.2"
+    final KOTLIN_VERSION = "1.2.30"
+    final SUPPORT_LIBRARY_VERSION = "27.1.0"
     final CONSTRAINT_LAYOUT_VERSION = "1.1.0-beta5"
 
     // Rx
-    final RX_ANDROID_VERSION = "2.0.1"
-    final RX_JAVA_VERSION = "2.1.9"
+    final RX_ANDROID_VERSION = "2.0.2"
+    final RX_JAVA_VERSION = "2.1.10"
     final RX_KOTLIN_VERSION = "2.2.0"
     final RX_RELAY_VERSION = "2.0.0"
-    final RX_LINT_VERSION = "1.6"
+    final RX_LINT_VERSION = "1.6.1"
     final RX_BINDING_VERSION = "2.1.0"
-    final AUTO_DISPOSE_VERSION = "0.6.0"
+    final AUTO_DISPOSE_VERSION = "0.6.1"
 
     // Core
     final DAGGER_VERSION = "2.14.1"
@@ -27,14 +27,14 @@ ext {
     final PICASSO_VERSION = "2.5.2"
     final CICERONE_VERSION = "3.0.0"
     final RETROFIT_VERSION = "2.3.0"
-    final JSPOON_VERSION = "1.2.1"
+    final JSPOON_VERSION = "1.2.2"
     final MOSHI_VERSION = "1.5.0"
-    final OKHTTP_VERSION = "3.9.1"
+    final OKHTTP_VERSION = "3.10.0"
 
     // UI
     final MATERIAL_VALUES_VERSION = "1.1.1"
     final MATERIAL_DRAWER_VERSION = "6.0.6@aar"
-    final ICONICS_VERSION = "3.0.2@aar"
+    final ICONICS_VERSION = "3.0.3@aar"
     final COMMUNITY_MATERIAL_ICONS_VERSION = "2.0.46.1@aar"
     final MATERIAL_DIALOGUES_VERSION = "0.9.6.0"
     final TOASTY_VERSION = "1.2.8"
@@ -43,16 +43,16 @@ ext {
     // Testing
     final ESPRESSO_VERSION = "3.0.2-alpha1"
     final JUNIT_VERSION = "4.12"
-    final MOCKITO_VERSION = "2.13.0"
+    final MOCKITO_VERSION = "2.15.0"
     final MOCKITO_KOTLIN_VERSION = "1.5.0"
     final EXPEKT_VERSION = "0.5.0"
 
     // Supporting tools
-    final ANDROID_CRASHALYTICS_VERSION = "2.9.0@aar"
+    final ANDROID_CRASHALYTICS_VERSION = "2.9.1@aar"
     final FIREBASE_CORE_VERSION = "11.8.0"
 
     // Development tools
-    final TIMBER_VERSION = "4.6.0"
+    final TIMBER_VERSION = "4.6.1"
     final LEAK_CANARY_VERSION = "1.5.4"
 
     domainDependencies = [
