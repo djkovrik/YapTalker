@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.presentation.features.gallery
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.device.Settings
-import com.sedsoftware.yaptalker.domain.interactor.topic.GetChosenTopic
+import com.sedsoftware.yaptalker.domain.interactor.topic.GetChosenTopicGallery
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @InjectViewState
 class TopicGalleryPresenter @Inject constructor(
   settings: Settings,
-  private val getChosenTopicUseCase: GetChosenTopic,
+  private val getTopicGalleryUseCase: GetChosenTopicGallery,
   private val galleryMapper: TopicGalleryModelMapper
 ) : BasePresenter<TopicGalleryView>() {
 
@@ -55,8 +55,8 @@ class TopicGalleryPresenter @Inject constructor(
 
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
-    getChosenTopicUseCase
-      .execute(GetChosenTopic.Params(currentForumId, currentTopicId, startingPost))
+    getTopicGalleryUseCase
+      .execute(GetChosenTopicGallery.Params(currentForumId, currentTopicId, startingPost))
       .subscribeOn(Schedulers.io())
       .map(galleryMapper)
       .observeOn(AndroidSchedulers.mainThread())
