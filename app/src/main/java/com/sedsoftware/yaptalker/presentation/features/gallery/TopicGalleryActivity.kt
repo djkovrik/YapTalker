@@ -12,6 +12,7 @@ import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
+import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.LinePagerIndicatorDecoration
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryAdapter
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryLoadMoreClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -75,6 +76,7 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
       layoutManager = linearLayout
       adapter = galleryAdapter
       setHasFixedSize(true)
+      addItemDecoration(LinePagerIndicatorDecoration())
     }
 
     val snapHelper = PagerSnapHelper()
