@@ -50,5 +50,5 @@
   <color name="toastyColorSuccess">@color/material_color_green_500</color>
   <color name="toastyColorWarning">@color/material_color_teal_500</color>
   <!-- Misc -->
-  <color name="colorLoadMore">#64ffffff</color>
+  <color name="colorLoadMore">#7dffffff</color>
 </resources>

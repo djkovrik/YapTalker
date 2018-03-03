@@ -31,7 +31,8 @@
   <string name="navigation_go_to_page_title">Перейти на страницу</string>
   <string name="navigation_go_to_page_hint">Введите номер страницы…</string>
   <string name="navigation_page_not_available">Страница <xliff:g id="page">%d</xliff:g> недоступна</string>
-  <string name="navigation_load_more">Загрузить\nеще…</string>
+  <string name="navigation_load_more">Далее</string>
+  <string name="navigation_gallery_page">Страница: <xliff:g id="page">%s</xliff:g></string>
   <!-- AUTHORIZATION -->
   <string name="authorization_login_label">Логин</string>
   <string name="authorization_password_label">Пароль</string>

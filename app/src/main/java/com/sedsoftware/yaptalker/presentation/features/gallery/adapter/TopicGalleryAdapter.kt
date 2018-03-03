@@ -8,7 +8,6 @@ import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.showView
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
 import kotlinx.android.synthetic.main.activity_topic_gallery_item.view.*
 import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.*
@@ -19,7 +18,7 @@ class TopicGalleryAdapter @Inject constructor(
   private val loadMoreCallback: TopicGalleryLoadMoreClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-  private var items: ArrayList<YapEntity> = ArrayList()
+  private var items: MutableList<SinglePostGalleryImageModel> = ArrayList()
 
   init {
     setHasStableIds(true)
@@ -29,17 +28,23 @@ class TopicGalleryAdapter @Inject constructor(
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     holder as ImageViewHolder
-    holder.bind(items[position] as SinglePostGalleryImageModel)
+    holder.bind(items[position])
   }
 
   override fun getItemId(position: Int) = position.toLong()
 
   override fun getItemCount(): Int = items.size
 
-  fun addList(images: List<YapEntity>) {
-    val insertPosition = items.size
+  fun addList(images: List<SinglePostGalleryImageModel>) {
+    clearLoadingIndicators()
     items.addAll(images)
-    notifyItemRangeInserted(insertPosition, items.size)
+    notifyDataSetChanged()
+  }
+
+  private fun clearLoadingIndicators() {
+    items = items
+      .map { item -> SinglePostGalleryImageModel(url = item.url, showLoadMore = false) }
+      .toMutableList()
   }
 
   inner class ImageViewHolder(parent: ViewGroup) :

@@ -10,11 +10,15 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
+import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryAdapter
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryLoadMoreClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
 import kotlinx.android.synthetic.main.activity_topic_gallery.*
+import kotlinx.android.synthetic.main.include_main_appbar.*
+import java.util.Locale
 import javax.inject.Inject
 
 @LayoutResource(R.layout.activity_topic_gallery)
@@ -32,6 +36,10 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
     private const val FORUM_ID_KEY = "FORUM_ID_KEY"
     private const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
     private const val CURRENT_PAGE_KEY = "CURRENT_PAGE_KEY"
+  }
+
+  private val titleTemplate: String by lazy {
+    stringRes(R.string.navigation_gallery_page)
   }
 
   @Inject
@@ -59,6 +67,9 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
+    setSupportActionBar(toolbar)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
     with(topic_gallery) {
       val linearLayout = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
       layoutManager = linearLayout
@@ -77,11 +88,11 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
   }
 
   override fun appendImages(images: List<YapEntity>) {
-    galleryAdapter.addList(images)
+    galleryAdapter.addList(images.map { it as SinglePostGalleryImageModel })
   }
 
   override fun updateCurrentUiState(title: String) {
-    supportActionBar?.title = title
+    supportActionBar?.title = String.format(Locale.getDefault(), titleTemplate, title)
   }
 
   override fun onLoadMoreClicked() {

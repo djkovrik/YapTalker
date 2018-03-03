@@ -18,6 +18,7 @@
   <dimen name="navigation_button_width">54dp</dimen>
   <dimen name="load_more_corner_radius">8dp</dimen>
   <dimen name="load_more_padding">8dp</dimen>
+  <dimen name="load_more_progress_indicator_size">24dp</dimen>
 
   <!-- FABs and menus-->
   <dimen name="fab_icon_padding">4dp</dimen>

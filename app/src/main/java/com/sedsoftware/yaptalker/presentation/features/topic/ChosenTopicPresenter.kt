@@ -195,6 +195,7 @@ class ChosenTopicPresenter @Inject constructor(
 
   fun openTopicGallery() {
     router.navigateTo(NavigationScreen.TOPIC_GALLERY, Triple(currentForumId, currentTopicId, currentPage))
+    viewState.hideLoadingIndicator()
   }
 
   fun showPostKarmaMenuIfAvailable(postId: Int) {

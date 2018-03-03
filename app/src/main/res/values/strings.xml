@@ -40,7 +40,8 @@
   <string name="navigation_next" translatable="false" tools:keep="@string/navigation_next">&gt;</string>
   <string name="navigation_first" translatable="false" tools:keep="@string/navigation_first">&lt;&lt;</string>
   <string name="navigation_last" translatable="false" tools:keep="@string/navigation_last">&gt;&gt;</string>
-  <string name="navigation_load_more">Load\nmore…</string>
+  <string name="navigation_load_more">Next</string>
+  <string name="navigation_gallery_page">Page: <xliff:g id="page">%s</xliff:g></string>
 
   <!-- AUTHORIZATION -->
   <string name="authorization_login_label">Login</string>
