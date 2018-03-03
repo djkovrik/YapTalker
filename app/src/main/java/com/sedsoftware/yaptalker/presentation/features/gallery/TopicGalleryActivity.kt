@@ -3,17 +3,22 @@ package com.sedsoftware.yaptalker.presentation.features.gallery
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.PagerSnapHelper
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
-import timber.log.Timber
+import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryAdapter
+import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryLoadMoreClickListener
+import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import kotlinx.android.synthetic.main.activity_topic_gallery.*
 import javax.inject.Inject
 
 @LayoutResource(R.layout.activity_topic_gallery)
-class TopicGalleryActivity : BaseActivity(), TopicGalleryView {
+class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadMoreClickListener {
 
   companion object {
     fun getIntent(ctx: Context, triple: Triple<Int, Int, Int>): Intent {
@@ -28,6 +33,9 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView {
     private const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
     private const val CURRENT_PAGE_KEY = "CURRENT_PAGE_KEY"
   }
+
+  @Inject
+  lateinit var galleryAdapter: TopicGalleryAdapter
 
   @Inject
   @InjectPresenter
@@ -50,10 +58,33 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    Timber.d("forumId = $forumId, topicId = $topicId, currentPage = $currentPage")
+
+    with(topic_gallery) {
+      val linearLayout = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+      layoutManager = linearLayout
+      adapter = galleryAdapter
+      setHasFixedSize(true)
+    }
+
+    val snapHelper = PagerSnapHelper()
+    snapHelper.attachToRecyclerView(topic_gallery)
+
+    presenter.loadTopicGallery(forumId, topicId, currentPage)
   }
 
   override fun showErrorMessage(message: String) {
     toastError(message)
+  }
+
+  override fun appendImages(images: List<YapEntity>) {
+    galleryAdapter.addList(images)
+  }
+
+  override fun updateCurrentUiState(title: String) {
+    supportActionBar?.title = title
+  }
+
+  override fun onLoadMoreClicked() {
+    presenter.loadMoreImages()
   }
 }
