@@ -31,7 +31,7 @@
   <string name="forum_closed_topic_template" translatable="false"><xliff:g id="icon">{cmd-lock}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
   <string name="forum_pinned_and_closed_topic_template" translatable="false"><xliff:g id="icons">{cmd-lock} {cmd-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
 
-  <!-- NAVIGATION PANEL -->
+  <!-- NAVIGATION -->
   <string name="navigation_pages_template"><xliff:g id="page">%d</xliff:g> of <xliff:g id="total_pages">%d</xliff:g></string>
   <string name="navigation_go_to_page_title">Go to page</string>
   <string name="navigation_go_to_page_hint">Enter page number…</string>
@@ -40,6 +40,7 @@
   <string name="navigation_next" translatable="false" tools:keep="@string/navigation_next">&gt;</string>
   <string name="navigation_first" translatable="false" tools:keep="@string/navigation_first">&lt;&lt;</string>
   <string name="navigation_last" translatable="false" tools:keep="@string/navigation_last">&gt;&gt;</string>
+  <string name="navigation_load_more">Load\nmore…</string>
 
   <!-- AUTHORIZATION -->
   <string name="authorization_login_label">Login</string>

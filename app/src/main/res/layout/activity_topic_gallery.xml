@@ -9,4 +9,9 @@
 
   <include layout="@layout/include_main_appbar" />
 
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/topic_gallery"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
 </LinearLayout>

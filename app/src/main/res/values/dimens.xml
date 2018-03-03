@@ -14,8 +14,10 @@
   <dimen name="post_text_horizontal_padding">8dp</dimen>
   <dimen name="post_karma_thump_icon_padding">4dp</dimen>
 
-  <!-- Navigation panel -->
+  <!-- Navigation -->
   <dimen name="navigation_button_width">54dp</dimen>
+  <dimen name="load_more_corner_radius">8dp</dimen>
+  <dimen name="load_more_padding">8dp</dimen>
 
   <!-- FABs and menus-->
   <dimen name="fab_icon_padding">4dp</dimen>

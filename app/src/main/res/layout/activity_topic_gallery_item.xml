@@ -4,11 +4,18 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <ImageView
+  <com.github.chrisbanes.photoview.PhotoView
     android:id="@+id/gallery_image"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ContentDescription"
+    tools:src="@drawable/dummy_photo" />
+
+  <include
+    layout="@layout/activity_topic_gallery_item_load_more"
+    android:layout_width="wrap_content"
+    android:layout_gravity="end|center_vertical"
     android:layout_height="wrap_content"
-    android:adjustViewBounds="true"
-    tools:ignore="ContentDescription" />
+    android:layout_margin="@dimen/load_more_padding" />
 
 </FrameLayout>
