@@ -24,8 +24,8 @@ import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGall
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryLoadMoreClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
-import kotlinx.android.synthetic.main.activity_topic_gallery.*
-import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
+import kotlinx.android.synthetic.main.activity_topic_gallery.topic_gallery
+import kotlinx.android.synthetic.main.include_main_appbar_transparent.toolbar
 import java.util.Locale
 import javax.inject.Inject
 
@@ -72,6 +72,8 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
   private val currentPage: Int by lazy {
     intent.getIntExtra(CURRENT_PAGE_KEY, 0)
   }
+
+  private var savingImageUrl = ""
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -153,12 +155,20 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
     presenter.loadMoreImages()
   }
 
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    when (requestCode) {
+      STORAGE_WRITE_PERMISSION -> {
+        presenter.saveImage(savingImageUrl)
+      }
+    }
+  }
+
   private fun checkPermissionAndSaveImage(imageUrl: String) {
     if (ContextCompat.checkSelfPermission(
         this,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
       ) != PackageManager.PERMISSION_GRANTED) {
-
+      savingImageUrl = imageUrl
       ActivityCompat.requestPermissions(
         this,
         arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),

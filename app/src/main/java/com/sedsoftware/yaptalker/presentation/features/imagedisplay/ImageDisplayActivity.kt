@@ -18,8 +18,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
-import kotlinx.android.synthetic.main.activity_image_display.*
-import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
+import kotlinx.android.synthetic.main.activity_image_display.photo_view
+import kotlinx.android.synthetic.main.include_main_appbar_transparent.toolbar
 import java.util.Locale
 import javax.inject.Inject
 
@@ -92,12 +92,7 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
     toastError(stringRes(R.string.msg_file_not_saved))
   }
 
-  override fun onRequestPermissionsResult(
-    requestCode: Int,
-    permissions: Array<out String>,
-    grantResults: IntArray
-  ) {
-
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
     when (requestCode) {
       STORAGE_WRITE_PERMISSION -> {
         presenter.saveImage(imageUrl)
