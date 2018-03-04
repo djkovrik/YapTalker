@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.extensions.hideView
+import com.sedsoftware.yaptalker.presentation.extensions.hideViewAsInvisible
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.showView
@@ -19,6 +19,7 @@ class TopicGalleryAdapter @Inject constructor(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   var items: MutableList<SinglePostGalleryImageModel> = ArrayList()
+  var isLastPageVisible = false
 
   init {
     setHasStableIds(true)
@@ -36,8 +37,14 @@ class TopicGalleryAdapter @Inject constructor(
   override fun getItemCount(): Int = items.size
 
   fun addList(images: List<SinglePostGalleryImageModel>) {
-    clearLoadingIndicators()
-    items.addAll(images)
+
+    if (images.isNotEmpty()) {
+      clearLoadingIndicators()
+      items.addAll(images)
+    } else {
+      showLastLoadingIndicator()
+    }
+
     notifyDataSetChanged()
   }
 
@@ -47,19 +54,29 @@ class TopicGalleryAdapter @Inject constructor(
       .toMutableList()
   }
 
+  private fun showLastLoadingIndicator() {
+    clearLoadingIndicators()
+    val newLast = SinglePostGalleryImageModel(url = items.last().url, showLoadMore = true)
+    items.removeAt(items.lastIndex)
+    items.add(newLast)
+  }
+
   inner class ImageViewHolder(parent: ViewGroup) :
     RecyclerView.ViewHolder(parent.inflate(R.layout.activity_topic_gallery_item)) {
 
     fun bind(image: SinglePostGalleryImageModel) {
 
-      itemView.load_more_button.hideView()
+      itemView.load_more_button.hideViewAsInvisible()
+      itemView.load_more_label.hideViewAsInvisible()
+      itemView.load_more_progress.hideViewAsInvisible()
       itemView.gallery_image.loadFromUrl(image.url)
 
-      if (image.showLoadMore) {
+      if (image.showLoadMore && !isLastPageVisible) {
         itemView.load_more_button.showView()
+        itemView.load_more_label.showView()
         itemView.load_more_button.setOnClickListener {
           loadMoreCallback.onLoadMoreClicked()
-          itemView.load_more_label.hideView()
+          itemView.load_more_label.hideViewAsInvisible()
           itemView.load_more_progress.showView()
         }
       }

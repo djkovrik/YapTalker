@@ -135,6 +135,10 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
     topic_gallery.smoothScrollToPosition( galleryAdapter.itemCount - newImagesOffset)
   }
 
+  override fun lastPageReached() {
+    galleryAdapter.isLastPageVisible = true
+  }
+
   override fun fileSavedMessage(filepath: String) {
     String.format(Locale.getDefault(), stringRes(R.string.msg_file_saved), filepath).apply {
       toastSuccess(this)

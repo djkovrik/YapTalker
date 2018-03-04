@@ -26,7 +26,7 @@ class TopicGalleryModelMapper @Inject constructor(
     val result: MutableList<YapEntity> = ArrayList()
     val imagesList: MutableList<String> = ArrayList()
     var currentPage = 0
-    var totalPage = 0
+    var totalPages = 0
 
     items.forEach { item ->
       when (item) {
@@ -46,7 +46,7 @@ class TopicGalleryModelMapper @Inject constructor(
 
         is NavigationPanel -> {
           currentPage = item.currentPage
-          totalPage = item.totalPages
+          totalPages = item.totalPages
           result.add(
             NavigationPanelModel(
               currentPage = item.currentPage,
@@ -64,7 +64,7 @@ class TopicGalleryModelMapper @Inject constructor(
       result.add(
         SinglePostGalleryImageModel(
           url = imageUrl,
-          showLoadMore = index == imagesList.lastIndex && currentPage != totalPage
+          showLoadMore = index == imagesList.lastIndex
         )
       )
     }

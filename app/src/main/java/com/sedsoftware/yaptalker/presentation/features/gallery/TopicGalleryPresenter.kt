@@ -88,14 +88,17 @@ class TopicGalleryPresenter @Inject constructor(
           }
         }
 
-        val images = items.filter { it is SinglePostGalleryImageModel }
-
-        if (images.isNotEmpty()) {
-          viewState.appendImages(images)
-          viewState.scrollToFirstNewImage(images.size)
+        if (currentPage == totalPages) {
+          viewState.lastPageReached()
         }
 
+        val images = items.filter { it is SinglePostGalleryImageModel }
+        viewState.appendImages(images)
         viewState.updateCurrentUiState(currentTitleLabel)
+
+        if (images.isNotEmpty()) {
+          viewState.scrollToFirstNewImage(images.size)
+        }
       }
 
       override fun onError(error: Throwable) {
