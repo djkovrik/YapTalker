@@ -19,7 +19,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
 import kotlinx.android.synthetic.main.activity_image_display.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
 import java.util.Locale
 import javax.inject.Inject
 
@@ -53,6 +53,7 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
 
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    supportActionBar?.setDisplayShowTitleEnabled(false)
 
     if (imageUrl.isNotEmpty()) {
       photo_view.loadFromUrl(imageUrl)
