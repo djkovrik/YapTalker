@@ -5,16 +5,17 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
-@StateStrategyType(AddToEndSingleStrategy::class)
+@StateStrategyType(SkipStrategy::class)
 interface BaseView : MvpView {
 
-  @StateStrategyType(SkipStrategy::class)
   fun showErrorMessage(message: String)
 
+  @StateStrategyType(value = AddToEndSingleStrategy::class, tag = "LoadingIndicator")
   fun showLoadingIndicator() {
     // Default empty implementation
   }
 
+  @StateStrategyType(value = AddToEndSingleStrategy::class, tag = "LoadingIndicator")
   fun hideLoadingIndicator() {
     // Default empty implementation
   }
