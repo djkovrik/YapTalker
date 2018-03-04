@@ -25,8 +25,6 @@ class TopicGalleryModelMapper @Inject constructor(
 
     val result: MutableList<YapEntity> = ArrayList()
     val imagesList: MutableList<String> = ArrayList()
-    var currentPage = 0
-    var totalPages = 0
 
     items.forEach { item ->
       when (item) {
@@ -45,8 +43,6 @@ class TopicGalleryModelMapper @Inject constructor(
         )
 
         is NavigationPanel -> {
-          currentPage = item.currentPage
-          totalPages = item.totalPages
           result.add(
             NavigationPanelModel(
               currentPage = item.currentPage,
