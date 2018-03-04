@@ -56,7 +56,7 @@ class NavigationPresenter @Inject constructor(
     router.removeResultListener(RequestCode.SIGN_IN)
   }
 
-  fun navigateToChosenSection(@NavigationSection.Section identifier: Int) {
+  fun navigateToChosenSection(@NavigationSection.Section identifier: Long) {
     when (identifier) {
       NavigationSection.MAIN_PAGE -> router.newRootScreen(NavigationScreen.NEWS_SCREEN)
       NavigationSection.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)

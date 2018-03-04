@@ -1,18 +1,18 @@
 package com.sedsoftware.yaptalker.presentation.features.posting.tags
 
-import android.support.annotation.IntDef
+import android.support.annotation.LongDef
 
 class MessageTagCodes {
   companion object {
-    const val TAG_B = 0
-    const val TAG_I = 1
-    const val TAG_U = 2
-    const val TAG_LINK = 3
-    const val TAG_VIDEO = 4
+    const val TAG_B = 0L
+    const val TAG_I = 1L
+    const val TAG_U = 2L
+    const val TAG_LINK = 3L
+    const val TAG_VIDEO = 4L
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @IntDef(
+  @LongDef(
     TAG_B,
     TAG_I,
     TAG_U,

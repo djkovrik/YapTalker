@@ -15,5 +15,5 @@ data class SearchRequest(
   val searchIn: String,
   @SearchConditions.Value val searchHow: String,
   @SortingMode.Value val sortBy: String,
-  @TargetPeriod.Value val periodInDays: Int
+  @TargetPeriod.Value val periodInDays: Long
 ) : Parcelable

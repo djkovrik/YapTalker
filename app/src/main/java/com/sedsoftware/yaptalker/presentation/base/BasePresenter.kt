@@ -21,7 +21,7 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>() {
   @Inject
   lateinit var eventBus: BehaviorRelay<AppEvent>
 
-  private val lifecycle: BehaviorRelay<Int> = BehaviorRelay.create()
+  private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
 
   init {
     lifecycle.accept(PresenterLifecycle.CREATE)
@@ -67,7 +67,7 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>() {
       .subscribe(eventBus)
   }
 
-  fun setConnectionState(@ConnectionState.Event state: Int) {
+  fun setConnectionState(@ConnectionState.Event state: Long) {
     Observable
       .just(ConnectionEvent(state))
       .observeOn(AndroidSchedulers.mainThread())
@@ -75,7 +75,7 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>() {
       .subscribe(eventBus)
   }
 
-  fun setNavDrawerItem(@NavigationSection.Section section: Int) {
+  fun setNavDrawerItem(@NavigationSection.Section section: Long) {
     Observable
       .just(NavDrawerEvent(section))
       .observeOn(AndroidSchedulers.mainThread())
@@ -83,6 +83,6 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>() {
       .subscribe(eventBus)
   }
 
-  protected fun event(@PresenterLifecycle.Event event: Int): Maybe<*> =
+  protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> =
     lifecycle.filter({ e -> e == event }).firstElement()
 }
