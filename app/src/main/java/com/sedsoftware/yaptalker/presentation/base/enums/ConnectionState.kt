@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.base.enums
 
-import android.support.annotation.LongDef
+import android.support.annotation.IntDef
 
 class ConnectionState {
 
@@ -12,6 +12,6 @@ class ConnectionState {
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @LongDef(IDLE, LOADING, COMPLETED, ERROR)
+  @IntDef(IDLE, LOADING, COMPLETED, ERROR)
   annotation class Event
 }

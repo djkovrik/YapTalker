@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.base.enums.lifecycle
 
-import android.support.annotation.LongDef
+import android.support.annotation.IntDef
 
 class PresenterLifecycle {
 
@@ -12,6 +12,6 @@ class PresenterLifecycle {
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @LongDef(CREATE, ATTACH_VIEW, DETACH_VIEW, DESTROY)
+  @IntDef(CREATE, ATTACH_VIEW, DETACH_VIEW, DESTROY)
   annotation class Event
 }

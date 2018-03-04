@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.base.enums.navigation
 
-import android.support.annotation.LongDef
+import android.support.annotation.IntDef
 
 class NavigationSection {
   companion object {
@@ -16,6 +16,6 @@ class NavigationSection {
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @LongDef(MAIN_PAGE, FORUMS, ACTIVE_TOPICS, INCUBATOR, BOOKMARKS, SITE_SEARCH, SETTINGS, SIGN_IN, SIGN_OUT)
+  @IntDef(MAIN_PAGE, FORUMS, ACTIVE_TOPICS, INCUBATOR, BOOKMARKS, SITE_SEARCH, SETTINGS, SIGN_IN, SIGN_OUT)
   annotation class Section
 }
