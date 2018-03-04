@@ -18,6 +18,7 @@
     android:id="@+id/load_more_progress"
     android:layout_width="@dimen/load_more_progress_indicator_size"
     android:layout_height="@dimen/load_more_progress_indicator_size"
+    android:layout_gravity="center"
     android:visibility="invisible" />
 
 </FrameLayout>
