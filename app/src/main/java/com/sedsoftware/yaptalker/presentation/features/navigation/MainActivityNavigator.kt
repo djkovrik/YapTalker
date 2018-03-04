@@ -13,6 +13,7 @@ import com.sedsoftware.yaptalker.presentation.features.authorization.Authorizati
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.BookmarksFragment
 import com.sedsoftware.yaptalker.presentation.features.forum.ChosenForumFragment
 import com.sedsoftware.yaptalker.presentation.features.forumslist.ForumsFragment
+import com.sedsoftware.yaptalker.presentation.features.gallery.TopicGalleryActivity
 import com.sedsoftware.yaptalker.presentation.features.gifdisplay.GifDisplayActivity
 import com.sedsoftware.yaptalker.presentation.features.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.presentation.features.incubator.IncubatorFragment
@@ -29,6 +30,7 @@ import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
 
+@Suppress("UNCHECKED_CAST")
 class MainActivityNavigator @Inject constructor(
   private val activity: MainActivity
 ) : SupportAppNavigator(activity, activity.supportFragmentManager, R.id.content_frame) {
@@ -38,10 +40,10 @@ class MainActivityNavigator @Inject constructor(
     NavigationScreen.IMAGE_DISPLAY_SCREEN -> ImageDisplayActivity.getIntent(activity, data as String)
     NavigationScreen.VIDEO_DISPLAY_SCREEN -> VideoDisplayActivity.getIntent(activity, data as String)
     NavigationScreen.GIF_DISPLAY_SCREEN -> GifDisplayActivity.getIntent(activity, data as String)
+    NavigationScreen.TOPIC_GALLERY -> TopicGalleryActivity.getIntent(activity, data as Triple<Int, Int, Int>)
     else -> null
   }
 
-  @Suppress("UNCHECKED_CAST")
   override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
     NavigationScreen.NEWS_SCREEN -> NewsFragment.getNewInstance()
     NavigationScreen.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()

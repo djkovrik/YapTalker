@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/load_more_button"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:background="@drawable/bg_load_more"
+  android:padding="@dimen/load_more_padding">
+
+  <TextView
+    android:id="@+id/load_more_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:text="@string/navigation_load_more" />
+
+  <ProgressBar
+    android:id="@+id/load_more_progress"
+    android:layout_width="@dimen/load_more_progress_indicator_size"
+    android:layout_height="@dimen/load_more_progress_indicator_size"
+    android:layout_gravity="center"
+    android:visibility="invisible" />
+
+</FrameLayout>

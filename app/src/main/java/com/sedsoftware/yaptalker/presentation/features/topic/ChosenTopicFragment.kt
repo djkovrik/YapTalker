@@ -41,8 +41,23 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_chosen_topic.*
-import kotlinx.android.synthetic.main.include_topic_fab_menu.*
+import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_posts_list
+import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_refresh_layout
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_bookmark
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_bookmark_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_gallery
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_gallery_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_karma
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_karma_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_main_button_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_menu
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_new_message
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_new_message_label
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_overlay
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_refresh
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_refresh_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_share
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_share_block
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.share
 import timber.log.Timber
@@ -398,11 +413,19 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
       }
 
     RxView
-      .clicks(fab_share)
+        .clicks(fab_share)
       .autoDisposable(event(FragmentLifecycle.DESTROY))
       .subscribe {
         collapseMenu()
         presenter.shareCurrentTopic()
+      }
+
+    RxView
+      .clicks(fab_gallery)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        collapseMenu()
+        presenter.openTopicGallery()
       }
 
     RxView
@@ -461,5 +484,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
     }
 
     fabMenu.add(FabMenuItemSecondary(context, fab_share_block))
+    fabMenu.add(FabMenuItemSecondary(context, fab_gallery_block))
   }
 }

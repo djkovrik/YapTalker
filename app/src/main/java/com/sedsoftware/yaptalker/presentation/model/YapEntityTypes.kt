@@ -19,5 +19,6 @@ object YapEntityTypes {
   const val EDITED_POST_TEXT = 16
   const val EMOJI = 17
   const val SEARCH_TOPIC_ITEM = 18
-  const val SEARCH_PAGE_INFO = 18
+  const val SEARCH_PAGE_INFO = 19
+  const val TOPIC_PAGE_IMAGES = 20
 }
