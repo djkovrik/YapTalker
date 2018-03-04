@@ -113,7 +113,6 @@
 
     <activity
       android:name=".presentation.features.gallery.TopicGalleryActivity"
-      android:label="@string/app_name"
       android:parentActivityName=".presentation.features.navigation.MainActivity"
       android:theme="@style/AppTheme.DarkBackground">
       <meta-data

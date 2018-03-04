@@ -16,6 +16,8 @@ interface TopicGalleryView : BaseView {
   @StateStrategyType(AddToEndSingleStrategy::class)
   fun updateCurrentUiState(title: String)
 
+  fun scrollToFirstNewImage(newImagesOffset: Int)
+
   fun fileSavedMessage(filepath: String)
 
   fun fileNotSavedMessage()

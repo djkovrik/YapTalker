@@ -88,7 +88,13 @@ class TopicGalleryPresenter @Inject constructor(
           }
         }
 
-        viewState.appendImages(items.filter { it is SinglePostGalleryImageModel })
+        val images = items.filter { it is SinglePostGalleryImageModel }
+
+        if (images.isNotEmpty()) {
+          viewState.appendImages(images)
+          viewState.scrollToFirstNewImage(images.size)
+        }
+
         viewState.updateCurrentUiState(currentTitleLabel)
       }
 

@@ -20,13 +20,12 @@ import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
 import com.sedsoftware.yaptalker.presentation.extensions.visibleItemPosition
-import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.LinePagerIndicatorDecoration
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryAdapter
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryLoadMoreClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
 import kotlinx.android.synthetic.main.activity_topic_gallery.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
 import java.util.Locale
 import javax.inject.Inject
 
@@ -85,7 +84,6 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
       layoutManager = linearLayout
       adapter = galleryAdapter
       setHasFixedSize(true)
-      addItemDecoration(LinePagerIndicatorDecoration())
     }
 
     val snapHelper = PagerSnapHelper()
@@ -131,6 +129,10 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
 
   override fun updateCurrentUiState(title: String) {
     supportActionBar?.title = String.format(Locale.getDefault(), titleTemplate, title)
+  }
+
+  override fun scrollToFirstNewImage(newImagesOffset: Int) {
+    topic_gallery.smoothScrollToPosition( galleryAdapter.itemCount - newImagesOffset)
   }
 
   override fun fileSavedMessage(filepath: String) {
