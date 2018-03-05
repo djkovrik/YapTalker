@@ -66,3 +66,7 @@ dependencies {
     testImplementation deviceTestDependencies.mockitoKotlin
     testImplementation deviceTestDependencies.expekt
 }
+
+configurations.all() {
+    resolutionStrategy.force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}

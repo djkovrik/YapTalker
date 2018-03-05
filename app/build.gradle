@@ -146,4 +146,8 @@ dependencies {
     testImplementation developmentDependencies.leakCanaryNoOp
 }
 
+configurations.all() {
+    resolutionStrategy.force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
 apply plugin: 'com.google.gms.google-services'

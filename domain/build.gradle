@@ -14,3 +14,7 @@ dependencies {
     testImplementation domainTestDependencies.junit
     testImplementation domainTestDependencies.expekt
 }
+
+configurations.all() {
+    resolutionStrategy.force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
