@@ -12,6 +12,6 @@ class PresenterLifecycle {
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @IntDef(CREATE, DESTROY)
+  @IntDef(CREATE, ATTACH_VIEW, DETACH_VIEW, DESTROY)
   annotation class Event
 }

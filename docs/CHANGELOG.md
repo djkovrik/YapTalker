@@ -1,5 +1,10 @@
-### Current version: 0.9.0
+### Current version: 0.9.1
 # Changelog
+## [0.9.1] - 2018-03-05
+## Added
+- Selectable text for messages
+- Gallery mode for topics
+
 ## [0.9.0] - 2018-02-20
 ## Added
 - Images posting

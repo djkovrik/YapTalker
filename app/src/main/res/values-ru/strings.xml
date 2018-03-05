@@ -26,12 +26,13 @@
   <!-- FORUMS -->
   <string name="forum_comments_template">Комментариев: <xliff:g id="answers">%s</xliff:g></string>
 
-  <!-- NAVIGATION PANEL -->
+  <!-- NAVIGATION -->
   <string name="navigation_pages_template"><xliff:g id="page">%d</xliff:g> из <xliff:g id="total_pages">%d</xliff:g></string>
   <string name="navigation_go_to_page_title">Перейти на страницу</string>
   <string name="navigation_go_to_page_hint">Введите номер страницы…</string>
   <string name="navigation_page_not_available">Страница <xliff:g id="page">%d</xliff:g> недоступна</string>
-
+  <string name="navigation_load_more">Далее</string>
+  <string name="navigation_gallery_page">Страница: <xliff:g id="page">%s</xliff:g></string>
   <!-- AUTHORIZATION -->
   <string name="authorization_login_label">Логин</string>
   <string name="authorization_password_label">Пароль</string>
@@ -47,6 +48,7 @@
   <string name="fab_label_new_message">Новое сообщение</string>
   <string name="fab_label_refresh">Обновить</string>
   <string name="fab_label_share">Поделиться</string>
+  <string name="fab_label_gallery">Галерея</string>
 
   <!-- ADD MESSAGE ACTIVITY -->
   <string name="post_message_hint">Введите сообщение…</string>

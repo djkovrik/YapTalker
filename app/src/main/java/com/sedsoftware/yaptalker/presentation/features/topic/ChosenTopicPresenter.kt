@@ -192,6 +192,12 @@ class ChosenTopicPresenter @Inject constructor(
     viewState.shareTopic(currentTitle, startingPost)
   }
 
+
+  fun openTopicGallery() {
+    router.navigateTo(NavigationScreen.TOPIC_GALLERY, Triple(currentForumId, currentTopicId, currentPage))
+    viewState.hideLoadingIndicator()
+  }
+
   fun showPostKarmaMenuIfAvailable(postId: Int) {
     if (postId == 0 || authKey.isEmpty()) {
       return

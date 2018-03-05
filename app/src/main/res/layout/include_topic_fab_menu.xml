@@ -214,4 +214,37 @@
 
   </LinearLayout>
 
+  <LinearLayout
+    android:id="@+id/fab_gallery_block"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="16dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    app:layout_constraintBottom_toTopOf="@+id/fab_share_block"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <TextView
+      android:id="@+id/fab_gallery_label"
+      style="@style/FabMenuLabel"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_label_margin"
+      android:text="@string/fab_label_gallery" />
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_gallery"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_additional_margin"
+      android:elevation="@dimen/material_elevation_fab_resting"
+      app:fabSize="mini"
+      app:ico_color="?attr/colorFabIcon"
+      app:ico_icon="cmd-view-dashboard"
+      app:ico_padding="@dimen/mini_fab_icon_padding"
+      tools:targetApi="lollipop" />
+
+  </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
