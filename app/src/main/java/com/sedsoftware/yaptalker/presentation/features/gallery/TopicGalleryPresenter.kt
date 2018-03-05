@@ -40,14 +40,10 @@ class TopicGalleryPresenter @Inject constructor(
   private var totalPages = 1
   private var currentTitleLabel = ""
 
-  fun loadTopicGallery(forumId: Int, topicId: Int, startingPost: Int = 0) {
+  fun loadTopicGallery(forumId: Int, topicId: Int, page: Int) {
     currentForumId = forumId
     currentTopicId = topicId
-
-    currentPage = when {
-      startingPost != 0 -> startingPost / postsPerPage + 1
-      else -> 1
-    }
+    currentPage = page
 
     loadTopicCurrentPageGallery()
   }
