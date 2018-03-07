@@ -56,9 +56,11 @@ class TopicGalleryAdapter @Inject constructor(
 
   private fun showLastLoadingIndicator() {
     clearLoadingIndicators()
-    val newLast = SinglePostGalleryImageModel(url = items.last().url, showLoadMore = true)
-    items.removeAt(items.lastIndex)
-    items.add(newLast)
+    if (items.isNotEmpty()) {
+      val newLast = SinglePostGalleryImageModel(url = items.last().url, showLoadMore = true)
+      items.removeAt(items.lastIndex)
+      items.add(newLast)
+    }
   }
 
   inner class ImageViewHolder(parent: ViewGroup) :

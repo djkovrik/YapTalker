@@ -9,7 +9,6 @@ import android.view.ViewGroup.LayoutParams
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ImageView.ScaleType
-import android.widget.LinearLayout
 import android.widget.TextView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
@@ -35,7 +34,6 @@ import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
 import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 import java.util.ArrayList
-
 
 class ChosenTopicDelegateAdapter(
   private val clickListener: ChosenTopicElementsClickListener,
@@ -207,7 +205,7 @@ class ChosenTopicDelegateAdapter(
 
           // Overlay
           val overlay = ImageView(itemView.context)
-          val layoutParams = LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+          val layoutParams = ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
           overlay.layoutParams = layoutParams
           overlay.scaleType = ScaleType.CENTER
 
