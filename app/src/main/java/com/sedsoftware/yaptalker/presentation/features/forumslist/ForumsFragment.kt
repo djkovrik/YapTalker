@@ -13,8 +13,8 @@ import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.forumslist.adapter.ForumsAdapter
 import com.sedsoftware.yaptalker.presentation.features.forumslist.adapter.ForumsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -64,7 +64,7 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
   }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   override fun appendForumItem(item: YapEntity) {

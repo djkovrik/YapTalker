@@ -15,11 +15,11 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
+import com.sedsoftware.yaptalker.presentation.extensions.snackSuccess
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
-import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
-import kotlinx.android.synthetic.main.activity_image_display.photo_view
-import kotlinx.android.synthetic.main.include_main_appbar_transparent.toolbar
+import kotlinx.android.synthetic.main.activity_image_display.*
+import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
 import java.util.Locale
 import javax.inject.Inject
 
@@ -79,17 +79,17 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
     }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   override fun fileSavedMessage(filepath: String) {
     String.format(Locale.getDefault(), stringRes(R.string.msg_file_saved), filepath).apply {
-      toastSuccess(this)
+      snackSuccess(this)
     }
   }
 
   override fun fileNotSavedMessage() {
-    toastError(stringRes(R.string.msg_file_not_saved))
+    snackError(stringRes(R.string.msg_file_not_saved))
   }
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

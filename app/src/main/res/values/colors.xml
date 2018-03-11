@@ -44,11 +44,12 @@
   <color name="colorRatingThumbUp">@color/material_color_green_500</color>
   <color name="colorRatingThumbDown">@color/material_color_red_500</color>
   <color name="colorRatingThumbAvailable">@color/material_color_grey_400</color>
-  <!-- Toasty colors -->
-  <color name="toastyColorError">@color/material_color_red_500</color>
-  <color name="toastyColorInfo">@color/material_color_blue_500</color>
-  <color name="toastyColorSuccess">@color/material_color_green_500</color>
-  <color name="toastyColorWarning">@color/material_color_teal_500</color>
+  <!-- Snackbar colors -->
+  <color name="snackColorError">@color/material_color_red_500</color>
+  <color name="snackColorInfo">@color/material_color_blue_500</color>
+  <color name="snackColorSuccess">@color/material_color_green_500</color>
+  <color name="snackColorWarning">@color/material_color_teal_500</color>
+  <color name="snackColorText">@color/material_color_white</color>
   <!-- Misc -->
   <color name="colorLoadMore">#7dffffff</color>
 </resources>

@@ -20,8 +20,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.presentation.features.news.adapter.NewsItemElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -72,7 +72,7 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemElementsClickListener, Th
   }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   override fun appendNewsItem(entity: YapEntity) {

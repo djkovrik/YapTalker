@@ -25,9 +25,9 @@ import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.color
 import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
+import com.sedsoftware.yaptalker.presentation.extensions.snackInfo
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
-import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
 import kotlinx.android.synthetic.main.activity_main_tablets.*
@@ -120,7 +120,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   override fun setAppbarTitle(title: String) {
@@ -165,7 +165,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   }
 
   override fun showSignOutMessage() {
-    toastInfo(stringRes(R.string.msg_sign_out))
+    snackInfo(stringRes(R.string.msg_sign_out))
   }
 
   override fun closeNavigationDrawer() {

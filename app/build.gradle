@@ -123,8 +123,8 @@ dependencies {
     implementation presentationDependencies.materialTypeface
     implementation presentationDependencies.materialDialogs
     implementation presentationDependencies.materialDialogsCommons
-    implementation presentationDependencies.toasty
     implementation presentationDependencies.photoView
+    implementation presentationDependencies.tsnackbar
 
     kapt presentationDependencies.daggerCompiler
     kapt presentationDependencies.daggerAndroidCompiler

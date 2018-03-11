@@ -12,8 +12,8 @@ import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.search.options.SearchConditions
 import com.sedsoftware.yaptalker.presentation.features.search.options.SortingMode
 import com.sedsoftware.yaptalker.presentation.features.search.options.TargetPeriod
@@ -95,7 +95,7 @@ class SearchFormFragment : BaseFragment(), SearchFormView {
   }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   override fun updateCurrentUiState() {

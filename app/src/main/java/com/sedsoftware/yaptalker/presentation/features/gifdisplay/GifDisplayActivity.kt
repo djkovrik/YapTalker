@@ -11,7 +11,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import kotlinx.android.synthetic.main.activity_gif_display.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import timber.log.Timber
@@ -63,7 +63,7 @@ class GifDisplayActivity : BaseActivity(), GifDisplayView {
   }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   @SuppressLint("SetJavaScriptEnabled")

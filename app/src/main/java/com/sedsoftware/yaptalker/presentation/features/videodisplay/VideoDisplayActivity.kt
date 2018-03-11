@@ -11,7 +11,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.features.videodisplay.client.VideoWebChromeClient
 import com.sedsoftware.yaptalker.presentation.features.videodisplay.client.VideoWebChromeClient.FullscreenCallback
 import kotlinx.android.synthetic.main.activity_video_display.*
@@ -87,7 +87,7 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
   }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   @SuppressLint("SetJavaScriptEnabled")

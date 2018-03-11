@@ -26,11 +26,11 @@ import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
+import com.sedsoftware.yaptalker.presentation.extensions.snackInfo
+import com.sedsoftware.yaptalker.presentation.extensions.snackSuccess
+import com.sedsoftware.yaptalker.presentation.extensions.snackWarning
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
-import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
-import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
-import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicAdapter
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicElementsClickListener
 import com.sedsoftware.yaptalker.presentation.features.topic.fabmenu.FabMenu
@@ -41,23 +41,8 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_posts_list
-import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_refresh_layout
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_bookmark
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_bookmark_block
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_gallery
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_gallery_block
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_karma
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_karma_block
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_main_button_block
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_menu
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_new_message
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_new_message_label
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_overlay
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_refresh
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_refresh_block
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_share
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_share_block
+import kotlinx.android.synthetic.main.fragment_chosen_topic.*
+import kotlinx.android.synthetic.main.include_topic_fab_menu.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.share
 import timber.log.Timber
@@ -143,7 +128,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
   }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   override fun showLoadingIndicator() {
@@ -243,13 +228,13 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
 
   override fun showCantLoadPageMessage(page: Int) {
     context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
-      toastWarning(String.format(Locale.getDefault(), template, page))
+      snackWarning(String.format(Locale.getDefault(), template, page))
     }
   }
 
   override fun showBookmarkAddedMessage() {
     context?.stringRes(R.string.msg_bookmark_topic_added)?.let { message ->
-      toastSuccess(message)
+      snackSuccess(message)
     }
   }
 
@@ -258,7 +243,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
     else context?.stringRes(R.string.msg_karma_changed_post)
 
     message?.let { text ->
-      toastSuccess(text)
+      snackSuccess(text)
     }
   }
 
@@ -267,13 +252,13 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
     else context?.stringRes(R.string.msg_karma_already_rated_post)
 
     message?.let { text ->
-      toastInfo(text)
+      snackInfo(text)
     }
   }
 
   override fun showUnknownErrorMessage() {
     context?.stringRes(R.string.msg_unknown_error)?.let { message ->
-      toastError(message)
+      snackError(message)
     }
   }
 
