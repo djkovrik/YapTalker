@@ -16,9 +16,9 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
+import com.sedsoftware.yaptalker.presentation.extensions.snackWarning
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
-import com.sedsoftware.yaptalker.presentation.extensions.toastWarning
 import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ChosenForumAdapter
 import com.sedsoftware.yaptalker.presentation.features.forum.adapter.ChosenForumItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -82,7 +82,7 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumItemClic
   }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   override fun addTopicItem(entity: YapEntity) {
@@ -108,7 +108,7 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumItemClic
 
   override fun showCantLoadPageMessage(page: Int) {
     context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
-      toastWarning(String.format(Locale.getDefault(), template, page))
+      snackWarning(String.format(Locale.getDefault(), template, page))
     }
   }
 

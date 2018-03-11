@@ -37,9 +37,14 @@ class ShareTarget @Inject constructor(val context: Context) : ImageTarget {
       .subscribe({ uri ->
         // onSuccess
         val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "image/png"
+        intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_STREAM, uri)
-        context.startActivity(Intent.createChooser(intent, context.resources.getString(R.string.title_share_image)))
+        context.startActivity(
+          Intent.createChooser(
+            intent,
+            context.getString(R.string.title_share_image)
+          ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
       }, { throwable ->
         // onError
         Timber.e("Image sharing error: ${throwable.message}")

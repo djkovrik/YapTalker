@@ -12,13 +12,11 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.sedsoftware.yaptalker.commons.CrashReportingTree
 import com.sedsoftware.yaptalker.di.DaggerAppComponent
-import com.sedsoftware.yaptalker.presentation.extensions.color
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
-import es.dmoral.toasty.Toasty
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -43,7 +41,6 @@ class YapTalkerApp : Application(), HasActivityInjector {
     DaggerAppComponent.builder().create(this).inject(this)
 
     initTimber()
-    initToasty()
     initMaterialDrawerImageLoader()
   }
 
@@ -58,15 +55,6 @@ class YapTalkerApp : Application(), HasActivityInjector {
     } else {
       Timber.plant(CrashReportingTree())
     }
-  }
-
-  private fun initToasty() {
-    Toasty.Config.getInstance()
-      .setErrorColor(color(R.color.toastyColorError))
-      .setInfoColor(color(R.color.toastyColorInfo))
-      .setSuccessColor(color(R.color.toastyColorSuccess))
-      .setWarningColor(color(R.color.toastyColorWarning))
-      .apply()
   }
 
   private fun initMaterialDrawerImageLoader() {

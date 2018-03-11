@@ -20,8 +20,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
 import com.sedsoftware.yaptalker.presentation.features.incubator.adapter.IncubatorAdapter
 import com.sedsoftware.yaptalker.presentation.features.incubator.adapter.IncubatorElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -72,7 +72,7 @@ class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader, Incub
   }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   override fun appendIncubatorItem(entity: YapEntity) {

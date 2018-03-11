@@ -26,7 +26,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiAdapter
 import com.sedsoftware.yaptalker.presentation.features.posting.adapter.EmojiClickListener
 import com.sedsoftware.yaptalker.presentation.features.posting.tags.MessageTagCodes
@@ -172,7 +172,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
   }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   override fun showLinkParametersDialogs() {

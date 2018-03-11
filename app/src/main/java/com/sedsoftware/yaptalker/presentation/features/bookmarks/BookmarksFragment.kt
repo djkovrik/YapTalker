@@ -15,9 +15,9 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
+import com.sedsoftware.yaptalker.presentation.extensions.snackInfo
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
-import com.sedsoftware.yaptalker.presentation.extensions.toastInfo
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapters.BookmarksAdapter
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.adapters.BookmarksElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -67,7 +67,7 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
   }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   override fun appendBookmarkItem(bookmark: YapEntity) {
@@ -95,7 +95,7 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
   }
 
   override fun showBookmarkDeletedMessage() {
-    toastInfo(getString(R.string.msg_bookmark_topic_deleted))
+    snackInfo(getString(R.string.msg_bookmark_topic_deleted))
   }
 
   override fun onTopicItemClick(link: String) {

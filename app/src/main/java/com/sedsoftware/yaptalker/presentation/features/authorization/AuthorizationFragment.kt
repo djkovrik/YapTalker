@@ -13,9 +13,9 @@ import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
+import com.sedsoftware.yaptalker.presentation.extensions.snackSuccess
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
-import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
@@ -48,15 +48,15 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
   }
 
   override fun loginSuccessMessage() {
-    context?.stringRes(R.string.msg_login_success)?.let { toastSuccess(it) }
+    context?.stringRes(R.string.msg_login_success)?.let { snackSuccess(it) }
   }
 
   override fun loginErrorMessage() {
-    context?.stringRes(R.string.msg_login_error)?.let { toastError(it) }
+    context?.stringRes(R.string.msg_login_error)?.let { snackError(it) }
   }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   override fun setSignInButtonState(isEnabled: Boolean) {

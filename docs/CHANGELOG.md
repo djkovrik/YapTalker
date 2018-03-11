@@ -1,5 +1,13 @@
 ### Current version: 0.9.1
 # Changelog
+## [0.9.1] - 2018-03-11
+## Changed
+- Notifications displaying
+- Reverted: Selectable text for messages
+
+## Fixed
+- Share image crash on Android 5.0 and 6.0
+
 ## [0.9.1] - 2018-03-05
 ## Added
 - Selectable text for messages

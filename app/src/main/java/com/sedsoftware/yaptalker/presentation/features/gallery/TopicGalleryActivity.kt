@@ -16,16 +16,16 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
+import com.sedsoftware.yaptalker.presentation.extensions.snackSuccess
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.extensions.toastError
-import com.sedsoftware.yaptalker.presentation.extensions.toastSuccess
 import com.sedsoftware.yaptalker.presentation.extensions.visibleItemPosition
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryAdapter
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryLoadMoreClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
-import kotlinx.android.synthetic.main.activity_topic_gallery.topic_gallery
-import kotlinx.android.synthetic.main.include_main_appbar_transparent.toolbar
+import kotlinx.android.synthetic.main.activity_topic_gallery.*
+import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
 import java.util.Locale
 import javax.inject.Inject
 
@@ -122,7 +122,7 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
   }
 
   override fun showErrorMessage(message: String) {
-    toastError(message)
+    snackError(message)
   }
 
   override fun appendImages(images: List<YapEntity>) {
@@ -143,12 +143,12 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
 
   override fun fileSavedMessage(filepath: String) {
     String.format(Locale.getDefault(), stringRes(R.string.msg_file_saved), filepath).apply {
-      toastSuccess(this)
+      snackSuccess(this)
     }
   }
 
   override fun fileNotSavedMessage() {
-    toastError(stringRes(R.string.msg_file_not_saved))
+    snackError(stringRes(R.string.msg_file_not_saved))
   }
 
   override fun onLoadMoreClicked() {

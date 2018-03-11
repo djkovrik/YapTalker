@@ -9,7 +9,6 @@ import android.view.ViewGroup.LayoutParams
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ImageView.ScaleType
-import android.widget.LinearLayout
 import android.widget.TextView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
@@ -35,7 +34,6 @@ import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
 import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 import java.util.ArrayList
-
 
 class ChosenTopicDelegateAdapter(
   private val clickListener: ChosenTopicElementsClickListener,
@@ -103,7 +101,6 @@ class ChosenTopicDelegateAdapter(
               quoteAuthor.textSize = normalFontSize
               quoteAuthor.setTextColor(primaryTextColor)
               quoteAuthor.text = contentItem.text
-              quoteAuthor.setTextIsSelectable(true)
               if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
                 quoteAuthor.setPadding(textPadding * currentNestingLevel, 0, 0, 0)
               }
@@ -117,7 +114,6 @@ class ChosenTopicDelegateAdapter(
               quoteText.textFromHtmlWithEmoji(contentItem.text)
               quoteText.setBackgroundColor(quoteBackgroundColor)
               quoteText.setPadding(textPadding * currentNestingLevel, 0, 0, 0)
-              quoteText.setTextIsSelectable(true)
               itemView.post_content_text_container.addView(quoteText)
             }
             is PostTextModel -> {
@@ -127,7 +123,6 @@ class ChosenTopicDelegateAdapter(
               postText.textSize = normalFontSize
               postText.setTextColor(primaryTextColor)
               postText.textFromHtmlWithEmoji(contentItem.text)
-              postText.setTextIsSelectable(true)
               if (currentNestingLevel > INITIAL_NESTING_LEVEL) {
                 postText.setBackgroundColor(quoteBackgroundColor)
                 postText.setPadding(textPadding * currentNestingLevel, 0, 0, 0)
@@ -139,7 +134,6 @@ class ChosenTopicDelegateAdapter(
               hiddenText.textSize = smallFontSize
               hiddenText.setTextColor(primaryTextColor)
               hiddenText.textFromHtmlWithEmoji(contentItem.text)
-              hiddenText.setTextIsSelectable(true)
               itemView.post_content_text_container.addView(hiddenText)
             }
             is PostScriptModel -> {
@@ -148,7 +142,6 @@ class ChosenTopicDelegateAdapter(
               postScriptText.textSize = smallFontSize
               postScriptText.setTextColor(secondaryTextColor)
               postScriptText.text = contentItem.text
-              postScriptText.setTextIsSelectable(true)
               itemView.post_content_text_container.addView(postScriptText)
             }
             is PostWarningModel -> {
@@ -163,7 +156,6 @@ class ChosenTopicDelegateAdapter(
           warningText.textSize = smallFontSize
           warningText.setTextColor(secondaryTextColor)
           warningText.text = warning.text
-          warningText.setTextIsSelectable(true)
           itemView.post_content_text_container.addView(warningText)
         }
       }
@@ -213,7 +205,7 @@ class ChosenTopicDelegateAdapter(
 
           // Overlay
           val overlay = ImageView(itemView.context)
-          val layoutParams = LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+          val layoutParams = ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
           overlay.layoutParams = layoutParams
           overlay.scaleType = ScaleType.CENTER
 
