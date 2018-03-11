@@ -9,9 +9,16 @@
 
   <include layout="@layout/include_main_appbar" />
 
-  <WebView
-    android:id="@+id/gif_view"
+  <FrameLayout
+    android:id="@+id/content_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    android:layout_height="match_parent">
+
+    <WebView
+      android:id="@+id/gif_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content" />
+
+  </FrameLayout>
 
 </LinearLayout>
