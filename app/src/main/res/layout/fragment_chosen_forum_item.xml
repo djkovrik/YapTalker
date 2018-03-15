@@ -3,63 +3,62 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
+  android:layout_height="@dimen/material_list_three_line_normal_height"
   android:background="?attr/selectableItemBackground"
   tools:keep="@layout/fragment_chosen_forum_item">
 
-  <RelativeLayout
-    android:id="@+id/linearLayoutTopic"
-    android:layout_width="0dp"
+  <com.sedsoftware.yaptalker.commons.view.EllipsizingTextView
+    android:id="@+id/topic_name"
+    style="@style/ForumTopicTitle"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/material_list_normal_padding_vertical"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
     android:layout_marginEnd="@dimen/materialize_screen_edge"
     android:layout_marginStart="@dimen/materialize_screen_edge"
     android:layout_marginTop="@dimen/material_list_normal_padding_vertical"
-    android:orientation="vertical"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toStartOf="@+id/topic_rating"
+    app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="Very very very very very very very very very very very very very very very very very very very very very very long title here" />
 
-    <com.mikepenz.iconics.view.IconicsTextView
-      android:id="@+id/topic_name"
-      style="@style/ForumTopicTitle"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentStart="true"
-      android:layout_alignParentTop="true"
-      tools:text="Very very very very very very very long title here" />
+  <com.mikepenz.iconics.view.IconicsTextView
+    android:id="@+id/topic_answers"
+    style="@style/ForumTopicAnswers"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:layout_marginBottom="@dimen/material_list_normal_padding_vertical"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:gravity="center_vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    tools:text="1000" />
 
-    <TextView
-      android:id="@+id/topic_last_post_author"
-      style="@style/ForumTopicAuthor"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentStart="true"
-      android:layout_below="@+id/topic_name"
-      tools:text="Administration" />
+  <TextView
+    android:id="@+id/topic_last_post_date"
+    style="@style/CommonSupportingText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/topic_name"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:gravity="center_vertical"
+    app:layout_constraintBottom_toBottomOf="@+id/topic_answers"
+    app:layout_constraintStart_toEndOf="@+id/topic_answers"
+    app:layout_constraintTop_toTopOf="@+id/topic_answers"
+    tools:text="minute ago" />
 
-    <TextView
-      android:id="@+id/topic_last_post_date"
-      style="@style/CommonSupportingText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/topic_name"
-      android:layout_toEndOf="@+id/topic_last_post_author"
-      android:paddingEnd="@dimen/materialize_screen_edge"
-      android:paddingStart="@dimen/materialize_screen_edge"
-      tools:text="minute ago" />
-
-    <TextView
-      android:id="@+id/topic_answers"
-      style="@style/ForumTopicAnswers"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentStart="true"
-      android:layout_below="@+id/topic_last_post_author"
-      tools:text="Answers: 1000" />
-
-  </RelativeLayout>
+  <TextView
+    android:id="@+id/topic_last_post_author"
+    style="@style/ForumTopicAuthor"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:gravity="center_vertical"
+    app:layout_constraintBottom_toBottomOf="@+id/topic_last_post_date"
+    app:layout_constraintStart_toEndOf="@+id/topic_last_post_date"
+    app:layout_constraintTop_toTopOf="@+id/topic_last_post_date"
+    tools:text="Administration" />
 
   <TextView
     android:id="@+id/topic_rating"
@@ -68,11 +67,9 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/material_list_normal_padding_vertical"
     android:layout_marginEnd="@dimen/materialize_screen_edge"
-    android:layout_marginTop="@dimen/material_list_normal_padding_vertical"
     android:gravity="center_vertical|center_horizontal"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
     tools:text="+1000" />
 
 </android.support.constraint.ConstraintLayout>
