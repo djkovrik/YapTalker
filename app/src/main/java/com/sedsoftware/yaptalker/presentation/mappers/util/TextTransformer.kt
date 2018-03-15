@@ -37,6 +37,10 @@ class TextTransformer @Inject constructor(private val context: Context) {
     context.getString(R.string.forum_comments_template)
   }
 
+  private val commentsTemplateShort: String by lazy {
+    context.getString(R.string.news_comments_template_short)
+  }
+
   private val websiteTemplate: String by lazy {
     context.stringRes(R.string.profile_web_site)
   }
@@ -85,6 +89,9 @@ class TextTransformer @Inject constructor(private val context: Context) {
     val commentsTemplate: String = context.stringQuantityRes(R.plurals.news_comments_template, comments)
     return String.format(Locale.getDefault(), commentsTemplate, comments)
   }
+
+  fun transformCommentsLabelShort(comments: Int): String =
+    String.format(Locale.getDefault(), commentsTemplateShort, comments)
 
   fun transformNewsForumTitle(title: String): String =
     String.format(Locale.getDefault(), forumTitleTemplate, title)
