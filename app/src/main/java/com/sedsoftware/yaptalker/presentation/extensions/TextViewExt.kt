@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.extensions
 import android.text.Html
 import android.widget.TextView
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.utility.PicassoImageGetter
+import com.sedsoftware.yaptalker.presentation.custom.PicassoImageGetter
 
 var TextView.textColor: Int
   get() = currentTextColor

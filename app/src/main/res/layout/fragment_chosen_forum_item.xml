@@ -7,7 +7,7 @@
   android:background="?attr/selectableItemBackground"
   tools:keep="@layout/fragment_chosen_forum_item">
 
-  <com.sedsoftware.yaptalker.commons.view.EllipsizingTextView
+  <com.sedsoftware.yaptalker.presentation.custom.view.EllipsizingTextView
     android:id="@+id/topic_name"
     style="@style/ForumTopicTitle"
     android:layout_width="match_parent"

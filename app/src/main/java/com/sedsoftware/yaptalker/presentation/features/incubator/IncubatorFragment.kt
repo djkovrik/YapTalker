@@ -25,7 +25,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.features.incubator.adapter.IncubatorAdapter
 import com.sedsoftware.yaptalker.presentation.features.incubator.adapter.IncubatorElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.utility.InfiniteScrollListener
+import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

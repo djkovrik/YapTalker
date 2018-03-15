@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.utility
+package com.sedsoftware.yaptalker.presentation.custom
 
 import android.content.Context
 import android.graphics.Bitmap
