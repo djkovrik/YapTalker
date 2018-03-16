@@ -52,8 +52,8 @@ class EllipsizingTextView @JvmOverloads constructor(
   }
 
   companion object {
-    private val ELLIPSIS = "\u2026"
-    private val DEFAULT_END_PUNCTUATION = Pattern.compile("[\\.!?,;:\u2026]*$", Pattern.DOTALL)
+    private const val ELLIPSIS = "\u2026"
+    private val DEFAULT_END_PUNCTUATION = Pattern.compile("[.!?,;:\u2026]*$", Pattern.DOTALL)
   }
 
   private val mEllipsizeListeners = ArrayList<EllipsizeListener>()

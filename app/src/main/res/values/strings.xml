@@ -23,7 +23,7 @@
     <item quantity="other"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
   </plurals>
 
-  <string name="news_comments_template_short"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g></string>
+  <string name="news_comments_template_short" translatable="false"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g></string>
   <string name="news_forum_title_template" translatable="false"><xliff:g id="bullet">\u25AA</xliff:g> <xliff:g id="forum">%s</xliff:g></string>
 
   <!-- FORUMS -->
@@ -106,7 +106,6 @@
   <!-- SEARCH SCREEN -->
   <string name="btn_search">Search</string>
   <string name="search_text_hint">Enter search keyword…</string>
-  <string name="search_messages_only">Search for messages only</string>
   <string name="search_rb_date">By date</string>
   <string name="search_rb_relevant">Relevant</string>
   <string name="search_rb_words_any">Any word</string>
