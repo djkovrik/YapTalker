@@ -101,7 +101,6 @@ class YapTalkerApp : Application(), HasActivityInjector {
       packageManager.getPackageInfo(packageName, 0).let { packageInfo ->
         Timber.d("Init YapTalker:")
         Timber.d("--- version name: ${packageInfo.versionName}")
-        Timber.d("--- version code: ${packageInfo.versionCode}")
       }
     }
   }
