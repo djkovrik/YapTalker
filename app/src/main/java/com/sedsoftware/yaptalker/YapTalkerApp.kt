@@ -20,6 +20,7 @@ import dagger.android.HasActivityInjector
 import timber.log.Timber
 import javax.inject.Inject
 
+@Suppress("ConstantConditionIf")
 class YapTalkerApp : Application(), HasActivityInjector {
 
   companion object {
@@ -42,11 +43,11 @@ class YapTalkerApp : Application(), HasActivityInjector {
 
     initTimber()
     initMaterialDrawerImageLoader()
+    dumpAppInfo()
   }
 
   override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
 
-  @Suppress("ConstantConditionIf")
   private fun initTimber() {
     Timber.uprootAll()
 
@@ -79,5 +80,15 @@ class YapTalkerApp : Application(), HasActivityInjector {
           else -> super.placeholder(ctx, tag)
         }
     })
+  }
+
+  private fun dumpAppInfo() {
+    if (BuildConfig.DEBUG) {
+      packageManager.getPackageInfo(packageName, 0).let { packageInfo ->
+        Timber.d("Init YapTalker:")
+        Timber.d("--- version name: ${packageInfo.versionName}")
+        Timber.d("--- version code: ${packageInfo.versionCode}")
+      }
+    }
   }
 }

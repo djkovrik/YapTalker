@@ -10,6 +10,7 @@
   <string name="nav_drawer_active_topics">Активные темы</string>
   <string name="nav_drawer_incubator">Инкубатор</string>
   <string name="nav_drawer_settings">Настройки</string>
+  <string name="nav_drawer_changelog">Список изменений</string>
   <string name="nav_drawer_bookmarks">Закладки</string>
   <string name="nav_drawer_search">Поиск</string>
   <string name="nav_drawer_sign_in">Вход</string>
