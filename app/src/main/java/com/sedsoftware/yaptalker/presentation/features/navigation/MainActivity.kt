@@ -242,7 +242,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemChangelog = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.CHANGELOG)
       .withIcon(CommunityMaterial.Icon.cmd_help_circle)
-      .withSelectable(false)
       .withName(R.string.nav_drawer_changelog)
       .withTextColor(color(R.color.colorNavDefaultText))
       .withIconColorRes(R.color.colorNavSettings)

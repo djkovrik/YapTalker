@@ -18,4 +18,5 @@ object NavigationScreen {
   const val SEARCH_FORM = "SEARCH_FORM"
   const val SEARCH_RESULTS = "SEARCH_RESULTS"
   const val TOPIC_GALLERY = "TOPIC_GALLERY"
+  const val CHANGELOG_SCREEN = "CHANGELOG_SCREEN"
 }

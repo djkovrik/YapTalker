@@ -10,6 +10,8 @@ import com.sedsoftware.yaptalker.presentation.features.authorization.Authorizati
 import com.sedsoftware.yaptalker.presentation.features.authorization.di.AuthorizationFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.BookmarksFragment
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.di.BookmarksFragmentModule
+import com.sedsoftware.yaptalker.presentation.features.changelog.ChangelogFragment
+import com.sedsoftware.yaptalker.presentation.features.changelog.di.ChangelogFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.forum.ChosenForumFragment
 import com.sedsoftware.yaptalker.presentation.features.forum.di.ChosenForumFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.forumslist.ForumsFragment
@@ -98,4 +100,8 @@ abstract class MainActivityModule {
   @FragmentScope
   @ContributesAndroidInjector(modules = [(SearchResultsFragmentModule::class)])
   abstract fun searchResultsFragmentInjector(): SearchResultsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [(ChangelogFragmentModule::class)])
+  abstract fun changelogFragmentInjector(): ChangelogFragment
 }
