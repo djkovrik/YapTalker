@@ -26,8 +26,7 @@ class YapNewsRepository @Inject constructor(
       .loadNews(page)
       .map(dataMapper)
       .flatMap(listMapper)
-      .filter { newsEntity ->
-        newsEntity as NewsItem
-        newsCategories.contains(newsEntity.forumLink)
-      }
+      .filter { newsCategories.contains((it as NewsItem).forumLink) }
+      .filter { (it as NewsItem).isYapLink }
+      .filter { (it as NewsItem).comments != 0 }
 }

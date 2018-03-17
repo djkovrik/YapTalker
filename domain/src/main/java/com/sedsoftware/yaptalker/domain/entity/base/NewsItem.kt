@@ -19,5 +19,6 @@ class NewsItem(
   val forumName: String,
   val forumLink: String,
   val comments: Int,
-  val cleanedDescription: String
+  val cleanedDescription: String,
+  val isYapLink: Boolean
 ) : BaseEntity

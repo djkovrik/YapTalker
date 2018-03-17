@@ -95,9 +95,7 @@ class NewsDelegateAdapter(
           news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawVideo, true) }
         }
 
-        setOnClickListener {
-          if (newsItem.isYapLink) clickListener.onNewsItemClicked(newsItem.forumId, newsItem.topicId)
-        }
+        setOnClickListener { clickListener.onNewsItemClicked(newsItem.forumId, newsItem.topicId) }
       }
     }
   }
