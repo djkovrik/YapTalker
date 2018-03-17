@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
@@ -17,6 +18,8 @@ import com.squareup.picasso.Picasso
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import ru.noties.markwon.SpannableConfiguration
+import ru.noties.markwon.spans.SpannableTheme
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -43,6 +46,7 @@ class YapTalkerApp : Application(), HasActivityInjector {
 
     initTimber()
     initMaterialDrawerImageLoader()
+    initMarkwon()
     dumpAppInfo()
   }
 
@@ -80,6 +84,16 @@ class YapTalkerApp : Application(), HasActivityInjector {
           else -> super.placeholder(ctx, tag)
         }
     })
+  }
+
+  private fun initMarkwon() {
+    val theme = SpannableTheme.builderWithDefaults(this)
+      .codeTextColor(Color.parseColor("#C0341D"))
+      .codeBackgroundColor(Color.parseColor("#FCEDEA"))
+      .build()
+    SpannableConfiguration.builder(this)
+      .theme(theme)
+      .build()
   }
 
   private fun dumpAppInfo() {
