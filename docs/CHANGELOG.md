@@ -1,6 +1,6 @@
-### Current version: 0.9.1
+### Current version: 0.9.2
 # Changelog
-## [0.9.1] - 2018-03-11
+## [0.9.2] - 2018-03-11
 ## Changed
 - Notifications displaying
 - Reverted: Selectable text for messages
@@ -60,7 +60,6 @@
 ### Fixed
 - More fixes for Unable to load publicsuffixes.gz error
 
-# Changelog
 ## [0.8.6] - 2018-01-04
 ### Fixed
 - Own posts rating displaying bug
@@ -74,7 +73,7 @@
 - Single post rating displaying
 
 ### Fixed
-- Negative messages count displaying but
+- Negative messages count displaying bug
 
 ## [0.8.4] - 2017-12-31
 ### Added
@@ -93,7 +92,6 @@
 ## [0.8.3] - 2017-12-30
 - First beta release.
 
-# Changelog
 ## [0.8.0] - 2017-12-27
 ### Added
 - GIF support
