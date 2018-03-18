@@ -1,164 +1,185 @@
-### Current version: 0.9.1
-# Changelog
-## [0.9.1] - 2018-03-11
-## Changed
-- Notifications displaying
-- Reverted: Selectable text for messages
+## Changelog
 
-## Fixed
-- Share image crash on Android 5.0 and 6.0
+### [0.9.2] - 2018-03-11
 
-## [0.9.1] - 2018-03-05
-## Added
-- Selectable text for messages
-- Gallery mode for topics
+**Changed**
 
-## [0.9.0] - 2018-02-20
-## Added
-- Images posting
-- Two pane mode checkbox for tablets
+* Notifications displaying
+* Reverted: Selectable text for messages
 
-## [0.8.11] - 2018-02-11
-## Added
-- Site search
+**Fixed**
+* Share image crash on Android 5.0 and 6.0
 
-### Changed
-- Optimized video icon overlay scaling
+### [0.9.1] - 2018-03-05
 
-## Fixed
-- Karma request bugfixes
+**Added**
+* Selectable text for messages
+* Gallery mode for topics
 
-## [0.8.10] - 2018-01-27
-### Changed
-- Smiles button moved to post editor toolbar
-- Forced landscape orientation for video activity
-- Click on navigation drawer avatar opens user profile
+### [0.9.0] - 2018-02-20
 
-## [0.8.9] - 2018-01-23
-## Added
-- Post editing
-- Emoji
-- Video insert tags
+**Added**
+* Images posting
+* Two pane mode checkbox for tablets
 
-### Changed
-- Reimplemented cookie storage
+### [0.8.11] - 2018-02-11
 
-## [0.8.8] - 2018-01-12
-## Added
-- Post quoting
-- Anonymous sign in
-- Fast scrolling for topics
+**Added**
+* Site search
 
-## [0.8.7] - 2018-01-07
-## Added
-- Sync with forums and topics displaying site preferences
+**Changed**
+* Optimized video icon overlay scaling
 
-### Changed
-- Topic actions menu replaced with fab menu
-- Improved scroll position saving during topic refreshing
+**Fixed**
+* Karma request bugfixes
 
-### Fixed
-- More fixes for Unable to load publicsuffixes.gz error
+### [0.8.10] - 2018-01-27
 
-# Changelog
-## [0.8.6] - 2018-01-04
-### Fixed
-- Own posts rating displaying bug
-- url links parsing
-- Android 4.4 compatibility problems
-- App Links bug
-- More fixes for Unable to load publicsuffixes.gz error
+**Changed**
+* Smiles button moved to post editor toolbar
+* Forced landscape orientation for video activity
+* Click on navigation drawer avatar opens user profile
 
-## [0.8.5] - 2018-01-02
-### Changed
-- Single post rating displaying
+### [0.8.9] - 2018-01-23
 
-### Fixed
-- Negative messages count displaying but
+**Added**
+* Post editing
+* Emoji
+* Video insert tags
 
-## [0.8.4] - 2017-12-31
-### Added
-- Incubator site section
-- Additional font sizes
-- Notifications for change karma requests
+**Changed**
+* Reimplemented cookie storage
 
-### Changed
-- Each site topic now also has top navigation panel
-- Added post-loading scroll to targeted post for post karma changing
-- Added messages for karma changing request results
+### [0.8.8] - 2018-01-12
 
-### Fixed
-- Broken EditText width for new message layout
+**Added**
+* Post quoting
+* Anonymous sign in
+* Fast scrolling for topics
 
-## [0.8.3] - 2017-12-30
-- First beta release.
+### [0.8.7] - 2018-01-07
 
-# Changelog
-## [0.8.0] - 2017-12-27
-### Added
-- GIF support
+**Added**
+* Sync with forums and topics displaying site preferences
 
-### Changed
-- Complete architecture refactoring
+**Changed**
+* Topic actions menu replaced with fab menu
+* Improved scroll position saving during topic refreshing
 
-## [0.7.0] - 2017-11-14
-### Added
-- New setting to keep screen awake while reading forum topic
-- New setting to choose user avatar size
-- Basic tablet layouts
+**Fixed**
+* More fixes for Unable to load publicsuffixes.gz error
 
-### Changed
-- Navigation drawer items highlighting
+### [0.8.6] - 2018-01-04
 
-### Fixed
-- Youtube thumbnail id parsing crash
+**Fixed**
+* Own posts rating displaying bug
+* url links parsing
+* Android 4.4 compatibility problems
+* App Links bug
+* More fixes for Unable to load publicsuffixes.gz error
 
-## [0.6.0] - 2017-11-10
-### Added
-- Topics rating
-- Posts rating
-- Given rating displaying for topic posts
+### [0.8.5] - 2018-01-02
 
-### Changed
-- Launcher icon updated
-- All links in post TextView now clickable
+**Changed**
+* Single post rating displaying
 
-### Fixed
-- Crash after click on chosen active topic
-- Sign Out request now closes site login session
+**Fixed**
+* Negative messages count displaying bug
 
-## [0.5.0] - 2017-11-03
-### Added
-- Active topics browsing
-- Bookmarks loading and management
+### [0.8.4] - 2017-12-31
 
-### Fixed
-- Incorrect moderator warning displaying
+**Added**
+* Incubator site section
+* Additional font sizes
+* Notifications for change karma requests
 
+**Changed**
+* Each site topic now also has top navigation panel
+* Added post-loading scroll to targeted post for post karma changing
+* Added messages for karma changing request results
 
-## [0.4.1] - 2017-10-25
-### Added
-- User profiles browsing
-- Message posting
+**Fixed**
+* Broken EditText width for new message layout
 
-### Changed
-- Navigation panel behavior
+### [0.8.3] - 2017-12-30
 
-## [0.3.0] - 2017-09-29
-### Added
-- Settings screen
-- Site authorization
+* First beta release.
 
-## [0.2.0] - 2017-09-13
-### Added
-- Chosen forum browsing
-- Chosen topic browsing
-- Image displaying activity with saving and sharing options
-- Video displaying activity
+### [0.8.0] - 2017-12-27
+
+**Added**
+* GIF support
+
+**Changed**
+* Complete architecture refactoring
+
+### [0.7.0] - 2017-11-14
+
+**Added**
+* New setting to keep screen awake while reading forum topic
+* New setting to choose user avatar size
+* Basic tablet layouts
+
+**Changed**
+
+* Navigation drawer items highlighting
+
+**Fixed**
+* Youtube thumbnail id parsing crash
+
+### [0.6.0] - 2017-11-10
+
+**Added**
+* Topics rating
+* Posts rating
+* Given rating displaying for topic posts
+
+**Changed**
+
+* Launcher icon updated
+* All links in post TextView now clickable
+
+**Fixed**
+* Crash after click on chosen active topic
+* Sign Out request now closes site login session
+
+### [0.5.0] - 2017-11-03
+
+**Added**
+* Active topics browsing
+* Bookmarks loading and management
+
+**Fixed**
+* Incorrect moderator warning displaying
 
 
-## [0.1.1] - 2017-08-16
-### Added
-- Navigation drawer
-- News list browsing
-- Forums list browsing
+### [0.4.1] - 2017-10-25
+
+**Added**
+* User profiles browsing
+* Message posting
+
+**Changed**
+* Navigation panel behavior
+
+### [0.3.0] - 2017-09-29
+
+**Added**
+* Settings screen
+* Site authorization
+
+### [0.2.0] - 2017-09-13
+
+**Added**
+* Chosen forum browsing
+* Chosen topic browsing
+* Image displaying activity with saving and sharing options
+* Video displaying activity
+
+
+### [0.1.1] - 2017-08-16
+
+**Added**
+* Navigation drawer
+* News list browsing
+* Forums list browsing
