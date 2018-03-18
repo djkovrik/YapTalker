@@ -47,7 +47,7 @@ class ActiveTopicModelMapper @Inject constructor(
             forumId = item.forumLink.getLastDigits(),
             rating = item.rating,
             ratingText = item.rating.toString(),
-            answers = textTransformer.createCommentsLabel(item.answers),
+            answers = textTransformer.transformCommentsLabelShort(item.answers),
             lastPostDate = dateTransformer.transformDateToShortView(item.lastPostDate)
           )
         )

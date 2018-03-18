@@ -131,7 +131,7 @@ class PostContentParser(private val content: String) {
         if (element.tagName() == IFRAME_TAG &&
           element.hasAttr(SRC_ATTR)) {
           result.videos.add(element.attr(SRC_ATTR))
-          result.videosRaw.add(element.toString())
+          result.videosRaw.add(element.toString().replace("&amp;", "&"))
         }
 
         // P.S.

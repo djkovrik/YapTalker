@@ -54,7 +54,7 @@ class ForumModelMapper @Inject constructor(
             authorLink = item.authorLink,
             rating = item.rating,
             ratingText = item.rating.toString(),
-            answers = textTransformer.createCommentsLabel(item.answers),
+            answers = textTransformer.transformCommentsLabelShort(item.answers),
             lastPostDate = dateTransformer.transformDateToShortView(item.lastPostDate),
             lastPostAuthor = item.lastPostAuthor
           )

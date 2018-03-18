@@ -16,7 +16,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.features.search.adapters.SearchResultsAdapter
 import com.sedsoftware.yaptalker.presentation.features.search.adapters.SearchResultsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.utility.InfiniteScrollListener
+import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_site_search_results.*
 import javax.inject.Inject

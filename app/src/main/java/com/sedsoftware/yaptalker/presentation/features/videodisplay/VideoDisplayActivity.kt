@@ -6,14 +6,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.webkit.WebChromeClient
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.extensions.snackError
-import com.sedsoftware.yaptalker.presentation.features.videodisplay.client.VideoWebChromeClient
-import com.sedsoftware.yaptalker.presentation.features.videodisplay.client.VideoWebChromeClient.FullscreenCallback
 import kotlinx.android.synthetic.main.activity_video_display.*
 import javax.inject.Inject
 
@@ -93,18 +92,19 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
   @SuppressLint("SetJavaScriptEnabled")
   override fun initWebView() {
 
-    val webChromeClient = VideoWebChromeClient(non_video_layout, video_layout, video_loading, video_view)
-
-    webChromeClient.setOnToggledFullscreen(object : FullscreenCallback {
-      override fun toggledFullscreen(fullscreen: Boolean) {
-        if (fullscreen) {
-          checkHideSystemUI()
-        }
-      }
-    })
+//    val webChromeClient = VideoWebChromeClient(non_video_layout, video_layout, video_loading, video_view)
+//
+//    webChromeClient.setOnToggledFullscreen(object : FullscreenCallback {
+//      override fun toggledFullscreen(fullscreen: Boolean) {
+//        if (fullscreen) {
+//          checkHideSystemUI()
+//        }
+//      }
+//    })
 
     video_view.settings?.setAppCacheEnabled(false)
-    video_view.webChromeClient = webChromeClient
+    video_view.settings?.javaScriptEnabled = true
+    video_view.webChromeClient = WebChromeClient()
   }
 
   override fun displayWebViewContent() {

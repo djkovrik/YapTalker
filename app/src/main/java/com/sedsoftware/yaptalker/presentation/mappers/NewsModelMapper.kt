@@ -39,7 +39,7 @@ class NewsModelMapper @Inject constructor(
       forumId = item.forumLink.getLastDigits(),
       comments = textTransformer.transformCommentsLabel(item.comments),
       cleanedDescription = textTransformer.transformHtmlToSpanned(item.cleanedDescription),
-      isYapLink = item.link.contains("yaplakal") && !item.link.contains("/go/")
+      isYapLink = item.isYapLink
     )
   }
 }

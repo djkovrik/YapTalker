@@ -92,7 +92,6 @@
   <!-- SEARCH SCREEN -->
   <string name="btn_search">Поиск</string>
   <string name="search_text_hint">Фраза для поиска…</string>
-  <string name="search_messages_only">Искать только сообщения</string>
   <string name="search_rb_date">По дате</string>
   <string name="search_rb_relevant">По релевантности</string>
   <string name="search_rb_words_any">Любое слово</string>
