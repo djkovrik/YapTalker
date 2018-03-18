@@ -1,10 +1,18 @@
 ## Changelog
 
+### [0.9.3] - 2018-03-18
+**Changed**
+* Temporary restored old webView video player to fix vk.com videos problems
+* Changed topic item layouts to display longer topic names
+* News with zero comments and/or with external web links now hidden from main page
+
+**Fixed**
+* Image saving crash when topic gallery mode was active
+
 ### [0.9.2] - 2018-03-11
 
 **Changed**
-
-* Notifications displaying
+* Notifications displaying, now snackbars instead of toasts
 * Reverted: Selectable text for messages
 
 **Fixed**
@@ -152,7 +160,6 @@
 **Fixed**
 * Incorrect moderator warning displaying
 
-
 ### [0.4.1] - 2017-10-25
 
 **Added**
@@ -175,7 +182,6 @@
 * Chosen topic browsing
 * Image displaying activity with saving and sharing options
 * Video displaying activity
-
 
 ### [0.1.1] - 2017-08-16
 
