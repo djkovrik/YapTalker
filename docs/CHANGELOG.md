@@ -1,4 +1,7 @@
 # Changelog
+## [0.9.3] - 2018-03-xx
+## Fixed
+* Empty-linked user profiles parsing
 
 ## [0.9.2] - 2018-03-11
 
