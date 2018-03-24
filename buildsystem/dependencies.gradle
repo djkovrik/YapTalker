@@ -75,6 +75,7 @@ ext {
         rxKotlin: "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
         retrofit: "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION",
         jspoon  : "pl.droidsonroids:jspoon:$JSPOON_VERSION",
+        moshi   : "com.squareup.moshi:moshi:$MOSHI_VERSION",
     ]
 
     dataTestDependencies = [
