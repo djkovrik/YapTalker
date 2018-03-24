@@ -5,6 +5,8 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
+import com.sedsoftware.yaptalker.presentation.extensions.hideView
+import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import kotlinx.android.synthetic.main.fragment_changelog.*
 import ru.noties.markwon.Markwon
@@ -26,6 +28,16 @@ class ChangelogFragment : BaseFragment(), ChangelogView {
 
   override fun displayChangelog(markdown: String) {
     Markwon.setMarkdown(changelog, markdown)
+  }
+
+  override fun showLoadingIndicator() {
+    changelog_container.hideView()
+    changelog_progressbar.showView()
+  }
+
+  override fun hideLoadingIndicator() {
+    changelog_progressbar.hideView()
+    changelog_container.showView()
   }
 
   override fun showErrorMessage(message: String) {

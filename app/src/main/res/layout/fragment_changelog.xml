@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <TextView
-    android:id="@+id/changelog"
+  <ScrollView
+    android:id="@+id/changelog_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+      android:id="@+id/changelog"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/materialize_screen_edge"
+      tools:text="@tools:sample/lorem/random" />
+
+  </ScrollView>
+
+  <ProgressBar
+    android:id="@+id/changelog_progressbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/materialize_screen_edge"
-    tools:text="@tools:sample/lorem/random" />
+    android:layout_gravity="center" />
 
-</ScrollView>
+</FrameLayout>

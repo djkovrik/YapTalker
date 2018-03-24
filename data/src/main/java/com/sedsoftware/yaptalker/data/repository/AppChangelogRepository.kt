@@ -2,74 +2,37 @@ package com.sedsoftware.yaptalker.data.repository
 
 import android.content.Context
 import android.os.Build
+import com.sedsoftware.yaptalker.data.mappers.ServerResponseMapper
+import com.sedsoftware.yaptalker.data.network.external.GitHubLoader
 import com.sedsoftware.yaptalker.domain.repository.ChangelogRepository
 import io.reactivex.Single
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
 import javax.inject.Inject
 
-
 class AppChangelogRepository @Inject constructor(
-  private val context: Context
+  private val context: Context,
+  private val dataLoader: GitHubLoader,
+  private val dataMapper: ServerResponseMapper
 ) : ChangelogRepository {
 
-  override fun getChangelog(): Single<String> =
-    Single.create { emitter ->
+  private companion object {
+    const val LOCALE_RU = "ru_RU"
+  }
 
-      val resources = context.resources
-      val locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        resources.configuration.locales.get(0)
-      } else {
-        //noinspection deprecation
-        resources.configuration.locale
-      }
+  override fun getChangelog(): Single<String> {
 
-      val stream: InputStream?
-      var result: String? = null
-
-      try {
-        stream = if (locale.country == "ru_RU") {
-          resources.assets.open("CHANGELOG_RU.md")
-        } else {
-          resources.assets.open("CHANGELOG.md")
-        }
-        result = readStream(stream)
-      } catch (e: Exception) {
-        emitter.onError(e)
-      }
-
-      result?.let { emitter.onSuccess(it) } ?: emitter.onSuccess("")
+    val resources = context.resources
+    val locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      resources.configuration.locales.get(0)
+    } else {
+      //noinspection deprecation
+      resources.configuration.locale
     }
 
-  private fun readStream(inputStream: InputStream?): String? {
-
-    var out: String? = null
-
-    if (inputStream != null) {
-      var reader: BufferedReader? = null
-      try {
-        reader = BufferedReader(InputStreamReader(inputStream))
-        val builder = StringBuilder()
-        var line: String
-        while (true) {
-          line = reader.readLine() ?: break
-          builder.append(line).append('\n')
-        }
-        out = builder.toString()
-      } catch (e: IOException) {
-      } finally {
-        if (reader != null) {
-          try {
-            reader.close()
-          } catch (e: IOException) {
-            // no op
-          }
-        }
-      }
+    return if (locale.country == LOCALE_RU) {
+      dataLoader.loadChangelogRu()
+    } else {
+      dataLoader.loadChangelogEn()
     }
-
-    return out
+      .map { response -> response.body()?.string() ?: "" }
   }
 }

@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.di.modules
 
 import com.sedsoftware.yaptalker.commons.converter.HashSearchConverterFactory
+import com.sedsoftware.yaptalker.data.network.external.GitHubLoader
 import com.sedsoftware.yaptalker.data.network.site.YapIncubatorLoader
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.data.network.site.YapSearchIdLoader
@@ -26,17 +27,25 @@ import javax.inject.Singleton
 class NetworkModule {
 
   companion object {
-    private const val SITE_ENDPOINT = "http://www.yaplakal.com/"
-    private const val SITE_ENDPOINT_HTTPS = "https://www.yaplakal.com/"
-    private const val SITE_INCUBATOR_ENDPOINT = "http://inkubator.yaplakal.com/"
-    private const val SITE_INCUBATOR_ENDPOINT_HTTPS = "https://inkubator.yaplakal.com/"
-    private const val COUB_VIDEO_ENDPOINT = "https://coub.com/"
-    private const val RUTUBE_VIDEO_ENDPOINT = "https://rutube.ru/"
-    private const val YAP_FILES_ENDPOINT = "http://www.yapfiles.ru/"
-    private const val YAP_API_ENDPOINT = "http://api.yapfiles.ru/"
-    private const val VK_VIDEO_ENDPOINT = "https://api.vk.com/"
+    // Yap
+    private const val SITE_BASE_URL = "http://www.yaplakal.com/"
+    private const val SITE_BASE_URL_HTTPS = "https://www.yaplakal.com/"
+    private const val SITE_INCUBATOR_BASE_URL = "http://inkubator.yaplakal.com/"
+    private const val SITE_INCUBATOR_BASE_URL_HTTPS = "https://inkubator.yaplakal.com/"
+
+    // Videos
+    private const val COUB_BASE_URL = "https://coub.com/"
+    private const val RUTUBE_BASE_URL = "https://rutube.ru/"
+    private const val YAP_FILES_BASE_URL = "http://www.yapfiles.ru/"
+    private const val YAP_API_BASE_URL = "http://api.yapfiles.ru/"
+    private const val VK_API_BASE_URL = "https://api.vk.com/"
+
+    // Misc
     private const val YAP_FILE_HASH_MARKER = "md5="
     private const val YAP_SEARCH_ID_HASH_MARKER = "searchid="
+
+    // Github
+    private const val GITHUB_BASE_URL = "https://raw.githubusercontent.com/"
   }
 
   @Singleton
@@ -47,9 +56,9 @@ class NetworkModule {
   ): YapLoader {
 
     val endpoint = if (settings.isHttpsEnabled()) {
-      SITE_ENDPOINT_HTTPS
+      SITE_BASE_URL_HTTPS
     } else {
-      SITE_ENDPOINT
+      SITE_BASE_URL
     }
 
     return Retrofit
@@ -71,9 +80,9 @@ class NetworkModule {
   ): YapIncubatorLoader {
 
     val endpoint = if (settings.isHttpsEnabled()) {
-      SITE_INCUBATOR_ENDPOINT_HTTPS
+      SITE_INCUBATOR_BASE_URL_HTTPS
     } else {
-      SITE_INCUBATOR_ENDPOINT
+      SITE_INCUBATOR_BASE_URL
     }
 
     return Retrofit
@@ -94,7 +103,7 @@ class NetworkModule {
   ): YapSearchIdLoader =
     Retrofit
       .Builder()
-      .baseUrl(SITE_ENDPOINT)
+      .baseUrl(SITE_BASE_URL)
       .client(okHttpClient)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .addConverterFactory(HashSearchConverterFactory.create(YAP_SEARCH_ID_HASH_MARKER))
@@ -107,7 +116,7 @@ class NetworkModule {
   fun provideCoubLoader(): CoubLoader =
     Retrofit
       .Builder()
-      .baseUrl(COUB_VIDEO_ENDPOINT)
+      .baseUrl(COUB_BASE_URL)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .addConverterFactory(MoshiConverterFactory.create())
       .build()
@@ -118,7 +127,7 @@ class NetworkModule {
   fun provideRutubeLoader(): RutubeLoader =
     Retrofit
       .Builder()
-      .baseUrl(RUTUBE_VIDEO_ENDPOINT)
+      .baseUrl(RUTUBE_BASE_URL)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .addConverterFactory(MoshiConverterFactory.create())
       .build()
@@ -128,7 +137,7 @@ class NetworkModule {
   @Provides
   fun provideYapFileLoader(): YapFileLoader =
     Retrofit.Builder()
-      .baseUrl(YAP_FILES_ENDPOINT)
+      .baseUrl(YAP_FILES_BASE_URL)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .addConverterFactory(HashSearchConverterFactory.create(YAP_FILE_HASH_MARKER))
       .build()
@@ -138,7 +147,7 @@ class NetworkModule {
   @Provides
   fun provideYapVideoLoader(): YapVideoLoader =
     Retrofit.Builder()
-      .baseUrl(YAP_API_ENDPOINT)
+      .baseUrl(YAP_API_BASE_URL)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .addConverterFactory(MoshiConverterFactory.create())
       .build()
@@ -148,9 +157,19 @@ class NetworkModule {
   @Provides
   fun provideVkLoader(): VkLoader =
     Retrofit.Builder()
-      .baseUrl(VK_VIDEO_ENDPOINT)
+      .baseUrl(VK_API_BASE_URL)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .addConverterFactory(MoshiConverterFactory.create())
       .build()
       .create(VkLoader::class.java)
+
+  @Singleton
+  @Provides
+  fun provideGithubLoader(): GitHubLoader =
+    Retrofit.Builder()
+      .baseUrl(GITHUB_BASE_URL)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(ScalarsConverterFactory.create())
+      .build()
+      .create(GitHubLoader::class.java)
 }
