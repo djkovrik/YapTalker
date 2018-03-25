@@ -62,6 +62,20 @@
   <string name="post_button_submit">Ок</string>
   <string name="post_button_dismiss">Отмена</string>
 
+  <!-- UPDATER -->
+  <string name="updater_title_no_updates">Обновлений нет</string>
+  <string name="updater_title_update_available">Доступно обновление</string>
+  <string name="updater_info_installed_version">Установленная версия:</string>
+  <string name="updater_info_latest_version">Последняя версия:</string>
+  <string name="updater_info_last_update_check">Последняя проверка обновлений:</string>
+  <string name="updater_btn_check_for_updates">Проверить наличие обновления</string>
+  <string name="updater_btn_checking...">Проверка…</string>
+  <string name="updater_btn_changelog">Список изменений</string>
+  <string name="updater_btn_download">Скачать</string>
+  <string name="updater_status_checking">Проверка обновлений…</string>
+  <string name="updater_status_checked">У вас установлена последняя версия</string>
+  <string name="updater_status_new_version_available">Доступна новая версия!</string>
+
   <!-- USER PROFILE -->
   <!-- Personal data -->
   <string name="profile_label_personal_data"> Личные данные</string>

@@ -76,6 +76,20 @@
   <string name="post_button_submit">OK</string>
   <string name="post_button_dismiss">Cancel</string>
 
+  <!-- UPDATER -->
+  <string name="updater_title_no_updates">No updates available</string>
+  <string name="updater_title_update_available">Update available</string>
+  <string name="updater_info_installed_version">Installed version:</string>
+  <string name="updater_info_latest_version">Latest version: </string>
+  <string name="updater_info_last_update_check">Last update check:</string>
+  <string name="updater_btn_check_for_updates">Check for updates</string>
+  <string name="updater_btn_checking...">Checking…</string>
+  <string name="updater_btn_changelog">Changelog</string>
+  <string name="updater_btn_download">Download</string>
+  <string name="updater_status_checking">Checking for updates…</string>
+  <string name="updater_status_checked">You have the latest version!</string>
+  <string name="updater_status_new_version_available">New version available!</string>
+
   <!-- USER PROFILE -->
   <!-- Personal data -->
   <string name="profile_label_personal_data"> Personal data</string>
