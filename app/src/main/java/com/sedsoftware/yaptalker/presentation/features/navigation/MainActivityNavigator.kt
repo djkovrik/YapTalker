@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSc
 import com.sedsoftware.yaptalker.presentation.features.activetopics.ActiveTopicsFragment
 import com.sedsoftware.yaptalker.presentation.features.authorization.AuthorizationFragment
 import com.sedsoftware.yaptalker.presentation.features.bookmarks.BookmarksFragment
-import com.sedsoftware.yaptalker.presentation.features.changelog.ChangelogFragment
+import com.sedsoftware.yaptalker.presentation.features.changelog.ChangelogActivity
 import com.sedsoftware.yaptalker.presentation.features.forum.ChosenForumFragment
 import com.sedsoftware.yaptalker.presentation.features.forumslist.ForumsFragment
 import com.sedsoftware.yaptalker.presentation.features.gallery.TopicGalleryActivity
@@ -42,6 +42,7 @@ class MainActivityNavigator @Inject constructor(
     NavigationScreen.VIDEO_DISPLAY_SCREEN -> VideoDisplayActivity.getIntent(activity, data as String)
     NavigationScreen.GIF_DISPLAY_SCREEN -> GifDisplayActivity.getIntent(activity, data as String)
     NavigationScreen.TOPIC_GALLERY -> TopicGalleryActivity.getIntent(activity, data as Triple<Int, Int, Int>)
+    NavigationScreen.CHANGELOG_SCREEN -> ChangelogActivity.getIntent(activity)
     else -> null
   }
 
@@ -58,7 +59,6 @@ class MainActivityNavigator @Inject constructor(
     NavigationScreen.MESSAGE_EDITOR_SCREEN -> AddMessageFragment.getNewInstance(data as Triple<String, String, String>)
     NavigationScreen.SEARCH_FORM -> SearchFormFragment.getNewInstance()
     NavigationScreen.SEARCH_RESULTS -> SearchResultsFragment.getNewInstance(data as SearchRequest)
-    NavigationScreen.CHANGELOG_SCREEN -> ChangelogFragment.getNewInstance()
     else -> null
   }
 

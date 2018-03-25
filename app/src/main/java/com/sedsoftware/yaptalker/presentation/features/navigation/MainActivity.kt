@@ -73,7 +73,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   private lateinit var drawerItemBookmarks: PrimaryDrawerItem
   private lateinit var drawerItemSearch: PrimaryDrawerItem
   private lateinit var drawerItemSettings: PrimaryDrawerItem
-  private lateinit var drawerItemChangelog: PrimaryDrawerItem
+  private lateinit var drawerItemUpdater: PrimaryDrawerItem
   private lateinit var drawerItemSignIn: PrimaryDrawerItem
   private lateinit var drawerItemSignOut: PrimaryDrawerItem
 
@@ -239,10 +239,10 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .withSelectedTextColor(color(R.color.colorNavSettings))
       .withSelectedIconColorRes(R.color.colorNavSettings)
 
-    drawerItemChangelog = PrimaryDrawerItem()
-      .withIdentifier(NavigationSection.CHANGELOG)
-      .withIcon(CommunityMaterial.Icon.cmd_help_circle)
-      .withName(R.string.nav_drawer_changelog)
+    drawerItemUpdater = PrimaryDrawerItem()
+      .withIdentifier(NavigationSection.APP_UPDATES)
+      .withIcon(CommunityMaterial.Icon.cmd_cloud_download)
+      .withName(R.string.nav_drawer_updates)
       .withTextColor(color(R.color.colorNavDefaultText))
       .withIconColorRes(R.color.colorNavSettings)
       .withSelectedTextColor(color(R.color.colorNavSettings))
@@ -294,7 +294,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .addDrawerItems(drawerItemSearch)
       .addDrawerItems(DividerDrawerItem())
       .addDrawerItems(drawerItemSettings)
-      .addDrawerItems(drawerItemChangelog)
+      .addDrawerItems(drawerItemUpdater)
       .withOnDrawerItemClickListener { _, _, drawerItem ->
         if (drawerItem is Nameable<*>) {
           navigationPresenter.navigateToChosenSection(drawerItem.identifier)
