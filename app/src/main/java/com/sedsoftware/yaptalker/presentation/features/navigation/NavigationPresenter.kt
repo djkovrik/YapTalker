@@ -67,7 +67,7 @@ class NavigationPresenter @Inject constructor(
       NavigationSection.SITE_SEARCH -> router.newRootScreen(NavigationScreen.SEARCH_FORM)
       NavigationSection.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
       NavigationSection.SETTINGS -> router.navigateTo(NavigationScreen.SETTINGS_SCREEN)
-      NavigationSection.APP_UPDATES -> router.navigateTo(NavigationScreen.CHANGELOG_SCREEN)
+      NavigationSection.APP_UPDATES -> router.newRootScreen(NavigationScreen.UPDATES_SCREEN)
     }
   }
 

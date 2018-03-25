@@ -1,0 +1,28 @@
+package com.sedsoftware.yaptalker.presentation.features.updater
+
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
+import com.sedsoftware.yaptalker.presentation.base.BaseFragment
+import com.sedsoftware.yaptalker.presentation.extensions.snackError
+import javax.inject.Inject
+
+@LayoutResource(value = R.layout.fragment_updater)
+class UpdaterFragment : BaseFragment(), UpdaterView {
+
+  companion object {
+    fun getNewInstance(): UpdaterFragment = UpdaterFragment()
+  }
+
+  @Inject
+  @InjectPresenter
+  lateinit var presenter: UpdaterPresenter
+
+  @ProvidePresenter
+  fun providePresenter() = presenter
+
+  override fun showErrorMessage(message: String) {
+    snackError(message)
+  }
+}

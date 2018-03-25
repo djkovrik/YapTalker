@@ -28,6 +28,8 @@ import com.sedsoftware.yaptalker.presentation.features.search.di.SearchFormFragm
 import com.sedsoftware.yaptalker.presentation.features.search.di.SearchResultsFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.presentation.features.topic.di.ChosenTopicFragmentModule
+import com.sedsoftware.yaptalker.presentation.features.updater.UpdaterFragment
+import com.sedsoftware.yaptalker.presentation.features.updater.di.UpdaterFragmentModule
 import com.sedsoftware.yaptalker.presentation.features.userprofile.UserProfileFragment
 import com.sedsoftware.yaptalker.presentation.features.userprofile.di.UserProfileFragmentModule
 import dagger.Binds
@@ -98,4 +100,8 @@ abstract class MainActivityModule {
   @FragmentScope
   @ContributesAndroidInjector(modules = [(SearchResultsFragmentModule::class)])
   abstract fun searchResultsFragmentInjector(): SearchResultsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [(UpdaterFragmentModule::class)])
+  abstract fun updaterFragmentInjector(): UpdaterFragment
 }

@@ -25,6 +25,7 @@ import com.sedsoftware.yaptalker.presentation.features.search.SearchRequest
 import com.sedsoftware.yaptalker.presentation.features.search.SearchResultsFragment
 import com.sedsoftware.yaptalker.presentation.features.settings.SettingsActivity
 import com.sedsoftware.yaptalker.presentation.features.topic.ChosenTopicFragment
+import com.sedsoftware.yaptalker.presentation.features.updater.UpdaterFragment
 import com.sedsoftware.yaptalker.presentation.features.userprofile.UserProfileFragment
 import com.sedsoftware.yaptalker.presentation.features.videodisplay.VideoDisplayActivity
 import ru.terrakok.cicerone.android.SupportAppNavigator
@@ -59,6 +60,7 @@ class MainActivityNavigator @Inject constructor(
     NavigationScreen.MESSAGE_EDITOR_SCREEN -> AddMessageFragment.getNewInstance(data as Triple<String, String, String>)
     NavigationScreen.SEARCH_FORM -> SearchFormFragment.getNewInstance()
     NavigationScreen.SEARCH_RESULTS -> SearchResultsFragment.getNewInstance(data as SearchRequest)
+    NavigationScreen.UPDATES_SCREEN -> UpdaterFragment.getNewInstance()
     else -> null
   }
 
