@@ -25,10 +25,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:text="@string/updater_title_no_updates"
     android:layout_marginTop="@dimen/material_content_edge_margin_horizontal"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/iconicsImageView"
-    tools:text="@string/updater_title_update_available" />
+    app:layout_constraintTop_toBottomOf="@+id/iconicsImageView" />
 
   <TextView
     android:id="@+id/updater_current_version"
@@ -36,10 +36,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:text="@string/updater_info_installed_version"
     android:layout_marginTop="@dimen/updater_vertical_margin"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/updater_title"
-    tools:text="Installed version: 0.9.2" />
+    app:layout_constraintTop_toBottomOf="@+id/updater_title" />
 
   <TextView
     android:id="@+id/updater_new_version"
@@ -47,11 +47,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:text="@string/updater_info_latest_version"
     android:layout_marginTop="@dimen/updater_vertical_margin"
     android:visibility="visible"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/updater_current_version"
-    tools:text="Latest version: 0.9.3" />
+    app:layout_constraintTop_toBottomOf="@+id/updater_current_version" />
 
 
   <TextView
@@ -61,9 +61,9 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/materialize_screen_edge"
     android:layout_marginTop="@dimen/material_content_edge_margin_horizontal"
+    android:text="@string/updater_info_last_update_check"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/updater_new_version"
-    tools:text="Last update check" />
+    app:layout_constraintTop_toBottomOf="@+id/updater_new_version" />
 
   <TextView
     android:id="@+id/updater_last_update_check"
