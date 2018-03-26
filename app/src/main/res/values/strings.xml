@@ -80,7 +80,7 @@
   <string name="updater_title_no_updates">No updates available</string>
   <string name="updater_title_update_available">Update available</string>
   <string name="updater_info_installed_version">Installed version:</string>
-  <string name="updater_info_latest_version">Latest version: </string>
+  <string name="updater_info_latest_version">Latest version:</string>
   <string name="updater_info_last_update_check">Last update check:</string>
   <string name="updater_btn_check_for_updates">Check for updates</string>
   <string name="updater_btn_checking...">Checking…</string>

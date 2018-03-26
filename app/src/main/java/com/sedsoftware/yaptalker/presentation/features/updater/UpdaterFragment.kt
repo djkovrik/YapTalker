@@ -25,4 +25,52 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
   override fun showErrorMessage(message: String) {
     snackError(message)
   }
+
+  override fun showLoadingIndicator() {
+
+  }
+
+  override fun hideLoadingIndicator() {
+
+  }
+
+  override fun updateCurrentUiState(forumTitle: String) {
+
+  }
+
+  override fun showUpdateAvailableLabel() {
+
+  }
+
+  override fun showNoUpdateAvailableLabel() {
+
+  }
+
+  override fun displayInstalledVersionInfo(version: String) {
+
+  }
+
+  override fun displayRemoteVersionInfo(version: String) {
+
+  }
+
+  override fun displayLastUpdateCheckDate(date: String) {
+
+  }
+
+  override fun showUpdatingStatus() {
+
+  }
+
+  override fun showUpdateCompletedStatus() {
+
+  }
+
+  override fun showUpdateErrorStatus() {
+
+  }
+
+  override fun showEmptyUpdateStatus() {
+
+  }
 }
