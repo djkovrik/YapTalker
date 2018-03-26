@@ -4,12 +4,13 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.presentation.base.BaseView
+import com.sedsoftware.yaptalker.presentation.model.YapEntity
 
 @StateStrategyType(SkipStrategy::class)
 interface UpdaterView : BaseView {
 
   @StateStrategyType(AddToEndSingleStrategy::class)
-  fun updateCurrentUiState(forumTitle: String)
+  fun updateCurrentUiState()
 
   @StateStrategyType(value = AddToEndSingleStrategy::class, tag = "updateInfo")
   fun showUpdateAvailableLabel()
@@ -17,11 +18,11 @@ interface UpdaterView : BaseView {
   @StateStrategyType(value = AddToEndSingleStrategy::class, tag = "updateInfo")
   fun showNoUpdateAvailableLabel()
 
-  fun displayInstalledVersionInfo(version: String)
+  fun displayInstalledVersionInfo(versionInfo: YapEntity)
 
-  fun displayRemoteVersionInfo(version: String)
+  fun displayRemoteVersionInfo(versionInfo: YapEntity)
 
-  fun displayLastUpdateCheckDate(date: String)
+  fun displayLastUpdateCheckDate(versionInfo: YapEntity)
 
   fun showUpdatingStatus()
 

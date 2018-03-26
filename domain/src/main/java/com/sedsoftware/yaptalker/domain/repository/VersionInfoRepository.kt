@@ -7,5 +7,5 @@ interface VersionInfoRepository {
 
   fun getRemoteVersionInfo(): Single<BaseEntity>
 
-  fun getInstalledVersionInfo(): Single<String>
+  fun getInstalledVersionInfo(): Single<BaseEntity>
 }
