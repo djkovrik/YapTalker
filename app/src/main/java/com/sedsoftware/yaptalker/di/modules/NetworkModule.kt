@@ -1,15 +1,12 @@
 package com.sedsoftware.yaptalker.di.modules
 
 import com.sedsoftware.yaptalker.commons.converter.HashSearchConverterFactory
+import com.sedsoftware.yaptalker.data.network.external.AppUpdatesChecker
 import com.sedsoftware.yaptalker.data.network.external.GitHubLoader
 import com.sedsoftware.yaptalker.data.network.site.YapIncubatorLoader
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.data.network.site.YapSearchIdLoader
-import com.sedsoftware.yaptalker.data.network.thumbnails.CoubLoader
-import com.sedsoftware.yaptalker.data.network.thumbnails.RutubeLoader
-import com.sedsoftware.yaptalker.data.network.thumbnails.VkLoader
-import com.sedsoftware.yaptalker.data.network.thumbnails.YapFileLoader
-import com.sedsoftware.yaptalker.data.network.thumbnails.YapVideoLoader
+import com.sedsoftware.yaptalker.data.network.thumbnails.*
 import com.sedsoftware.yaptalker.di.modules.network.HttpClientsModule
 import com.sedsoftware.yaptalker.domain.device.Settings
 import dagger.Module
@@ -46,6 +43,9 @@ class NetworkModule {
 
     // Github
     private const val GITHUB_BASE_URL = "https://raw.githubusercontent.com/"
+
+    // Deploy
+    private const val APP_DEPLOY_BASE_URL = "https://sedsoftware.com/"
   }
 
   @Singleton
@@ -172,4 +172,15 @@ class NetworkModule {
       .addConverterFactory(ScalarsConverterFactory.create())
       .build()
       .create(GitHubLoader::class.java)
+
+  @Singleton
+  @Provides
+  fun provideAppUpdatesLoader(): AppUpdatesChecker =
+    Retrofit
+      .Builder()
+      .baseUrl(APP_DEPLOY_BASE_URL)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(MoshiConverterFactory.create())
+      .build()
+      .create(AppUpdatesChecker::class.java)
 }
