@@ -60,14 +60,7 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
 
   override fun displayInstalledVersionInfo(versionInfo: YapEntity) {
     versionInfo as AppVersionInfoModel
-    updater_current_version.text = context?.let { ctx ->
-      String.format(
-        Locale.getDefault(),
-        "%s %s",
-        ctx.stringRes(R.string.updater_info_installed_version),
-        versionInfo.versionName
-      )
-    }
+    updater_current_version.text = versionInfo.versionName
   }
 
   override fun displayRemoteVersionInfo(versionInfo: YapEntity) {
