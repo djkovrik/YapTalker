@@ -53,7 +53,6 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/updater_current_version" />
 
-
   <TextView
     android:id="@+id/updater_last_update_check_label"
     style="@style/UpdaterNormalText"
@@ -84,7 +83,7 @@
     android:layout_marginBottom="@dimen/updater_vertical_margin"
     android:layout_marginEnd="@dimen/materialize_screen_edge"
     android:layout_marginStart="@dimen/materialize_screen_edge"
-    android:layout_marginTop="@dimen/updater_vertical_margin"
+    android:layout_marginTop="@dimen/materialize_screen_edge"
     android:indeterminate="true"
     app:layout_constraintTop_toBottomOf="@+id/updater_last_update_check" />
 
@@ -93,7 +92,7 @@
     style="@style/UpdaterButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/updater_vertical_margin"
+    android:layout_marginTop="@dimen/materialize_screen_edge"
     android:text="@string/updater_btn_check_for_updates"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +103,7 @@
     style="@style/UpdaterButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/updater_vertical_margin"
+    android:layout_marginTop="@dimen/materialize_screen_edge"
     android:text="@string/updater_btn_changelog"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
