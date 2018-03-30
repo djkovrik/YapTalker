@@ -5,8 +5,9 @@ import com.sedsoftware.yaptalker.domain.interactor.updater.GetInstalledVersionIn
 import com.sedsoftware.yaptalker.domain.interactor.updater.GetRemoteVersionInfo
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.mappers.VersionInfoMapper
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.AppVersionInfoModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -21,15 +22,48 @@ class UpdaterPresenter @Inject constructor(
   private val versionInfoMapper: VersionInfoMapper
 ) : BasePresenter<UpdaterView>() {
 
+  private var currentVersionCode = 0
+
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
-
     fetchCurrentVersionInfo()
   }
 
   override fun attachView(view: UpdaterView?) {
     super.attachView(view)
     viewState.updateCurrentUiState()
+    viewState.showEmptyUpdateStatus()
+  }
+
+  fun checkForUpdates() {
+    remoteVersionUseCase
+      .execute()
+      .map(versionInfoMapper)
+      .doOnSubscribe { viewState.showUpdatingStatus() }
+      .doOnSubscribe { viewState.setUpdateButtonAvailability(isAvailable = false) }
+      .doOnSuccess { viewState.showUpdateCompletedStatus() }
+      .doOnError { viewState.showUpdateErrorStatus() }
+      .doFinally { viewState.setUpdateButtonAvailability(isAvailable = true) }
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({ info: AppVersionInfoModel ->
+
+        viewState.displayRemoteVersionInfo(info)
+
+        if (info.versionCode > currentVersionCode) {
+          viewState.showUpdateAvailableLabel()
+        } else {
+          viewState.showNoUpdateAvailableLabel()
+        }
+
+      }, { throwable: Throwable? ->
+        throwable?.message?.let { viewState.showErrorMessage(it) }
+      })
+  }
+
+  fun showChangelog() {
+    router.navigateTo(NavigationScreen.CHANGELOG_SCREEN)
   }
 
   private fun fetchCurrentVersionInfo() {
@@ -39,8 +73,10 @@ class UpdaterPresenter @Inject constructor(
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
       .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe({ info: YapEntity ->
+      .subscribe({ info: AppVersionInfoModel ->
+        currentVersionCode = info.versionCode
         viewState.displayInstalledVersionInfo(info)
+        viewState.displayLastUpdateCheckDate(info)
       }, { throwable: Throwable? ->
         throwable?.message?.let { viewState.showErrorMessage(it) }
       })

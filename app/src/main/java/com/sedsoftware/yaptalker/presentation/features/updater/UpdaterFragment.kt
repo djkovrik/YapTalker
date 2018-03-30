@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.features.updater
 
+import android.os.Bundle
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
@@ -10,13 +11,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.AppVersionInfoModel
-import kotlinx.android.synthetic.main.fragment_updater.updater_current_version
-import kotlinx.android.synthetic.main.fragment_updater.updater_progressbar
-import kotlinx.android.synthetic.main.fragment_updater.updater_progressbar_status
-import kotlinx.android.synthetic.main.fragment_updater.updater_title
-import java.util.Locale
+import kotlinx.android.synthetic.main.fragment_updater.*
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_updater)
@@ -32,6 +28,12 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
 
   @ProvidePresenter
   fun providePresenter() = presenter
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    subscribeViews()
+  }
 
   override fun showErrorMessage(message: String) {
     snackError(message)
@@ -58,17 +60,16 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
     updater_title.text = context?.stringRes(R.string.updater_title_no_updates)
   }
 
-  override fun displayInstalledVersionInfo(versionInfo: YapEntity) {
-    versionInfo as AppVersionInfoModel
+  override fun displayInstalledVersionInfo(versionInfo: AppVersionInfoModel) {
     updater_current_version.text = versionInfo.versionName
   }
 
-  override fun displayRemoteVersionInfo(versionInfo: YapEntity) {
-
+  override fun displayLastUpdateCheckDate(versionInfo: AppVersionInfoModel) {
+    updater_last_update_check_label.text = versionInfo.lastUpdateCheckDate
   }
 
-  override fun displayLastUpdateCheckDate(versionInfo: YapEntity) {
-
+  override fun displayRemoteVersionInfo(versionInfo: AppVersionInfoModel) {
+    updater_new_version.text = versionInfo.versionName
   }
 
   override fun showUpdatingStatus() {
@@ -85,5 +86,22 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
 
   override fun showEmptyUpdateStatus() {
     updater_progressbar_status.text = ""
+  }
+
+  override fun setUpdateButtonAvailability(isAvailable: Boolean) {
+    updater_btn_check_updates.isEnabled = isAvailable
+  }
+
+  private fun subscribeViews() {
+
+//    RxView
+//      .clicks(updater_btn_check_updates)
+//      .autoDisposable(event(FragmentLifecycle.DESTROY))
+//      .subscribe { presenter.checkForUpdates() }
+//
+//    RxView
+//      .clicks(updater_btn_changelog)
+//      .autoDisposable(event(FragmentLifecycle.DESTROY))
+//      .subscribe { presenter.showChangelog() }
   }
 }

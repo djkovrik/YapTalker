@@ -4,7 +4,7 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.presentation.base.BaseView
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.AppVersionInfoModel
 
 @StateStrategyType(SkipStrategy::class)
 interface UpdaterView : BaseView {
@@ -18,11 +18,11 @@ interface UpdaterView : BaseView {
   @StateStrategyType(value = AddToEndSingleStrategy::class, tag = "updateInfo")
   fun showNoUpdateAvailableLabel()
 
-  fun displayInstalledVersionInfo(versionInfo: YapEntity)
+  fun displayInstalledVersionInfo(versionInfo: AppVersionInfoModel)
 
-  fun displayRemoteVersionInfo(versionInfo: YapEntity)
+  fun displayLastUpdateCheckDate(versionInfo: AppVersionInfoModel)
 
-  fun displayLastUpdateCheckDate(versionInfo: YapEntity)
+  fun displayRemoteVersionInfo(versionInfo: AppVersionInfoModel)
 
   fun showUpdatingStatus()
 
@@ -31,4 +31,6 @@ interface UpdaterView : BaseView {
   fun showUpdateErrorStatus()
 
   fun showEmptyUpdateStatus()
+
+  fun setUpdateButtonAvailability(isAvailable: Boolean)
 }
