@@ -83,7 +83,6 @@
   <string name="updater_info_latest_version">Latest version:</string>
   <string name="updater_info_last_update_check">Last update check:</string>
   <string name="updater_btn_check_for_updates">Check for updates</string>
-  <string name="updater_btn_checking...">Checking…</string>
   <string name="updater_btn_changelog">Changelog</string>
   <string name="updater_btn_download">Download</string>
   <string name="updater_status_checking">Checking for updates…</string>

@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.interactor.updater.GetInstalledVersionInfo
 import com.sedsoftware.yaptalker.domain.interactor.updater.GetRemoteVersionInfo
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.mappers.VersionInfoMapper
@@ -39,13 +40,25 @@ class UpdaterPresenter @Inject constructor(
     remoteVersionUseCase
       .execute()
       .map(versionInfoMapper)
-      .doOnSubscribe { viewState.showUpdatingStatus() }
-      .doOnSubscribe { viewState.setUpdateButtonAvailability(isAvailable = false) }
-      .doOnSuccess { viewState.showUpdateCompletedStatus() }
-      .doOnError { viewState.showUpdateErrorStatus() }
-      .doFinally { viewState.setUpdateButtonAvailability(isAvailable = true) }
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe {
+        setConnectionState(ConnectionState.LOADING)
+        viewState.showCheckingStatus()
+        viewState.setUpdateButtonAvailability(isAvailable = false)
+      }
+      .doOnSuccess {
+        setConnectionState(ConnectionState.COMPLETED)
+        viewState.showUpdateCompletedStatus()
+      }
+      .doOnError {
+        setConnectionState(ConnectionState.ERROR)
+        viewState.showUpdateErrorStatus()
+      }
+      .doFinally {
+        viewState.setUpdateButtonAvailability(isAvailable = true)
+        viewState.showEmptyUpdateStatus()
+      }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe({ info: AppVersionInfoModel ->
 
@@ -53,8 +66,10 @@ class UpdaterPresenter @Inject constructor(
 
         if (info.versionCode > currentVersionCode) {
           viewState.showUpdateAvailableLabel()
+          viewState.setDownloadButtonVisibility(isVisible = true)
         } else {
           viewState.showNoUpdateAvailableLabel()
+          viewState.setDownloadButtonVisibility(isVisible = false)
         }
 
       }, { throwable: Throwable? ->

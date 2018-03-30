@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:animateLayoutChanges="true"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
@@ -99,6 +100,18 @@
     app:layout_constraintTop_toBottomOf="@+id/updater_progressbar" />
 
   <TextView
+    android:id="@+id/updater_btn_download"
+    style="@style/UpdaterButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/materialize_screen_edge"
+    android:text="@string/updater_btn_download"
+    android:visibility="gone"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/updater_btn_check_updates" />
+
+  <TextView
     android:id="@+id/updater_btn_changelog"
     style="@style/UpdaterButton"
     android:layout_width="wrap_content"
@@ -107,7 +120,7 @@
     android:text="@string/updater_btn_changelog"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/updater_btn_check_updates" />
+    app:layout_constraintTop_toBottomOf="@+id/updater_btn_download" />
 
   <TextView
     android:id="@+id/updater_progressbar_status"

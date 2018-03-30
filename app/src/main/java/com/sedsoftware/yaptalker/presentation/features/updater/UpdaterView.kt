@@ -24,7 +24,7 @@ interface UpdaterView : BaseView {
 
   fun displayRemoteVersionInfo(versionInfo: AppVersionInfoModel)
 
-  fun showUpdatingStatus()
+  fun showCheckingStatus()
 
   fun showUpdateCompletedStatus()
 
@@ -33,4 +33,6 @@ interface UpdaterView : BaseView {
   fun showEmptyUpdateStatus()
 
   fun setUpdateButtonAvailability(isAvailable: Boolean)
+
+  fun setDownloadButtonVisibility(isVisible: Boolean)
 }
