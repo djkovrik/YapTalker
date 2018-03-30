@@ -45,7 +45,7 @@ class NetworkModule {
     private const val GITHUB_BASE_URL = "https://raw.githubusercontent.com/"
 
     // Deploy
-    private const val APP_DEPLOY_BASE_URL = "https://sedsoftware.com/"
+    private const val APP_DEPLOY_BASE_URL = "http://sedsoftware.com/"
   }
 
   @Singleton
