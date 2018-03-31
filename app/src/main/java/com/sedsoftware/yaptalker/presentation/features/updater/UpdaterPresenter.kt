@@ -3,10 +3,12 @@ package com.sedsoftware.yaptalker.presentation.features.updater
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.device.UpdatesDownloader
 import com.sedsoftware.yaptalker.domain.interactor.updater.GetInstalledVersionInfo
+import com.sedsoftware.yaptalker.domain.interactor.updater.GetLastUpdateDate
 import com.sedsoftware.yaptalker.domain.interactor.updater.GetRemoteVersionInfo
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.mappers.LastUpdateDateMapper
 import com.sedsoftware.yaptalker.presentation.mappers.VersionInfoMapper
 import com.sedsoftware.yaptalker.presentation.model.base.AppVersionInfoModel
 import com.uber.autodispose.kotlin.autoDisposable
@@ -21,6 +23,8 @@ class UpdaterPresenter @Inject constructor(
   private val installedVersionUseCase: GetInstalledVersionInfo,
   private val remoteVersionUseCase: GetRemoteVersionInfo,
   private val versionInfoMapper: VersionInfoMapper,
+  private val getLastUpdateDate: GetLastUpdateDate,
+  private val dateMapper: LastUpdateDateMapper,
   private val updatesDownloader: UpdatesDownloader
 ) : BasePresenter<UpdaterView>() {
 
@@ -30,6 +34,7 @@ class UpdaterPresenter @Inject constructor(
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
     fetchCurrentVersionInfo()
+    fetchLastUpdateDate()
   }
 
   override fun attachView(view: UpdaterView?) {
@@ -75,6 +80,7 @@ class UpdaterPresenter @Inject constructor(
           viewState.setDownloadButtonVisibility(isVisible = true)
           viewState.displayRemoteVersionInfo(info)
           latestVersionLink = info.downloadLink
+          fetchLastUpdateDate()
         } else {
           viewState.showNoUpdateAvailableLabel()
           viewState.setDownloadButtonVisibility(isVisible = false)
@@ -99,7 +105,20 @@ class UpdaterPresenter @Inject constructor(
       .subscribe({ info: AppVersionInfoModel ->
         currentVersionCode = info.versionCode
         viewState.displayInstalledVersionInfo(info)
-        viewState.displayLastUpdateCheckDate(info)
+      }, { throwable: Throwable? ->
+        throwable?.message?.let { viewState.showErrorMessage(it) }
+      })
+  }
+
+  private fun fetchLastUpdateDate() {
+    getLastUpdateDate
+      .execute()
+      .map(dateMapper)
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({ date: String ->
+        viewState.displayLastUpdateCheckDate(date)
       }, { throwable: Throwable? ->
         throwable?.message?.let { viewState.showErrorMessage(it) }
       })

@@ -22,7 +22,7 @@ interface UpdaterView : BaseView {
 
   fun displayRemoteVersionInfo(versionInfo: AppVersionInfoModel)
 
-  fun displayLastUpdateCheckDate(versionInfo: AppVersionInfoModel)
+  fun displayLastUpdateCheckDate(date: String)
 
   fun showCheckingStatus()
 

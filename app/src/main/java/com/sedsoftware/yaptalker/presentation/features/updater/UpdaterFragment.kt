@@ -78,8 +78,8 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
     updater_new_version.showView()
   }
 
-  override fun displayLastUpdateCheckDate(versionInfo: AppVersionInfoModel) {
-    updater_last_update_check.text = versionInfo.lastUpdateCheckDate
+  override fun displayLastUpdateCheckDate(date: String) {
+    updater_last_update_check.text = date
   }
 
   override fun showCheckingStatus() {

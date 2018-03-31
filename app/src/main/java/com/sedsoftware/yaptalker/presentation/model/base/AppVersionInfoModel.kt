@@ -9,8 +9,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 class AppVersionInfoModel(
   val versionCode: Int,
   val versionName: String,
-  val downloadLink: String,
-  val lastUpdateCheckDate: String
+  val downloadLink: String
 ) : YapEntity {
 
   override fun getBaseEntityType(): Int = YapEntityTypes.VERSION_INFO
