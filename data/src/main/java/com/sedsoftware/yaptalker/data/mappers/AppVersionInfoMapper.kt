@@ -21,7 +21,7 @@ class AppVersionInfoMapper @Inject constructor() : Function<Response<ResponseBod
         .substringAfter("version_name\": \"")
         .substringBefore("\""),
       downloadLink = responseText
-        .substringAfter("link\": ")
+        .substringAfter("link\": \"")
         .substringBefore("\"")
       )
   }

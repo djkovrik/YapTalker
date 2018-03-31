@@ -21,9 +21,7 @@ class VersionInfoMapper @Inject constructor(
       versionCode = from.versionCode,
       versionName = from.versionName,
       downloadLink = from.downloadLink,
-      lastUpdateCheckDate = dateTransformer.transformLongToDateString(
-        settings.getLastUpdateCheckDate()
-      )
+      lastUpdateCheckDate = dateTransformer.transformLongToDateString(settings.getLastUpdateCheckDate())
     )
   }
 }

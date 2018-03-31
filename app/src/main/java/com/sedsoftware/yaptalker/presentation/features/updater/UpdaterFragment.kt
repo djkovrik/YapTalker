@@ -123,5 +123,10 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
       .clicks(updater_btn_changelog)
       .autoDisposable(event(FragmentLifecycle.DESTROY))
       .subscribe { presenter.showChangelog() }
+
+    RxView
+      .clicks(updater_btn_download)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe { presenter.downloadNewVersion() }
   }
 }
