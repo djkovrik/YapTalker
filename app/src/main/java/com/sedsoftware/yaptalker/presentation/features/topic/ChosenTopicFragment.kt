@@ -398,7 +398,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
       }
 
     RxView
-        .clicks(fab_share)
+      .clicks(fab_share)
       .autoDisposable(event(FragmentLifecycle.DESTROY))
       .subscribe {
         collapseMenu()

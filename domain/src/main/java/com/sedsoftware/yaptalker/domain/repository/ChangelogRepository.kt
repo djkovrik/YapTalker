@@ -4,5 +4,5 @@ import io.reactivex.Single
 
 interface ChangelogRepository {
 
-  fun getChangelog() : Single<String>
+  fun getChangelog(): Single<String>
 }

@@ -30,8 +30,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.snackInfo
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
-import kotlinx.android.synthetic.main.activity_main_tablets.navigation_drawer
-import kotlinx.android.synthetic.main.include_main_appbar.toolbar
+import kotlinx.android.synthetic.main.activity_main_tablets.*
+import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.Navigator
 import timber.log.Timber
 import javax.inject.Inject

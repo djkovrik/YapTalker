@@ -16,6 +16,7 @@ import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
@@ -25,7 +26,6 @@ import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.features.incubator.adapter.IncubatorAdapter
 import com.sedsoftware.yaptalker.presentation.features.incubator.adapter.IncubatorElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

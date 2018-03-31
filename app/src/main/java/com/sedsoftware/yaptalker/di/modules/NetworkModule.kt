@@ -6,7 +6,11 @@ import com.sedsoftware.yaptalker.data.network.external.GitHubLoader
 import com.sedsoftware.yaptalker.data.network.site.YapIncubatorLoader
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.data.network.site.YapSearchIdLoader
-import com.sedsoftware.yaptalker.data.network.thumbnails.*
+import com.sedsoftware.yaptalker.data.network.thumbnails.CoubLoader
+import com.sedsoftware.yaptalker.data.network.thumbnails.RutubeLoader
+import com.sedsoftware.yaptalker.data.network.thumbnails.VkLoader
+import com.sedsoftware.yaptalker.data.network.thumbnails.YapFileLoader
+import com.sedsoftware.yaptalker.data.network.thumbnails.YapVideoLoader
 import com.sedsoftware.yaptalker.di.modules.network.HttpClientsModule
 import com.sedsoftware.yaptalker.domain.device.Settings
 import dagger.Module

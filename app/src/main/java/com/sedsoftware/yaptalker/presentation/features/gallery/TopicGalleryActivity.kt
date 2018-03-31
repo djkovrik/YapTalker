@@ -134,7 +134,7 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
   }
 
   override fun scrollToFirstNewImage(newImagesOffset: Int) {
-    topic_gallery.smoothScrollToPosition( galleryAdapter.itemCount - newImagesOffset)
+    topic_gallery.smoothScrollToPosition(galleryAdapter.itemCount - newImagesOffset)
   }
 
   override fun lastPageReached() {

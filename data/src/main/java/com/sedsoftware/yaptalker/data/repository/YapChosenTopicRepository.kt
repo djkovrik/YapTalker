@@ -165,10 +165,10 @@ class YapChosenTopicRepository @Inject constructor(
       null
     }
 
-  private fun checkMessageSending(response: ServerResponse) : Completable =
-      if (response.text.contains(MESSAGE_SENDING_ERROR_MARKER)) {
-        Completable.error(RequestErrorException("Message sending request failed."))
-      } else {
-        Completable.complete()
-      }
+  private fun checkMessageSending(response: ServerResponse): Completable =
+    if (response.text.contains(MESSAGE_SENDING_ERROR_MARKER)) {
+      Completable.error(RequestErrorException("Message sending request failed."))
+    } else {
+      Completable.complete()
+    }
 }

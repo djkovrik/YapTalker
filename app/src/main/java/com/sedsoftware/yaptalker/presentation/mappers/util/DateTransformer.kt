@@ -5,7 +5,9 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.extensions.stringQuantityRes
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 class DateTransformer @Inject constructor(private val context: Context) {

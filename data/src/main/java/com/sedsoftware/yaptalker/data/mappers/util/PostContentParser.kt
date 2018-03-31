@@ -67,7 +67,7 @@ class PostContentParser(private val content: String) {
       .filter { element -> !tagsToSkip.contains(element.tagName()) }
       .filter { element ->
         var notSkip = true
-        attrsToSkip.forEach attrs@ { attribute ->
+        attrsToSkip.forEach attrs@{ attribute ->
           if (element.attributes().toString().contains(attribute)) {
             notSkip = false
             return@attrs

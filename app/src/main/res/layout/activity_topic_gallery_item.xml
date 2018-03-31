@@ -19,8 +19,8 @@
   <include
     layout="@layout/activity_topic_gallery_item_load_more"
     android:layout_width="wrap_content"
-    android:layout_gravity="end|center_vertical"
     android:layout_height="wrap_content"
+    android:layout_gravity="end|center_vertical"
     android:layout_margin="@dimen/load_more_padding" />
 
 </FrameLayout>

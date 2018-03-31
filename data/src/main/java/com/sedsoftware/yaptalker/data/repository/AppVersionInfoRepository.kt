@@ -15,9 +15,9 @@ class AppVersionInfoRepository @Inject constructor(
 ) : VersionInfoRepository {
 
   override fun getRemoteVersionInfo(): Single<BaseEntity> =
-      dataLoader
-        .loadCurrentVersionInfo()
-        .map(dataMapper)
+    dataLoader
+      .loadCurrentVersionInfo()
+      .map(dataMapper)
 
   override fun getInstalledVersionInfo(): Single<BaseEntity> =
     Single.just(

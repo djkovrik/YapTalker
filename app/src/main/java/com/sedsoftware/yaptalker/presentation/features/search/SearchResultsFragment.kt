@@ -11,12 +11,12 @@ import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
+import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.features.search.adapters.SearchResultsAdapter
 import com.sedsoftware.yaptalker.presentation.features.search.adapters.SearchResultsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_site_search_results.*
 import javax.inject.Inject

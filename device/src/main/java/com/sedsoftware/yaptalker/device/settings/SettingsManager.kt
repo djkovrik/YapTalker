@@ -6,7 +6,7 @@ import android.os.Build
 import android.support.annotation.StringRes
 import com.sedsoftware.yaptalker.device.R
 import com.sedsoftware.yaptalker.domain.device.Settings
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 class SettingsManager @Inject constructor(
