@@ -16,7 +16,7 @@
 
     <activity
       android:name="com.sedsoftware.yaptalker.presentation.features.navigation.MainActivity"
-      android:launchMode="singleTask"
+      android:launchMode="singleTop"
       android:theme="@style/AppTheme.NoActionBar">
 
       <intent-filter>
@@ -112,6 +112,15 @@
     </activity>
 
     <activity
+      android:name=".presentation.features.changelog.ChangelogActivity"
+      android:label="@string/title_changelog_activity"
+      android:parentActivityName=".presentation.features.navigation.MainActivity">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".presentation.features.navigation.MainActivity" />
+    </activity>
+
+    <activity
       android:name=".presentation.features.gallery.TopicGalleryActivity"
       android:parentActivityName=".presentation.features.navigation.MainActivity"
       android:theme="@style/AppTheme.DarkBackground">
@@ -129,6 +138,13 @@
         android:name="android.support.FILE_PROVIDER_PATHS"
         android:resource="@xml/fileprovider" />
     </provider>
+
+    <receiver android:name=".presentation.custom.DownloadManagerReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+        <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
+      </intent-filter>
+    </receiver>
 
   </application>
 

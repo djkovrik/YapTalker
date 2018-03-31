@@ -6,6 +6,7 @@ import android.os.Build
 import android.support.annotation.StringRes
 import com.sedsoftware.yaptalker.device.R
 import com.sedsoftware.yaptalker.domain.device.Settings
+import java.util.*
 import javax.inject.Inject
 
 class SettingsManager @Inject constructor(
@@ -100,6 +101,17 @@ class SettingsManager @Inject constructor(
   override fun isInTwoPaneMode(): Boolean =
     getBooleanPref(R.string.pref_key_two_pane_mode, context.resources.getBoolean(R.bool.two_pane_mode))
 
+  override fun getLastUpdateCheckDate(): Long =
+    getLongPref(R.string.pref_key_last_update_check, 0L)
+
+  override fun saveLastUpdateCheckDate() {
+    val currentTime = Date().time
+    preferences
+      .edit()
+      .putLong(context.resources.getString(R.string.pref_key_last_update_check), currentTime)
+      .apply()
+  }
+
   private fun getStringPref(@StringRes key: Int, default: String): String =
     preferences.getString(context.resources.getString(key), default)
 
@@ -111,4 +123,7 @@ class SettingsManager @Inject constructor(
 
   private fun getIntPref(@StringRes key: Int, default: Int): Int =
     preferences.getInt(context.resources.getString(key), default)
+
+  private fun getLongPref(@StringRes key: Int, default: Long): Long =
+    preferences.getLong(context.resources.getString(key), default)
 }

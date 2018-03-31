@@ -13,7 +13,7 @@ class TopicItemParsed {
   lateinit var isClosed: String
   @Selector("td[class~=row(2|4)] > a", defValue = "Unknown")
   lateinit var author: String
-  @Selector("td[class~=row(2|4)] > a", attr = "href")
+  @Selector("td[class~=row(2|4)] > a", attr = "href", defValue = "")
   lateinit var authorLink: String
   @Selector("div.rating-short-value", defValue = "0")
   lateinit var rating: String

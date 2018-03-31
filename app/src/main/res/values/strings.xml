@@ -10,6 +10,7 @@
   <string name="nav_drawer_active_topics">Active topics</string>
   <string name="nav_drawer_incubator">Incubator</string>
   <string name="nav_drawer_settings">Settings</string>
+  <string name="nav_drawer_updates">App updates</string>
   <string name="nav_drawer_bookmarks">Bookmarks</string>
   <string name="nav_drawer_search">Search</string>
   <string name="nav_drawer_sign_in">Sign In</string>
@@ -74,6 +75,19 @@
   <string name="post_insert_video_hint">Insert video link here…</string>
   <string name="post_button_submit">OK</string>
   <string name="post_button_dismiss">Cancel</string>
+
+  <!-- UPDATER -->
+  <string name="updater_title_no_updates">No updates available</string>
+  <string name="updater_title_update_available">Update available</string>
+  <string name="updater_info_installed_version">Installed version:</string>
+  <string name="updater_info_latest_version">Latest version:</string>
+  <string name="updater_info_last_update_check">Last update check:</string>
+  <string name="updater_btn_check_for_updates">Check for updates</string>
+  <string name="updater_btn_changelog">Changelog</string>
+  <string name="updater_btn_download">Download</string>
+  <string name="updater_status_checking">Checking for updates…</string>
+  <string name="updater_status_checked">You have the latest version!</string>
+  <string name="updater_status_new_version_available">New version available!</string>
 
   <!-- USER PROFILE -->
   <!-- Personal data -->
@@ -146,6 +160,7 @@
   <string name="msg_karma_changed_topic">Topic karma changed successfully.</string>
   <string name="msg_karma_already_rated_topic">You already rated this post.</string>
   <string name="title_image_selection">Select image</string>
+  <string name="title_changelog_activity">Changelog</string>
 
   <!-- MENUS -->
   <string name="action_save">Save</string>

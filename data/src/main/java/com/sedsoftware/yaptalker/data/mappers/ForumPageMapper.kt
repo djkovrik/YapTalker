@@ -2,6 +2,9 @@ package com.sedsoftware.yaptalker.data.mappers
 
 import com.sedsoftware.yaptalker.data.parsed.ForumPageParsed
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.ForumInfoBlock
+import com.sedsoftware.yaptalker.domain.entity.base.NavigationPanel
+import com.sedsoftware.yaptalker.domain.entity.base.Topic
 import io.reactivex.functions.Function
 import java.util.ArrayList
 import javax.inject.Inject
@@ -21,7 +24,7 @@ class ForumPageMapper @Inject constructor() : Function<ForumPageParsed, List<Bas
 
     with(from) {
       result.add(
-        com.sedsoftware.yaptalker.domain.entity.base.ForumInfoBlock(
+        ForumInfoBlock(
           forumTitle = forumTitle,
           forumId = forumId.toInt()
         )
@@ -29,7 +32,7 @@ class ForumPageMapper @Inject constructor() : Function<ForumPageParsed, List<Bas
 
       topics.forEach { topic ->
         result.add(
-          com.sedsoftware.yaptalker.domain.entity.base.Topic(
+          Topic(
             title = topic.title,
             link = topic.link,
             isPinned = topic.isPinned.isNotEmpty(),
@@ -45,7 +48,7 @@ class ForumPageMapper @Inject constructor() : Function<ForumPageParsed, List<Bas
       }
 
       result.add(
-        com.sedsoftware.yaptalker.domain.entity.base.NavigationPanel(
+        NavigationPanel(
           currentPage = navigation.currentPage.toInt(),
           totalPages = navigation.totalPages.toInt()
         )

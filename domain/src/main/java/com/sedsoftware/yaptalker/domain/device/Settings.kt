@@ -33,4 +33,8 @@ interface Settings {
   fun isHttpsEnabled(): Boolean
 
   fun isInTwoPaneMode(): Boolean
+
+  fun getLastUpdateCheckDate(): Long
+
+  fun saveLastUpdateCheckDate()
 }

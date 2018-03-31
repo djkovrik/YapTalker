@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:animateLayoutChanges="true"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <com.mikepenz.iconics.view.IconicsImageView
+    android:id="@+id/iconicsImageView"
+    android:layout_width="@dimen/updater_icon_size"
+    android:layout_height="@dimen/updater_icon_size"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/materialize_screen_edge"
+    app:iiv_color="?attr/colorAccentOverride"
+    app:iiv_icon="cmd-download-network"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:srcCompat="@drawable/ic_contact_mail" />
+
+  <TextView
+    android:id="@+id/updater_title"
+    style="@style/UpdaterStatusLabel"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:text="@string/updater_title_no_updates"
+    android:layout_marginTop="@dimen/material_content_edge_margin_horizontal"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/iconicsImageView" />
+
+  <TextView
+    android:id="@+id/updater_current_version"
+    style="@style/UpdaterNormalText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:text="@string/updater_info_installed_version"
+    android:layout_marginTop="@dimen/updater_vertical_margin"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/updater_title" />
+
+  <TextView
+    android:id="@+id/updater_new_version"
+    style="@style/UpdaterNormalText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:text="@string/updater_info_latest_version"
+    android:layout_marginTop="@dimen/updater_vertical_margin"
+    android:visibility="gone"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/updater_current_version" />
+
+  <TextView
+    android:id="@+id/updater_last_update_check_label"
+    style="@style/UpdaterNormalText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/updater_vertical_margin"
+    android:text="@string/updater_info_last_update_check"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/updater_new_version" />
+
+  <TextView
+    android:id="@+id/updater_last_update_check"
+    style="@style/UpdaterNormalText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/updater_vertical_margin"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/updater_last_update_check_label"
+    tools:text="23 March 2018, 12:23" />
+
+  <View
+    android:id="@+id/updater_progressbar"
+    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginBottom="@dimen/updater_vertical_margin"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/materialize_screen_edge"
+    android:background="?attr/colorAccentOverride"
+    app:layout_constraintTop_toBottomOf="@+id/updater_last_update_check" />
+
+  <TextView
+    android:id="@+id/updater_btn_check_updates"
+    style="@style/UpdaterButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/materialize_screen_edge"
+    android:text="@string/updater_btn_check_for_updates"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/updater_progressbar" />
+
+  <TextView
+    android:id="@+id/updater_btn_download"
+    style="@style/UpdaterButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/materialize_screen_edge"
+    android:text="@string/updater_btn_download"
+    android:visibility="gone"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/updater_btn_check_updates" />
+
+  <TextView
+    android:id="@+id/updater_btn_changelog"
+    style="@style/UpdaterButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/materialize_screen_edge"
+    android:text="@string/updater_btn_changelog"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/updater_btn_download" />
+
+  <TextView
+    android:id="@+id/updater_progressbar_status"
+    style="@style/UpdaterStatusText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center|bottom"
+    android:layout_marginBottom="@dimen/material_content_edge_margin_horizontal"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    tools:text="@string/updater_status_checking" />
+
+</android.support.constraint.ConstraintLayout>

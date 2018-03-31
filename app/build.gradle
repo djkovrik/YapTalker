@@ -125,6 +125,7 @@ dependencies {
     implementation presentationDependencies.materialDialogsCommons
     implementation presentationDependencies.photoView
     implementation presentationDependencies.tsnackbar
+    implementation presentationDependencies.markwon
 
     kapt presentationDependencies.daggerCompiler
     kapt presentationDependencies.daggerAndroidCompiler
