@@ -1,6 +1,9 @@
 package com.sedsoftware.yaptalker.presentation.features.updater
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -25,6 +28,8 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
 
   companion object {
     fun getNewInstance(): UpdaterFragment = UpdaterFragment()
+
+    private const val STORAGE_WRITE_PERMISSION = 0
   }
 
   @Inject
@@ -112,6 +117,14 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
     }
   }
 
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    when (requestCode) {
+      STORAGE_WRITE_PERMISSION -> {
+        presenter.downloadNewVersion()
+      }
+    }
+  }
+
   private fun subscribeViews() {
 
     RxView
@@ -127,6 +140,20 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
     RxView
       .clicks(updater_btn_download)
       .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe { presenter.downloadNewVersion() }
+      .subscribe { checkPermissionForDownloading() }
+  }
+
+  private fun checkPermissionForDownloading() {
+    if (context?.let { ctx ->
+        ContextCompat.checkSelfPermission(
+          ctx,
+          Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+      } != PackageManager.PERMISSION_GRANTED) {
+
+      requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), STORAGE_WRITE_PERMISSION)
+    } else {
+      presenter.downloadNewVersion()
+    }
   }
 }
