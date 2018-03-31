@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.features.updater
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.domain.device.UpdatesDownloader
 import com.sedsoftware.yaptalker.domain.interactor.updater.GetInstalledVersionInfo
 import com.sedsoftware.yaptalker.domain.interactor.updater.GetRemoteVersionInfo
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
@@ -12,7 +13,6 @@ import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
-import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState
@@ -20,7 +20,8 @@ class UpdaterPresenter @Inject constructor(
   private val router: Router,
   private val installedVersionUseCase: GetInstalledVersionInfo,
   private val remoteVersionUseCase: GetRemoteVersionInfo,
-  private val versionInfoMapper: VersionInfoMapper
+  private val versionInfoMapper: VersionInfoMapper,
+  private val updatesDownloader: UpdatesDownloader
 ) : BasePresenter<UpdaterView>() {
 
   private var currentVersionCode = 0
@@ -40,7 +41,10 @@ class UpdaterPresenter @Inject constructor(
   fun downloadNewVersion() {
     latestVersionLink
       .takeIf { it.isNotEmpty() }
-      .let { link -> Timber.d("Link: $link") }
+      ?.let { link ->
+        viewState.setDownloadButtonVisibility(isVisible = false)
+        updatesDownloader.initiateUpdateDownloadSession(link)
+      }
   }
 
   fun checkForUpdates() {

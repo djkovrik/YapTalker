@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="title_share_image">Поделиться изображением</string>
+
+  <!-- Updates downloader -->
+  <string name="update_downloader_title">YapTalker: загрузка обновления</string>
+  <string name="update_downloader_description">Файл обновления для YapTalker.</string>
 </resources>
