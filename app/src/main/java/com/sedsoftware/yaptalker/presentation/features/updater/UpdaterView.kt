@@ -20,9 +20,9 @@ interface UpdaterView : BaseView {
 
   fun displayInstalledVersionInfo(versionInfo: AppVersionInfoModel)
 
-  fun displayLastUpdateCheckDate(versionInfo: AppVersionInfoModel)
-
   fun displayRemoteVersionInfo(versionInfo: AppVersionInfoModel)
+
+  fun displayLastUpdateCheckDate(versionInfo: AppVersionInfoModel)
 
   fun showCheckingStatus()
 

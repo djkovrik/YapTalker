@@ -16,15 +16,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.model.base.AppVersionInfoModel
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_updater.updater_btn_changelog
-import kotlinx.android.synthetic.main.fragment_updater.updater_btn_check_updates
-import kotlinx.android.synthetic.main.fragment_updater.updater_btn_download
-import kotlinx.android.synthetic.main.fragment_updater.updater_current_version
-import kotlinx.android.synthetic.main.fragment_updater.updater_last_update_check_label
-import kotlinx.android.synthetic.main.fragment_updater.updater_new_version
-import kotlinx.android.synthetic.main.fragment_updater.updater_progressbar
-import kotlinx.android.synthetic.main.fragment_updater.updater_progressbar_status
-import kotlinx.android.synthetic.main.fragment_updater.updater_title
+import kotlinx.android.synthetic.main.fragment_updater.*
+import java.util.Locale
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_updater)
@@ -51,14 +44,6 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
     snackError(message)
   }
 
-  override fun showLoadingIndicator() {
-    updater_progressbar.showView()
-  }
-
-  override fun hideLoadingIndicator() {
-    updater_progressbar.hideView()
-  }
-
   override fun updateCurrentUiState() {
     context?.stringRes(R.string.nav_drawer_updates)?.let { presenter.setAppbarTitle(it) }
     presenter.setNavDrawerItem(NavigationSection.APP_UPDATES)
@@ -73,15 +58,28 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
   }
 
   override fun displayInstalledVersionInfo(versionInfo: AppVersionInfoModel) {
-    updater_current_version.text = versionInfo.versionName
-  }
-
-  override fun displayLastUpdateCheckDate(versionInfo: AppVersionInfoModel) {
-    updater_last_update_check_label.text = versionInfo.lastUpdateCheckDate
+    updater_current_version.text = String.format(
+      Locale.getDefault(),
+      "%s %s",
+      context?.stringRes(R.string.updater_info_installed_version),
+      versionInfo.versionName
+    )
   }
 
   override fun displayRemoteVersionInfo(versionInfo: AppVersionInfoModel) {
-    updater_new_version.text = versionInfo.versionName
+
+    updater_new_version.text = String.format(
+      Locale.getDefault(),
+      "%s %s",
+      context?.stringRes(R.string.updater_info_latest_version),
+      versionInfo.versionName
+    )
+
+    updater_new_version.showView()
+  }
+
+  override fun displayLastUpdateCheckDate(versionInfo: AppVersionInfoModel) {
+    updater_last_update_check.text = versionInfo.lastUpdateCheckDate
   }
 
   override fun showCheckingStatus() {
