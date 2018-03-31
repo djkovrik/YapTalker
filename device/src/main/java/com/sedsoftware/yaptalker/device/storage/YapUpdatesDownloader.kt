@@ -13,8 +13,6 @@ class YapUpdatesDownloader @Inject constructor(
 
   override fun initiateUpdateDownloadSession(url: String) {
     val request = DownloadManager.Request(Uri.parse(url))
-//    request.setTitle(context.getString(R.string.update_downloader_title))
-//    request.setDescription(context.getString(R.string.update_downloader_description))
     request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, url.substringAfterLast("/"))
     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
     val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
