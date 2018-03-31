@@ -8,4 +8,6 @@
   <attr name="colorFabOverlay" format="color" />
   <attr name="colorScrollbarThumb" format="color" />
   <attr name="colorScrollbarBackground" format="color" />
+  <attr name="colorLoadMore" format="color" />
+  <attr name="colorLoadMoreStroke" format="color" />
 </resources>

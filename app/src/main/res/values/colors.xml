@@ -50,6 +50,4 @@
   <color name="snackColorSuccess">@color/material_color_green_500</color>
   <color name="snackColorWarning">@color/material_color_teal_500</color>
   <color name="snackColorText">@color/material_color_white</color>
-  <!-- Misc -->
-  <color name="colorLoadMore">#7dffffff</color>
 </resources>
