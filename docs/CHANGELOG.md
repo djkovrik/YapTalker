@@ -6,6 +6,11 @@
 * App updater
 * Changelog screen
 
+**Changed**
+* Reworked topic gallery mode: click on gallery button loads full topic gallery and clink on image loads gallery
+and scrolls it to clicked image
+* Tweaked layout for "Next" gallery button
+
 **Fixed**
 * Empty-linked user profiles parsing crash
 

@@ -58,8 +58,9 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
   @ProvidePresenter
   fun provideGalleryPresenter() = presenter
 
-  private val galleryInitialState: GalleryInitialState by lazy {
-    intent.getParcelableExtra(GALLERY_INITIAL_STATE_KEY) as GalleryInitialState
+  val galleryInitialState: GalleryInitialState by lazy {
+    intent.getParcelableExtra(GALLERY_INITIAL_STATE_KEY) as GalleryInitialState? ?:
+    throw  IllegalArgumentException("Gallery initial state must be provided via arguments")
   }
 
   private var savingImageUrl = ""
