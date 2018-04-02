@@ -106,10 +106,10 @@ dependencies {
     implementation presentationDependencies.autoDispose
     implementation presentationDependencies.autoDisposeKotlin
 
-    implementation presentationDependencies.moshi
+    implementation presentationDependencies.gson
     implementation presentationDependencies.retrofit
     implementation presentationDependencies.retrofitRxAdapter
-    implementation presentationDependencies.retrofitMoshiConverter
+    implementation presentationDependencies.retrofitGsonConverter
     implementation presentationDependencies.retrofitScalarsConverter
     implementation presentationDependencies.retrofitJspoonConverter
     implementation presentationDependencies.okhttp

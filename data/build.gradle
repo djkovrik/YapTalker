@@ -59,7 +59,7 @@ dependencies {
     implementation dataDependencies.rxKotlin
     implementation dataDependencies.retrofit
     implementation dataDependencies.jspoon
-    implementation dataDependencies.moshi
+    implementation dataDependencies.gson
 
     testImplementation dataTestDependencies.junit
     testImplementation dataTestDependencies.mockito

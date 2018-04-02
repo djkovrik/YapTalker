@@ -19,7 +19,7 @@ import okhttp3.OkHttpClient
 import pl.droidsonroids.retrofit2.JspoonConverterFactory
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
@@ -122,7 +122,7 @@ class NetworkModule {
       .Builder()
       .baseUrl(COUB_BASE_URL)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .addConverterFactory(MoshiConverterFactory.create())
+      .addConverterFactory(GsonConverterFactory.create())
       .build()
       .create(CoubLoader::class.java)
 
@@ -133,7 +133,7 @@ class NetworkModule {
       .Builder()
       .baseUrl(RUTUBE_BASE_URL)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .addConverterFactory(MoshiConverterFactory.create())
+      .addConverterFactory(GsonConverterFactory.create())
       .build()
       .create(RutubeLoader::class.java)
 
@@ -153,7 +153,7 @@ class NetworkModule {
     Retrofit.Builder()
       .baseUrl(YAP_API_BASE_URL)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .addConverterFactory(MoshiConverterFactory.create())
+      .addConverterFactory(GsonConverterFactory.create())
       .build()
       .create(YapVideoLoader::class.java)
 
@@ -163,7 +163,7 @@ class NetworkModule {
     Retrofit.Builder()
       .baseUrl(VK_API_BASE_URL)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .addConverterFactory(MoshiConverterFactory.create())
+      .addConverterFactory(GsonConverterFactory.create())
       .build()
       .create(VkLoader::class.java)
 
@@ -180,11 +180,10 @@ class NetworkModule {
   @Singleton
   @Provides
   fun provideAppUpdatesLoader(): AppUpdatesChecker =
-    Retrofit
-      .Builder()
+    Retrofit.Builder()
       .baseUrl(APP_DEPLOY_BASE_URL)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .addConverterFactory(MoshiConverterFactory.create())
+      .addConverterFactory(GsonConverterFactory.create())
       .build()
       .create(AppUpdatesChecker::class.java)
 }

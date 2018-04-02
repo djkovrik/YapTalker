@@ -1,9 +1,9 @@
 package com.sedsoftware.yaptalker.data.parsed
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 class AppVersionInfo(
-  @Json(name = "version_code") val versionCode: Int,
-  @Json(name = "version_name") val versionName: String,
-  @Json(name = "link") val downloadLink: String
+  @SerializedName("version_code") val versionCode: Int,
+  @SerializedName("version_name") val versionName: String,
+  @SerializedName("link") val downloadLink: String
 )
