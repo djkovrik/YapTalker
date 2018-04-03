@@ -50,10 +50,15 @@
   <string name="pref_content_categorizer_label_collection">Коллекция</string>
   <string name="pref_content_categorizer_label_reviews">ЯП-Обзор</string>
   <string name="pref_content_categorizer_label_building">Строительство</string>
-
   <!-- nsfw -->
   <string name="pref_content_nsfw_title">Мне больше 18 лет</string>
   <string name="pref_content_nsfw_summary">Отображать разделы форумов, содержащие контент для взрослых.</string>
+
+  <!-- MEDIA -->
+  <string name="pref_category_title_media">Медиа</string>
+  <!-- Coubs -->
+  <string name="pref_media_coub_external_title">Внешний плеер для Coub</string>
+  <string name="pref_media_coub_external_summary">Проигрывать coub-видео в стороннем приложении.</string>
 
   <!--- SYSTEM -->
   <string name="pref_category_title_system">Системные</string>

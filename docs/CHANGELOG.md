@@ -5,6 +5,7 @@
 **Added**
 * App updater
 * Changelog screen
+* Preference checkbox to play coub videos in external applications
 
 **Changed**
 * Reworked topic gallery mode: click on gallery button loads full topic gallery and clink on image loads gallery

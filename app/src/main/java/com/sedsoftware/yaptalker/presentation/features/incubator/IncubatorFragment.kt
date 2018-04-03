@@ -12,6 +12,7 @@ import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
@@ -23,13 +24,16 @@ import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.features.incubator.adapter.IncubatorAdapter
 import com.sedsoftware.yaptalker.presentation.features.incubator.adapter.IncubatorElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_incubator.*
+import kotlinx.android.synthetic.main.fragment_incubator.incubator_fab
+import kotlinx.android.synthetic.main.fragment_incubator.incubator_refresh_layout
+import kotlinx.android.synthetic.main.fragment_incubator.incubator_topics_list
 import org.jetbrains.anko.browse
 import timber.log.Timber
 import javax.inject.Inject
@@ -40,6 +44,9 @@ class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader, Incub
   companion object {
     fun getNewInstance() = IncubatorFragment()
   }
+
+  @Inject
+  lateinit var settings: Settings
 
   @Inject
   lateinit var incubatorAdapter: IncubatorAdapter
@@ -134,9 +141,19 @@ class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader, Incub
         val videoId = url.extractYoutubeVideoId()
         context?.browse("http://www.youtube.com/watch?v=$videoId")
       }
+
+      isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
+        context?.browse(url.validateUrl())
+      }
+
       isVideo && !url.contains("youtube") -> {
         presenter.navigateToChosenVideo(html)
       }
+
+      isVideo && !url.contains("youtube") -> {
+        presenter.navigateToChosenVideo(html)
+      }
+
       else -> {
         presenter.navigateToChosenImage(url)
       }

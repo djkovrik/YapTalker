@@ -28,6 +28,8 @@ interface Settings {
 
   fun isNsfwEnabled(): Boolean
 
+  fun isExternalCoubPlayer(): Boolean
+
   fun isScreenAlwaysOnEnabled(): Boolean
 
   fun isHttpsEnabled(): Boolean

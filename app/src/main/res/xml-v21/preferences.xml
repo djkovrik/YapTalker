@@ -61,6 +61,17 @@
 
   </PreferenceCategory>
 
+  <PreferenceCategory android:title="@string/pref_category_title_media">
+
+    <CheckBoxPreference
+      android:defaultValue="false"
+      android:key="@string/pref_key_coub_external"
+      android:persistent="true"
+      android:summary="@string/pref_media_coub_external_summary"
+      android:title="@string/pref_media_coub_external_title" />
+
+  </PreferenceCategory>
+
   <PreferenceCategory android:title="@string/pref_category_title_system">
 
     <CheckBoxPreference

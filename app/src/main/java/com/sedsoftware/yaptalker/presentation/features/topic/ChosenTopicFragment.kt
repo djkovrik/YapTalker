@@ -17,6 +17,7 @@ import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
@@ -31,6 +32,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.snackInfo
 import com.sedsoftware.yaptalker.presentation.extensions.snackSuccess
 import com.sedsoftware.yaptalker.presentation.extensions.snackWarning
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicAdapter
 import com.sedsoftware.yaptalker.presentation.features.topic.adapter.ChosenTopicElementsClickListener
 import com.sedsoftware.yaptalker.presentation.features.topic.fabmenu.FabMenu
@@ -41,8 +43,23 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_chosen_topic.*
-import kotlinx.android.synthetic.main.include_topic_fab_menu.*
+import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_posts_list
+import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_refresh_layout
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_bookmark
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_bookmark_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_gallery
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_gallery_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_karma
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_karma_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_main_button_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_menu
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_new_message
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_new_message_label
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_overlay
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_refresh
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_refresh_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_share
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_share_block
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.share
 import timber.log.Timber
@@ -71,6 +88,9 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
     private const val STARTING_POST_KEY = "STARTING_POST_KEY"
     private const val GIF_EXT = ".gif"
   }
+
+  @Inject
+  lateinit var settings: Settings
 
   @Inject
   lateinit var topicAdapter: ChosenTopicAdapter
@@ -312,12 +332,19 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
         val videoId = url.extractYoutubeVideoId()
         context?.browse("http://www.youtube.com/watch?v=$videoId")
       }
+
+      isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
+        context?.browse(url.validateUrl())
+      }
+
       isVideo && !url.contains("youtube") -> {
         presenter.navigateToChosenVideo(html)
       }
-      url.endsWith(GIF_EXT) -> {
-        presenter.navigateToChosenGif(url)
+
+      isVideo && !url.contains("youtube") -> {
+        presenter.navigateToChosenVideo(html)
       }
+
       else -> {
         presenter.navigateToChosenImage(url)
       }

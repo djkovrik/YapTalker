@@ -89,6 +89,9 @@ class SettingsManager @Inject constructor(
   override fun isNsfwEnabled(): Boolean =
     getBooleanPref(R.string.pref_key_nswf, false)
 
+  override fun isExternalCoubPlayer(): Boolean =
+    getBooleanPref(R.string.pref_key_coub_external, false)
+
   override fun isScreenAlwaysOnEnabled(): Boolean =
     getBooleanPref(R.string.pref_key_screen_always_on, false)
 
