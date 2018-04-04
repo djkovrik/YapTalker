@@ -113,7 +113,6 @@
 
     <activity
       android:name=".presentation.features.changelog.ChangelogActivity"
-      android:label="@string/title_changelog_activity"
       android:parentActivityName=".presentation.features.navigation.MainActivity">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"

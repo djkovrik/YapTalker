@@ -69,7 +69,7 @@
   <string name="updater_info_latest_version">Последняя версия:</string>
   <string name="updater_info_last_update_check">Последняя проверка обновлений:</string>
   <string name="updater_btn_check_for_updates">Проверить наличие обновления</string>
-  <string name="updater_btn_changelog">Список изменений</string>
+  <string name="updater_btn_changelog">Список исправлений</string>
   <string name="updater_btn_download">Скачать</string>
   <string name="updater_status_checking">Проверка обновлений…</string>
   <string name="updater_status_checked">У вас установлена последняя версия</string>

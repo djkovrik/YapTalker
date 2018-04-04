@@ -10,12 +10,11 @@ import javax.inject.Inject
 
 class AppChangelogRepository @Inject constructor(
   private val context: Context,
-  private val dataLoader: GitHubLoader,
-  private val dataMapper: ServerResponseMapper
+  private val dataLoader: GitHubLoader
 ) : ChangelogRepository {
 
   private companion object {
-    const val LOCALE_RU = "ru_RU"
+    const val LOCALE_EN = "en"
   }
 
   override fun getChangelog(): Single<String> {
@@ -28,10 +27,10 @@ class AppChangelogRepository @Inject constructor(
       resources.configuration.locale
     }
 
-    return if (locale.country == LOCALE_RU) {
-      dataLoader.loadChangelogRu()
-    } else {
+    return if (locale.language == LOCALE_EN) {
       dataLoader.loadChangelogEn()
+    } else {
+      dataLoader.loadChangelogRu()
     }
       .map { response -> response.body()?.string() ?: "" }
   }
