@@ -27,7 +27,7 @@ apply from: 'buildsystem/dependencies.gradle'
 // Current: 0.9.3 (000,009,003)
 def versionMajor = 0
 def versionMinor = 9
-def versionPatch = 2
+def versionPatch = 3
 
 allprojects {
     ext {

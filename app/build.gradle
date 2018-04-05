@@ -132,11 +132,7 @@ dependencies {
     kapt presentationDependencies.moxyCompiler
 
     testImplementation presentationTestDependencies.junit
-    testImplementation presentationTestDependencies.mockito
-    testImplementation presentationTestDependencies.mockitoKotlin
-    testImplementation presentationTestDependencies.expekt
     androidTestImplementation presentationTestDependencies.espresso
-    androidTestImplementation presentationTestDependencies.mockitoAndroid
 
     implementation(supportingToolsDependencies.crashalytics) { transitive = true }
     implementation supportingToolsDependencies.firebaseCore

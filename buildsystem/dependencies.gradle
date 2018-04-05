@@ -44,9 +44,6 @@ ext {
     // Testing
     final ESPRESSO_VERSION = "3.0.2-alpha1"
     final JUNIT_VERSION = "4.12"
-    final MOCKITO_VERSION = "2.15.0"
-    final MOCKITO_KOTLIN_VERSION = "1.5.0"
-    final EXPEKT_VERSION = "0.5.0"
 
     // Supporting tools
     final ANDROID_CRASHALYTICS_VERSION = "2.9.1@aar"
@@ -65,7 +62,6 @@ ext {
 
     domainTestDependencies = [
             junit : "junit:junit:$JUNIT_VERSION",
-            expekt: "com.winterbe:expekt:$EXPEKT_VERSION",
     ]
 
     dataDependencies = [
@@ -80,9 +76,6 @@ ext {
 
     dataTestDependencies = [
             junit        : "junit:junit:$JUNIT_VERSION",
-            mockito      : "org.mockito:mockito-core:$MOCKITO_VERSION",
-            mockitoKotlin: "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
-            expekt       : "com.winterbe:expekt:$EXPEKT_VERSION",
     ]
 
     deviceDependencies = [
@@ -98,9 +91,6 @@ ext {
 
     deviceTestDependencies = [
             junit        : "junit:junit:$JUNIT_VERSION",
-            mockito      : "org.mockito:mockito-core:$MOCKITO_VERSION",
-            mockitoKotlin: "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
-            expekt       : "com.winterbe:expekt:$EXPEKT_VERSION",
     ]
 
     presentationDependencies = [
@@ -164,10 +154,6 @@ ext {
 
     presentationTestDependencies = [
             junit         : "junit:junit:$JUNIT_VERSION",
-            expekt        : "com.winterbe:expekt:$EXPEKT_VERSION",
-            mockito       : "org.mockito:mockito-core:$MOCKITO_VERSION",
-            mockitoKotlin : "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
-            mockitoAndroid: "org.mockito:mockito-android:$MOCKITO_VERSION",
             espresso      : "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION",
     ]
 
