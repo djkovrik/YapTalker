@@ -34,7 +34,7 @@ class UpdaterPresenter @Inject constructor(
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
     fetchCurrentVersionInfo()
-    fetchLastUpdateDate()
+    fetchLastUpdateCheckDate()
   }
 
   override fun attachView(view: UpdaterView?) {
@@ -80,11 +80,12 @@ class UpdaterPresenter @Inject constructor(
           viewState.setDownloadButtonVisibility(isVisible = true)
           viewState.displayRemoteVersionInfo(info)
           latestVersionLink = info.downloadLink
-          fetchLastUpdateDate()
         } else {
           viewState.showNoUpdateAvailableLabel()
           viewState.setDownloadButtonVisibility(isVisible = false)
         }
+
+        fetchLastUpdateCheckDate()
 
       }, { throwable: Throwable? ->
         throwable?.message?.let { viewState.showErrorMessage(it) }
@@ -110,7 +111,7 @@ class UpdaterPresenter @Inject constructor(
       })
   }
 
-  private fun fetchLastUpdateDate() {
+  private fun fetchLastUpdateCheckDate() {
     getLastUpdateDate
       .execute()
       .map(dateMapper)
