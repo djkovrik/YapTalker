@@ -1,6 +1,22 @@
 ## Changelog
 
+### [0.9.4] - 2018-04-05
+
+**Added**
+* App updater
+* Changelog screen
+* Preference checkbox to play coub videos in external applications
+
+**Changed**
+* Reworked topic gallery mode: click on gallery button loads full topic gallery and clink on image loads gallery
+and scrolls it to clicked image
+* Tweaked layout for "Next" gallery button
+
+**Fixed**
+* Empty-linked user profiles parsing crash
+
 ### [0.9.3] - 2018-03-18
+
 **Changed**
 * Temporary restored old webView video player to fix vk.com videos problems
 * Changed topic item layouts to display longer topic names

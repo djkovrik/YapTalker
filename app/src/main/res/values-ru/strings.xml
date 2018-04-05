@@ -10,6 +10,7 @@
   <string name="nav_drawer_active_topics">Активные темы</string>
   <string name="nav_drawer_incubator">Инкубатор</string>
   <string name="nav_drawer_settings">Настройки</string>
+  <string name="nav_drawer_updates">Обновление приложения</string>
   <string name="nav_drawer_bookmarks">Закладки</string>
   <string name="nav_drawer_search">Поиск</string>
   <string name="nav_drawer_sign_in">Вход</string>
@@ -60,6 +61,19 @@
   <string name="post_insert_video_hint">Вставьте ссылку на видео…</string>
   <string name="post_button_submit">Ок</string>
   <string name="post_button_dismiss">Отмена</string>
+
+  <!-- UPDATER -->
+  <string name="updater_title_no_updates">Обновлений нет</string>
+  <string name="updater_title_update_available">Доступно обновление</string>
+  <string name="updater_info_installed_version">Установленная версия:</string>
+  <string name="updater_info_latest_version">Последняя версия:</string>
+  <string name="updater_info_last_update_check">Последняя проверка обновлений:</string>
+  <string name="updater_btn_check_for_updates">Проверить наличие обновления</string>
+  <string name="updater_btn_changelog">Список исправлений</string>
+  <string name="updater_btn_download">Скачать</string>
+  <string name="updater_status_checking">Проверка обновлений…</string>
+  <string name="updater_status_checked">У вас установлена последняя версия</string>
+  <string name="updater_status_new_version_available">Доступна новая версия!</string>
 
   <!-- USER PROFILE -->
   <!-- Personal data -->
@@ -132,6 +146,7 @@
   <string name="msg_karma_changed_topic">Рейтинг темы успешно изменен.</string>
   <string name="msg_karma_already_rated_topic">Вы уже изменяли рейтинг этой темы.</string>
   <string name="title_image_selection">Выберите изображение</string>
+  <string name="title_changelog_activity">Список изменений</string>
 
   <!-- MENUS -->
   <string name="action_save">Сохранить</string>

@@ -21,4 +21,5 @@ object YapEntityTypes {
   const val SEARCH_TOPIC_ITEM = 18
   const val SEARCH_PAGE_INFO = 19
   const val TOPIC_PAGE_IMAGES = 20
+  const val VERSION_INFO = 21
 }

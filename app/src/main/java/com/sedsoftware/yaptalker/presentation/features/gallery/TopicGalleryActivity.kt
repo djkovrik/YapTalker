@@ -22,6 +22,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.visibleItemPosition
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryAdapter
 import com.sedsoftware.yaptalker.presentation.features.gallery.adapter.TopicGalleryLoadMoreClickListener
+import com.sedsoftware.yaptalker.presentation.features.topic.GalleryInitialState
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
 import kotlinx.android.synthetic.main.activity_topic_gallery.*
@@ -33,17 +34,13 @@ import javax.inject.Inject
 class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadMoreClickListener {
 
   companion object {
-    fun getIntent(ctx: Context, triple: Triple<Int, Int, Int>): Intent {
+    fun getIntent(ctx: Context, initialState: GalleryInitialState): Intent {
       val intent = Intent(ctx, TopicGalleryActivity::class.java)
-      intent.putExtra(FORUM_ID_KEY, triple.first)
-      intent.putExtra(TOPIC_ID_KEY, triple.second)
-      intent.putExtra(CURRENT_PAGE_KEY, triple.third)
+      intent.putExtra(GALLERY_INITIAL_STATE_KEY, initialState)
       return intent
     }
 
-    private const val FORUM_ID_KEY = "FORUM_ID_KEY"
-    private const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
-    private const val CURRENT_PAGE_KEY = "CURRENT_PAGE_KEY"
+    private const val GALLERY_INITIAL_STATE_KEY = "CURRENT_PAGE_KEY"
     private const val STORAGE_WRITE_PERMISSION = 0
   }
 
@@ -61,16 +58,9 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
   @ProvidePresenter
   fun provideGalleryPresenter() = presenter
 
-  private val forumId: Int by lazy {
-    intent.getIntExtra(FORUM_ID_KEY, 0)
-  }
-
-  private val topicId: Int by lazy {
-    intent.getIntExtra(TOPIC_ID_KEY, 0)
-  }
-
-  private val currentPage: Int by lazy {
-    intent.getIntExtra(CURRENT_PAGE_KEY, 0)
+  val galleryInitialState: GalleryInitialState by lazy {
+    intent.getParcelableExtra(GALLERY_INITIAL_STATE_KEY) as GalleryInitialState? ?:
+    throw  IllegalArgumentException("Gallery initial state must be provided via arguments")
   }
 
   private var savingImageUrl = ""
@@ -90,8 +80,6 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
 
     val snapHelper = PagerSnapHelper()
     snapHelper.attachToRecyclerView(topic_gallery)
-
-    presenter.loadTopicGallery(forumId, topicId, currentPage)
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -134,7 +122,16 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
   }
 
   override fun scrollToFirstNewImage(newImagesOffset: Int) {
-    topic_gallery.smoothScrollToPosition( galleryAdapter.itemCount - newImagesOffset)
+    topic_gallery.smoothScrollToPosition(galleryAdapter.itemCount - newImagesOffset)
+  }
+
+  override fun scrollToSelectedImage(imageUrl: String) {
+    val element = galleryAdapter.items.find { it.url == imageUrl }
+    val position = galleryAdapter.items.indexOf(element)
+
+    if (position != -1) {
+      topic_gallery.scrollToPosition(position)
+    }
   }
 
   override fun lastPageReached() {

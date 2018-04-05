@@ -12,7 +12,6 @@ dependencies {
     implementation domainDependencies.rxKotlin
 
     testImplementation domainTestDependencies.junit
-    testImplementation domainTestDependencies.expekt
 }
 
 configurations.all() {

@@ -49,6 +49,9 @@
     <item name="iconProfileContacts">@drawable/ic_contact_mail</item>
     <item name="iconVideoOverlay">@drawable/ic_video_play</item>
     <item name="iconRemoveAttachment">@drawable/ic_close</item>
+    <!-- Load more button -->
+    <item name="colorLoadMore">@color/material_color_white</item>
+    <item name="colorLoadMoreStroke">@color/colorAccentL</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.AppBarOverlay</item>
     <item name="PopupOverlay">@style/AppTheme.PopupOverlay</item>
@@ -108,6 +111,9 @@
     <item name="iconProfileContacts">@drawable/ic_contact_mail_dark</item>
     <item name="iconVideoOverlay">@drawable/ic_video_play_dark</item>
     <item name="iconRemoveAttachment">@drawable/ic_close_dark</item>
+    <!-- Load more button -->
+    <item name="colorLoadMore">@color/material_color_blue_grey_900</item>
+    <item name="colorLoadMoreStroke">@color/colorAccentD</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.Dark.AppBarOverlay</item>
     <item name="PopupOverlay">@style/AppTheme.Dark.PopupOverlay</item>

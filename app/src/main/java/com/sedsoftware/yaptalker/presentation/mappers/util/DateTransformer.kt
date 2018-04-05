@@ -6,6 +6,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.stringQuantityRes
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 
@@ -24,6 +25,15 @@ class DateTransformer @Inject constructor(private val context: Context) {
     val diff = getDifference(date)
     val calcTime = getCalculatedTime(diff)
     return buildString(calcTime)
+  }
+
+  fun transformLongToDateString(value: Long): String {
+    val date = Date(value)
+    val sdf = SimpleDateFormat("dd.MM.yyyy - HH:mm", Locale.getDefault())
+    return when {
+      value != 0L -> sdf.format(date)
+      else -> ""
+    }
   }
 
   private fun getDifference(source: String): Int {

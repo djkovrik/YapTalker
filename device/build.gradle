@@ -62,9 +62,6 @@ dependencies {
     implementation developmentDependencies.timber
 
     testImplementation deviceTestDependencies.junit
-    testImplementation deviceTestDependencies.mockito
-    testImplementation deviceTestDependencies.mockitoKotlin
-    testImplementation deviceTestDependencies.expekt
 }
 
 configurations.all() {

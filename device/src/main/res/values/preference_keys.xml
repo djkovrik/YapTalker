@@ -12,4 +12,6 @@
   <string name="pref_key_topics_per_page" translatable="false">pref_topics_per_page</string>
   <string name="pref_key_cookie" translatable="false">pref_cookie</string>
   <string name="pref_key_two_pane_mode" translatable="false">pref_two_pane_mode</string>
+  <string name="pref_key_last_update_check" translatable="false">pref_last_update_check</string>
+  <string name="pref_key_coub_external" translatable="false">pref_coub_external</string>
 </resources>

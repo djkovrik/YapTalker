@@ -28,8 +28,8 @@ ext {
     final CICERONE_VERSION = "3.0.0"
     final RETROFIT_VERSION = "2.3.0"
     final JSPOON_VERSION = "1.2.2"
-    final MOSHI_VERSION = "1.5.0"
     final OKHTTP_VERSION = "3.10.0"
+    final GSON_VERSION = "2.8.2"
 
     // UI
     final MATERIAL_VALUES_VERSION = "1.1.1"
@@ -39,13 +39,11 @@ ext {
     final MATERIAL_DIALOGUES_VERSION = "0.9.6.0"
     final PHOTOVIEW_VERSION = "2.1.3"
     final TOP_SNACKBAR_VERSION = "1.1.1"
+    final MARKWON_VERSION = "1.0.3"
 
     // Testing
     final ESPRESSO_VERSION = "3.0.2-alpha1"
     final JUNIT_VERSION = "4.12"
-    final MOCKITO_VERSION = "2.15.0"
-    final MOCKITO_KOTLIN_VERSION = "1.5.0"
-    final EXPEKT_VERSION = "0.5.0"
 
     // Supporting tools
     final ANDROID_CRASHALYTICS_VERSION = "2.9.1@aar"
@@ -56,125 +54,117 @@ ext {
     final LEAK_CANARY_VERSION = "1.5.4"
 
     domainDependencies = [
-        kotlin  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
-        javax   : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
-        rxJava  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
-        rxKotlin: "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
+            kotlin  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
+            javax   : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
+            rxJava  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
+            rxKotlin: "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
     ]
 
     domainTestDependencies = [
-        junit : "junit:junit:$JUNIT_VERSION",
-        expekt: "com.winterbe:expekt:$EXPEKT_VERSION",
+            junit : "junit:junit:$JUNIT_VERSION",
     ]
 
     dataDependencies = [
-        kotlin  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
-        javax   : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
-        rxJava  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
-        rxKotlin: "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
-        retrofit: "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION",
-        jspoon  : "pl.droidsonroids:jspoon:$JSPOON_VERSION",
+            kotlin  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
+            javax   : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
+            rxJava  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
+            rxKotlin: "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
+            retrofit: "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION",
+            jspoon  : "pl.droidsonroids:jspoon:$JSPOON_VERSION",
+            gson    : "com.google.code.gson:gson:$GSON_VERSION",
     ]
 
     dataTestDependencies = [
-        junit        : "junit:junit:$JUNIT_VERSION",
-        mockito      : "org.mockito:mockito-core:$MOCKITO_VERSION",
-        mockitoKotlin: "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
-        expekt       : "com.winterbe:expekt:$EXPEKT_VERSION",
+            junit        : "junit:junit:$JUNIT_VERSION",
     ]
 
     deviceDependencies = [
-        appCompat: "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION",
-        kotlin   : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
-        javax    : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
-        rxAndroid: "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION",
-        rxJava   : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
-        rxKotlin : "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
-        okhttp   : "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION",
-        picasso  : "com.squareup.picasso:picasso:$PICASSO_VERSION",
+            appCompat: "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION",
+            kotlin   : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
+            javax    : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
+            rxAndroid: "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION",
+            rxJava   : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
+            rxKotlin : "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
+            okhttp   : "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION",
+            picasso  : "com.squareup.picasso:picasso:$PICASSO_VERSION",
     ]
 
     deviceTestDependencies = [
-        junit        : "junit:junit:$JUNIT_VERSION",
-        mockito      : "org.mockito:mockito-core:$MOCKITO_VERSION",
-        mockitoKotlin: "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
-        expekt       : "com.winterbe:expekt:$EXPEKT_VERSION",
+            junit        : "junit:junit:$JUNIT_VERSION",
     ]
 
     presentationDependencies = [
-        kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
+            kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
 
-        appCompat               : "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION",
-        preferenceV7            : "com.android.support:preference-v7:$SUPPORT_LIBRARY_VERSION",
-        preferenceV14           : "com.android.support:preference-v14:$SUPPORT_LIBRARY_VERSION",
-        cardView                : "com.android.support:cardview-v7:$SUPPORT_LIBRARY_VERSION",
-        design                  : "com.android.support:design:$SUPPORT_LIBRARY_VERSION",
-        recyclerView            : "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION",
-        constraintLayout        : "com.android.support.constraint:constraint-layout:$CONSTRAINT_LAYOUT_VERSION",
+            appCompat               : "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION",
+            preferenceV7            : "com.android.support:preference-v7:$SUPPORT_LIBRARY_VERSION",
+            preferenceV14           : "com.android.support:preference-v14:$SUPPORT_LIBRARY_VERSION",
+            cardView                : "com.android.support:cardview-v7:$SUPPORT_LIBRARY_VERSION",
+            design                  : "com.android.support:design:$SUPPORT_LIBRARY_VERSION",
+            recyclerView            : "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION",
+            constraintLayout        : "com.android.support.constraint:constraint-layout:$CONSTRAINT_LAYOUT_VERSION",
 
-        dagger                  : "com.google.dagger:dagger:$DAGGER_VERSION",
-        daggerCompiler          : "com.google.dagger:dagger-compiler:$DAGGER_VERSION",
-        daggerAndroid           : "com.google.dagger:dagger-android:$DAGGER_VERSION",
-        daggerAndroidCompiler   : "com.google.dagger:dagger-android-processor:$DAGGER_VERSION",
-        daggerAndroidSupport    : "com.google.dagger:dagger-android-support:$DAGGER_VERSION",
-        moxy                    : "com.arello-mobile:moxy:$MOXY_VERSION",
-        moxyCompiler            : "com.arello-mobile:moxy-compiler:$MOXY_VERSION",
-        moxyAndroid             : "com.arello-mobile:moxy-android:$MOXY_VERSION",
-        moxyAppCompat           : "com.arello-mobile:moxy-app-compat:$MOXY_VERSION",
-        cicerone                : "ru.terrakok.cicerone:cicerone:$CICERONE_VERSION",
-        anko                    : "org.jetbrains.anko:anko-commons:$ANKO_VERSION",
-        ankoDesign              : "org.jetbrains.anko:anko-design:$ANKO_VERSION",
+            dagger                  : "com.google.dagger:dagger:$DAGGER_VERSION",
+            daggerCompiler          : "com.google.dagger:dagger-compiler:$DAGGER_VERSION",
+            daggerAndroid           : "com.google.dagger:dagger-android:$DAGGER_VERSION",
+            daggerAndroidCompiler   : "com.google.dagger:dagger-android-processor:$DAGGER_VERSION",
+            daggerAndroidSupport    : "com.google.dagger:dagger-android-support:$DAGGER_VERSION",
+            moxy                    : "com.arello-mobile:moxy:$MOXY_VERSION",
+            moxyCompiler            : "com.arello-mobile:moxy-compiler:$MOXY_VERSION",
+            moxyAndroid             : "com.arello-mobile:moxy-android:$MOXY_VERSION",
+            moxyAppCompat           : "com.arello-mobile:moxy-app-compat:$MOXY_VERSION",
+            cicerone                : "ru.terrakok.cicerone:cicerone:$CICERONE_VERSION",
+            anko                    : "org.jetbrains.anko:anko-commons:$ANKO_VERSION",
+            ankoDesign              : "org.jetbrains.anko:anko-design:$ANKO_VERSION",
 
-        rxAndroid               : "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION",
-        rxJava                  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
-        rxKotlin                : "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
-        rxRelay                 : "com.jakewharton.rxrelay2:rxrelay:$RX_RELAY_VERSION",
-        rxLint                  : "nl.littlerobots.rxlint:rxlint:$RX_LINT_VERSION",
-        rxBinding               : "com.jakewharton.rxbinding2:rxbinding-kotlin:$RX_BINDING_VERSION",
-        rxBindingAppCompat      : "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$RX_BINDING_VERSION",
-        rxBindingRecyclerView   : "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:$RX_BINDING_VERSION",
-        rxBindingSupport        : "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$RX_BINDING_VERSION",
-        autoDispose             : "com.uber.autodispose:autodispose:$AUTO_DISPOSE_VERSION",
-        autoDisposeKotlin       : "com.uber.autodispose:autodispose-kotlin:$AUTO_DISPOSE_VERSION",
+            rxAndroid               : "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION",
+            rxJava                  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
+            rxKotlin                : "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION",
+            rxRelay                 : "com.jakewharton.rxrelay2:rxrelay:$RX_RELAY_VERSION",
+            rxLint                  : "nl.littlerobots.rxlint:rxlint:$RX_LINT_VERSION",
+            rxBinding               : "com.jakewharton.rxbinding2:rxbinding-kotlin:$RX_BINDING_VERSION",
+            rxBindingAppCompat      : "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$RX_BINDING_VERSION",
+            rxBindingRecyclerView   : "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:$RX_BINDING_VERSION",
+            rxBindingSupport        : "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$RX_BINDING_VERSION",
+            autoDispose             : "com.uber.autodispose:autodispose:$AUTO_DISPOSE_VERSION",
+            autoDisposeKotlin       : "com.uber.autodispose:autodispose-kotlin:$AUTO_DISPOSE_VERSION",
 
-        moshi                   : "com.squareup.moshi:moshi:$MOSHI_VERSION",
-        retrofit                : "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION",
-        retrofitRxAdapter       : "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION",
-        retrofitMoshiConverter  : "com.squareup.retrofit2:converter-moshi:$RETROFIT_VERSION",
-        retrofitScalarsConverter: "com.squareup.retrofit2:converter-scalars:$RETROFIT_VERSION",
-        retrofitJspoonConverter : "pl.droidsonroids.retrofit2:converter-jspoon:$JSPOON_VERSION",
-        okhttp                  : "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION",
-        okhttpInterceptor       : "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION",
-        picasso                 : "com.squareup.picasso:picasso:$PICASSO_VERSION",
+            gson                    : "com.google.code.gson:gson:$GSON_VERSION",
+            retrofit                : "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION",
+            retrofitRxAdapter       : "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION",
+            retrofitGsonConverter   : "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION",
+            retrofitScalarsConverter: "com.squareup.retrofit2:converter-scalars:$RETROFIT_VERSION",
+            retrofitJspoonConverter : "pl.droidsonroids.retrofit2:converter-jspoon:$JSPOON_VERSION",
+            okhttp                  : "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION",
+            okhttpInterceptor       : "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION",
+            picasso                 : "com.squareup.picasso:picasso:$PICASSO_VERSION",
 
-        materialValues          : "blue.aodev:material-values:$MATERIAL_VALUES_VERSION",
-        materialDrawer          : "com.mikepenz:materialdrawer:$MATERIAL_DRAWER_VERSION",
-        iconicsCore             : "com.mikepenz:iconics-core:$ICONICS_VERSION",
-        iconicsView             : "com.mikepenz:iconics-views:$ICONICS_VERSION",
-        materialTypeface        : "com.mikepenz:community-material-typeface:$COMMUNITY_MATERIAL_ICONS_VERSION",
-        materialDialogs         : "com.afollestad.material-dialogs:core:$MATERIAL_DIALOGUES_VERSION",
-        materialDialogsCommons  : "com.afollestad.material-dialogs:commons:$MATERIAL_DIALOGUES_VERSION",
-        photoView               : "com.github.chrisbanes:PhotoView:$PHOTOVIEW_VERSION",
-        tsnackbar               : "com.androidadvance:topsnackbar:$TOP_SNACKBAR_VERSION",
+            materialValues          : "blue.aodev:material-values:$MATERIAL_VALUES_VERSION",
+            materialDrawer          : "com.mikepenz:materialdrawer:$MATERIAL_DRAWER_VERSION",
+            iconicsCore             : "com.mikepenz:iconics-core:$ICONICS_VERSION",
+            iconicsView             : "com.mikepenz:iconics-views:$ICONICS_VERSION",
+            materialTypeface        : "com.mikepenz:community-material-typeface:$COMMUNITY_MATERIAL_ICONS_VERSION",
+            materialDialogs         : "com.afollestad.material-dialogs:core:$MATERIAL_DIALOGUES_VERSION",
+            materialDialogsCommons  : "com.afollestad.material-dialogs:commons:$MATERIAL_DIALOGUES_VERSION",
+            photoView               : "com.github.chrisbanes:PhotoView:$PHOTOVIEW_VERSION",
+            tsnackbar               : "com.androidadvance:topsnackbar:$TOP_SNACKBAR_VERSION",
+            markwon                 : "ru.noties:markwon:$MARKWON_VERSION",
+            markwonView             : "ru.noties:markwon-view:$MARKWON_VERSION",
     ]
 
     presentationTestDependencies = [
-        junit         : "junit:junit:$JUNIT_VERSION",
-        expekt        : "com.winterbe:expekt:$EXPEKT_VERSION",
-        mockito       : "org.mockito:mockito-core:$MOCKITO_VERSION",
-        mockitoKotlin : "com.nhaarman:mockito-kotlin-kt1.1:$MOCKITO_KOTLIN_VERSION",
-        mockitoAndroid: "org.mockito:mockito-android:$MOCKITO_VERSION",
-        espresso      : "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION",
+            junit         : "junit:junit:$JUNIT_VERSION",
+            espresso      : "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION",
     ]
 
     supportingToolsDependencies = [
-        crashalytics: "com.crashlytics.sdk.android:crashlytics:$ANDROID_CRASHALYTICS_VERSION",
-        firebaseCore: "com.google.firebase:firebase-core:$FIREBASE_CORE_VERSION",
+            crashalytics: "com.crashlytics.sdk.android:crashlytics:$ANDROID_CRASHALYTICS_VERSION",
+            firebaseCore: "com.google.firebase:firebase-core:$FIREBASE_CORE_VERSION",
     ]
 
     developmentDependencies = [
-        timber        : "com.jakewharton.timber:timber:$TIMBER_VERSION",
-        leakCanary    : "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION",
-        leakCanaryNoOp: "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION",
+            timber        : "com.jakewharton.timber:timber:$TIMBER_VERSION",
+            leakCanary    : "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION",
+            leakCanaryNoOp: "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION",
     ]
 }

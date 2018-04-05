@@ -28,9 +28,15 @@ interface Settings {
 
   fun isNsfwEnabled(): Boolean
 
+  fun isExternalCoubPlayer(): Boolean
+
   fun isScreenAlwaysOnEnabled(): Boolean
 
   fun isHttpsEnabled(): Boolean
 
   fun isInTwoPaneMode(): Boolean
+
+  fun getLastUpdateCheckDate(): Long
+
+  fun saveLastUpdateCheckDate()
 }

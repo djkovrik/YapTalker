@@ -18,6 +18,8 @@ interface TopicGalleryView : BaseView {
 
   fun scrollToFirstNewImage(newImagesOffset: Int)
 
+  fun scrollToSelectedImage(imageUrl: String)
+
   fun lastPageReached()
 
   fun fileSavedMessage(filepath: String)

@@ -170,7 +170,18 @@ class ChosenTopicPresenter @Inject constructor(
   }
 
   fun navigateToChosenImage(url: String) {
-    router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
+    router.navigateTo(
+      NavigationScreen.TOPIC_GALLERY,
+      GalleryInitialState(currentForumId, currentTopicId, currentPage, url)
+    )
+  }
+
+  fun openTopicGallery() {
+    viewState.hideLoadingIndicator()
+    router.navigateTo(
+      NavigationScreen.TOPIC_GALLERY,
+      GalleryInitialState(currentForumId, currentTopicId)
+    )
   }
 
   fun navigateToChosenGif(url: String) {
@@ -192,11 +203,6 @@ class ChosenTopicPresenter @Inject constructor(
     viewState.shareTopic(currentTitle, startingPost)
   }
 
-
-  fun openTopicGallery() {
-    router.navigateTo(NavigationScreen.TOPIC_GALLERY, Triple(currentForumId, currentTopicId, currentPage))
-    viewState.hideLoadingIndicator()
-  }
 
   fun showPostKarmaMenuIfAvailable(postId: Int) {
     if (postId == 0 || authKey.isEmpty()) {

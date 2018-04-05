@@ -9,6 +9,7 @@ import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.features.topic.GalleryInitialState
 import com.sedsoftware.yaptalker.presentation.mappers.TopicGalleryModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
@@ -26,7 +27,8 @@ class TopicGalleryPresenter @Inject constructor(
   private val getTopicGalleryUseCase: GetChosenTopicGallery,
   private val galleryMapper: TopicGalleryModelMapper,
   private val saveImageUseCase: SaveImage,
-  private val shareImageUseCase: ShareImage
+  private val shareImageUseCase: ShareImage,
+  private val initialState: GalleryInitialState
 ) : BasePresenter<TopicGalleryView>() {
 
   companion object {
@@ -34,16 +36,20 @@ class TopicGalleryPresenter @Inject constructor(
   }
 
   private val postsPerPage = settings.getMessagesPerPage()
-  private var currentForumId = 0
-  private var currentTopicId = 0
   private var currentPage = 1
   private var totalPages = 1
+  private var currentImage = ""
   private var currentTitleLabel = ""
 
-  fun loadTopicGallery(forumId: Int, topicId: Int, page: Int) {
-    currentForumId = forumId
-    currentTopicId = topicId
-    currentPage = page
+  override fun onFirstViewAttach() {
+    super.onFirstViewAttach()
+
+    loadTopicGallery()
+  }
+
+  fun loadTopicGallery() {
+    currentPage = initialState.currentPage
+    currentImage = initialState.currentImage
 
     loadTopicCurrentPageGallery()
   }
@@ -58,7 +64,7 @@ class TopicGalleryPresenter @Inject constructor(
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
     getTopicGalleryUseCase
-      .execute(GetChosenTopicGallery.Params(currentForumId, currentTopicId, startingPost))
+      .execute(GetChosenTopicGallery.Params(initialState.currentForumId, initialState.currentTopicId, startingPost))
       .subscribeOn(Schedulers.io())
       .map(galleryMapper)
       .observeOn(AndroidSchedulers.mainThread())
@@ -92,7 +98,10 @@ class TopicGalleryPresenter @Inject constructor(
         viewState.appendImages(images)
         viewState.updateCurrentUiState(currentTitleLabel)
 
-        if (images.isNotEmpty()) {
+        if (currentImage.isNotEmpty()) {
+          viewState.scrollToSelectedImage(currentImage)
+          currentImage = ""
+        } else if (images.isNotEmpty()) {
           viewState.scrollToFirstNewImage(images.size)
         }
       }

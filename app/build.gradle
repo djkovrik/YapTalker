@@ -106,10 +106,10 @@ dependencies {
     implementation presentationDependencies.autoDispose
     implementation presentationDependencies.autoDisposeKotlin
 
-    implementation presentationDependencies.moshi
+    implementation presentationDependencies.gson
     implementation presentationDependencies.retrofit
     implementation presentationDependencies.retrofitRxAdapter
-    implementation presentationDependencies.retrofitMoshiConverter
+    implementation presentationDependencies.retrofitGsonConverter
     implementation presentationDependencies.retrofitScalarsConverter
     implementation presentationDependencies.retrofitJspoonConverter
     implementation presentationDependencies.okhttp
@@ -125,17 +125,14 @@ dependencies {
     implementation presentationDependencies.materialDialogsCommons
     implementation presentationDependencies.photoView
     implementation presentationDependencies.tsnackbar
+    implementation presentationDependencies.markwon
 
     kapt presentationDependencies.daggerCompiler
     kapt presentationDependencies.daggerAndroidCompiler
     kapt presentationDependencies.moxyCompiler
 
     testImplementation presentationTestDependencies.junit
-    testImplementation presentationTestDependencies.mockito
-    testImplementation presentationTestDependencies.mockitoKotlin
-    testImplementation presentationTestDependencies.expekt
     androidTestImplementation presentationTestDependencies.espresso
-    androidTestImplementation presentationTestDependencies.mockitoAndroid
 
     implementation(supportingToolsDependencies.crashalytics) { transitive = true }
     implementation supportingToolsDependencies.firebaseCore

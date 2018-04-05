@@ -43,7 +43,7 @@ class NewsPageMapper @Inject constructor() : Function<NewsPageParsed, List<BaseE
             forumLink = bottoms[index].forumLink,
             comments = bottoms[index].comments.toInt(),
             cleanedDescription = cleanDescription(contents[index].description),
-            isYapLink =  headers[index].link.contains("yaplakal") && ! headers[index].link.contains("/go/")
+            isYapLink = headers[index].link.contains("yaplakal") && !headers[index].link.contains("/go/")
           )
         )
       }

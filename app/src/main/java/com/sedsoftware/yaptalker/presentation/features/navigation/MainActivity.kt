@@ -73,6 +73,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   private lateinit var drawerItemBookmarks: PrimaryDrawerItem
   private lateinit var drawerItemSearch: PrimaryDrawerItem
   private lateinit var drawerItemSettings: PrimaryDrawerItem
+  private lateinit var drawerItemUpdater: PrimaryDrawerItem
   private lateinit var drawerItemSignIn: PrimaryDrawerItem
   private lateinit var drawerItemSignOut: PrimaryDrawerItem
 
@@ -178,7 +179,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemMainPage = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.MAIN_PAGE)
       .withName(R.string.nav_drawer_main_page)
-//      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_home)
       .withTextColor(color(R.color.colorNavDefaultText))
       .withIconColorRes(R.color.colorNavMainPage)
@@ -188,7 +188,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemForums = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.FORUMS)
       .withName(R.string.nav_drawer_forums)
-//      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_forum)
       .withTextColor(color(R.color.colorNavDefaultText))
       .withIconColorRes(R.color.colorNavForums)
@@ -198,7 +197,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemActiveTopics = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.ACTIVE_TOPICS)
       .withName(R.string.nav_drawer_active_topics)
-//      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_bulletin_board)
       .withTextColor(color(R.color.colorNavDefaultText))
       .withIconColorRes(R.color.colorNavActiveTopics)
@@ -208,7 +206,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemIncubator = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.INCUBATOR)
       .withName(R.string.nav_drawer_incubator)
-//      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_human_child)
       .withTextColor(color(R.color.colorNavDefaultText))
       .withIconColorRes(R.color.colorNavIncubator)
@@ -218,7 +215,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemBookmarks = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.BOOKMARKS)
       .withName(R.string.nav_drawer_bookmarks)
-//      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_bookmark_outline)
       .withTextColor(color(R.color.colorNavDefaultText))
       .withIconColorRes(R.color.colorNavBookmarks)
@@ -228,7 +224,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemSearch = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.SITE_SEARCH)
       .withName(R.string.nav_drawer_search)
-//      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_magnify)
       .withTextColor(color(R.color.colorNavDefaultText))
       .withIconColorRes(R.color.colorNavSearch)
@@ -239,7 +234,15 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .withIdentifier(NavigationSection.SETTINGS)
       .withIcon(CommunityMaterial.Icon.cmd_settings)
       .withName(R.string.nav_drawer_settings)
-//      .withSelectable(false)
+      .withTextColor(color(R.color.colorNavDefaultText))
+      .withIconColorRes(R.color.colorNavSettings)
+      .withSelectedTextColor(color(R.color.colorNavSettings))
+      .withSelectedIconColorRes(R.color.colorNavSettings)
+
+    drawerItemUpdater = PrimaryDrawerItem()
+      .withIdentifier(NavigationSection.APP_UPDATES)
+      .withIcon(CommunityMaterial.Icon.cmd_download_network)
+      .withName(R.string.nav_drawer_updates)
       .withTextColor(color(R.color.colorNavDefaultText))
       .withIconColorRes(R.color.colorNavSettings)
       .withSelectedTextColor(color(R.color.colorNavSettings))
@@ -248,7 +251,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemSignIn = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.SIGN_IN)
       .withName(R.string.nav_drawer_sign_in)
-//      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_login)
       .withTextColor(color(R.color.colorNavDefaultText))
       .withIconColorRes(R.color.colorNavSignIn)
@@ -258,7 +260,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
     drawerItemSignOut = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.SIGN_OUT)
       .withName(R.string.nav_drawer_sign_out)
-//      .withSelectable(false)
       .withIcon(CommunityMaterial.Icon.cmd_logout)
       .withTextColor(color(R.color.colorNavDefaultText))
       .withIconColorRes(R.color.colorNavSignIn)
@@ -293,6 +294,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .addDrawerItems(drawerItemSearch)
       .addDrawerItems(DividerDrawerItem())
       .addDrawerItems(drawerItemSettings)
+      .addDrawerItems(drawerItemUpdater)
       .withOnDrawerItemClickListener { _, _, drawerItem ->
         if (drawerItem is Nameable<*>) {
           navigationPresenter.navigateToChosenSection(drawerItem.identifier)
