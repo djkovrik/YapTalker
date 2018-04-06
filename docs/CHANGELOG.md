@@ -1,5 +1,10 @@
 ## Changelog
 
+### [0.9.5] - 2018-04-07
+
+**Fixed**
+* Broken GIF-displaying
+
 ### [0.9.4] - 2018-04-05
 
 **Added**
