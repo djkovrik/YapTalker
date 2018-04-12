@@ -5,12 +5,12 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
 import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
-import com.sedsoftware.yaptalker.presentation.base.BaseView
+import com.sedsoftware.yaptalker.presentation.base.BaseLoadingView
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 
 @Suppress("ComplexInterface", "TooManyFunctions")
 @StateStrategyType(SkipStrategy::class)
-interface ChosenTopicView : BaseView {
+interface ChosenTopicView : BaseLoadingView {
 
   @StateStrategyType(AddToEndStrategy::class)
   fun appendPostItem(post: YapEntity)

@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.features.incubator
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
 import com.sedsoftware.yaptalker.domain.interactor.incubator.GetIncubatorTopics
-import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
@@ -24,7 +24,7 @@ class IncubatorPresenter @Inject constructor(
   private val getIncubatorTopics: GetIncubatorTopics,
   private val getVideoThumbnail: GetVideoThumbnail,
   private val incubatorModelMapper: IncubatorModelMapper
-) : BasePresenter<IncubatorView>() {
+) : BaseLoadingPresenter<IncubatorView>() {
 
   companion object {
     private const val ITEMS_PER_PAGE = 50

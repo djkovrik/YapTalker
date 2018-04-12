@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.features.news
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
 import com.sedsoftware.yaptalker.domain.interactor.news.GetNewsList
-import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
@@ -24,7 +24,7 @@ class NewsPresenter @Inject constructor(
   private val getNewsListUseCase: GetNewsList,
   private val getVideoThumbnail: GetVideoThumbnail,
   private val newsModelMapper: NewsModelMapper
-) : BasePresenter<NewsView>() {
+) : BaseLoadingPresenter<NewsView>() {
 
   companion object {
     private const val NEWS_PER_PAGE = 50

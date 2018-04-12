@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.features.forum
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.forum.GetChosenForum
-import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
@@ -26,7 +26,7 @@ class ChosenForumPresenter @Inject constructor(
   private val getChosenForumUseCase: GetChosenForum,
   private val forumModelMapper: ForumModelMapper,
   private val settings: Settings
-) : BasePresenter<ChosenForumView>() {
+) : BaseLoadingPresenter<ChosenForumView>() {
 
   companion object {
     private const val LAST_UPDATE_SORTER = "last_post"

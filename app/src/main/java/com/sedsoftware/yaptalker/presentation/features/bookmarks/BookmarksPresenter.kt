@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.features.bookmarks
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.interactor.bookmarks.GetBookmarks
 import com.sedsoftware.yaptalker.domain.interactor.bookmarks.SendBookmarkDeleteRequest
-import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
@@ -23,7 +23,7 @@ class BookmarksPresenter @Inject constructor(
   private val getBookmarksUseCase: GetBookmarks,
   private val bookmarksMapper: BookmarksModelMapper,
   private val deleteBookmarkUseCase: SendBookmarkDeleteRequest
-) : BasePresenter<BookmarksView>() {
+) : BaseLoadingPresenter<BookmarksView>() {
 
   private var clearCurrentList = false
 
