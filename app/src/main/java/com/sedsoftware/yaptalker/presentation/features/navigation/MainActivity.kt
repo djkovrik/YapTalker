@@ -23,15 +23,15 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.commons.annotation.LayoutResourceTablets
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.extensions.color
 import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
+import com.sedsoftware.yaptalker.presentation.extensions.getColorFromAttr
 import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.extensions.snackInfo
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
-import kotlinx.android.synthetic.main.activity_main_tablets.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.activity_main_tablets.navigation_drawer
+import kotlinx.android.synthetic.main.include_main_appbar.toolbar
 import ru.terrakok.cicerone.Navigator
 import timber.log.Timber
 import javax.inject.Inject
@@ -180,91 +180,91 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
       .withIdentifier(NavigationSection.MAIN_PAGE)
       .withName(R.string.nav_drawer_main_page)
       .withIcon(CommunityMaterial.Icon.cmd_home)
-      .withTextColor(color(R.color.colorNavDefaultText))
-      .withIconColorRes(R.color.colorNavMainPage)
-      .withSelectedTextColor(color(R.color.colorNavMainPage))
-      .withSelectedIconColorRes(R.color.colorNavMainPage)
+      .withTextColor(getColorFromAttr(R.attr.colorNavDefaultText))
+      .withIconColor(getColorFromAttr(R.attr.colorNavMainPage))
+      .withSelectedTextColor(getColorFromAttr(R.attr.colorNavMainPage))
+      .withSelectedIconColor(getColorFromAttr(R.attr.colorNavMainPage))
 
     drawerItemForums = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.FORUMS)
       .withName(R.string.nav_drawer_forums)
       .withIcon(CommunityMaterial.Icon.cmd_forum)
-      .withTextColor(color(R.color.colorNavDefaultText))
-      .withIconColorRes(R.color.colorNavForums)
-      .withSelectedTextColor(color(R.color.colorNavForums))
-      .withSelectedIconColorRes(R.color.colorNavForums)
+      .withTextColor(getColorFromAttr(R.attr.colorNavDefaultText))
+      .withIconColor(getColorFromAttr(R.attr.colorNavForums))
+      .withSelectedTextColor(getColorFromAttr(R.attr.colorNavForums))
+      .withSelectedIconColor(getColorFromAttr(R.attr.colorNavForums))
 
     drawerItemActiveTopics = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.ACTIVE_TOPICS)
       .withName(R.string.nav_drawer_active_topics)
       .withIcon(CommunityMaterial.Icon.cmd_bulletin_board)
-      .withTextColor(color(R.color.colorNavDefaultText))
-      .withIconColorRes(R.color.colorNavActiveTopics)
-      .withSelectedTextColor(color(R.color.colorNavActiveTopics))
-      .withSelectedIconColorRes(R.color.colorNavActiveTopics)
+      .withTextColor(getColorFromAttr(R.attr.colorNavDefaultText))
+      .withIconColor(getColorFromAttr(R.attr.colorNavActiveTopics))
+      .withSelectedTextColor(getColorFromAttr(R.attr.colorNavActiveTopics))
+      .withSelectedIconColor(getColorFromAttr(R.attr.colorNavActiveTopics))
 
     drawerItemIncubator = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.INCUBATOR)
       .withName(R.string.nav_drawer_incubator)
       .withIcon(CommunityMaterial.Icon.cmd_human_child)
-      .withTextColor(color(R.color.colorNavDefaultText))
-      .withIconColorRes(R.color.colorNavIncubator)
-      .withSelectedTextColor(color(R.color.colorNavIncubator))
-      .withSelectedIconColorRes(R.color.colorNavIncubator)
+      .withTextColor(getColorFromAttr(R.attr.colorNavDefaultText))
+      .withIconColor(getColorFromAttr(R.attr.colorNavIncubator))
+      .withSelectedTextColor(getColorFromAttr(R.attr.colorNavIncubator))
+      .withSelectedIconColor(getColorFromAttr(R.attr.colorNavIncubator))
 
     drawerItemBookmarks = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.BOOKMARKS)
       .withName(R.string.nav_drawer_bookmarks)
       .withIcon(CommunityMaterial.Icon.cmd_bookmark_outline)
-      .withTextColor(color(R.color.colorNavDefaultText))
-      .withIconColorRes(R.color.colorNavBookmarks)
-      .withSelectedTextColor(color(R.color.colorNavBookmarks))
-      .withSelectedIconColorRes(R.color.colorNavBookmarks)
+      .withTextColor(getColorFromAttr(R.attr.colorNavDefaultText))
+      .withIconColor(getColorFromAttr(R.attr.colorNavBookmarks))
+      .withSelectedTextColor(getColorFromAttr(R.attr.colorNavBookmarks))
+      .withSelectedIconColor(getColorFromAttr(R.attr.colorNavBookmarks))
 
     drawerItemSearch = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.SITE_SEARCH)
       .withName(R.string.nav_drawer_search)
       .withIcon(CommunityMaterial.Icon.cmd_magnify)
-      .withTextColor(color(R.color.colorNavDefaultText))
-      .withIconColorRes(R.color.colorNavSearch)
-      .withSelectedTextColor(color(R.color.colorNavSearch))
-      .withSelectedIconColorRes(R.color.colorNavSearch)
+      .withTextColor(getColorFromAttr(R.attr.colorNavDefaultText))
+      .withIconColor(getColorFromAttr(R.attr.colorNavSearch))
+      .withSelectedTextColor(getColorFromAttr(R.attr.colorNavSearch))
+      .withSelectedIconColor(getColorFromAttr(R.attr.colorNavSearch))
 
     drawerItemSettings = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.SETTINGS)
       .withIcon(CommunityMaterial.Icon.cmd_settings)
       .withName(R.string.nav_drawer_settings)
-      .withTextColor(color(R.color.colorNavDefaultText))
-      .withIconColorRes(R.color.colorNavSettings)
-      .withSelectedTextColor(color(R.color.colorNavSettings))
-      .withSelectedIconColorRes(R.color.colorNavSettings)
+      .withTextColor(getColorFromAttr(R.attr.colorNavDefaultText))
+      .withIconColor(getColorFromAttr(R.attr.colorNavSettings))
+      .withSelectedTextColor(getColorFromAttr(R.attr.colorNavSettings))
+      .withSelectedIconColor(getColorFromAttr(R.attr.colorNavSettings))
 
     drawerItemUpdater = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.APP_UPDATES)
       .withIcon(CommunityMaterial.Icon.cmd_download_network)
       .withName(R.string.nav_drawer_updates)
-      .withTextColor(color(R.color.colorNavDefaultText))
-      .withIconColorRes(R.color.colorNavSettings)
-      .withSelectedTextColor(color(R.color.colorNavSettings))
-      .withSelectedIconColorRes(R.color.colorNavSettings)
+      .withTextColor(getColorFromAttr(R.attr.colorNavDefaultText))
+      .withIconColor(getColorFromAttr(R.attr.colorNavSettings))
+      .withSelectedTextColor(getColorFromAttr(R.attr.colorNavSettings))
+      .withSelectedIconColor(getColorFromAttr(R.attr.colorNavSettings))
 
     drawerItemSignIn = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.SIGN_IN)
       .withName(R.string.nav_drawer_sign_in)
       .withIcon(CommunityMaterial.Icon.cmd_login)
-      .withTextColor(color(R.color.colorNavDefaultText))
-      .withIconColorRes(R.color.colorNavSignIn)
-      .withSelectedTextColor(color(R.color.colorNavSignIn))
-      .withSelectedIconColorRes(R.color.colorNavSignIn)
+      .withTextColor(getColorFromAttr(R.attr.colorNavDefaultText))
+      .withIconColor(getColorFromAttr(R.attr.colorNavSignIn))
+      .withSelectedTextColor(getColorFromAttr(R.attr.colorNavSignIn))
+      .withSelectedIconColor(getColorFromAttr(R.attr.colorNavSignIn))
 
     drawerItemSignOut = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.SIGN_OUT)
       .withName(R.string.nav_drawer_sign_out)
       .withIcon(CommunityMaterial.Icon.cmd_logout)
-      .withTextColor(color(R.color.colorNavDefaultText))
-      .withIconColorRes(R.color.colorNavSignIn)
-      .withSelectedTextColor(color(R.color.colorNavSignIn))
-      .withSelectedIconColorRes(R.color.colorNavSignIn)
+      .withTextColor(getColorFromAttr(R.attr.colorNavDefaultText))
+      .withIconColor(getColorFromAttr(R.attr.colorNavSignIn))
+      .withSelectedTextColor(getColorFromAttr(R.attr.colorNavSignIn))
+      .withSelectedIconColor(getColorFromAttr(R.attr.colorNavSignIn))
 
     navHeader = AccountHeaderBuilder()
       .withActivity(this)

@@ -4,40 +4,89 @@
   <color name="colorPrimaryL">#e53935</color>
   <color name="colorPrimaryDarkL">#ab000d</color>
   <color name="colorAccentL">#0277bd</color>
+  <!-- Navigation drawer  -->
+  <color name="colorNavDefaultTextL">@color/material_color_grey_600</color>
+  <color name="colorNavMainPageL">@color/material_color_red_600</color>
+  <color name="colorNavForumsL">@color/material_color_purple_500</color>
+  <color name="colorNavActiveTopicsL">@color/material_color_green_500</color>
+  <color name="colorNavIncubatorL">@color/material_color_light_blue_700</color>
+  <color name="colorNavBookmarksL">@color/material_color_orange_800</color>
+  <color name="colorNavSearchL">@color/material_color_cyan_700</color>
+  <color name="colorNavSettingsL">@color/material_color_grey_700</color>
+  <color name="colorNavSignInL">@color/material_color_grey_700</color>
+  <color name="colorGuestProfileL">@color/material_color_red_700</color>
+  <color name="colorGuestProfileBackgroundL">@color/material_color_white_70_percent</color>
   <!-- LIGHT THEME - CONTRAST -->
   <color name="colorPrimaryLC">#e53935</color>
   <color name="colorPrimaryDarkLC">#ab000d</color>
   <color name="colorAccentLC">#0277bd</color>
+  <!-- Navigation drawer  -->
+  <color name="colorNavDefaultTextLC">@color/material_color_grey_600</color>
+  <color name="colorNavMainPageLC">@color/material_color_red_600</color>
+  <color name="colorNavForumsLC">@color/material_color_purple_500</color>
+  <color name="colorNavActiveTopicsLC">@color/material_color_green_500</color>
+  <color name="colorNavIncubatorLC">@color/material_color_light_blue_700</color>
+  <color name="colorNavBookmarksLC">@color/material_color_orange_800</color>
+  <color name="colorNavSearchLC">@color/material_color_cyan_700</color>
+  <color name="colorNavSettingsLC">@color/material_color_grey_700</color>
+  <color name="colorNavSignInLC">@color/material_color_grey_700</color>
+  <color name="colorGuestProfileLC">@color/material_color_red_700</color>
+  <color name="colorGuestProfileBackgroundLC">@color/material_color_white_70_percent</color>
   <!-- LIGHT THEME - YAP -->
   <color name="colorPrimaryLY">#e53935</color>
   <color name="colorPrimaryDarkLY">#ab000d</color>
   <color name="colorAccentLY">#0277bd</color>
+  <!-- Navigation drawer  -->
+  <color name="colorNavDefaultTextLY">@color/material_color_grey_600</color>
+  <color name="colorNavMainPageLY">@color/material_color_red_600</color>
+  <color name="colorNavForumsLY">@color/material_color_purple_500</color>
+  <color name="colorNavActiveTopicsLY">@color/material_color_green_500</color>
+  <color name="colorNavIncubatorLY">@color/material_color_light_blue_700</color>
+  <color name="colorNavBookmarksLY">@color/material_color_orange_800</color>
+  <color name="colorNavSearchLY">@color/material_color_cyan_700</color>
+  <color name="colorNavSettingsLY">@color/material_color_grey_700</color>
+  <color name="colorNavSignInLY">@color/material_color_grey_700</color>
+  <color name="colorGuestProfileLY">@color/material_color_red_700</color>
+  <color name="colorGuestProfileBackgroundLY">@color/material_color_white_70_percent</color>
   <!-- DARK THEME -->
   <color name="colorPrimaryD">#263238</color>
   <color name="colorPrimaryDarkD">#000a12</color>
   <color name="colorAccentD">#fb8c00</color>
+  <!-- Navigation drawer  -->
+  <color name="colorNavDefaultTextD">@color/material_color_grey_600</color>
+  <color name="colorNavMainPageD">@color/material_color_red_600</color>
+  <color name="colorNavForumsD">@color/material_color_purple_500</color>
+  <color name="colorNavActiveTopicsD">@color/material_color_green_500</color>
+  <color name="colorNavIncubatorD">@color/material_color_light_blue_700</color>
+  <color name="colorNavBookmarksD">@color/material_color_orange_800</color>
+  <color name="colorNavSearchD">@color/material_color_cyan_700</color>
+  <color name="colorNavSettingsD">@color/material_color_grey_700</color>
+  <color name="colorNavSignInD">@color/material_color_grey_700</color>
+  <color name="colorGuestProfileD">@color/material_color_red_700</color>
+  <color name="colorGuestProfileBackgroundD">@color/material_color_white_70_percent</color>
   <!-- DARK THEME - BLACK -->
   <color name="colorPrimaryDB">#263238</color>
   <color name="colorPrimaryDarkDB">#000a12</color>
   <color name="colorAccentDB">#fb8c00</color>
+  <!-- Navigation drawer  -->
+  <color name="colorNavDefaultTextDB">@color/material_color_grey_600</color>
+  <color name="colorNavMainPageDB">@color/material_color_red_600</color>
+  <color name="colorNavForumsDB">@color/material_color_purple_500</color>
+  <color name="colorNavActiveTopicsDB">@color/material_color_green_500</color>
+  <color name="colorNavIncubatorDB">@color/material_color_light_blue_700</color>
+  <color name="colorNavBookmarksDB">@color/material_color_orange_800</color>
+  <color name="colorNavSearchDB">@color/material_color_cyan_700</color>
+  <color name="colorNavSettingsDB">@color/material_color_grey_700</color>
+  <color name="colorNavSignInDB">@color/material_color_grey_700</color>
+  <color name="colorGuestProfileDB">@color/material_color_red_700</color>
+  <color name="colorGuestProfileBackgroundDB">@color/material_color_white_70_percent</color>
 
   <!-- COMMON COLORS -->
   <color name="colorRefreshSpinner1">@color/material_color_red_500</color>
   <color name="colorRefreshSpinner2">@color/material_color_red_800</color>
   <color name="colorRefreshSpinner3">@color/material_color_blue_500</color>
   <color name="colorRefreshSpinner4">@color/material_color_blue_800</color>
-  <!-- Navigation drawer colors -->
-  <color name="colorNavDefaultText">@color/material_color_grey_600</color>
-  <color name="colorNavMainPage">@color/material_color_red_600</color>
-  <color name="colorNavForums">@color/material_color_purple_500</color>
-  <color name="colorNavActiveTopics">@color/material_color_green_500</color>
-  <color name="colorNavIncubator">@color/material_color_light_blue_700</color>
-  <color name="colorNavBookmarks">@color/material_color_orange_800</color>
-  <color name="colorNavSearch">@color/material_color_cyan_700</color>
-  <color name="colorNavSettings">@color/material_color_grey_700</color>
-  <color name="colorNavSignIn">@color/material_color_grey_700</color>
-  <color name="colorGuestProfile">@color/material_color_red_700</color>
-  <color name="colorGuestProfileBackground">@color/material_color_white_70_percent</color>
+
   <!-- UQ colors -->
   <color name="colorRatingPlatinum">@color/material_color_grey_200</color>
   <color name="colorRatingGold">@color/material_color_amber_400</color>

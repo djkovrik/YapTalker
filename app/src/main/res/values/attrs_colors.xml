@@ -10,4 +10,16 @@
   <attr name="colorScrollbarBackground" format="color" />
   <attr name="colorLoadMore" format="color" />
   <attr name="colorLoadMoreStroke" format="color" />
+  <attr name="colorNavDefaultText" format="color" />
+  <attr name="colorNavMainPage" format="color" />
+  <attr name="colorNavForums" format="color" />
+  <attr name="colorNavActiveTopics" format="color" />
+  <attr name="colorNavIncubator" format="color" />
+  <attr name="colorNavBookmarks" format="color" />
+  <attr name="colorNavSearch" format="color" />
+  <attr name="colorNavSettings" format="color" />
+  <attr name="colorNavSignIn" format="color" />
+  <attr name="colorGuestProfile" format="color" />
+  <attr name="colorGuestProfileBackground" format="color" />
+
 </resources>

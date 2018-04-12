@@ -34,6 +34,19 @@
     <item name="material_drawer_selected">@color/material_drawer_selected</item>
     <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
     <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text</item>
+    <!-- Navigation drawer -->
+    <item name="colorNavDefaultText">@color/colorNavDefaultTextL</item>
+    <item name="colorNavMainPage">@color/colorNavMainPageL</item>
+    <item name="colorNavForums">@color/colorNavForumsL</item>
+    <item name="colorNavActiveTopics">@color/colorNavActiveTopicsL</item>
+    <item name="colorNavIncubator">@color/colorNavIncubatorL</item>
+    <item name="colorNavBookmarks">@color/colorNavBookmarksL</item>
+    <item name="colorNavSearch">@color/colorNavSearchL</item>
+    <item name="colorNavSettings">@color/colorNavSettingsL</item>
+    <item name="colorNavSignIn">@color/colorNavSignInL</item>
+    <item name="colorGuestProfile">@color/colorGuestProfileL</item>
+    <item name="colorGuestProfileBackground">@color/colorGuestProfileBackgroundL</item>
+
     <!-- Icons -->
     <item name="iconAuthLogin">@drawable/ic_auth_login</item>
     <item name="iconAuthPassword">@drawable/ic_auth_password</item>
@@ -95,6 +108,18 @@
     <item name="material_drawer_selected">@color/material_drawer_dark_selected</item>
     <item name="material_drawer_selected_text">@color/material_drawer_dark_selected_text</item>
     <item name="material_drawer_header_selection_text">@color/material_drawer_dark_header_selection_text</item>
+    <!-- Navigation drawer -->
+    <item name="colorNavDefaultText">@color/colorNavDefaultTextD</item>
+    <item name="colorNavMainPage">@color/colorNavMainPageD</item>
+    <item name="colorNavForums">@color/colorNavForumsD</item>
+    <item name="colorNavActiveTopics">@color/colorNavActiveTopicsD</item>
+    <item name="colorNavIncubator">@color/colorNavIncubatorD</item>
+    <item name="colorNavBookmarks">@color/colorNavBookmarksD</item>
+    <item name="colorNavSearch">@color/colorNavSearchD</item>
+    <item name="colorNavSettings">@color/colorNavSettingsD</item>
+    <item name="colorNavSignIn">@color/colorNavSignInD</item>
+    <item name="colorGuestProfile">@color/colorGuestProfileD</item>
+    <item name="colorGuestProfileBackground">@color/colorGuestProfileBackgroundD</item>
     <!-- Icons -->
     <item name="iconAuthLogin">@drawable/ic_auth_login_dark</item>
     <item name="iconAuthPassword">@drawable/ic_auth_password_dark</item>
@@ -156,6 +181,18 @@
     <item name="material_drawer_selected">@color/material_drawer_selected</item>
     <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
     <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text</item>
+    <!-- Navigation drawer -->
+    <item name="colorNavDefaultText">@color/colorNavDefaultTextLC</item>
+    <item name="colorNavMainPage">@color/colorNavMainPageLC</item>
+    <item name="colorNavForums">@color/colorNavForumsLC</item>
+    <item name="colorNavActiveTopics">@color/colorNavActiveTopicsLC</item>
+    <item name="colorNavIncubator">@color/colorNavIncubatorLC</item>
+    <item name="colorNavBookmarks">@color/colorNavBookmarksLC</item>
+    <item name="colorNavSearch">@color/colorNavSearchLC</item>
+    <item name="colorNavSettings">@color/colorNavSettingsLC</item>
+    <item name="colorNavSignIn">@color/colorNavSignInLC</item>
+    <item name="colorGuestProfile">@color/colorGuestProfileLC</item>
+    <item name="colorGuestProfileBackground">@color/colorGuestProfileBackgroundLC</item>
     <!-- Icons -->
     <item name="iconAuthLogin">@drawable/ic_auth_login</item>
     <item name="iconAuthPassword">@drawable/ic_auth_password</item>
@@ -217,6 +254,18 @@
     <item name="material_drawer_selected">@color/material_drawer_selected</item>
     <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
     <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text</item>
+    <!-- Navigation drawer -->
+    <item name="colorNavDefaultText">@color/colorNavDefaultTextLY</item>
+    <item name="colorNavMainPage">@color/colorNavMainPageLY</item>
+    <item name="colorNavForums">@color/colorNavForumsLY</item>
+    <item name="colorNavActiveTopics">@color/colorNavActiveTopicsLY</item>
+    <item name="colorNavIncubator">@color/colorNavIncubatorLY</item>
+    <item name="colorNavBookmarks">@color/colorNavBookmarksLY</item>
+    <item name="colorNavSearch">@color/colorNavSearchLY</item>
+    <item name="colorNavSettings">@color/colorNavSettingsLY</item>
+    <item name="colorNavSignIn">@color/colorNavSignInLY</item>
+    <item name="colorGuestProfile">@color/colorGuestProfileLY</item>
+    <item name="colorGuestProfileBackground">@color/colorGuestProfileBackgroundLY</item>
     <!-- Icons -->
     <item name="iconAuthLogin">@drawable/ic_auth_login</item>
     <item name="iconAuthPassword">@drawable/ic_auth_password</item>
@@ -278,6 +327,18 @@
     <item name="material_drawer_selected">@color/material_drawer_dark_selected</item>
     <item name="material_drawer_selected_text">@color/material_drawer_dark_selected_text</item>
     <item name="material_drawer_header_selection_text">@color/material_drawer_dark_header_selection_text</item>
+    <!-- Navigation drawer -->
+    <item name="colorNavDefaultText">@color/colorNavDefaultTextDB</item>
+    <item name="colorNavMainPage">@color/colorNavMainPageDB</item>
+    <item name="colorNavForums">@color/colorNavForumsDB</item>
+    <item name="colorNavActiveTopics">@color/colorNavActiveTopicsDB</item>
+    <item name="colorNavIncubator">@color/colorNavIncubatorDB</item>
+    <item name="colorNavBookmarks">@color/colorNavBookmarksDB</item>
+    <item name="colorNavSearch">@color/colorNavSearchDB</item>
+    <item name="colorNavSettings">@color/colorNavSettingsDB</item>
+    <item name="colorNavSignIn">@color/colorNavSignInDB</item>
+    <item name="colorGuestProfile">@color/colorGuestProfileDB</item>
+    <item name="colorGuestProfileBackground">@color/colorGuestProfileBackgroundDB</item>
     <!-- Icons -->
     <item name="iconAuthLogin">@drawable/ic_auth_login_dark</item>
     <item name="iconAuthPassword">@drawable/ic_auth_password_dark</item>
