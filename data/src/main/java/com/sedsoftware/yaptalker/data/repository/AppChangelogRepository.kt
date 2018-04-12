@@ -2,7 +2,6 @@ package com.sedsoftware.yaptalker.data.repository
 
 import android.content.Context
 import android.os.Build
-import com.sedsoftware.yaptalker.data.mappers.ServerResponseMapper
 import com.sedsoftware.yaptalker.data.network.external.GitHubLoader
 import com.sedsoftware.yaptalker.domain.repository.ChangelogRepository
 import io.reactivex.Single
