@@ -115,6 +115,9 @@ class SettingsManager @Inject constructor(
       .apply()
   }
 
+  override fun getCurrentTheme(): String =
+    getStringPref(R.string.pref_key_theme, "")
+
   private fun getStringPref(@StringRes key: Int, default: String): String =
     preferences.getString(context.resources.getString(key), default)
 

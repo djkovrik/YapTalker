@@ -39,4 +39,6 @@ interface Settings {
   fun getLastUpdateCheckDate(): Long
 
   fun saveLastUpdateCheckDate()
+
+  fun getCurrentTheme(): String
 }

@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.base
 
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.jakewharton.rxrelay2.BehaviorRelay
@@ -97,13 +96,17 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
 
   private fun applyTheme() {
     val dark = getString(R.string.pref_appearance_theme_value_dark)
+    val darkBlack = getString(R.string.pref_appearance_theme_value_dark_black)
     val light = getString(R.string.pref_appearance_theme_value_light)
-    val key = getString(R.string.pref_key_theme)
+    val lightContrast = getString(R.string.pref_appearance_theme_value_light_contrast)
+    val lightYap = getString(R.string.pref_appearance_theme_value_light_yap)
+    val current = settings.getCurrentTheme()
 
-    PreferenceManager.getDefaultSharedPreferences(this).getString(key, light).let { current ->
-      if (dark == current) {
-        setTheme(R.style.AppTheme_Dark)
-      }
+    when (current) {
+      dark -> setTheme(R.style.AppTheme_Dark)
+      darkBlack -> setTheme(R.style.AppTheme_DarkBlack)
+      lightContrast -> setTheme(R.style.AppTheme_LightContrast)
+      lightYap -> setTheme(R.style.AppTheme_LightYap)
     }
   }
 }
