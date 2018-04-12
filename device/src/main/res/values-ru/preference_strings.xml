@@ -23,6 +23,9 @@
   <string name="pref_appearance_theme_title">Тема</string>
   <string name="pref_appearance_theme_label_light">Светлая</string>
   <string name="pref_appearance_theme_label_dark">Темная</string>
+  <string name="pref_appearance_theme_label_light_contrast">Светлая - контраст</string>
+  <string name="pref_appearance_theme_label_light_yap">Светлая - ЯП</string>
+  <string name="pref_appearance_theme_label_dark_black">Черная</string>
   <!-- Two-pane mode -->
   <string name="pref_appearance_two_pane_mode_title">Двухпанельный режим</string>
   <string name="pref_appearance_two_pane_mode_summary">Использовать вариацию интерфейса для планшетов.</string>

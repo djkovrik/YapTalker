@@ -4,10 +4,22 @@
   <color name="colorPrimaryL">#e53935</color>
   <color name="colorPrimaryDarkL">#ab000d</color>
   <color name="colorAccentL">#0277bd</color>
+  <!-- LIGHT THEME - CONTRAST -->
+  <color name="colorPrimaryLC">#e53935</color>
+  <color name="colorPrimaryDarkLC">#ab000d</color>
+  <color name="colorAccentLC">#0277bd</color>
+  <!-- LIGHT THEME - YAP -->
+  <color name="colorPrimaryLY">#e53935</color>
+  <color name="colorPrimaryDarkLY">#ab000d</color>
+  <color name="colorAccentLY">#0277bd</color>
   <!-- DARK THEME -->
   <color name="colorPrimaryD">#263238</color>
   <color name="colorPrimaryDarkD">#000a12</color>
   <color name="colorAccentD">#fb8c00</color>
+  <!-- DARK THEME - BLACK -->
+  <color name="colorPrimaryDB">#263238</color>
+  <color name="colorPrimaryDarkDB">#000a12</color>
+  <color name="colorAccentDB">#fb8c00</color>
 
   <!-- COMMON COLORS -->
   <color name="colorRefreshSpinner1">@color/material_color_red_500</color>
