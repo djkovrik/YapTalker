@@ -9,19 +9,19 @@
   </style>
 
   <style name="PostRating">
-    <item name="android:textColor">@color/colorRatingGreen</item>
+    <item name="android:textColor">?attr/colorRatingGreen</item>
   </style>
 
   <style name="RatingThumbsUp">
-    <item name="android:textColor">@color/colorRatingThumbUp</item>
+    <item name="android:textColor">?attr/colorRatingThumbUp</item>
   </style>
 
   <style name="RatingThumbsDown">
-    <item name="android:textColor">@color/colorRatingThumbDown</item>
+    <item name="android:textColor">?attr/colorRatingThumbDown</item>
   </style>
 
   <style name="RatingThumbsAvailable">
-    <item name="android:textColor">@color/colorRatingThumbAvailable</item>
+    <item name="android:textColor">?attr/colorRatingThumbAvailable</item>
   </style>
 
   <style name="FabMenuLabel">

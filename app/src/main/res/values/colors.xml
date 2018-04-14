@@ -48,6 +48,35 @@
   <!-- Scrollbar -->
   <color name="colorScrollbarThumbL">@color/colorPrimaryL</color>
   <color name="colorScrollbarBackgroundL">@color/material_color_grey_300</color>
+  <!-- Spinner -->
+  <color name="colorRefreshSpinner1L">@color/material_color_red_500</color>
+  <color name="colorRefreshSpinner2L">@color/material_color_red_800</color>
+  <color name="colorRefreshSpinner3L">@color/material_color_blue_500</color>
+  <color name="colorRefreshSpinner4L">@color/material_color_blue_800</color>
+  <!-- UQ colors -->
+  <color name="colorRatingPlatinumL">@color/material_color_grey_200</color>
+  <color name="colorRatingGoldL">@color/material_color_amber_400</color>
+  <color name="colorRatingGreenL">@color/material_color_green_500</color>
+  <color name="colorRatingGreyL">@color/material_color_grey_400</color>
+  <color name="colorRatingRedL">@color/material_color_red_300</color>
+  <color name="colorRatingDarkRedL">@color/material_color_red_900</color>
+  <!-- UQ text -->
+  <color name="colorRatingPlatinumTextL">@color/material_color_black_54_percent</color>
+  <color name="colorRatingGoldTextL">@color/material_color_black_54_percent</color>
+  <color name="colorRatingGreenTextL">@color/material_color_white</color>
+  <color name="colorRatingGreyTextL">@color/material_color_black_54_percent</color>
+  <color name="colorRatingRedTextL">@color/material_color_black_54_percent</color>
+  <color name="colorRatingDarkRedTextL">@color/material_color_black_54_percent</color>
+  <!-- UQ thumbs -->
+  <color name="colorRatingThumbUpL">@color/material_color_green_500</color>
+  <color name="colorRatingThumbDownL">@color/material_color_red_500</color>
+  <color name="colorRatingThumbAvailableL">@color/material_color_grey_400</color>
+  <!-- Snackbars -->
+  <color name="snackColorErrorL">@color/material_color_red_500</color>
+  <color name="snackColorInfoL">@color/material_color_blue_500</color>
+  <color name="snackColorSuccessL">@color/material_color_green_500</color>
+  <color name="snackColorWarningL">@color/material_color_teal_500</color>
+  <color name="snackColorTextL">@color/material_color_white</color>
 
 
   <!-- LIGHT THEME - CONTRAST -->
@@ -96,6 +125,35 @@
   <!-- Scrollbar -->
   <color name="colorScrollbarThumbLC">@color/colorPrimaryL</color>
   <color name="colorScrollbarBackgroundLC">@color/material_color_grey_300</color>
+  <!-- Spinner -->
+  <color name="colorRefreshSpinner1LC">@color/material_color_red_500</color>
+  <color name="colorRefreshSpinner2LC">@color/material_color_red_800</color>
+  <color name="colorRefreshSpinner3LC">@color/material_color_blue_500</color>
+  <color name="colorRefreshSpinner4LC">@color/material_color_blue_800</color>
+  <!-- UQ colors -->
+  <color name="colorRatingPlatinumLC">@color/material_color_grey_200</color>
+  <color name="colorRatingGoldLC">@color/material_color_amber_400</color>
+  <color name="colorRatingGreenLC">@color/material_color_green_500</color>
+  <color name="colorRatingGreyLC">@color/material_color_grey_400</color>
+  <color name="colorRatingRedLC">@color/material_color_red_300</color>
+  <color name="colorRatingDarkRedLC">@color/material_color_red_900</color>
+  <!-- UQ text -->
+  <color name="colorRatingPlatinumTextLC">@color/material_color_black_54_percent</color>
+  <color name="colorRatingGoldTextLC">@color/material_color_black_54_percent</color>
+  <color name="colorRatingGreenTextLC">@color/material_color_white</color>
+  <color name="colorRatingGreyTextLC">@color/material_color_black_54_percent</color>
+  <color name="colorRatingRedTextLC">@color/material_color_black_54_percent</color>
+  <color name="colorRatingDarkRedTextLC">@color/material_color_black_54_percent</color>
+  <!-- UQ thumbs -->
+  <color name="colorRatingThumbUpLC">@color/material_color_green_500</color>
+  <color name="colorRatingThumbDownLC">@color/material_color_red_500</color>
+  <color name="colorRatingThumbAvailableLC">@color/material_color_grey_400</color>
+  <!-- Snackbars -->
+  <color name="snackColorErrorLC">@color/material_color_red_500</color>
+  <color name="snackColorInfoLC">@color/material_color_blue_500</color>
+  <color name="snackColorSuccessLC">@color/material_color_green_500</color>
+  <color name="snackColorWarningLC">@color/material_color_teal_500</color>
+  <color name="snackColorTextLC">@color/material_color_white</color>
 
 
   <!-- LIGHT THEME - YAP -->
@@ -144,6 +202,35 @@
   <!-- Scrollbar -->
   <color name="colorScrollbarThumbLY">@color/colorPrimaryL</color>
   <color name="colorScrollbarBackgroundLY">@color/material_color_grey_300</color>
+  <!-- Spinner -->
+  <color name="colorRefreshSpinner1LY">@color/material_color_red_500</color>
+  <color name="colorRefreshSpinner2LY">@color/material_color_red_800</color>
+  <color name="colorRefreshSpinner3LY">@color/material_color_blue_500</color>
+  <color name="colorRefreshSpinner4LY">@color/material_color_blue_800</color>
+  <!-- UQ colors -->
+  <color name="colorRatingPlatinumLY">@color/material_color_grey_200</color>
+  <color name="colorRatingGoldLY">@color/material_color_amber_400</color>
+  <color name="colorRatingGreenLY">@color/material_color_green_500</color>
+  <color name="colorRatingGreyLY">@color/material_color_grey_400</color>
+  <color name="colorRatingRedLY">@color/material_color_red_300</color>
+  <color name="colorRatingDarkRedLY">@color/material_color_red_900</color>
+  <!-- UQ text -->
+  <color name="colorRatingPlatinumTextLY">@color/material_color_black_54_percent</color>
+  <color name="colorRatingGoldTextLY">@color/material_color_black_54_percent</color>
+  <color name="colorRatingGreenTextLY">@color/material_color_white</color>
+  <color name="colorRatingGreyTextLY">@color/material_color_black_54_percent</color>
+  <color name="colorRatingRedTextLY">@color/material_color_black_54_percent</color>
+  <color name="colorRatingDarkRedTextLY">@color/material_color_black_54_percent</color>
+  <!-- UQ thumbs -->
+  <color name="colorRatingThumbUpLY">@color/material_color_green_500</color>
+  <color name="colorRatingThumbDownLY">@color/material_color_red_500</color>
+  <color name="colorRatingThumbAvailableLY">@color/material_color_grey_400</color>
+  <!-- Snackbars -->
+  <color name="snackColorErrorLY">@color/material_color_red_500</color>
+  <color name="snackColorInfoLY">@color/material_color_blue_500</color>
+  <color name="snackColorSuccessLY">@color/material_color_green_500</color>
+  <color name="snackColorWarningLY">@color/material_color_teal_500</color>
+  <color name="snackColorTextLY">@color/material_color_white</color>
 
 
   <!-- DARK THEME -->
@@ -192,6 +279,36 @@
   <!-- Scrollbar -->
   <color name="colorScrollbarThumbD">@color/colorPrimaryD</color>
   <color name="colorScrollbarBackgroundD">@color/material_color_grey_700</color>
+  <!-- Spinner -->
+  <color name="colorRefreshSpinner1D">@color/material_color_red_500</color>
+  <color name="colorRefreshSpinner2D">@color/material_color_red_800</color>
+  <color name="colorRefreshSpinner3D">@color/material_color_blue_500</color>
+  <color name="colorRefreshSpinner4D">@color/material_color_blue_800</color>
+  <!-- UQ colors -->
+  <color name="colorRatingPlatinumD">@color/material_color_grey_200</color>
+  <color name="colorRatingGoldD">@color/material_color_amber_400</color>
+  <color name="colorRatingGreenD">@color/material_color_green_500</color>
+  <color name="colorRatingGreyD">@color/material_color_grey_400</color>
+  <color name="colorRatingRedD">@color/material_color_red_300</color>
+  <color name="colorRatingDarkRedD">@color/material_color_red_900</color>
+  <!-- UQ text -->
+  <color name="colorRatingPlatinumTextD">@color/material_color_black_54_percent</color>
+  <color name="colorRatingGoldTextD">@color/material_color_black_54_percent</color>
+  <color name="colorRatingGreenTextD">@color/material_color_white</color>
+  <color name="colorRatingGreyTextD">@color/material_color_black_54_percent</color>
+  <color name="colorRatingRedTextD">@color/material_color_black_54_percent</color>
+  <color name="colorRatingDarkRedTextD">@color/material_color_black_54_percent</color>
+  <!-- UQ thumbs -->
+  <color name="colorRatingThumbUpD">@color/material_color_green_500</color>
+  <color name="colorRatingThumbDownD">@color/material_color_red_500</color>
+  <color name="colorRatingThumbAvailableD">@color/material_color_grey_400</color>
+  <!-- Snackbars -->
+  <color name="snackColorErrorD">@color/material_color_red_500</color>
+  <color name="snackColorInfoD">@color/material_color_blue_500</color>
+  <color name="snackColorSuccessD">@color/material_color_green_500</color>
+  <color name="snackColorWarningD">@color/material_color_teal_500</color>
+  <color name="snackColorTextD">@color/material_color_white</color>
+
 
   <!-- DARK THEME - BLACK -->
   <color name="colorPrimaryDB">@color/material_color_black</color>
@@ -239,35 +356,33 @@
   <!-- Scrollbar -->
   <color name="colorScrollbarThumbDB">@color/colorPrimaryD</color>
   <color name="colorScrollbarBackgroundDB">@color/material_color_grey_700</color>
-
-
-  <!-- COMMON COLORS -->
-  <color name="colorRefreshSpinner1">@color/material_color_red_500</color>
-  <color name="colorRefreshSpinner2">@color/material_color_red_800</color>
-  <color name="colorRefreshSpinner3">@color/material_color_blue_500</color>
-  <color name="colorRefreshSpinner4">@color/material_color_blue_800</color>
+  <!-- Spinner -->
+  <color name="colorRefreshSpinner1DB">@color/material_color_red_500</color>
+  <color name="colorRefreshSpinner2DB">@color/material_color_red_800</color>
+  <color name="colorRefreshSpinner3DB">@color/material_color_blue_500</color>
+  <color name="colorRefreshSpinner4DB">@color/material_color_blue_800</color>
   <!-- UQ colors -->
-  <color name="colorRatingPlatinum">@color/material_color_grey_200</color>
-  <color name="colorRatingGold">@color/material_color_amber_400</color>
-  <color name="colorRatingGreen">@color/material_color_green_500</color>
-  <color name="colorRatingGrey">@color/material_color_grey_400</color>
-  <color name="colorRatingRed">@color/material_color_red_300</color>
-  <color name="colorRatingDarkRed">@color/material_color_red_900</color>
-  <!-- UQ text colors -->
-  <color name="colorRatingPlatinumText">@color/material_color_black_54_percent</color>
-  <color name="colorRatingGoldText">@color/material_color_black_54_percent</color>
-  <color name="colorRatingGreenText">@color/material_color_white</color>
-  <color name="colorRatingGreyText">@color/material_color_black_54_percent</color>
-  <color name="colorRatingRedText">@color/material_color_black_54_percent</color>
-  <color name="colorRatingDarkRedText">@color/material_color_black_54_percent</color>
-  <!-- UQ thumbs colors -->
-  <color name="colorRatingThumbUp">@color/material_color_green_500</color>
-  <color name="colorRatingThumbDown">@color/material_color_red_500</color>
-  <color name="colorRatingThumbAvailable">@color/material_color_grey_400</color>
-  <!-- Snackbar colors -->
-  <color name="snackColorError">@color/material_color_red_500</color>
-  <color name="snackColorInfo">@color/material_color_blue_500</color>
-  <color name="snackColorSuccess">@color/material_color_green_500</color>
-  <color name="snackColorWarning">@color/material_color_teal_500</color>
-  <color name="snackColorText">@color/material_color_white</color>
+  <color name="colorRatingPlatinumDB">@color/material_color_grey_200</color>
+  <color name="colorRatingGoldDB">@color/material_color_amber_400</color>
+  <color name="colorRatingGreenDB">@color/material_color_green_500</color>
+  <color name="colorRatingGreyDB">@color/material_color_grey_400</color>
+  <color name="colorRatingRedDB">@color/material_color_red_300</color>
+  <color name="colorRatingDarkRedDB">@color/material_color_red_900</color>
+  <!-- UQ text -->
+  <color name="colorRatingPlatinumTextDB">@color/material_color_black_54_percent</color>
+  <color name="colorRatingGoldTextDB">@color/material_color_black_54_percent</color>
+  <color name="colorRatingGreenTextDB">@color/material_color_white</color>
+  <color name="colorRatingGreyTextDB">@color/material_color_black_54_percent</color>
+  <color name="colorRatingRedTextDB">@color/material_color_black_54_percent</color>
+  <color name="colorRatingDarkRedTextDB">@color/material_color_black_54_percent</color>
+  <!-- UQ thumbs -->
+  <color name="colorRatingThumbUpDB">@color/material_color_green_500</color>
+  <color name="colorRatingThumbDownDB">@color/material_color_red_500</color>
+  <color name="colorRatingThumbAvailableDB">@color/material_color_grey_400</color>
+  <!-- Snackbars -->
+  <color name="snackColorErrorDB">@color/material_color_red_500</color>
+  <color name="snackColorInfoDB">@color/material_color_blue_500</color>
+  <color name="snackColorSuccessDB">@color/material_color_green_500</color>
+  <color name="snackColorWarningDB">@color/material_color_teal_500</color>
+  <color name="snackColorTextDB">@color/material_color_white</color>
 </resources>
