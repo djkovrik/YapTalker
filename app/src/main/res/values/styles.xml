@@ -290,20 +290,20 @@
     <item name="snackColorWarning">@color/snackColorWarningLY</item>
     <item name="snackColorText">@color/snackColorTextLY</item>
     <!-- Icons -->
-    <item name="iconAuthLogin">@drawable/ic_auth_login</item>
-    <item name="iconAuthPassword">@drawable/ic_auth_password</item>
-    <item name="iconEditorBold">@drawable/ic_bb_bold</item>
-    <item name="iconEditorItalic">@drawable/ic_bb_italic</item>
-    <item name="iconEditorUnderlined">@drawable/ic_bb_underline</item>
-    <item name="iconEditorLink">@drawable/ic_bb_link</item>
-    <item name="iconEditorVideo">@drawable/ic_bb_video</item>
-    <item name="iconEditorSmiles">@drawable/ic_bb_smiles</item>
-    <item name="iconProfileData">@drawable/ic_account</item>
-    <item name="iconProfileInfo">@drawable/ic_face_profile</item>
-    <item name="iconProfileStatistic">@drawable/ic_chart_areaspline</item>
-    <item name="iconProfileContacts">@drawable/ic_contact_mail</item>
-    <item name="iconVideoOverlay">@drawable/ic_video_play</item>
-    <item name="iconRemoveAttachment">@drawable/ic_close</item>
+    <item name="iconAuthLogin">@drawable/ic_auth_login_light_yap</item>
+    <item name="iconAuthPassword">@drawable/ic_auth_password_light_yap</item>
+    <item name="iconEditorBold">@drawable/ic_bb_bold_light_yap</item>
+    <item name="iconEditorItalic">@drawable/ic_bb_italic_light_yap</item>
+    <item name="iconEditorUnderlined">@drawable/ic_bb_underline_light_yap</item>
+    <item name="iconEditorLink">@drawable/ic_bb_link_light_yap</item>
+    <item name="iconEditorVideo">@drawable/ic_bb_video_light_yap</item>
+    <item name="iconEditorSmiles">@drawable/ic_bb_smiles_light_yap</item>
+    <item name="iconProfileData">@drawable/ic_account_light_yap</item>
+    <item name="iconProfileInfo">@drawable/ic_face_profile_light_yap</item>
+    <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_light_yap</item>
+    <item name="iconProfileContacts">@drawable/ic_contact_mail_light_yap</item>
+    <item name="iconVideoOverlay">@drawable/ic_video_play_light_yap</item>
+    <item name="iconRemoveAttachment">@drawable/ic_close_light_yap</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.LightYap.AppBarOverlay</item>
     <item name="PopupOverlay">@style/AppTheme.LightYap.PopupOverlay</item>

@@ -159,41 +159,41 @@
 
 
   <!-- LIGHT THEME - YAP -->
-  <color name="colorPrimaryLY">#9ab9a7</color>
+  <color name="colorPrimaryLY">#97b8a7</color>
   <color name="colorPrimaryDarkLY">#5f866f</color>
   <color name="colorAccentLY">#5c88c8</color>
   <!-- Window -->
-  <color name="windowBackgroundLY">@color/material_color_grey_100</color>
+  <color name="windowBackgroundLY">#ffffff</color>
   <!-- Text -->
   <color name="textColorPrimaryLY">@color/material_color_grey_700</color>
   <color name="textColorPrimaryInverseLY">@color/material_color_grey_300</color>
   <color name="textColorSecondaryLY">@color/material_color_grey_600</color>
   <color name="textColorSecondaryInverseLY">@color/material_color_grey_600</color>
   <!-- CardView -->
-  <color name="cardBackgroundColorLY">#fbfbfb</color>
+  <color name="cardBackgroundColorLY">#ededee</color>
   <!-- Material Drawer -->
-  <color name="material_drawer_background_ly">@color/material_drawer_background</color>
-  <color name="material_drawer_primary_text_ly">@color/material_drawer_primary_text</color>
+  <color name="material_drawer_background_ly">@color/windowBackgroundLY</color>
+  <color name="material_drawer_primary_text_ly">@color/textColorPrimaryLY</color>
   <color name="material_drawer_primary_icon_ly">@color/material_drawer_primary_icon</color>
   <color name="material_drawer_secondary_text_ly">@color/material_drawer_secondary_text</color>
   <color name="material_drawer_hint_text_ly">@color/material_drawer_hint_text</color>
   <color name="material_drawer_divider_ly">@color/material_drawer_divider</color>
   <color name="material_drawer_selected_ly">@color/material_drawer_selected</color>
-  <color name="material_drawer_selected_text_ly">@color/material_drawer_selected_text</color>
+  <color name="material_drawer_selected_text_ly">@color/colorAccentLY</color>
   <color name="material_drawer_header_selection_text_ly">@color/material_drawer_header_selection_text</color>
   <!-- Navigation drawer -->
-  <color name="colorNavDefaultTextLY">@color/material_color_grey_600</color>
-  <color name="colorNavMainPageLY">@color/material_color_red_600</color>
-  <color name="colorNavForumsLY">@color/material_color_purple_500</color>
-  <color name="colorNavActiveTopicsLY">@color/material_color_green_500</color>
-  <color name="colorNavIncubatorLY">@color/material_color_light_blue_700</color>
-  <color name="colorNavBookmarksLY">@color/material_color_orange_800</color>
-  <color name="colorNavSearchLY">@color/material_color_cyan_700</color>
-  <color name="colorNavSettingsLY">@color/material_color_grey_700</color>
-  <color name="colorNavSignInLY">@color/material_color_grey_700</color>
+  <color name="colorNavDefaultTextLY">@color/textColorPrimaryLY</color>
+  <color name="colorNavMainPageLY">@color/colorPrimaryDarkLY</color>
+  <color name="colorNavForumsLY">#196393</color>
+  <color name="colorNavActiveTopicsLY">@color/material_color_green_400</color>
+  <color name="colorNavIncubatorLY">#d4d944</color>
+  <color name="colorNavBookmarksLY">@color/material_color_orange_400</color>
+  <color name="colorNavSearchLY">@color/material_color_cyan_600</color>
+  <color name="colorNavSettingsLY">@color/textColorPrimaryLY</color>
+  <color name="colorNavSignInLY">@color/textColorPrimaryLY</color>
   <!-- Load more button -->
   <color name="colorLoadMoreLY">@color/material_color_white</color>
-  <color name="colorLoadMoreStrokeLY">@color/colorAccentL</color>
+  <color name="colorLoadMoreStrokeLY">@color/colorAccentLY</color>
   <!-- Quote -->
   <color name="colorQuoteBackgroundLY">#eeeeee</color>
   <!-- Fab -->
@@ -202,20 +202,20 @@
   <color name="colorFabLabelTextLY">@color/material_color_grey_100</color>
   <color name="colorFabOverlayLY">#afffffff</color>
   <!-- Scrollbar -->
-  <color name="colorScrollbarThumbLY">@color/colorPrimaryL</color>
+  <color name="colorScrollbarThumbLY">@color/colorPrimaryDarkLY</color>
   <color name="colorScrollbarBackgroundLY">@color/material_color_grey_300</color>
   <!-- Spinner -->
-  <color name="colorRefreshSpinner1LY">@color/material_color_red_500</color>
-  <color name="colorRefreshSpinner2LY">@color/material_color_red_800</color>
-  <color name="colorRefreshSpinner3LY">@color/material_color_blue_500</color>
-  <color name="colorRefreshSpinner4LY">@color/material_color_blue_800</color>
+  <color name="colorRefreshSpinner1LY">@color/colorPrimaryLY</color>
+  <color name="colorRefreshSpinner2LY">@color/colorPrimaryDarkLY</color>
+  <color name="colorRefreshSpinner3LY">@color/colorAccentLY</color>
+  <color name="colorRefreshSpinner4LY">#3d5e8e</color>
   <!-- UQ colors -->
-  <color name="colorRatingPlatinumLY">@color/material_color_grey_200</color>
-  <color name="colorRatingGoldLY">@color/material_color_amber_400</color>
-  <color name="colorRatingGreenLY">@color/material_color_green_500</color>
-  <color name="colorRatingGreyLY">@color/material_color_grey_400</color>
-  <color name="colorRatingRedLY">@color/material_color_red_300</color>
-  <color name="colorRatingDarkRedLY">@color/material_color_red_900</color>
+  <color name="colorRatingPlatinumLY">#ebebeb</color>
+  <color name="colorRatingGoldLY">#fce06b</color>
+  <color name="colorRatingGreenLY">#7cc138</color>
+  <color name="colorRatingGreyLY">#cfcfcf</color>
+  <color name="colorRatingRedLY">#ff5534</color>
+  <color name="colorRatingDarkRedLY">#914b29</color>
   <!-- UQ text -->
   <color name="colorRatingPlatinumTextLY">@color/material_color_black_54_percent</color>
   <color name="colorRatingGoldTextLY">@color/material_color_black_54_percent</color>
@@ -224,14 +224,14 @@
   <color name="colorRatingRedTextLY">@color/material_color_black_54_percent</color>
   <color name="colorRatingDarkRedTextLY">@color/material_color_black_54_percent</color>
   <!-- UQ thumbs -->
-  <color name="colorRatingThumbUpLY">@color/material_color_green_500</color>
-  <color name="colorRatingThumbDownLY">@color/material_color_red_500</color>
+  <color name="colorRatingThumbUpLY">#7cc138</color>
+  <color name="colorRatingThumbDownLY">#ff5534</color>
   <color name="colorRatingThumbAvailableLY">@color/material_color_grey_400</color>
   <!-- Snackbars -->
-  <color name="snackColorErrorLY">@color/material_color_red_500</color>
-  <color name="snackColorInfoLY">@color/material_color_blue_500</color>
-  <color name="snackColorSuccessLY">@color/material_color_green_500</color>
-  <color name="snackColorWarningLY">@color/material_color_teal_500</color>
+  <color name="snackColorErrorLY">@color/material_color_red_400</color>
+  <color name="snackColorInfoLY">@color/material_color_blue_400</color>
+  <color name="snackColorSuccessLY">@color/material_color_green_400</color>
+  <color name="snackColorWarningLY">@color/material_color_teal_400</color>
   <color name="snackColorTextLY">@color/material_color_white</color>
 
 
