@@ -41,7 +41,7 @@
   <color name="colorLoadMoreL">@color/windowBackgroundL</color>
   <color name="colorLoadMoreStrokeL">@color/colorAccentL</color>
   <!-- Quote -->
-  <color name="colorQuoteBackgroundL">@color/material_color_grey_300</color>
+  <color name="colorQuoteBackgroundL">@color/material_color_grey_800</color>
   <!-- FAB -->
   <color name="colorFabIconL">@color/material_color_grey_100</color>
   <color name="colorFabLabelBackgroundL">@color/colorAccentL</color>
@@ -256,10 +256,10 @@
   <color name="material_drawer_hint_text_d">@color/material_drawer_dark_hint_text</color>
   <color name="material_drawer_divider_d">@color/material_drawer_dark_divider</color>
   <color name="material_drawer_selected_d">@color/material_drawer_dark_selected</color>
-  <color name="material_drawer_selected_text_d">@color/material_drawer_dark_selected_text</color>
+  <color name="material_drawer_selected_text_d">@color/colorAccentD</color>
   <color name="material_drawer_header_selection_text_d">@color/material_drawer_dark_header_selection_text</color>
   <!-- Navigation drawer -->
-  <color name="colorNavDefaultTextD">@color/material_color_grey_600</color>
+  <color name="colorNavDefaultTextD">@color/material_color_grey_500</color>
   <color name="colorNavMainPageD">@color/material_color_red_500</color>
   <color name="colorNavForumsD">@color/material_color_purple_400</color>
   <color name="colorNavActiveTopicsD">@color/material_color_green_500</color>
@@ -315,61 +315,61 @@
   <!-- DARK THEME - BLACK -->
   <color name="colorPrimaryDB">@color/material_color_black</color>
   <color name="colorPrimaryDarkDB">@color/material_color_black</color>
-  <color name="colorAccentDB">#fb8c00</color>
+  <color name="colorAccentDB">@color/material_color_amber_500</color>
   <!-- Window -->
   <color name="windowBackgroundDB">@color/material_color_grey_900</color>
   <!-- Text -->
-  <color name="textColorPrimaryDB">@color/material_color_grey_300</color>
-  <color name="textColorPrimaryInverseDB">@color/material_color_grey_600</color>
-  <color name="textColorSecondaryDB">@color/material_color_grey_500</color>
-  <color name="textColorSecondaryInverseDB">@color/material_color_grey_500</color>
+  <color name="textColorPrimaryDB">@color/material_color_grey_100</color>
+  <color name="textColorPrimaryInverseDB">@color/material_color_grey_500</color>
+  <color name="textColorSecondaryDB">@color/material_color_grey_300</color>
+  <color name="textColorSecondaryInverseDB">@color/material_color_grey_300</color>
   <!-- CardView -->
   <color name="cardBackgroundColorDB">@color/material_color_black</color>
   <!-- Material Drawer -->
-  <color name="material_drawer_background_db">@color/material_drawer_dark_background</color>
+  <color name="material_drawer_background_db">@color/material_color_black_87_percent</color>
   <color name="material_drawer_primary_text_db">@color/material_drawer_dark_primary_text</color>
   <color name="material_drawer_primary_icon_db">@color/material_drawer_dark_primary_icon</color>
   <color name="material_drawer_secondary_text_db">@color/material_drawer_dark_secondary_text</color>
   <color name="material_drawer_hint_text_db">@color/material_drawer_dark_hint_text</color>
   <color name="material_drawer_divider_db">@color/material_drawer_dark_divider</color>
   <color name="material_drawer_selected_db">@color/material_drawer_dark_selected</color>
-  <color name="material_drawer_selected_text_db">@color/material_drawer_dark_selected_text</color>
+  <color name="material_drawer_selected_text_db">@color/colorAccentDB</color>
   <color name="material_drawer_header_selection_text_db">@color/material_drawer_dark_header_selection_text</color>
   <!-- Navigation drawer -->
-  <color name="colorNavDefaultTextDB">@color/material_color_grey_600</color>
-  <color name="colorNavMainPageDB">@color/material_color_red_600</color>
-  <color name="colorNavForumsDB">@color/material_color_purple_500</color>
-  <color name="colorNavActiveTopicsDB">@color/material_color_green_500</color>
-  <color name="colorNavIncubatorDB">@color/material_color_light_blue_700</color>
-  <color name="colorNavBookmarksDB">@color/material_color_orange_800</color>
-  <color name="colorNavSearchDB">@color/material_color_cyan_700</color>
-  <color name="colorNavSettingsDB">@color/material_color_grey_700</color>
-  <color name="colorNavSignInDB">@color/material_color_grey_700</color>
+  <color name="colorNavDefaultTextDB">@color/material_color_grey_400</color>
+  <color name="colorNavMainPageDB">@color/material_color_red_400</color>
+  <color name="colorNavForumsDB">@color/material_color_purple_400</color>
+  <color name="colorNavActiveTopicsDB">@color/material_color_green_400</color>
+  <color name="colorNavIncubatorDB">@color/material_color_light_blue_400</color>
+  <color name="colorNavBookmarksDB">@color/material_color_orange_400</color>
+  <color name="colorNavSearchDB">@color/material_color_cyan_400</color>
+  <color name="colorNavSettingsDB">@color/material_color_grey_500</color>
+  <color name="colorNavSignInDB">@color/material_color_grey_500</color>
   <!-- Load more button -->
   <color name="colorLoadMoreDB">@color/material_color_blue_grey_900</color>
-  <color name="colorLoadMoreStrokeDB">@color/colorAccentD</color>
+  <color name="colorLoadMoreStrokeDB">@color/colorAccentDB</color>
   <!-- Quote -->
   <color name="colorQuoteBackgroundDB">@color/material_color_grey_700</color>
   <!-- FAB -->
-  <color name="colorFabIconDB">@color/material_color_grey_800</color>
-  <color name="colorFabLabelBackgroundDB">@color/colorAccentD</color>
-  <color name="colorFabLabelTextDB">@color/material_color_grey_800</color>
+  <color name="colorFabIconDB">@color/material_color_grey_900</color>
+  <color name="colorFabLabelBackgroundDB">@color/colorAccentDB</color>
+  <color name="colorFabLabelTextDB">@color/material_color_grey_900</color>
   <color name="colorFabOverlayDB">#af263238</color>
   <!-- Scrollbar -->
   <color name="colorScrollbarThumbDB">@color/colorPrimaryD</color>
   <color name="colorScrollbarBackgroundDB">@color/material_color_grey_700</color>
   <!-- Spinner -->
-  <color name="colorRefreshSpinner1DB">@color/material_color_red_500</color>
-  <color name="colorRefreshSpinner2DB">@color/material_color_red_800</color>
-  <color name="colorRefreshSpinner3DB">@color/material_color_blue_500</color>
-  <color name="colorRefreshSpinner4DB">@color/material_color_blue_800</color>
+  <color name="colorRefreshSpinner1DB">@color/colorAccentDB</color>
+  <color name="colorRefreshSpinner2DB">@color/colorPrimaryDB</color>
+  <color name="colorRefreshSpinner3DB">@color/colorAccentDB</color>
+  <color name="colorRefreshSpinner4DB">@color/colorPrimaryDB</color>
   <!-- UQ colors -->
   <color name="colorRatingPlatinumDB">@color/material_color_grey_200</color>
-  <color name="colorRatingGoldDB">@color/material_color_amber_400</color>
-  <color name="colorRatingGreenDB">@color/material_color_green_500</color>
+  <color name="colorRatingGoldDB">@color/material_color_amber_300</color>
+  <color name="colorRatingGreenDB">@color/material_color_green_400</color>
   <color name="colorRatingGreyDB">@color/material_color_grey_400</color>
-  <color name="colorRatingRedDB">@color/material_color_red_300</color>
-  <color name="colorRatingDarkRedDB">@color/material_color_red_900</color>
+  <color name="colorRatingRedDB">@color/material_color_red_200</color>
+  <color name="colorRatingDarkRedDB">@color/material_color_red_500</color>
   <!-- UQ text -->
   <color name="colorRatingPlatinumTextDB">@color/material_color_black_54_percent</color>
   <color name="colorRatingGoldTextDB">@color/material_color_black_54_percent</color>
@@ -378,13 +378,13 @@
   <color name="colorRatingRedTextDB">@color/material_color_black_54_percent</color>
   <color name="colorRatingDarkRedTextDB">@color/material_color_black_54_percent</color>
   <!-- UQ thumbs -->
-  <color name="colorRatingThumbUpDB">@color/material_color_green_500</color>
-  <color name="colorRatingThumbDownDB">@color/material_color_red_500</color>
-  <color name="colorRatingThumbAvailableDB">@color/material_color_grey_400</color>
+  <color name="colorRatingThumbUpDB">@color/material_color_green_400</color>
+  <color name="colorRatingThumbDownDB">@color/material_color_red_400</color>
+  <color name="colorRatingThumbAvailableDB">@color/material_color_grey_300</color>
   <!-- Snackbars -->
-  <color name="snackColorErrorDB">@color/material_color_red_500</color>
-  <color name="snackColorInfoDB">@color/material_color_blue_500</color>
-  <color name="snackColorSuccessDB">@color/material_color_green_500</color>
-  <color name="snackColorWarningDB">@color/material_color_teal_500</color>
+  <color name="snackColorErrorDB">@color/material_color_red_400</color>
+  <color name="snackColorInfoDB">@color/material_color_blue_400</color>
+  <color name="snackColorSuccessDB">@color/material_color_green_400</color>
+  <color name="snackColorWarningDB">@color/material_color_teal_400</color>
   <color name="snackColorTextDB">@color/material_color_white</color>
 </resources>
