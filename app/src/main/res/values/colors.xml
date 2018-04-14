@@ -4,7 +4,24 @@
   <color name="colorPrimaryL">#e53935</color>
   <color name="colorPrimaryDarkL">#ab000d</color>
   <color name="colorAccentL">#0277bd</color>
-  <!-- Navigation drawer  -->
+  <!-- Window -->
+  <color name="windowBackgroundL">@color/material_color_grey_100</color>
+  <!-- Text -->
+  <color name="textColorPrimaryL">@color/material_color_grey_600</color>
+  <color name="textColorPrimaryInverseL">@color/material_color_grey_300</color>
+  <color name="textColorSecondaryL">@color/material_color_grey_500</color>
+  <color name="textColorSecondaryInverseL">@color/material_color_grey_500</color>
+  <!-- Material Drawer -->
+  <color name="material_drawer_background_l">@color/material_drawer_background</color>
+  <color name="material_drawer_primary_text_l">@color/material_drawer_primary_text</color>
+  <color name="material_drawer_primary_icon_l">@color/material_drawer_primary_icon</color>
+  <color name="material_drawer_secondary_text_l">@color/material_drawer_secondary_text</color>
+  <color name="material_drawer_hint_text_l">@color/material_drawer_hint_text</color>
+  <color name="material_drawer_divider_l">@color/material_drawer_divider</color>
+  <color name="material_drawer_selected_l">@color/material_drawer_selected</color>
+  <color name="material_drawer_selected_text_l">@color/material_drawer_selected_text</color>
+  <color name="material_drawer_header_selection_text_l">@color/material_drawer_header_selection_text</color>
+  <!-- Navigation drawer -->
   <color name="colorNavDefaultTextL">@color/material_color_grey_600</color>
   <color name="colorNavMainPageL">@color/material_color_red_600</color>
   <color name="colorNavForumsL">@color/material_color_purple_500</color>
@@ -16,11 +33,45 @@
   <color name="colorNavSignInL">@color/material_color_grey_700</color>
   <color name="colorGuestProfileL">@color/material_color_red_700</color>
   <color name="colorGuestProfileBackgroundL">@color/material_color_white_70_percent</color>
+  <!-- CardView -->
+  <color name="cardBackgroundColorL">@color/material_color_white</color>
+  <!-- Load more button -->
+  <color name="colorLoadMoreL">@color/material_color_white</color>
+  <color name="colorLoadMoreStrokeL">@color/colorAccentL</color>
+  <!-- Quote -->
+  <color name="colorQuoteBackgroundL">@color/material_color_grey_300</color>
+  <!-- FAB -->
+  <color name="colorFabIconL">@color/material_color_grey_100</color>
+  <color name="colorFabLabelBackgroundL">@color/colorAccentL</color>
+  <color name="colorFabLabelTextL">@color/material_color_grey_100</color>
+  <color name="colorFabOverlayL">#afffffff</color>
+  <!-- Scrollbar -->
+  <color name="colorScrollbarThumbL">@color/colorPrimaryL</color>
+  <color name="colorScrollbarBackgroundL">@color/material_color_grey_300</color>
+
+
   <!-- LIGHT THEME - CONTRAST -->
   <color name="colorPrimaryLC">#d32f2f</color>
   <color name="colorPrimaryDarkLC">#9a0007</color>
   <color name="colorAccentLC">#0288d1</color>
-  <!-- Navigation drawer  -->
+  <!-- Window -->
+  <color name="windowBackgroundLC">@color/material_color_grey_100</color>
+  <!-- Text -->
+  <color name="textColorPrimaryLC">@color/material_color_black_87_percent</color>
+  <color name="textColorPrimaryInverseLC">@color/material_color_grey_300</color>
+  <color name="textColorSecondaryLC">@color/material_color_grey_700</color>
+  <color name="textColorSecondaryInverseLC">@color/material_color_grey_700</color>
+  <!-- Material Drawer -->
+  <color name="material_drawer_background_lc">@color/material_drawer_background</color>
+  <color name="material_drawer_primary_text_lc">@color/material_drawer_primary_text</color>
+  <color name="material_drawer_primary_icon_lc">@color/material_drawer_primary_icon</color>
+  <color name="material_drawer_secondary_text_lc">@color/material_drawer_secondary_text</color>
+  <color name="material_drawer_hint_text_lc">@color/material_drawer_hint_text</color>
+  <color name="material_drawer_divider_lc">@color/material_drawer_divider</color>
+  <color name="material_drawer_selected_lc">@color/material_drawer_selected</color>
+  <color name="material_drawer_selected_text_lc">@color/material_drawer_selected_text</color>
+  <color name="material_drawer_header_selection_text_lc">@color/material_drawer_header_selection_text</color>
+  <!-- Navigation drawer -->
   <color name="colorNavDefaultTextLC">@color/material_color_grey_800</color>
   <color name="colorNavMainPageLC">@color/material_color_red_700</color>
   <color name="colorNavForumsLC">@color/material_color_purple_800</color>
@@ -30,11 +81,45 @@
   <color name="colorNavSearchLC">@color/material_color_cyan_800</color>
   <color name="colorNavSettingsLC">@color/material_color_grey_800</color>
   <color name="colorNavSignInLC">@color/material_color_grey_800</color>
+  <!-- CardView -->
+  <color name="cardBackgroundColorLC">@color/material_color_white</color>
+  <!-- Load more button -->
+  <color name="colorLoadMoreLC">@color/material_color_white</color>
+  <color name="colorLoadMoreStrokeLC">@color/colorAccentL</color>
+  <!-- Quote -->
+  <color name="colorQuoteBackgroundLC">@color/material_color_grey_300</color>
+  <!-- FAB -->
+  <color name="colorFabIconLC">@color/material_color_grey_100</color>
+  <color name="colorFabLabelBackgroundLC">@color/colorAccentLC</color>
+  <color name="colorFabLabelTextLC">@color/material_color_grey_100</color>
+  <color name="colorFabOverlayLC">#afffffff</color>
+  <!-- Scrollbar -->
+  <color name="colorScrollbarThumbLC">@color/colorPrimaryL</color>
+  <color name="colorScrollbarBackgroundLC">@color/material_color_grey_300</color>
+
+
   <!-- LIGHT THEME - YAP -->
   <color name="colorPrimaryLY">#9ab9a7</color>
   <color name="colorPrimaryDarkLY">#5f866f</color>
   <color name="colorAccentLY">#5c88c8</color>
-  <!-- Navigation drawer  -->
+  <!-- Window -->
+  <color name="windowBackgroundLY">@color/material_color_grey_100</color>
+  <!-- Text -->
+  <color name="textColorPrimaryLY">@color/material_color_grey_700</color>
+  <color name="textColorPrimaryInverseLY">@color/material_color_grey_300</color>
+  <color name="textColorSecondaryLY">@color/material_color_grey_600</color>
+  <color name="textColorSecondaryInverseLY">@color/material_color_grey_600</color>
+  <!-- Material Drawer -->
+  <color name="material_drawer_background_ly">@color/material_drawer_background</color>
+  <color name="material_drawer_primary_text_ly">@color/material_drawer_primary_text</color>
+  <color name="material_drawer_primary_icon_ly">@color/material_drawer_primary_icon</color>
+  <color name="material_drawer_secondary_text_ly">@color/material_drawer_secondary_text</color>
+  <color name="material_drawer_hint_text_ly">@color/material_drawer_hint_text</color>
+  <color name="material_drawer_divider_ly">@color/material_drawer_divider</color>
+  <color name="material_drawer_selected_ly">@color/material_drawer_selected</color>
+  <color name="material_drawer_selected_text_ly">@color/material_drawer_selected_text</color>
+  <color name="material_drawer_header_selection_text_ly">@color/material_drawer_header_selection_text</color>
+  <!-- Navigation drawer -->
   <color name="colorNavDefaultTextLY">@color/material_color_grey_600</color>
   <color name="colorNavMainPageLY">@color/material_color_red_600</color>
   <color name="colorNavForumsLY">@color/material_color_purple_500</color>
@@ -44,11 +129,45 @@
   <color name="colorNavSearchLY">@color/material_color_cyan_700</color>
   <color name="colorNavSettingsLY">@color/material_color_grey_700</color>
   <color name="colorNavSignInLY">@color/material_color_grey_700</color>
+  <!-- CardView -->
+  <color name="cardBackgroundColorLY">#fbfbfb</color>
+  <!-- Load more button -->
+  <color name="colorLoadMoreLY">@color/material_color_white</color>
+  <color name="colorLoadMoreStrokeLY">@color/colorAccentL</color>
+  <!-- Quote -->
+  <color name="colorQuoteBackgroundLY">#eeeeee</color>
+  <!-- Fab -->
+  <color name="colorFabIconLY">@color/material_color_grey_100</color>
+  <color name="colorFabLabelBackgroundLY">@color/colorAccentLY</color>
+  <color name="colorFabLabelTextLY">@color/material_color_grey_100</color>
+  <color name="colorFabOverlayLY">#afffffff</color>
+  <!-- Scrollbar -->
+  <color name="colorScrollbarThumbLY">@color/colorPrimaryL</color>
+  <color name="colorScrollbarBackgroundLY">@color/material_color_grey_300</color>
+
+
   <!-- DARK THEME -->
   <color name="colorPrimaryD">#263238</color>
   <color name="colorPrimaryDarkD">#000a12</color>
   <color name="colorAccentD">#fb8c00</color>
-  <!-- Navigation drawer  -->
+  <!-- Window -->
+  <color name="windowBackgroundD">@color/material_color_grey_900</color>
+  <!-- Text -->
+  <color name="textColorPrimaryD">@color/material_color_grey_200</color>
+  <color name="textColorPrimaryInverseD">@color/material_color_grey_700</color>
+  <color name="textColorSecondaryD">@color/material_color_grey_400</color>
+  <color name="textColorSecondaryInverseD">@color/material_color_grey_400</color>
+  <!-- Material Drawer -->
+  <color name="material_drawer_background_d">@color/material_drawer_dark_background</color>
+  <color name="material_drawer_primary_text_d">@color/material_drawer_dark_primary_text</color>
+  <color name="material_drawer_primary_icon_d">@color/material_drawer_dark_primary_icon</color>
+  <color name="material_drawer_secondary_text_d">@color/material_drawer_dark_secondary_text</color>
+  <color name="material_drawer_hint_text_d">@color/material_drawer_dark_hint_text</color>
+  <color name="material_drawer_divider_d">@color/material_drawer_dark_divider</color>
+  <color name="material_drawer_selected_d">@color/material_drawer_dark_selected</color>
+  <color name="material_drawer_selected_text_d">@color/material_drawer_dark_selected_text</color>
+  <color name="material_drawer_header_selection_text_d">@color/material_drawer_dark_header_selection_text</color>
+  <!-- Navigation drawer -->
   <color name="colorNavDefaultTextD">@color/material_color_grey_600</color>
   <color name="colorNavMainPageD">@color/material_color_red_500</color>
   <color name="colorNavForumsD">@color/material_color_purple_400</color>
@@ -58,11 +177,44 @@
   <color name="colorNavSearchD">@color/material_color_cyan_700</color>
   <color name="colorNavSettingsD">@color/material_color_grey_600</color>
   <color name="colorNavSignInD">@color/material_color_grey_600</color>
+  <!-- CardView -->
+  <color name="cardBackgroundColorD">@color/material_color_blue_grey_800</color>
+  <!-- Load more button -->
+  <color name="colorLoadMoreD">@color/material_color_blue_grey_900</color>
+  <color name="colorLoadMoreStrokeD">@color/colorAccentD</color>
+  <!-- Quote -->
+  <color name="colorQuoteBackgroundD">@color/material_color_grey_700</color>
+  <!-- FAB -->
+  <color name="colorFabIconD">@color/material_color_grey_800</color>
+  <color name="colorFabLabelBackgroundD">@color/colorAccentD</color>
+  <color name="colorFabLabelTextD">@color/material_color_grey_800</color>
+  <color name="colorFabOverlayD">#af263238</color>
+  <!-- Scrollbar -->
+  <color name="colorScrollbarThumbD">@color/colorPrimaryD</color>
+  <color name="colorScrollbarBackgroundD">@color/material_color_grey_700</color>
+
   <!-- DARK THEME - BLACK -->
   <color name="colorPrimaryDB">@color/material_color_black</color>
   <color name="colorPrimaryDarkDB">@color/material_color_black</color>
   <color name="colorAccentDB">#fb8c00</color>
-  <!-- Navigation drawer  -->
+  <!-- Window -->
+  <color name="windowBackgroundDB">@color/material_color_grey_900</color>
+  <!-- Text -->
+  <color name="textColorPrimaryDB">@color/material_color_grey_300</color>
+  <color name="textColorPrimaryInverseDB">@color/material_color_grey_600</color>
+  <color name="textColorSecondaryDB">@color/material_color_grey_500</color>
+  <color name="textColorSecondaryInverseDB">@color/material_color_grey_500</color>
+  <!-- Material Drawer -->
+  <color name="material_drawer_background_db">@color/material_drawer_dark_background</color>
+  <color name="material_drawer_primary_text_db">@color/material_drawer_dark_primary_text</color>
+  <color name="material_drawer_primary_icon_db">@color/material_drawer_dark_primary_icon</color>
+  <color name="material_drawer_secondary_text_db">@color/material_drawer_dark_secondary_text</color>
+  <color name="material_drawer_hint_text_db">@color/material_drawer_dark_hint_text</color>
+  <color name="material_drawer_divider_db">@color/material_drawer_dark_divider</color>
+  <color name="material_drawer_selected_db">@color/material_drawer_dark_selected</color>
+  <color name="material_drawer_selected_text_db">@color/material_drawer_dark_selected_text</color>
+  <color name="material_drawer_header_selection_text_db">@color/material_drawer_dark_header_selection_text</color>
+  <!-- Navigation drawer -->
   <color name="colorNavDefaultTextDB">@color/material_color_grey_600</color>
   <color name="colorNavMainPageDB">@color/material_color_red_600</color>
   <color name="colorNavForumsDB">@color/material_color_purple_500</color>
@@ -72,13 +224,28 @@
   <color name="colorNavSearchDB">@color/material_color_cyan_700</color>
   <color name="colorNavSettingsDB">@color/material_color_grey_700</color>
   <color name="colorNavSignInDB">@color/material_color_grey_700</color>
+  <!-- CardView -->
+  <color name="cardBackgroundColorDB">@color/material_color_black</color>
+  <!-- Load more button -->
+  <color name="colorLoadMoreDB">@color/material_color_blue_grey_900</color>
+  <color name="colorLoadMoreStrokeDB">@color/colorAccentD</color>
+  <!-- Quote -->
+  <color name="colorQuoteBackgroundDB">@color/material_color_grey_700</color>
+  <!-- FAB -->
+  <color name="colorFabIconDB">@color/material_color_grey_800</color>
+  <color name="colorFabLabelBackgroundDB">@color/colorAccentD</color>
+  <color name="colorFabLabelTextDB">@color/material_color_grey_800</color>
+  <color name="colorFabOverlayDB">#af263238</color>
+  <!-- Scrollbar -->
+  <color name="colorScrollbarThumbDB">@color/colorPrimaryD</color>
+  <color name="colorScrollbarBackgroundDB">@color/material_color_grey_700</color>
+
 
   <!-- COMMON COLORS -->
   <color name="colorRefreshSpinner1">@color/material_color_red_500</color>
   <color name="colorRefreshSpinner2">@color/material_color_red_800</color>
   <color name="colorRefreshSpinner3">@color/material_color_blue_500</color>
   <color name="colorRefreshSpinner4">@color/material_color_blue_800</color>
-
   <!-- UQ colors -->
   <color name="colorRatingPlatinum">@color/material_color_grey_200</color>
   <color name="colorRatingGold">@color/material_color_amber_400</color>
