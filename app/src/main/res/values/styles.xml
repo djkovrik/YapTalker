@@ -1,5 +1,4 @@
 <resources>
-
   <!-- LIGHT THEME -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="themeName">@string/theme_light</item>
@@ -35,8 +34,6 @@
     <item name="colorNavSearch">@color/colorNavSearchL</item>
     <item name="colorNavSettings">@color/colorNavSettingsL</item>
     <item name="colorNavSignIn">@color/colorNavSignInL</item>
-    <!-- CardView -->
-    <item name="cardBackgroundColor">@color/cardBackgroundColorL</item>
     <!-- Load more button -->
     <item name="colorLoadMore">@color/colorLoadMoreL</item>
     <item name="colorLoadMoreStroke">@color/colorLoadMoreStrokeL</item>
@@ -97,10 +94,15 @@
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.AppBarOverlay</item>
     <item name="PopupOverlay">@style/AppTheme.PopupOverlay</item>
+    <!-- CardView -->
+    <item name="customCardViewStyle">@style/cardViewStyleLight</item>
   </style>
-  <!-- Light Overlays -->
+  <!-- Custom styles -->
   <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+  <style name="cardViewStyleLight" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="cardBackgroundColor">@color/cardBackgroundColorL</item>
+  </style>
 
 
   <!-- LIGHT THEME - CONTRAST -->
@@ -138,8 +140,6 @@
     <item name="colorNavSearch">@color/colorNavSearchLC</item>
     <item name="colorNavSettings">@color/colorNavSettingsLC</item>
     <item name="colorNavSignIn">@color/colorNavSignInLC</item>
-    <!-- CardView -->
-    <item name="cardBackgroundColor">@color/cardBackgroundColorLC</item>
     <!-- Load more button -->
     <item name="colorLoadMore">@color/colorLoadMoreLC</item>
     <item name="colorLoadMoreStroke">@color/colorLoadMoreStrokeLC</item>
@@ -200,10 +200,16 @@
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.LightContrast.AppBarOverlay</item>
     <item name="PopupOverlay">@style/AppTheme.LightContrast.PopupOverlay</item>
+    <!-- CardView -->
+    <item name="customCardViewStyle">@style/cardViewStyleLightContrast</item>
   </style>
-  <!-- Light Overlays -->
+  <!-- Custom styles -->
   <style name="AppTheme.LightContrast.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
   <style name="AppTheme.LightContrast.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+  <style name="cardViewStyleLightContrast" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="cardBackgroundColor">@color/cardBackgroundColorL</item>
+  </style>
+
 
 
   <!-- LIGHT THEME - YAP -->
@@ -241,8 +247,6 @@
     <item name="colorNavSearch">@color/colorNavSearchLY</item>
     <item name="colorNavSettings">@color/colorNavSettingsLY</item>
     <item name="colorNavSignIn">@color/colorNavSignInLY</item>
-    <!-- CardView -->
-    <item name="cardBackgroundColor">@color/cardBackgroundColorLY</item>
     <!-- Load more button -->
     <item name="colorLoadMore">@color/colorLoadMoreLY</item>
     <item name="colorLoadMoreStroke">@color/colorLoadMoreStrokeLY</item>
@@ -303,10 +307,15 @@
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.LightYap.AppBarOverlay</item>
     <item name="PopupOverlay">@style/AppTheme.LightYap.PopupOverlay</item>
+    <!-- CardView -->
+    <item name="customCardViewStyle">@style/cardViewStyleLightYap</item>
   </style>
-  <!-- Light Overlays -->
+  <!-- Custom styles -->
   <style name="AppTheme.LightYap.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
   <style name="AppTheme.LightYap.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+  <style name="cardViewStyleLightYap" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="cardBackgroundColor">@color/cardBackgroundColorL</item>
+  </style>
 
 
   <!-- DARK THEME -->
@@ -406,10 +415,15 @@
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.Dark.AppBarOverlay</item>
     <item name="PopupOverlay">@style/AppTheme.Dark.PopupOverlay</item>
+    <!-- CardView -->
+    <item name="customCardViewStyle">@style/cardViewStyleDark</item>
   </style>
-  <!-- Dark Overlays -->
+  <!-- Custom styles -->
   <style name="AppTheme.Dark.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
   <style name="AppTheme.Dark.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+  <style name="cardViewStyleDark" parent="ThemeOverlay.AppCompat.ActionBar">
+    <item name="cardBackgroundColor">@color/cardBackgroundColorD</item>
+  </style>
 
 
   <!-- DARK THEME - Black-->
@@ -508,10 +522,15 @@
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.DarkBlack.AppBarOverlay</item>
     <item name="PopupOverlay">@style/AppTheme.DarkBlack.PopupOverlay</item>
+    <!-- CardView -->
+    <item name="customCardViewStyle">@style/cardViewStyleDarkBlack</item>
   </style>
-  <!-- Dark Overlays -->
+  <!-- Custom styles -->
   <style name="AppTheme.DarkBlack.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
   <style name="AppTheme.DarkBlack.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+  <style name="cardViewStyleDarkBlack" parent="ThemeOverlay.AppCompat.ActionBar">
+    <item name="cardBackgroundColor">@color/cardBackgroundColorDB</item>
+  </style>
 
 
   <!-- COMMONS -->
