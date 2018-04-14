@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <!-- COMMON -->
+  <color name="colorGuestProfile">@color/material_color_black_38_percent</color>
+  <color name="colorGuestProfileBackground">@color/material_color_white_70_percent</color>
+
   <!-- LIGHT THEME -->
   <color name="colorPrimaryL">#e53935</color>
   <color name="colorPrimaryDarkL">#ab000d</color>
@@ -11,32 +15,30 @@
   <color name="textColorPrimaryInverseL">@color/material_color_grey_300</color>
   <color name="textColorSecondaryL">@color/material_color_grey_500</color>
   <color name="textColorSecondaryInverseL">@color/material_color_grey_500</color>
+  <!-- CardView -->
+  <color name="cardBackgroundColorL">@color/material_color_white</color>
   <!-- Material Drawer -->
-  <color name="material_drawer_background_l">@color/material_drawer_background</color>
+  <color name="material_drawer_background_l">@color/windowBackgroundL</color>
   <color name="material_drawer_primary_text_l">@color/material_drawer_primary_text</color>
   <color name="material_drawer_primary_icon_l">@color/material_drawer_primary_icon</color>
   <color name="material_drawer_secondary_text_l">@color/material_drawer_secondary_text</color>
   <color name="material_drawer_hint_text_l">@color/material_drawer_hint_text</color>
   <color name="material_drawer_divider_l">@color/material_drawer_divider</color>
   <color name="material_drawer_selected_l">@color/material_drawer_selected</color>
-  <color name="material_drawer_selected_text_l">@color/material_drawer_selected_text</color>
+  <color name="material_drawer_selected_text_l">@color/colorAccentL</color>
   <color name="material_drawer_header_selection_text_l">@color/material_drawer_header_selection_text</color>
   <!-- Navigation drawer -->
-  <color name="colorNavDefaultTextL">@color/material_color_grey_600</color>
+  <color name="colorNavDefaultTextL">@color/textColorPrimaryL</color>
   <color name="colorNavMainPageL">@color/material_color_red_600</color>
   <color name="colorNavForumsL">@color/material_color_purple_500</color>
   <color name="colorNavActiveTopicsL">@color/material_color_green_500</color>
   <color name="colorNavIncubatorL">@color/material_color_light_blue_700</color>
   <color name="colorNavBookmarksL">@color/material_color_orange_800</color>
   <color name="colorNavSearchL">@color/material_color_cyan_700</color>
-  <color name="colorNavSettingsL">@color/material_color_grey_700</color>
-  <color name="colorNavSignInL">@color/material_color_grey_700</color>
-  <color name="colorGuestProfileL">@color/material_color_red_700</color>
-  <color name="colorGuestProfileBackgroundL">@color/material_color_white_70_percent</color>
-  <!-- CardView -->
-  <color name="cardBackgroundColorL">@color/material_color_white</color>
+  <color name="colorNavSettingsL">@color/textColorPrimaryL</color>
+  <color name="colorNavSignInL">@color/textColorPrimaryL</color>
   <!-- Load more button -->
-  <color name="colorLoadMoreL">@color/material_color_white</color>
+  <color name="colorLoadMoreL">@color/windowBackgroundL</color>
   <color name="colorLoadMoreStrokeL">@color/colorAccentL</color>
   <!-- Quote -->
   <color name="colorQuoteBackgroundL">@color/material_color_grey_300</color>
@@ -90,6 +92,8 @@
   <color name="textColorPrimaryInverseLC">@color/material_color_grey_300</color>
   <color name="textColorSecondaryLC">@color/material_color_grey_700</color>
   <color name="textColorSecondaryInverseLC">@color/material_color_grey_700</color>
+  <!-- CardView -->
+  <color name="cardBackgroundColorLC">@color/material_color_white</color>
   <!-- Material Drawer -->
   <color name="material_drawer_background_lc">@color/material_drawer_background</color>
   <color name="material_drawer_primary_text_lc">@color/material_drawer_primary_text</color>
@@ -110,8 +114,6 @@
   <color name="colorNavSearchLC">@color/material_color_cyan_800</color>
   <color name="colorNavSettingsLC">@color/material_color_grey_800</color>
   <color name="colorNavSignInLC">@color/material_color_grey_800</color>
-  <!-- CardView -->
-  <color name="cardBackgroundColorLC">@color/material_color_white</color>
   <!-- Load more button -->
   <color name="colorLoadMoreLC">@color/material_color_white</color>
   <color name="colorLoadMoreStrokeLC">@color/colorAccentL</color>
@@ -167,6 +169,8 @@
   <color name="textColorPrimaryInverseLY">@color/material_color_grey_300</color>
   <color name="textColorSecondaryLY">@color/material_color_grey_600</color>
   <color name="textColorSecondaryInverseLY">@color/material_color_grey_600</color>
+  <!-- CardView -->
+  <color name="cardBackgroundColorLY">#fbfbfb</color>
   <!-- Material Drawer -->
   <color name="material_drawer_background_ly">@color/material_drawer_background</color>
   <color name="material_drawer_primary_text_ly">@color/material_drawer_primary_text</color>
@@ -187,8 +191,6 @@
   <color name="colorNavSearchLY">@color/material_color_cyan_700</color>
   <color name="colorNavSettingsLY">@color/material_color_grey_700</color>
   <color name="colorNavSignInLY">@color/material_color_grey_700</color>
-  <!-- CardView -->
-  <color name="cardBackgroundColorLY">#fbfbfb</color>
   <!-- Load more button -->
   <color name="colorLoadMoreLY">@color/material_color_white</color>
   <color name="colorLoadMoreStrokeLY">@color/colorAccentL</color>
@@ -244,6 +246,8 @@
   <color name="textColorPrimaryInverseD">@color/material_color_grey_700</color>
   <color name="textColorSecondaryD">@color/material_color_grey_400</color>
   <color name="textColorSecondaryInverseD">@color/material_color_grey_400</color>
+  <!-- CardView -->
+  <color name="cardBackgroundColorD">@color/material_color_blue_grey_800</color>
   <!-- Material Drawer -->
   <color name="material_drawer_background_d">@color/material_drawer_dark_background</color>
   <color name="material_drawer_primary_text_d">@color/material_drawer_dark_primary_text</color>
@@ -264,8 +268,6 @@
   <color name="colorNavSearchD">@color/material_color_cyan_700</color>
   <color name="colorNavSettingsD">@color/material_color_grey_600</color>
   <color name="colorNavSignInD">@color/material_color_grey_600</color>
-  <!-- CardView -->
-  <color name="cardBackgroundColorD">@color/material_color_blue_grey_800</color>
   <!-- Load more button -->
   <color name="colorLoadMoreD">@color/material_color_blue_grey_900</color>
   <color name="colorLoadMoreStrokeD">@color/colorAccentD</color>
@@ -321,6 +323,8 @@
   <color name="textColorPrimaryInverseDB">@color/material_color_grey_600</color>
   <color name="textColorSecondaryDB">@color/material_color_grey_500</color>
   <color name="textColorSecondaryInverseDB">@color/material_color_grey_500</color>
+  <!-- CardView -->
+  <color name="cardBackgroundColorDB">@color/material_color_black</color>
   <!-- Material Drawer -->
   <color name="material_drawer_background_db">@color/material_drawer_dark_background</color>
   <color name="material_drawer_primary_text_db">@color/material_drawer_dark_primary_text</color>
@@ -341,8 +345,6 @@
   <color name="colorNavSearchDB">@color/material_color_cyan_700</color>
   <color name="colorNavSettingsDB">@color/material_color_grey_700</color>
   <color name="colorNavSignInDB">@color/material_color_grey_700</color>
-  <!-- CardView -->
-  <color name="cardBackgroundColorDB">@color/material_color_black</color>
   <!-- Load more button -->
   <color name="colorLoadMoreDB">@color/material_color_blue_grey_900</color>
   <color name="colorLoadMoreStrokeDB">@color/colorAccentD</color>

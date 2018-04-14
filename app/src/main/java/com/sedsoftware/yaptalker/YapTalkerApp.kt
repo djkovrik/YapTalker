@@ -77,8 +77,8 @@ class YapTalkerApp : Application(), HasActivityInjector {
           DrawerImageLoader.Tags.PROFILE.name ->
             IconicsDrawable(ctx)
               .icon(CommunityMaterial.Icon.cmd_account)
-              .colorRes(R.color.colorGuestProfileL)
-              .backgroundColorRes(R.color.colorGuestProfileBackgroundL)
+              .colorRes(R.color.colorGuestProfile)
+              .backgroundColorRes(R.color.colorGuestProfileBackground)
               .paddingDp(NAV_DRAWER_AVATAR_PADDING)
 
           else -> super.placeholder(ctx, tag)
