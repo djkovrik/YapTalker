@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface AppUpdatesChecker {
 
-  @GET("/yaptalker/info.json")
+  @GET("/yaptalker/info_test.json")
   fun loadCurrentVersionInfo(): Single<AppVersionInfo>
 }

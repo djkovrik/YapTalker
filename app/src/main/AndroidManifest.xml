@@ -3,6 +3,7 @@
 
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
   <application
     android:name=".YapTalkerApp"
@@ -138,10 +139,19 @@
         android:resource="@xml/fileprovider" />
     </provider>
 
+    <provider
+      android:name=".device.fileprovider.ApkFileProvider"
+      android:authorities="com.sedsoftware.yaptalker.device.fileprovider"
+      android:exported="false"
+      android:grantUriPermissions="true">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/provider_paths" />
+    </provider>
+
     <receiver android:name=".presentation.custom.DownloadManagerReceiver">
       <intent-filter>
         <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-        <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
       </intent-filter>
     </receiver>
 
