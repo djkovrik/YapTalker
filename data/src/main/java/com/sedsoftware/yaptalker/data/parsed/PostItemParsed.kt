@@ -13,7 +13,7 @@ class PostItemParsed {
   lateinit var authorMessagesCount: String
   @Selector("a.anchor", defValue = "")
   lateinit var postDate: String
-  @Selector("span[class~=rank-\\w+]", defValue = "0")
+  @Selector("span[class~=rank-\\w+]", format = "([-\\d]+)", defValue = "0")
   lateinit var postRank: String
   @Selector("a.post-plus", attr = "innerHtml", defValue = "")
   lateinit var postRankPlusAvailable: String
