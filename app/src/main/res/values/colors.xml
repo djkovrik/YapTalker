@@ -159,8 +159,8 @@
 
 
   <!-- LIGHT THEME - YAP -->
-  <color name="colorPrimaryLY">#97b8a7</color>
-  <color name="colorPrimaryDarkLY">#5f866f</color>
+  <color name="colorPrimaryLY">#589c79</color>
+  <color name="colorPrimaryDarkLY">#3f8360</color>
   <color name="colorAccentLY">#5c88c8</color>
   <!-- Window -->
   <color name="windowBackgroundLY">#ffffff</color>
@@ -170,7 +170,7 @@
   <color name="textColorSecondaryLY">@color/material_color_grey_600</color>
   <color name="textColorSecondaryInverseLY">@color/material_color_grey_600</color>
   <!-- CardView -->
-  <color name="cardBackgroundColorLY">#ededee</color>
+  <color name="cardBackgroundColorLY">#ededed</color>
   <!-- Material Drawer -->
   <color name="material_drawer_background_ly">@color/windowBackgroundLY</color>
   <color name="material_drawer_primary_text_ly">@color/textColorPrimaryLY</color>
@@ -238,7 +238,7 @@
   <!-- DARK THEME -->
   <color name="colorPrimaryD">#263238</color>
   <color name="colorPrimaryDarkD">#000a12</color>
-  <color name="colorAccentD">#fb8c00</color>
+  <color name="colorAccentD">@color/material_color_orange_600</color>
   <!-- Window -->
   <color name="windowBackgroundD">@color/material_color_grey_900</color>
   <!-- Text -->
@@ -315,7 +315,7 @@
   <!-- DARK THEME - BLACK -->
   <color name="colorPrimaryDB">@color/material_color_black</color>
   <color name="colorPrimaryDarkDB">@color/material_color_black</color>
-  <color name="colorAccentDB">@color/material_color_amber_500</color>
+  <color name="colorAccentDB">@color/material_color_amber_600</color>
   <!-- Window -->
   <color name="windowBackgroundDB">@color/material_color_grey_900</color>
   <!-- Text -->
@@ -349,7 +349,7 @@
   <color name="colorLoadMoreDB">@color/material_color_blue_grey_900</color>
   <color name="colorLoadMoreStrokeDB">@color/colorAccentDB</color>
   <!-- Quote -->
-  <color name="colorQuoteBackgroundDB">@color/material_color_grey_700</color>
+  <color name="colorQuoteBackgroundDB">@color/material_color_grey_900</color>
   <!-- FAB -->
   <color name="colorFabIconDB">@color/material_color_grey_900</color>
   <color name="colorFabLabelBackgroundDB">@color/colorAccentDB</color>
