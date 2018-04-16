@@ -1,5 +1,16 @@
 ## Changelog
 
+### [0.9.6] - 2018-04-17
+
+**Fixed**
+* Parsing errors
+
+**Added**
+* Three new app themes: contrast, yap and black
+
+**Changed**
+* Update downloader now runs apk installation when download is finished
+
 ### [0.9.5] - 2018-04-08
 
 **Fixed**
