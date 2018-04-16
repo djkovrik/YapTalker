@@ -150,10 +150,6 @@ class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader, Incub
         presenter.navigateToChosenVideo(html)
       }
 
-      isVideo && !url.contains("youtube") -> {
-        presenter.navigateToChosenVideo(html)
-      }
-
       else -> {
         presenter.navigateToChosenImage(url)
       }

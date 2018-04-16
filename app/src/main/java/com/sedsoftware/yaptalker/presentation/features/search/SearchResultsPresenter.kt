@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.features.search
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.interactor.search.GetSearchResults
 import com.sedsoftware.yaptalker.domain.interactor.search.GetSearchResultsPage
-import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
@@ -25,7 +25,7 @@ class SearchResultsPresenter @Inject constructor(
   private val initialSearchUseCase: GetSearchResults,
   private val nextPageSearchResultsUseCase: GetSearchResultsPage,
   private val searchResultsMapper: SearchResultsModelMapper
-) : BasePresenter<SearchResultsView>() {
+) : BaseLoadingPresenter<SearchResultsView>() {
 
   companion object {
     private const val TOPICS_PER_PAGE = 25

@@ -12,7 +12,7 @@ class TopicPageParsed {
   lateinit var isClosed: String
   @Selector("input[name~=auth_key]", attr = "outerHtml", format = "value=\"([a-z0-9]+)\"", defValue = "")
   lateinit var authKey: String
-  @Selector("div.rating-value", defValue = "0")
+  @Selector("div.rating-value", format = "([-\\d]+)", defValue = "0")
   lateinit var topicRating: String
   @Selector("div[rel=rating] img[src$=rating-cell-minus.gif]", attr = "src", defValue = "")
   lateinit var topicRatingPlusAvailable: String

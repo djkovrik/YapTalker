@@ -2,10 +2,10 @@ package com.sedsoftware.yaptalker.presentation.features.changelog
 
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
-import com.sedsoftware.yaptalker.presentation.base.BaseView
+import com.sedsoftware.yaptalker.presentation.base.BaseLoadingView
 
 @StateStrategyType(SkipStrategy::class)
-interface ChangelogView : BaseView {
+interface ChangelogView : BaseLoadingView {
 
   fun displayChangelog(markdown: String)
 }

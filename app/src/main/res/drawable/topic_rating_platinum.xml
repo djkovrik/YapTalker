@@ -1,7 +1,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
   android:shape="rectangle">
 
-  <solid android:color="@color/colorRatingPlatinum" />
+  <solid android:color="?attr/colorRatingPlatinum" />
 
   <padding
     android:bottom="@dimen/rating_background_padding"

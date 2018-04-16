@@ -326,10 +326,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
         presenter.navigateToChosenVideo(html)
       }
 
-      isVideo && !url.contains("youtube") -> {
-        presenter.navigateToChosenVideo(html)
-      }
-
       (url.contains(Regex("(\\.gif|\\.GIF)"))) -> {
         presenter.navigateToChosenGif(url)
       }

@@ -150,10 +150,6 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemElementsClickListener, Th
         presenter.navigateToChosenVideo(html)
       }
 
-      isVideo && !url.contains("youtube") -> {
-        presenter.navigateToChosenVideo(html)
-      }
-
       else -> {
         presenter.navigateToChosenImage(url)
       }

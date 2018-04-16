@@ -212,6 +212,9 @@
 
   <!-- Current theme markers -->
   <string name="theme_light" translatable="false">light</string>
+  <string name="theme_light_contrast" translatable="false">light_contrast</string>
+  <string name="theme_light_yap" translatable="false">light_pap</string>
   <string name="theme_dark" translatable="false">dark</string>
+  <string name="theme_dark_black" translatable="false">dark</string>
 
 </resources>

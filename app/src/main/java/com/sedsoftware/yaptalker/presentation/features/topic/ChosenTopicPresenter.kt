@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.domain.interactor.topic.SendBookmarkAddRequest
 import com.sedsoftware.yaptalker.domain.interactor.topic.SendChangeKarmaRequest
 import com.sedsoftware.yaptalker.domain.interactor.topic.SendEditedMessageRequest
 import com.sedsoftware.yaptalker.domain.interactor.topic.SendMessageRequest
-import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
@@ -55,7 +55,7 @@ class ChosenTopicPresenter @Inject constructor(
   private val sendMessageUseCase: SendMessageRequest,
   private val sendEditedMessageUseCase: SendEditedMessageRequest,
   private val getVideoThumbnailUseCase: GetVideoThumbnail
-) : BasePresenter<ChosenTopicView>() {
+) : BaseLoadingPresenter<ChosenTopicView>() {
 
   companion object {
     private const val OFFSET_FOR_PAGE_NUMBER = 1

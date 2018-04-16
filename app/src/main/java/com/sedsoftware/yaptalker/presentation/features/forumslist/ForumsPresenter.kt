@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.presentation.features.forumslist
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.interactor.forumslist.GetForumsList
-import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
@@ -21,7 +21,7 @@ class ForumsPresenter @Inject constructor(
   private val router: Router,
   private val forumsListUseCase: GetForumsList,
   private val forumsListModelMapper: ForumsListModelMapper
-) : BasePresenter<ForumsView>() {
+) : BaseLoadingPresenter<ForumsView>() {
 
   private var clearCurrentList = false
 

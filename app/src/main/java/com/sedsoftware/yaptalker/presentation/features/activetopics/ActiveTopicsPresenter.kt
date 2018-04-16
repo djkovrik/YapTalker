@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.features.activetopics
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.interactor.activetopics.GetActiveTopics
 import com.sedsoftware.yaptalker.domain.interactor.activetopics.GetSearchId
-import com.sedsoftware.yaptalker.presentation.base.BasePresenter
+import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
@@ -24,7 +24,7 @@ class ActiveTopicsPresenter @Inject constructor(
   private val getSearchIdUseCase: GetSearchId,
   private val getActiveTopicsListUseCase: GetActiveTopics,
   private val activeTopicsModelMapper: ActiveTopicModelMapper
-) : BasePresenter<ActiveTopicsView>() {
+) : BaseLoadingPresenter<ActiveTopicsView>() {
 
   companion object {
     private const val TOPICS_PER_PAGE = 25

@@ -15,7 +15,7 @@ class TopicItemParsed {
   lateinit var author: String
   @Selector("td[class~=row(2|4)] > a", attr = "href", defValue = "")
   lateinit var authorLink: String
-  @Selector("div.rating-short-value", defValue = "0")
+  @Selector("div.rating-short-value", format = "([-\\d]+)", defValue = "0")
   lateinit var rating: String
   @Selector("td.row4:matchesOwn(\\d+)", defValue = "0")
   lateinit var answers: String

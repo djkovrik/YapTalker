@@ -5,9 +5,9 @@ import com.sedsoftware.yaptalker.R
 
 fun SwipeRefreshLayout.setIndicatorColorScheme() {
   setColorSchemeColors(
-    context.color(R.color.colorRefreshSpinner1),
-    context.color(R.color.colorRefreshSpinner2),
-    context.color(R.color.colorRefreshSpinner3),
-    context.color(R.color.colorRefreshSpinner4)
+    context.getColorFromAttr(R.attr.colorRefreshSpinner1),
+    context.getColorFromAttr(R.attr.colorRefreshSpinner2),
+    context.getColorFromAttr(R.attr.colorRefreshSpinner3),
+    context.getColorFromAttr(R.attr.colorRefreshSpinner4)
   )
 }

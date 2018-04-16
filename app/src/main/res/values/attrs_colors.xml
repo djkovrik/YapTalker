@@ -10,4 +10,39 @@
   <attr name="colorScrollbarBackground" format="color" />
   <attr name="colorLoadMore" format="color" />
   <attr name="colorLoadMoreStroke" format="color" />
+  <attr name="colorNavDefaultText" format="color" />
+  <attr name="colorNavMainPage" format="color" />
+  <attr name="colorNavForums" format="color" />
+  <attr name="colorNavActiveTopics" format="color" />
+  <attr name="colorNavIncubator" format="color" />
+  <attr name="colorNavBookmarks" format="color" />
+  <attr name="colorNavSearch" format="color" />
+  <attr name="colorNavSettings" format="color" />
+  <attr name="colorNavSignIn" format="color" />
+  <attr name="colorGuestProfile" format="color" />
+  <attr name="colorGuestProfileBackground" format="color" />
+  <attr name="colorRefreshSpinner1" format="color" />
+  <attr name="colorRefreshSpinner2" format="color" />
+  <attr name="colorRefreshSpinner3" format="color" />
+  <attr name="colorRefreshSpinner4" format="color" />
+  <attr name="colorRatingPlatinum" format="color" />
+  <attr name="colorRatingGold" format="color" />
+  <attr name="colorRatingGreen" format="color" />
+  <attr name="colorRatingGrey" format="color" />
+  <attr name="colorRatingRed" format="color" />
+  <attr name="colorRatingDarkRed" format="color" />
+  <attr name="colorRatingPlatinumText" format="color" />
+  <attr name="colorRatingGoldText" format="color" />
+  <attr name="colorRatingGreenText" format="color" />
+  <attr name="colorRatingGreyText" format="color" />
+  <attr name="colorRatingRedText" format="color" />
+  <attr name="colorRatingDarkRedText" format="color" />
+  <attr name="colorRatingThumbUp" format="color" />
+  <attr name="colorRatingThumbDown" format="color" />
+  <attr name="colorRatingThumbAvailable" format="color" />
+  <attr name="snackColorError" format="color" />
+  <attr name="snackColorInfo" format="color" />
+  <attr name="snackColorSuccess" format="color" />
+  <attr name="snackColorWarning" format="color" />
+  <attr name="snackColorText" format="color" />
 </resources>

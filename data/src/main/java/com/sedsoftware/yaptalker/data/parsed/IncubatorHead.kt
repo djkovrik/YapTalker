@@ -7,6 +7,6 @@ class IncubatorHead {
   lateinit var title: String
   @Selector(".subtitle", attr = "href", defValue = "")
   lateinit var link: String
-  @Selector(".rating-short-value > a", defValue = "0")
+  @Selector(".rating-short-value > a", format = "([-\\d]+)", defValue = "0")
   lateinit var rating: String
 }

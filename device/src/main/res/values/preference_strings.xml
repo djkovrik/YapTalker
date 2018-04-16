@@ -36,9 +36,15 @@
   <!-- Theme -->
   <string name="pref_appearance_theme_title">Theme</string>
   <string name="pref_appearance_theme_label_light">Light</string>
+  <string name="pref_appearance_theme_label_light_contrast">Light - Contrast</string>
+  <string name="pref_appearance_theme_label_light_yap">Light - Yap</string>
   <string name="pref_appearance_theme_label_dark">Dark</string>
+  <string name="pref_appearance_theme_label_dark_black">Dark - Black</string>
   <string name="pref_appearance_theme_value_light" translatable="false">light</string>
+  <string name="pref_appearance_theme_value_light_contrast" translatable="false">light_contrast</string>
+  <string name="pref_appearance_theme_value_light_yap" translatable="false">light_yap</string>
   <string name="pref_appearance_theme_value_dark" translatable="false">dark</string>
+  <string name="pref_appearance_theme_value_dark_black" translatable="false">dark_black</string>
   <!-- Two-pane mode -->
   <string name="pref_appearance_two_pane_mode_title">Two pane mode</string>
   <string name="pref_appearance_two_pane_mode_summary">Use tablets-designed layout variation.</string>
