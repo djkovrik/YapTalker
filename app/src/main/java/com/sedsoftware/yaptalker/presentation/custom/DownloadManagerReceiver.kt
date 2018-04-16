@@ -6,9 +6,9 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.support.v4.content.FileProvider
 import java.io.File
-
 
 class DownloadManagerReceiver : BroadcastReceiver() {
 
@@ -40,7 +40,7 @@ class DownloadManagerReceiver : BroadcastReceiver() {
     if (attachmentUri != null) {
       if (ContentResolver.SCHEME_FILE == attachmentUri.scheme) {
         val file = File(attachmentUri.path)
-        attachmentUri = FileProvider.getUriForFile(context, "com.sedsoftware.yaptalker.device.fileprovider", file)
+        attachmentUri = getApkUri(context, file)
       }
 
       val openAttachmentIntent = Intent(Intent.ACTION_INSTALL_PACKAGE).apply {
@@ -51,4 +51,11 @@ class DownloadManagerReceiver : BroadcastReceiver() {
       context.startActivity(openAttachmentIntent)
     }
   }
+
+  private fun getApkUri(context: Context, file: File): Uri =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      FileProvider.getUriForFile(context, "com.sedsoftware.yaptalker.device.fileprovider", file)
+    } else {
+      Uri.fromFile(file)
+    }
 }
