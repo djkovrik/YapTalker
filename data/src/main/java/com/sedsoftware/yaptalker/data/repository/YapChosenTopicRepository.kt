@@ -43,29 +43,32 @@ class YapChosenTopicRepository @Inject constructor(
     private const val MESSAGE_SENDING_ERROR_MARKER = "Возникли следующие трудности"
   }
 
-  override fun getChosenTopic(forumId: Int, topicId: Int, startPostNumber: Int): Single<List<BaseEntity>> =
+  override fun getChosenTopic(forumId: Int,
+                              topicId: Int,
+                              startPostNumber: Int): Single<List<BaseEntity>> =
     dataLoader
       .loadTopicPage(forumId, topicId, startPostNumber)
       .map(dataMapper)
 
-  override fun requestPostTextAsQuote(forumId: Int, topicId: Int, targetPostId: Int): Single<BaseEntity> =
+  override fun requestPostTextAsQuote(forumId: Int,
+                                      topicId: Int,
+                                      targetPostId: Int): Single<BaseEntity> =
     dataLoader
       .loadTargetPostQuotedText(forumId, topicId, targetPostId)
       .map(quoteMapper)
 
-  override fun requestPostTextForEditing(
-    forumId: Int,
-    topicId: Int,
-    targetPostId: Int,
-    startingPost: Int
-  ): Single<BaseEntity> =
+  override fun requestPostTextForEditing(forumId: Int,
+                                         topicId: Int,
+                                         targetPostId: Int,
+                                         startingPost: Int): Single<BaseEntity> =
     dataLoader
       .loadTargetPostEditedText(forumId, topicId, targetPostId, startingPost)
       .map(editedPostMapper)
 
-  override fun requestKarmaChange(
-    isTopic: Boolean, targetPostId: Int, targetTopicId: Int, diff: Int
-  ): Single<BaseEntity> =
+  override fun requestKarmaChange(isTopic: Boolean,
+                                  targetPostId: Int,
+                                  targetTopicId: Int,
+                                  diff: Int): Single<BaseEntity> =
     dataLoader
       .changeKarma(
         act = KARMA_ACT,
@@ -77,7 +80,9 @@ class YapChosenTopicRepository @Inject constructor(
       )
       .map(responseMapper)
 
-  override fun requestPostKarmaChange(targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity> =
+  override fun requestPostKarmaChange(targetPostId: Int,
+                                      targetTopicId: Int,
+                                      diff: Int): Single<BaseEntity> =
     dataLoader
       .changeKarma(
         act = KARMA_ACT,
@@ -89,7 +94,9 @@ class YapChosenTopicRepository @Inject constructor(
       )
       .map(responseMapper)
 
-  override fun requestTopicKarmaChange(targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity> =
+  override fun requestTopicKarmaChange(targetPostId: Int,
+                                       targetTopicId: Int,
+                                       diff: Int): Single<BaseEntity> =
     dataLoader
       .changeKarma(
         act = KARMA_ACT,
@@ -101,14 +108,12 @@ class YapChosenTopicRepository @Inject constructor(
       )
       .map(responseMapper)
 
-  override fun requestMessageSending(
-    targetForumId: Int,
-    targetTopicId: Int,
-    page: Int,
-    authKey: String,
-    message: String,
-    filePath: String
-  ): Completable =
+  override fun requestMessageSending(targetForumId: Int,
+                                     targetTopicId: Int,
+                                     page: Int,
+                                     authKey: String,
+                                     message: String,
+                                     filePath: String): Completable =
     dataLoader
       .postMessage(
         act = POST_ACT,
@@ -127,15 +132,13 @@ class YapChosenTopicRepository @Inject constructor(
       .map(responseMapper)
       .flatMapCompletable { checkMessageSending(it as ServerResponse) }
 
-  override fun requestEditedMessageSending(
-    targetForumId: Int,
-    targetTopicId: Int,
-    targetPostId: Int,
-    page: Int,
-    authKey: String,
-    message: String,
-    file: String
-  ): Completable =
+  override fun requestEditedMessageSending(targetForumId: Int,
+                                           targetTopicId: Int,
+                                           targetPostId: Int,
+                                           page: Int,
+                                           authKey: String,
+                                           message: String,
+                                           file: String): Completable =
     dataLoader
       .postEditedMessage(
         st = page,

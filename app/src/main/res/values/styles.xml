@@ -99,7 +99,9 @@
   </style>
   <!-- Custom styles -->
   <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
   <style name="cardViewStyleLight" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="cardBackgroundColor">@color/cardBackgroundColorL</item>
   </style>
@@ -205,11 +207,12 @@
   </style>
   <!-- Custom styles -->
   <style name="AppTheme.LightContrast.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
   <style name="AppTheme.LightContrast.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
   <style name="cardViewStyleLightContrast" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="cardBackgroundColor">@color/cardBackgroundColorL</item>
   </style>
-
 
 
   <!-- LIGHT THEME - YAP -->
@@ -312,7 +315,9 @@
   </style>
   <!-- Custom styles -->
   <style name="AppTheme.LightYap.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
   <style name="AppTheme.LightYap.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
   <style name="cardViewStyleLightYap" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="cardBackgroundColor">@color/cardBackgroundColorL</item>
   </style>
@@ -420,7 +425,9 @@
   </style>
   <!-- Custom styles -->
   <style name="AppTheme.Dark.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
+
   <style name="AppTheme.Dark.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
   <style name="cardViewStyleDark" parent="ThemeOverlay.AppCompat.ActionBar">
     <item name="cardBackgroundColor">@color/cardBackgroundColorD</item>
   </style>
@@ -527,7 +534,9 @@
   </style>
   <!-- Custom styles -->
   <style name="AppTheme.DarkBlack.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
+
   <style name="AppTheme.DarkBlack.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
   <style name="cardViewStyleDarkBlack" parent="ThemeOverlay.AppCompat.ActionBar">
     <item name="cardBackgroundColor">@color/cardBackgroundColorDB</item>
   </style>

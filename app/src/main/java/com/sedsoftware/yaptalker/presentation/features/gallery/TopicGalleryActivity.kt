@@ -59,8 +59,8 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
   fun provideGalleryPresenter() = presenter
 
   val galleryInitialState: GalleryInitialState by lazy {
-    intent.getParcelableExtra(GALLERY_INITIAL_STATE_KEY) as GalleryInitialState? ?:
-    throw  IllegalArgumentException("Gallery initial state must be provided via arguments")
+    intent.getParcelableExtra(GALLERY_INITIAL_STATE_KEY) as GalleryInitialState?
+        ?: throw  IllegalArgumentException("Gallery initial state must be provided via arguments")
   }
 
   private var savingImageUrl = ""
@@ -164,7 +164,8 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
     if (ContextCompat.checkSelfPermission(
         this,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
-      ) != PackageManager.PERMISSION_GRANTED) {
+      ) != PackageManager.PERMISSION_GRANTED
+    ) {
       savingImageUrl = imageUrl
       ActivityCompat.requestPermissions(
         this,

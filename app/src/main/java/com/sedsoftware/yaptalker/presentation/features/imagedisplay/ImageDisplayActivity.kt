@@ -104,7 +104,8 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
     if (ContextCompat.checkSelfPermission(
         this,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
-      ) != PackageManager.PERMISSION_GRANTED) {
+      ) != PackageManager.PERMISSION_GRANTED
+    ) {
 
       ActivityCompat.requestPermissions(
         this,

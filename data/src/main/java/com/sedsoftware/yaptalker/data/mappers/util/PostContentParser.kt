@@ -78,7 +78,8 @@ class PostContentParser(private val content: String) {
       .forEach { element ->
         // Texts
         if (element.tagName() == POST_TAG &&
-          element.className() == POST_TEXT_CLASS) {
+          element.className() == POST_TEXT_CLASS
+        ) {
           element.select(RATING_SELECTOR).remove()
           element.select(EDITED_TIME_SELECTOR).remove()
           element.select(CLIENT_SELECTOR).remove()
@@ -94,7 +95,8 @@ class PostContentParser(private val content: String) {
 
         // Quotes
         if (element.attributes().toString().contains(QUOTE_SELECTOR)
-          && !element.text().contains(QUOTE_START_TEXT)) {
+          && !element.text().contains(QUOTE_START_TEXT)
+        ) {
           element.html().formatPostHtmlCode().trimLinebreakTags().apply {
             if (this.isNotEmpty())
               result.content.add(PostQuote(text = this))
@@ -103,7 +105,8 @@ class PostContentParser(private val content: String) {
 
         // Quote authors
         if (element.text().contains(QUOTE_AUTHOR_MARKER) &&
-          !element.html().contains(Regex("[\\r\\n]+"))) {
+          !element.html().contains(Regex("[\\r\\n]+"))
+        ) {
           result.content.add(PostQuoteAuthor(text = element.html()))
         } else if (element.text() == QUOTE_MARKER) {
           result.content.add(PostQuoteAuthor(text = element.html()))
@@ -111,7 +114,8 @@ class PostContentParser(private val content: String) {
 
         // Spoilers
         if (element.tagName() == TD_TAG &&
-          element.attributes().toString().contains(SPOILER_SELECTOR)) {
+          element.attributes().toString().contains(SPOILER_SELECTOR)
+        ) {
           element.html().formatPostHtmlCode().trimLinebreakTags().apply {
             if (this.isNotEmpty())
               result.content.add(PostHiddenText(text = this))
@@ -123,13 +127,15 @@ class PostContentParser(private val content: String) {
         if (element.tagName() == IMG_TAG &&
           element.hasAttr(SRC_ATTR) &&
           !element.attr(SRC_ATTR).contains(EMOTICON_SELECTOR) &&
-          !element.attr(SRC_ATTR).contains(WARNING_IMG_SELECTOR)) {
+          !element.attr(SRC_ATTR).contains(WARNING_IMG_SELECTOR)
+        ) {
           result.images.add(element.attr(SRC_ATTR))
         }
 
         // Videos
         if (element.tagName() == IFRAME_TAG &&
-          element.hasAttr(SRC_ATTR)) {
+          element.hasAttr(SRC_ATTR)
+        ) {
           result.videos.add(element.attr(SRC_ATTR))
           result.videosRaw.add(element.toString().replace("&amp;", "&"))
         }
@@ -145,7 +151,8 @@ class PostContentParser(private val content: String) {
 
         // Warnings
         if (element.tagName() == TD_TAG &&
-          element.className() == POST_TEXT_CLASS) {
+          element.className() == POST_TEXT_CLASS
+        ) {
           result.content.add(PostWarning(element.html()))
         }
       }

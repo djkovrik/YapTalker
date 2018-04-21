@@ -61,7 +61,7 @@ ext {
     ]
 
     domainTestDependencies = [
-            junit : "junit:junit:$JUNIT_VERSION",
+            junit: "junit:junit:$JUNIT_VERSION",
     ]
 
     dataDependencies = [
@@ -75,7 +75,7 @@ ext {
     ]
 
     dataTestDependencies = [
-            junit        : "junit:junit:$JUNIT_VERSION",
+            junit: "junit:junit:$JUNIT_VERSION",
     ]
 
     deviceDependencies = [
@@ -90,7 +90,7 @@ ext {
     ]
 
     deviceTestDependencies = [
-            junit        : "junit:junit:$JUNIT_VERSION",
+            junit: "junit:junit:$JUNIT_VERSION",
     ]
 
     presentationDependencies = [
@@ -153,8 +153,8 @@ ext {
     ]
 
     presentationTestDependencies = [
-            junit         : "junit:junit:$JUNIT_VERSION",
-            espresso      : "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION",
+            junit   : "junit:junit:$JUNIT_VERSION",
+            espresso: "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION",
     ]
 
     supportingToolsDependencies = [

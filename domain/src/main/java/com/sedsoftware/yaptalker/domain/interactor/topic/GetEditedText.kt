@@ -12,9 +12,7 @@ class GetEditedText @Inject constructor(
 
   override fun execute(parameter: Params): Single<BaseEntity> =
     chosenTopicRepository
-      .requestPostTextForEditing(
-        parameter.forumId, parameter.topicId, parameter.targetPostId, parameter.startingPost
-      )
+      .requestPostTextForEditing(parameter.forumId, parameter.topicId, parameter.targetPostId, parameter.startingPost)
 
   class Params(val forumId: Int, val topicId: Int, val targetPostId: Int, val startingPost: Int)
 }

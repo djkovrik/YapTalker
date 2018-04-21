@@ -325,8 +325,8 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-      style="?attr/customCardViewStyle"
       android:id="@+id/profile_photo_card"
+      style="?attr/customCardViewStyle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/material_card_edge_margin">
