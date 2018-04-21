@@ -3,8 +3,7 @@ package com.sedsoftware.yaptalker.presentation.feature.activetopics
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.interactor.activetopics.GetActiveTopics
 import com.sedsoftware.yaptalker.domain.interactor.activetopics.GetSearchId
-import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
-import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
+import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.mapper.ActiveTopicModelMapper
@@ -24,7 +23,7 @@ class ActiveTopicsPresenter @Inject constructor(
   private val getSearchIdUseCase: GetSearchId,
   private val getActiveTopicsListUseCase: GetActiveTopics,
   private val activeTopicsModelMapper: ActiveTopicModelMapper
-) : BaseLoadingPresenter<ActiveTopicsView>() {
+) : BasePresenter<ActiveTopicsView>() {
 
   companion object {
     private const val TOPICS_PER_PAGE = 25
@@ -93,9 +92,8 @@ class ActiveTopicsPresenter @Inject constructor(
       .map(activeTopicsModelMapper)
       .flatMapObservable { topics: List<YapEntity> -> Observable.fromIterable(topics) }
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getActiveTopicsObserver())
   }
@@ -112,9 +110,8 @@ class ActiveTopicsPresenter @Inject constructor(
       .map(activeTopicsModelMapper)
       .flatMapObservable { topics: List<YapEntity> -> Observable.fromIterable(topics) }
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getActiveTopicsObserver())
   }

@@ -16,8 +16,6 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.presentation.extensions.snackError
-import com.sedsoftware.yaptalker.presentation.extensions.snackWarning
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapters.ActiveTopicsAdapter
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapters.ActiveTopicsItemClickListener
@@ -27,7 +25,6 @@ import kotlinx.android.synthetic.main.fragment_active_topics.*
 import java.util.Locale
 import javax.inject.Inject
 
-// TODO () Refactor layouts to display full topic name
 @LayoutResource(value = R.layout.fragment_active_topics)
 class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsItemClickListener,
   NavigationPanelClickListener {
@@ -71,7 +68,7 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsItemC
   }
 
   override fun showErrorMessage(message: String) {
-    snackError(message)
+    messagesDelegate.showMessageError(message)
   }
 
   override fun appendActiveTopicItem(topic: YapEntity) {
@@ -93,7 +90,7 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsItemC
 
   override fun showCantLoadPageMessage(page: Int) {
     context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
-      snackWarning(String.format(Locale.getDefault(), template, page))
+      messagesDelegate.showMessageWarning(String.format(Locale.getDefault(), template, page))
     }
   }
 
