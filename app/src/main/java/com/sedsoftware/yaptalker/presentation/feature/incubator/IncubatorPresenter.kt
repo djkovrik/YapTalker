@@ -3,8 +3,7 @@ package com.sedsoftware.yaptalker.presentation.feature.incubator
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
 import com.sedsoftware.yaptalker.domain.interactor.incubator.GetIncubatorTopics
-import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
-import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
+import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.mapper.IncubatorModelMapper
@@ -24,7 +23,7 @@ class IncubatorPresenter @Inject constructor(
   private val getIncubatorTopics: GetIncubatorTopics,
   private val getVideoThumbnail: GetVideoThumbnail,
   private val incubatorModelMapper: IncubatorModelMapper
-) : BaseLoadingPresenter<IncubatorView>() {
+) : BasePresenter<IncubatorView>() {
 
   companion object {
     private const val ITEMS_PER_PAGE = 50
@@ -85,9 +84,8 @@ class IncubatorPresenter @Inject constructor(
       .subscribeOn(Schedulers.io())
       .map(incubatorModelMapper)
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getIncubatorObserver())
   }

@@ -3,7 +3,6 @@ package com.sedsoftware.yaptalker.presentation.feature.userprofile
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.interactor.userprofile.GetUserProfile
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
-import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.mapper.UserProfileModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -28,9 +27,6 @@ class UserProfilePresenter @Inject constructor(
       .subscribeOn(Schedulers.io())
       .map(userProfileModelMapper)
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getUserProfileObserver())
   }

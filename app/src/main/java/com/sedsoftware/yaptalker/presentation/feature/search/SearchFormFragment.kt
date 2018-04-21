@@ -12,7 +12,6 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.feature.search.options.SearchConditions
 import com.sedsoftware.yaptalker.presentation.feature.search.options.SortingMode
@@ -92,10 +91,6 @@ class SearchFormFragment : BaseFragment(), SearchFormView {
       .clicks(search_button)
       .autoDisposable(event(FragmentLifecycle.DESTROY))
       .subscribe { prepareSearchRequest() }
-  }
-
-  override fun showErrorMessage(message: String) {
-    snackError(message)
   }
 
   override fun updateCurrentUiState() {

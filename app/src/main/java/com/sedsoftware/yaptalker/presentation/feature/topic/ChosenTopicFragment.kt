@@ -27,10 +27,6 @@ import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.presentation.extensions.snackError
-import com.sedsoftware.yaptalker.presentation.extensions.snackInfo
-import com.sedsoftware.yaptalker.presentation.extensions.snackSuccess
-import com.sedsoftware.yaptalker.presentation.extensions.snackWarning
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicAdapter
@@ -71,7 +67,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
     private const val FORUM_ID_KEY = "FORUM_ID_KEY"
     private const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
     private const val STARTING_POST_KEY = "STARTING_POST_KEY"
-    private const val GIF_EXT = ".gif"
   }
 
   @Inject
@@ -133,7 +128,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
   }
 
   override fun showErrorMessage(message: String) {
-    snackError(message)
+    messagesDelegate.showMessageError(message)
   }
 
   override fun showLoadingIndicator() {
@@ -233,13 +228,13 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
 
   override fun showCantLoadPageMessage(page: Int) {
     context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
-      snackWarning(String.format(Locale.getDefault(), template, page))
+      messagesDelegate.showMessageWarning(String.format(Locale.getDefault(), template, page))
     }
   }
 
   override fun showBookmarkAddedMessage() {
     context?.stringRes(R.string.msg_bookmark_topic_added)?.let { message ->
-      snackSuccess(message)
+      messagesDelegate.showMessageSuccess(message)
     }
   }
 
@@ -248,7 +243,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
     else context?.stringRes(R.string.msg_karma_changed_post)
 
     message?.let { text ->
-      snackSuccess(text)
+      messagesDelegate.showMessageSuccess(text)
     }
   }
 
@@ -257,13 +252,13 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
     else context?.stringRes(R.string.msg_karma_already_rated_post)
 
     message?.let { text ->
-      snackInfo(text)
+      messagesDelegate.showMessageInfo(text)
     }
   }
 
   override fun showUnknownErrorMessage() {
     context?.stringRes(R.string.msg_unknown_error)?.let { message ->
-      snackError(message)
+      messagesDelegate.showMessageError(message)
     }
   }
 

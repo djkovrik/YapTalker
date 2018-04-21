@@ -13,7 +13,6 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.feature.search.adapters.SearchResultsAdapter
 import com.sedsoftware.yaptalker.presentation.feature.search.adapters.SearchResultsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -88,7 +87,7 @@ class SearchResultsFragment : BaseFragment(), SearchResultsView, SearchResultsIt
   }
 
   override fun showErrorMessage(message: String) {
-    snackError(message)
+    messagesDelegate.showMessageError(message)
   }
 
   override fun appendSearchResultsTopicItem(topic: YapEntity) {

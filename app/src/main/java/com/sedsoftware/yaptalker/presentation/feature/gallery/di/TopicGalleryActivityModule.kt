@@ -7,12 +7,14 @@ import com.sedsoftware.yaptalker.di.scope.ActivityScope
 import com.sedsoftware.yaptalker.domain.device.ImageStorage
 import com.sedsoftware.yaptalker.domain.device.SharingHelper
 import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
+import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.feature.gallery.TopicGalleryActivity
 import com.sedsoftware.yaptalker.presentation.feature.gallery.adapter.TopicGalleryLoadMoreClickListener
 import com.sedsoftware.yaptalker.presentation.feature.topic.GalleryInitialState
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import java.lang.ref.WeakReference
 
 @Module
 abstract class TopicGalleryActivityModule {
@@ -25,6 +27,12 @@ abstract class TopicGalleryActivityModule {
     @JvmStatic
     fun provideInitialGalleryState(activity: TopicGalleryActivity): GalleryInitialState =
       activity.galleryInitialState
+
+    @ActivityScope
+    @Provides
+    @JvmStatic
+    fun provideMessagesDelegate(activity: TopicGalleryActivity): MessagesDelegate =
+      MessagesDelegate(WeakReference(activity))
   }
 
   @ActivityScope
@@ -43,3 +51,5 @@ abstract class TopicGalleryActivityModule {
   @Binds
   abstract fun imageStorage(storage: YapImageStorage): ImageStorage
 }
+
+

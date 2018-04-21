@@ -15,7 +15,6 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
-import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.model.base.AppVersionInfoModel
 import com.uber.autodispose.kotlin.autoDisposable
@@ -46,7 +45,7 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
   }
 
   override fun showErrorMessage(message: String) {
-    snackError(message)
+    messagesDelegate.showMessageError(message)
   }
 
   override fun updateCurrentUiState() {

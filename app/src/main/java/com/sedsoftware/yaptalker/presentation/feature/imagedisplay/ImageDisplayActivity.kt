@@ -14,9 +14,8 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
+import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
-import com.sedsoftware.yaptalker.presentation.extensions.snackError
-import com.sedsoftware.yaptalker.presentation.extensions.snackSuccess
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import kotlinx.android.synthetic.main.activity_image_display.*
 import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
@@ -36,6 +35,9 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
     private const val IMAGE_URL_KEY = "IMAGE_URL_KEY"
     private const val STORAGE_WRITE_PERMISSION = 0
   }
+
+  @Inject
+  lateinit var messagesDelegate: MessagesDelegate
 
   @Inject
   @InjectPresenter
@@ -79,17 +81,17 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
     }
 
   override fun showErrorMessage(message: String) {
-    snackError(message)
+    messagesDelegate.showMessageError(message)
   }
 
   override fun fileSavedMessage(filepath: String) {
     String.format(Locale.getDefault(), stringRes(R.string.msg_file_saved), filepath).apply {
-      snackSuccess(this)
+      messagesDelegate.showMessageSuccess(this)
     }
   }
 
   override fun fileNotSavedMessage() {
-    snackError(stringRes(R.string.msg_file_not_saved))
+    messagesDelegate.showMessageError(stringRes(R.string.msg_file_not_saved))
   }
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

@@ -1,16 +1,18 @@
 package com.sedsoftware.yaptalker.presentation.feature.topic
 
+import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
 import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
-import com.sedsoftware.yaptalker.presentation.base.BaseLoadingView
+import com.sedsoftware.yaptalker.presentation.base.CanShowErrorMessage
+import com.sedsoftware.yaptalker.presentation.base.CanShowLoadingIndicator
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 
 @Suppress("ComplexInterface", "TooManyFunctions")
 @StateStrategyType(SkipStrategy::class)
-interface ChosenTopicView : BaseLoadingView {
+interface ChosenTopicView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator {
 
   @StateStrategyType(AddToEndStrategy::class)
   fun appendPostItem(post: YapEntity)

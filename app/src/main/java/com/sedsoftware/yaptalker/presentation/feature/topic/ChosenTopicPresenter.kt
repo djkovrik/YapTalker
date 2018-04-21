@@ -10,8 +10,7 @@ import com.sedsoftware.yaptalker.domain.interactor.topic.SendBookmarkAddRequest
 import com.sedsoftware.yaptalker.domain.interactor.topic.SendChangeKarmaRequest
 import com.sedsoftware.yaptalker.domain.interactor.topic.SendEditedMessageRequest
 import com.sedsoftware.yaptalker.domain.interactor.topic.SendMessageRequest
-import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
-import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
+import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
@@ -55,7 +54,7 @@ class ChosenTopicPresenter @Inject constructor(
   private val sendMessageUseCase: SendMessageRequest,
   private val sendEditedMessageUseCase: SendEditedMessageRequest,
   private val getVideoThumbnailUseCase: GetVideoThumbnail
-) : BaseLoadingPresenter<ChosenTopicView>() {
+) : BasePresenter<ChosenTopicView>() {
 
   companion object {
     private const val OFFSET_FOR_PAGE_NUMBER = 1
@@ -233,9 +232,8 @@ class ChosenTopicPresenter @Inject constructor(
       .subscribeOn(Schedulers.io())
       .map(quoteDataMapper)
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe({ post ->
         post as QuotedPostModel
@@ -256,9 +254,8 @@ class ChosenTopicPresenter @Inject constructor(
       .subscribeOn(Schedulers.io())
       .map(editedTextDataMapper)
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe({ post ->
         post as EditedPostModel
@@ -276,9 +273,8 @@ class ChosenTopicPresenter @Inject constructor(
       .execute(SendBookmarkAddRequest.Params(currentTopicId, startingPost))
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe({
         // onComplete
@@ -305,9 +301,8 @@ class ChosenTopicPresenter @Inject constructor(
       .subscribeOn(Schedulers.io())
       .map(serverResponseMapper)
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getKarmaResponseObserver(isTopic))
   }
@@ -337,9 +332,8 @@ class ChosenTopicPresenter @Inject constructor(
       )
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe({
         // onComplete
@@ -367,9 +361,8 @@ class ChosenTopicPresenter @Inject constructor(
       )
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe({
         // onComplete
@@ -396,9 +389,8 @@ class ChosenTopicPresenter @Inject constructor(
       .map(topicMapper)
       .flatMapObservable { items: List<YapEntity> -> Observable.fromIterable(items) }
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getTopicObserver(shouldScrollToViewTop))
   }

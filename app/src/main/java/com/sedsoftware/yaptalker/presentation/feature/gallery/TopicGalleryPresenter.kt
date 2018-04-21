@@ -6,7 +6,6 @@ import com.sedsoftware.yaptalker.domain.interactor.imagedisplay.SaveImage
 import com.sedsoftware.yaptalker.domain.interactor.imagedisplay.ShareImage
 import com.sedsoftware.yaptalker.domain.interactor.topic.GetChosenTopicGallery
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
-import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.topic.GalleryInitialState
@@ -68,9 +67,6 @@ class TopicGalleryPresenter @Inject constructor(
       .subscribeOn(Schedulers.io())
       .map(galleryMapper)
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnSuccess { setConnectionState(ConnectionState.COMPLETED) }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getTopicGalleryObserver())
   }

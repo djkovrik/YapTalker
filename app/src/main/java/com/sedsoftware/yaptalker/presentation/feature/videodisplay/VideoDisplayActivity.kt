@@ -12,7 +12,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
-import com.sedsoftware.yaptalker.presentation.extensions.snackError
+import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import kotlinx.android.synthetic.main.activity_video_display.*
 import javax.inject.Inject
 
@@ -29,6 +29,9 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
     private const val VIDEO_HTML_KEY = "IMAGE_URL_KEY"
     private const val SYSTEM_UI_HIDE_DELAY = 500L
   }
+
+  @Inject
+  lateinit var messagesDelegate: MessagesDelegate
 
   @Inject
   @InjectPresenter
@@ -86,7 +89,7 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
   }
 
   override fun showErrorMessage(message: String) {
-    snackError(message)
+    messagesDelegate.showMessageError(message)
   }
 
   @SuppressLint("SetJavaScriptEnabled")

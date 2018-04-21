@@ -3,8 +3,7 @@ package com.sedsoftware.yaptalker.presentation.feature.forum
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.forum.GetChosenForum
-import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
-import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
+import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.mapper.ForumModelMapper
@@ -26,7 +25,7 @@ class ChosenForumPresenter @Inject constructor(
   private val getChosenForumUseCase: GetChosenForum,
   private val forumModelMapper: ForumModelMapper,
   private val settings: Settings
-) : BaseLoadingPresenter<ChosenForumView>() {
+) : BasePresenter<ChosenForumView>() {
 
   companion object {
     private const val LAST_UPDATE_SORTER = "last_post"
@@ -96,9 +95,8 @@ class ChosenForumPresenter @Inject constructor(
       .map(forumModelMapper)
       .flatMap { topics: List<YapEntity> -> Observable.fromIterable(topics) }
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getChosenForumObserver())
   }

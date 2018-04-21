@@ -3,8 +3,7 @@ package com.sedsoftware.yaptalker.presentation.feature.news
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
 import com.sedsoftware.yaptalker.domain.interactor.news.GetNewsList
-import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
-import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
+import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.mapper.NewsModelMapper
@@ -24,7 +23,7 @@ class NewsPresenter @Inject constructor(
   private val getNewsListUseCase: GetNewsList,
   private val getVideoThumbnail: GetVideoThumbnail,
   private val newsModelMapper: NewsModelMapper
-) : BaseLoadingPresenter<NewsView>() {
+) : BasePresenter<NewsView>() {
 
   companion object {
     private const val NEWS_PER_PAGE = 50
@@ -85,9 +84,8 @@ class NewsPresenter @Inject constructor(
       .subscribeOn(Schedulers.io())
       .map(newsModelMapper)
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getNewsObserver())
   }

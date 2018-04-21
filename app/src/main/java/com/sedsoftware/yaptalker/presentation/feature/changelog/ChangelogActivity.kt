@@ -8,14 +8,13 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
+import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
-import com.sedsoftware.yaptalker.presentation.extensions.snackError
 import kotlinx.android.synthetic.main.activity_changelog.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.noties.markwon.Markwon
 import javax.inject.Inject
-
 
 @LayoutResource(R.layout.activity_changelog)
 class ChangelogActivity : BaseActivity(), ChangelogView {
@@ -23,6 +22,9 @@ class ChangelogActivity : BaseActivity(), ChangelogView {
   companion object {
     fun getIntent(ctx: Context): Intent = Intent(ctx, ChangelogActivity::class.java)
   }
+
+  @Inject
+  lateinit var messagesDelegate: MessagesDelegate
 
   @Inject
   @InjectPresenter
@@ -53,6 +55,6 @@ class ChangelogActivity : BaseActivity(), ChangelogView {
   }
 
   override fun showErrorMessage(message: String) {
-    snackError(message)
+    messagesDelegate.showMessageError(message)
   }
 }

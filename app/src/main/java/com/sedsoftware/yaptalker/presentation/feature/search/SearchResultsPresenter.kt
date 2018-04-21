@@ -3,8 +3,7 @@ package com.sedsoftware.yaptalker.presentation.feature.search
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.interactor.search.GetSearchResults
 import com.sedsoftware.yaptalker.domain.interactor.search.GetSearchResultsPage
-import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
-import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
+import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.mapper.SearchResultsModelMapper
@@ -25,7 +24,7 @@ class SearchResultsPresenter @Inject constructor(
   private val initialSearchUseCase: GetSearchResults,
   private val nextPageSearchResultsUseCase: GetSearchResultsPage,
   private val searchResultsMapper: SearchResultsModelMapper
-) : BaseLoadingPresenter<SearchResultsView>() {
+) : BasePresenter<SearchResultsView>() {
 
   companion object {
     private const val TOPICS_PER_PAGE = 25
@@ -66,9 +65,8 @@ class SearchResultsPresenter @Inject constructor(
       .map(searchResultsMapper)
       .flatMapObservable { list: List<YapEntity> -> Observable.fromIterable(list) }
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getSearchResultsObserver())
   }
@@ -91,9 +89,8 @@ class SearchResultsPresenter @Inject constructor(
       .map(searchResultsMapper)
       .flatMapObservable { topics: List<YapEntity> -> Observable.fromIterable(topics) }
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getSearchResultsObserver())
   }

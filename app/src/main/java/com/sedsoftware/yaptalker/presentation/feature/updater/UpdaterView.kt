@@ -1,13 +1,14 @@
 package com.sedsoftware.yaptalker.presentation.feature.updater
 
+import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
-import com.sedsoftware.yaptalker.presentation.base.BaseView
+import com.sedsoftware.yaptalker.presentation.base.CanShowErrorMessage
 import com.sedsoftware.yaptalker.presentation.model.base.AppVersionInfoModel
 
 @StateStrategyType(SkipStrategy::class)
-interface UpdaterView : BaseView {
+interface UpdaterView : MvpView, CanShowErrorMessage {
 
   @StateStrategyType(AddToEndSingleStrategy::class)
   fun updateCurrentUiState()

@@ -3,8 +3,7 @@ package com.sedsoftware.yaptalker.presentation.feature.bookmarks
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.interactor.bookmarks.GetBookmarks
 import com.sedsoftware.yaptalker.domain.interactor.bookmarks.SendBookmarkDeleteRequest
-import com.sedsoftware.yaptalker.presentation.base.BaseLoadingPresenter
-import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
+import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.mapper.BookmarksModelMapper
@@ -23,7 +22,7 @@ class BookmarksPresenter @Inject constructor(
   private val getBookmarksUseCase: GetBookmarks,
   private val bookmarksMapper: BookmarksModelMapper,
   private val deleteBookmarkUseCase: SendBookmarkDeleteRequest
-) : BaseLoadingPresenter<BookmarksView>() {
+) : BasePresenter<BookmarksView>() {
 
   private var clearCurrentList = false
 
@@ -58,9 +57,8 @@ class BookmarksPresenter @Inject constructor(
       .subscribeOn(Schedulers.io())
       .map(bookmarksMapper)
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { setConnectionState(ConnectionState.LOADING) }
-      .doOnError { setConnectionState(ConnectionState.ERROR) }
-      .doOnComplete { setConnectionState(ConnectionState.COMPLETED) }
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getBookmarksObserver())
   }

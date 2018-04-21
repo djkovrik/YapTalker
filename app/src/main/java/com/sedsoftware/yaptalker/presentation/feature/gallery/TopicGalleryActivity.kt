@@ -16,8 +16,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
-import com.sedsoftware.yaptalker.presentation.extensions.snackError
-import com.sedsoftware.yaptalker.presentation.extensions.snackSuccess
+import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.extensions.stringRes
 import com.sedsoftware.yaptalker.presentation.extensions.visibleItemPosition
 import com.sedsoftware.yaptalker.presentation.feature.gallery.adapter.TopicGalleryAdapter
@@ -50,6 +49,9 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
 
   @Inject
   lateinit var galleryAdapter: TopicGalleryAdapter
+
+  @Inject
+  lateinit var messagesDelegate: MessagesDelegate
 
   @Inject
   @InjectPresenter
@@ -110,7 +112,7 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
   }
 
   override fun showErrorMessage(message: String) {
-    snackError(message)
+    messagesDelegate.showMessageError(message)
   }
 
   override fun appendImages(images: List<YapEntity>) {
@@ -140,12 +142,12 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
 
   override fun fileSavedMessage(filepath: String) {
     String.format(Locale.getDefault(), stringRes(R.string.msg_file_saved), filepath).apply {
-      snackSuccess(this)
+      messagesDelegate.showMessageSuccess(this)
     }
   }
 
   override fun fileNotSavedMessage() {
-    snackError(stringRes(R.string.msg_file_not_saved))
+    messagesDelegate.showMessageError(stringRes(R.string.msg_file_not_saved))
   }
 
   override fun onLoadMoreClicked() {
