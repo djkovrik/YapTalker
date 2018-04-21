@@ -10,13 +10,18 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.common.exception.MissingAnnotationException
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Maybe
+import javax.inject.Inject
 
 abstract class BaseFragment : MvpAppCompatFragment() {
 
+  @Inject
+  lateinit var messagesDelegate: MessagesDelegate
+
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
-  private lateinit var backPressHandler: BackPressHandler
+  private lateinit var backPressHandler: CanHandleBackPressed
 
   open fun onBackPressed(): Boolean = false
 
@@ -26,8 +31,8 @@ abstract class BaseFragment : MvpAppCompatFragment() {
 
     lifecycle.accept(FragmentLifecycle.CREATE)
 
-    if (activity is BackPressHandler) {
-      backPressHandler = activity as BackPressHandler
+    if (activity is CanHandleBackPressed) {
+      backPressHandler = activity as CanHandleBackPressed
     } else {
       throw ClassCastException("Base activity must implement BackPressHandler interface.")
     }

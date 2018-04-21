@@ -4,6 +4,7 @@ import com.sedsoftware.yaptalker.data.repository.YapLoginSessionRepository
 import com.sedsoftware.yaptalker.di.scope.ActivityScope
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.repository.LoginSessionRepository
+import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.ActiveTopicsFragment
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.di.ActiveTopicsFragmentModule
 import com.sedsoftware.yaptalker.presentation.feature.authorization.AuthorizationFragment
@@ -37,6 +38,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import ru.terrakok.cicerone.Navigator
+import java.lang.ref.WeakReference
 
 @Module
 abstract class MainActivityModule {
@@ -46,7 +48,14 @@ abstract class MainActivityModule {
     @ActivityScope
     @Provides
     @JvmStatic
-    fun provideMainActivityNavigator(activity: MainActivity): Navigator = MainActivityNavigator(activity)
+    fun provideMainActivityNavigator(activity: MainActivity): Navigator =
+      MainActivityNavigator(activity)
+
+    @ActivityScope
+    @Provides
+    @JvmStatic
+    fun provideMessagesDelegate(activity: MainActivity): MessagesDelegate =
+      MessagesDelegate(WeakReference(activity))
   }
 
   @ActivityScope

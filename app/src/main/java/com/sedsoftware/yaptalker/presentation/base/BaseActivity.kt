@@ -18,16 +18,16 @@ import io.reactivex.Maybe
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
-abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector, BackPressHandler {
+abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector, CanHandleBackPressed {
 
   @Inject
-  lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
+  lateinit var settings: Settings
 
   @Inject
   lateinit var navigatorHolder: NavigatorHolder
 
   @Inject
-  lateinit var settings: Settings
+  lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
   protected lateinit var backPressFragment: BaseFragment
 
@@ -97,7 +97,6 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
   private fun applyTheme() {
     val dark = getString(R.string.pref_appearance_theme_value_dark)
     val darkBlack = getString(R.string.pref_appearance_theme_value_dark_black)
-    val light = getString(R.string.pref_appearance_theme_value_light)
     val lightContrast = getString(R.string.pref_appearance_theme_value_light_contrast)
     val lightYap = getString(R.string.pref_appearance_theme_value_light_yap)
     val current = settings.getCurrentTheme()

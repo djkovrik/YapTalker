@@ -1,13 +1,12 @@
 package com.sedsoftware.yaptalker.presentation.base
 
 import com.arellomobile.mvp.MvpPresenter
+import com.arellomobile.mvp.MvpView
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.event.AppEvent
 import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.AppbarEvent
-import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.ConnectionEvent
 import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.NavDrawerEvent
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Maybe
@@ -15,7 +14,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
-abstract class BasePresenter<View : BaseView> : MvpPresenter<View>() {
+abstract class BasePresenter<View : MvpView> : MvpPresenter<View>() {
 
   @Inject
   lateinit var eventBus: BehaviorRelay<AppEvent>
@@ -44,14 +43,6 @@ abstract class BasePresenter<View : BaseView> : MvpPresenter<View>() {
   fun setAppbarTitle(title: String) {
     Observable
       .just(AppbarEvent(title))
-      .observeOn(AndroidSchedulers.mainThread())
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe(eventBus)
-  }
-
-  fun setConnectionState(@ConnectionState.Event state: Long) {
-    Observable
-      .just(ConnectionEvent(state))
       .observeOn(AndroidSchedulers.mainThread())
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(eventBus)

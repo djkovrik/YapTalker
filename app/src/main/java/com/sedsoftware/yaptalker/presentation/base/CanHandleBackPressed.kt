@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.base
 
-interface BackPressHandler {
+interface CanHandleBackPressed {
 
   fun setSelectedFragment(fragment: BaseFragment)
 }
