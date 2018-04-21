@@ -6,7 +6,6 @@ import io.reactivex.Observable
 /**
  * Interface that represents a Repository for getting emoji list.
  */
-
 interface EmojiRepository {
 
   fun getEmojiList(): Observable<BaseEntity>
