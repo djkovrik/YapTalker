@@ -1,8 +1,8 @@
 package com.sedsoftware.yaptalker.data.repository
 
 import com.sedsoftware.yaptalker.data.exception.RequestErrorException
-import com.sedsoftware.yaptalker.data.mappers.LoginSessionInfoMapper
-import com.sedsoftware.yaptalker.data.mappers.ServerResponseMapper
+import com.sedsoftware.yaptalker.data.mapper.LoginSessionInfoMapper
+import com.sedsoftware.yaptalker.data.mapper.ServerResponseMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.ServerResponse

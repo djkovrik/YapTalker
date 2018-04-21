@@ -1,12 +1,12 @@
 package com.sedsoftware.yaptalker.di
 
 import com.sedsoftware.yaptalker.YapTalkerApp
-import com.sedsoftware.yaptalker.di.modules.AppModule
-import com.sedsoftware.yaptalker.di.modules.DeviceModule
-import com.sedsoftware.yaptalker.di.modules.NavigationModule
-import com.sedsoftware.yaptalker.di.modules.NetworkModule
-import com.sedsoftware.yaptalker.di.modules.RxModule
-import com.sedsoftware.yaptalker.di.modules.contribution.ActivityContributionModule
+import com.sedsoftware.yaptalker.di.module.AppModule
+import com.sedsoftware.yaptalker.di.module.DeviceModule
+import com.sedsoftware.yaptalker.di.module.NavigationModule
+import com.sedsoftware.yaptalker.di.module.NetworkModule
+import com.sedsoftware.yaptalker.di.module.RxModule
+import com.sedsoftware.yaptalker.di.module.contribution.ActivityContributionModule
 import dagger.Component
 import dagger.android.AndroidInjector
 import javax.inject.Singleton

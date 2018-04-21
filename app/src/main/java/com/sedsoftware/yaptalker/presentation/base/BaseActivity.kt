@@ -5,9 +5,9 @@ import android.support.v4.app.Fragment
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
-import com.sedsoftware.yaptalker.commons.annotation.LayoutResourceTablets
-import com.sedsoftware.yaptalker.commons.exception.MissingAnnotationException
+import com.sedsoftware.yaptalker.common.annotation.LayoutResource
+import com.sedsoftware.yaptalker.common.annotation.LayoutResourceTablets
+import com.sedsoftware.yaptalker.common.exception.MissingAnnotationException
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.ActivityLifecycle
 import dagger.android.AndroidInjection

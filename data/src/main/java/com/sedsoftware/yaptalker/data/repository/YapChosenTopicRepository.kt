@@ -1,10 +1,10 @@
 package com.sedsoftware.yaptalker.data.repository
 
 import com.sedsoftware.yaptalker.data.exception.RequestErrorException
-import com.sedsoftware.yaptalker.data.mappers.EditedPostMapper
-import com.sedsoftware.yaptalker.data.mappers.QuotedPostMapper
-import com.sedsoftware.yaptalker.data.mappers.ServerResponseMapper
-import com.sedsoftware.yaptalker.data.mappers.TopicPageMapper
+import com.sedsoftware.yaptalker.data.mapper.EditedPostMapper
+import com.sedsoftware.yaptalker.data.mapper.QuotedPostMapper
+import com.sedsoftware.yaptalker.data.mapper.ServerResponseMapper
+import com.sedsoftware.yaptalker.data.mapper.TopicPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.ServerResponse

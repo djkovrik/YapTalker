@@ -5,7 +5,7 @@
   android:layout_height="match_parent"
   android:fitsSystemWindows="true"
   android:orientation="vertical"
-  tools:context="com.sedsoftware.yaptalker.presentation.features.gifdisplay.GifDisplayActivity">
+  tools:context="com.sedsoftware.yaptalker.presentation.feature.gifdisplay.GifDisplayActivity">
 
   <include layout="@layout/include_main_appbar" />
 

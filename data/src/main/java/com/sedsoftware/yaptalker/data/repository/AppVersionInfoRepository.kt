@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.data.repository
 
 import com.sedsoftware.yaptalker.data.BuildConfig
-import com.sedsoftware.yaptalker.data.mappers.AppVersionInfoMapper
+import com.sedsoftware.yaptalker.data.mapper.AppVersionInfoMapper
 import com.sedsoftware.yaptalker.data.network.external.AppUpdatesChecker
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.VersionInfo

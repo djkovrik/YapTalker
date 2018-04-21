@@ -5,10 +5,10 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.presentation.base.enums.ConnectionState
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.base.events.AppEvent
-import com.sedsoftware.yaptalker.presentation.base.events.AppEvent.AppbarEvent
-import com.sedsoftware.yaptalker.presentation.base.events.AppEvent.ConnectionEvent
-import com.sedsoftware.yaptalker.presentation.base.events.AppEvent.NavDrawerEvent
+import com.sedsoftware.yaptalker.presentation.base.event.AppEvent
+import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.AppbarEvent
+import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.ConnectionEvent
+import com.sedsoftware.yaptalker.presentation.base.event.AppEvent.NavDrawerEvent
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Maybe
 import io.reactivex.Observable

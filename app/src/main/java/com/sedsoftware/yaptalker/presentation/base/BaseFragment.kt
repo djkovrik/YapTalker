@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
-import com.sedsoftware.yaptalker.commons.exception.MissingAnnotationException
+import com.sedsoftware.yaptalker.common.annotation.LayoutResource
+import com.sedsoftware.yaptalker.common.exception.MissingAnnotationException
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Maybe

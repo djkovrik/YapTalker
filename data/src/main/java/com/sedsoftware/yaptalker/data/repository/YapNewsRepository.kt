@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.data.repository
 
-import com.sedsoftware.yaptalker.data.mappers.ListToObservablesMapper
-import com.sedsoftware.yaptalker.data.mappers.NewsPageMapper
+import com.sedsoftware.yaptalker.data.mapper.ListToObservablesMapper
+import com.sedsoftware.yaptalker.data.mapper.NewsPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
