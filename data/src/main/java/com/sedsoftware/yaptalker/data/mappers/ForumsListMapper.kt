@@ -8,8 +8,7 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 /**
- * Mapper class used to transform parsed forums list page from the data layer into BaseEntity list
- * in the domain layer.
+ * Mapper class used to transform forums list page from the data layer into BaseEntity list in the domain layer.
  */
 class ForumsListMapper @Inject constructor() : Function<ForumsListParsed, List<BaseEntity>> {
 

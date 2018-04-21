@@ -12,7 +12,6 @@ import javax.inject.Inject
 class EmojiListMapper @Inject constructor() : Function<EmojiListParsed, List<BaseEntity>> {
 
   override fun apply(from: EmojiListParsed): List<BaseEntity> =
-    from
-      .emojis
+    from.emojis
       .map { emoji -> Emoji(emoji.code, emoji.link) }
 }

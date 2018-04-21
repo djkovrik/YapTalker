@@ -12,8 +12,7 @@ import javax.inject.Inject
 class BookmarksMapper @Inject constructor() : Function<BookmarksParsed, List<BaseEntity>> {
 
   override fun apply(from: BookmarksParsed): List<BaseEntity> =
-    from
-      .topics
+    from.topics
       .map { parsedTopic ->
         BookmarkedTopic(
           bookmarkId = parsedTopic.bookmarkId.toInt(),
