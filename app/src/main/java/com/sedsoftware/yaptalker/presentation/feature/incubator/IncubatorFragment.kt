@@ -22,7 +22,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.IncubatorAdapter
 import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.IncubatorElementsClickListener
@@ -88,7 +88,7 @@ class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader, Incub
   }
 
   override fun updateCurrentUiState() {
-    context?.stringRes(R.string.nav_drawer_incubator)?.let { presenter.setAppbarTitle(it) }
+    context?.string(R.string.nav_drawer_incubator)?.let { presenter.setAppbarTitle(it) }
     presenter.setNavDrawerItem(NavigationSection.INCUBATOR)
   }
 

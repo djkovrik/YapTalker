@@ -15,7 +15,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapters.BookmarksAdapter
 import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapters.BookmarksElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -77,7 +77,7 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
   }
 
   override fun updateCurrentUiState() {
-    context?.stringRes(R.string.nav_drawer_bookmarks)?.let { presenter.setAppbarTitle(it) }
+    context?.string(R.string.nav_drawer_bookmarks)?.let { presenter.setAppbarTitle(it) }
     presenter.setNavDrawerItem(NavigationSection.BOOKMARKS)
   }
 

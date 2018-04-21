@@ -15,7 +15,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
-import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.model.base.AppVersionInfoModel
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_updater.*
@@ -49,23 +49,23 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
   }
 
   override fun updateCurrentUiState() {
-    context?.stringRes(R.string.nav_drawer_updates)?.let { presenter.setAppbarTitle(it) }
+    context?.string(R.string.nav_drawer_updates)?.let { presenter.setAppbarTitle(it) }
     presenter.setNavDrawerItem(NavigationSection.APP_UPDATES)
   }
 
   override fun showUpdateAvailableLabel() {
-    updater_title.text = context?.stringRes(R.string.updater_title_update_available)
+    updater_title.text = context?.string(R.string.updater_title_update_available)
   }
 
   override fun showNoUpdateAvailableLabel() {
-    updater_title.text = context?.stringRes(R.string.updater_title_no_updates)
+    updater_title.text = context?.string(R.string.updater_title_no_updates)
   }
 
   override fun displayInstalledVersionInfo(versionInfo: AppVersionInfoModel) {
     updater_current_version.text = String.format(
       Locale.getDefault(),
       "%s %s",
-      context?.stringRes(R.string.updater_info_installed_version),
+      context?.string(R.string.updater_info_installed_version),
       versionInfo.versionName
     )
   }
@@ -75,7 +75,7 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
     updater_new_version.text = String.format(
       Locale.getDefault(),
       "%s %s",
-      context?.stringRes(R.string.updater_info_latest_version),
+      context?.string(R.string.updater_info_latest_version),
       versionInfo.versionName
     )
 
@@ -87,15 +87,15 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
   }
 
   override fun showCheckingStatus() {
-    updater_progressbar_status.text = context?.stringRes(R.string.updater_status_checking)
+    updater_progressbar_status.text = context?.string(R.string.updater_status_checking)
   }
 
   override fun showUpdateCompletedStatus() {
-    updater_progressbar_status.text = context?.stringRes(R.string.updater_status_checked)
+    updater_progressbar_status.text = context?.string(R.string.updater_status_checked)
   }
 
   override fun showUpdateErrorStatus() {
-    updater_progressbar_status.text = context?.stringRes(R.string.updater_status_checking)
+    updater_progressbar_status.text = context?.string(R.string.updater_status_checking)
   }
 
   override fun showEmptyUpdateStatus() {

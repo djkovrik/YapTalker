@@ -2,8 +2,8 @@ package com.sedsoftware.yaptalker.presentation.mapper.util
 
 import android.content.Context
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.extensions.stringQuantityRes
-import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.quantityString
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -67,26 +67,26 @@ class DateTransformer @Inject constructor(private val context: Context) {
   private fun buildString(time: CalculatedTime): String =
     when {
       time.years > 0 -> {
-        val template = context.stringQuantityRes(R.plurals.short_date_years, time.years)
+        val template = context.quantityString(R.plurals.short_date_years, time.years)
         String.format(Locale.getDefault(), template, time.years)
       }
       time.months > 0 -> {
-        val template = context.stringRes(R.string.short_date_month)
+        val template = context.string(R.string.short_date_month)
         String.format(Locale.getDefault(), template, time.months)
       }
       time.days > 0 -> {
-        val template = context.stringQuantityRes(R.plurals.short_date_days, time.days)
+        val template = context.quantityString(R.plurals.short_date_days, time.days)
         String.format(Locale.getDefault(), template, time.days)
       }
       time.hours > 0 -> {
-        val template = context.stringQuantityRes(R.plurals.short_date_hours, time.hours)
+        val template = context.quantityString(R.plurals.short_date_hours, time.hours)
         String.format(Locale.getDefault(), template, time.hours)
       }
       time.minutes > 0 -> {
-        val template = context.stringRes(R.string.short_date_minutes)
+        val template = context.string(R.string.short_date_minutes)
         String.format(Locale.getDefault(), template, time.minutes)
       }
-      else -> context.stringRes(R.string.short_date_seconds_now)
+      else -> context.string(R.string.short_date_seconds_now)
     }
 
   private inner class CalculatedTime(

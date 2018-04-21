@@ -27,7 +27,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicAdapter
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicElementsClickListener
@@ -173,8 +173,8 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
   }
 
   override fun showPostKarmaMenu(postId: Int) {
-    val plusItem = context?.stringRes(R.string.action_post_karma_plus)
-    val minusItem = context?.stringRes(R.string.action_post_karma_minus)
+    val plusItem = context?.string(R.string.action_post_karma_plus)
+    val minusItem = context?.string(R.string.action_post_karma_minus)
 
     val itemsArray = arrayListOf(plusItem, minusItem)
 
@@ -191,8 +191,8 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
   }
 
   override fun showTopicKarmaMenu() {
-    val plusItem = context?.stringRes(R.string.action_topic_karma_plus)
-    val minusItem = context?.stringRes(R.string.action_topic_karma_minus)
+    val plusItem = context?.string(R.string.action_topic_karma_plus)
+    val minusItem = context?.string(R.string.action_topic_karma_minus)
 
     val itemsArray = arrayListOf(plusItem, minusItem)
 
@@ -227,20 +227,20 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
   }
 
   override fun showCantLoadPageMessage(page: Int) {
-    context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
+    context?.string(R.string.navigation_page_not_available)?.let { template ->
       messagesDelegate.showMessageWarning(String.format(Locale.getDefault(), template, page))
     }
   }
 
   override fun showBookmarkAddedMessage() {
-    context?.stringRes(R.string.msg_bookmark_topic_added)?.let { message ->
+    context?.string(R.string.msg_bookmark_topic_added)?.let { message ->
       messagesDelegate.showMessageSuccess(message)
     }
   }
 
   override fun showPostKarmaChangedMessage(isTopic: Boolean) {
-    val message = if (isTopic) context?.stringRes(R.string.msg_karma_changed_topic)
-    else context?.stringRes(R.string.msg_karma_changed_post)
+    val message = if (isTopic) context?.string(R.string.msg_karma_changed_topic)
+    else context?.string(R.string.msg_karma_changed_post)
 
     message?.let { text ->
       messagesDelegate.showMessageSuccess(text)
@@ -248,8 +248,8 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
   }
 
   override fun showPostAlreadyRatedMessage(isTopic: Boolean) {
-    val message = if (isTopic) context?.stringRes(R.string.msg_karma_already_rated_topic)
-    else context?.stringRes(R.string.msg_karma_already_rated_post)
+    val message = if (isTopic) context?.string(R.string.msg_karma_already_rated_topic)
+    else context?.string(R.string.msg_karma_already_rated_post)
 
     message?.let { text ->
       messagesDelegate.showMessageInfo(text)
@@ -257,7 +257,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
   }
 
   override fun showUnknownErrorMessage() {
-    context?.stringRes(R.string.msg_unknown_error)?.let { message ->
+    context?.string(R.string.msg_unknown_error)?.let { message ->
       messagesDelegate.showMessageError(message)
     }
   }

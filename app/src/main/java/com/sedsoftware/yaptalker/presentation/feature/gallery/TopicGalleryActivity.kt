@@ -17,7 +17,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
-import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.visibleItemPosition
 import com.sedsoftware.yaptalker.presentation.feature.gallery.adapter.TopicGalleryAdapter
 import com.sedsoftware.yaptalker.presentation.feature.gallery.adapter.TopicGalleryLoadMoreClickListener
@@ -44,7 +44,7 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
   }
 
   private val titleTemplate: String by lazy {
-    stringRes(R.string.navigation_gallery_page)
+    string(R.string.navigation_gallery_page)
   }
 
   @Inject
@@ -141,13 +141,13 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
   }
 
   override fun fileSavedMessage(filepath: String) {
-    String.format(Locale.getDefault(), stringRes(R.string.msg_file_saved), filepath).apply {
+    String.format(Locale.getDefault(), string(R.string.msg_file_saved), filepath).apply {
       messagesDelegate.showMessageSuccess(this)
     }
   }
 
   override fun fileNotSavedMessage() {
-    messagesDelegate.showMessageError(stringRes(R.string.msg_file_not_saved))
+    messagesDelegate.showMessageError(string(R.string.msg_file_not_saved))
   }
 
   override fun onLoadMoreClicked() {

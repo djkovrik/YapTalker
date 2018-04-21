@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
-import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.model.base.UserProfileModel
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import java.util.Locale
@@ -61,59 +61,59 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
     context?.let { ctx ->
       profile_group.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_group), profile.group
+        ctx.string(R.string.profile_group), profile.group
       )
       profile_status.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_status), profile.status
+        ctx.string(R.string.profile_status), profile.status
       )
       profile_registered.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_registered), profile.registerDate
+        ctx.string(R.string.profile_registered), profile.registerDate
       )
       profile_time_zone.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_time_zone), profile.timeZone
+        ctx.string(R.string.profile_time_zone), profile.timeZone
       )
       profile_birth_date.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_birth_date), profile.birthDate
+        ctx.string(R.string.profile_birth_date), profile.birthDate
       )
       profile_location.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_location), profile.location
+        ctx.string(R.string.profile_location), profile.location
       )
       profile_interests.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_interests), profile.interests
+        ctx.string(R.string.profile_interests), profile.interests
       )
       profile_sex.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_sex), profile.sex
+        ctx.string(R.string.profile_sex), profile.sex
       )
       profile_messages.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_messages), profile.messagesCount
+        ctx.string(R.string.profile_messages), profile.messagesCount
       )
       profile_messages_day.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_messages_day), profile.messsagesPerDay
+        ctx.string(R.string.profile_messages_day), profile.messsagesPerDay
       )
       profile_bayans.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_bayans), profile.bayans
+        ctx.string(R.string.profile_bayans), profile.bayans
       )
       profile_topics_today.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_topics_today), profile.todayTopics
+        ctx.string(R.string.profile_topics_today), profile.todayTopics
       )
       profile_email.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_email), profile.email
+        ctx.string(R.string.profile_email), profile.email
       )
       profile_icq.text = String.format(
         Locale.getDefault(),
-        ctx.stringRes(R.string.profile_icq), profile.icq
+        ctx.string(R.string.profile_icq), profile.icq
       )
     }
 

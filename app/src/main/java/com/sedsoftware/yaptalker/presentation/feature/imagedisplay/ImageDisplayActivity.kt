@@ -16,7 +16,7 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
-import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import kotlinx.android.synthetic.main.activity_image_display.*
 import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
 import java.util.Locale
@@ -85,13 +85,13 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
   }
 
   override fun fileSavedMessage(filepath: String) {
-    String.format(Locale.getDefault(), stringRes(R.string.msg_file_saved), filepath).apply {
+    String.format(Locale.getDefault(), string(R.string.msg_file_saved), filepath).apply {
       messagesDelegate.showMessageSuccess(this)
     }
   }
 
   override fun fileNotSavedMessage() {
-    messagesDelegate.showMessageError(stringRes(R.string.msg_file_not_saved))
+    messagesDelegate.showMessageError(string(R.string.msg_file_not_saved))
   }
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

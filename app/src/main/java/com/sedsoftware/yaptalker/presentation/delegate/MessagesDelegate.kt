@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import com.androidadvance.topsnackbar.TSnackbar
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.extensions.getColorFromAttr
+import com.sedsoftware.yaptalker.presentation.extensions.colorFromAttr
 import java.lang.ref.WeakReference
 
 class MessagesDelegate(private val activity: WeakReference<AppCompatActivity>) {
@@ -31,9 +31,9 @@ class MessagesDelegate(private val activity: WeakReference<AppCompatActivity>) {
     activity.get()?.let { appCompatActivity ->
       TSnackbar
         .make(appCompatActivity.findViewById(R.id.content_container), message, TSnackbar.LENGTH_SHORT)
-        .also { it.view.setBackgroundColor(appCompatActivity.getColorFromAttr(bgColor)) }
+        .also { it.view.setBackgroundColor(appCompatActivity.colorFromAttr(bgColor)) }
         .also { (it.view.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as? TextView)
-          ?.setTextColor(appCompatActivity.getColorFromAttr(textColor))
+          ?.setTextColor(appCompatActivity.colorFromAttr(textColor))
         }
         .show()
     }

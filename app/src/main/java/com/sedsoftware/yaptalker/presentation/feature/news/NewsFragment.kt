@@ -22,7 +22,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsItemElementsClickListener
@@ -88,7 +88,7 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemElementsClickListener, Th
   }
 
   override fun updateCurrentUiState() {
-    context?.stringRes(R.string.nav_drawer_main_page)?.let { presenter.setAppbarTitle(it) }
+    context?.string(R.string.nav_drawer_main_page)?.let { presenter.setAppbarTitle(it) }
     presenter.setNavDrawerItem(NavigationSection.MAIN_PAGE)
   }
 

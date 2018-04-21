@@ -15,7 +15,7 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.currentDensity
-import com.sedsoftware.yaptalker.presentation.extensions.getColorFromAttr
+import com.sedsoftware.yaptalker.presentation.extensions.colorFromAttr
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadAvatarFromUrl
@@ -69,9 +69,9 @@ class ChosenTopicDelegateAdapter(
 
     private val currentAvatarSize = avatarSize * parent.context.currentDensity
     private val textPadding = parent.context.resources.getDimension(R.dimen.post_text_horizontal_padding).toInt()
-    private val primaryTextColor = parent.context.getColorFromAttr(android.R.attr.textColorPrimary)
-    private val secondaryTextColor = parent.context.getColorFromAttr(android.R.attr.textColorSecondary)
-    private val quoteBackgroundColor = parent.context.getColorFromAttr(R.attr.colorQuoteBackground)
+    private val primaryTextColor = parent.context.colorFromAttr(android.R.attr.textColorPrimary)
+    private val secondaryTextColor = parent.context.colorFromAttr(android.R.attr.textColorSecondary)
+    private val quoteBackgroundColor = parent.context.colorFromAttr(R.attr.colorQuoteBackground)
     private val warnings = ArrayList<PostWarningModel>()
 
     fun bindTo(postItem: SinglePostModel) {

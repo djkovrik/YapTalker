@@ -7,7 +7,7 @@ import com.sedsoftware.yaptalker.presentation.custom.PicassoImageGetter
 
 var TextView.textColor: Int
   get() = currentTextColor
-  set(v) = setTextColor(context.getColorFromAttr(v))
+  set(v) = setTextColor(context.colorFromAttr(v))
 
 @Suppress("MagicNumber")
 fun TextView.loadRatingBackground(rating: Int) {

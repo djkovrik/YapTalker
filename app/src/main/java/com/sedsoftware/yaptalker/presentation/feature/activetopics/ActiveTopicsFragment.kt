@@ -16,7 +16,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapters.ActiveTopicsAdapter
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapters.ActiveTopicsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -80,7 +80,7 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsItemC
   }
 
   override fun updateCurrentUiState() {
-    context?.stringRes(R.string.nav_drawer_active_topics)?.let { presenter.setAppbarTitle(it) }
+    context?.string(R.string.nav_drawer_active_topics)?.let { presenter.setAppbarTitle(it) }
     presenter.setNavDrawerItem(NavigationSection.ACTIVE_TOPICS)
   }
 
@@ -89,7 +89,7 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsItemC
   }
 
   override fun showCantLoadPageMessage(page: Int) {
-    context?.stringRes(R.string.navigation_page_not_available)?.let { template ->
+    context?.string(R.string.navigation_page_not_available)?.let { template ->
       messagesDelegate.showMessageWarning(String.format(Locale.getDefault(), template, page))
     }
   }

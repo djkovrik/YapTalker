@@ -4,8 +4,8 @@ import android.content.Context
 import android.text.Html
 import android.text.Spanned
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.extensions.stringQuantityRes
-import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.quantityString
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import java.util.Locale
 import javax.inject.Inject
 
@@ -18,7 +18,7 @@ class TextTransformer @Inject constructor(private val context: Context) {
   }
 
   private val forumTitleTemplate: String by lazy {
-    context.stringRes(R.string.news_forum_title_template)
+    context.string(R.string.news_forum_title_template)
   }
 
   private val pinnedTopicTemplate: String by lazy {
@@ -42,7 +42,7 @@ class TextTransformer @Inject constructor(private val context: Context) {
   }
 
   private val websiteTemplate: String by lazy {
-    context.stringRes(R.string.profile_web_site)
+    context.string(R.string.profile_web_site)
   }
 
   private val pagesLabelTemplate: String by lazy {
@@ -86,7 +86,7 @@ class TextTransformer @Inject constructor(private val context: Context) {
   }
 
   fun transformCommentsLabel(comments: Int): String {
-    val commentsTemplate: String = context.stringQuantityRes(R.plurals.news_comments_template, comments)
+    val commentsTemplate: String = context.quantityString(R.plurals.news_comments_template, comments)
     return String.format(Locale.getDefault(), commentsTemplate, comments)
   }
 
