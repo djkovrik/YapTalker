@@ -114,23 +114,23 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumItemClic
     presenter.navigateToChosenTopic(Triple(currentForumId, topicId, 0))
   }
 
-  override fun onGoToFirstPageClick() {
+  override fun goToFirstPage() {
     presenter.goToFirstPage()
   }
 
-  override fun onGoToLastPageClick() {
+  override fun goToLastPage() {
     presenter.goToLastPage()
   }
 
-  override fun onGoToPreviousPageClick() {
+  override fun goToPreviousPage() {
     presenter.goToPreviousPage()
   }
 
-  override fun onGoToNextPageClick() {
+  override fun goToNextPage() {
     presenter.goToNextPage()
   }
 
-  override fun onGoToSelectedPageClick() {
+  override fun goToSelectedPage() {
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
         .title(R.string.navigation_go_to_page_title)

@@ -32,11 +32,11 @@ class NavigationPanelDelegateAdapter(
         navigation_go_next.isEnabled = (navigation.currentPage < navigation.totalPages)
         navigation_go_last.isEnabled = (navigation.currentPage != navigation.totalPages)
 
-        navigation_pages_label.setOnClickListener { navigationClick.onGoToSelectedPageClick() }
-        navigation_go_first.setOnClickListener { navigationClick.onGoToFirstPageClick() }
-        navigation_go_previous.setOnClickListener { navigationClick.onGoToPreviousPageClick() }
-        navigation_go_next.setOnClickListener { navigationClick.onGoToNextPageClick() }
-        navigation_go_last.setOnClickListener { navigationClick.onGoToLastPageClick() }
+        navigation_pages_label.setOnClickListener { navigationClick.goToSelectedPage() }
+        navigation_go_first.setOnClickListener { navigationClick.goToFirstPage() }
+        navigation_go_previous.setOnClickListener { navigationClick.goToPreviousPage() }
+        navigation_go_next.setOnClickListener { navigationClick.goToNextPage() }
+        navigation_go_last.setOnClickListener { navigationClick.goToLastPage() }
       }
     }
   }

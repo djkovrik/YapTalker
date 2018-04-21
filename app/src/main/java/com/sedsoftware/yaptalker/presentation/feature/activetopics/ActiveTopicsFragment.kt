@@ -14,11 +14,9 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapters.ActiveTopicsAdapter
-import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapters.ActiveTopicsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_active_topics.*
@@ -26,8 +24,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_active_topics)
-class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsItemClickListener,
-  NavigationPanelClickListener {
+class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView {
 
   companion object {
     fun getNewInstance() = ActiveTopicsFragment()
@@ -71,6 +68,11 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsItemC
     messagesDelegate.showMessageError(message)
   }
 
+  override fun updateCurrentUiState() {
+    presenter.setAppbarTitle(string(R.string.nav_drawer_active_topics))
+    presenter.setNavDrawerItem(NavigationSection.ACTIVE_TOPICS)
+  }
+
   override fun appendActiveTopicItem(topic: YapEntity) {
     topicsAdapter.addActiveTopicItem(topic)
   }
@@ -79,42 +81,11 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsItemC
     topicsAdapter.clearActiveTopics()
   }
 
-  override fun updateCurrentUiState() {
-    context?.string(R.string.nav_drawer_active_topics)?.let { presenter.setAppbarTitle(it) }
-    presenter.setNavDrawerItem(NavigationSection.ACTIVE_TOPICS)
-  }
-
   override fun scrollToViewTop() {
     active_topics_list?.layoutManager?.scrollToPosition(0)
   }
 
-  override fun showCantLoadPageMessage(page: Int) {
-    context?.string(R.string.navigation_page_not_available)?.let { template ->
-      messagesDelegate.showMessageWarning(String.format(Locale.getDefault(), template, page))
-    }
-  }
-
-  override fun onActiveTopicItemClick(triple: Triple<Int, Int, Int>) {
-    presenter.navigateToChosenTopic(triple)
-  }
-
-  override fun onGoToFirstPageClick() {
-    presenter.goToFirstPage()
-  }
-
-  override fun onGoToLastPageClick() {
-    presenter.goToLastPage()
-  }
-
-  override fun onGoToPreviousPageClick() {
-    presenter.goToPreviousPage()
-  }
-
-  override fun onGoToNextPageClick() {
-    presenter.goToNextPage()
-  }
-
-  override fun onGoToSelectedPageClick() {
+  override fun showPageSelectionDialog() {
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
         .title(R.string.navigation_go_to_page_title)
@@ -124,6 +95,11 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView, ActiveTopicsItemC
         })
         .show()
     }
+  }
+
+  override fun showCantLoadPageMessage(page: Int) {
+    messagesDelegate.showMessageWarning(
+      String.format(Locale.getDefault(), string(R.string.navigation_page_not_available), page))
   }
 
   private fun subscribeViews() {

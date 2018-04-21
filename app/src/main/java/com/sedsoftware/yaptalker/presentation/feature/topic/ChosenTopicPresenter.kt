@@ -37,7 +37,7 @@ import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
 
-@Suppress("LargeClass", "TooManyFunctions")
+@Suppress("LargeClass", "TooManyFunctions", "UNCHECKED_CAST")
 @InjectViewState
 class ChosenTopicPresenter @Inject constructor(
   private val router: Router,

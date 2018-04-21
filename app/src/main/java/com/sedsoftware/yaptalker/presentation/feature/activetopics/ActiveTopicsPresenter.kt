@@ -1,11 +1,12 @@
 package com.sedsoftware.yaptalker.presentation.feature.activetopics
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.interactor.activetopics.GetActiveTopics
-import com.sedsoftware.yaptalker.domain.interactor.activetopics.GetSearchId
+import com.sedsoftware.yaptalker.domain.interactor.ActiveTopicsInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
+import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapters.ActiveTopicsItemClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.ActiveTopicModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
@@ -20,10 +21,9 @@ import javax.inject.Inject
 @InjectViewState
 class ActiveTopicsPresenter @Inject constructor(
   private val router: Router,
-  private val getSearchIdUseCase: GetSearchId,
-  private val getActiveTopicsListUseCase: GetActiveTopics,
+  private val activeTopicsInteractor: ActiveTopicsInteractor,
   private val activeTopicsModelMapper: ActiveTopicModelMapper
-) : BasePresenter<ActiveTopicsView>() {
+) : BasePresenter<ActiveTopicsView>(), ActiveTopicsItemClickListener, NavigationPanelClickListener {
 
   companion object {
     private const val TOPICS_PER_PAGE = 25
@@ -45,28 +45,32 @@ class ActiveTopicsPresenter @Inject constructor(
     viewState.updateCurrentUiState()
   }
 
-  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
+  override fun goToSelectedTopic(triple: Triple<Int, Int, Int>) {
     router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
   }
 
-  fun goToFirstPage() {
+  override fun goToFirstPage() {
     currentPage = 1
     loadActiveTopicsForCurrentPage()
   }
 
-  fun goToLastPage() {
+  override fun goToLastPage() {
     currentPage = totalPages
     loadActiveTopicsForCurrentPage()
   }
 
-  fun goToPreviousPage() {
+  override fun goToPreviousPage() {
     currentPage--
     loadActiveTopicsForCurrentPage()
   }
 
-  fun goToNextPage() {
+  override fun goToNextPage() {
     currentPage++
     loadActiveTopicsForCurrentPage()
+  }
+
+  override fun goToSelectedPage() {
+    viewState.showPageSelectionDialog()
   }
 
   fun goToChosenPage(chosenPage: Int) {
@@ -82,11 +86,11 @@ class ActiveTopicsPresenter @Inject constructor(
 
     clearCurrentList = true
 
-    getSearchIdUseCase
-      .execute()
+    activeTopicsInteractor
+      .getSearchId()
       .flatMap { hash: String ->
         searchIdKey = hash
-        getActiveTopicsListUseCase.execute(GetActiveTopics.Params(hash = searchIdKey, page = 0))
+        activeTopicsInteractor.getActiveTopics(hash = searchIdKey, page = 0)
       }
       .subscribeOn(Schedulers.io())
       .map(activeTopicsModelMapper)
@@ -104,8 +108,8 @@ class ActiveTopicsPresenter @Inject constructor(
 
     val startingTopicNumber = (currentPage - OFFSET_FOR_PAGE_NUMBER) * TOPICS_PER_PAGE
 
-    getActiveTopicsListUseCase
-      .execute(GetActiveTopics.Params(hash = searchIdKey, page = startingTopicNumber))
+    activeTopicsInteractor
+      .getActiveTopics(hash = searchIdKey, page = startingTopicNumber)
       .subscribeOn(Schedulers.io())
       .map(activeTopicsModelMapper)
       .flatMapObservable { topics: List<YapEntity> -> Observable.fromIterable(topics) }
