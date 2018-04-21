@@ -135,12 +135,10 @@ class NavigationPresenter @Inject constructor(
       .observeOn(AndroidSchedulers.mainThread())
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe({
-        // onComplete
         refreshAuthorization()
         navigateToDefaultHomePage()
         Timber.i("Sign Out request completed.")
       }, { error ->
-        // onError
         Timber.e("Sign Out error: ${error.message}")
       })
   }

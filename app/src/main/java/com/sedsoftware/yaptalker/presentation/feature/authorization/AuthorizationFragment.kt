@@ -13,7 +13,7 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.extensions.stringRes
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
@@ -41,16 +41,16 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
   }
 
   override fun updateCurrentUiState() {
-    context?.stringRes(R.string.nav_drawer_sign_in)?.let { presenter.setAppbarTitle(it) }
+    presenter.setAppbarTitle(string(R.string.nav_drawer_sign_in))
     presenter.setNavDrawerItem(NavigationSection.SIGN_IN)
   }
 
   override fun loginSuccessMessage() {
-    context?.stringRes(R.string.msg_login_success)?.let { messagesDelegate.showMessageSuccess(it) }
+    messagesDelegate.showMessageSuccess(string(R.string.msg_login_success))
   }
 
   override fun loginErrorMessage() {
-    context?.stringRes(R.string.msg_login_error)?.let { messagesDelegate.showMessageError(it) }
+    messagesDelegate.showMessageSuccess(string(R.string.msg_login_error))
   }
 
   override fun showErrorMessage(message: String) {
