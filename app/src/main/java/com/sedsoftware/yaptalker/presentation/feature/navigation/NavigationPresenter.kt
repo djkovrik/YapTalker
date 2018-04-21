@@ -3,8 +3,7 @@ package com.sedsoftware.yaptalker.presentation.feature.navigation
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.device.settings.DefaultHomeScreen
 import com.sedsoftware.yaptalker.domain.device.Settings
-import com.sedsoftware.yaptalker.domain.interactor.navigation.GetLoginSessionInfo
-import com.sedsoftware.yaptalker.domain.interactor.navigation.SendSignOutRequest
+import com.sedsoftware.yaptalker.domain.interactor.LoginSessionInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
@@ -24,9 +23,8 @@ import javax.inject.Inject
 class NavigationPresenter @Inject constructor(
   private val router: Router,
   private val settings: Settings,
-  private val getLoginSessionInfoUseCase: GetLoginSessionInfo,
-  private val sessionInfoMapper: LoginSessionInfoModelMapper,
-  private val signOutUseCase: SendSignOutRequest
+  private val loginSessionInteractor: LoginSessionInteractor,
+  private val sessionInfoMapper: LoginSessionInfoModelMapper
 ) : BasePresenter<NavigationView>() {
 
   init {
@@ -44,7 +42,6 @@ class NavigationPresenter @Inject constructor(
     super.onFirstViewAttach()
     navigateToDefaultHomePage()
   }
-
 
   override fun attachView(view: NavigationView?) {
     super.attachView(view)
@@ -100,8 +97,8 @@ class NavigationPresenter @Inject constructor(
   }
 
   private fun refreshAuthorization() {
-    getLoginSessionInfoUseCase
-      .execute()
+    loginSessionInteractor
+      .getLoginSessionInfo()
       .subscribeOn(Schedulers.io())
       .map(sessionInfoMapper)
       .observeOn(AndroidSchedulers.mainThread())
@@ -132,8 +129,8 @@ class NavigationPresenter @Inject constructor(
   }
 
   private fun sendSignOutRequest() {
-    signOutUseCase
-      .execute(parameter = currentUserKey)
+    loginSessionInteractor
+      .sendSignOutRequest(currentUserKey)
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
       .autoDisposable(event(PresenterLifecycle.DESTROY))

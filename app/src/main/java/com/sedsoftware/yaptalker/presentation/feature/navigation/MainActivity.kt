@@ -257,8 +257,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
 
     navHeader = AccountHeaderBuilder()
       .withActivity(this)
-//      .withHeaderBackground(R.drawable.nav_header_simple)
-//      .withHeaderBackgroundScaleType(ScaleType.CENTER_CROP)
       .withHeaderBackground(R.drawable.bg_primary_solid)
       .withCompactStyle(true)
       .withSelectionListEnabledForSingleProfile(false)
