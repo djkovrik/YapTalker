@@ -1,11 +1,11 @@
 package com.sedsoftware.yaptalker.presentation.feature.navigation
 
+import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
-import com.sedsoftware.yaptalker.presentation.base.BaseView
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface MainActivityView : BaseView {
+interface MainActivityView : MvpView {
 
   fun setAppbarTitle(title: String)
 

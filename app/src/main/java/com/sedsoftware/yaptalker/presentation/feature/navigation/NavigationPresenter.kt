@@ -110,7 +110,7 @@ class NavigationPresenter @Inject constructor(
         displayLoginSessionInfo(info)
         Timber.i("Login session info updated.")
       }, { error ->
-        error.message?.let { viewState.showErrorMessage(it) }
+        Timber.e("Login session refresh error: ${error.message}")
       })
   }
 
@@ -139,13 +139,12 @@ class NavigationPresenter @Inject constructor(
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe({
         // onComplete
-        viewState.showSignOutMessage()
         refreshAuthorization()
         navigateToDefaultHomePage()
         Timber.i("Sign Out request completed.")
       }, { error ->
         // onError
-        error.message?.let { viewState.showErrorMessage(it) }
+        Timber.e("Sign Out error: ${error.message}")
       })
   }
 }
