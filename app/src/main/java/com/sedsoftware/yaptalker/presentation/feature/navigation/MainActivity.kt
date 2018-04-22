@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.presentation.feature.navigation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -22,11 +23,13 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResourceTablets
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
 import com.sedsoftware.yaptalker.presentation.extensions.colorFromAttr
+import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
+import com.sedsoftware.yaptalker.presentation.provider.ActionBarProvider
+import com.sedsoftware.yaptalker.presentation.provider.NavDrawerProvider
 import kotlinx.android.synthetic.main.activity_main_tablets.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.terrakok.cicerone.Navigator
@@ -34,7 +37,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @LayoutResourceTablets(normalValue = R.layout.activity_main, tabletsValue = R.layout.activity_main_tablets)
-class MainActivity : BaseActivity(), MainActivityView, NavigationView {
+class MainActivity : BaseActivity(), MainActivityView, NavigationView, ActionBarProvider, NavDrawerProvider {
 
   companion object {
     private const val BOOKMARKS_ITEM_INSERT_POSITION = 4
@@ -161,6 +164,10 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView {
   override fun closeNavigationDrawer() {
     navDrawer.closeDrawer()
   }
+
+  override fun getCurrentActionBar(): ActionBar? = supportActionBar
+
+  override fun getCurrentDrawer(): Drawer = navDrawer
 
   @Suppress("PLUGIN_WARNING")
   private fun initializeNavigationDrawer(savedInstanceState: Bundle?) {

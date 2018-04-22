@@ -41,8 +41,8 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
   }
 
   override fun updateCurrentUiState() {
-    presenter.setAppbarTitle(string(R.string.nav_drawer_sign_in))
-    presenter.setNavDrawerItem(NavigationSection.SIGN_IN)
+    setCurrentAppbarTitle(string(R.string.nav_drawer_sign_in))
+    setCurrentNavDrawerItem(NavigationSection.SIGN_IN)
   }
 
   override fun loginSuccessMessage() {

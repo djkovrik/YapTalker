@@ -11,11 +11,19 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.common.exception.MissingAnnotationException
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
+import com.sedsoftware.yaptalker.presentation.provider.ActionBarProvider
+import com.sedsoftware.yaptalker.presentation.provider.NavDrawerProvider
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Maybe
 import javax.inject.Inject
 
 abstract class BaseFragment : MvpAppCompatFragment() {
+
+  @Inject
+  lateinit var appBarProvider: ActionBarProvider
+
+  @Inject
+  lateinit var navDrawerProvider: NavDrawerProvider
 
   @Inject
   lateinit var messagesDelegate: MessagesDelegate
@@ -87,4 +95,12 @@ abstract class BaseFragment : MvpAppCompatFragment() {
 
   protected fun event(@FragmentLifecycle.Event event: Long): Maybe<*> =
     lifecycle.filter({ e -> e == event }).firstElement()
+
+  protected fun setCurrentAppbarTitle(title: String) {
+    appBarProvider.getCurrentActionBar()?.title = title
+  }
+
+  protected fun setCurrentNavDrawerItem(item: Long) {
+    navDrawerProvider.getCurrentDrawer().setSelection(item, false)
+  }
 }

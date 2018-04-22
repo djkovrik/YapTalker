@@ -69,8 +69,8 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView {
   }
 
   override fun updateCurrentUiState() {
-    presenter.setAppbarTitle(string(R.string.nav_drawer_active_topics))
-    presenter.setNavDrawerItem(NavigationSection.ACTIVE_TOPICS)
+    setCurrentAppbarTitle(string(R.string.nav_drawer_active_topics))
+    setCurrentNavDrawerItem(NavigationSection.ACTIVE_TOPICS)
   }
 
   override fun appendActiveTopicItem(topic: YapEntity) {

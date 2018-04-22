@@ -33,6 +33,8 @@ import com.sedsoftware.yaptalker.presentation.feature.updater.UpdaterFragment
 import com.sedsoftware.yaptalker.presentation.feature.updater.di.UpdaterFragmentModule
 import com.sedsoftware.yaptalker.presentation.feature.userprofile.UserProfileFragment
 import com.sedsoftware.yaptalker.presentation.feature.userprofile.di.UserProfileFragmentModule
+import com.sedsoftware.yaptalker.presentation.provider.ActionBarProvider
+import com.sedsoftware.yaptalker.presentation.provider.NavDrawerProvider
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -57,6 +59,14 @@ abstract class MainActivityModule {
     fun provideMessagesDelegate(activity: MainActivity): MessagesDelegate =
       MessagesDelegate(WeakReference(activity))
   }
+
+  @ActivityScope
+  @Binds
+  abstract fun actionBarProvider(activity: MainActivity): ActionBarProvider
+
+  @ActivityScope
+  @Binds
+  abstract fun navDrawerProvider(activity: MainActivity): NavDrawerProvider
 
   @ActivityScope
   @Binds
