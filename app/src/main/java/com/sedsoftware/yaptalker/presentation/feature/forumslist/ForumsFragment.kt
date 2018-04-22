@@ -11,16 +11,18 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.forumslist.adapter.ForumsAdapter
-import com.sedsoftware.yaptalker.presentation.feature.forumslist.adapter.ForumsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_forums_list.*
+import kotlinx.android.synthetic.main.fragment_forums_list.forums_list
+import kotlinx.android.synthetic.main.fragment_forums_list.forums_list_refresh_layout
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_forums_list)
-class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
+class ForumsFragment : BaseFragment(), ForumsView {
 
   companion object {
     fun getNewInstance() = ForumsFragment()
@@ -64,21 +66,17 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
     messagesDelegate.showMessageError(message)
   }
 
+  override fun updateCurrentUiState() {
+    setCurrentAppbarTitle(string(R.string.nav_drawer_forums))
+    setCurrentNavDrawerItem(NavigationSection.FORUMS)
+  }
+
   override fun appendForumItem(item: YapEntity) {
     forumsAdapter.addForumsListItem(item)
   }
 
   override fun clearForumsList() {
     forumsAdapter.clearForumsList()
-  }
-
-  override fun updateCurrentUiState() {
-//    context?.string(R.string.nav_drawer_forums)?.let { presenter.setAppbarTitle(it) }
-//    presenter.setNavDrawerItem(NavigationSection.FORUMS)
-  }
-
-  override fun onForumItemClick(forumId: Int, forumTitle: String) {
-    presenter.navigateToChosenForum(forumId, forumTitle)
   }
 
   private fun subscribeViews() {

@@ -1,10 +1,11 @@
 package com.sedsoftware.yaptalker.presentation.feature.forumslist
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.interactor.forumslist.GetForumsList
+import com.sedsoftware.yaptalker.domain.interactor.ForumsListInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.feature.forumslist.adapter.ForumsItemClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.ForumsListModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
@@ -18,9 +19,9 @@ import javax.inject.Inject
 @InjectViewState
 class ForumsPresenter @Inject constructor(
   private val router: Router,
-  private val forumsListUseCase: GetForumsList,
+  private val forumsListInteractor: ForumsListInteractor,
   private val forumsListModelMapper: ForumsListModelMapper
-) : BasePresenter<ForumsView>() {
+) : BasePresenter<ForumsView>(), ForumsItemClickListener {
 
   private var clearCurrentList = false
 
@@ -34,7 +35,7 @@ class ForumsPresenter @Inject constructor(
     viewState.updateCurrentUiState()
   }
 
-  fun navigateToChosenForum(forumId: Int, forumTitle: String) {
+  override fun onForumItemClick(forumId: Int, forumTitle: String) {
     router.navigateTo(NavigationScreen.CHOSEN_FORUM_SCREEN, Pair(forumId, forumTitle))
   }
 
@@ -42,8 +43,8 @@ class ForumsPresenter @Inject constructor(
 
     clearCurrentList = true
 
-    forumsListUseCase
-      .execute()
+    forumsListInteractor
+      .getForumsList()
       .subscribeOn(Schedulers.io())
       .map(forumsListModelMapper)
       .observeOn(AndroidSchedulers.mainThread())
