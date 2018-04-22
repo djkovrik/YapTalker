@@ -1,11 +1,12 @@
 package com.sedsoftware.yaptalker.presentation.feature.bookmarks
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.interactor.bookmarks.GetBookmarks
-import com.sedsoftware.yaptalker.domain.interactor.bookmarks.SendBookmarkDeleteRequest
+import com.sedsoftware.yaptalker.domain.interactor.BookmarksInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
+import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapters.BookmarkElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.BookmarksModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
@@ -19,10 +20,9 @@ import javax.inject.Inject
 @InjectViewState
 class BookmarksPresenter @Inject constructor(
   private val router: Router,
-  private val getBookmarksUseCase: GetBookmarks,
-  private val bookmarksMapper: BookmarksModelMapper,
-  private val deleteBookmarkUseCase: SendBookmarkDeleteRequest
-) : BasePresenter<BookmarksView>() {
+  private val bookmarksInteractor: BookmarksInteractor,
+  private val bookmarksMapper: BookmarksModelMapper
+) : BasePresenter<BookmarksView>(), BookmarkElementsClickListener {
 
   private var clearCurrentList = false
 
@@ -36,24 +36,23 @@ class BookmarksPresenter @Inject constructor(
     viewState.updateCurrentUiState()
   }
 
-  fun navigateToBookmarkedTopic(triple: Triple<Int, Int, Int>) {
-    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
-  }
-
-  fun requestDeleteConfirmationDialog(bookmarkId: Int) {
+  override fun onDeleteIconClick(bookmarkId: Int) {
     viewState.showDeleteConfirmationDialog(bookmarkId)
   }
 
-  fun deleteSelectedBookmark(bookmarkId: Int) {
-    deleteBookmark(bookmarkId)
+  override fun onTopicItemClick(link: String) {
+    val triple = link.extractYapIds()
+    if (triple.first != 0) {
+      router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
+    }
   }
 
   fun loadBookmarks() {
 
     clearCurrentList = true
 
-    getBookmarksUseCase
-      .execute()
+    bookmarksInteractor
+      .getBookmarks()
       .subscribeOn(Schedulers.io())
       .map(bookmarksMapper)
       .observeOn(AndroidSchedulers.mainThread())
@@ -61,6 +60,21 @@ class BookmarksPresenter @Inject constructor(
       .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe(getBookmarksObserver())
+  }
+
+  fun deleteSelectedBookmark(bookmarkId: Int) {
+    bookmarksInteractor
+      .deleteFromBookmarks(bookmarkId)
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({
+        Timber.i("Bookmark deletion completed.")
+        viewState.showBookmarkDeletedMessage()
+        loadBookmarks()
+      }, { error ->
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
   }
 
   private fun getBookmarksObserver() =
@@ -83,21 +97,4 @@ class BookmarksPresenter @Inject constructor(
         e.message?.let { viewState.showErrorMessage(it) }
       }
     }
-
-  private fun deleteBookmark(bookmarkId: Int) {
-    deleteBookmarkUseCase
-      .execute(SendBookmarkDeleteRequest.Params(bookmarkId))
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe({
-        // onComplete
-        Timber.i("Bookmark deletion completed.")
-        viewState.showBookmarkDeletedMessage()
-        loadBookmarks()
-      }, { error ->
-        // onError
-        error.message?.let { viewState.showErrorMessage(it) }
-      })
-  }
 }

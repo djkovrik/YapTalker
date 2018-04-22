@@ -48,7 +48,7 @@ class ActiveTopicsDelegateAdapter(
 
         setOnClickListener {
           val triple = Triple(topicItem.forumId, topicItem.topicId, 0)
-          itemClickListener.goToSelectedTopic(triple)
+          itemClickListener.onActiveTopicItemClick(triple)
         }
       }
     }

@@ -45,11 +45,11 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
     setCurrentNavDrawerItem(NavigationSection.SIGN_IN)
   }
 
-  override fun loginSuccessMessage() {
+  override fun showLoginSuccessMessage() {
     messagesDelegate.showMessageSuccess(string(R.string.msg_login_success))
   }
 
-  override fun loginErrorMessage() {
+  override fun showLoginErrorMessage() {
     messagesDelegate.showMessageSuccess(string(R.string.msg_login_error))
   }
 

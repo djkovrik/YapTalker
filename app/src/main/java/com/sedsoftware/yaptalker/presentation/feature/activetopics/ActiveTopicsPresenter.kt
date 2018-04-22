@@ -45,7 +45,7 @@ class ActiveTopicsPresenter @Inject constructor(
     viewState.updateCurrentUiState()
   }
 
-  override fun goToSelectedTopic(triple: Triple<Int, Int, Int>) {
+  override fun onActiveTopicItemClick(triple: Triple<Int, Int, Int>) {
     router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
   }
 

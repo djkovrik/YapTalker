@@ -12,7 +12,7 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 class BookmarksAdapter @Inject constructor(
-  clickListener: BookmarksElementsClickListener,
+  clickListener: BookmarkElementsClickListener,
   settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

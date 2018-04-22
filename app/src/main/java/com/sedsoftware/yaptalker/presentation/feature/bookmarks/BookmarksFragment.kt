@@ -12,17 +12,17 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapters.BookmarksAdapter
-import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapters.BookmarksElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_bookmarks.*
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_bookmarks)
-class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickListener {
+class BookmarksFragment : BaseFragment(), BookmarksView {
 
   companion object {
     fun getNewInstance() = BookmarksFragment()
@@ -66,17 +66,18 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
     messagesDelegate.showMessageError(message)
   }
 
+  override fun updateCurrentUiState() {
+    setCurrentAppbarTitle(string(R.string.nav_drawer_bookmarks))
+    setCurrentNavDrawerItem(NavigationSection.BOOKMARKS)
+  }
+
+
   override fun appendBookmarkItem(bookmark: YapEntity) {
     bookmarksAdapter.addBookmarkItem(bookmark)
   }
 
   override fun clearBookmarksList() {
     bookmarksAdapter.clearBookmarksList()
-  }
-
-  override fun updateCurrentUiState() {
-//    context?.string(R.string.nav_drawer_bookmarks)?.let { presenter.setAppbarTitle(it) }
-//    presenter.setNavDrawerItem(NavigationSection.BOOKMARKS)
   }
 
   override fun showDeleteConfirmationDialog(bookmarkId: Int) {
@@ -92,17 +93,6 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
 
   override fun showBookmarkDeletedMessage() {
     messagesDelegate.showMessageInfo(getString(R.string.msg_bookmark_topic_deleted))
-  }
-
-  override fun onTopicItemClick(link: String) {
-    val triple = link.extractYapIds()
-    if (triple.first != 0) {
-      presenter.navigateToBookmarkedTopic(triple)
-    }
-  }
-
-  override fun onDeleteIconClick(bookmarkId: Int) {
-    presenter.requestDeleteConfirmationDialog(bookmarkId)
   }
 
   private fun subscribeViews() {

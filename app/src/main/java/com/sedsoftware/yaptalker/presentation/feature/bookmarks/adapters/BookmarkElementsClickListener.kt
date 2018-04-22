@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapters
 
-interface BookmarksElementsClickListener {
+interface BookmarkElementsClickListener {
 
   fun onDeleteIconClick(bookmarkId: Int)
 

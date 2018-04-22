@@ -39,10 +39,10 @@ class AuthorizationPresenter @Inject constructor(
       .observeOn(AndroidSchedulers.mainThread())
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe({
-        viewState.loginSuccessMessage()
+        viewState.showLoginSuccessMessage()
         Timber.i("Sign In request completed, start site preferences loading...")
         loadSitePreferences()
-      }, { viewState.loginErrorMessage() })
+      }, { viewState.showLoginErrorMessage() })
   }
 
   private fun loadSitePreferences() {

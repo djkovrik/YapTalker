@@ -9,9 +9,9 @@ import com.sedsoftware.yaptalker.presentation.base.CanUpdateUiState
 @StateStrategyType(SkipStrategy::class)
 interface AuthorizationView : MvpView, CanShowErrorMessage, CanUpdateUiState {
 
-  fun loginSuccessMessage()
+  fun showLoginSuccessMessage()
 
-  fun loginErrorMessage()
+  fun showLoginErrorMessage()
 
   fun setSignInButtonState(isEnabled: Boolean)
 
