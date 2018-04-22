@@ -2,10 +2,12 @@ package com.sedsoftware.yaptalker.presentation.feature.forum
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.device.Settings
-import com.sedsoftware.yaptalker.domain.interactor.forum.GetChosenForum
+import com.sedsoftware.yaptalker.domain.interactor.ChosenForumInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
+import com.sedsoftware.yaptalker.presentation.feature.forum.adapter.ChosenForumItemClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.ForumModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.ForumInfoBlockModel
@@ -22,10 +24,10 @@ import javax.inject.Inject
 @InjectViewState
 class ChosenForumPresenter @Inject constructor(
   private val router: Router,
-  private val getChosenForumUseCase: GetChosenForum,
+  private val forumInteractor: ChosenForumInteractor,
   private val forumModelMapper: ForumModelMapper,
   private val settings: Settings
-) : BasePresenter<ChosenForumView>() {
+) : BasePresenter<ChosenForumView>(), ChosenForumItemClickListener, NavigationPanelClickListener {
 
   companion object {
     private const val LAST_UPDATE_SORTER = "last_post"
@@ -43,28 +45,37 @@ class ChosenForumPresenter @Inject constructor(
     viewState.initiateForumLoading()
   }
 
-  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
-    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
+  override fun attachView(view: ChosenForumView?) {
+    super.attachView(view)
+    viewState.updateCurrentUiState()
   }
 
-  fun goToFirstPage() {
+  override fun onTopicItemClick(topicId: Int) {
+    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, Triple(currentForumId, topicId, 0))
+  }
+
+  override fun goToFirstPage() {
     currentPage = 1
     loadForumCurrentPage()
   }
 
-  fun goToLastPage() {
+  override fun goToLastPage() {
     currentPage = totalPages
     loadForumCurrentPage()
   }
 
-  fun goToPreviousPage() {
+  override fun goToPreviousPage() {
     currentPage--
     loadForumCurrentPage()
   }
 
-  fun goToNextPage() {
+  override fun goToNextPage() {
     currentPage++
     loadForumCurrentPage()
+  }
+
+  override fun goToSelectedPage() {
+    viewState.showPageSelectionDialog()
   }
 
   fun goToChosenPage(chosenPage: Int) {
@@ -89,8 +100,8 @@ class ChosenForumPresenter @Inject constructor(
 
     clearCurrentList = true
 
-    getChosenForumUseCase
-      .execute(GetChosenForum.Params(currentForumId, startingTopic, currentSorting))
+    forumInteractor
+      .getChosenForum(currentForumId, startingTopic, currentSorting)
       .subscribeOn(Schedulers.io())
       .map(forumModelMapper)
       .flatMap { topics: List<YapEntity> -> Observable.fromIterable(topics) }
@@ -113,7 +124,6 @@ class ChosenForumPresenter @Inject constructor(
         when (item) {
           is ForumInfoBlockModel -> {
             currentForumId = item.forumId
-            viewState.updateCurrentUiState(item.forumTitle)
           }
           is NavigationPanelModel -> {
             currentPage = item.currentPage

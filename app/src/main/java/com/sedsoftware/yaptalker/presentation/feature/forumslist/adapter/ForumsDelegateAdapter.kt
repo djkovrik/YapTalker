@@ -44,7 +44,7 @@ class ForumsDelegateAdapter(
         forum_last_topic_author.textSize = normalFontSize
         forum_last_topic_date.textSize = normalFontSize
 
-        setOnClickListener { itemClickListener.onForumItemClick(forumItem.forumId) }
+        setOnClickListener { itemClickListener.onForumItemClick(forumItem.forumId, forumItem.title) }
       }
     }
   }

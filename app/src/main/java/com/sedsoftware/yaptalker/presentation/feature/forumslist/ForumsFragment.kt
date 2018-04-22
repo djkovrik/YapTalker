@@ -77,8 +77,8 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
 //    presenter.setNavDrawerItem(NavigationSection.FORUMS)
   }
 
-  override fun onForumItemClick(forumId: Int) {
-    presenter.navigateToChosenForum(forumId)
+  override fun onForumItemClick(forumId: Int, forumTitle: String) {
+    presenter.navigateToChosenForum(forumId, forumTitle)
   }
 
   private fun subscribeViews() {

@@ -34,8 +34,8 @@ class ForumsPresenter @Inject constructor(
     viewState.updateCurrentUiState()
   }
 
-  fun navigateToChosenForum(forumId: Int) {
-    router.navigateTo(NavigationScreen.CHOSEN_FORUM_SCREEN, forumId)
+  fun navigateToChosenForum(forumId: Int, forumTitle: String) {
+    router.navigateTo(NavigationScreen.CHOSEN_FORUM_SCREEN, Pair(forumId, forumTitle))
   }
 
   fun loadForumsList() {

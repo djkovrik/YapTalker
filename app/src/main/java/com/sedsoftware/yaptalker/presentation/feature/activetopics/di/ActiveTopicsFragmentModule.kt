@@ -26,8 +26,8 @@ abstract class ActiveTopicsFragmentModule {
     @JvmStatic
     fun providePresenter(router: Router,
                          interactor: ActiveTopicsInteractor,
-                         mapper: ActiveTopicModelMapper): ActiveTopicsPresenter
-        = ActiveTopicsPresenter(router, interactor, mapper)
+                         mapper: ActiveTopicModelMapper): ActiveTopicsPresenter =
+      ActiveTopicsPresenter(router, interactor, mapper)
   }
 
   @FragmentScope
