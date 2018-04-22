@@ -1,8 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.imagedisplay
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.interactor.imagedisplay.SaveImage
-import com.sedsoftware.yaptalker.domain.interactor.imagedisplay.ShareImage
+import com.sedsoftware.yaptalker.domain.interactor.ImageHelperInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
@@ -14,13 +13,12 @@ import javax.inject.Inject
 
 @InjectViewState
 class ImageDisplayPresenter @Inject constructor(
-  private val saveImageUseCase: SaveImage,
-  private val shareImageUseCase: ShareImage
+  private val imageHelperInteractor: ImageHelperInteractor
 ) : BasePresenter<ImageDisplayView>() {
 
   fun saveImage(url: String) {
-    saveImageUseCase
-      .execute(SaveImage.Params(url.validateUrl()))
+    imageHelperInteractor
+      .saveImage(url.validateUrl())
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
       .autoDisposable(event(PresenterLifecycle.DESTROY))
@@ -32,8 +30,8 @@ class ImageDisplayPresenter @Inject constructor(
   }
 
   fun shareImage(url: String) {
-    shareImageUseCase
-      .execute(ShareImage.Params(url.validateUrl()))
+    imageHelperInteractor
+      .shareImage(url.validateUrl())
       .autoDisposable(event(PresenterLifecycle.DETACH_VIEW))
       .subscribe({
         Timber.d("Image sharing request launched.")

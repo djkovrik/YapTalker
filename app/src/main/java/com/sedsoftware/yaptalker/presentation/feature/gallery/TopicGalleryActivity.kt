@@ -20,17 +20,16 @@ import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.visibleItemPosition
 import com.sedsoftware.yaptalker.presentation.feature.gallery.adapter.TopicGalleryAdapter
-import com.sedsoftware.yaptalker.presentation.feature.gallery.adapter.TopicGalleryLoadMoreClickListener
 import com.sedsoftware.yaptalker.presentation.feature.topic.GalleryInitialState
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
-import kotlinx.android.synthetic.main.activity_topic_gallery.*
-import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
+import kotlinx.android.synthetic.main.activity_topic_gallery.topic_gallery
+import kotlinx.android.synthetic.main.include_main_appbar_transparent.toolbar
 import java.util.Locale
 import javax.inject.Inject
 
 @LayoutResource(R.layout.activity_topic_gallery)
-class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadMoreClickListener {
+class TopicGalleryActivity : BaseActivity(), TopicGalleryView {
 
   companion object {
     fun getIntent(ctx: Context, initialState: GalleryInitialState): Intent {
@@ -148,10 +147,6 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView, TopicGalleryLoadM
 
   override fun fileNotSavedMessage() {
     messagesDelegate.showMessageError(string(R.string.msg_file_not_saved))
-  }
-
-  override fun onLoadMoreClicked() {
-    presenter.loadMoreImages()
   }
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

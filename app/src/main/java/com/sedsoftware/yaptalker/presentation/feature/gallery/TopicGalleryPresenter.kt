@@ -2,12 +2,12 @@ package com.sedsoftware.yaptalker.presentation.feature.gallery
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.device.Settings
-import com.sedsoftware.yaptalker.domain.interactor.imagedisplay.SaveImage
-import com.sedsoftware.yaptalker.domain.interactor.imagedisplay.ShareImage
-import com.sedsoftware.yaptalker.domain.interactor.topic.GetChosenTopicGallery
+import com.sedsoftware.yaptalker.domain.interactor.ImageHelperInteractor
+import com.sedsoftware.yaptalker.domain.interactor.TopicGalleryInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.feature.gallery.adapter.TopicGalleryLoadMoreClickListener
 import com.sedsoftware.yaptalker.presentation.feature.topic.GalleryInitialState
 import com.sedsoftware.yaptalker.presentation.mapper.TopicGalleryModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -23,12 +23,11 @@ import javax.inject.Inject
 @InjectViewState
 class TopicGalleryPresenter @Inject constructor(
   settings: Settings,
-  private val getTopicGalleryUseCase: GetChosenTopicGallery,
+  private val topicGalleryInteractor: TopicGalleryInteractor,
+  private val imageHelperInteractor: ImageHelperInteractor,
   private val galleryMapper: TopicGalleryModelMapper,
-  private val saveImageUseCase: SaveImage,
-  private val shareImageUseCase: ShareImage,
   private val initialState: GalleryInitialState
-) : BasePresenter<TopicGalleryView>() {
+) : BasePresenter<TopicGalleryView>(), TopicGalleryLoadMoreClickListener {
 
   companion object {
     private const val OFFSET_FOR_PAGE_NUMBER = 1
@@ -46,15 +45,15 @@ class TopicGalleryPresenter @Inject constructor(
     loadTopicGallery()
   }
 
-  fun loadTopicGallery() {
-    currentPage = initialState.currentPage
-    currentImage = initialState.currentImage
-
+  override fun onLoadMoreClicked() {
+    currentPage++
     loadTopicCurrentPageGallery()
   }
 
-  fun loadMoreImages() {
-    currentPage++
+  private fun loadTopicGallery() {
+    currentPage = initialState.currentPage
+    currentImage = initialState.currentImage
+
     loadTopicCurrentPageGallery()
   }
 
@@ -62,8 +61,8 @@ class TopicGalleryPresenter @Inject constructor(
 
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
-    getTopicGalleryUseCase
-      .execute(GetChosenTopicGallery.Params(initialState.currentForumId, initialState.currentTopicId, startingPost))
+    topicGalleryInteractor
+      .getTopicGallery(initialState.currentForumId, initialState.currentTopicId, startingPost)
       .subscribeOn(Schedulers.io())
       .map(galleryMapper)
       .observeOn(AndroidSchedulers.mainThread())
@@ -108,8 +107,8 @@ class TopicGalleryPresenter @Inject constructor(
     }
 
   fun saveImage(url: String) {
-    saveImageUseCase
-      .execute(SaveImage.Params(url.validateUrl()))
+    imageHelperInteractor
+      .saveImage(url.validateUrl())
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
       .autoDisposable(event(PresenterLifecycle.DESTROY))
@@ -121,8 +120,8 @@ class TopicGalleryPresenter @Inject constructor(
   }
 
   fun shareImage(url: String) {
-    shareImageUseCase
-      .execute(ShareImage.Params(url.validateUrl()))
+    imageHelperInteractor
+      .shareImage(url.validateUrl())
       .autoDisposable(event(PresenterLifecycle.DETACH_VIEW))
       .subscribe({
         Timber.d("Image sharing request launched.")
