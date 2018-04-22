@@ -12,36 +12,34 @@ import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
-import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
-import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.IncubatorAdapter
-import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.IncubatorElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_incubator.*
+import kotlinx.android.synthetic.main.fragment_incubator.incubator_fab
+import kotlinx.android.synthetic.main.fragment_incubator.incubator_refresh_layout
+import kotlinx.android.synthetic.main.fragment_incubator.incubator_topics_list
 import org.jetbrains.anko.browse
 import timber.log.Timber
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_incubator)
-class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader, IncubatorElementsClickListener {
+class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader {
 
   companion object {
     fun getNewInstance() = IncubatorFragment()
   }
-
-  @Inject
-  lateinit var settings: Settings
 
   @Inject
   lateinit var incubatorAdapter: IncubatorAdapter
@@ -77,6 +75,19 @@ class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader, Incub
     messagesDelegate.showMessageError(message)
   }
 
+  override fun showLoadingIndicator() {
+    incubator_refresh_layout?.isRefreshing = true
+  }
+
+  override fun hideLoadingIndicator() {
+    incubator_refresh_layout?.isRefreshing = false
+  }
+
+  override fun updateCurrentUiState() {
+    setCurrentAppbarTitle(string(R.string.nav_drawer_incubator))
+    setCurrentNavDrawerItem(NavigationSection.INCUBATOR)
+  }
+
   override fun appendIncubatorItem(entity: YapEntity) {
     incubatorAdapter.addIncubatorItem(entity)
   }
@@ -85,17 +96,8 @@ class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader, Incub
     incubatorAdapter.clearIncubatorItems()
   }
 
-  override fun updateCurrentUiState() {
-//    context?.string(R.string.nav_drawer_incubator)?.let { presenter.setAppbarTitle(it) }
-//    presenter.setNavDrawerItem(NavigationSection.INCUBATOR)
-  }
-
-  override fun showLoadingIndicator() {
-    incubator_refresh_layout?.isRefreshing = true
-  }
-
-  override fun hideLoadingIndicator() {
-    incubator_refresh_layout?.isRefreshing = false
+  override fun browseExternalResource(url: String) {
+    context?.browse(url.validateUrl())
   }
 
   override fun showFab() {
@@ -107,10 +109,6 @@ class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader, Incub
       val offset = fab.height + fab.paddingTop + fab.paddingBottom
       fab.moveWithAnimationAxisY(offset = offset.toFloat())
     }
-  }
-
-  override fun onIncubatorItemClicked(forumId: Int, topicId: Int) {
-    presenter.navigateToChosenTopic(Triple(forumId, topicId, 0))
   }
 
   override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
@@ -128,27 +126,6 @@ class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader, Incub
       }, { throwable ->
         Timber.e("Can't load image: ${throwable.message}")
       })
-  }
-
-  override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
-    when {
-      isVideo && url.contains("youtube") -> {
-        val videoId = url.extractYoutubeVideoId()
-        context?.browse("http://www.youtube.com/watch?v=$videoId")
-      }
-
-      isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
-        context?.browse(url.validateUrl())
-      }
-
-      isVideo && !url.contains("youtube") -> {
-        presenter.navigateToChosenVideo(html)
-      }
-
-      else -> {
-        presenter.navigateToChosenImage(url)
-      }
-    }
   }
 
   private fun subscribeViews() {

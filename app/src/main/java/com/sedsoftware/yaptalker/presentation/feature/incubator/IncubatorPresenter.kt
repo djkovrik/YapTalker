@@ -1,11 +1,15 @@
 package com.sedsoftware.yaptalker.presentation.feature.incubator
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
-import com.sedsoftware.yaptalker.domain.interactor.incubator.GetIncubatorTopics
+import com.sedsoftware.yaptalker.domain.device.Settings
+import com.sedsoftware.yaptalker.domain.interactor.IncubatorInteractor
+import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
+import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.IncubatorElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.IncubatorModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
@@ -20,10 +24,11 @@ import javax.inject.Inject
 @InjectViewState
 class IncubatorPresenter @Inject constructor(
   private val router: Router,
-  private val getIncubatorTopics: GetIncubatorTopics,
-  private val getVideoThumbnail: GetVideoThumbnail,
+  private val settings: Settings,
+  private val incubatorInteractor: IncubatorInteractor,
+  private val videoThumbnailsInteractor: VideoThumbnailsInteractor,
   private val incubatorModelMapper: IncubatorModelMapper
-) : BasePresenter<IncubatorView>() {
+) : BasePresenter<IncubatorView>(), IncubatorElementsClickListener {
 
   companion object {
     private const val ITEMS_PER_PAGE = 50
@@ -42,6 +47,31 @@ class IncubatorPresenter @Inject constructor(
     viewState.updateCurrentUiState()
   }
 
+  override fun onIncubatorItemClicked(forumId: Int, topicId: Int) {
+    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, Triple(forumId, topicId, 0))
+  }
+
+  override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
+    when {
+      isVideo && url.contains("youtube") -> {
+        val videoId = url.extractYoutubeVideoId()
+        viewState.browseExternalResource("http://www.youtube.com/watch?v=$videoId")
+      }
+
+      isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
+        viewState.browseExternalResource(url.validateUrl())
+      }
+
+      isVideo && !url.contains("youtube") -> {
+        router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
+      }
+
+      else -> {
+        router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
+      }
+    }
+  }
+
   fun handleFabVisibility(diff: Int) {
     when {
       diff > 0 -> viewState.hideFab()
@@ -50,8 +80,8 @@ class IncubatorPresenter @Inject constructor(
   }
 
   fun requestThumbnail(videoUrl: String): Single<String> =
-    getVideoThumbnail
-      .execute(GetVideoThumbnail.Params(videoUrl))
+    videoThumbnailsInteractor
+      .getThumbnail(videoUrl)
 
   fun loadIncubator(loadFromFirstPage: Boolean) {
 
@@ -66,21 +96,9 @@ class IncubatorPresenter @Inject constructor(
     loadDataForCurrentPage()
   }
 
-  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
-    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
-  }
-
-  fun navigateToChosenVideo(html: String) {
-    router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
-  }
-
-  fun navigateToChosenImage(url: String) {
-    router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
-  }
-
   private fun loadDataForCurrentPage() {
-    getIncubatorTopics
-      .execute(GetIncubatorTopics.Params(pageNumber = currentPage))
+    incubatorInteractor
+      .getIncubatorPage(currentPage)
       .subscribeOn(Schedulers.io())
       .map(incubatorModelMapper)
       .observeOn(AndroidSchedulers.mainThread())
