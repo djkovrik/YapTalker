@@ -10,7 +10,6 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.feature.search.adapters.SearchResultsAdapter
@@ -95,8 +94,8 @@ class SearchResultsFragment : BaseFragment(), SearchResultsView, SearchResultsIt
   }
 
   override fun updateCurrentUiState() {
-    presenter.setAppbarTitle(searchRequest.searchFor)
-    presenter.setNavDrawerItem(NavigationSection.SITE_SEARCH)
+//    presenter.setAppbarTitle(searchRequest.searchFor)
+//    presenter.setNavDrawerItem(NavigationSection.SITE_SEARCH)
   }
 
   override fun onSearchResultsItemClick(triple: Triple<Int, Int, Int>) {

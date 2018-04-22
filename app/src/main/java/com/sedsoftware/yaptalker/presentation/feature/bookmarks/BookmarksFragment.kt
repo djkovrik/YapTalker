@@ -12,10 +12,8 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapters.BookmarksAdapter
 import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapters.BookmarksElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -77,8 +75,8 @@ class BookmarksFragment : BaseFragment(), BookmarksView, BookmarksElementsClickL
   }
 
   override fun updateCurrentUiState() {
-    context?.string(R.string.nav_drawer_bookmarks)?.let { presenter.setAppbarTitle(it) }
-    presenter.setNavDrawerItem(NavigationSection.BOOKMARKS)
+//    context?.string(R.string.nav_drawer_bookmarks)?.let { presenter.setAppbarTitle(it) }
+//    presenter.setNavDrawerItem(NavigationSection.BOOKMARKS)
   }
 
   override fun showDeleteConfirmationDialog(bookmarkId: Int) {

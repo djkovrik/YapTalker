@@ -8,7 +8,6 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.string
@@ -128,7 +127,7 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
   }
 
   override fun updateCurrentUiState(title: String) {
-    presenter.setAppbarTitle(title)
-    presenter.setNavDrawerItem(NavigationSection.FORUMS)
+//    presenter.setAppbarTitle(title)
+//    presenter.setNavDrawerItem(NavigationSection.FORUMS)
   }
 }

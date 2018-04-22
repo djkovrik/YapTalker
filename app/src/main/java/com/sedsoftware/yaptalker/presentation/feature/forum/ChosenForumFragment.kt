@@ -13,7 +13,6 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
@@ -92,8 +91,8 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView, ChosenForumItemClic
   }
 
   override fun updateCurrentUiState(forumTitle: String) {
-    presenter.setAppbarTitle(forumTitle)
-    presenter.setNavDrawerItem(NavigationSection.FORUMS)
+//    presenter.setAppbarTitle(forumTitle)
+//    presenter.setNavDrawerItem(NavigationSection.FORUMS)
   }
 
   override fun initiateForumLoading() {

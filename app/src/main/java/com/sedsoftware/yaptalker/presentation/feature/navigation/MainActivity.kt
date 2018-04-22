@@ -37,7 +37,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @LayoutResourceTablets(normalValue = R.layout.activity_main, tabletsValue = R.layout.activity_main_tablets)
-class MainActivity : BaseActivity(), MainActivityView, NavigationView, ActionBarProvider, NavDrawerProvider {
+class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDrawerProvider {
 
   companion object {
     private const val BOOKMARKS_ITEM_INSERT_POSITION = 4
@@ -51,14 +51,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView, ActionBar
   lateinit var presenter: MainActivityPresenter
 
   @ProvidePresenter
-  fun provideMainPresenter(): MainActivityPresenter = presenter
-
-  @Inject
-  @InjectPresenter
-  lateinit var navigationPresenter: NavigationPresenter
-
-  @ProvidePresenter
-  fun provideNavigationPresenter(): NavigationPresenter = navigationPresenter
+  fun providePresenter(): MainActivityPresenter = presenter
 
   private val isInTwoPaneMode: Boolean by lazy {
     settings.isInTwoPaneMode()
@@ -118,14 +111,6 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView, ActionBar
       backPressFragment.onBackPressed() -> Timber.i("Back press event consumed by fragment.")
       else -> super.onBackPressed()
     }
-  }
-
-  override fun setAppbarTitle(title: String) {
-    supportActionBar?.title = title
-  }
-
-  override fun selectNavDrawerItem(item: Long) {
-    navDrawer.setSelection(item, false)
   }
 
   override fun updateNavDrawerProfile(userInfo: LoginSessionInfoModel) {
@@ -270,7 +255,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView, ActionBar
       .withSavedInstance(savedInstanceState)
       .withOnAccountHeaderProfileImageListener(object : OnAccountHeaderProfileImageListener {
         override fun onProfileImageClick(view: View?, profile: IProfile<*>?, current: Boolean): Boolean {
-          navigationPresenter.navigateToUserProfile()
+          presenter.navigateToUserProfile()
           return true
         }
 
@@ -292,7 +277,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView, ActionBar
       .addDrawerItems(drawerItemUpdater)
       .withOnDrawerItemClickListener { _, _, drawerItem ->
         if (drawerItem is Nameable<*>) {
-          navigationPresenter.navigateToChosenSection(drawerItem.identifier)
+          presenter.navigateToChosenSection(drawerItem.identifier)
         }
         false
       }
@@ -316,7 +301,7 @@ class MainActivity : BaseActivity(), MainActivityView, NavigationView, ActionBar
       val navigateTo = appLinkData.toString().extractYapIds()
 
       if (navigateTo.first != 0) {
-        navigationPresenter.navigateWithIntentLink(navigateTo)
+        presenter.navigateWithIntentLink(navigateTo)
       }
     }
   }

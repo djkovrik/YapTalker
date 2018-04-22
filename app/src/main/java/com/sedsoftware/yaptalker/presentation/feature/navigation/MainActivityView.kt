@@ -1,13 +1,20 @@
 package com.sedsoftware.yaptalker.presentation.feature.navigation
 
 import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
+import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
+import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
 
-@StateStrategyType(AddToEndSingleStrategy::class)
+@StateStrategyType(SkipStrategy::class)
 interface MainActivityView : MvpView {
 
-  fun setAppbarTitle(title: String)
+  fun updateNavDrawerProfile(userInfo: LoginSessionInfoModel)
 
-  fun selectNavDrawerItem(item: Long)
+  fun clearDynamicNavigationItems()
+
+  fun displaySignedInNavigation()
+
+  fun displaySignedOutNavigation()
+
+  fun closeNavigationDrawer()
 }

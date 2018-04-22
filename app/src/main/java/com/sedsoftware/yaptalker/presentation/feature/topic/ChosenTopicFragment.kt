@@ -20,7 +20,6 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
@@ -156,8 +155,8 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
   }
 
   override fun updateCurrentUiState(title: String) {
-    presenter.setAppbarTitle(title)
-    presenter.setNavDrawerItem(NavigationSection.FORUMS)
+//    presenter.setAppbarTitle(title)
+//    presenter.setNavDrawerItem(NavigationSection.FORUMS)
   }
 
   override fun initiateTopicLoading() {

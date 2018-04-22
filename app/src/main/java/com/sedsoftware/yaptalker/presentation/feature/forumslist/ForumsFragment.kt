@@ -11,9 +11,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.forumslist.adapter.ForumsAdapter
 import com.sedsoftware.yaptalker.presentation.feature.forumslist.adapter.ForumsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -75,8 +73,8 @@ class ForumsFragment : BaseFragment(), ForumsView, ForumsItemClickListener {
   }
 
   override fun updateCurrentUiState() {
-    context?.string(R.string.nav_drawer_forums)?.let { presenter.setAppbarTitle(it) }
-    presenter.setNavDrawerItem(NavigationSection.FORUMS)
+//    context?.string(R.string.nav_drawer_forums)?.let { presenter.setAppbarTitle(it) }
+//    presenter.setNavDrawerItem(NavigationSection.FORUMS)
   }
 
   override fun onForumItemClick(forumId: Int) {

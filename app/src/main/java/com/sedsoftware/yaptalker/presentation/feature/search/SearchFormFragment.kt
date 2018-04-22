@@ -11,8 +11,6 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.search.options.SearchConditions
 import com.sedsoftware.yaptalker.presentation.feature.search.options.SortingMode
 import com.sedsoftware.yaptalker.presentation.feature.search.options.TargetPeriod
@@ -94,8 +92,8 @@ class SearchFormFragment : BaseFragment(), SearchFormView {
   }
 
   override fun updateCurrentUiState() {
-    context?.string(R.string.nav_drawer_search)?.let { presenter.setAppbarTitle(it) }
-    presenter.setNavDrawerItem(NavigationSection.SITE_SEARCH)
+//    context?.string(R.string.nav_drawer_search)?.let { presenter.setAppbarTitle(it) }
+//    presenter.setNavDrawerItem(NavigationSection.SITE_SEARCH)
   }
 
   private fun getCheckedCategories(): List<String> {

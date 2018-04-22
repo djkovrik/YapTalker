@@ -23,7 +23,6 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.device.fileresolver.FilePathResolver
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.feature.posting.adapter.EmojiAdapter
@@ -157,8 +156,8 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
   }
 
   override fun updateCurrentUiState() {
-    presenter.setAppbarTitle("")
-    presenter.setNavDrawerItem(NavigationSection.FORUMS)
+//    presenter.setAppbarTitle("")
+//    presenter.setNavDrawerItem(NavigationSection.FORUMS)
   }
 
   override fun insertTag(tag: String) {
