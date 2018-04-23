@@ -1,11 +1,11 @@
 package com.sedsoftware.yaptalker.presentation.feature.search
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.interactor.search.GetSearchResults
-import com.sedsoftware.yaptalker.domain.interactor.search.GetSearchResultsPage
+import com.sedsoftware.yaptalker.domain.interactor.SearchInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.feature.search.adapters.SearchResultsItemClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.SearchResultsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.SearchTopicsPageInfoModel
@@ -21,10 +21,9 @@ import javax.inject.Inject
 @InjectViewState
 class SearchResultsPresenter @Inject constructor(
   private val router: Router,
-  private val initialSearchUseCase: GetSearchResults,
-  private val nextPageSearchResultsUseCase: GetSearchResultsPage,
+  private val searchInteractor: SearchInteractor,
   private val searchResultsMapper: SearchResultsModelMapper
-) : BasePresenter<SearchResultsView>() {
+) : BasePresenter<SearchResultsView>(), SearchResultsItemClickListener {
 
   companion object {
     private const val TOPICS_PER_PAGE = 25
@@ -41,7 +40,7 @@ class SearchResultsPresenter @Inject constructor(
     viewState.updateCurrentUiState()
   }
 
-  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
+  override fun onSearchResultsItemClick(triple: Triple<Int, Int, Int>) {
     router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
   }
 
@@ -50,16 +49,14 @@ class SearchResultsPresenter @Inject constructor(
     searchKeyword = request.searchFor
     searchInParam = request.searchIn
 
-    initialSearchUseCase
-      .execute(
-        GetSearchResults.Params(
-          keyword = request.searchFor,
-          searchIn = request.searchIn,
-          searchHow = request.searchHow,
-          sortBy = request.sortBy,
-          targetForums = request.targetForums,
-          prune = request.periodInDays.toInt()
-        )
+    searchInteractor
+      .getSearchResults(
+        keyword = request.searchFor,
+        searchIn = request.searchIn,
+        searchHow = request.searchHow,
+        sortBy = request.sortBy,
+        targetForums = request.targetForums,
+        prune = request.periodInDays.toInt()
       )
       .subscribeOn(Schedulers.io())
       .map(searchResultsMapper)
@@ -76,14 +73,12 @@ class SearchResultsPresenter @Inject constructor(
     val startingTopicNumber = currentPage * TOPICS_PER_PAGE
     currentPage++
 
-    nextPageSearchResultsUseCase
-      .execute(
-        GetSearchResultsPage.Params(
-          keyword = searchKeyword,
-          searchId = searchIdKey,
-          searchIn = searchInParam,
-          page = startingTopicNumber
-        )
+    searchInteractor
+      .getSearchResultsNextPage(
+        keyword = searchKeyword,
+        searchId = searchIdKey,
+        searchIn = searchInParam,
+        page = startingTopicNumber
       )
       .subscribeOn(Schedulers.io())
       .map(searchResultsMapper)

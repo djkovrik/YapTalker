@@ -6,13 +6,12 @@ import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.presentation.base.CanShowErrorMessage
 import com.sedsoftware.yaptalker.presentation.base.CanShowLoadingIndicator
+import com.sedsoftware.yaptalker.presentation.base.CanUpdateUiState
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 
 @StateStrategyType(SkipStrategy::class)
-interface SearchResultsView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator {
+interface SearchResultsView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanUpdateUiState {
 
   @StateStrategyType(AddToEndStrategy::class)
   fun appendSearchResultsTopicItem(topic: YapEntity)
-
-  fun updateCurrentUiState()
 }

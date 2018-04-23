@@ -10,17 +10,18 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.feature.search.adapters.SearchResultsAdapter
-import com.sedsoftware.yaptalker.presentation.feature.search.adapters.SearchResultsItemClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_site_search_results.*
+import kotlinx.android.synthetic.main.fragment_site_search_results.search_refresh_layout
+import kotlinx.android.synthetic.main.fragment_site_search_results.search_results_list
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_site_search_results)
-class SearchResultsFragment : BaseFragment(), SearchResultsView, SearchResultsItemClickListener {
+class SearchResultsFragment : BaseFragment(), SearchResultsView {
 
   companion object {
     fun getNewInstance(request: SearchRequest): SearchResultsFragment {
@@ -77,6 +78,10 @@ class SearchResultsFragment : BaseFragment(), SearchResultsView, SearchResultsIt
       .subscribe { search_refresh_layout?.isRefreshing = false }
   }
 
+  override fun showErrorMessage(message: String) {
+    messagesDelegate.showMessageError(message)
+  }
+
   override fun showLoadingIndicator() {
     search_refresh_layout?.isRefreshing = true
   }
@@ -85,20 +90,12 @@ class SearchResultsFragment : BaseFragment(), SearchResultsView, SearchResultsIt
     search_refresh_layout?.isRefreshing = false
   }
 
-  override fun showErrorMessage(message: String) {
-    messagesDelegate.showMessageError(message)
+  override fun updateCurrentUiState() {
+    setCurrentAppbarTitle(searchRequest.searchFor)
+    setCurrentNavDrawerItem(NavigationSection.SITE_SEARCH)
   }
 
   override fun appendSearchResultsTopicItem(topic: YapEntity) {
     searchResultsAdapter.addResultsItem(topic)
-  }
-
-  override fun updateCurrentUiState() {
-//    presenter.setAppbarTitle(searchRequest.searchFor)
-//    presenter.setNavDrawerItem(NavigationSection.SITE_SEARCH)
-  }
-
-  override fun onSearchResultsItemClick(triple: Triple<Int, Int, Int>) {
-    presenter.navigateToChosenTopic(triple)
   }
 }
