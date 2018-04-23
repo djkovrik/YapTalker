@@ -1,10 +1,11 @@
 package com.sedsoftware.yaptalker.presentation.feature.posting
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.interactor.topic.GetEmojiList
+import com.sedsoftware.yaptalker.domain.interactor.EmojiInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
+import com.sedsoftware.yaptalker.presentation.feature.posting.adapter.EmojiClickListener
 import com.sedsoftware.yaptalker.presentation.feature.posting.tags.MessageTagCodes
 import com.sedsoftware.yaptalker.presentation.feature.posting.tags.MessageTagCodes.Tag
 import com.sedsoftware.yaptalker.presentation.feature.posting.tags.MessageTags
@@ -16,15 +17,15 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
-import java.util.Locale
+import java.util.*
 import javax.inject.Inject
 
 @InjectViewState
 class AddMessagePresenter @Inject constructor(
   private val router: Router,
-  private val getEmojiListUseCase: GetEmojiList,
+  private val emojiInteractor: EmojiInteractor,
   private val emojiMapper: EmojiModelMapper
-) : BasePresenter<AddMessageView>() {
+) : BasePresenter<AddMessageView>(), EmojiClickListener {
 
   private var clearCurrentList = false
 
@@ -48,6 +49,10 @@ class AddMessagePresenter @Inject constructor(
     super.detachView(view)
   }
 
+  override fun onEmojiClicked(code: String) {
+    viewState.insertTag(" $code ")
+  }
+
   fun insertChosenTag(selectionStart: Int, selectionEnd: Int, @Tag tag: Long) {
     when {
       tag == MessageTagCodes.TAG_LINK -> onLinkTagClicked()
@@ -65,10 +70,6 @@ class AddMessagePresenter @Inject constructor(
   fun insertVideoTag(url: String) {
     val result = String.format(Locale.getDefault(), MessageTags.VIDEO_BLOCK, url)
     viewState.insertTag(result)
-  }
-
-  fun insertEmoji(code: String) {
-    viewState.insertTag(" $code ")
   }
 
   fun sendMessageTextBackToView(message: String, isEdited: Boolean, chosenImagePath: String) {
@@ -143,8 +144,8 @@ class AddMessagePresenter @Inject constructor(
 
     clearCurrentList = true
 
-    getEmojiListUseCase
-      .execute()
+    emojiInteractor
+      .loadEmojiList()
       .subscribeOn(Schedulers.io())
       .map(emojiMapper)
       .observeOn(AndroidSchedulers.mainThread())
@@ -166,7 +167,7 @@ class AddMessagePresenter @Inject constructor(
       }
 
       override fun onComplete() {
-        Timber.i("Emojis list loading completed.")
+        Timber.i("Emoji list loading completed.")
       }
 
       override fun onError(error: Throwable) {

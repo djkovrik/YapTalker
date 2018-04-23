@@ -23,10 +23,10 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.device.fileresolver.FilePathResolver
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.feature.posting.adapter.EmojiAdapter
-import com.sedsoftware.yaptalker.presentation.feature.posting.adapter.EmojiClickListener
 import com.sedsoftware.yaptalker.presentation.feature.posting.tags.MessageTagCodes
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.*
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_new_post)
-class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
+class AddMessageFragment : BaseFragment(), AddMessageView {
 
   companion object {
     fun getNewInstance(pair: Triple<String, String, String>): AddMessageFragment {
@@ -147,17 +147,21 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     }
   }
 
+  override fun showErrorMessage(message: String) {
+    messagesDelegate.showMessageError(message)
+  }
+
+  override fun updateCurrentUiState() {
+    setCurrentAppbarTitle("")
+    setCurrentNavDrawerItem(NavigationSection.FORUMS)
+  }
+
   override fun appendEmojiItem(emoji: YapEntity) {
     emojiAdapter.addEmojiItem(emoji)
   }
 
   override fun clearEmojiList() {
     emojiAdapter.clearEmojiList()
-  }
-
-  override fun updateCurrentUiState() {
-//    presenter.setAppbarTitle("")
-//    presenter.setNavDrawerItem(NavigationSection.FORUMS)
   }
 
   override fun insertTag(tag: String) {
@@ -167,10 +171,6 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
   override fun insertTags(openingTag: String, closingTag: String) {
     new_post_edit_text.text.insert(new_post_edit_text.selectionStart, openingTag)
     new_post_edit_text.text.insert(new_post_edit_text.selectionEnd, closingTag)
-  }
-
-  override fun showErrorMessage(message: String) {
-    messagesDelegate.showMessageError(message)
   }
 
   override fun showLinkParametersDialogs() {
@@ -257,10 +257,6 @@ class AddMessageFragment : BaseFragment(), AddMessageView, EmojiClickListener {
     chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
 
     startActivityForResult(chooserIntent, PICK_IMAGE_REQUEST)
-  }
-
-  override fun onEmojiClicked(code: String) {
-    presenter.insertEmoji(code)
   }
 
   private fun subscribeViews() {

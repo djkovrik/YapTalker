@@ -1,16 +1,15 @@
-package com.sedsoftware.yaptalker.domain.interactor.topic
+package com.sedsoftware.yaptalker.domain.interactor
 
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.interactor.UseCase
 import com.sedsoftware.yaptalker.domain.repository.EmojiRepository
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class GetEmojiList @Inject constructor(
+class EmojiInteractor @Inject constructor(
   private val emojiRepository: EmojiRepository
-) : UseCase<BaseEntity> {
+) {
 
-  override fun execute(): Observable<BaseEntity> =
+  fun loadEmojiList(): Observable<BaseEntity> =
     emojiRepository
       .getEmojiList()
 }
