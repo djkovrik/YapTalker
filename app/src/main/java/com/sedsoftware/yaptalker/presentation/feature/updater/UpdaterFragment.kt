@@ -12,6 +12,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.extensions.string
@@ -48,8 +49,8 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
   }
 
   override fun updateCurrentUiState() {
-//    context?.string(R.string.nav_drawer_updates)?.let { presenter.setAppbarTitle(it) }
-//    presenter.setNavDrawerItem(NavigationSection.APP_UPDATES)
+    setCurrentAppbarTitle(string(R.string.nav_drawer_updates))
+    setCurrentNavDrawerItem(NavigationSection.APP_UPDATES)
   }
 
   override fun showUpdateAvailableLabel() {
