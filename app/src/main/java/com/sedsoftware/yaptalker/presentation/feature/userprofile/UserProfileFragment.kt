@@ -8,11 +8,31 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.model.base.UserProfileModel
-import kotlinx.android.synthetic.main.fragment_user_profile.*
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_bayans
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_birth_date
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_email
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_group
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_icq
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_interests
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_location
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_messages
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_messages_day
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_photo
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_photo_card
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_registered
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_rewards
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_sex
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_sign
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_status
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_time_zone
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_topics_today
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_uq
+import kotlinx.android.synthetic.main.fragment_user_profile.profile_web_site
 import java.util.Locale
 import javax.inject.Inject
 
@@ -50,6 +70,11 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
 
   override fun showErrorMessage(message: String) {
     messagesDelegate.showMessageError(message)
+  }
+
+  override fun updateCurrentUiState(title: String) {
+    setCurrentAppbarTitle(title)
+    setCurrentNavDrawerItem(NavigationSection.FORUMS)
   }
 
   override fun displayProfile(profile: UserProfileModel) {
@@ -124,10 +149,5 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
     } else {
       profile_photo_card.hideView()
     }
-  }
-
-  override fun updateCurrentUiState(title: String) {
-//    presenter.setAppbarTitle(title)
-//    presenter.setNavDrawerItem(NavigationSection.FORUMS)
   }
 }
