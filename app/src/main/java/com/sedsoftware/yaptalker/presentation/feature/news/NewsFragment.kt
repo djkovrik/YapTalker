@@ -15,13 +15,10 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
-import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
-import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
-import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
-import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.extensions.*
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsItemElementsClickListener
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
@@ -34,7 +31,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_news)
-class NewsFragment : BaseFragment(), NewsView, NewsItemElementsClickListener, ThumbnailsLoader {
+class NewsFragment : BaseFragment(), NewsView, ThumbnailsLoader {
 
   companion object {
     fun getNewInstance() = NewsFragment()
@@ -77,6 +74,11 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemElementsClickListener, Th
     messagesDelegate.showMessageError(message)
   }
 
+  override fun updateCurrentUiState() {
+    setCurrentAppbarTitle(string(R.string.nav_drawer_main_page))
+    setCurrentNavDrawerItem(NavigationSection.MAIN_PAGE)
+  }
+
   override fun appendNewsItem(entity: YapEntity) {
     newsAdapter.addNewsItem(entity)
   }
@@ -85,9 +87,8 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemElementsClickListener, Th
     newsAdapter.clearNews()
   }
 
-  override fun updateCurrentUiState() {
-//    context?.string(R.string.nav_drawer_main_page)?.let { presenter.setAppbarTitle(it) }
-//    presenter.setNavDrawerItem(NavigationSection.MAIN_PAGE)
+  override fun browseExternalResource(url: String) {
+    context?.browse(url.validateUrl())
   }
 
   override fun showLoadingIndicator() {
@@ -109,10 +110,6 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemElementsClickListener, Th
     }
   }
 
-  override fun onNewsItemClicked(forumId: Int, topicId: Int) {
-    presenter.navigateToChosenTopic(Triple(forumId, topicId, 0))
-  }
-
   override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
     presenter
       .requestThumbnail(videoUrl)
@@ -128,27 +125,6 @@ class NewsFragment : BaseFragment(), NewsView, NewsItemElementsClickListener, Th
       }, { throwable ->
         Timber.e("Can't load image: ${throwable.message}")
       })
-  }
-
-  override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
-    when {
-      isVideo && url.contains("youtube") -> {
-        val videoId = url.extractYoutubeVideoId()
-        context?.browse("http://www.youtube.com/watch?v=$videoId")
-      }
-
-      isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
-        context?.browse(url.validateUrl())
-      }
-
-      isVideo && !url.contains("youtube") -> {
-        presenter.navigateToChosenVideo(html)
-      }
-
-      else -> {
-        presenter.navigateToChosenImage(url)
-      }
-    }
   }
 
   private fun subscribeViews() {

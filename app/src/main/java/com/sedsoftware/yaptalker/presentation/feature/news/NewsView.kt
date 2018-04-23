@@ -7,10 +7,11 @@ import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.presentation.base.CanShowErrorMessage
 import com.sedsoftware.yaptalker.presentation.base.CanShowLoadingIndicator
+import com.sedsoftware.yaptalker.presentation.base.CanUpdateUiState
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 
 @StateStrategyType(SkipStrategy::class)
-interface NewsView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator {
+interface NewsView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanUpdateUiState {
 
   @StateStrategyType(AddToEndStrategy::class)
   fun appendNewsItem(entity: YapEntity)
@@ -18,7 +19,7 @@ interface NewsView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator {
   @StateStrategyType(SingleStateStrategy::class)
   fun clearNewsList()
 
-  fun updateCurrentUiState()
+  fun browseExternalResource(url: String)
 
   fun showFab()
 

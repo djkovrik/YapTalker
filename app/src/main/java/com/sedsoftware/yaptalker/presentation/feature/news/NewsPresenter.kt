@@ -1,11 +1,15 @@
 package com.sedsoftware.yaptalker.presentation.feature.news
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
-import com.sedsoftware.yaptalker.domain.interactor.news.GetNewsList
+import com.sedsoftware.yaptalker.domain.device.Settings
+import com.sedsoftware.yaptalker.domain.interactor.NewsInteractor
+import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
+import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsItemElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.NewsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
@@ -20,10 +24,11 @@ import javax.inject.Inject
 @InjectViewState
 class NewsPresenter @Inject constructor(
   private val router: Router,
-  private val getNewsListUseCase: GetNewsList,
-  private val getVideoThumbnail: GetVideoThumbnail,
+  private val settings: Settings,
+  private val newsInteractor: NewsInteractor,
+  private val videoThumbnailsInteractor: VideoThumbnailsInteractor,
   private val newsModelMapper: NewsModelMapper
-) : BasePresenter<NewsView>() {
+) : BasePresenter<NewsView>(), NewsItemElementsClickListener {
 
   companion object {
     private const val NEWS_PER_PAGE = 50
@@ -42,6 +47,31 @@ class NewsPresenter @Inject constructor(
     viewState.updateCurrentUiState()
   }
 
+  override fun onNewsItemClicked(forumId: Int, topicId: Int) {
+    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, Triple(forumId, topicId, 0))
+  }
+
+  override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
+    when {
+      isVideo && url.contains("youtube") -> {
+        val videoId = url.extractYoutubeVideoId()
+        viewState.browseExternalResource("http://www.youtube.com/watch?v=$videoId")
+      }
+
+      isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
+        viewState.browseExternalResource(url.validateUrl())
+      }
+
+      isVideo && !url.contains("youtube") -> {
+        router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
+      }
+
+      else -> {
+        router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
+      }
+    }
+  }
+
   fun handleFabVisibility(diff: Int) {
     when {
       diff > 0 -> viewState.hideFab()
@@ -50,8 +80,8 @@ class NewsPresenter @Inject constructor(
   }
 
   fun requestThumbnail(videoUrl: String): Single<String> =
-    getVideoThumbnail
-      .execute(GetVideoThumbnail.Params(videoUrl))
+    videoThumbnailsInteractor
+      .getThumbnail(videoUrl)
 
   fun loadNews(loadFromFirstPage: Boolean) {
 
@@ -66,10 +96,6 @@ class NewsPresenter @Inject constructor(
     loadDataForCurrentPage()
   }
 
-  fun navigateToChosenTopic(triple: Triple<Int, Int, Int>) {
-    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
-  }
-
   fun navigateToChosenVideo(html: String) {
     router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
   }
@@ -79,8 +105,8 @@ class NewsPresenter @Inject constructor(
   }
 
   private fun loadDataForCurrentPage() {
-    getNewsListUseCase
-      .execute(GetNewsList.Params(pageNumber = currentPage))
+    newsInteractor
+      .getNewsPage(currentPage)
       .subscribeOn(Schedulers.io())
       .map(newsModelMapper)
       .observeOn(AndroidSchedulers.mainThread())
