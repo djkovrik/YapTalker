@@ -2,14 +2,10 @@ package com.sedsoftware.yaptalker.presentation.feature.topic
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.device.Settings
-import com.sedsoftware.yaptalker.domain.interactor.common.GetVideoThumbnail
-import com.sedsoftware.yaptalker.domain.interactor.topic.GetChosenTopic
-import com.sedsoftware.yaptalker.domain.interactor.topic.GetEditedText
-import com.sedsoftware.yaptalker.domain.interactor.topic.GetQuotedText
-import com.sedsoftware.yaptalker.domain.interactor.topic.SendBookmarkAddRequest
-import com.sedsoftware.yaptalker.domain.interactor.topic.SendChangeKarmaRequest
-import com.sedsoftware.yaptalker.domain.interactor.topic.SendEditedMessageRequest
-import com.sedsoftware.yaptalker.domain.interactor.topic.SendMessageRequest
+import com.sedsoftware.yaptalker.domain.interactor.MessagePostingInteractor
+import com.sedsoftware.yaptalker.domain.interactor.SiteKarmaInteractor
+import com.sedsoftware.yaptalker.domain.interactor.TopicInteractor
+import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
@@ -42,18 +38,14 @@ import javax.inject.Inject
 class ChosenTopicPresenter @Inject constructor(
   private val router: Router,
   private val settings: Settings,
-  private val getChosenTopicUseCase: GetChosenTopic,
+  private val topicInteractor: TopicInteractor,
+  private val siteKarmaInteractor: SiteKarmaInteractor,
+  private val messagePostingInteractor: MessagePostingInteractor,
+  private val videoThumbnailsInteractor: VideoThumbnailsInteractor,
   private val topicMapper: TopicModelMapper,
-  private val getQuotedTextUseCase: GetQuotedText,
   private val quoteDataMapper: QuotedPostModelMapper,
-  private val getEditedTextUseCase: GetEditedText,
   private val editedTextDataMapper: EditedPostModelMapper,
-  private val addToBookmarksUseCase: SendBookmarkAddRequest,
-  private val changeKarmaUseCase: SendChangeKarmaRequest,
-  private val serverResponseMapper: ServerResponseModelMapper,
-  private val sendMessageUseCase: SendMessageRequest,
-  private val sendEditedMessageUseCase: SendEditedMessageRequest,
-  private val getVideoThumbnailUseCase: GetVideoThumbnail
+  private val serverResponseMapper: ServerResponseModelMapper
 ) : BasePresenter<ChosenTopicView>() {
 
   companion object {
@@ -227,8 +219,8 @@ class ChosenTopicPresenter @Inject constructor(
   }
 
   fun onReplyButtonClicked(forumId: Int, topicId: Int, authorNickname: String, postDate: String, postId: Int) {
-    getQuotedTextUseCase
-      .execute(GetQuotedText.Params(forumId, topicId, postId))
+    topicInteractor
+      .requestPostTextAsQuote(forumId, topicId, postId)
       .subscribeOn(Schedulers.io())
       .map(quoteDataMapper)
       .observeOn(AndroidSchedulers.mainThread())
@@ -249,8 +241,8 @@ class ChosenTopicPresenter @Inject constructor(
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
     currentEditedPost = postId
 
-    getEditedTextUseCase
-      .execute(GetEditedText.Params(currentForumId, currentTopicId, postId, startingPost))
+    topicInteractor
+      .requestPostTextForEditing(currentForumId, currentTopicId, postId, startingPost)
       .subscribeOn(Schedulers.io())
       .map(editedTextDataMapper)
       .observeOn(AndroidSchedulers.mainThread())
@@ -269,15 +261,14 @@ class ChosenTopicPresenter @Inject constructor(
 
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
-    addToBookmarksUseCase
-      .execute(SendBookmarkAddRequest.Params(currentTopicId, startingPost))
+    topicInteractor
+      .requestBookmarkAdding(currentTopicId, startingPost)
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { viewState.showLoadingIndicator() }
       .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe({
-        // onComplete
         Timber.i("Current topic added to bookmarks.")
         viewState.showBookmarkAddedMessage()
       }, { error ->
@@ -296,8 +287,8 @@ class ChosenTopicPresenter @Inject constructor(
     val targetPostId = if (isTopic || postId == 0) ratingTargetId else postId
     val diff = if (shouldIncrease) 1 else -1
 
-    changeKarmaUseCase
-      .execute(SendChangeKarmaRequest.Params(isTopic, targetPostId, currentTopicId, diff))
+    siteKarmaInteractor
+      .sendChangeKarmaRequest(isTopic, targetPostId, currentTopicId, diff)
       .subscribeOn(Schedulers.io())
       .map(serverResponseMapper)
       .observeOn(AndroidSchedulers.mainThread())
@@ -308,8 +299,8 @@ class ChosenTopicPresenter @Inject constructor(
   }
 
   fun requestThumbnail(videoUrl: String): Single<String> =
-    getVideoThumbnailUseCase
-      .execute(GetVideoThumbnail.Params(videoUrl))
+    videoThumbnailsInteractor
+      .getThumbnail(videoUrl)
 
   private fun sendMessage(message: Pair<String, String>) {
 
@@ -319,17 +310,8 @@ class ChosenTopicPresenter @Inject constructor(
 
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
-    sendMessageUseCase
-      .execute(
-        SendMessageRequest.Params(
-          currentForumId,
-          currentTopicId,
-          startingPost,
-          authKey,
-          message.first,
-          message.second
-        )
-      )
+    messagePostingInteractor
+      .sendMessageRequest(currentForumId, currentTopicId, startingPost, authKey, message.first, message.second)
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { viewState.showLoadingIndicator() }
@@ -353,12 +335,8 @@ class ChosenTopicPresenter @Inject constructor(
 
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
 
-    sendEditedMessageUseCase
-      .execute(
-        SendEditedMessageRequest.Params(
-          currentForumId, currentTopicId, currentEditedPost, startingPost, authKey, message
-        )
-      )
+    messagePostingInteractor
+      .sendEditedMessageRequest(currentForumId, currentTopicId, currentEditedPost, startingPost, authKey, message)
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { viewState.showLoadingIndicator() }
@@ -383,8 +361,8 @@ class ChosenTopicPresenter @Inject constructor(
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
     clearCurrentList = true
 
-    getChosenTopicUseCase
-      .execute(GetChosenTopic.Params(currentForumId, currentTopicId, startingPost))
+    topicInteractor
+      .getChosenTopic(currentForumId, currentTopicId, startingPost)
       .subscribeOn(Schedulers.io())
       .map(topicMapper)
       .flatMapObservable { items: List<YapEntity> -> Observable.fromIterable(items) }
