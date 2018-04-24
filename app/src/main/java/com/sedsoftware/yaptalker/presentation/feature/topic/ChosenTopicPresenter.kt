@@ -10,6 +10,10 @@ import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
+import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
+import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
+import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.EditedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.QuotedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.ServerResponseModelMapper
@@ -46,7 +50,7 @@ class ChosenTopicPresenter @Inject constructor(
   private val quoteDataMapper: QuotedPostModelMapper,
   private val editedTextDataMapper: EditedPostModelMapper,
   private val serverResponseMapper: ServerResponseModelMapper
-) : BasePresenter<ChosenTopicView>() {
+) : BasePresenter<ChosenTopicView>(), ChosenTopicElementsClickListener, NavigationPanelClickListener {
 
   companion object {
     private const val OFFSET_FOR_PAGE_NUMBER = 1
@@ -107,120 +111,54 @@ class ChosenTopicPresenter @Inject constructor(
     router.removeResultListener(RequestCode.EDITED_MESSAGE_TEXT)
   }
 
-  fun loadTopic(forumId: Int, topicId: Int, startingPost: Int = 0) {
-    currentForumId = forumId
-    currentTopicId = topicId
+  override fun onPostItemClicked(postId: Int, isKarmaAvailable: Boolean) {
 
-    currentPage = when {
-      startingPost != 0 -> startingPost / postsPerPage + 1
-      else -> 1
+    if (postId == 0 || authKey.isEmpty()) {
+      return
     }
 
-    loadTopicCurrentPage(shouldScrollToViewTop = true)
-  }
-
-  fun refreshCurrentPage() {
-    loadTopicCurrentPage(shouldScrollToViewTop = false)
-  }
-
-  fun goToFirstPage() {
-    currentPage = 1
-    loadTopicCurrentPage(shouldScrollToViewTop = true)
-  }
-
-  fun goToLastPage() {
-    currentPage = totalPages
-    loadTopicCurrentPage(shouldScrollToViewTop = true)
-  }
-
-  fun goToPreviousPage() {
-    currentPage--
-    loadTopicCurrentPage(shouldScrollToViewTop = true)
-  }
-
-  fun goToNextPage() {
-    currentPage++
-    loadTopicCurrentPage(shouldScrollToViewTop = true)
-  }
-
-  fun goToChosenPage(chosenPage: Int) {
-    if (chosenPage in 1..totalPages) {
-      currentPage = chosenPage
-      loadTopicCurrentPage(shouldScrollToViewTop = true)
-    } else {
-      viewState.showCantLoadPageMessage(chosenPage)
+    if (isKarmaAvailable) {
+      viewState.showPostKarmaMenu(postId)
     }
   }
 
-  fun navigateToUserProfile(userId: Int) {
-    router.navigateTo(NavigationScreen.USER_PROFILE_SCREEN, userId)
+  override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
+    when {
+      isVideo && url.contains("youtube") -> {
+        val videoId = url.extractYoutubeVideoId()
+        viewState.browseExternalResource("http://www.youtube.com/watch?v=$videoId")
+      }
+
+      isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
+        viewState.browseExternalResource(url.validateUrl())
+      }
+
+      isVideo && !url.contains("youtube") -> {
+        router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
+      }
+
+      (url.contains(Regex("(\\.gif|\\.GIF)"))) -> {
+        router.navigateTo(NavigationScreen.GIF_DISPLAY_SCREEN, url)
+      }
+
+      else -> {
+        router.navigateTo(
+          NavigationScreen.TOPIC_GALLERY,
+          GalleryInitialState(currentForumId, currentTopicId, currentPage, url)
+        )
+      }
+    }
   }
 
-  fun navigateToChosenVideo(html: String) {
-    router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
-  }
-
-  fun navigateToChosenImage(url: String) {
-    router.navigateTo(
-      NavigationScreen.TOPIC_GALLERY,
-      GalleryInitialState(currentForumId, currentTopicId, currentPage, url)
-    )
-  }
-
-  fun openTopicGallery() {
-    viewState.hideLoadingIndicator()
-    router.navigateTo(
-      NavigationScreen.TOPIC_GALLERY,
-      GalleryInitialState(currentForumId, currentTopicId)
-    )
-  }
-
-  fun navigateToChosenGif(url: String) {
-    router.navigateTo(NavigationScreen.GIF_DISPLAY_SCREEN, url)
-  }
-
-  fun navigateToMessagePostingScreen() {
-    router.navigateTo(NavigationScreen.MESSAGE_EDITOR_SCREEN, Triple(currentTitle, "", ""))
-  }
-
-  fun onUserProfileClicked(userId: Int) {
+  override fun onUserAvatarClicked(userId: Int) {
     if (authKey.isNotEmpty()) {
       viewState.showUserProfile(userId)
     }
   }
 
-  fun shareCurrentTopic() {
-    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
-    viewState.shareTopic(currentTitle, startingPost)
-  }
-
-
-  fun showPostKarmaMenuIfAvailable(postId: Int) {
-    if (postId == 0 || authKey.isEmpty()) {
-      return
-    }
-
-    viewState.showPostKarmaMenu(postId)
-  }
-
-  fun showTopicKarmaMenuIfAvailable() {
-    if (ratingTargetId == 0 || authKey.isEmpty()) {
-      return
-    }
-
-    viewState.showTopicKarmaMenu()
-  }
-
-  fun handleFabVisibility(diff: Int) {
-    when {
-      diff > 0 -> viewState.hideFab()
-      diff < 0 -> viewState.showFab()
-    }
-  }
-
-  fun onReplyButtonClicked(forumId: Int, topicId: Int, authorNickname: String, postDate: String, postId: Int) {
+  override fun onReplyButtonClicked(authorNickname: String, postDate: String, postId: Int) {
     topicInteractor
-      .requestPostTextAsQuote(forumId, topicId, postId)
+      .requestPostTextAsQuote(currentForumId, currentTopicId, postId)
       .subscribeOn(Schedulers.io())
       .map(quoteDataMapper)
       .observeOn(AndroidSchedulers.mainThread())
@@ -236,8 +174,7 @@ class ChosenTopicPresenter @Inject constructor(
       })
   }
 
-  fun onEditButtonClicked(postId: Int) {
-
+  override fun onEditButtonClicked(postId: Int) {
     val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
     currentEditedPost = postId
 
@@ -255,6 +192,91 @@ class ChosenTopicPresenter @Inject constructor(
       }, { error ->
         error.message?.let { viewState.showErrorMessage(it) }
       })
+  }
+
+  override fun goToFirstPage() {
+    currentPage = 1
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
+  }
+
+  override fun goToLastPage() {
+    currentPage = totalPages
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
+  }
+
+  override fun goToPreviousPage() {
+    currentPage--
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
+  }
+
+  override fun goToNextPage() {
+    currentPage++
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
+  }
+
+  override fun goToSelectedPage() {
+    viewState.showPageSelectionDialog()
+  }
+
+  fun goToChosenPage(chosenPage: Int) {
+    if (chosenPage in 1..totalPages) {
+      currentPage = chosenPage
+      loadTopicCurrentPage(shouldScrollToViewTop = true)
+    } else {
+      viewState.showCantLoadPageMessage(chosenPage)
+    }
+  }
+
+  fun loadTopic(forumId: Int, topicId: Int, startingPost: Int = 0) {
+    currentForumId = forumId
+    currentTopicId = topicId
+
+    currentPage = when {
+      startingPost != 0 -> startingPost / postsPerPage + 1
+      else -> 1
+    }
+
+    loadTopicCurrentPage(shouldScrollToViewTop = true)
+  }
+
+  fun refreshCurrentPage() {
+    loadTopicCurrentPage(shouldScrollToViewTop = false)
+  }
+
+  fun navigateToUserProfile(userId: Int) {
+    router.navigateTo(NavigationScreen.USER_PROFILE_SCREEN, userId)
+  }
+
+  fun openTopicGallery() {
+    viewState.hideLoadingIndicator()
+    router.navigateTo(
+      NavigationScreen.TOPIC_GALLERY,
+      GalleryInitialState(currentForumId, currentTopicId)
+    )
+  }
+
+  fun navigateToMessagePostingScreen() {
+    router.navigateTo(NavigationScreen.MESSAGE_EDITOR_SCREEN, Triple(currentTitle, "", ""))
+  }
+
+  fun shareCurrentTopic() {
+    val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
+    viewState.shareTopic(currentTitle, startingPost)
+  }
+
+  fun showTopicKarmaMenuIfAvailable() {
+    if (ratingTargetId == 0 || authKey.isEmpty()) {
+      return
+    }
+
+    viewState.showTopicKarmaMenu()
+  }
+
+  fun handleFabVisibility(diff: Int) {
+    when {
+      diff > 0 -> viewState.hideFab()
+      diff < 0 -> viewState.showFab()
+    }
   }
 
   fun addCurrentTopicToBookmarks() {

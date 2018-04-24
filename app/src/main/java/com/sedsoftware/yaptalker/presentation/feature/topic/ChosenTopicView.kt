@@ -45,6 +45,8 @@ interface ChosenTopicView : MvpView, CanShowErrorMessage, CanShowLoadingIndicato
 
   fun scrollToViewTop()
 
+  fun showPageSelectionDialog()
+
   fun showCantLoadPageMessage(page: Int)
 
   fun showBookmarkAddedMessage()
@@ -62,4 +64,6 @@ interface ChosenTopicView : MvpView, CanShowErrorMessage, CanShowLoadingIndicato
   fun showFab()
 
   fun hideFab()
+
+  fun browseExternalResource(url: String)
 }

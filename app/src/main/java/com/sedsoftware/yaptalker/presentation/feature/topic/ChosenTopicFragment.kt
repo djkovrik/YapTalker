@@ -20,16 +20,14 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
-import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
-import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicAdapter
-import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicElementsClickListener
 import com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu.FabMenu
 import com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu.FabMenuItemPrimary
 import com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu.FabMenuItemSecondary
@@ -38,18 +36,31 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_chosen_topic.*
-import kotlinx.android.synthetic.main.include_topic_fab_menu.*
+import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_posts_list
+import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_refresh_layout
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_bookmark
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_bookmark_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_gallery
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_gallery_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_karma
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_karma_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_main_button_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_menu
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_new_message
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_new_message_label
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_overlay
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_refresh
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_refresh_block
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_share
+import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_share_block
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.share
 import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 
-@Suppress("LargeClass", "TooManyFunctions")
 @LayoutResource(value = R.layout.fragment_chosen_topic)
-class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElementsClickListener,
-  NavigationPanelClickListener, ThumbnailsLoader {
+class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsLoader {
 
   companion object {
     fun getNewInstance(triple: Triple<Int, Int, Int>): ChosenTopicFragment {
@@ -155,8 +166,8 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
   }
 
   override fun updateCurrentUiState(title: String) {
-//    presenter.setAppbarTitle(title)
-//    presenter.setNavDrawerItem(NavigationSection.FORUMS)
+    setCurrentAppbarTitle(title)
+    setCurrentNavDrawerItem(NavigationSection.FORUMS)
   }
 
   override fun initiateTopicLoading() {
@@ -225,6 +236,18 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
     topic_posts_list?.layoutManager?.scrollToPosition(0)
   }
 
+  override fun showPageSelectionDialog() {
+    view?.context?.let { ctx ->
+      MaterialDialog.Builder(ctx)
+        .title(R.string.navigation_go_to_page_title)
+        .inputType(InputType.TYPE_CLASS_NUMBER)
+        .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
+          presenter.goToChosenPage(input.toString().toInt())
+        })
+        .show()
+    }
+  }
+
   override fun showCantLoadPageMessage(page: Int) {
     context?.string(R.string.navigation_page_not_available)?.let { template ->
       messagesDelegate.showMessageWarning(String.format(Locale.getDefault(), template, page))
@@ -282,6 +305,10 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
     }
   }
 
+  override fun browseExternalResource(url: String) {
+    context?.browse(url.validateUrl())
+  }
+
   override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
     presenter
       .requestThumbnail(videoUrl)
@@ -297,77 +324,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ChosenTopicElements
       }, { throwable ->
         Timber.e("Can't load image: ${throwable.message}")
       })
-  }
-
-  override fun onPostItemClicked(postId: Int, isKarmaAvailable: Boolean) {
-    if (isKarmaAvailable) {
-      presenter.showPostKarmaMenuIfAvailable(postId)
-    }
-  }
-
-  override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
-    when {
-      isVideo && url.contains("youtube") -> {
-        val videoId = url.extractYoutubeVideoId()
-        context?.browse("http://www.youtube.com/watch?v=$videoId")
-      }
-
-      isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
-        context?.browse(url.validateUrl())
-      }
-
-      isVideo && !url.contains("youtube") -> {
-        presenter.navigateToChosenVideo(html)
-      }
-
-      (url.contains(Regex("(\\.gif|\\.GIF)"))) -> {
-        presenter.navigateToChosenGif(url)
-      }
-
-      else -> {
-        presenter.navigateToChosenImage(url)
-      }
-    }
-  }
-
-  override fun goToFirstPage() {
-    presenter.goToFirstPage()
-  }
-
-  override fun goToLastPage() {
-    presenter.goToLastPage()
-  }
-
-  override fun goToPreviousPage() {
-    presenter.goToPreviousPage()
-  }
-
-  override fun goToNextPage() {
-    presenter.goToNextPage()
-  }
-
-  override fun goToSelectedPage() {
-    view?.context?.let { ctx ->
-      MaterialDialog.Builder(ctx)
-        .title(R.string.navigation_go_to_page_title)
-        .inputType(InputType.TYPE_CLASS_NUMBER)
-        .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
-          presenter.goToChosenPage(input.toString().toInt())
-        })
-        .show()
-    }
-  }
-
-  override fun onUserAvatarClicked(userId: Int) {
-    presenter.onUserProfileClicked(userId)
-  }
-
-  override fun onReplyButtonClicked(authorNickname: String, postDate: String, postId: Int) {
-    presenter.onReplyButtonClicked(forumId, topicId, authorNickname, postDate, postId)
-  }
-
-  override fun onEditButtonClicked(postId: Int) {
-    presenter.onEditButtonClicked(postId)
   }
 
   private fun subscribeViews() {
