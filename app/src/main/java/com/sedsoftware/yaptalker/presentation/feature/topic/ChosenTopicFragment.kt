@@ -59,6 +59,7 @@ import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 
+@Suppress("LargeClass", "TooManyFunctions")
 @LayoutResource(value = R.layout.fragment_chosen_topic)
 class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsLoader {
 

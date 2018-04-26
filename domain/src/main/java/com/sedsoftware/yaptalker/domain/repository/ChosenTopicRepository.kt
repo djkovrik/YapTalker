@@ -21,18 +21,22 @@ interface ChosenTopicRepository {
 
   fun requestTopicKarmaChange(targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity>
 
-  fun requestMessageSending(targetForumId: Int,
-                            targetTopicId: Int,
-                            page: Int,
-                            authKey: String,
-                            message: String,
-                            filePath: String): Completable
+  fun requestMessageSending(
+    targetForumId: Int,
+    targetTopicId: Int,
+    page: Int,
+    authKey: String,
+    message: String,
+    filePath: String
+  ): Completable
 
-  fun requestEditedMessageSending(targetForumId: Int,
-                                  targetTopicId: Int,
-                                  targetPostId: Int,
-                                  page: Int,
-                                  authKey: String,
-                                  message: String,
-                                  file: String): Completable
+  fun requestEditedMessageSending(
+    targetForumId: Int,
+    targetTopicId: Int,
+    targetPostId: Int,
+    page: Int,
+    authKey: String,
+    message: String,
+    file: String
+  ): Completable
 }

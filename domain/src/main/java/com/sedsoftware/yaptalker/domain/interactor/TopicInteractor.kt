@@ -32,6 +32,4 @@ class TopicInteractor @Inject constructor(
   fun requestBookmarkAdding(topicId: Int, startingPost: Int): Completable =
     bookmarksRepository
       .requestBookmarkAdding(topicId, startingPost)
-
-
 }

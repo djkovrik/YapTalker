@@ -26,6 +26,7 @@ import dagger.Module
 import dagger.Provides
 import ru.terrakok.cicerone.Router
 
+@Suppress("LongParameterList")
 @Module
 abstract class ChosenTopicFragmentModule {
 
