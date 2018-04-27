@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.search.options
 
-import android.support.annotation.IntDef
+import android.support.annotation.LongDef
 
 class TargetPeriod {
   companion object {
@@ -15,6 +15,6 @@ class TargetPeriod {
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @IntDef(ALL_TIME, TODAY, DAYS_7, DAYS_30, DAYS_60, DAYS_90, DAYS_180, DAYS_365)
+  @LongDef(ALL_TIME, TODAY, DAYS_7, DAYS_30, DAYS_60, DAYS_90, DAYS_180, DAYS_365)
   annotation class Value
 }

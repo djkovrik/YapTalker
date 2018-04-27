@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.posting.tags
 
-import android.support.annotation.IntDef
+import android.support.annotation.LongDef
 
 class MessageTagCodes {
   companion object {
@@ -12,12 +12,6 @@ class MessageTagCodes {
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @IntDef(
-    TAG_B,
-    TAG_I,
-    TAG_U,
-    TAG_LINK,
-    TAG_VIDEO
-  )
+  @LongDef(TAG_B, TAG_I, TAG_U, TAG_LINK, TAG_VIDEO)
   annotation class Tag
 }
