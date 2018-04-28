@@ -1,12 +1,11 @@
 package com.sedsoftware.yaptalker.data.mapper
 
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import io.reactivex.Observable
 import io.reactivex.functions.Function
 import javax.inject.Inject
 
-class ListToObservablesMapper @Inject constructor() : Function<List<BaseEntity>, Observable<BaseEntity>> {
+class ListToObservablesMapper<T> @Inject constructor() : Function<List<T>, Observable<T>> {
 
-  override fun apply(from: List<BaseEntity>): Observable<BaseEntity> =
+  override fun apply(from: List<T>): Observable<T> =
     Observable.fromIterable(from)
 }

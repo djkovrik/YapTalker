@@ -1,6 +1,8 @@
 package com.sedsoftware.yaptalker.domain.interactor
 
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.EditedPost
+import com.sedsoftware.yaptalker.domain.entity.base.QuotedPost
 import com.sedsoftware.yaptalker.domain.repository.BookmarksRepository
 import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
 import io.reactivex.Completable
@@ -16,18 +18,13 @@ class TopicInteractor @Inject constructor(
     chosenTopicRepository
       .getChosenTopic(forumId, topicId, startPage)
 
-  fun requestPostTextForEditing(
-    forumId: Int,
-    topicId: Int,
-    targetPostId: Int,
-    startingPost: Int
-  ): Single<BaseEntity> =
+  fun requestPostTextForEditing(forumId: Int, topicId: Int, postId: Int, startingPost: Int): Single<EditedPost> =
     chosenTopicRepository
-      .requestPostTextForEditing(forumId, topicId, targetPostId, startingPost)
+      .requestPostTextForEditing(forumId, topicId, postId, startingPost)
 
-  fun requestPostTextAsQuote(forumId: Int, topicId: Int, targetPostId: Int): Single<BaseEntity> =
+  fun requestPostTextAsQuote(forumId: Int, topicId: Int, postId: Int): Single<QuotedPost> =
     chosenTopicRepository
-      .requestPostTextAsQuote(forumId, topicId, targetPostId)
+      .requestPostTextAsQuote(forumId, topicId, postId)
 
   fun requestBookmarkAdding(topicId: Int, startingPost: Int): Completable =
     bookmarksRepository

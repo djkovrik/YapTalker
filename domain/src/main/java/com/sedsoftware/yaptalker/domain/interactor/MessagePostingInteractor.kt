@@ -14,7 +14,6 @@ class MessagePostingInteractor @Inject constructor(
                          authKey: String,
                          message: String,
                          filePath: String = ""): Completable =
-
     chosenTopicRepository
       .requestMessageSending(forumId, topicId, page, authKey, message, filePath)
 
@@ -25,7 +24,6 @@ class MessagePostingInteractor @Inject constructor(
                                authKey: String,
                                message: String,
                                file: String = ""): Completable =
-
     chosenTopicRepository
       .requestEditedMessageSending(forumId, topicId, postId, page, authKey, message, file)
 }

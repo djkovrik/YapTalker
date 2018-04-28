@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.domain.interactor
 
 import com.sedsoftware.yaptalker.domain.device.Settings
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.VersionInfo
 import com.sedsoftware.yaptalker.domain.repository.LastUpdateCheckRepository
 import com.sedsoftware.yaptalker.domain.repository.VersionInfoRepository
 import io.reactivex.Single
@@ -13,7 +13,7 @@ class AppUpdaterInteractor @Inject constructor(
   private val settings: Settings
 ) {
 
-  fun getInstalledVersionInfo(): Single<BaseEntity> =
+  fun getInstalledVersionInfo(): Single<VersionInfo> =
     versionInfoRepository
       .getInstalledVersionInfo()
 
@@ -21,7 +21,7 @@ class AppUpdaterInteractor @Inject constructor(
     lastUpdateCheckRepository
       .getLastUpdateCheckDate()
 
-  fun getRemoteVersionInfo(): Single<BaseEntity> =
+  fun getRemoteVersionInfo(): Single<VersionInfo> =
     versionInfoRepository
       .getRemoteVersionInfo()
       .doOnSuccess { settings.saveLastUpdateCheckDate() }

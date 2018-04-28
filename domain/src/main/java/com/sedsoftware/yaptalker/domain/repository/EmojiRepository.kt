@@ -1,12 +1,9 @@
 package com.sedsoftware.yaptalker.domain.repository
 
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.Emoji
 import io.reactivex.Observable
 
-/**
- * Interface that represents a Repository for getting emoji list.
- */
 interface EmojiRepository {
 
-  fun getEmojiList(): Observable<BaseEntity>
+  fun getEmojiList(): Observable<Emoji>
 }

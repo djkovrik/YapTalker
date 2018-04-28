@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.data.mapper
 
 import com.sedsoftware.yaptalker.data.parsed.NewsPageParsed
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.NewsItem
 import io.reactivex.functions.Function
 import org.jsoup.Jsoup
@@ -9,18 +8,15 @@ import org.jsoup.safety.Whitelist
 import java.util.ArrayList
 import javax.inject.Inject
 
-/**
- * Mapper class used to transform parsed news page from the data layer into BaseEntity list in the domain layer.
- */
-class NewsPageMapper @Inject constructor() : Function<NewsPageParsed, List<BaseEntity>> {
+class NewsPageMapper @Inject constructor() : Function<NewsPageParsed, List<NewsItem>> {
 
   companion object {
     private const val NEWS_PER_PAGE = 50
   }
 
-  override fun apply(from: NewsPageParsed): List<BaseEntity> {
+  override fun apply(from: NewsPageParsed): List<NewsItem> {
 
-    val result: MutableList<BaseEntity> = ArrayList(NEWS_PER_PAGE)
+    val result: MutableList<NewsItem> = ArrayList(NEWS_PER_PAGE)
 
     with(from) {
       check(headers.size == contents.size) { "Headers size should match contents size" }

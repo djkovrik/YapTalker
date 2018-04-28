@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.domain.interactor
 
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.BookmarkedTopic
 import com.sedsoftware.yaptalker.domain.repository.BookmarksRepository
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -10,7 +10,7 @@ class BookmarksInteractor @Inject constructor(
   private val bookmarksRepository: BookmarksRepository
 ) {
 
-  fun getBookmarks(): Observable<BaseEntity> =
+  fun getBookmarks(): Observable<BookmarkedTopic> =
     bookmarksRepository
       .getBookmarks()
 

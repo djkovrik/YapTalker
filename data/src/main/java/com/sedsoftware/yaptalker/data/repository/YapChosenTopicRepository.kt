@@ -7,6 +7,8 @@ import com.sedsoftware.yaptalker.data.mapper.ServerResponseMapper
 import com.sedsoftware.yaptalker.data.mapper.TopicPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.EditedPost
+import com.sedsoftware.yaptalker.domain.entity.base.QuotedPost
 import com.sedsoftware.yaptalker.domain.entity.base.ServerResponse
 import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
 import io.reactivex.Completable
@@ -52,7 +54,7 @@ class YapChosenTopicRepository @Inject constructor(
 
   override fun requestPostTextAsQuote(forumId: Int,
                                       topicId: Int,
-                                      targetPostId: Int): Single<BaseEntity> =
+                                      targetPostId: Int): Single<QuotedPost> =
     dataLoader
       .loadTargetPostQuotedText(forumId, topicId, targetPostId)
       .map(quoteMapper)
@@ -60,7 +62,7 @@ class YapChosenTopicRepository @Inject constructor(
   override fun requestPostTextForEditing(forumId: Int,
                                          topicId: Int,
                                          targetPostId: Int,
-                                         startingPost: Int): Single<BaseEntity> =
+                                         startingPost: Int): Single<EditedPost> =
     dataLoader
       .loadTargetPostEditedText(forumId, topicId, targetPostId, startingPost)
       .map(editedPostMapper)
@@ -68,7 +70,7 @@ class YapChosenTopicRepository @Inject constructor(
   override fun requestKarmaChange(isTopic: Boolean,
                                   targetPostId: Int,
                                   targetTopicId: Int,
-                                  diff: Int): Single<BaseEntity> =
+                                  diff: Int): Single<ServerResponse> =
     dataLoader
       .changeKarma(
         act = KARMA_ACT,
@@ -82,7 +84,7 @@ class YapChosenTopicRepository @Inject constructor(
 
   override fun requestPostKarmaChange(targetPostId: Int,
                                       targetTopicId: Int,
-                                      diff: Int): Single<BaseEntity> =
+                                      diff: Int): Single<ServerResponse> =
     dataLoader
       .changeKarma(
         act = KARMA_ACT,
@@ -96,7 +98,7 @@ class YapChosenTopicRepository @Inject constructor(
 
   override fun requestTopicKarmaChange(targetPostId: Int,
                                        targetTopicId: Int,
-                                       diff: Int): Single<BaseEntity> =
+                                       diff: Int): Single<ServerResponse> =
     dataLoader
       .changeKarma(
         act = KARMA_ACT,
@@ -130,7 +132,7 @@ class YapChosenTopicRepository @Inject constructor(
         uploadedFile = createMultiPartForFile(FILE_PART_NAME, filePath)
       )
       .map(responseMapper)
-      .flatMapCompletable { checkMessageSending(it as ServerResponse) }
+      .flatMapCompletable { checkMessageSending(it) }
 
   override fun requestEditedMessageSending(targetForumId: Int,
                                            targetTopicId: Int,
@@ -157,7 +159,7 @@ class YapChosenTopicRepository @Inject constructor(
         fileupload = file
       )
       .map(responseMapper)
-      .flatMapCompletable { checkMessageSending(it as ServerResponse) }
+      .flatMapCompletable { checkMessageSending(it) }
 
   private fun createMultiPartForFile(partName: String, path: String): MultipartBody.Part? =
     if (path.isNotEmpty()) {

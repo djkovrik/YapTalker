@@ -3,7 +3,6 @@ package com.sedsoftware.yaptalker.data.repository
 import com.sedsoftware.yaptalker.data.BuildConfig
 import com.sedsoftware.yaptalker.data.mapper.AppVersionInfoMapper
 import com.sedsoftware.yaptalker.data.network.external.AppUpdatesChecker
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.VersionInfo
 import com.sedsoftware.yaptalker.domain.repository.VersionInfoRepository
 import io.reactivex.Single
@@ -14,12 +13,12 @@ class AppVersionInfoRepository @Inject constructor(
   private val dataMapper: AppVersionInfoMapper
 ) : VersionInfoRepository {
 
-  override fun getRemoteVersionInfo(): Single<BaseEntity> =
+  override fun getRemoteVersionInfo(): Single<VersionInfo> =
     dataLoader
       .loadCurrentVersionInfo()
       .map(dataMapper)
 
-  override fun getInstalledVersionInfo(): Single<BaseEntity> =
+  override fun getInstalledVersionInfo(): Single<VersionInfo> =
     Single.just(
       VersionInfo(
         versionCode = BuildConfig.VERSION_CODE,

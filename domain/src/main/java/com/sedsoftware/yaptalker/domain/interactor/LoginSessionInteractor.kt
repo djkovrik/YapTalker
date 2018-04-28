@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.domain.interactor
 
 import com.sedsoftware.yaptalker.domain.device.Settings
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.LoginSessionInfo
 import com.sedsoftware.yaptalker.domain.repository.LoginSessionRepository
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -17,7 +17,7 @@ class LoginSessionInteractor @Inject constructor(
     private const val TOPICS_PER_PAGE_DEFAULT = 30
   }
 
-  fun getLoginSessionInfo(): Single<BaseEntity> =
+  fun getLoginSessionInfo(): Single<LoginSessionInfo> =
     loginSessionRepository
       .getLoginSessionInfo()
 

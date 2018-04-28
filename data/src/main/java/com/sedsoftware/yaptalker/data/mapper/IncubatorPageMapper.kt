@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.data.mapper
 
 import com.sedsoftware.yaptalker.data.parsed.IncubatorPageParsed
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.IncubatorItem
 import io.reactivex.functions.Function
 import org.jsoup.Jsoup
@@ -9,18 +8,15 @@ import org.jsoup.safety.Whitelist
 import java.util.ArrayList
 import javax.inject.Inject
 
-/**
- * Mapper class used to transform parsed incubator page from the data layer into BaseEntity list in the domain layer.
- */
-class IncubatorPageMapper @Inject constructor() : Function<IncubatorPageParsed, List<BaseEntity>> {
+class IncubatorPageMapper @Inject constructor() : Function<IncubatorPageParsed, List<IncubatorItem>> {
 
   companion object {
     private const val TOPICS_PER_PAGE = 50
   }
 
-  override fun apply(from: IncubatorPageParsed): List<BaseEntity> {
+  override fun apply(from: IncubatorPageParsed): List<IncubatorItem> {
 
-    val result: MutableList<BaseEntity> = ArrayList(TOPICS_PER_PAGE)
+    val result: MutableList<IncubatorItem> = ArrayList(TOPICS_PER_PAGE)
 
     with(from) {
       check(headers.size == contents.size) { "Headers size should match contents size" }

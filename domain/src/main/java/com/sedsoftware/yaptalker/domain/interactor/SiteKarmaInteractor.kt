@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.domain.interactor
 
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.ServerResponse
 import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
 import io.reactivex.Single
 import javax.inject.Inject
@@ -12,7 +12,7 @@ class SiteKarmaInteractor @Inject constructor(
   fun sendChangeKarmaRequest(isTopic: Boolean,
                              targetPostId: Int,
                              targetTopicId: Int,
-                             diff: Int): Single<BaseEntity> =
+                             diff: Int): Single<ServerResponse> =
     chosenTopicRepository
       .requestKarmaChange(isTopic, targetPostId, targetTopicId, diff)
 }

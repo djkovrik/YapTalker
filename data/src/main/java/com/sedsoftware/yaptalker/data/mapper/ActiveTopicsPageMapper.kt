@@ -8,10 +8,6 @@ import io.reactivex.functions.Function
 import java.util.ArrayList
 import javax.inject.Inject
 
-/**
- * Mapper class used to transform parsed active topics page from the data layer into BaseEntity list
- * in the domain layer.
- */
 class ActiveTopicsPageMapper @Inject constructor() : Function<ActiveTopicsPageParsed, List<BaseEntity>> {
 
   companion object {

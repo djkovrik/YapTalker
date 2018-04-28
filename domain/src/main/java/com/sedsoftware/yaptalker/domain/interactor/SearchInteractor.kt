@@ -15,7 +15,6 @@ class SearchInteractor @Inject constructor(
                        sortBy: String,
                        targetForums: List<String>,
                        prune: Int): Single<List<BaseEntity>> =
-
     repository
       .getSearchResults(keyword, searchIn, searchHow, sortBy, targetForums, prune)
 
@@ -23,7 +22,6 @@ class SearchInteractor @Inject constructor(
                                searchId: String,
                                searchIn: String,
                                page: Int): Single<List<BaseEntity>> =
-
     repository
       .getSearchResultsNextPage(keyword, searchId, searchIn, page)
 }

@@ -9,9 +9,6 @@ import io.reactivex.functions.Function
 import java.util.ArrayList
 import javax.inject.Inject
 
-/**
- * Mapper class used to transform parsed forum page from the data layer into BaseEntity list in the domain layer.
- */
 class ForumPageMapper @Inject constructor() : Function<ForumPageParsed, List<BaseEntity>> {
 
   companion object {

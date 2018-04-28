@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.data.repository
 
 import com.sedsoftware.yaptalker.data.mapper.SettingsPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.SitePreferences
 import com.sedsoftware.yaptalker.domain.repository.SitePreferencesRepository
 import io.reactivex.Single
 import javax.inject.Inject
@@ -17,7 +17,7 @@ class YapSitePreferencesRepository @Inject constructor(
     private const val SETTINGS_CODE = "04"
   }
 
-  override fun getSitePreferences(): Single<BaseEntity> =
+  override fun getSitePreferences(): Single<SitePreferences> =
     dataLoader
       .loadSitePreferences(
         act = SETTINGS_ACT,
