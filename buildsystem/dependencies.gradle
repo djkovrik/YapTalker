@@ -35,6 +35,7 @@ ext {
     // UI
     final MATERIAL_VALUES_VERSION = "1.1.1"
     final MATERIAL_DRAWER_VERSION = "6.0.6@aar" // DO NOT UPDATE, 6.0.7 contains breaking changes
+    final FAST_ADAPTER_VERSION = "3.2.5"
     final ICONICS_VERSION = "3.0.3@aar"
     final COMMUNITY_MATERIAL_ICONS_VERSION = "2.0.46.1@aar"
     final MATERIAL_DIALOGUES_VERSION = "0.9.6.0"
@@ -143,6 +144,10 @@ ext {
 
             materialValues          : "blue.aodev:material-values:$MATERIAL_VALUES_VERSION",
             materialDrawer          : "com.mikepenz:materialdrawer:$MATERIAL_DRAWER_VERSION",
+            fastAdapter             : "com.mikepenz:fastadapter:$FAST_ADAPTER_VERSION",
+            fastAdapterCommons      : "com.mikepenz:fastadapter-commons:$FAST_ADAPTER_VERSION",
+            fastAdapterExtensions   : "com.mikepenz:fastadapter-extensions:$FAST_ADAPTER_VERSION",
+            fastAdapterExpandable   : "com.mikepenz:fastadapter-extensions-expandable:$FAST_ADAPTER_VERSION",
             iconicsCore             : "com.mikepenz:iconics-core:$ICONICS_VERSION",
             iconicsView             : "com.mikepenz:iconics-views:$ICONICS_VERSION",
             materialTypeface        : "com.mikepenz:community-material-typeface:$COMMUNITY_MATERIAL_ICONS_VERSION",

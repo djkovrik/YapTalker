@@ -119,6 +119,10 @@ dependencies {
 
     implementation presentationDependencies.materialValues
     implementation(presentationDependencies.materialDrawer) { transitive = true }
+    implementation presentationDependencies.fastAdapter
+    implementation presentationDependencies.fastAdapterCommons
+    implementation presentationDependencies.fastAdapterExtensions
+    implementation presentationDependencies.fastAdapterExpandable
     implementation presentationDependencies.iconicsCore
     implementation presentationDependencies.iconicsView
     implementation presentationDependencies.materialTypeface
