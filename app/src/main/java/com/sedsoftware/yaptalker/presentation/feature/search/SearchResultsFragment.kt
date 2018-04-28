@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.presentation.feature.search
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import androidx.core.os.bundleOf
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
@@ -16,21 +17,17 @@ import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.feature.search.adapters.SearchResultsAdapter
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_site_search_results.search_refresh_layout
-import kotlinx.android.synthetic.main.fragment_site_search_results.search_results_list
+import kotlinx.android.synthetic.main.fragment_site_search_results.*
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_site_search_results)
 class SearchResultsFragment : BaseFragment(), SearchResultsView {
 
   companion object {
-    fun getNewInstance(request: SearchRequest): SearchResultsFragment {
-      val fragment = SearchResultsFragment()
-      val args = Bundle()
-      args.putParcelable(SEARCH_REQUEST_KEY, request)
-      fragment.arguments = args
-      return fragment
-    }
+    fun getNewInstance(request: SearchRequest): SearchResultsFragment =
+      SearchResultsFragment().apply {
+        arguments = bundleOf(SEARCH_REQUEST_KEY to request)
+      }
 
     private const val SEARCH_REQUEST_KEY = "SEARCH_REQUEST_KEY"
   }

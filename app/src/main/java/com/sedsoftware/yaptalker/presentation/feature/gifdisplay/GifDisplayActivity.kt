@@ -21,11 +21,10 @@ import javax.inject.Inject
 class GifDisplayActivity : BaseActivity(), GifDisplayView {
 
   companion object {
-    fun getIntent(ctx: Context, url: String): Intent {
-      val intent = Intent(ctx, GifDisplayActivity::class.java)
-      intent.putExtra(GIF_URL_KEY, url)
-      return intent
-    }
+    fun getIntent(ctx: Context, url: String): Intent =
+      Intent(ctx, GifDisplayActivity::class.java).apply {
+        putExtra(GIF_URL_KEY, url)
+      }
 
     private const val GIF_URL_KEY = "GIF_URL_KEY"
   }

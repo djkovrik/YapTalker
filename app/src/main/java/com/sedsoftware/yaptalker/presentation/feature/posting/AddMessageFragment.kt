@@ -12,6 +12,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.os.bundleOf
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -38,15 +39,14 @@ import javax.inject.Inject
 class AddMessageFragment : BaseFragment(), AddMessageView {
 
   companion object {
-    fun getNewInstance(pair: Triple<String, String, String>): AddMessageFragment {
-      val fragment = AddMessageFragment()
-      val args = Bundle()
-      args.putString(TOPIC_TITLE_KEY, pair.first)
-      args.putString(QUOTED_TEXT_KEY, pair.second)
-      args.putString(EDITED_TEXT_KEY, pair.third)
-      fragment.arguments = args
-      return fragment
-    }
+    fun getNewInstance(triple: Triple<String, String, String>): AddMessageFragment =
+      AddMessageFragment().apply {
+        arguments = bundleOf(
+          TOPIC_TITLE_KEY to triple.first,
+          QUOTED_TEXT_KEY to triple.second,
+          EDITED_TEXT_KEY to triple.third
+        )
+      }
 
     private const val TOPIC_TITLE_KEY = "TOPIC_TITLE_KEY"
     private const val QUOTED_TEXT_KEY = "QUOTED_TEXT_KEY"

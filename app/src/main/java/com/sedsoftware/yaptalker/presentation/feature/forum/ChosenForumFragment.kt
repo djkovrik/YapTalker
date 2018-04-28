@@ -5,6 +5,7 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
 import android.view.View
+import androidx.core.os.bundleOf
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -27,14 +28,10 @@ import javax.inject.Inject
 class ChosenForumFragment : BaseFragment(), ChosenForumView {
 
   companion object {
-    fun getNewInstance(data: Pair<Int, String>): ChosenForumFragment {
-      val fragment = ChosenForumFragment()
-      val args = Bundle()
-      args.putInt(FORUM_ID_KEY, data.first)
-      args.putString(FORUM_NAME_KEY, data.second)
-      fragment.arguments = args
-      return fragment
-    }
+    fun getNewInstance(data: Pair<Int, String>): ChosenForumFragment =
+      ChosenForumFragment().apply {
+        arguments = bundleOf(FORUM_ID_KEY to data.first, FORUM_NAME_KEY to data.second)
+      }
 
     private const val FORUM_ID_KEY = "FORUM_ID_KEY"
     private const val FORUM_NAME_KEY = "FORUM_NAME_KEY"

@@ -20,11 +20,10 @@ import javax.inject.Inject
 class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
 
   companion object {
-    fun getIntent(ctx: Context, html: String): Intent {
-      val intent = Intent(ctx, VideoDisplayActivity::class.java)
-      intent.putExtra(VIDEO_HTML_KEY, html)
-      return intent
-    }
+    fun getIntent(ctx: Context, html: String): Intent =
+      Intent(ctx, VideoDisplayActivity::class.java).apply {
+        putExtra(VIDEO_HTML_KEY, html)
+      }
 
     private const val VIDEO_HTML_KEY = "IMAGE_URL_KEY"
     private const val SYSTEM_UI_HIDE_DELAY = 500L

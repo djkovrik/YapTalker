@@ -26,11 +26,10 @@ import javax.inject.Inject
 class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
 
   companion object {
-    fun getIntent(ctx: Context, url: String): Intent {
-      val intent = Intent(ctx, ImageDisplayActivity::class.java)
-      intent.putExtra(IMAGE_URL_KEY, url)
-      return intent
-    }
+    fun getIntent(ctx: Context, url: String): Intent =
+      Intent(ctx, ImageDisplayActivity::class.java).apply {
+        putExtra(IMAGE_URL_KEY, url)
+      }
 
     private const val IMAGE_URL_KEY = "IMAGE_URL_KEY"
     private const val STORAGE_WRITE_PERMISSION = 0

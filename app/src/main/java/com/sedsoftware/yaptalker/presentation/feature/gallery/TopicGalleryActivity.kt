@@ -23,8 +23,8 @@ import com.sedsoftware.yaptalker.presentation.feature.gallery.adapter.TopicGalle
 import com.sedsoftware.yaptalker.presentation.feature.topic.GalleryInitialState
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
-import kotlinx.android.synthetic.main.activity_topic_gallery.topic_gallery
-import kotlinx.android.synthetic.main.include_main_appbar_transparent.toolbar
+import kotlinx.android.synthetic.main.activity_topic_gallery.*
+import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
 import java.util.Locale
 import javax.inject.Inject
 
@@ -32,11 +32,10 @@ import javax.inject.Inject
 class TopicGalleryActivity : BaseActivity(), TopicGalleryView {
 
   companion object {
-    fun getIntent(ctx: Context, initialState: GalleryInitialState): Intent {
-      val intent = Intent(ctx, TopicGalleryActivity::class.java)
-      intent.putExtra(GALLERY_INITIAL_STATE_KEY, initialState)
-      return intent
-    }
+    fun getIntent(ctx: Context, initialState: GalleryInitialState): Intent =
+      Intent(ctx, TopicGalleryActivity::class.java).apply {
+        putExtra(GALLERY_INITIAL_STATE_KEY, initialState)
+      }
 
     private const val GALLERY_INITIAL_STATE_KEY = "CURRENT_PAGE_KEY"
     private const val STORAGE_WRITE_PERMISSION = 0

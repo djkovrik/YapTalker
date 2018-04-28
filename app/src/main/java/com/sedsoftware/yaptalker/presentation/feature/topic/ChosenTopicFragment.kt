@@ -36,24 +36,10 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_posts_list
-import kotlinx.android.synthetic.main.fragment_chosen_topic.topic_refresh_layout
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_bookmark
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_bookmark_block
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_gallery
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_gallery_block
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_karma
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_karma_block
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_main_button_block
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_menu
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_new_message
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_new_message_label
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_overlay
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_refresh
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_refresh_block
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_share
-import kotlinx.android.synthetic.main.include_topic_fab_menu.fab_share_block
+import kotlinx.android.synthetic.main.fragment_chosen_topic.*
+import kotlinx.android.synthetic.main.include_topic_fab_menu.*
 import org.jetbrains.anko.browse
+import org.jetbrains.anko.bundleOf
 import org.jetbrains.anko.share
 import timber.log.Timber
 import java.util.Locale
@@ -64,16 +50,14 @@ import javax.inject.Inject
 class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsLoader {
 
   companion object {
-    fun getNewInstance(triple: Triple<Int, Int, Int>): ChosenTopicFragment {
-
-      val fragment = ChosenTopicFragment()
-      val args = Bundle()
-      args.putInt(FORUM_ID_KEY, triple.first)
-      args.putInt(TOPIC_ID_KEY, triple.second)
-      args.putInt(STARTING_POST_KEY, triple.third)
-      fragment.arguments = args
-      return fragment
-    }
+    fun getNewInstance(triple: Triple<Int, Int, Int>): ChosenTopicFragment =
+      ChosenTopicFragment().apply {
+        arguments = bundleOf(
+          FORUM_ID_KEY to triple.first,
+          TOPIC_ID_KEY to triple.second,
+          STARTING_POST_KEY to triple.third
+        )
+      }
 
     private const val FORUM_ID_KEY = "FORUM_ID_KEY"
     private const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
