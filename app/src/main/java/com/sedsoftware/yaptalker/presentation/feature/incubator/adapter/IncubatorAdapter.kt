@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.ItemType
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -25,7 +25,7 @@ class IncubatorAdapter @Inject constructor(
 
   init {
     delegateAdapters.put(
-      YapEntityTypes.INCUBATOR_TOPIC, IncubatorDelegateAdapter(clickListener, thumbnailsLoader, settings)
+      ItemType.INCUBATOR, IncubatorDelegateAdapter(clickListener, thumbnailsLoader, settings)
     )
 
     items = ArrayList()

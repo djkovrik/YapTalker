@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.ItemType
 
 /**
  * Class which represents app version info in presentation layer.
@@ -12,5 +12,5 @@ class AppVersionInfoModel(
   val downloadLink: String
 ) : YapEntity {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.VERSION_INFO
+  override fun getBaseEntityType(): Int = ItemType.VERSION_INFO
 }

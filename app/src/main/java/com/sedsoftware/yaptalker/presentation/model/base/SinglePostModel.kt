@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.presentation.model.base
 
 import android.text.Spanned
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.ItemType
 
 /**
  * Class which represents single topic post item in presentation layer.
@@ -27,5 +27,5 @@ class SinglePostModel(
   val hasEditButton: Boolean
 ) : YapEntity {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.SINGLE_POST_ITEM
+  override fun getBaseEntityType(): Int = ItemType.SINGLE_POST
 }

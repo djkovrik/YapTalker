@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.presentation.model.base
 
 import android.text.Spanned
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.ItemType
 
 /**
  * Class which represents incubator item in presentation layer.
@@ -26,5 +26,5 @@ class IncubatorItemModel(
   val isYapLink: Boolean
 ) : YapEntity {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.INCUBATOR_TOPIC
+  override fun getBaseEntityType(): Int = ItemType.INCUBATOR
 }

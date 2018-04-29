@@ -9,7 +9,7 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.ItemType
 import com.sedsoftware.yaptalker.presentation.model.base.TopicModel
 import java.util.ArrayList
 import javax.inject.Inject
@@ -25,12 +25,12 @@ class ChosenForumAdapter @Inject constructor(
 
   init {
     delegateAdapters.put(
-      YapEntityTypes.TOPIC_ITEM,
+      ItemType.TOPIC,
       ChosenForumDelegateAdapter(itemClickListener, settings)
     )
 
     delegateAdapters.put(
-      YapEntityTypes.NAVIGATION_PANEL_ITEM,
+      ItemType.NAVIGATION_PANEL,
       NavigationPanelDelegateAdapter(navigationClickListener)
     )
 

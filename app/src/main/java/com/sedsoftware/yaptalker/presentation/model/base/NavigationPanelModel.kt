@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.ItemType
 
 /**
  * Class which represents navigation panel in presentation layer.
@@ -12,5 +12,5 @@ class NavigationPanelModel(
   val navigationLabel: String
 ) : YapEntity {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.NAVIGATION_PANEL_ITEM
+  override fun getBaseEntityType(): Int = ItemType.NAVIGATION_PANEL
 }

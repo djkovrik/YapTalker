@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.ItemType
 
 class SearchTopicItemModel(
   val title: String,
@@ -18,5 +18,5 @@ class SearchTopicItemModel(
   val lastPostDate: String
 ) : YapEntity {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.SEARCH_TOPIC_ITEM
+  override fun getBaseEntityType(): Int = ItemType.SEARCHED_TOPIC
 }

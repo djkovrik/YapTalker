@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.ItemType
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -21,7 +21,7 @@ class SearchResultsAdapter @Inject constructor(
 
   init {
     delegateAdapters.put(
-      YapEntityTypes.SEARCH_TOPIC_ITEM, SearchResultsDelegateAdapter(clickListener, settings)
+      ItemType.SEARCHED_TOPIC, SearchResultsDelegateAdapter(clickListener, settings)
     )
 
     items = ArrayList()

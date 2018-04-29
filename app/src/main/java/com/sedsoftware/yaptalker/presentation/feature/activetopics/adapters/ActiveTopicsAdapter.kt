@@ -9,7 +9,7 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.ItemType
 import com.sedsoftware.yaptalker.presentation.model.base.ActiveTopicModel
 import java.util.ArrayList
 import javax.inject.Inject
@@ -26,14 +26,14 @@ class ActiveTopicsAdapter @Inject constructor(
   init {
 
     delegateAdapters.put(
-      YapEntityTypes.ACTIVE_TOPIC_ITEM,
+      ItemType.ACTIVE_TOPIC,
       ActiveTopicsDelegateAdapter(
         itemClickListener, settings
       )
     )
 
     delegateAdapters.put(
-      YapEntityTypes.NAVIGATION_PANEL_ITEM,
+      ItemType.NAVIGATION_PANEL,
       NavigationPanelDelegateAdapter(navigationClickListener)
     )
 

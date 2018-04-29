@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.ItemType
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ class ForumsAdapter @Inject constructor(
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
   init {
-    delegateAdapters.put(YapEntityTypes.FORUM_ITEM, ForumsDelegateAdapter(itemClickListener, settings))
+    delegateAdapters.put(ItemType.FORUM, ForumsDelegateAdapter(itemClickListener, settings))
 
     items = ArrayList()
 

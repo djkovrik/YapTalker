@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.ItemType
 
 /**
  * Class which represents user login session info in presentation layer.
@@ -15,5 +15,5 @@ class LoginSessionInfoModel(
   val sessionId: String
 ) : YapEntity {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.LOGIN_SESSION_INFO
+  override fun getBaseEntityType(): Int = ItemType.LOGIN_SESSION_INFO
 }

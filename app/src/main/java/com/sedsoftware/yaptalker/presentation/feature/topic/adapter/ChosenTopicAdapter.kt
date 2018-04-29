@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelCli
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.ItemType
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -26,11 +26,11 @@ class ChosenTopicAdapter @Inject constructor(
 
   init {
     delegateAdapters.put(
-      YapEntityTypes.SINGLE_POST_ITEM, ChosenTopicDelegateAdapter(elementsClickListener, thumbnailLoader, settings)
+      ItemType.SINGLE_POST, ChosenTopicDelegateAdapter(elementsClickListener, thumbnailLoader, settings)
     )
 
     delegateAdapters.put(
-      YapEntityTypes.NAVIGATION_PANEL_ITEM,
+      ItemType.NAVIGATION_PANEL,
       NavigationPanelDelegateAdapter(navigationClickListener)
     )
 

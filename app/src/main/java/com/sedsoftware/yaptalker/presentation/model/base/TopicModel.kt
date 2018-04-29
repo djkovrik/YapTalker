@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.ItemType
 
 /**
  * Class which represents topic item in presentation layer.
@@ -21,5 +21,5 @@ class TopicModel(
   val lastPostAuthor: String
 ) : YapEntity {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.TOPIC_ITEM
+  override fun getBaseEntityType(): Int = ItemType.TOPIC
 }
