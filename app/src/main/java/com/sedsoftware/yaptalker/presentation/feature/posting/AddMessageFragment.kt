@@ -13,6 +13,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.os.bundleOf
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -25,8 +27,6 @@ import com.sedsoftware.yaptalker.device.fileresolver.FilePathResolver
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.extensions.hideView
-import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.feature.posting.adapter.EmojiAdapter
 import com.sedsoftware.yaptalker.presentation.feature.posting.tags.MessageTagCodes
 import com.sedsoftware.yaptalker.presentation.model.base.EmojiModel
@@ -341,9 +341,9 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
 
   private fun handleAttachmentCardState() {
     if (chosenImagePath.isEmpty()) {
-      chosen_image_card.hideView()
+      chosen_image_card.isGone = true
     } else {
-      chosen_image_card.showView()
+      chosen_image_card.isVisible = true
       chosen_image_name.text = chosenImagePath.substringAfterLast("/")
     }
   }

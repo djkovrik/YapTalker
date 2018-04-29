@@ -7,7 +7,7 @@ allprojects {
 ext {
     // Android
     final KOTLIN_VERSION = "1.2.40"
-    final SUPPORT_LIBRARY_VERSION = "27.0.2"
+    final SUPPORT_LIBRARY_VERSION = "27.1.0"
     final CONSTRAINT_LAYOUT_VERSION = "1.1.0"
     final ANDROID_KTX_VERSION = "0.3"
 

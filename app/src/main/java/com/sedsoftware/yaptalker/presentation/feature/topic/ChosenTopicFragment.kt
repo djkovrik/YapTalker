@@ -3,6 +3,8 @@ package com.sedsoftware.yaptalker.presentation.feature.topic
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
 import android.view.View
 import android.view.WindowManager
@@ -19,8 +21,9 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
+import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicAdapter
@@ -29,9 +32,12 @@ import com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu.FabMenuItemP
 import com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu.FabMenuItemSecondary
 import com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu.FabOverlay
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
+import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_chosen_topic.*
+import kotlinx.android.synthetic.main.include_topic_fab_menu.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.bundleOf
 import org.jetbrains.anko.share
