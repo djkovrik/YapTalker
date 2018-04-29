@@ -9,8 +9,8 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.ItemType
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -20,12 +20,12 @@ class IncubatorAdapter @Inject constructor(
   settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-  private var items: ArrayList<YapEntity>
+  private var items: ArrayList<DisplayedItemModel>
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
   init {
     delegateAdapters.put(
-      ItemType.INCUBATOR, IncubatorDelegateAdapter(clickListener, thumbnailsLoader, settings)
+      DisplayedItemType.INCUBATOR, IncubatorDelegateAdapter(clickListener, thumbnailsLoader, settings)
     )
 
     items = ArrayList()
@@ -55,9 +55,9 @@ class IncubatorAdapter @Inject constructor(
 
   override fun getItemId(position: Int) = position.toLong()
 
-  override fun getItemViewType(position: Int): Int = items[position].getBaseEntityType()
+  override fun getItemViewType(position: Int): Int = items[position].getEntityType()
 
-  fun addIncubatorItem(item: YapEntity) {
+  fun addIncubatorItem(item: DisplayedItemModel) {
     val insertPosition = items.size
     items.add(item)
     notifyItemInserted(insertPosition)

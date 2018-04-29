@@ -7,10 +7,8 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.extensions.loadRatingBackground
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.SearchTopicItemModel
-import kotlinx.android.synthetic.main.fragment_site_search_topic_item.view.*
 
 class SearchResultsDelegateAdapter(
   private val itemClickListener: SearchResultsItemClickListener,
@@ -23,7 +21,7 @@ class SearchResultsDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = SearchedTopicViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
+  override fun onBindViewHolder(holder: ViewHolder, item: DisplayedItemModel) {
     if (item is SearchTopicItemModel) {
       holder as SearchedTopicViewHolder
       holder.bindTo(item)

@@ -9,7 +9,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSc
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.feature.forum.adapter.ChosenForumItemClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.ForumModelMapper
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.ForumInfoBlockModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.uber.autodispose.kotlin.autoDisposable
@@ -104,7 +104,7 @@ class ChosenForumPresenter @Inject constructor(
       .getChosenForum(currentForumId, startingTopic, currentSorting)
       .subscribeOn(Schedulers.io())
       .map(forumModelMapper)
-      .flatMap { topics: List<YapEntity> -> Observable.fromIterable(topics) }
+      .flatMap { topics: List<DisplayedItemModel> -> Observable.fromIterable(topics) }
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { viewState.showLoadingIndicator() }
       .doFinally { viewState.hideLoadingIndicator() }
@@ -113,9 +113,9 @@ class ChosenForumPresenter @Inject constructor(
   }
 
   private fun getChosenForumObserver() =
-    object : DisposableObserver<YapEntity?>() {
+    object : DisposableObserver<DisplayedItemModel?>() {
 
-      override fun onNext(item: YapEntity) {
+      override fun onNext(item: DisplayedItemModel) {
         if (clearCurrentList) {
           clearCurrentList = false
           viewState.clearTopicsList()

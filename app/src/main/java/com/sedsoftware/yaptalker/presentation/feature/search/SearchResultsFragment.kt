@@ -1,7 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.search
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import androidx.core.os.bundleOf
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -12,12 +11,9 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
-import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.feature.search.adapters.SearchResultsAdapter
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_site_search_results.*
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_site_search_results)
@@ -92,7 +88,7 @@ class SearchResultsFragment : BaseFragment(), SearchResultsView {
     setCurrentNavDrawerItem(NavigationSection.SITE_SEARCH)
   }
 
-  override fun appendSearchResultsTopicItem(item: YapEntity) {
+  override fun appendSearchResultsTopicItem(item: DisplayedItemModel) {
     searchResultsAdapter.addResultsItem(item)
   }
 }

@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
-import com.sedsoftware.yaptalker.presentation.model.ItemType
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 import com.sedsoftware.yaptalker.presentation.model.base.ForumModel
 import java.util.ArrayList
 import javax.inject.Inject
@@ -20,7 +20,7 @@ class ForumsAdapter @Inject constructor(
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
   init {
-    delegateAdapters.put(ItemType.FORUM, ForumsDelegateAdapter(itemClickListener, settings))
+    delegateAdapters.put(DisplayedItemType.FORUM, ForumsDelegateAdapter(itemClickListener, settings))
 
     items = ArrayList()
 
@@ -34,7 +34,7 @@ class ForumsAdapter @Inject constructor(
     delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])
   }
 
-  override fun getItemViewType(position: Int): Int = items[position].getBaseEntityType()
+  override fun getItemViewType(position: Int): Int = items[position].getEntityType()
 
   override fun getItemCount() = items.size
 

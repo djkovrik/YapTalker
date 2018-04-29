@@ -6,13 +6,13 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.presentation.base.CanShowErrorMessage
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 
 @StateStrategyType(SkipStrategy::class)
 interface TopicGalleryView : MvpView, CanShowErrorMessage {
 
   @StateStrategyType(AddToEndStrategy::class)
-  fun appendImages(images: List<YapEntity>)
+  fun appendImages(images: List<DisplayedItemModel>)
 
   @StateStrategyType(AddToEndSingleStrategy::class)
   fun updateCurrentUiState(title: String)

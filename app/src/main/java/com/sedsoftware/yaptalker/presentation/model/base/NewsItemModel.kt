@@ -1,12 +1,9 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
 import android.text.Spanned
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.ItemType
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 
-/**
- * Class which represents news item in presentation layer.
- */
 class NewsItemModel(
   val title: String,
   val link: String,
@@ -24,7 +21,7 @@ class NewsItemModel(
   val comments: String,
   val cleanedDescription: Spanned,
   val isYapLink: Boolean
-) : YapEntity {
+) : DisplayedItemModel {
 
-  override fun getBaseEntityType(): Int = ItemType.NEWS
+  override fun getEntityType(): Int = DisplayedItemType.NEWS
 }

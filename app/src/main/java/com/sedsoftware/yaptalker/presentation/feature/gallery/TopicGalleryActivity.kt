@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
 import android.view.Menu
 import android.view.MenuItem
@@ -18,13 +17,10 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.extensions.string
-import com.sedsoftware.yaptalker.presentation.extensions.visibleItemPosition
 import com.sedsoftware.yaptalker.presentation.feature.gallery.adapter.TopicGalleryAdapter
 import com.sedsoftware.yaptalker.presentation.feature.topic.GalleryInitialState
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
-import kotlinx.android.synthetic.main.activity_topic_gallery.*
-import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
 import java.util.Locale
 import javax.inject.Inject
 
@@ -113,7 +109,7 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView {
     messagesDelegate.showMessageError(message)
   }
 
-  override fun appendImages(images: List<YapEntity>) {
+  override fun appendImages(images: List<DisplayedItemModel>) {
     galleryAdapter.addList(images.map { it as SinglePostGalleryImageModel })
   }
 

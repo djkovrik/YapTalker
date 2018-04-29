@@ -9,8 +9,8 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.ItemType
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -21,16 +21,16 @@ class ChosenTopicAdapter @Inject constructor(
   settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-  private var items: ArrayList<YapEntity>
+  private var items: ArrayList<DisplayedItemModel>
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
   init {
     delegateAdapters.put(
-      ItemType.SINGLE_POST, ChosenTopicDelegateAdapter(elementsClickListener, thumbnailLoader, settings)
+      DisplayedItemType.SINGLE_POST, ChosenTopicDelegateAdapter(elementsClickListener, thumbnailLoader, settings)
     )
 
     delegateAdapters.put(
-      ItemType.NAVIGATION_PANEL,
+      DisplayedItemType.NAVIGATION_PANEL,
       NavigationPanelDelegateAdapter(navigationClickListener)
     )
 
@@ -46,13 +46,13 @@ class ChosenTopicAdapter @Inject constructor(
     delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])
   }
 
-  override fun getItemViewType(position: Int): Int = items[position].getBaseEntityType()
+  override fun getItemViewType(position: Int): Int = items[position].getEntityType()
 
   override fun getItemCount() = items.size
 
   override fun getItemId(position: Int) = position.toLong()
 
-  fun addPostItem(item: YapEntity) {
+  fun addPostItem(item: DisplayedItemModel) {
     val insertPosition = items.size
     items.add(item)
     notifyItemInserted(insertPosition)

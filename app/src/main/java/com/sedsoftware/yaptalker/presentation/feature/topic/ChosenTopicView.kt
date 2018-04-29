@@ -8,14 +8,14 @@ import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.presentation.base.CanShowErrorMessage
 import com.sedsoftware.yaptalker.presentation.base.CanShowLoadingIndicator
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 
 @Suppress("ComplexInterface", "TooManyFunctions")
 @StateStrategyType(SkipStrategy::class)
 interface ChosenTopicView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator {
 
   @StateStrategyType(AddToEndStrategy::class)
-  fun appendPostItem(item: YapEntity)
+  fun appendPostItem(item: DisplayedItemModel)
 
   @StateStrategyType(SingleStateStrategy::class)
   fun clearPostsList()

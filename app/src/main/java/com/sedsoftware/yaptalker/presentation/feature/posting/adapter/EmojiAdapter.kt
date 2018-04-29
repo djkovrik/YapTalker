@@ -4,10 +4,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.EmojiModel
-import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet_item.view.*
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -45,7 +43,7 @@ class EmojiAdapter @Inject constructor(
   inner class EmojiViewHolder(parent: ViewGroup) :
     RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_new_post_bottom_sheet_item)) {
 
-    fun bindTo(emoji: YapEntity) {
+    fun bindTo(emoji: DisplayedItemModel) {
 
       emoji as EmojiModel
 

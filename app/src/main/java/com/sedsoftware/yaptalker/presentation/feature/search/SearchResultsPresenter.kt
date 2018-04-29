@@ -7,7 +7,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLife
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.feature.search.adapters.SearchResultsItemClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.SearchResultsModelMapper
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.SearchTopicsPageInfoModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
@@ -60,7 +60,7 @@ class SearchResultsPresenter @Inject constructor(
       )
       .subscribeOn(Schedulers.io())
       .map(searchResultsMapper)
-      .flatMapObservable { list: List<YapEntity> -> Observable.fromIterable(list) }
+      .flatMapObservable { list: List<DisplayedItemModel> -> Observable.fromIterable(list) }
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { viewState.showLoadingIndicator() }
       .doFinally { viewState.hideLoadingIndicator() }
@@ -82,7 +82,7 @@ class SearchResultsPresenter @Inject constructor(
       )
       .subscribeOn(Schedulers.io())
       .map(searchResultsMapper)
-      .flatMapObservable { topics: List<YapEntity> -> Observable.fromIterable(topics) }
+      .flatMapObservable { topics: List<DisplayedItemModel> -> Observable.fromIterable(topics) }
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { viewState.showLoadingIndicator() }
       .doFinally { viewState.hideLoadingIndicator() }
@@ -91,9 +91,9 @@ class SearchResultsPresenter @Inject constructor(
   }
 
   private fun getSearchResultsObserver() =
-    object : DisposableObserver<YapEntity?>() {
+    object : DisposableObserver<DisplayedItemModel?>() {
 
-      override fun onNext(item: YapEntity) {
+      override fun onNext(item: DisplayedItemModel) {
 
         if (item is SearchTopicsPageInfoModel) {
           searchIdKey = if (item.searchId.isNotEmpty()) item.searchId else searchIdKey

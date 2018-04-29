@@ -1,8 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.forum
 
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
 import android.view.View
 import androidx.core.os.bundleOf
@@ -15,12 +13,10 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.forum.adapter.ChosenForumAdapter
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_chosen_forum.*
 import java.util.Locale
 import javax.inject.Inject
 
@@ -89,7 +85,7 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView {
     setCurrentNavDrawerItem(NavigationSection.FORUMS)
   }
 
-  override fun addTopicItem(item: YapEntity) {
+  override fun addTopicItem(item: DisplayedItemModel) {
     forumAdapter.addTopicItem(item)
   }
 

@@ -18,7 +18,7 @@ import com.sedsoftware.yaptalker.presentation.mapper.EditedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.QuotedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.ServerResponseModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.TopicModelMapper
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.EditedPostModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.sedsoftware.yaptalker.presentation.model.base.QuotedPostModel
@@ -387,7 +387,7 @@ class ChosenTopicPresenter @Inject constructor(
       .getChosenTopic(currentForumId, currentTopicId, startingPost)
       .subscribeOn(Schedulers.io())
       .map(topicMapper)
-      .flatMapObservable { items: List<YapEntity> -> Observable.fromIterable(items) }
+      .flatMapObservable { items: List<DisplayedItemModel> -> Observable.fromIterable(items) }
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { viewState.showLoadingIndicator() }
       .doFinally { viewState.hideLoadingIndicator() }
@@ -419,9 +419,9 @@ class ChosenTopicPresenter @Inject constructor(
     }
 
   private fun getTopicObserver(scrollToViewTop: Boolean) =
-    object : DisposableObserver<YapEntity?>() {
+    object : DisposableObserver<DisplayedItemModel?>() {
 
-      override fun onNext(item: YapEntity) {
+      override fun onNext(item: DisplayedItemModel) {
         if (clearCurrentList) {
           clearCurrentList = false
           viewState.clearPostsList()

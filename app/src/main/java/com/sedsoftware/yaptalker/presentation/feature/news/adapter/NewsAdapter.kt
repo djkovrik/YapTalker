@@ -9,7 +9,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
-import com.sedsoftware.yaptalker.presentation.model.ItemType
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import java.util.ArrayList
 import javax.inject.Inject
@@ -25,7 +25,7 @@ class NewsAdapter @Inject constructor(
 
   init {
     delegateAdapters.put(
-      ItemType.NEWS, NewsDelegateAdapter(clickListener, thumbnailsLoader, settings)
+      DisplayedItemType.NEWS, NewsDelegateAdapter(clickListener, thumbnailsLoader, settings)
     )
 
     items = ArrayList()
@@ -53,7 +53,7 @@ class NewsAdapter @Inject constructor(
 
   override fun getItemId(position: Int) = position.toLong()
 
-  override fun getItemViewType(position: Int): Int = items[position].getBaseEntityType()
+  override fun getItemViewType(position: Int): Int = items[position].getEntityType()
 
   fun addNewsItem(item: NewsItemModel) {
     val insertPosition = items.size

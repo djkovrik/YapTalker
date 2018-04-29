@@ -8,7 +8,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSc
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapter.ActiveTopicsItemClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.ActiveTopicModelMapper
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
@@ -94,7 +94,7 @@ class ActiveTopicsPresenter @Inject constructor(
       }
       .subscribeOn(Schedulers.io())
       .map(activeTopicsModelMapper)
-      .flatMapObservable { topics: List<YapEntity> -> Observable.fromIterable(topics) }
+      .flatMapObservable { topics: List<DisplayedItemModel> -> Observable.fromIterable(topics) }
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { viewState.showLoadingIndicator() }
       .doFinally { viewState.hideLoadingIndicator() }
@@ -112,7 +112,7 @@ class ActiveTopicsPresenter @Inject constructor(
       .getActiveTopics(hash = searchIdKey, page = startingTopicNumber)
       .subscribeOn(Schedulers.io())
       .map(activeTopicsModelMapper)
-      .flatMapObservable { topics: List<YapEntity> -> Observable.fromIterable(topics) }
+      .flatMapObservable { topics: List<DisplayedItemModel> -> Observable.fromIterable(topics) }
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSubscribe { viewState.showLoadingIndicator() }
       .doFinally { viewState.hideLoadingIndicator() }
@@ -121,9 +121,9 @@ class ActiveTopicsPresenter @Inject constructor(
   }
 
   private fun getActiveTopicsObserver() =
-    object : DisposableObserver<YapEntity?>() {
+    object : DisposableObserver<DisplayedItemModel?>() {
 
-      override fun onNext(item: YapEntity) {
+      override fun onNext(item: DisplayedItemModel) {
         if (item is NavigationPanelModel) {
           currentPage = item.currentPage
           totalPages = item.totalPages

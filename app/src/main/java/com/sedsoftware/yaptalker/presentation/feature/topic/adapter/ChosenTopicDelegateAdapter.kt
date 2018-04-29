@@ -16,14 +16,11 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.currentDensity
 import com.sedsoftware.yaptalker.presentation.extensions.colorFromAttr
-import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.extensions.loadAvatarFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
-import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.extensions.textFromHtmlWithEmoji
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostHiddenTextModel
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostQuoteAuthorModel
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostQuoteModel
@@ -32,7 +29,6 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostTe
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWarningModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 import java.util.ArrayList
 
 class ChosenTopicDelegateAdapter(
@@ -59,7 +55,7 @@ class ChosenTopicDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = PostViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
+  override fun onBindViewHolder(holder: ViewHolder, item: DisplayedItemModel) {
     holder as PostViewHolder
     holder.bindTo(item as SinglePostModel)
   }

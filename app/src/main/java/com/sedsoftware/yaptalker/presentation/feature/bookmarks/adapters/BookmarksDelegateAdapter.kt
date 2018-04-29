@@ -7,9 +7,8 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
-import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.*
 
 class BookmarksDelegateAdapter(
   private val clickListener: BookmarkElementsClickListener,
@@ -22,7 +21,7 @@ class BookmarksDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = BookmarkViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
+  override fun onBindViewHolder(holder: ViewHolder, item: DisplayedItemModel) {
     holder as BookmarkViewHolder
     holder.bindTo(item as BookmarkedTopicModel)
   }

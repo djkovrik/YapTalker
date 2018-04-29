@@ -7,10 +7,8 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.ForumModel
-import kotlinx.android.synthetic.main.fragment_forums_list_item.view.*
 
 class ForumsDelegateAdapter(
   private val itemClickListener: ForumsItemClickListener,
@@ -23,7 +21,7 @@ class ForumsDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = ForumsViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
+  override fun onBindViewHolder(holder: ViewHolder, item: DisplayedItemModel) {
     holder as ForumsViewHolder
     holder.bindTo(item as ForumModel)
   }

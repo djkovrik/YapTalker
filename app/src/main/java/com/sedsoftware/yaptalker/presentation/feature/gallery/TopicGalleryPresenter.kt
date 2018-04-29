@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.gallery.adapter.TopicGalleryLoadMoreClickListener
 import com.sedsoftware.yaptalker.presentation.feature.topic.GalleryInitialState
 import com.sedsoftware.yaptalker.presentation.mapper.TopicGalleryModelMapper
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
 import com.uber.autodispose.kotlin.autoDisposable
@@ -71,9 +71,9 @@ class TopicGalleryPresenter @Inject constructor(
   }
 
   private fun getTopicGalleryObserver() =
-    object : DisposableSingleObserver<List<YapEntity>>() {
+    object : DisposableSingleObserver<List<DisplayedItemModel>>() {
 
-      override fun onSuccess(items: List<YapEntity>) {
+      override fun onSuccess(items: List<DisplayedItemModel>) {
 
         items.forEach { item ->
           when (item) {

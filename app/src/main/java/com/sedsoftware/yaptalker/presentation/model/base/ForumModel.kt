@@ -1,18 +1,15 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.ItemType
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 
-/**
- * Class which represents forum item in presentation layer.
- */
 class ForumModel(
   val title: String,
   val forumId: Int,
   val lastTopicTitle: String,
   val lastTopicAuthor: String,
   val date: String
-) : YapEntity {
+) : DisplayedItemModel {
 
-  override fun getBaseEntityType(): Int = ItemType.FORUM
+  override fun getEntityType(): Int = DisplayedItemType.FORUM
 }

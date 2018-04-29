@@ -1,12 +1,9 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
 import android.text.Spanned
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.ItemType
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 
-/**
- * Class which represents single topic post item in presentation layer.
- */
 class SinglePostModel(
   val authorNickname: String,
   val authorProfile: String,
@@ -25,7 +22,7 @@ class SinglePostModel(
   val postId: Int,
   val hasQuoteButton: Boolean,
   val hasEditButton: Boolean
-) : YapEntity {
+) : DisplayedItemModel {
 
-  override fun getBaseEntityType(): Int = ItemType.SINGLE_POST
+  override fun getEntityType(): Int = DisplayedItemType.SINGLE_POST
 }

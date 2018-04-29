@@ -1,8 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.activetopics
 
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
@@ -14,12 +12,10 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapter.ActiveTopicsAdapter
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_active_topics.*
 import java.util.Locale
 import javax.inject.Inject
 
@@ -73,7 +69,7 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView {
     setCurrentNavDrawerItem(NavigationSection.ACTIVE_TOPICS)
   }
 
-  override fun appendActiveTopicItem(item: YapEntity) {
+  override fun appendActiveTopicItem(item: DisplayedItemModel) {
     topicsAdapter.addActiveTopicItem(item)
   }
 

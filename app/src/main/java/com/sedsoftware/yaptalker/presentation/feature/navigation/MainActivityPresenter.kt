@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSc
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.mapper.LoginSessionInfoModelMapper
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -111,7 +111,7 @@ class MainActivityPresenter @Inject constructor(
       })
   }
 
-  private fun displayLoginSessionInfo(sessionInfo: YapEntity) {
+  private fun displayLoginSessionInfo(sessionInfo: DisplayedItemModel) {
 
     sessionInfo as LoginSessionInfoModel
 

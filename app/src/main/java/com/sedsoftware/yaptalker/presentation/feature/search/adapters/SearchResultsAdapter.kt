@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.ItemType
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -16,12 +16,12 @@ class SearchResultsAdapter @Inject constructor(
   settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-  private var items: ArrayList<YapEntity>
+  private var items: ArrayList<DisplayedItemModel>
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
   init {
     delegateAdapters.put(
-      ItemType.SEARCHED_TOPIC, SearchResultsDelegateAdapter(clickListener, settings)
+      DisplayedItemType.SEARCHED_TOPIC, SearchResultsDelegateAdapter(clickListener, settings)
     )
 
     items = ArrayList()
@@ -40,9 +40,9 @@ class SearchResultsAdapter @Inject constructor(
 
   override fun getItemId(position: Int) = position.toLong()
 
-  override fun getItemViewType(position: Int): Int = items[position].getBaseEntityType()
+  override fun getItemViewType(position: Int): Int = items[position].getEntityType()
 
-  fun addResultsItem(item: YapEntity) {
+  fun addResultsItem(item: DisplayedItemModel) {
     val insertPosition = items.size
     items.add(item)
     notifyItemInserted(insertPosition)

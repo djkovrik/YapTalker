@@ -7,10 +7,8 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.extensions.loadRatingBackground
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.ActiveTopicModel
-import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.*
 
 class ActiveTopicsDelegateAdapter(
   private val itemClickListener: ActiveTopicsItemClickListener,
@@ -23,7 +21,7 @@ class ActiveTopicsDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = TopicViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
+  override fun onBindViewHolder(holder: ViewHolder, item: DisplayedItemModel) {
     holder as TopicViewHolder
     holder.bindTo(item as ActiveTopicModel)
   }

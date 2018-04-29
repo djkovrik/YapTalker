@@ -6,7 +6,7 @@ import com.sedsoftware.yaptalker.domain.entity.base.SearchTopicsPageInfo
 import com.sedsoftware.yaptalker.presentation.extensions.getLastDigits
 import com.sedsoftware.yaptalker.presentation.mapper.util.DateTransformer
 import com.sedsoftware.yaptalker.presentation.mapper.util.TextTransformer
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.SearchTopicItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.SearchTopicsPageInfoModel
 import io.reactivex.functions.Function
@@ -16,11 +16,11 @@ import javax.inject.Inject
 class SearchResultsModelMapper @Inject constructor(
   private val textTransformer: TextTransformer,
   private val dateTransformer: DateTransformer
-) : Function<List<BaseEntity>, List<YapEntity>> {
+) : Function<List<BaseEntity>, List<DisplayedItemModel>> {
 
-  override fun apply(items: List<BaseEntity>): List<YapEntity> {
+  override fun apply(items: List<BaseEntity>): List<DisplayedItemModel> {
 
-    val result: MutableList<YapEntity> = ArrayList(items.size)
+    val result: MutableList<DisplayedItemModel> = ArrayList(items.size)
 
     items.forEach { item ->
       when (item) {
