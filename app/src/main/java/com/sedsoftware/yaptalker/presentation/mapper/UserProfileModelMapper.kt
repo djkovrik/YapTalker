@@ -1,25 +1,17 @@
 package com.sedsoftware.yaptalker.presentation.mapper
 
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.UserProfile
 import com.sedsoftware.yaptalker.presentation.mapper.util.TextTransformer
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.UserProfileModel
 import io.reactivex.functions.Function
 import javax.inject.Inject
 
-/**
- * Mapper class used to transform user profile entity from the domain layer into YapEntity in the presentation layer.
- */
 class UserProfileModelMapper @Inject constructor(
   private val textTransformer: TextTransformer
-) : Function<BaseEntity, YapEntity> {
+) : Function<UserProfile, UserProfileModel> {
 
-  override fun apply(profile: BaseEntity): YapEntity {
-
-    profile as UserProfile
-
-    return UserProfileModel(
+  override fun apply(profile: UserProfile): UserProfileModel =
+    UserProfileModel(
       nickname = profile.nickname,
       avatar = profile.avatar,
       photo = profile.photo,
@@ -42,5 +34,4 @@ class UserProfileModelMapper @Inject constructor(
       email = profile.email,
       icq = profile.icq
     )
-  }
 }

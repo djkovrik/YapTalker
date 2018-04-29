@@ -1,29 +1,20 @@
 package com.sedsoftware.yaptalker.presentation.mapper
 
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.IncubatorItem
 import com.sedsoftware.yaptalker.presentation.extensions.getLastDigits
 import com.sedsoftware.yaptalker.presentation.mapper.util.DateTransformer
 import com.sedsoftware.yaptalker.presentation.mapper.util.TextTransformer
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 import io.reactivex.functions.Function
 import javax.inject.Inject
 
-/**
- * Mapper class used to transform incubator entities list from the domain layer into YapEntity list
- * in the presentation layer.
- */
 class IncubatorModelMapper @Inject constructor(
   private val textTransformer: TextTransformer,
   private val dateTransformer: DateTransformer
-) : Function<BaseEntity, YapEntity> {
+) : Function<IncubatorItem, IncubatorItemModel> {
 
-  override fun apply(item: BaseEntity): YapEntity {
-
-    item as IncubatorItem
-
-    return IncubatorItemModel(
+  override fun apply(item: IncubatorItem): IncubatorItemModel =
+    IncubatorItemModel(
       title = item.title,
       link = item.link,
       topicId = item.link.getLastDigits(),
@@ -41,5 +32,4 @@ class IncubatorModelMapper @Inject constructor(
       cleanedDescription = textTransformer.transformHtmlToSpanned(item.cleanedDescription),
       isYapLink = item.link.contains("yaplakal") && !item.link.contains("/go/")
     )
-  }
 }

@@ -13,10 +13,6 @@ import io.reactivex.functions.Function
 import java.util.ArrayList
 import javax.inject.Inject
 
-/**
- * Mapper class used to transform active topics entities list from the domain layer into YapEntity list
- * in the presentation layer.
- */
 class ActiveTopicModelMapper @Inject constructor(
   private val textTransformer: TextTransformer,
   private val dateTransformer: DateTransformer

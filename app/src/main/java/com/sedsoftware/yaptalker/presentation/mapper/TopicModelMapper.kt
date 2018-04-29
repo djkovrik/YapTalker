@@ -31,10 +31,6 @@ import io.reactivex.functions.Function
 import java.util.ArrayList
 import javax.inject.Inject
 
-/**
- * Mapper class used to transform single topic entities list from the domain layer into YapEntity list
- * in the presentation layer.
- */
 class TopicModelMapper @Inject constructor(
   private val dateTransformer: DateTransformer,
   private val textTransformer: TextTransformer

@@ -15,10 +15,6 @@ import io.reactivex.functions.Function
 import java.util.ArrayList
 import javax.inject.Inject
 
-/**
- * Mapper class used to transform forum page entities list from the domain layer into YapEntity list
- * in the presentation layer.
- */
 class ForumModelMapper @Inject constructor(
   private val textTransformer: TextTransformer,
   private val dateTransformer: DateTransformer
