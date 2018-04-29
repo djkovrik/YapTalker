@@ -10,6 +10,7 @@ ext {
     final SUPPORT_LIBRARY_VERSION = "27.1.0"
     final CONSTRAINT_LAYOUT_VERSION = "1.1.0"
     final ANDROID_KTX_VERSION = "0.3"
+    final ROOM_VERSION = "1.1.0-beta3"
 
     // Rx
     final RX_ANDROID_VERSION = "2.0.2"
@@ -66,6 +67,8 @@ ext {
     ]
 
     dataDependencies = [
+            room    : "android.arch.persistence.room:runtime:$ROOM_VERSION",
+
             kotlin  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
             javax   : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
             rxJava  : "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION",
@@ -97,6 +100,9 @@ ext {
     presentationDependencies = [
             kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
             androidKtx              : "androidx.core:core-ktx:$ANDROID_KTX_VERSION",
+
+            room                    : "android.arch.persistence.room:runtime:$ROOM_VERSION",
+            roomCompiler            : "android.arch.persistence.room:compiler:$ROOM_VERSION",
 
             appCompat               : "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION",
             preferenceV7            : "com.android.support:preference-v7:$SUPPORT_LIBRARY_VERSION",
