@@ -27,7 +27,6 @@ class MessagesDelegate(private val activity: WeakReference<AppCompatActivity>) {
   }
 
   private fun showTopSnackbar(message: String, @AttrRes bgColor: Int, @AttrRes textColor: Int) {
-
     activity.get()?.let { appCompatActivity ->
       TSnackbar
         .make(appCompatActivity.findViewById(R.id.content_container), message, TSnackbar.LENGTH_SHORT)

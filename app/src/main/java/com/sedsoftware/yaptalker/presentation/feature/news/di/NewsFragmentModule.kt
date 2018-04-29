@@ -8,7 +8,7 @@ import com.sedsoftware.yaptalker.domain.interactor.NewsInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
 import com.sedsoftware.yaptalker.domain.repository.NewsRepository
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
-import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.feature.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.feature.news.NewsPresenter
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsItemElementsClickListener

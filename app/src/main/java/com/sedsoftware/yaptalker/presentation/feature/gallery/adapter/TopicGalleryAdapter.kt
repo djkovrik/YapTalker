@@ -3,11 +3,11 @@ package com.sedsoftware.yaptalker.presentation.feature.gallery.adapter
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.extensions.hideViewAsInvisible
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
-import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
 import kotlinx.android.synthetic.main.activity_topic_gallery_item.view.*
 import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.*
@@ -67,19 +67,18 @@ class TopicGalleryAdapter @Inject constructor(
     RecyclerView.ViewHolder(parent.inflate(R.layout.activity_topic_gallery_item)) {
 
     fun bind(image: SinglePostGalleryImageModel) {
+      with(itemView) {
+        load_more_button.isInvisible = true
+        gallery_image.loadFromUrl(image.url)
 
-      itemView.load_more_button.hideViewAsInvisible()
-      itemView.load_more_label.hideViewAsInvisible()
-      itemView.load_more_progress.hideViewAsInvisible()
-      itemView.gallery_image.loadFromUrl(image.url)
-
-      if (image.showLoadMore && !isLastPageVisible) {
-        itemView.load_more_button.showView()
-        itemView.load_more_label.showView()
-        itemView.load_more_button.setOnClickListener {
-          loadMoreCallback.onLoadMoreClicked()
-          itemView.load_more_label.hideViewAsInvisible()
-          itemView.load_more_progress.showView()
+        if (image.showLoadMore && !isLastPageVisible) {
+          load_more_button.isVisible = true
+          load_more_label.isVisible = true
+          load_more_button.setOnClickListener {
+            loadMoreCallback.onLoadMoreClicked()
+            load_more_label.isInvisible = true
+            load_more_progress.isVisible = true
+          }
         }
       }
     }

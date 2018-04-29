@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.base.thumbnail
+package com.sedsoftware.yaptalker.presentation.thumbnail
 
 import android.widget.ImageView
 

@@ -7,8 +7,10 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
+import com.sedsoftware.yaptalker.presentation.extensions.loadRatingBackground
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicModel
+import kotlinx.android.synthetic.main.fragment_chosen_forum_item.view.*
 
 class ChosenForumDelegateAdapter(
   private val itemClick: ChosenForumItemClickListener,

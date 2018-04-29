@@ -4,13 +4,17 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
-import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
+import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
+import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import kotlinx.android.synthetic.main.fragment_news_item.view.*
 
 class NewsDelegateAdapter(
   private val clickListener: NewsItemElementsClickListener,
@@ -74,20 +78,20 @@ class NewsDelegateAdapter(
 
         news_content_image.setOnClickListener(null)
         news_content_image.setImageDrawable(null)
-        news_content_image_container.hideView()
-        news_content_image_overlay.hideView()
+        news_content_image_container.isGone = true
+        news_content_image_overlay.isGone = true
 
         if (newsItem.images.isNotEmpty()) {
           val url = newsItem.images.first()
           news_content_image.loadFromUrl(url)
-          news_content_image_container.showView()
+          news_content_image_container.isVisible = true
           news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, "", false) }
         } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
           val url = newsItem.videos.first()
           val rawVideo = newsItem.videosRaw.first()
           thumbnailsLoader.loadThumbnail(url, news_content_image)
-          news_content_image_container.showView()
-          news_content_image_overlay.showView()
+          news_content_image_container.isVisible = true
+          news_content_image_overlay.isVisible = true
           news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawVideo, true) }
         }
 

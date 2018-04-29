@@ -7,9 +7,9 @@ import android.animation.AnimatorSet
 import android.content.Context
 import android.view.View
 import android.view.animation.OvershootInterpolator
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.extensions.hideViewAsInvisible
-import com.sedsoftware.yaptalker.presentation.extensions.showView
 
 class FabMenuItemPrimary(
   private val context: Context?,
@@ -28,7 +28,7 @@ class FabMenuItemPrimary(
       hideAnimator.addListener(object : AnimatorListenerAdapter() {
         override fun onAnimationEnd(animation: Animator?) {
           super.onAnimationEnd(animation)
-          mainView.hideViewAsInvisible()
+          mainView.isInvisible = true
         }
       })
       hideAnimator.start()
@@ -40,7 +40,7 @@ class FabMenuItemPrimary(
 
         override fun onAnimationStart(animation: Animator?) {
           super.onAnimationStart(animation)
-          secondaryView.showView()
+          secondaryView.isVisible = true
           showLabelAnimated()
         }
       })
@@ -56,7 +56,7 @@ class FabMenuItemPrimary(
       hideAnimator.addListener(object : AnimatorListenerAdapter() {
         override fun onAnimationEnd(animation: Animator?) {
           super.onAnimationEnd(animation)
-          secondaryView.hideViewAsInvisible()
+          secondaryView.isInvisible = true
         }
       })
       hideAnimator.start()
@@ -67,7 +67,7 @@ class FabMenuItemPrimary(
       showAnimator.addListener(object : AnimatorListenerAdapter() {
         override fun onAnimationStart(animation: Animator?) {
           super.onAnimationStart(animation)
-          mainView.showView()
+          mainView.isVisible = true
           hideLabelAnimated()
         }
       })
@@ -82,7 +82,7 @@ class FabMenuItemPrimary(
     showAnimator.addListener(object : AnimatorListenerAdapter() {
       override fun onAnimationStart(animation: Animator?) {
         super.onAnimationStart(animation)
-        secondaryViewLabel.showView()
+        secondaryViewLabel.isVisible = true
       }
     })
     showAnimator.start()
@@ -95,7 +95,7 @@ class FabMenuItemPrimary(
     hideAnimator.addListener(object : AnimatorListenerAdapter() {
       override fun onAnimationEnd(animation: Animator?) {
         super.onAnimationEnd(animation)
-        secondaryViewLabel.hideViewAsInvisible()
+        secondaryViewLabel.isInvisible = true
       }
     })
     hideAnimator.start()

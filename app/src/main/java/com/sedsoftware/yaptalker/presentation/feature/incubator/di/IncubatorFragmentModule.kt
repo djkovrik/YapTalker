@@ -8,7 +8,7 @@ import com.sedsoftware.yaptalker.domain.interactor.IncubatorInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
 import com.sedsoftware.yaptalker.domain.repository.IncubatorRepository
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
-import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.feature.incubator.IncubatorFragment
 import com.sedsoftware.yaptalker.presentation.feature.incubator.IncubatorPresenter
 import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.IncubatorElementsClickListener

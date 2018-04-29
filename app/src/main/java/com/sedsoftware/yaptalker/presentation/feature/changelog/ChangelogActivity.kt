@@ -3,14 +3,14 @@ package com.sedsoftware.yaptalker.presentation.feature.changelog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
-import com.sedsoftware.yaptalker.presentation.extensions.hideView
-import com.sedsoftware.yaptalker.presentation.extensions.showView
 import kotlinx.android.synthetic.main.activity_changelog.*
 import kotlinx.android.synthetic.main.include_main_appbar.*
 import ru.noties.markwon.Markwon
@@ -45,13 +45,13 @@ class ChangelogActivity : BaseActivity(), ChangelogView {
   }
 
   override fun showLoadingIndicator() {
-    changelog_container.hideView()
-    changelog_progressbar.showView()
+    changelog_container.isGone = true
+    changelog_progressbar.isVisible = true
   }
 
   override fun hideLoadingIndicator() {
-    changelog_progressbar.hideView()
-    changelog_container.showView()
+    changelog_progressbar.isGone = true
+    changelog_container.isVisible = true
   }
 
   override fun showErrorMessage(message: String) {

@@ -3,13 +3,13 @@ package com.sedsoftware.yaptalker.presentation.feature.userprofile
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
+import androidx.core.view.isGone
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.model.base.UserProfileModel
@@ -126,7 +126,7 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
     if (profile.photo.isNotEmpty()) {
       profile_photo.loadFromUrl(profile.photo)
     } else {
-      profile_photo_card.hideView()
+      profile_photo_card.isGone = true
     }
   }
 }

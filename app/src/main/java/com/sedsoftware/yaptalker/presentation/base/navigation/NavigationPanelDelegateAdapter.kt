@@ -8,6 +8,7 @@ import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdap
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
+import kotlinx.android.synthetic.main.item_navigation_panel.view.*
 
 class NavigationPanelDelegateAdapter(
   val navigationClick: NavigationPanelClickListener

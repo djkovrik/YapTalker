@@ -7,9 +7,9 @@ import android.animation.AnimatorSet
 import android.content.Context
 import android.view.View
 import android.view.animation.OvershootInterpolator
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.sedsoftware.yaptalker.R
-import com.sedsoftware.yaptalker.presentation.extensions.hideView
-import com.sedsoftware.yaptalker.presentation.extensions.showView
 
 class FabMenuItemSecondary(
   private val context: Context?,
@@ -23,7 +23,7 @@ class FabMenuItemSecondary(
     animator.addListener(object : AnimatorListenerAdapter() {
       override fun onAnimationStart(animation: Animator?) {
         super.onAnimationStart(animation)
-        view.showView()
+        view.isVisible = true
       }
     })
     animator.start()
@@ -36,7 +36,7 @@ class FabMenuItemSecondary(
     animator.addListener(object : AnimatorListenerAdapter() {
       override fun onAnimationEnd(animation: Animator?) {
         super.onAnimationEnd(animation)
-        view.hideView()
+        view.isGone = true
       }
     })
     animator.start()

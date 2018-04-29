@@ -10,13 +10,15 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ImageView.ScaleType
 import android.widget.TextView
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
-import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
-import com.sedsoftware.yaptalker.presentation.extensions.currentDensity
 import com.sedsoftware.yaptalker.presentation.extensions.colorFromAttr
+import com.sedsoftware.yaptalker.presentation.extensions.currentDensity
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
+import com.sedsoftware.yaptalker.presentation.extensions.loadAvatarFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.textFromHtmlWithEmoji
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
@@ -29,6 +31,8 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostTe
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWarningModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
+import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 import java.util.ArrayList
 
 class ChosenTopicDelegateAdapter(
@@ -86,7 +90,7 @@ class ChosenTopicDelegateAdapter(
       warnings.clear()
 
       if (post.content.isNotEmpty()) {
-        itemView.post_content_text_container.showView()
+        itemView.post_content_text_container.isVisible = true
 
         post.content.forEach { contentItem ->
 
@@ -164,10 +168,10 @@ class ChosenTopicDelegateAdapter(
       ).toInt()
 
       itemView.post_content_image_container.removeAllViews()
-      itemView.post_content_image_container.hideView()
+      itemView.post_content_image_container.isGone = true
 
       if (post.images.isNotEmpty()) {
-        itemView.post_content_image_container.showView()
+        itemView.post_content_image_container.isVisible = true
         post.images.forEach { url ->
           val image = ImageView(itemView.context)
           image.adjustViewBounds = true
@@ -186,10 +190,10 @@ class ChosenTopicDelegateAdapter(
       ).toInt()
 
       itemView.post_content_video_container.removeAllViews()
-      itemView.post_content_video_container.hideView()
+      itemView.post_content_video_container.isGone = true
 
       if (post.videos.isNotEmpty() && post.videosRaw.isNotEmpty()) {
-        itemView.post_content_video_container.showView()
+        itemView.post_content_video_container.isVisible = true
         post.videos.forEachIndexed { index, url ->
 
           val rawHtml = post.videosRaw[index]
@@ -242,30 +246,30 @@ class ChosenTopicDelegateAdapter(
         post_rating_thumb_up_available.textSize = normalFontSize
         post_rating_thumb_down_available.textSize = normalFontSize
 
-        post_rating.hideView()
-        post_rating_thumb_down.hideView()
-        post_rating_thumb_up.hideView()
-        post_rating_thumb_down_available.hideView()
-        post_rating_thumb_up_available.hideView()
+        post_rating.isGone = true
+        post_rating_thumb_down.isGone = true
+        post_rating_thumb_up.isGone = true
+        post_rating_thumb_down_available.isGone = true
+        post_rating_thumb_up_available.isGone = true
 
         when {
           post.postRankMinusClicked -> {
-            post_rating.showView()
-            post_rating_thumb_down.showView()
-            post_rating_thumb_up_available.showView()
+            post_rating.isVisible = true
+            post_rating_thumb_down.isVisible = true
+            post_rating_thumb_up_available.isVisible = true
           }
           post.postRankPlusClicked -> {
-            post_rating.showView()
-            post_rating_thumb_up.showView()
-            post_rating_thumb_down_available.showView()
+            post_rating.isVisible = true
+            post_rating_thumb_up.isVisible = true
+            post_rating_thumb_down_available.isVisible = true
           }
           post.postRankMinusAvailable && post.postRankPlusAvailable -> {
-            post_rating.showView()
-            post_rating_thumb_up_available.showView()
-            post_rating_thumb_down_available.showView()
+            post_rating.isVisible = true
+            post_rating_thumb_up_available.isVisible = true
+            post_rating_thumb_down_available.isVisible = true
           }
           post.postRank != 0 -> {
-            post_rating.showView()
+            post_rating.isVisible = true
           }
         }
 
@@ -284,21 +288,21 @@ class ChosenTopicDelegateAdapter(
         post_author_avatar.setOnClickListener { clickListener.onUserAvatarClicked(post.authorProfileId) }
 
         if (post.hasQuoteButton) {
-          post_button_reply.showView()
+          post_button_reply.isVisible = true
           post_button_reply.setOnClickListener {
             clickListener.onReplyButtonClicked(post.authorNickname, post.postDateFull, post.postId)
           }
         } else {
-          post_button_reply.hideView()
+          post_button_reply.isGone = true
         }
 
         if (post.hasEditButton) {
-          post_button_edit.showView()
+          post_button_edit.isVisible = true
           post_button_edit.setOnClickListener {
             clickListener.onEditButtonClicked(post.postId)
           }
         } else {
-          post_button_edit.hideView()
+          post_button_edit.isGone = true
         }
       }
     }

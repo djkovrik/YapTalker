@@ -13,7 +13,7 @@ import com.sedsoftware.yaptalker.domain.repository.BookmarksRepository
 import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
-import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.feature.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.presentation.feature.topic.ChosenTopicPresenter
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicElementsClickListener

@@ -10,4 +10,8 @@ object DisplayedItemType {
   const val INCUBATOR = 7
   const val NAVIGATION_PANEL = 8
   const val SEARCHED_TOPIC = 9
+  const val FORUM_INFO = 10
+  const val TOPIC_INFO = 11
+  const val GALLERY_IMAGE = 12
+  const val SEARCH_TOPIC_INFO = 13
 }

@@ -5,6 +5,8 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.View
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.view.RxView
@@ -13,8 +15,6 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.extensions.hideView
-import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.model.base.AppVersionInfoModel
 import com.uber.autodispose.kotlin.autoDisposable
@@ -79,7 +79,7 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
       versionInfo.versionName
     )
 
-    updater_new_version.showView()
+    updater_new_version.isVisible = true
   }
 
   override fun displayLastUpdateCheckDate(date: String) {
@@ -108,11 +108,11 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
 
   override fun setDownloadButtonVisibility(isVisible: Boolean) {
     if (isVisible) {
-      updater_btn_check_updates.hideView()
-      updater_btn_download.showView()
+      updater_btn_check_updates.isInvisible = true
+      updater_btn_download.isVisible = true
     } else {
-      updater_btn_download.hideView()
-      updater_btn_check_updates.showView()
+      updater_btn_download.isInvisible = true
+      updater_btn_check_updates.isVisible = true
     }
   }
 

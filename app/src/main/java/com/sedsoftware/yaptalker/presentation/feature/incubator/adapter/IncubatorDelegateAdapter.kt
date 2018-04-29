@@ -4,13 +4,17 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
-import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
+import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
+import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.*
 
 class IncubatorDelegateAdapter(
   private val clickListener: IncubatorElementsClickListener,
@@ -73,13 +77,13 @@ class IncubatorDelegateAdapter(
       with(itemView) {
         incubator_topic_content_image.setOnClickListener(null)
         incubator_topic_content_image.setImageDrawable(null)
-        incubator_topic_content_image_container.hideView()
-        incubator_topic_content_image_overlay.hideView()
+        incubator_topic_content_image_container.isGone = true
+        incubator_topic_content_image_overlay.isGone = true
 
         if (incubatorItem.images.isNotEmpty()) {
           val url = incubatorItem.images.first()
           incubator_topic_content_image.loadFromUrl(url)
-          incubator_topic_content_image_container.showView()
+          incubator_topic_content_image_container.isVisible = true
 
           incubator_topic_content_image.setOnClickListener {
             clickListener.onMediaPreviewClicked(url, "", false)
@@ -88,8 +92,8 @@ class IncubatorDelegateAdapter(
           val url = incubatorItem.videos.first()
           val rawVideo = incubatorItem.videosRaw.first()
           thumbnailsLoader.loadThumbnail(url, incubator_topic_content_image)
-          incubator_topic_content_image_container.showView()
-          incubator_topic_content_image_overlay.showView()
+          incubator_topic_content_image_container.isVisible = true
+          incubator_topic_content_image_overlay.isVisible = true
 
           incubator_topic_content_image.setOnClickListener {
             clickListener.onMediaPreviewClicked(url, rawVideo, true)

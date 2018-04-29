@@ -7,8 +7,10 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
+import com.sedsoftware.yaptalker.presentation.extensions.loadRatingBackground
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.SearchTopicItemModel
+import kotlinx.android.synthetic.main.fragment_site_search_topic_item.view.*
 
 class SearchResultsDelegateAdapter(
   private val itemClickListener: SearchResultsItemClickListener,
@@ -33,7 +35,6 @@ class SearchResultsDelegateAdapter(
 
     fun bindTo(topicItem: SearchTopicItemModel) {
       with(itemView) {
-
         search_topic_name.text = topicItem.title
         search_topic_forum.text = topicItem.forumTitle
         search_topic_last_post_date.text = topicItem.lastPostDate

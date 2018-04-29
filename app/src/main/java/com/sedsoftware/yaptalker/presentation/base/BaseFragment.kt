@@ -47,7 +47,6 @@ abstract class BaseFragment : MvpAppCompatFragment() {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
     val clazz = this::class.java
     if (clazz.isAnnotationPresent(LayoutResource::class.java)) {
       val layoutId = clazz.getAnnotation(LayoutResource::class.java).value
