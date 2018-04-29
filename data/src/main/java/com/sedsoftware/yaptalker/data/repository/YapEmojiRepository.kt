@@ -1,9 +1,9 @@
 package com.sedsoftware.yaptalker.data.repository
 
-import com.sedsoftware.yaptalker.data.mappers.EmojiListMapper
-import com.sedsoftware.yaptalker.data.mappers.ListToObservablesMapper
+import com.sedsoftware.yaptalker.data.mapper.EmojiListMapper
+import com.sedsoftware.yaptalker.data.mapper.ListToObservablesMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.Emoji
 import com.sedsoftware.yaptalker.domain.repository.EmojiRepository
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class YapEmojiRepository @Inject constructor(
   private val dataLoader: YapLoader,
   private val dataMapper: EmojiListMapper,
-  private val listMapper: ListToObservablesMapper
+  private val listMapper: ListToObservablesMapper<Emoji>
 ) : EmojiRepository {
 
   companion object {
@@ -19,7 +19,7 @@ class YapEmojiRepository @Inject constructor(
     private const val EMOJI_CODE = "emoticons"
   }
 
-  override fun getEmojiList(): Observable<BaseEntity> =
+  override fun getEmojiList(): Observable<Emoji> =
     dataLoader
       .loadEmojiList(
         act = EMOJI_ACT,

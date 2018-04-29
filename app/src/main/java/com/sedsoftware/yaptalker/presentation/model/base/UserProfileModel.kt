@@ -1,8 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
 import android.text.Spanned
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
 
 class UserProfileModel(
   val nickname: String,
@@ -26,7 +24,4 @@ class UserProfileModel(
   val todayTopics: String,
   val email: String,
   val icq: String
-) : YapEntity {
-
-  override fun getBaseEntityType(): Int = YapEntityTypes.USER_PROFILE
-}
+)

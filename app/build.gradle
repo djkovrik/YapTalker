@@ -75,6 +75,7 @@ dependencies {
     implementation project(':device')
 
     implementation presentationDependencies.kotlin
+    implementation presentationDependencies.androidKtx
 
     implementation presentationDependencies.appCompat
     implementation presentationDependencies.preferenceV7

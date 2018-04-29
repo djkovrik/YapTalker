@@ -30,7 +30,8 @@ class InfiniteScrollListener(
         }
       }
       if (!loading && (totalItemCount - visibleItemCount)
-        <= (firstVisibleItem + visibleThreshold)) {
+        <= (firstVisibleItem + visibleThreshold)
+      ) {
         func()
         loading = true
       }

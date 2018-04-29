@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.base.enums.lifecycle
 
-import android.support.annotation.IntDef
+import android.support.annotation.LongDef
 
 class FragmentLifecycle {
 
@@ -16,6 +16,6 @@ class FragmentLifecycle {
   }
 
   @Retention(AnnotationRetention.SOURCE)
-  @IntDef(ATTACH, CREATE, START, RESUME, PAUSE, STOP, DESTROY, DETACH)
+  @LongDef(ATTACH, CREATE, START, RESUME, PAUSE, STOP, DESTROY, DETACH)
   annotation class Event
 }

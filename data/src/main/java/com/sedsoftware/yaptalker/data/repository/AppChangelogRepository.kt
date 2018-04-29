@@ -16,13 +16,13 @@ class AppChangelogRepository @Inject constructor(
     const val LOCALE_EN = "en"
   }
 
+  @Suppress("DEPRECATION")
   override fun getChangelog(): Single<String> {
 
     val resources = context.resources
     val locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
       resources.configuration.locales.get(0)
     } else {
-      //noinspection deprecation
       resources.configuration.locale
     }
 

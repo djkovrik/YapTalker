@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.data.repository
 
-import com.sedsoftware.yaptalker.data.mappers.ActiveTopicsPageMapper
+import com.sedsoftware.yaptalker.data.mapper.ActiveTopicsPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.repository.ActiveTopicsRepository

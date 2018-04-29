@@ -1,12 +1,13 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 
 class SearchTopicsPageInfoModel(
   val hasNextPage: Boolean,
   val searchId: String
-) : YapEntity {
+) : DisplayedItemModel {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.SEARCH_PAGE_INFO
+  override fun getEntityType(): Int = DisplayedItemType.SEARCH_TOPIC_INFO
 }
+

@@ -7,8 +7,9 @@ allprojects {
 ext {
     // Android
     final KOTLIN_VERSION = "1.2.40"
-    final SUPPORT_LIBRARY_VERSION = "27.0.2"
+    final SUPPORT_LIBRARY_VERSION = "27.1.0"
     final CONSTRAINT_LAYOUT_VERSION = "1.1.0"
+    final ANDROID_KTX_VERSION = "0.3"
 
     // Rx
     final RX_ANDROID_VERSION = "2.0.2"
@@ -61,7 +62,7 @@ ext {
     ]
 
     domainTestDependencies = [
-            junit : "junit:junit:$JUNIT_VERSION",
+            junit: "junit:junit:$JUNIT_VERSION",
     ]
 
     dataDependencies = [
@@ -75,7 +76,7 @@ ext {
     ]
 
     dataTestDependencies = [
-            junit        : "junit:junit:$JUNIT_VERSION",
+            junit: "junit:junit:$JUNIT_VERSION",
     ]
 
     deviceDependencies = [
@@ -90,11 +91,12 @@ ext {
     ]
 
     deviceTestDependencies = [
-            junit        : "junit:junit:$JUNIT_VERSION",
+            junit: "junit:junit:$JUNIT_VERSION",
     ]
 
     presentationDependencies = [
             kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
+            androidKtx              : "androidx.core:core-ktx:$ANDROID_KTX_VERSION",
 
             appCompat               : "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION",
             preferenceV7            : "com.android.support:preference-v7:$SUPPORT_LIBRARY_VERSION",
@@ -153,8 +155,8 @@ ext {
     ]
 
     presentationTestDependencies = [
-            junit         : "junit:junit:$JUNIT_VERSION",
-            espresso      : "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION",
+            junit   : "junit:junit:$JUNIT_VERSION",
+            espresso: "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION",
     ]
 
     supportingToolsDependencies = [
