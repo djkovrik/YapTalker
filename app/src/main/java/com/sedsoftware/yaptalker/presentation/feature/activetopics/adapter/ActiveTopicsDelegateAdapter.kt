@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.feature.activetopics.adapters
+package com.sedsoftware.yaptalker.presentation.feature.activetopics.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder

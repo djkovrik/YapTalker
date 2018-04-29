@@ -29,7 +29,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.hideView
 import com.sedsoftware.yaptalker.presentation.extensions.showView
 import com.sedsoftware.yaptalker.presentation.feature.posting.adapter.EmojiAdapter
 import com.sedsoftware.yaptalker.presentation.feature.posting.tags.MessageTagCodes
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.EmojiModel
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_new_post.*
 import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.*
@@ -156,8 +156,8 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     setCurrentNavDrawerItem(NavigationSection.FORUMS)
   }
 
-  override fun appendEmojiItem(emoji: YapEntity) {
-    emojiAdapter.addEmojiItem(emoji)
+  override fun appendEmojiItem(item: EmojiModel) {
+    emojiAdapter.addEmojiItem(item)
   }
 
   override fun clearEmojiList() {

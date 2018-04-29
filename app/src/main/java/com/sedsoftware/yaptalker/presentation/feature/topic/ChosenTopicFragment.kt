@@ -134,8 +134,8 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsLoader {
     topic_refresh_layout.isRefreshing = false
   }
 
-  override fun appendPostItem(post: YapEntity) {
-    topicAdapter.addPostItem(post)
+  override fun appendPostItem(item: YapEntity) {
+    topicAdapter.addPostItem(item)
   }
 
   override fun clearPostsList() {

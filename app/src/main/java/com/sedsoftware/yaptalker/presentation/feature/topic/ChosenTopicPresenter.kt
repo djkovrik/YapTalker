@@ -398,14 +398,12 @@ class ChosenTopicPresenter @Inject constructor(
   // ==== OBSERVERS ====
 
   private fun getKarmaResponseObserver(isTopic: Boolean) =
-    object : SingleObserver<YapEntity?> {
+    object : SingleObserver<ServerResponseModel?> {
 
       override fun onSubscribe(d: Disposable) {
       }
 
-      override fun onSuccess(response: YapEntity) {
-        response as ServerResponseModel
-
+      override fun onSuccess(response: ServerResponseModel) {
         when {
           response.text.contains(KARMA_SUCCESS_MARKER) -> viewState.showPostKarmaChangedMessage(isTopic)
           response.text.contains(KARMA_ALREADY_CHANGED_MARKER) -> viewState.showPostAlreadyRatedMessage(isTopic)

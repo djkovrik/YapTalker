@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsItemElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.NewsModelMapper
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -117,8 +117,8 @@ class NewsPresenter @Inject constructor(
   }
 
   private fun getNewsObserver() =
-    object : DisposableObserver<YapEntity>() {
-      override fun onNext(item: YapEntity) {
+    object : DisposableObserver<NewsItemModel>() {
+      override fun onNext(item: NewsItemModel) {
         if (backToFirstPage) {
           viewState.clearNewsList()
           backToFirstPage = false

@@ -8,7 +8,7 @@ import com.sedsoftware.yaptalker.domain.repository.ActiveTopicsRepository
 import com.sedsoftware.yaptalker.domain.repository.SearchIdRepository
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.ActiveTopicsPresenter
-import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapters.ActiveTopicsItemClickListener
+import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapter.ActiveTopicsItemClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.ActiveTopicModelMapper
 import dagger.Binds
 import dagger.Module

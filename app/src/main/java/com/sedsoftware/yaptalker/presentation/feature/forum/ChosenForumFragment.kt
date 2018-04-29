@@ -89,8 +89,8 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView {
     setCurrentNavDrawerItem(NavigationSection.FORUMS)
   }
 
-  override fun addTopicItem(entity: YapEntity) {
-    forumAdapter.addTopicItem(entity)
+  override fun addTopicItem(item: YapEntity) {
+    forumAdapter.addTopicItem(item)
   }
 
   override fun clearTopicsList() {

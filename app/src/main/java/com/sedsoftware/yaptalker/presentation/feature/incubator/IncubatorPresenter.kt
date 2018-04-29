@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.IncubatorElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.IncubatorModelMapper
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -109,9 +109,9 @@ class IncubatorPresenter @Inject constructor(
   }
 
   private fun getIncubatorObserver() =
-    object : DisposableObserver<YapEntity>() {
+    object : DisposableObserver<IncubatorItemModel>() {
 
-      override fun onNext(item: YapEntity) {
+      override fun onNext(item: IncubatorItemModel) {
         if (backToFirstPage) {
           viewState.clearIncubatorsList()
           backToFirstPage = false

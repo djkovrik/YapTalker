@@ -14,7 +14,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 interface ChosenForumView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanUpdateUiState {
 
   @StateStrategyType(AddToEndStrategy::class)
-  fun addTopicItem(entity: YapEntity)
+  fun addTopicItem(item: YapEntity)
 
   @StateStrategyType(SingleStateStrategy::class)
   fun clearTopicsList()

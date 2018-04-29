@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.feature.activetopics.adapters
+package com.sedsoftware.yaptalker.presentation.feature.activetopics.adapter
 
 interface ActiveTopicsItemClickListener {
 

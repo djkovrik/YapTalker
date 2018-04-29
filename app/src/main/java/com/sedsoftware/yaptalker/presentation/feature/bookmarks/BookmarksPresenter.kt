@@ -8,7 +8,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSc
 import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
 import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapters.BookmarkElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.BookmarksModelMapper
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
@@ -78,9 +78,9 @@ class BookmarksPresenter @Inject constructor(
   }
 
   private fun getBookmarksObserver() =
-    object : DisposableObserver<YapEntity?>() {
+    object : DisposableObserver<BookmarkedTopicModel?>() {
 
-      override fun onNext(item: YapEntity) {
+      override fun onNext(item: BookmarkedTopicModel) {
         if (clearCurrentList) {
           clearCurrentList = false
           viewState.clearBookmarksList()

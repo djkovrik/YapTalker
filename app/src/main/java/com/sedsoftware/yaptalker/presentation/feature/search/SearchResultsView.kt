@@ -13,5 +13,5 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 interface SearchResultsView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanUpdateUiState {
 
   @StateStrategyType(AddToEndStrategy::class)
-  fun appendSearchResultsTopicItem(topic: YapEntity)
+  fun appendSearchResultsTopicItem(item: YapEntity)
 }

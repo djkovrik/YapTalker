@@ -10,14 +10,14 @@ import com.sedsoftware.yaptalker.presentation.feature.posting.tags.MessageTagCod
 import com.sedsoftware.yaptalker.presentation.feature.posting.tags.MessageTagCodes.Tag
 import com.sedsoftware.yaptalker.presentation.feature.posting.tags.MessageTags
 import com.sedsoftware.yaptalker.presentation.mapper.EmojiModelMapper
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.EmojiModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 @InjectViewState
@@ -154,9 +154,9 @@ class AddMessagePresenter @Inject constructor(
   }
 
   private fun getEmojiObserver() =
-    object : DisposableObserver<YapEntity>() {
+    object : DisposableObserver<EmojiModel>() {
 
-      override fun onNext(item: YapEntity) {
+      override fun onNext(item: EmojiModel) {
 
         if (clearCurrentList) {
           clearCurrentList = false

@@ -9,8 +9,8 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.base.thumbnail.ThumbnailsLoader
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.ItemType
+import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ class NewsAdapter @Inject constructor(
   settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-  private var items: ArrayList<YapEntity>
+  private var items: ArrayList<NewsItemModel>
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
   init {
@@ -55,7 +55,7 @@ class NewsAdapter @Inject constructor(
 
   override fun getItemViewType(position: Int): Int = items[position].getBaseEntityType()
 
-  fun addNewsItem(item: YapEntity) {
+  fun addNewsItem(item: NewsItemModel) {
     val insertPosition = items.size
     items.add(item)
     notifyItemInserted(insertPosition)

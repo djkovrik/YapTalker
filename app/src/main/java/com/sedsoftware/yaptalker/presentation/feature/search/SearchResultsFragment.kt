@@ -92,7 +92,7 @@ class SearchResultsFragment : BaseFragment(), SearchResultsView {
     setCurrentNavDrawerItem(NavigationSection.SITE_SEARCH)
   }
 
-  override fun appendSearchResultsTopicItem(topic: YapEntity) {
-    searchResultsAdapter.addResultsItem(topic)
+  override fun appendSearchResultsTopicItem(item: YapEntity) {
+    searchResultsAdapter.addResultsItem(item)
   }
 }

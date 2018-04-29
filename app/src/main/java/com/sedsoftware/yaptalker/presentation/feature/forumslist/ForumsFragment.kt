@@ -15,10 +15,9 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSe
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.forumslist.adapter.ForumsAdapter
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.ForumModel
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_forums_list.forums_list
-import kotlinx.android.synthetic.main.fragment_forums_list.forums_list_refresh_layout
+import kotlinx.android.synthetic.main.fragment_forums_list.*
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_forums_list)
@@ -71,7 +70,7 @@ class ForumsFragment : BaseFragment(), ForumsView {
     setCurrentNavDrawerItem(NavigationSection.FORUMS)
   }
 
-  override fun appendForumItem(item: YapEntity) {
+  override fun appendForumItem(item: ForumModel) {
     forumsAdapter.addForumsListItem(item)
   }
 

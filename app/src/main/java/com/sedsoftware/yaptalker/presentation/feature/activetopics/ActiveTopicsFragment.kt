@@ -16,7 +16,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
-import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapters.ActiveTopicsAdapter
+import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapter.ActiveTopicsAdapter
 import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_active_topics.*
@@ -73,8 +73,8 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView {
     setCurrentNavDrawerItem(NavigationSection.ACTIVE_TOPICS)
   }
 
-  override fun appendActiveTopicItem(topic: YapEntity) {
-    topicsAdapter.addActiveTopicItem(topic)
+  override fun appendActiveTopicItem(item: YapEntity) {
+    topicsAdapter.addActiveTopicItem(item)
   }
 
   override fun clearActiveTopicsList() {

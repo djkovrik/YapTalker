@@ -15,7 +15,7 @@ import com.sedsoftware.yaptalker.presentation.model.YapEntity
 interface ChosenTopicView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator {
 
   @StateStrategyType(AddToEndStrategy::class)
-  fun appendPostItem(post: YapEntity)
+  fun appendPostItem(item: YapEntity)
 
   @StateStrategyType(SingleStateStrategy::class)
   fun clearPostsList()

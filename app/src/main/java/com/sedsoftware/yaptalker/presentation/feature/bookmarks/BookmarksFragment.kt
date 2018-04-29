@@ -16,7 +16,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSe
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapters.BookmarksAdapter
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_bookmarks.*
 import javax.inject.Inject
@@ -72,8 +72,8 @@ class BookmarksFragment : BaseFragment(), BookmarksView {
   }
 
 
-  override fun appendBookmarkItem(bookmark: YapEntity) {
-    bookmarksAdapter.addBookmarkItem(bookmark)
+  override fun appendBookmarkItem(item: BookmarkedTopicModel) {
+    bookmarksAdapter.addBookmarkItem(item)
   }
 
   override fun clearBookmarksList() {

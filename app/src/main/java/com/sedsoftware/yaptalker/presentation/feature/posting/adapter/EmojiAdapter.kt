@@ -15,7 +15,7 @@ class EmojiAdapter @Inject constructor(
   private val clickListener: EmojiClickListener
 ) : RecyclerView.Adapter<EmojiAdapter.EmojiViewHolder>() {
 
-  private var items: ArrayList<YapEntity> = ArrayList()
+  private var items: ArrayList<EmojiModel> = ArrayList()
 
   init {
     setHasStableIds(true)
@@ -31,7 +31,7 @@ class EmojiAdapter @Inject constructor(
 
   override fun getItemCount(): Int = items.size
 
-  fun addEmojiItem(item: YapEntity) {
+  fun addEmojiItem(item: EmojiModel) {
     val insertPosition = items.size
     items.add(item)
     notifyItemInserted(insertPosition)

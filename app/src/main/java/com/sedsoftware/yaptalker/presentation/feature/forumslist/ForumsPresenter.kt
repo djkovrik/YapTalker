@@ -7,7 +7,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLife
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.feature.forumslist.adapter.ForumsItemClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.ForumsListModelMapper
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.ForumModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
@@ -55,9 +55,9 @@ class ForumsPresenter @Inject constructor(
   }
 
   private fun getForumsListObserver() =
-    object : DisposableObserver<YapEntity>() {
+    object : DisposableObserver<ForumModel>() {
 
-      override fun onNext(item: YapEntity) {
+      override fun onNext(item: ForumModel) {
 
         if (clearCurrentList) {
           clearCurrentList = false

@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.ItemType
+import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -16,7 +16,7 @@ class BookmarksAdapter @Inject constructor(
   settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-  private var items: ArrayList<YapEntity>
+  private var items: ArrayList<BookmarkedTopicModel>
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
   init {
@@ -42,7 +42,7 @@ class BookmarksAdapter @Inject constructor(
 
   override fun getItemId(position: Int) = position.toLong()
 
-  fun addBookmarkItem(item: YapEntity) {
+  fun addBookmarkItem(item: BookmarkedTopicModel) {
     val insertPosition = items.size
     items.add(item)
     notifyItemInserted(insertPosition)

@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.ItemType
+import com.sedsoftware.yaptalker.presentation.model.base.ForumModel
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -16,7 +16,7 @@ class ForumsAdapter @Inject constructor(
   settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-  private var items: ArrayList<YapEntity>
+  private var items: ArrayList<ForumModel>
   private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
   init {
@@ -40,7 +40,7 @@ class ForumsAdapter @Inject constructor(
 
   override fun getItemId(position: Int) = position.toLong()
 
-  fun addForumsListItem(item: YapEntity) {
+  fun addForumsListItem(item: ForumModel) {
     val insertPosition = items.size
     items.add(item)
     notifyItemInserted(insertPosition)

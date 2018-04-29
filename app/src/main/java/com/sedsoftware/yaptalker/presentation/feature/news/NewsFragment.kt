@@ -24,13 +24,11 @@ import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsAdapter
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_news.news_fab
-import kotlinx.android.synthetic.main.fragment_news.news_list
-import kotlinx.android.synthetic.main.fragment_news.refresh_layout
+import kotlinx.android.synthetic.main.fragment_news.*
 import org.jetbrains.anko.browse
 import timber.log.Timber
 import javax.inject.Inject
@@ -84,8 +82,8 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsLoader {
     setCurrentNavDrawerItem(NavigationSection.MAIN_PAGE)
   }
 
-  override fun appendNewsItem(entity: YapEntity) {
-    newsAdapter.addNewsItem(entity)
+  override fun appendNewsItem(item: NewsItemModel) {
+    newsAdapter.addNewsItem(item)
   }
 
   override fun clearNewsList() {

@@ -8,13 +8,13 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.sedsoftware.yaptalker.presentation.base.CanShowErrorMessage
 import com.sedsoftware.yaptalker.presentation.base.CanShowLoadingIndicator
 import com.sedsoftware.yaptalker.presentation.base.CanUpdateUiState
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 
 @StateStrategyType(SkipStrategy::class)
 interface IncubatorView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanUpdateUiState {
 
   @StateStrategyType(AddToEndStrategy::class)
-  fun appendIncubatorItem(entity: YapEntity)
+  fun appendIncubatorItem(item: IncubatorItemModel)
 
   @StateStrategyType(SingleStateStrategy::class)
   fun clearIncubatorsList()

@@ -5,7 +5,6 @@ import com.sedsoftware.yaptalker.domain.interactor.UserProfileInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.mapper.UserProfileModelMapper
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
 import com.sedsoftware.yaptalker.presentation.model.base.UserProfileModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.SingleObserver
@@ -32,10 +31,9 @@ class UserProfilePresenter @Inject constructor(
   }
 
   private fun getUserProfileObserver() =
-    object : SingleObserver<YapEntity> {
+    object : SingleObserver<UserProfileModel> {
 
-      override fun onSuccess(profile: YapEntity) {
-        profile as UserProfileModel
+      override fun onSuccess(profile: UserProfileModel) {
         viewState.displayProfile(profile)
         viewState.updateCurrentUiState(profile.nickname)
         Timber.i("User profile loaded successfully.")
