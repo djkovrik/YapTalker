@@ -12,26 +12,29 @@ import io.reactivex.Single
 abstract class BlacklistedTopicDao {
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  abstract fun insertTopic(tag: BlacklistedTopicDbModel): Long
+  abstract fun insertTopic(topic: BlacklistedTopicDbModel): Long
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  abstract fun insertTopics(tags: List<BlacklistedTopicDbModel>): List<Long>
+  abstract fun insertTopics(topics: List<BlacklistedTopicDbModel>): List<Long>
 
-  @Query("SELECT * FROM ${YapTalkerDatabase.TAGS_BLACKLIST_TABLE} WHERE topic_name LIKE :name")
+  @Query("SELECT * FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE} WHERE topic_name LIKE :name")
   abstract fun getTopicByName(name: String): Single<BlacklistedTopicDbModel>
 
-  @Query("SELECT * FROM ${YapTalkerDatabase.TAGS_BLACKLIST_TABLE}  WHERE topic_link LIKE :link")
+  @Query("SELECT * FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE}  WHERE topic_link LIKE :link")
   abstract fun getTopicByLink(link: String): Single<BlacklistedTopicDbModel>
 
-  @Query("SELECT * FROM ${YapTalkerDatabase.TAGS_BLACKLIST_TABLE}")
+  @Query("SELECT * FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE}")
   abstract fun getAllTopics(): Single<List<BlacklistedTopicDbModel>>
 
-  @Query("DELETE FROM ${YapTalkerDatabase.TAGS_BLACKLIST_TABLE}  WHERE topic_name LIKE :name")
+  @Query("DELETE FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE}  WHERE topic_name LIKE :name")
   abstract fun deleteTopicByName(name: String): Int
 
-  @Query("DELETE FROM ${YapTalkerDatabase.TAGS_BLACKLIST_TABLE}  WHERE topic_link LIKE :link")
+  @Query("DELETE FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE}  WHERE topic_link LIKE :link")
   abstract fun deleteTopicByLink(link: String): Int
 
-  @Query("DELETE FROM ${YapTalkerDatabase.TAGS_BLACKLIST_TABLE}")
+  @Query("DELETE FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE}  WHERE date_added <= :threshold")
+  abstract fun deleteTopicByDate(threshold: Long): Int
+
+  @Query("DELETE FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE}")
   abstract fun deleteAllTopics()
 }
