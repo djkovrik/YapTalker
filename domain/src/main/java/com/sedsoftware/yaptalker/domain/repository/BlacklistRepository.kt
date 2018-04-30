@@ -12,9 +12,9 @@ interface BlacklistRepository {
 
   fun addTopicsToBlacklist(topics: List<BlacklistedTopic>): Completable
 
-  fun removeTopicToBlacklistByLink(link: String): Completable
+  fun removeTopicFromBlacklistByLink(link: String): Completable
 
-  fun removeTopicToBlacklistByName(name: String): Completable
+  fun removeTopicFromBlacklistByName(name: String): Completable
 
   fun clearTopicsBlacklist(): Completable
 
