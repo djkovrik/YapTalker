@@ -29,7 +29,7 @@ ext {
     final PICASSO_VERSION = "2.5.2"
     final CICERONE_VERSION = "3.0.0"
     final RETROFIT_VERSION = "2.4.0"
-    final JSPOON_VERSION = "1.2.1" // DO NOT UPDATE, 1.3.0 contains breaking changes
+    final JSPOON_VERSION = "1.3.0"
     final OKHTTP_VERSION = "3.10.0"
     final GSON_VERSION = "2.8.2"
 

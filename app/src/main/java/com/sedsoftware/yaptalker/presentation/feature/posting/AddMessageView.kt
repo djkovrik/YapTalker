@@ -13,7 +13,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.EmojiModel
 interface AddMessageView : MvpView, CanShowErrorMessage, CanUpdateUiState {
 
   @StateStrategyType(AddToEndStrategy::class)
-  fun appendEmojiItem(emoji: EmojiModel)
+  fun appendEmojiItem(item: EmojiModel)
 
   @StateStrategyType(SingleStateStrategy::class)
   fun clearEmojiList()
