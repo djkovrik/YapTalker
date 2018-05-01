@@ -14,6 +14,8 @@ data class BlacklistedTopicDbModel(
   var topicName: String = "",
   @ColumnInfo(name = "topic_link")
   var topicLink: String = "",
+  @ColumnInfo(name = "topic_id")
+  var topicId: Int = 0,
   @ColumnInfo(name = "date_added")
   var dateAdded: Date = Date()
 )

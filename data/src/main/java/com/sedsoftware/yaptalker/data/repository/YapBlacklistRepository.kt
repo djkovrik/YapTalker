@@ -54,6 +54,14 @@ class YapBlacklistRepository @Inject constructor(
         .deleteTopicByName(name)
     }
 
+  override fun removeTopicFromBlacklistById(id: Int): Completable =
+    Completable.fromAction {
+      database
+        .getTopicsDao()
+        .deleteTopicById(id)
+    }
+
+
   override fun clearTopicsBlacklist(): Completable =
     Completable.fromAction {
       database

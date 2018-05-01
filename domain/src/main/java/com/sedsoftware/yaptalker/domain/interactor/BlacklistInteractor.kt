@@ -30,6 +30,10 @@ class BlacklistInteractor @Inject constructor(
     repository
       .removeTopicFromBlacklistByName(name)
 
+  fun removeTopicFromBlacklistById(id: Int): Completable =
+    repository
+      .removeTopicFromBlacklistById(id)
+
   fun clearTopicsBlacklist(): Completable =
     repository
       .clearTopicsBlacklist()

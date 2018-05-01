@@ -16,6 +16,8 @@ interface BlacklistRepository {
 
   fun removeTopicFromBlacklistByName(name: String): Completable
 
+  fun removeTopicFromBlacklistById(id: Int): Completable
+
   fun clearTopicsBlacklist(): Completable
 
   fun clearMonthOldTopicsBlacklist(): Completable

@@ -32,6 +32,9 @@ abstract class BlacklistedTopicDao {
   @Query("DELETE FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE}  WHERE topic_link LIKE :link")
   abstract fun deleteTopicByLink(link: String): Int
 
+  @Query("DELETE FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE}  WHERE topic_id LIKE :id")
+  abstract fun deleteTopicById(id: Int): Int
+
   @Query("DELETE FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE}  WHERE date_added <= :threshold")
   abstract fun deleteTopicByDate(threshold: Long): Int
 
