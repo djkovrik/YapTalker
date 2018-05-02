@@ -64,6 +64,7 @@
   <string name="fab_label_refresh">Refresh</string>
   <string name="fab_label_share">Share</string>
   <string name="fab_label_gallery">Gallery</string>
+  <string name="fab_label_blacklist">Blacklist</string>
 
   <!-- ADD MESSAGE ACTIVITY -->
   <string name="post_message_hint">Enter your message…</string>

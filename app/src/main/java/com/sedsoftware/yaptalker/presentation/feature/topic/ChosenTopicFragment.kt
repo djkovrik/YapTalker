@@ -417,5 +417,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsLoader {
 
     fabMenu.add(FabMenuItemSecondary(context, fab_share_block))
     fabMenu.add(FabMenuItemSecondary(context, fab_gallery_block))
+    fabMenu.add(FabMenuItemSecondary(context, fab_blacklist_block))
   }
 }
