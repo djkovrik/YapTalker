@@ -23,11 +23,17 @@ class YapNewsRepository @Inject constructor(
   }
 
   override fun getNews(page: Int): Observable<NewsItem> =
-    dataLoader
-      .loadNews(page)
-      .map(dataMapper)
-      .flatMap(listMapper)
-      .filter { newsCategories.contains(it.forumLink) }
-      .filter { it.isYapLink }
-      .filter { it.comments != 0 }
+    database
+      .getTopicsDao()
+      .getBlacklistedTopicIds()
+      .flatMapObservable { blacklistedIds ->
+        dataLoader
+          .loadNews(page)
+          .map(dataMapper)
+          .flatMap(listMapper)
+          .filter { newsCategories.contains(it.forumLink) }
+          .filter { it.isYapLink }
+          .filter { it.comments != 0 }
+          .filter { !blacklistedIds.contains(it.id) }
+      }
 }
