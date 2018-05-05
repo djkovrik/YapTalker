@@ -14,6 +14,12 @@ class BlacklistInteractor @Inject constructor(
     repository
       .getBlacklistedTopics()
 
+  fun getBlacklistedTopicIds(): Single<Set<Int>> =
+    repository
+      .getBlacklistedTopics()
+      .map { topics -> topics.map { it.topicId } }
+      .map { ids -> ids.toSet() }
+
   fun addTopicToBlacklist(name: String, id: Int): Completable =
     repository
       .addTopicToBlacklist(
