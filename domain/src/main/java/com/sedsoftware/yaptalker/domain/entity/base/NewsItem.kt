@@ -8,6 +8,7 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 class NewsItem(
   val title: String,
   val link: String,
+  val id: Int,
   val rating: Int,
   val description: String,
   val images: List<String>,

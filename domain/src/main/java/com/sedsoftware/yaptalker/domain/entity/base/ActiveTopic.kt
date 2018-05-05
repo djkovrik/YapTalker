@@ -8,6 +8,7 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 class ActiveTopic(
   val title: String,
   val link: String,
+  val id: Int,
   val isPinned: Boolean,
   val isClosed: Boolean,
   val forumTitle: String,

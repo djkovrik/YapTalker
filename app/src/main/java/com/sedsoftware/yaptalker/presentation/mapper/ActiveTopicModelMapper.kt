@@ -1,9 +1,9 @@
 package com.sedsoftware.yaptalker.presentation.mapper
 
+import com.sedsoftware.yaptalker.data.extensions.getLastDigits
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.ActiveTopic
 import com.sedsoftware.yaptalker.domain.entity.base.NavigationPanel
-import com.sedsoftware.yaptalker.presentation.extensions.getLastDigits
 import com.sedsoftware.yaptalker.presentation.mapper.util.DateTransformer
 import com.sedsoftware.yaptalker.presentation.mapper.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
@@ -35,7 +35,7 @@ class ActiveTopicModelMapper @Inject constructor(
           ActiveTopicModel(
             title = textTransformer.createForumTopicTitle(item.isPinned, item.isClosed, item.title),
             link = item.link,
-            topicId = item.link.getLastDigits(),
+            topicId = item.id,
             isPinned = item.isPinned,
             isClosed = item.isClosed,
             forumTitle = item.forumTitle,

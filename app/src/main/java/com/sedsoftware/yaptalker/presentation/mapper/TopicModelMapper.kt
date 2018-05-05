@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.mapper
 
+import com.sedsoftware.yaptalker.data.extensions.getLastDigits
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.NavigationPanel
 import com.sedsoftware.yaptalker.domain.entity.base.PostContent
@@ -12,7 +13,6 @@ import com.sedsoftware.yaptalker.domain.entity.base.PostContent.PostWarning
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePost
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePostParsed
 import com.sedsoftware.yaptalker.domain.entity.base.TopicInfoBlock
-import com.sedsoftware.yaptalker.presentation.extensions.getLastDigits
 import com.sedsoftware.yaptalker.presentation.mapper.util.DateTransformer
 import com.sedsoftware.yaptalker.presentation.mapper.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel

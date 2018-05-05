@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.data.mapper
 
+import com.sedsoftware.yaptalker.data.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.parsed.ActiveTopicsPageParsed
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.ActiveTopic
@@ -24,6 +25,7 @@ class ActiveTopicsPageMapper @Inject constructor() : Function<ActiveTopicsPagePa
           ActiveTopic(
             title = topic.title,
             link = topic.link,
+            id = topic.link.getLastDigits(),
             isPinned = topic.isPinned.isNotEmpty(),
             isClosed = topic.isClosed.isNotEmpty(),
             forumTitle = topic.forumTitle,

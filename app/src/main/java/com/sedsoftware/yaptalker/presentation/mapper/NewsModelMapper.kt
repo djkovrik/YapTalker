@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.mapper
 
+import com.sedsoftware.yaptalker.data.extensions.getLastDigits
 import com.sedsoftware.yaptalker.domain.entity.base.NewsItem
-import com.sedsoftware.yaptalker.presentation.extensions.getLastDigits
 import com.sedsoftware.yaptalker.presentation.mapper.util.DateTransformer
 import com.sedsoftware.yaptalker.presentation.mapper.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
@@ -17,7 +17,7 @@ class NewsModelMapper @Inject constructor(
     NewsItemModel(
       title = item.title,
       link = item.link,
-      topicId = item.link.getLastDigits(),
+      topicId = item.id,
       rating = textTransformer.transformRankToFormattedText(item.rating),
       images = item.images,
       videos = item.videos,

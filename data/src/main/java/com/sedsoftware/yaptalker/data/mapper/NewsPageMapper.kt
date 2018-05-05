@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.data.mapper
 
+import com.sedsoftware.yaptalker.data.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.parsed.NewsPageParsed
 import com.sedsoftware.yaptalker.domain.entity.base.NewsItem
 import io.reactivex.functions.Function
@@ -27,6 +28,7 @@ class NewsPageMapper @Inject constructor() : Function<NewsPageParsed, List<NewsI
           NewsItem(
             title = headers[index].title,
             link = headers[index].link,
+            id = headers[index].link.getLastDigits(),
             rating = headers[index].rating.toInt(),
             description = contents[index].description,
             images = contents[index].images,

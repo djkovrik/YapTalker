@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.data.mapper
 
+import com.sedsoftware.yaptalker.data.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.parsed.ForumPageParsed
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.ForumInfoBlock
@@ -32,6 +33,7 @@ class ForumPageMapper @Inject constructor() : Function<ForumPageParsed, List<Bas
           Topic(
             title = topic.title,
             link = topic.link,
+            id = topic.link.getLastDigits(),
             isPinned = topic.isPinned.isNotEmpty(),
             isClosed = topic.isClosed.isNotEmpty(),
             author = topic.author,

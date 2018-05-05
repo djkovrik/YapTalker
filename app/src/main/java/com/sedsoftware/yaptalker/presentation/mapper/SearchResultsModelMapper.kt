@@ -1,9 +1,9 @@
 package com.sedsoftware.yaptalker.presentation.mapper
 
+import com.sedsoftware.yaptalker.data.extensions.getLastDigits
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.SearchTopicItem
 import com.sedsoftware.yaptalker.domain.entity.base.SearchTopicsPageInfo
-import com.sedsoftware.yaptalker.presentation.extensions.getLastDigits
 import com.sedsoftware.yaptalker.presentation.mapper.util.DateTransformer
 import com.sedsoftware.yaptalker.presentation.mapper.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel

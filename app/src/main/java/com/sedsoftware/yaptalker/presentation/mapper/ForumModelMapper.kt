@@ -4,7 +4,6 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.ForumInfoBlock
 import com.sedsoftware.yaptalker.domain.entity.base.NavigationPanel
 import com.sedsoftware.yaptalker.domain.entity.base.Topic
-import com.sedsoftware.yaptalker.presentation.extensions.getLastDigits
 import com.sedsoftware.yaptalker.presentation.mapper.util.DateTransformer
 import com.sedsoftware.yaptalker.presentation.mapper.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
@@ -43,7 +42,7 @@ class ForumModelMapper @Inject constructor(
           TopicModel(
             title = textTransformer.createForumTopicTitle(item.isPinned, item.isClosed, item.title),
             link = item.link,
-            id = item.link.getLastDigits(),
+            id = item.id,
             isPinned = item.isPinned,
             isClosed = item.isClosed,
             author = item.author,
