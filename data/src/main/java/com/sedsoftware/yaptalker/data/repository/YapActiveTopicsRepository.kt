@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.data.repository
 
+import com.sedsoftware.yaptalker.data.database.YapTalkerDatabase
 import com.sedsoftware.yaptalker.data.mapper.ActiveTopicsPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
@@ -9,7 +10,8 @@ import javax.inject.Inject
 
 class YapActiveTopicsRepository @Inject constructor(
   private val dataLoader: YapLoader,
-  private val dataMapper: ActiveTopicsPageMapper
+  private val dataMapper: ActiveTopicsPageMapper,
+  private val database: YapTalkerDatabase
 ) : ActiveTopicsRepository {
 
   companion object {

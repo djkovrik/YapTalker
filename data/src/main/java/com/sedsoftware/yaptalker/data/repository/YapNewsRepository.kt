@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.data.repository
 
+import com.sedsoftware.yaptalker.data.database.YapTalkerDatabase
 import com.sedsoftware.yaptalker.data.mapper.ListToObservablesMapper
 import com.sedsoftware.yaptalker.data.mapper.NewsPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
@@ -13,6 +14,7 @@ class YapNewsRepository @Inject constructor(
   private val dataLoader: YapLoader,
   private val dataMapper: NewsPageMapper,
   private val listMapper: ListToObservablesMapper<NewsItem>,
+  private val database: YapTalkerDatabase,
   private val settings: Settings
 ) : NewsRepository {
 

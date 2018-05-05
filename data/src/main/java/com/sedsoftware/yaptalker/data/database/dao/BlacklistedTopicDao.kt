@@ -23,6 +23,9 @@ abstract class BlacklistedTopicDao {
   @Query("SELECT * FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE}")
   abstract fun getAllTopics(): Single<List<BlacklistedTopicDbModel>>
 
+  @Query("SELECT * FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE}")
+  abstract fun getAllTopicIds(): List<BlacklistedTopicDbModel>
+
   @Query("DELETE FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE}  WHERE topic_name LIKE :name")
   abstract fun deleteTopicByName(name: String): Int
 
@@ -34,4 +37,9 @@ abstract class BlacklistedTopicDao {
 
   @Query("DELETE FROM ${YapTalkerDatabase.TOPICS_BLACKLIST_TABLE}")
   abstract fun deleteAllTopics()
+
+  fun getBlacklistedTopicIds(): Set<Int> =
+    getAllTopicIds()
+      .map { it.topicId }
+      .toSet()
 }

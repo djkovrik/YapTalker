@@ -32,21 +32,6 @@ class YapBlacklistRepository @Inject constructor(
         .insertTopic(mapper.mapToDb(topic))
     }
 
-
-  override fun addTopicsToBlacklist(topics: List<BlacklistedTopic>): Completable =
-    Completable.fromAction {
-      database
-        .getTopicsDao()
-        .insertTopics(topics.map { mapper.mapToDb(it) })
-    }
-
-  override fun removeTopicFromBlacklistByName(name: String): Completable =
-    Completable.fromAction {
-      database
-        .getTopicsDao()
-        .deleteTopicByName(name)
-    }
-
   override fun removeTopicFromBlacklistById(id: Int): Completable =
     Completable.fromAction {
       database
