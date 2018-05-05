@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.presentation.feature.news
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.device.Settings
+import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
 import com.sedsoftware.yaptalker.domain.interactor.NewsInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
@@ -27,6 +28,7 @@ class NewsPresenter @Inject constructor(
   private val settings: Settings,
   private val newsInteractor: NewsInteractor,
   private val videoThumbnailsInteractor: VideoThumbnailsInteractor,
+  private val blacklistInteractor: BlacklistInteractor,
   private val newsModelMapper: NewsModelMapper
 ) : BasePresenter<NewsView>(), NewsItemElementsClickListener {
 
@@ -36,6 +38,7 @@ class NewsPresenter @Inject constructor(
 
   private var currentPage = 0
   private var backToFirstPage = false
+  private lateinit var currentNewsItem: NewsItemModel
 
   override fun onFirstViewAttach() {
     super.onFirstViewAttach()
@@ -49,6 +52,11 @@ class NewsPresenter @Inject constructor(
 
   override fun onNewsItemClicked(forumId: Int, topicId: Int) {
     router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, Triple(forumId, topicId, 0))
+  }
+
+  override fun onNewsItemLongClicked(item: NewsItemModel) {
+    currentNewsItem = item
+    viewState.showBlacklistRequest()
   }
 
   override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
@@ -70,6 +78,21 @@ class NewsPresenter @Inject constructor(
         router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
       }
     }
+  }
+
+  fun addSelectedTopicToBlacklist() {
+    blacklistInteractor
+      .addTopicToBlacklist(currentNewsItem.title, currentNewsItem.topicId)
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({
+        Timber.i("Current topic added to blacklist.")
+        viewState.showTopicBlacklistedMessage()
+        viewState.removeBlacklistedTopicFromList(currentNewsItem)
+      }, { error ->
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
   }
 
   fun handleFabVisibility(diff: Int) {

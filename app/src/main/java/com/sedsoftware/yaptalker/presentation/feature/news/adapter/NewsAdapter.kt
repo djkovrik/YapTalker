@@ -8,9 +8,9 @@ import android.view.animation.AnimationUtils
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
+import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -59,6 +59,15 @@ class NewsAdapter @Inject constructor(
     val insertPosition = items.size
     items.add(item)
     notifyItemInserted(insertPosition)
+  }
+
+  fun removeNewsItem(item: NewsItemModel) {
+    val position = items.indexOf(item)
+
+    if (position != -1) {
+      items.removeAt(position)
+      notifyItemRemoved(position)
+    }
   }
 
   fun clearNews() {

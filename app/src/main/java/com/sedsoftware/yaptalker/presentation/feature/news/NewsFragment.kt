@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
@@ -16,7 +17,6 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
@@ -25,6 +25,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
+import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -111,6 +112,27 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsLoader {
       val offset = fab.height + fab.paddingTop + fab.paddingBottom
       fab.moveWithAnimationAxisY(offset = offset.toFloat())
     }
+  }
+
+  override fun showBlacklistRequest() {
+    context?.let { ctx ->
+      MaterialDialog.Builder(ctx)
+        .content(R.string.msg_blacklist_request)
+        .positiveText(R.string.msg_blacklist_confirm_yes)
+        .negativeText(R.string.msg_blacklist_confirm_no)
+        .onPositive { _, _ -> presenter.addSelectedTopicToBlacklist() }
+        .show()
+    }
+  }
+
+  override fun showTopicBlacklistedMessage() {
+    context?.string(R.string.msg_blacklist_added)?.let { message ->
+      messagesDelegate.showMessageInfo(message)
+    }
+  }
+
+  override fun removeBlacklistedTopicFromList(topic: NewsItemModel) {
+    newsAdapter.removeNewsItem(topic)
   }
 
   override fun loadThumbnail(videoUrl: String, imageView: ImageView) {

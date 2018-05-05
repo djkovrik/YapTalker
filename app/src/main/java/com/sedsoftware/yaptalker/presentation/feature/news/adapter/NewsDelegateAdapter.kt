@@ -96,6 +96,11 @@ class NewsDelegateAdapter(
         }
 
         setOnClickListener { clickListener.onNewsItemClicked(newsItem.forumId, newsItem.topicId) }
+
+        setOnLongClickListener {
+          clickListener.onNewsItemLongClicked(newsItem)
+          true
+        }
       }
     }
   }

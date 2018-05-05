@@ -24,4 +24,10 @@ interface NewsView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanU
   fun showFab()
 
   fun hideFab()
+
+  fun showBlacklistRequest()
+
+  fun showTopicBlacklistedMessage()
+
+  fun removeBlacklistedTopicFromList(topic: NewsItemModel)
 }
