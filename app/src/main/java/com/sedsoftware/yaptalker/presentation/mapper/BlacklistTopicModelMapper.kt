@@ -13,7 +13,6 @@ class BlacklistTopicModelMapper @Inject constructor(
   override fun apply(from: BlacklistedTopic): BlacklistedTopicModel =
     BlacklistedTopicModel(
       topicName = from.topicName,
-      topicLink = from.topicLink,
       topicId = from.topicId,
       dateAdded = from.dateAdded,
       dateAddedLabel = dateTransformer.transformLongToDateString(from.dateAdded.time)

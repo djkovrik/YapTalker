@@ -14,12 +14,11 @@ class BlacklistInteractor @Inject constructor(
     repository
       .getBlacklistedTopics()
 
-  fun addTopicToBlacklist(name: String, link: String, id: Int): Completable =
+  fun addTopicToBlacklist(name: String, id: Int): Completable =
     repository
       .addTopicToBlacklist(
         BlacklistedTopic(
           topicName = name,
-          topicLink = link,
           topicId = id
         )
       )
@@ -27,10 +26,6 @@ class BlacklistInteractor @Inject constructor(
   fun removeTopicFromBlacklistByName(name: String): Completable =
     repository
       .removeTopicFromBlacklistByName(name)
-
-  fun removeTopicFromBlacklistByLink(link: String): Completable =
-    repository
-      .removeTopicFromBlacklistByLink(link)
 
   fun removeTopicFromBlacklistById(id: Int): Completable =
     repository

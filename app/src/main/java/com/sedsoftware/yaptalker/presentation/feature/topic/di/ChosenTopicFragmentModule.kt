@@ -1,19 +1,21 @@
 package com.sedsoftware.yaptalker.presentation.feature.topic.di
 
+import com.sedsoftware.yaptalker.data.repository.YapBlacklistRepository
 import com.sedsoftware.yaptalker.data.repository.YapBookmarksRepository
 import com.sedsoftware.yaptalker.data.repository.YapChosenTopicRepository
 import com.sedsoftware.yaptalker.data.repository.YapThumbnailRepository
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.device.Settings
+import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
 import com.sedsoftware.yaptalker.domain.interactor.MessagePostingInteractor
 import com.sedsoftware.yaptalker.domain.interactor.SiteKarmaInteractor
 import com.sedsoftware.yaptalker.domain.interactor.TopicInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
+import com.sedsoftware.yaptalker.domain.repository.BlacklistRepository
 import com.sedsoftware.yaptalker.domain.repository.BookmarksRepository
 import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.feature.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.presentation.feature.topic.ChosenTopicPresenter
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicElementsClickListener
@@ -21,6 +23,7 @@ import com.sedsoftware.yaptalker.presentation.mapper.EditedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.QuotedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.ServerResponseModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.TopicModelMapper
+import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -42,6 +45,7 @@ abstract class ChosenTopicFragmentModule {
                          karmaInteractor: SiteKarmaInteractor,
                          postingInteractor: MessagePostingInteractor,
                          thumbnailsInteractor: VideoThumbnailsInteractor,
+                         blacklistInteractor: BlacklistInteractor,
                          topicMapper: TopicModelMapper,
                          quoteDataMapper: QuotedPostModelMapper,
                          editedTextDataMapper: EditedPostModelMapper,
@@ -53,6 +57,7 @@ abstract class ChosenTopicFragmentModule {
                           karmaInteractor,
                           postingInteractor,
                           thumbnailsInteractor,
+                          blacklistInteractor,
                           topicMapper,
                           quoteDataMapper,
                           editedTextDataMapper,
@@ -70,6 +75,10 @@ abstract class ChosenTopicFragmentModule {
   @FragmentScope
   @Binds
   abstract fun topicBookmarksRepository(repository: YapBookmarksRepository): BookmarksRepository
+
+  @FragmentScope
+  @Binds
+  abstract fun topicBlacklistRepository(repository: YapBlacklistRepository): BlacklistRepository
 
   @FragmentScope
   @Binds

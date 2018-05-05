@@ -17,7 +17,6 @@ class BlacklistDbMapper @Inject constructor() {
   fun mapFromDb(from: BlacklistedTopicDbModel): BlacklistedTopic =
     BlacklistedTopic(
       topicName = from.topicName,
-      topicLink = from.topicLink,
       topicId = from.topicId,
       dateAdded = from.dateAdded
     )
@@ -31,7 +30,6 @@ class BlacklistDbMapper @Inject constructor() {
   fun mapToDb(from: BlacklistedTopic): BlacklistedTopicDbModel =
     BlacklistedTopicDbModel(
       topicName = from.topicName,
-      topicLink = from.topicLink,
       topicId = from.topicId,
       dateAdded = from.dateAdded
     )

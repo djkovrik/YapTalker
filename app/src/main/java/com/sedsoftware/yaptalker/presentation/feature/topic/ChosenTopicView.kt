@@ -39,6 +39,8 @@ interface ChosenTopicView : MvpView, CanShowErrorMessage, CanShowLoadingIndicato
 
   fun showTopicKarmaMenu()
 
+  fun showBlacklistRequest()
+
   fun saveScrollPosition()
 
   fun restoreScrollPosition()
@@ -54,6 +56,8 @@ interface ChosenTopicView : MvpView, CanShowErrorMessage, CanShowLoadingIndicato
   fun showPostKarmaChangedMessage(isTopic: Boolean)
 
   fun showPostAlreadyRatedMessage(isTopic: Boolean)
+
+  fun showTopicBlacklistedMessage()
 
   fun showUnknownErrorMessage()
 

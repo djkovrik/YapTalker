@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.presentation.feature.topic
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.domain.device.Settings
+import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
 import com.sedsoftware.yaptalker.domain.interactor.MessagePostingInteractor
 import com.sedsoftware.yaptalker.domain.interactor.SiteKarmaInteractor
 import com.sedsoftware.yaptalker.domain.interactor.TopicInteractor
@@ -46,6 +47,7 @@ class ChosenTopicPresenter @Inject constructor(
   private val siteKarmaInteractor: SiteKarmaInteractor,
   private val messagePostingInteractor: MessagePostingInteractor,
   private val videoThumbnailsInteractor: VideoThumbnailsInteractor,
+  private val blacklistInteractor: BlacklistInteractor,
   private val topicMapper: TopicModelMapper,
   private val quoteDataMapper: QuotedPostModelMapper,
   private val editedTextDataMapper: EditedPostModelMapper,
@@ -255,6 +257,10 @@ class ChosenTopicPresenter @Inject constructor(
     )
   }
 
+  fun requestTopicBlacklist() {
+    viewState.showBlacklistRequest()
+  }
+
   fun navigateToMessagePostingScreen() {
     router.navigateTo(NavigationScreen.MESSAGE_EDITOR_SCREEN, Triple(currentTitle, "", ""))
   }
@@ -293,6 +299,20 @@ class ChosenTopicPresenter @Inject constructor(
       .subscribe({
         Timber.i("Current topic added to bookmarks.")
         viewState.showBookmarkAddedMessage()
+      }, { error ->
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
+  }
+
+  fun addCurrentTopicToBlacklist() {
+    blacklistInteractor
+      .addTopicToBlacklist(currentTitle, currentTopicId)
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({
+        Timber.i("Current topic added to blacklist.")
+        viewState.showTopicBlacklistedMessage()
       }, { error ->
         error.message?.let { viewState.showErrorMessage(it) }
       })

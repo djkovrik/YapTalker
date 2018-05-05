@@ -209,6 +209,17 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsLoader {
     }
   }
 
+  override fun showBlacklistRequest() {
+    context?.let { ctx ->
+      MaterialDialog.Builder(ctx)
+        .content(R.string.msg_blacklist_request)
+        .positiveText(R.string.msg_blacklist_confirm_yes)
+        .negativeText(R.string.msg_blacklist_confirm_no)
+        .onPositive { _, _ -> presenter.addCurrentTopicToBlacklist() }
+        .show()
+    }
+  }
+
   override fun saveScrollPosition() {
     topicScrollState = topic_posts_list.layoutManager.onSaveInstanceState()
   }
@@ -260,6 +271,12 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsLoader {
 
     message?.let { text ->
       messagesDelegate.showMessageInfo(text)
+    }
+  }
+
+  override fun showTopicBlacklistedMessage() {
+    context?.string(R.string.msg_blacklist_added)?.let { message ->
+      messagesDelegate.showMessageInfo(message)
     }
   }
 
@@ -358,6 +375,14 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsLoader {
       .subscribe {
         collapseMenu()
         presenter.openTopicGallery()
+      }
+
+    RxView
+      .clicks(fab_blacklist)
+      .autoDisposable(event(FragmentLifecycle.DESTROY))
+      .subscribe {
+        collapseMenu()
+        presenter.requestTopicBlacklist()
       }
 
     RxView
