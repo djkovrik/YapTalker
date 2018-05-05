@@ -93,6 +93,9 @@
   <!-- nsfw -->
   <string name="pref_content_nsfw_title">I\'m over 18 years old</string>
   <string name="pref_content_nsfw_summary">Display forum sections with mature content.</string>
+  <!-- Blacklist -->
+  <string name="pref_content_blacklist_title">Themes blacklist</string>
+  <string name="pref_content_blacklist_summary">Browse and clear topics blacklist.</string>
 
   <!-- MEDIA -->
   <string name="pref_category_title_media">Media</string>
