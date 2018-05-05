@@ -6,5 +6,5 @@ class BlacklistedTopic(
   val topicName: String,
   val topicLink: String,
   val topicId: Int,
-  val dateAdded: Date
+  val dateAdded: Date = Date()
 )
