@@ -145,6 +145,10 @@ dependencies {
     debugImplementation developmentDependencies.leakCanary
     releaseImplementation developmentDependencies.leakCanaryNoOp
     testImplementation developmentDependencies.leakCanaryNoOp
+
+    debugImplementation developmentDependencies.stetho
+    releaseImplementation developmentDependencies.stethoNoOp
+    testImplementation developmentDependencies.stethoNoOp
 }
 
 configurations.all() {

@@ -54,6 +54,7 @@ ext {
     // Development tools
     final TIMBER_VERSION = "4.7.0"
     final LEAK_CANARY_VERSION = "1.5.4"
+    final STETHO_VERSION = "1.5.0"
 
     domainDependencies = [
             kotlin  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
@@ -176,5 +177,7 @@ ext {
             timber        : "com.jakewharton.timber:timber:$TIMBER_VERSION",
             leakCanary    : "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION",
             leakCanaryNoOp: "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION",
+            stetho        : "com.facebook.stetho:stetho:$STETHO_VERSION",
+            stethoNoOp    : "net.igenius:stetho-no-op:1.1",
     ]
 }
