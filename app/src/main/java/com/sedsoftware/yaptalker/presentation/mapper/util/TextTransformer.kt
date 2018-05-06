@@ -49,6 +49,10 @@ class TextTransformer @Inject constructor(private val context: Context) {
     context.getString(R.string.navigation_pages_template)
   }
 
+  private val blacklistedDateTemplate: String by lazy {
+    context.getString(R.string.title_blacklisted_date)
+  }
+
   @Suppress("DEPRECATION")
   fun transformHtmlToSpanned(html: String): Spanned =
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -89,6 +93,9 @@ class TextTransformer @Inject constructor(private val context: Context) {
     val commentsTemplate: String = context.quantityString(R.plurals.news_comments_template, comments)
     return String.format(Locale.getDefault(), commentsTemplate, comments)
   }
+
+  fun transformBlacklistDate(dateString: String): String =
+    String.format(Locale.getDefault(), blacklistedDateTemplate, dateString)
 
   fun transformCommentsLabelShort(comments: Int): String =
     String.format(Locale.getDefault(), commentsTemplateShort, comments)

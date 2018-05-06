@@ -166,6 +166,7 @@
   <string name="msg_blacklist_confirm_no">Cancel</string>
   <string name="title_image_selection">Select image</string>
   <string name="title_changelog_activity">Changelog</string>
+  <string name="title_blacklisted_date">Added: <xliff:g id="date">%s</xliff:g></string>
 
   <!-- MENUS -->
   <string name="action_save">Save</string>

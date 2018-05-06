@@ -152,6 +152,7 @@
   <string name="msg_blacklist_confirm_no">Отмена</string>
   <string name="title_image_selection">Выберите изображение</string>
   <string name="title_changelog_activity">Список изменений</string>
+  <string name="title_blacklisted_date">Добавлено: <xliff:g id="date">%s</xliff:g></string>
 
   <!-- MENUS -->
   <string name="action_save">Сохранить</string>
