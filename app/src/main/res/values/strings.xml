@@ -151,9 +151,9 @@
   <string name="msg_login_error">Login error!</string>
   <string name="msg_sign_out">Sign out successful</string>
   <string name="msg_unknown_error">Unknown error!</string>
-  <string name="msg_bookmark_confirm_action">Delete topic from bookmarks?</string>
+  <string name="msg_bookmark_confirm_action">Delete this topic from bookmarks?</string>
   <string name="msg_bookmark_confirm_yes">Delete</string>
-  <string name="msg_bookmark_confirm_No">Cancel</string>
+  <string name="msg_bookmark_confirm_no">Cancel</string>
   <string name="msg_bookmark_topic_deleted">Topic successfully deleted from bookmarks</string>
   <string name="msg_bookmark_topic_added">Topic added to bookmarks</string>
   <string name="msg_karma_changed_post">Post karma changed successfully</string>
@@ -164,9 +164,12 @@
   <string name="msg_blacklist_added">Topic added to blacklist</string>
   <string name="msg_blacklist_confirm_yes">Add</string>
   <string name="msg_blacklist_confirm_no">Cancel</string>
+  <string name="msg_blacklist_request_deletion">Delete this topic from blacklist?</string>
+  <string name="msg_blacklist_confirm_delete">Delete</string>
   <string name="title_image_selection">Select image</string>
   <string name="title_changelog_activity">Changelog</string>
   <string name="title_blacklisted_date">Added: <xliff:g id="date">%s</xliff:g></string>
+  <string name="title_blacklist">Blacklist</string>
 
   <!-- MENUS -->
   <string name="action_save">Save</string>

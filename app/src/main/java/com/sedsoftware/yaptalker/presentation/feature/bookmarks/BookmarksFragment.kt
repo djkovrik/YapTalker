@@ -85,7 +85,7 @@ class BookmarksFragment : BaseFragment(), BookmarksView {
       MaterialDialog.Builder(ctx)
         .content(R.string.msg_bookmark_confirm_action)
         .positiveText(R.string.msg_bookmark_confirm_yes)
-        .negativeText(R.string.msg_bookmark_confirm_No)
+        .negativeText(R.string.msg_bookmark_confirm_no)
         .onPositive { _, _ -> presenter.deleteSelectedBookmark(bookmarkId) }
         .show()
     }

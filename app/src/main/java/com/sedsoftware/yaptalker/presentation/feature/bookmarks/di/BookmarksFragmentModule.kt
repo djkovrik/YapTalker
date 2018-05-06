@@ -5,7 +5,7 @@ import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.interactor.BookmarksInteractor
 import com.sedsoftware.yaptalker.domain.repository.BookmarksRepository
 import com.sedsoftware.yaptalker.presentation.feature.bookmarks.BookmarksPresenter
-import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapter.BookmarkElementsClickListener
+import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapter.BookmarksElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.BookmarksModelMapper
 import dagger.Binds
 import dagger.Module
@@ -33,5 +33,5 @@ abstract class BookmarksFragmentModule {
 
   @FragmentScope
   @Binds
-  abstract fun bookmarkElementsClickListener(presenter: BookmarksPresenter): BookmarkElementsClickListener
+  abstract fun bookmarkElementsClickListener(presenter: BookmarksPresenter): BookmarksElementsClickListener
 }

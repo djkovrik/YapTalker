@@ -9,6 +9,7 @@ import android.preference.PreferenceGroup
 import com.afollestad.materialdialogs.prefs.MaterialListPreference
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.extensions.string
+import com.sedsoftware.yaptalker.presentation.feature.blacklist.BlacklistActivity
 import org.jetbrains.anko.toast
 
 class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
@@ -46,7 +47,7 @@ class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPrefere
 
     findPreference(activity?.string(R.string.pref_key_blacklist))
       .setOnPreferenceClickListener {
-        toast("Pref clicked")
+        startActivity(BlacklistActivity.getIntent(activity))
         true
       }
   }

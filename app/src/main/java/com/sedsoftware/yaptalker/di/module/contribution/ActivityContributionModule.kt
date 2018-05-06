@@ -1,6 +1,8 @@
 package com.sedsoftware.yaptalker.di.module.contribution
 
 import com.sedsoftware.yaptalker.di.scope.ActivityScope
+import com.sedsoftware.yaptalker.presentation.feature.blacklist.BlacklistActivity
+import com.sedsoftware.yaptalker.presentation.feature.blacklist.di.BlacklistActivityModule
 import com.sedsoftware.yaptalker.presentation.feature.changelog.ChangelogActivity
 import com.sedsoftware.yaptalker.presentation.feature.changelog.di.ChangelogActivityModule
 import com.sedsoftware.yaptalker.presentation.feature.gallery.TopicGalleryActivity
@@ -49,4 +51,8 @@ interface ActivityContributionModule {
   @ActivityScope
   @ContributesAndroidInjector(modules = [(ChangelogActivityModule::class)])
   fun changelogActivityInjector(): ChangelogActivity
+
+  @ActivityScope
+  @ContributesAndroidInjector(modules = [(BlacklistActivityModule::class)])
+  fun blacklistActivityInjector(): BlacklistActivity
 }

@@ -12,7 +12,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
 import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.*
 
 class BookmarksDelegateAdapter(
-  private val clickListener: BookmarkElementsClickListener,
+  private val clickListener: BookmarksElementsClickListener,
   private val settings: Settings
 ) : YapEntityDelegateAdapter {
 

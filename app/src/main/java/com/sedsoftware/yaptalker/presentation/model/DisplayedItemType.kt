@@ -14,4 +14,5 @@ object DisplayedItemType {
   const val TOPIC_INFO = 11
   const val GALLERY_IMAGE = 12
   const val SEARCH_TOPIC_INFO = 13
+  const val BLACKLISTED_TOPIC = 14
 }
