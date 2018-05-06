@@ -1,14 +1,12 @@
 package com.sedsoftware.yaptalker.presentation.feature.blacklist
 
 import com.arellomobile.mvp.InjectViewState
-import com.sedsoftware.yaptalker.domain.entity.base.BlacklistedTopic
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.feature.blacklist.adapter.BlacklistElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.BlacklistTopicModelMapper
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router

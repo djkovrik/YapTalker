@@ -10,7 +10,6 @@ import com.afollestad.materialdialogs.prefs.MaterialListPreference
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.blacklist.BlacklistActivity
-import org.jetbrains.anko.toast
 
 class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
 
