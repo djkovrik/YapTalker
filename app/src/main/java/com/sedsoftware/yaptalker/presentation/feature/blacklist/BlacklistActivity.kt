@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -54,6 +56,24 @@ class BlacklistActivity : BaseActivity(), BlacklistView {
       setHasFixedSize(true)
     }
   }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_blacklist, menu)
+    return true
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean =
+    when (item.itemId) {
+      R.id.action_delete_all -> {
+        presenter.clearBlacklist()
+        true
+      }
+      R.id.action_delete_month -> {
+        presenter.clearBlacklistMonthOld()
+        true
+      }
+      else -> super.onOptionsItemSelected(item)
+    }
 
   override fun showBlacklistedTopics(topics: List<BlacklistedTopicModel>) {
     blacklistAdapter.setTopics(topics)

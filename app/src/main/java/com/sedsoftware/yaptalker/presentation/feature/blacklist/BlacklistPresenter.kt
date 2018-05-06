@@ -48,6 +48,34 @@ class BlacklistPresenter @Inject constructor(
       })
   }
 
+  fun clearBlacklist() {
+    blacklistInteractor
+      .clearTopicsBlacklist()
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({
+        Timber.i("Blacklist cleared")
+        loadBlacklist()
+      }, { error ->
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
+  }
+
+  fun clearBlacklistMonthOld() {
+    blacklistInteractor
+      .clearMonthOldTopicsBlacklist()
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe({
+        Timber.i("Month old topics cleared")
+        loadBlacklist()
+      }, { error ->
+        error.message?.let { viewState.showErrorMessage(it) }
+      })
+  }
+
   private fun loadBlacklist() {
     blacklistInteractor
       .getBlacklistedTopics()

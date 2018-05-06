@@ -168,6 +168,8 @@
   <string name="action_post_karma_minus">Поставить -1</string>
   <string name="title_topic_karma_menu">Оценить тему:</string>
   <string name="title_post_context_menu">Оценить пост:</string>
+  <string name="action_delete_all">Удалить все темы</string>
+  <string name="action_delete_month">Удалить темы старше месяца</string>
 
   <!-- SHORT DATE STRINGS -->
   <plurals name="short_date_years">

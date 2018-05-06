@@ -182,6 +182,8 @@
   <string name="action_post_karma_minus">Add -1</string>
   <string name="title_topic_karma_menu">Rate topic:</string>
   <string name="title_post_context_menu">Rate post:</string>
+  <string name="action_delete_all">Delete all topics</string>
+  <string name="action_delete_month">Delete month old topics</string>
 
   <!-- SHORT DATE STRINGS -->
   <plurals name="short_date_years">
