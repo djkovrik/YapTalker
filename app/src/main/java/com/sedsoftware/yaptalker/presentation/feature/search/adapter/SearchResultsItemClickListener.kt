@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.feature.search.adapters
+package com.sedsoftware.yaptalker.presentation.feature.search.adapter
 
 interface SearchResultsItemClickListener {
 

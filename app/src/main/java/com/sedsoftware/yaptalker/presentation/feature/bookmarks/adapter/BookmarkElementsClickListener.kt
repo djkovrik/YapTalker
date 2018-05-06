@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapters
+package com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapter
 
 interface BookmarkElementsClickListener {
 

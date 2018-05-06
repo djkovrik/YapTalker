@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.feature.search.adapters
+package com.sedsoftware.yaptalker.presentation.feature.search.adapter
 
 import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView

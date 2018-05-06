@@ -5,7 +5,7 @@ import com.sedsoftware.yaptalker.domain.interactor.SearchInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
-import com.sedsoftware.yaptalker.presentation.feature.search.adapters.SearchResultsItemClickListener
+import com.sedsoftware.yaptalker.presentation.feature.search.adapter.SearchResultsItemClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.SearchResultsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.SearchTopicsPageInfoModel

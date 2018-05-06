@@ -5,7 +5,7 @@ import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.interactor.SearchInteractor
 import com.sedsoftware.yaptalker.domain.repository.SearchTopicsRepository
 import com.sedsoftware.yaptalker.presentation.feature.search.SearchResultsPresenter
-import com.sedsoftware.yaptalker.presentation.feature.search.adapters.SearchResultsItemClickListener
+import com.sedsoftware.yaptalker.presentation.feature.search.adapter.SearchResultsItemClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.SearchResultsModelMapper
 import dagger.Binds
 import dagger.Module

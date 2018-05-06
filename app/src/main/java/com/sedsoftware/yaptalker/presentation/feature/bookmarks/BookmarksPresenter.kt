@@ -6,7 +6,7 @@ import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.extensions.extractYapIds
-import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapters.BookmarkElementsClickListener
+import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapter.BookmarkElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.BookmarksModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
 import com.uber.autodispose.kotlin.autoDisposable

@@ -15,7 +15,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
-import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapters.BookmarksAdapter
+import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapter.BookmarksAdapter
 import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_bookmarks.*

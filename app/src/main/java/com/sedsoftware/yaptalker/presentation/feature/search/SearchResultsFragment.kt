@@ -14,7 +14,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
-import com.sedsoftware.yaptalker.presentation.feature.search.adapters.SearchResultsAdapter
+import com.sedsoftware.yaptalker.presentation.feature.search.adapter.SearchResultsAdapter
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_site_search_results.*
