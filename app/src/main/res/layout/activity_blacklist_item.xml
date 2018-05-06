@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/material_list_two_line_normal_height"
+  tools:layout_editor_absoluteY="25dp">
+
+  <ImageView
+    android:id="@+id/blacklist_delete_icon"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
+    android:contentDescription="@string/a11y_blacklist_delete"
+    android:src="@drawable/ic_delete"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:id="@+id/blacklisted_topic_title"
+    style="@style/BlacklistTitle"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    android:layout_marginTop="@dimen/materialize_screen_edge"
+    app:layout_constraintEnd_toStartOf="@+id/blacklist_delete_icon"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="Blacklisted topic title long long long and very long title." />
+
+  <TextView
+    android:id="@+id/blacklisted_topic_date"
+    style="@style/BlacklistDate"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/materialize_screen_edge"
+    android:layout_marginStart="@dimen/materialize_screen_edge"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/blacklisted_topic_title"
+    tools:text="Added: 01.02.2018 - 23:45" />
+
+</android.support.constraint.ConstraintLayout>

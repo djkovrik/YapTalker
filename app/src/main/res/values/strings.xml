@@ -209,11 +209,12 @@
   <string name="short_date_seconds_now">just now</string>
 
   <!-- A11Y -->
-  <string name="a11y_avatar" tools:keep="@string/a11y_avatar">User avatar</string>
+  <string name="a11y_avatar">User avatar</string>
   <string name="a11y_photo">User photo</string>
-  <string name="a11y_forum_image" tools:keep="@string/a11y_forum_image">Forum image</string>
-  <string name="a11y_news_image" tools:keep="@string/a11y_news_image">News content image</string>
-  <string name="a11y_bookmark_delete" tools:keep="@string/a11y_bookmark_delete">Delete topic from bookmarks</string>
+  <string name="a11y_forum_image">Forum image</string>
+  <string name="a11y_news_image">News content image</string>
+  <string name="a11y_bookmark_delete">Delete topic from bookmarks</string>
+  <string name="a11y_blacklist_delete">Delete topic from blacklist</string>
 
   <!-- Current theme markers -->
   <string name="theme_light" translatable="false">light</string>
