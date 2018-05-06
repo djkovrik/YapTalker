@@ -3,7 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/material_list_two_line_normal_height"
+  android:layout_height="@dimen/material_list_single_line_with_avatar_normal_height"
   tools:layout_editor_absoluteY="25dp">
 
   <ImageView
@@ -24,10 +24,13 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/materialize_screen_edge"
     android:layout_marginStart="@dimen/materialize_screen_edge"
-    android:layout_marginTop="@dimen/materialize_screen_edge"
+    android:maxLines="1"
+    app:layout_constraintBottom_toTopOf="@+id/blacklisted_topic_date"
     app:layout_constraintEnd_toStartOf="@+id/blacklist_delete_icon"
+    app:layout_constraintHorizontal_bias="0.5"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_chainStyle="packed"
     tools:text="Blacklisted topic title long long long and very long title." />
 
   <TextView
@@ -35,7 +38,6 @@
     style="@style/BlacklistDate"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/materialize_screen_edge"
     android:layout_marginStart="@dimen/materialize_screen_edge"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"

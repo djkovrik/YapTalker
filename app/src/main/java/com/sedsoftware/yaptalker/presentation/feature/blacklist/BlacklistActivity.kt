@@ -3,6 +3,8 @@ package com.sedsoftware.yaptalker.presentation.feature.blacklist
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -13,6 +15,7 @@ import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.blacklist.adapter.BlacklistAdapter
 import com.sedsoftware.yaptalker.presentation.model.base.BlacklistedTopicModel
+import kotlinx.android.synthetic.main.activity_blacklist.blacklisted_topics
 import kotlinx.android.synthetic.main.include_main_appbar.toolbar
 import javax.inject.Inject
 
@@ -25,7 +28,7 @@ class BlacklistActivity : BaseActivity(), BlacklistView {
   }
 
   @Inject
-  lateinit var adapter: BlacklistAdapter
+  lateinit var blacklistAdapter: BlacklistAdapter
 
   @Inject
   lateinit var messagesDelegate: MessagesDelegate
@@ -42,10 +45,18 @@ class BlacklistActivity : BaseActivity(), BlacklistView {
 
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+    with(blacklisted_topics) {
+      val linearLayout = LinearLayoutManager(context)
+      layoutManager = linearLayout
+      adapter = blacklistAdapter
+      addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+      setHasFixedSize(true)
+    }
   }
 
-  override fun appendBlacklistItem(topic: BlacklistedTopicModel) {
-    adapter.addBlaclistItem(topic)
+  override fun showBlacklistedTopics(topics: List<BlacklistedTopicModel>) {
+    blacklistAdapter.setTopics(topics)
   }
 
   override fun showDeleteConfirmationDialog(topicId: Int) {

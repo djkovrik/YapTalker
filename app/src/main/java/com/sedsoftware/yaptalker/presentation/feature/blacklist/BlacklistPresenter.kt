@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.blacklist
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.domain.entity.base.BlacklistedTopic
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -53,12 +54,11 @@ class BlacklistPresenter @Inject constructor(
     blacklistInteractor
       .getBlacklistedTopics()
       .subscribeOn(Schedulers.io())
-      .flatMapObservable { Observable.fromIterable(it) }
       .map(topicsMapper)
       .observeOn(AndroidSchedulers.mainThread())
       .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe({ topic ->
-        viewState.appendBlacklistItem(topic)
+      .subscribe({ topics ->
+        viewState.showBlacklistedTopics(topics)
       }, { error ->
         error.message?.let { viewState.showErrorMessage(it) }
       })

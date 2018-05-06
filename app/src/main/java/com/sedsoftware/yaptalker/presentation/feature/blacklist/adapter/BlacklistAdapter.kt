@@ -41,9 +41,9 @@ class BlacklistAdapter @Inject constructor(
 
   override fun getItemId(position: Int) = position.toLong()
 
-  fun addBlaclistItem(item: BlacklistedTopicModel) {
-    val insertPosition = items.size
-    items.add(item)
-    notifyItemInserted(insertPosition)
+  fun setTopics(topics: List<BlacklistedTopicModel>) {
+    items.clear()
+    items.addAll(topics)
+    notifyDataSetChanged()
   }
 }

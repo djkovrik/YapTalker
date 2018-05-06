@@ -13,7 +13,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.BlacklistedTopicModel
 interface BlacklistView : MvpView, CanShowErrorMessage, CanUpdateUiState {
 
   @StateStrategyType(AddToEndStrategy::class)
-  fun appendBlacklistItem(topic: BlacklistedTopicModel)
+  fun showBlacklistedTopics(topics: List<BlacklistedTopicModel>)
 
   fun showDeleteConfirmationDialog(topicId: Int)
 }
