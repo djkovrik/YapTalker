@@ -8,7 +8,7 @@ buildscript {
         maven { url "https://maven.fabric.io/public" }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:3.2.0-alpha11"
+        classpath "com.android.tools.build:gradle:3.2.0-alpha12"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.gms:google-services:$goole_play_services_version"
         classpath "io.fabric.tools:gradle:$fabric_version"
@@ -48,6 +48,18 @@ allprojects {
         mavenCentral()
         maven { url "https://jitpack.io" }
         maven { url "https://maven.google.com/" }
+    }
+}
+
+subprojects {
+    configurations.all {
+        resolutionStrategy {
+            eachDependency { DependencyResolveDetails details ->
+                if (details.requested.name == 'kotlin-compiler-embeddable') {
+                    details.useVersion "1.2.30"
+                }
+            }
+        }
     }
 }
 

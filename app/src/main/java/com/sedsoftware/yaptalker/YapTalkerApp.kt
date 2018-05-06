@@ -7,11 +7,12 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
+import com.facebook.stetho.Stetho
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
-import com.sedsoftware.yaptalker.commons.CrashReportingTree
+import com.sedsoftware.yaptalker.common.CrashReportingTree
 import com.sedsoftware.yaptalker.di.DaggerAppComponent
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
@@ -44,6 +45,7 @@ class YapTalkerApp : Application(), HasActivityInjector {
 
     DaggerAppComponent.builder().create(this).inject(this)
 
+    initStetho()
     initTimber()
     initMaterialDrawerImageLoader()
     initMarkwon()
@@ -51,6 +53,12 @@ class YapTalkerApp : Application(), HasActivityInjector {
   }
 
   override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
+
+  private fun initStetho() {
+    if (BuildConfig.DEBUG) {
+      Stetho.initializeWithDefaults(this)
+    }
+  }
 
   private fun initTimber() {
     Timber.uprootAll()

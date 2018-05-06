@@ -75,6 +75,10 @@ dependencies {
     implementation project(':device')
 
     implementation presentationDependencies.kotlin
+    implementation presentationDependencies.androidKtx
+
+    implementation presentationDependencies.room
+    kapt presentationDependencies.roomCompiler
 
     implementation presentationDependencies.appCompat
     implementation presentationDependencies.preferenceV7
@@ -141,6 +145,10 @@ dependencies {
     debugImplementation developmentDependencies.leakCanary
     releaseImplementation developmentDependencies.leakCanaryNoOp
     testImplementation developmentDependencies.leakCanaryNoOp
+
+    debugImplementation developmentDependencies.stetho
+    releaseImplementation developmentDependencies.stethoNoOp
+    testImplementation developmentDependencies.stethoNoOp
 }
 
 configurations.all() {

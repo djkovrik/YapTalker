@@ -56,6 +56,9 @@
   <!-- nsfw -->
   <string name="pref_content_nsfw_title">Мне больше 18 лет</string>
   <string name="pref_content_nsfw_summary">Отображать разделы форумов, содержащие контент для взрослых.</string>
+  <!-- Blacklist -->
+  <string name="pref_content_blacklist_title">Черный список тем</string>
+  <string name="pref_content_blacklist_summary">Просмотр и очистка черного списка тем.</string>
 
   <!-- MEDIA -->
   <string name="pref_category_title_media">Медиа</string>

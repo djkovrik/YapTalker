@@ -1,11 +1,8 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 
-/**
- * Class which represents topic info block in presentation layer.
- */
 class TopicInfoBlockModel(
   val topicTitle: String,
   val isClosed: Boolean,
@@ -16,7 +13,7 @@ class TopicInfoBlockModel(
   val topicRatingPlusClicked: Boolean,
   val topicRatingMinusClicked: Boolean,
   val topicRatingTargetId: Int
-) : YapEntity {
+) : DisplayedItemModel {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.TOPIC_INFO
+  override fun getEntityType(): Int = DisplayedItemType.TOPIC_INFO
 }

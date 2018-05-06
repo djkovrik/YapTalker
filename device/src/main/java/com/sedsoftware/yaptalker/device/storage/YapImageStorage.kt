@@ -53,6 +53,7 @@ class YapImageStorage @Inject constructor(
         response.body()?.source()?.let { bufferedSource -> sink.writeAll(bufferedSource) }
         sink.close()
         emitter.onSuccess(file)
+
       } catch (e: IOException) {
         e.printStackTrace()
         emitter.onError(e)

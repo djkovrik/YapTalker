@@ -85,7 +85,7 @@
     android:id="@+id/fab_refresh_block"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="16dp"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:visibility="gone"
@@ -119,7 +119,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|end"
-    android:layout_marginEnd="16dp"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:visibility="gone"
@@ -152,7 +152,7 @@
     android:id="@+id/fab_karma_block"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="16dp"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:visibility="gone"
@@ -185,7 +185,7 @@
     android:id="@+id/fab_share_block"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="16dp"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:visibility="gone"
@@ -218,7 +218,7 @@
     android:id="@+id/fab_gallery_block"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="16dp"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:visibility="gone"
@@ -242,6 +242,39 @@
       app:fabSize="mini"
       app:ico_color="?attr/colorFabIcon"
       app:ico_icon="cmd-view-dashboard"
+      app:ico_padding="@dimen/mini_fab_icon_padding"
+      tools:targetApi="lollipop" />
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/fab_blacklist_block"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/materialize_screen_edge"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    app:layout_constraintBottom_toTopOf="@+id/fab_gallery_block"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <TextView
+      android:id="@+id/fab_blacklist_label"
+      style="@style/FabMenuLabel"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_label_margin"
+      android:text="@string/fab_label_blacklist" />
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_blacklist"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/mini_fab_additional_margin"
+      android:elevation="@dimen/material_elevation_fab_resting"
+      app:fabSize="mini"
+      app:ico_color="?attr/colorFabIcon"
+      app:ico_icon="cmd-block-helper"
       app:ico_padding="@dimen/mini_fab_icon_padding"
       tools:targetApi="lollipop" />
 

@@ -1,12 +1,9 @@
 package com.sedsoftware.yaptalker.domain.repository
 
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.IncubatorItem
 import io.reactivex.Observable
 
-/**
- * Interface that represents a Repository for getting incubator related data.
- */
 interface IncubatorRepository {
 
-  fun getIncubatorTopics(page: Int): Observable<BaseEntity>
+  fun getIncubatorTopics(page: Int): Observable<IncubatorItem>
 }

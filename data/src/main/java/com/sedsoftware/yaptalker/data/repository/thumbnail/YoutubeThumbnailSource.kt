@@ -2,7 +2,9 @@ package com.sedsoftware.yaptalker.data.repository.thumbnail
 
 import io.reactivex.Single
 
-class YoutubeThumbnailSource(private val videoLink: String) : ThumbnailSource {
+class YoutubeThumbnailSource(
+  private val videoLink: String
+) : ThumbnailSource {
 
   private val videoId: String by lazy {
     getYoutubeVideoId(videoLink)

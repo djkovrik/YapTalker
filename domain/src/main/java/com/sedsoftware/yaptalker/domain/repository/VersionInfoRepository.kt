@@ -1,11 +1,11 @@
 package com.sedsoftware.yaptalker.domain.repository
 
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.VersionInfo
 import io.reactivex.Single
 
 interface VersionInfoRepository {
 
-  fun getRemoteVersionInfo(): Single<BaseEntity>
+  fun getRemoteVersionInfo(): Single<VersionInfo>
 
-  fun getInstalledVersionInfo(): Single<BaseEntity>
+  fun getInstalledVersionInfo(): Single<VersionInfo>
 }

@@ -1,12 +1,12 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
-import com.sedsoftware.yaptalker.presentation.model.YapEntityTypes
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 
 class SinglePostGalleryImageModel(
   val url: String,
   val showLoadMore: Boolean
-) : YapEntity {
+) : DisplayedItemModel {
 
-  override fun getBaseEntityType(): Int = YapEntityTypes.TOPIC_PAGE_IMAGES
+  override fun getEntityType(): Int = DisplayedItemType.GALLERY_IMAGE
 }

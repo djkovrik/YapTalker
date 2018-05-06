@@ -2,8 +2,6 @@ package com.sedsoftware.yaptalker.domain.device
 
 interface Settings {
 
-  fun saveSingleCookie(cookie: String)
-
   fun getSingleCookie(): String
 
   fun getStartingPage(): String
@@ -20,11 +18,11 @@ interface Settings {
 
   fun getTopicsPerPage(): Int
 
-  fun saveMessagesPerPagePref(value: Int)
-
-  fun saveTopicsPerPagePref(value: Int)
-
   fun getNewsCategories(): Set<String>
+
+  fun getLastUpdateCheckDate(): Long
+
+  fun getCurrentTheme(): String
 
   fun isNsfwEnabled(): Boolean
 
@@ -36,9 +34,11 @@ interface Settings {
 
   fun isInTwoPaneMode(): Boolean
 
-  fun getLastUpdateCheckDate(): Long
+  fun saveSingleCookie(cookie: String)
+
+  fun saveMessagesPerPagePref(value: Int)
+
+  fun saveTopicsPerPagePref(value: Int)
 
   fun saveLastUpdateCheckDate()
-
-  fun getCurrentTheme(): String
 }

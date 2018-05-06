@@ -6,6 +6,6 @@ import pl.droidsonroids.jspoon.annotation.Selector
  * Class which represents parsed bookmarks page in data layer.
  */
 class BookmarksParsed {
-  @Selector("li")
+  @Selector(value = "li")
   lateinit var topics: List<BookmarkedTopicParsed>
 }

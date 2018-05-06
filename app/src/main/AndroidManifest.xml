@@ -16,7 +16,7 @@
     android:theme="@style/AppTheme">
 
     <activity
-      android:name="com.sedsoftware.yaptalker.presentation.features.navigation.MainActivity"
+      android:name="com.sedsoftware.yaptalker.presentation.feature.navigation.MainActivity"
       android:launchMode="singleTop"
       android:theme="@style/AppTheme.NoActionBar">
 
@@ -73,60 +73,69 @@
     </activity>
 
     <activity
-      android:name=".presentation.features.settings.SettingsActivity"
+      android:name=".presentation.feature.settings.SettingsActivity"
       android:label="@string/nav_drawer_settings"
-      android:parentActivityName=".presentation.features.navigation.MainActivity"
+      android:parentActivityName=".presentation.feature.navigation.MainActivity"
       android:theme="@style/AppTheme.NoActionBar">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="presentation.features.navigation.MainActivity" />
+        android:value="presentation.feature.navigation.MainActivity" />
     </activity>
 
     <activity
-      android:name=".presentation.features.imagedisplay.ImageDisplayActivity"
-      android:parentActivityName=".presentation.features.navigation.MainActivity"
+      android:name=".presentation.feature.imagedisplay.ImageDisplayActivity"
+      android:parentActivityName=".presentation.feature.navigation.MainActivity"
       android:theme="@style/AppTheme.DarkBackground">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value=".presentation.features.navigation.MainActivity" />
+        android:value=".presentation.feature.navigation.MainActivity" />
     </activity>
 
     <activity
-      android:name=".presentation.features.videodisplay.VideoDisplayActivity"
+      android:name=".presentation.feature.videodisplay.VideoDisplayActivity"
       android:configChanges="orientation|keyboardHidden"
       android:label="@string/app_name"
-      android:parentActivityName=".presentation.features.navigation.MainActivity"
+      android:parentActivityName=".presentation.feature.navigation.MainActivity"
       android:screenOrientation="landscape"
       android:theme="@style/AppTheme.DarkBackground">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value=".presentation.features.navigation.MainActivity" />
+        android:value=".presentation.feature.navigation.MainActivity" />
     </activity>
 
     <activity
-      android:name=".presentation.features.gifdisplay.GifDisplayActivity"
+      android:name=".presentation.feature.gifdisplay.GifDisplayActivity"
       android:label="@string/app_name"
-      android:parentActivityName=".presentation.features.navigation.MainActivity">
+      android:parentActivityName=".presentation.feature.navigation.MainActivity">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value=".presentation.features.navigation.MainActivity" />
+        android:value=".presentation.feature.navigation.MainActivity" />
     </activity>
 
     <activity
-      android:name=".presentation.features.changelog.ChangelogActivity"
-      android:parentActivityName=".presentation.features.navigation.MainActivity">
+      android:name=".presentation.feature.changelog.ChangelogActivity"
+      android:parentActivityName=".presentation.feature.navigation.MainActivity">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value=".presentation.features.navigation.MainActivity" />
+        android:value=".presentation.feature.navigation.MainActivity" />
     </activity>
 
     <activity
-      android:name=".presentation.features.gallery.TopicGalleryActivity"
-      android:parentActivityName=".presentation.features.navigation.MainActivity"
+      android:name=".presentation.feature.gallery.TopicGalleryActivity"
+      android:parentActivityName=".presentation.feature.navigation.MainActivity"
       android:theme="@style/AppTheme.DarkBackground">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value=".presentation.features.navigation.MainActivity" />
+        android:value=".presentation.feature.navigation.MainActivity" />
+    </activity>
+
+    <activity
+      android:name=".presentation.feature.blacklist.BlacklistActivity"
+      android:parentActivityName=".presentation.feature.settings.SettingsActivity"
+      android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".presentation.feature.settings.SettingsActivity" />
     </activity>
 
     <provider

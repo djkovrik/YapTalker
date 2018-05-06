@@ -1,12 +1,9 @@
 package com.sedsoftware.yaptalker.domain.repository
 
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.NewsItem
 import io.reactivex.Observable
 
-/**
- * Interface that represents a Repository for getting news related data.
- */
 interface NewsRepository {
 
-  fun getNews(page: Int): Observable<BaseEntity>
+  fun getNews(page: Int): Observable<NewsItem>
 }
