@@ -6,6 +6,7 @@ import com.sedsoftware.yaptalker.domain.interactor.ChosenForumInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.feature.forum.adapter.ChosenForumItemClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.ForumModelMapper
@@ -34,6 +35,10 @@ class ChosenForumPresenter @Inject constructor(
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
 
+  init {
+    router.setResultListener(RequestCode.REFRESH_REQUEST, { loadForumCurrentPage() })
+  }
+
   private var currentForumId = 0
   private var currentSorting = LAST_UPDATE_SORTER
   private var currentPage = 1
@@ -48,6 +53,11 @@ class ChosenForumPresenter @Inject constructor(
   override fun attachView(view: ChosenForumView?) {
     super.attachView(view)
     viewState.updateCurrentUiState()
+  }
+
+  override fun onDestroy() {
+    router.removeResultListener(RequestCode.REFRESH_REQUEST)
+    super.onDestroy()
   }
 
   override fun onTopicItemClick(topicId: Int) {
