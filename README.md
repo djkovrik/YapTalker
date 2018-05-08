@@ -5,7 +5,6 @@ YapTalker
 ![Last Commit](https://img.shields.io/github/last-commit/djkovrik/yaptalker/develop.svg)
 ![Current Release](https://img.shields.io/github/release/djkovrik/yaptalker/all.svg)
 
-
 Unofficial open source Android client for yaplakal.com.
 
 Keep in mind that it is still under development so bugs are possible.
@@ -18,10 +17,12 @@ With this app you can:
 * Browse active topics forum section
 * Browse user profiles
 * Browse, save and share images
+* Browse forum theme as gallery
 * Watch videos (including yapfiles and embedded video clips from vk.com, coub etc.)
 * Manage bookmarks
 * Sign In and post messages
 * Change user posts and topics rating
+* Blacklist topics
 
 Build Notes
 -----------

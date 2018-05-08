@@ -146,9 +146,7 @@ dependencies {
     releaseImplementation developmentDependencies.leakCanaryNoOp
     testImplementation developmentDependencies.leakCanaryNoOp
 
-    debugImplementation developmentDependencies.stetho
-    releaseImplementation developmentDependencies.stethoNoOp
-    testImplementation developmentDependencies.stethoNoOp
+    implementation developmentDependencies.stetho
 }
 
 configurations.all() {

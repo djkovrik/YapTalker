@@ -5,6 +5,7 @@ import com.sedsoftware.yaptalker.domain.interactor.ActiveTopicsInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapter.ActiveTopicsItemClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.ActiveTopicModelMapper
@@ -30,6 +31,10 @@ class ActiveTopicsPresenter @Inject constructor(
     private const val OFFSET_FOR_PAGE_NUMBER = 1
   }
 
+  init {
+    router.setResultListener(RequestCode.REFRESH_REQUEST, { loadActiveTopicsForCurrentPage() })
+  }
+
   private var searchIdKey = ""
   private var currentPage = 1
   private var totalPages = 1
@@ -43,6 +48,11 @@ class ActiveTopicsPresenter @Inject constructor(
   override fun attachView(view: ActiveTopicsView?) {
     super.attachView(view)
     viewState.updateCurrentUiState()
+  }
+
+  override fun onDestroy() {
+    router.removeResultListener(RequestCode.REFRESH_REQUEST)
+    super.onDestroy()
   }
 
   override fun onActiveTopicItemClick(triple: Triple<Int, Int, Int>) {

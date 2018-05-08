@@ -108,9 +108,9 @@ class ChosenTopicPresenter @Inject constructor(
   }
 
   override fun onDestroy() {
-    super.onDestroy()
     router.removeResultListener(RequestCode.MESSAGE_TEXT)
     router.removeResultListener(RequestCode.EDITED_MESSAGE_TEXT)
+    super.onDestroy()
   }
 
   override fun onPostItemClicked(postId: Int, isKarmaAvailable: Boolean) {
@@ -313,6 +313,7 @@ class ChosenTopicPresenter @Inject constructor(
       .subscribe({
         Timber.i("Current topic added to blacklist.")
         viewState.showTopicBlacklistedMessage()
+        router.exitWithResult(RequestCode.REFRESH_REQUEST, true)
       }, { error ->
         error.message?.let { viewState.showErrorMessage(it) }
       })
