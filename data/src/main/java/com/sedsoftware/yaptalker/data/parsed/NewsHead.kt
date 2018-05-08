@@ -3,10 +3,10 @@ package com.sedsoftware.yaptalker.data.parsed
 import pl.droidsonroids.jspoon.annotation.Selector
 
 class NewsHead {
-  @Selector(".subtitle", defValue = "Unknown")
+  @Selector(value = ".subtitle", defValue = "Unknown")
   lateinit var title: String
-  @Selector(".subtitle", attr = "href", defValue = "")
+  @Selector(value = ".subtitle", attr = "href", defValue = "")
   lateinit var link: String
-  @Selector(".rating-short-value > a", format = "([-\\d]+)", defValue = "0")
+  @Selector(value = ".rating-short-value > a", regex = "([-\\d]+)", defValue = "0")
   lateinit var rating: String
 }

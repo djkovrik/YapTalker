@@ -1,12 +1,9 @@
 package com.sedsoftware.yaptalker.domain.repository
 
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.Forum
 import io.reactivex.Observable
 
-/**
- * Interface that represents a Repository for getting forums list data.
- */
 interface ForumsListRepository {
 
-  fun getMainForumsList(): Observable<BaseEntity>
+  fun getMainForumsList(): Observable<Forum>
 }

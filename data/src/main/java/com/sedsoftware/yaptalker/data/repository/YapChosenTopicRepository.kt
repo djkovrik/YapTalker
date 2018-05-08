@@ -1,12 +1,14 @@
 package com.sedsoftware.yaptalker.data.repository
 
 import com.sedsoftware.yaptalker.data.exception.RequestErrorException
-import com.sedsoftware.yaptalker.data.mappers.EditedPostMapper
-import com.sedsoftware.yaptalker.data.mappers.QuotedPostMapper
-import com.sedsoftware.yaptalker.data.mappers.ServerResponseMapper
-import com.sedsoftware.yaptalker.data.mappers.TopicPageMapper
+import com.sedsoftware.yaptalker.data.mapper.EditedPostMapper
+import com.sedsoftware.yaptalker.data.mapper.QuotedPostMapper
+import com.sedsoftware.yaptalker.data.mapper.ServerResponseMapper
+import com.sedsoftware.yaptalker.data.mapper.TopicPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.EditedPost
+import com.sedsoftware.yaptalker.domain.entity.base.QuotedPost
 import com.sedsoftware.yaptalker.domain.entity.base.ServerResponse
 import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
 import io.reactivex.Completable
@@ -43,29 +45,32 @@ class YapChosenTopicRepository @Inject constructor(
     private const val MESSAGE_SENDING_ERROR_MARKER = "Возникли следующие трудности"
   }
 
-  override fun getChosenTopic(forumId: Int, topicId: Int, startPostNumber: Int): Single<List<BaseEntity>> =
+  override fun getChosenTopic(forumId: Int,
+                              topicId: Int,
+                              startPostNumber: Int): Single<List<BaseEntity>> =
     dataLoader
       .loadTopicPage(forumId, topicId, startPostNumber)
       .map(dataMapper)
 
-  override fun requestPostTextAsQuote(forumId: Int, topicId: Int, targetPostId: Int): Single<BaseEntity> =
+  override fun requestPostTextAsQuote(forumId: Int,
+                                      topicId: Int,
+                                      targetPostId: Int): Single<QuotedPost> =
     dataLoader
       .loadTargetPostQuotedText(forumId, topicId, targetPostId)
       .map(quoteMapper)
 
-  override fun requestPostTextForEditing(
-    forumId: Int,
-    topicId: Int,
-    targetPostId: Int,
-    startingPost: Int
-  ): Single<BaseEntity> =
+  override fun requestPostTextForEditing(forumId: Int,
+                                         topicId: Int,
+                                         targetPostId: Int,
+                                         startingPost: Int): Single<EditedPost> =
     dataLoader
       .loadTargetPostEditedText(forumId, topicId, targetPostId, startingPost)
       .map(editedPostMapper)
 
-  override fun requestKarmaChange(
-    isTopic: Boolean, targetPostId: Int, targetTopicId: Int, diff: Int
-  ): Single<BaseEntity> =
+  override fun requestKarmaChange(isTopic: Boolean,
+                                  targetPostId: Int,
+                                  targetTopicId: Int,
+                                  diff: Int): Single<ServerResponse> =
     dataLoader
       .changeKarma(
         act = KARMA_ACT,
@@ -77,7 +82,9 @@ class YapChosenTopicRepository @Inject constructor(
       )
       .map(responseMapper)
 
-  override fun requestPostKarmaChange(targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity> =
+  override fun requestPostKarmaChange(targetPostId: Int,
+                                      targetTopicId: Int,
+                                      diff: Int): Single<ServerResponse> =
     dataLoader
       .changeKarma(
         act = KARMA_ACT,
@@ -89,7 +96,9 @@ class YapChosenTopicRepository @Inject constructor(
       )
       .map(responseMapper)
 
-  override fun requestTopicKarmaChange(targetPostId: Int, targetTopicId: Int, diff: Int): Single<BaseEntity> =
+  override fun requestTopicKarmaChange(targetPostId: Int,
+                                       targetTopicId: Int,
+                                       diff: Int): Single<ServerResponse> =
     dataLoader
       .changeKarma(
         act = KARMA_ACT,
@@ -101,14 +110,12 @@ class YapChosenTopicRepository @Inject constructor(
       )
       .map(responseMapper)
 
-  override fun requestMessageSending(
-    targetForumId: Int,
-    targetTopicId: Int,
-    page: Int,
-    authKey: String,
-    message: String,
-    filePath: String
-  ): Completable =
+  override fun requestMessageSending(targetForumId: Int,
+                                     targetTopicId: Int,
+                                     page: Int,
+                                     authKey: String,
+                                     message: String,
+                                     filePath: String): Completable =
     dataLoader
       .postMessage(
         act = POST_ACT,
@@ -125,17 +132,15 @@ class YapChosenTopicRepository @Inject constructor(
         uploadedFile = createMultiPartForFile(FILE_PART_NAME, filePath)
       )
       .map(responseMapper)
-      .flatMapCompletable { checkMessageSending(it as ServerResponse) }
+      .flatMapCompletable { checkMessageSending(it) }
 
-  override fun requestEditedMessageSending(
-    targetForumId: Int,
-    targetTopicId: Int,
-    targetPostId: Int,
-    page: Int,
-    authKey: String,
-    message: String,
-    file: String
-  ): Completable =
+  override fun requestEditedMessageSending(targetForumId: Int,
+                                           targetTopicId: Int,
+                                           targetPostId: Int,
+                                           page: Int,
+                                           authKey: String,
+                                           message: String,
+                                           file: String): Completable =
     dataLoader
       .postEditedMessage(
         st = page,
@@ -154,7 +159,7 @@ class YapChosenTopicRepository @Inject constructor(
         fileupload = file
       )
       .map(responseMapper)
-      .flatMapCompletable { checkMessageSending(it as ServerResponse) }
+      .flatMapCompletable { checkMessageSending(it) }
 
   private fun createMultiPartForFile(partName: String, path: String): MultipartBody.Part? =
     if (path.isNotEmpty()) {

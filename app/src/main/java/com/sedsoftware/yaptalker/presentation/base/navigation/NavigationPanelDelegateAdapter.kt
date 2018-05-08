@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.model.YapEntity
+import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import kotlinx.android.synthetic.main.item_navigation_panel.view.*
 
@@ -16,7 +16,7 @@ class NavigationPanelDelegateAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = NavigationViewHolder(parent)
 
-  override fun onBindViewHolder(holder: ViewHolder, item: YapEntity) {
+  override fun onBindViewHolder(holder: ViewHolder, item: DisplayedItemModel) {
     holder as NavigationViewHolder
     holder.bindTo(item as NavigationPanelModel)
   }
@@ -32,11 +32,11 @@ class NavigationPanelDelegateAdapter(
         navigation_go_next.isEnabled = (navigation.currentPage < navigation.totalPages)
         navigation_go_last.isEnabled = (navigation.currentPage != navigation.totalPages)
 
-        navigation_pages_label.setOnClickListener { navigationClick.onGoToSelectedPageClick() }
-        navigation_go_first.setOnClickListener { navigationClick.onGoToFirstPageClick() }
-        navigation_go_previous.setOnClickListener { navigationClick.onGoToPreviousPageClick() }
-        navigation_go_next.setOnClickListener { navigationClick.onGoToNextPageClick() }
-        navigation_go_last.setOnClickListener { navigationClick.onGoToLastPageClick() }
+        navigation_pages_label.setOnClickListener { navigationClick.goToSelectedPage() }
+        navigation_go_first.setOnClickListener { navigationClick.goToFirstPage() }
+        navigation_go_previous.setOnClickListener { navigationClick.goToPreviousPage() }
+        navigation_go_next.setOnClickListener { navigationClick.goToNextPage() }
+        navigation_go_last.setOnClickListener { navigationClick.goToLastPage() }
       }
     }
   }

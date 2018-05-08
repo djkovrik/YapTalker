@@ -1,5 +1,14 @@
 ## Changelog
 
+### [0.9.7] - 2018-05-08
+
+**Fixed**
+* More parsing errors
+
+**Added**
+* Topics blacklist feature: you can blacklist any topic with long click from main pare or with topic menu
+* App settings page now has topics blacklist manager
+
 ### [0.9.6] - 2018-04-17
 
 **Fixed**

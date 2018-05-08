@@ -1,15 +1,18 @@
 package com.sedsoftware.yaptalker.data.repository
 
-import com.sedsoftware.yaptalker.data.mappers.ActiveTopicsPageMapper
+import com.sedsoftware.yaptalker.data.database.YapTalkerDatabase
+import com.sedsoftware.yaptalker.data.mapper.ActiveTopicsPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.ActiveTopic
 import com.sedsoftware.yaptalker.domain.repository.ActiveTopicsRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
 class YapActiveTopicsRepository @Inject constructor(
   private val dataLoader: YapLoader,
-  private val dataMapper: ActiveTopicsPageMapper
+  private val dataMapper: ActiveTopicsPageMapper,
+  private val database: YapTalkerDatabase
 ) : ActiveTopicsRepository {
 
   companion object {
@@ -18,12 +21,26 @@ class YapActiveTopicsRepository @Inject constructor(
   }
 
   override fun getActiveTopics(hash: String, page: Int): Single<List<BaseEntity>> =
-    dataLoader
-      .loadActiveTopics(
-        act = ACTIVE_TOPICS_ACT,
-        code = ACTIVE_TOPICS_CODE,
-        searchId = hash,
-        startTopicNumber = page
-      )
-      .map(dataMapper)
+    database
+      .getTopicsDao()
+      .getBlacklistedTopicIds()
+      .flatMap { blacklistedIds ->
+        dataLoader
+          .loadActiveTopics(
+            act = ACTIVE_TOPICS_ACT,
+            code = ACTIVE_TOPICS_CODE,
+            searchId = hash,
+            startTopicNumber = page
+          )
+          .map(dataMapper)
+          .map { list: List<BaseEntity> ->
+            list.filter { item ->
+              if (item is ActiveTopic) {
+                !blacklistedIds.contains(item.id)
+              } else {
+                true
+              }
+            }
+          }
+      }
 }

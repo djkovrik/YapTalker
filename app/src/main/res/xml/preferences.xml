@@ -59,6 +59,11 @@
       android:summary="@string/pref_content_nsfw_summary"
       android:title="@string/pref_content_nsfw_title" />
 
+    <Preference
+      android:key="@string/pref_key_blacklist"
+      android:summary="@string/pref_content_blacklist_summary"
+      android:title="@string/pref_content_blacklist_title" />
+
   </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/pref_category_title_media">

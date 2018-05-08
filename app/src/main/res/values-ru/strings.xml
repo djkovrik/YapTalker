@@ -50,6 +50,7 @@
   <string name="fab_label_refresh">Обновить</string>
   <string name="fab_label_share">Поделиться</string>
   <string name="fab_label_gallery">Галерея</string>
+  <string name="fab_label_blacklist">В черный список</string>
 
   <!-- ADD MESSAGE ACTIVITY -->
   <string name="post_message_hint">Введите сообщение…</string>
@@ -134,19 +135,27 @@
   <string name="msg_file_not_saved">Не удалось сохранить файл!</string>
   <string name="msg_login_success">Успешный вход!</string>
   <string name="msg_login_error">Ошибка входа!</string>
-  <string name="msg_sign_out">Вы успешно вышли из аккаунта.</string>
+  <string name="msg_sign_out">Вы успешно вышли из аккаунта</string>
   <string name="msg_unknown_error">Неизвестная ошибка!</string>
   <string name="msg_bookmark_confirm_action">Удалить тему из закладок?</string>
   <string name="msg_bookmark_confirm_yes">Удалить</string>
-  <string name="msg_bookmark_confirm_No">Отмена</string>
-  <string name="msg_bookmark_topic_deleted">Тема успешно удалена из закладок.</string>
-  <string name="msg_bookmark_topic_added">Тема добавлена в закладки.</string>
-  <string name="msg_karma_changed_post">Рейтинг поста успешно изменен.</string>
-  <string name="msg_karma_already_rated_post">Вы уже изменяли рейтинг этого поста.</string>
-  <string name="msg_karma_changed_topic">Рейтинг темы успешно изменен.</string>
-  <string name="msg_karma_already_rated_topic">Вы уже изменяли рейтинг этой темы.</string>
+  <string name="msg_bookmark_confirm_no">Отмена</string>
+  <string name="msg_bookmark_topic_deleted">Тема успешно удалена из закладок</string>
+  <string name="msg_bookmark_topic_added">Тема добавлена в закладки</string>
+  <string name="msg_karma_changed_post">Рейтинг поста успешно изменен</string>
+  <string name="msg_karma_already_rated_post">Вы уже изменяли рейтинг этого поста</string>
+  <string name="msg_karma_changed_topic">Рейтинг темы успешно изменен</string>
+  <string name="msg_karma_already_rated_topic">Вы уже изменяли рейтинг этой темы</string>
+  <string name="msg_blacklist_request">Добавить тему в черный список?</string>
+  <string name="msg_blacklist_added">Тема добавлена в черный список</string>
+  <string name="msg_blacklist_confirm_yes">Добавить</string>
+  <string name="msg_blacklist_confirm_no">Отмена</string>
+  <string name="msg_blacklist_request_deletion">Удалить тему из черного списка?</string>
+  <string name="msg_blacklist_confirm_delete">Удалить</string>
   <string name="title_image_selection">Выберите изображение</string>
   <string name="title_changelog_activity">Список изменений</string>
+  <string name="title_blacklisted_date">Добавлено: <xliff:g id="date">%s</xliff:g></string>
+  <string name="title_blacklist">Черный список</string>
 
   <!-- MENUS -->
   <string name="action_save">Сохранить</string>
@@ -159,6 +168,8 @@
   <string name="action_post_karma_minus">Поставить -1</string>
   <string name="title_topic_karma_menu">Оценить тему:</string>
   <string name="title_post_context_menu">Оценить пост:</string>
+  <string name="action_delete_all">Удалить все темы</string>
+  <string name="action_delete_month">Удалить темы старше месяца</string>
 
   <!-- SHORT DATE STRINGS -->
   <plurals name="short_date_years">
@@ -190,10 +201,11 @@
   <string name="short_date_seconds_now">только что</string>
 
   <!-- A11Y -->
-  <string name="a11y_avatar" tools:keep="@string/a11y_avatar">Аватар пользователя</string>
+  <string name="a11y_avatar">Аватар пользователя</string>
   <string name="a11y_photo">Фото пользователя</string>
-  <string name="a11y_forum_image" tools:keep="@string/a11y_forum_image">Картинка форума</string>
-  <string name="a11y_news_image" tools:keep="@string/a11y_news_image">Фото содержимого новости</string>
-  <string name="a11y_bookmark_delete" tools:keep="@string/a11y_bookmark_delete">Удаление темы из закладок</string>
+  <string name="a11y_forum_image">Картинка форума</string>
+  <string name="a11y_news_image">Фото содержимого новости</string>
+  <string name="a11y_bookmark_delete">Удаление темы из закладок</string>
+  <string name="a11y_blacklist_delete">Удаление темы из черного списка</string>
 
 </resources>

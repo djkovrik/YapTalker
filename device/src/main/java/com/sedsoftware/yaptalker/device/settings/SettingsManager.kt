@@ -24,10 +24,6 @@ class SettingsManager @Inject constructor(
     context.resources.getStringArray(R.array.pref_categorizer_values).toSet()
   }
 
-  override fun saveSingleCookie(cookie: String) {
-    preferences.edit().putString(context.resources.getString(R.string.pref_key_cookie), cookie).apply()
-  }
-
   override fun getSingleCookie(): String =
     getStringPref(R.string.pref_key_cookie, "")
 
@@ -75,16 +71,14 @@ class SettingsManager @Inject constructor(
   override fun getTopicsPerPage(): Int =
     getIntPref(R.string.pref_key_topics_per_page, TOPICS_PER_PAGE_DEFAULT)
 
-  override fun saveMessagesPerPagePref(value: Int) {
-    preferences.edit().putInt(context.resources.getString(R.string.pref_key_messages_per_page), value).apply()
-  }
-
-  override fun saveTopicsPerPagePref(value: Int) {
-    preferences.edit().putInt(context.resources.getString(R.string.pref_key_topics_per_page), value).apply()
-  }
-
   override fun getNewsCategories(): Set<String> =
     getStringSetPref(R.string.pref_key_categorizer, defaultCategories)
+
+  override fun getLastUpdateCheckDate(): Long =
+    getLongPref(R.string.pref_key_last_update_check, 0L)
+
+  override fun getCurrentTheme(): String =
+    getStringPref(R.string.pref_key_theme, "")
 
   override fun isNsfwEnabled(): Boolean =
     getBooleanPref(R.string.pref_key_nswf, false)
@@ -104,8 +98,17 @@ class SettingsManager @Inject constructor(
   override fun isInTwoPaneMode(): Boolean =
     getBooleanPref(R.string.pref_key_two_pane_mode, context.resources.getBoolean(R.bool.two_pane_mode))
 
-  override fun getLastUpdateCheckDate(): Long =
-    getLongPref(R.string.pref_key_last_update_check, 0L)
+  override fun saveSingleCookie(cookie: String) {
+    preferences.edit().putString(context.resources.getString(R.string.pref_key_cookie), cookie).apply()
+  }
+
+  override fun saveMessagesPerPagePref(value: Int) {
+    preferences.edit().putInt(context.resources.getString(R.string.pref_key_messages_per_page), value).apply()
+  }
+
+  override fun saveTopicsPerPagePref(value: Int) {
+    preferences.edit().putInt(context.resources.getString(R.string.pref_key_topics_per_page), value).apply()
+  }
 
   override fun saveLastUpdateCheckDate() {
     val currentTime = Date().time
@@ -114,9 +117,6 @@ class SettingsManager @Inject constructor(
       .putLong(context.resources.getString(R.string.pref_key_last_update_check), currentTime)
       .apply()
   }
-
-  override fun getCurrentTheme(): String =
-    getStringPref(R.string.pref_key_theme, "")
 
   private fun getStringPref(@StringRes key: Int, default: String): String =
     preferences.getString(context.resources.getString(key), default)

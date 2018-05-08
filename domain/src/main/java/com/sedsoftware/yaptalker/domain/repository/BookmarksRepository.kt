@@ -1,15 +1,12 @@
 package com.sedsoftware.yaptalker.domain.repository
 
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.BookmarkedTopic
 import io.reactivex.Completable
 import io.reactivex.Observable
 
-/**
- * Interface that represents a Repository for getting bookmarks related data.
- */
 interface BookmarksRepository {
 
-  fun getBookmarks(): Observable<BaseEntity>
+  fun getBookmarks(): Observable<BookmarkedTopic>
 
   fun requestBookmarkAdding(topicId: Int, startingPost: Int): Completable
 

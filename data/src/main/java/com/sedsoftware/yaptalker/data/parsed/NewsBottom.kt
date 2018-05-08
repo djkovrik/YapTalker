@@ -3,16 +3,16 @@ package com.sedsoftware.yaptalker.data.parsed
 import pl.droidsonroids.jspoon.annotation.Selector
 
 class NewsBottom {
-  @Selector(".icon-user > a", defValue = "Unknown")
+  @Selector(value = ".icon-user > a", defValue = "Unknown")
   lateinit var author: String
-  @Selector(".icon-user > a", attr = "href", defValue = "")
+  @Selector(value = ".icon-user > a", attr = "href", defValue = "")
   lateinit var authorLink: String
-  @Selector(".icon-date", defValue = "Unknown")
+  @Selector(value = ".icon-date", defValue = "Unknown")
   lateinit var date: String
-  @Selector(".icon-forum > a", defValue = "Unknown")
+  @Selector(value = ".icon-forum > a", defValue = "Unknown")
   lateinit var forumName: String
-  @Selector(".icon-forum > a", attr = "href", defValue = "")
+  @Selector(value = ".icon-forum > a", attr = "href", defValue = "")
   lateinit var forumLink: String
-  @Selector("span", format = "(\\d+)", defValue = "0")
+  @Selector(value = "span", regex = "(\\d+)", defValue = "0")
   lateinit var comments: String
 }

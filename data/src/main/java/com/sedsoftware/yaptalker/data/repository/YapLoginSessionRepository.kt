@@ -1,11 +1,10 @@
 package com.sedsoftware.yaptalker.data.repository
 
 import com.sedsoftware.yaptalker.data.exception.RequestErrorException
-import com.sedsoftware.yaptalker.data.mappers.LoginSessionInfoMapper
-import com.sedsoftware.yaptalker.data.mappers.ServerResponseMapper
+import com.sedsoftware.yaptalker.data.mapper.LoginSessionInfoMapper
+import com.sedsoftware.yaptalker.data.mapper.ServerResponseMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
-import com.sedsoftware.yaptalker.domain.entity.BaseEntity
-import com.sedsoftware.yaptalker.domain.entity.base.ServerResponse
+import com.sedsoftware.yaptalker.domain.entity.base.LoginSessionInfo
 import com.sedsoftware.yaptalker.domain.repository.LoginSessionRepository
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -26,7 +25,7 @@ class YapLoginSessionRepository @Inject constructor(
     private const val SIGN_IN_SUCCESS_MARKER = "Спасибо"
   }
 
-  override fun getLoginSessionInfo(): Single<BaseEntity> =
+  override fun getLoginSessionInfo(): Single<LoginSessionInfo> =
     dataLoader
       .loadAuthorizedUserInfo()
       .map(dataMapper)
@@ -44,7 +43,6 @@ class YapLoginSessionRepository @Inject constructor(
       )
       .map(responseMapper)
       .flatMapCompletable { response ->
-        response as ServerResponse
         if (response.text.contains(SIGN_IN_SUCCESS_MARKER)) {
           Completable.complete()
         } else {
@@ -57,7 +55,6 @@ class YapLoginSessionRepository @Inject constructor(
       .signOut(userKey)
       .map(responseMapper)
       .flatMapCompletable { response ->
-        response as ServerResponse
         if (response.text.contains(SIGN_OUT_SUCCESS_MARKER)) {
           Completable.complete()
         } else {

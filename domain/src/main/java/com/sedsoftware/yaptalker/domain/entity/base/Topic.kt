@@ -8,6 +8,7 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 class Topic(
   val title: String,
   val link: String,
+  val id: Int,
   val isPinned: Boolean,
   val isClosed: Boolean,
   val author: String,

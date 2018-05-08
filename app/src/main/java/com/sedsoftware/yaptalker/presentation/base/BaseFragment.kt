@@ -7,16 +7,29 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.sedsoftware.yaptalker.commons.annotation.LayoutResource
-import com.sedsoftware.yaptalker.commons.exception.MissingAnnotationException
+import com.sedsoftware.yaptalker.common.annotation.LayoutResource
+import com.sedsoftware.yaptalker.common.exception.MissingAnnotationException
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
+import com.sedsoftware.yaptalker.presentation.provider.ActionBarProvider
+import com.sedsoftware.yaptalker.presentation.provider.NavDrawerProvider
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Maybe
+import javax.inject.Inject
 
 abstract class BaseFragment : MvpAppCompatFragment() {
 
+  @Inject
+  lateinit var appBarProvider: ActionBarProvider
+
+  @Inject
+  lateinit var navDrawerProvider: NavDrawerProvider
+
+  @Inject
+  lateinit var messagesDelegate: MessagesDelegate
+
   private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
-  private lateinit var backPressHandler: BackPressHandler
+  private lateinit var backPressHandler: CanHandleBackPressed
 
   open fun onBackPressed(): Boolean = false
 
@@ -26,15 +39,14 @@ abstract class BaseFragment : MvpAppCompatFragment() {
 
     lifecycle.accept(FragmentLifecycle.CREATE)
 
-    if (activity is BackPressHandler) {
-      backPressHandler = activity as BackPressHandler
+    if (activity is CanHandleBackPressed) {
+      backPressHandler = activity as CanHandleBackPressed
     } else {
       throw ClassCastException("Base activity must implement BackPressHandler interface.")
     }
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
     val clazz = this::class.java
     if (clazz.isAnnotationPresent(LayoutResource::class.java)) {
       val layoutId = clazz.getAnnotation(LayoutResource::class.java).value
@@ -82,4 +94,12 @@ abstract class BaseFragment : MvpAppCompatFragment() {
 
   protected fun event(@FragmentLifecycle.Event event: Long): Maybe<*> =
     lifecycle.filter({ e -> e == event }).firstElement()
+
+  protected fun setCurrentAppbarTitle(title: String) {
+    appBarProvider.getCurrentActionBar()?.title = title
+  }
+
+  protected fun setCurrentNavDrawerItem(item: Long) {
+    navDrawerProvider.getCurrentDrawer().setSelection(item, false)
+  }
 }

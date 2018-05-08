@@ -1,14 +1,14 @@
 buildscript {
-    ext.kotlin_version = '1.2.30'
-    ext.goole_play_services_version = '3.2.0'
-    ext.fabric_version = '1.25.1'
+    ext.kotlin_version = '1.2.40'
+    ext.goole_play_services_version = '3.2.1'
+    ext.fabric_version = '1.25.3'
     repositories {
         google()
         jcenter()
         maven { url "https://maven.fabric.io/public" }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:3.2.0-alpha04"
+        classpath "com.android.tools.build:gradle:3.2.0-alpha12"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.gms:google-services:$goole_play_services_version"
         classpath "io.fabric.tools:gradle:$fabric_version"
@@ -24,10 +24,10 @@ apply from: 'buildsystem/dependencies.gradle'
 
 // Versioning convention from ribot:
 // Major -> Millions, Minor -> Thousands, Bugfix -> Hundreds. E.g 1.3.72 == 1,003,072
-// Current: 0.9.6 (000,009,006)
+// Current: 0.9.7 (000,009,007)
 def versionMajor = 0
 def versionMinor = 9
-def versionPatch = 6
+def versionPatch = 7
 
 allprojects {
     ext {
@@ -48,6 +48,18 @@ allprojects {
         mavenCentral()
         maven { url "https://jitpack.io" }
         maven { url "https://maven.google.com/" }
+    }
+}
+
+subprojects {
+    configurations.all {
+        resolutionStrategy {
+            eachDependency { DependencyResolveDetails details ->
+                if (details.requested.name == 'kotlin-compiler-embeddable') {
+                    details.useVersion "1.2.30"
+                }
+            }
+        }
     }
 }
 
