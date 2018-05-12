@@ -16,7 +16,7 @@ fun ImageView.loadFromUrlAndRoundCorners(url: String) {
   Picasso
     .with(context)
     .load(url.validateUrl())
-    .transform(RoundedTransformation(radius = 5f))
+    .transform(RoundedTransformation(radius = 8f))
     .into(this)
 }
 
