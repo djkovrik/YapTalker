@@ -18,20 +18,20 @@
 
   <!-- NEWS -->
   <plurals name="news_comments_template">
-    <item quantity="one"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comment</item>
-    <item quantity="few"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
-    <item quantity="many"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
-    <item quantity="other"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
+    <item quantity="one"><xliff:g id="icon">{typ-message}</xliff:g> <xliff:g id="count">%s</xliff:g> comment</item>
+    <item quantity="few"><xliff:g id="icon">{typ-message}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
+    <item quantity="many"><xliff:g id="icon">{typ-message}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
+    <item quantity="other"><xliff:g id="icon">{typ-message}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
   </plurals>
 
-  <string name="news_comments_template_short" translatable="false"><xliff:g id="icon">{cmd-comment-multiple-outline}</xliff:g> <xliff:g id="count">%s</xliff:g></string>
+  <string name="news_comments_template_short" translatable="false"><xliff:g id="icon">{typ-message}</xliff:g> <xliff:g id="count">%s</xliff:g></string>
   <string name="news_forum_title_template" translatable="false"><xliff:g id="bullet">\u25AA</xliff:g> <xliff:g id="forum">%s</xliff:g></string>
 
   <!-- FORUMS -->
   <string name="forum_comments_template">Comments: <xliff:g id="answers">%s</xliff:g></string>
-  <string name="forum_pinned_topic_template" translatable="false"><xliff:g id="icon">{cmd-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
-  <string name="forum_closed_topic_template" translatable="false"><xliff:g id="icon">{cmd-lock}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
-  <string name="forum_pinned_and_closed_topic_template" translatable="false"><xliff:g id="icons">{cmd-lock} {cmd-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
+  <string name="forum_pinned_topic_template" translatable="false"><xliff:g id="icon">{typ-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
+  <string name="forum_closed_topic_template" translatable="false"><xliff:g id="icon">{typ-lock-closed}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
+  <string name="forum_pinned_and_closed_topic_template" translatable="false"><xliff:g id="icons">{typ-lock-closed} {typ-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
 
   <!-- NAVIGATION -->
   <string name="navigation_pages_template"><xliff:g id="page">%d</xliff:g> of <xliff:g id="total_pages">%d</xliff:g></string>
@@ -52,8 +52,8 @@
   <string name="authorization_anonymous">Sign In anonymously</string>
 
   <!-- TOPIC -->
-  <string name="topic_post_edit_button">{cmd-pencil} Edit</string>
-  <string name="topic_post_reply_button">{cmd-reply} Reply</string>
+  <string name="topic_post_edit_button">{typ-pencil} Edit</string>
+  <string name="topic_post_reply_button">{typ-arrow-back} Reply</string>
   <string name="topic_post_karma_thumb_up" translatable="false">{cmd-thumb-up} </string>
   <string name="topic_post_karma_thumb_down" translatable="false">{cmd-thumb-down} </string>
 
