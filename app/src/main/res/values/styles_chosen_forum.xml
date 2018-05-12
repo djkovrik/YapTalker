@@ -16,7 +16,7 @@
   </style>
 
   <style name="ForumTopicAnswers" parent="CommonSupportingText">
-    <item name="android:textStyle">italic</item>
+    <item name="android:textStyle">normal</item>
   </style>
 
 </resources>
