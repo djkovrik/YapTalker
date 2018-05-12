@@ -45,7 +45,7 @@ class IncubatorAdapter @Inject constructor(
 
   override fun onViewDetachedFromWindow(holder: ViewHolder) {
     super.onViewDetachedFromWindow(holder)
-    holder.itemView?.clearAnimation()
+    holder.itemView.clearAnimation()
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =

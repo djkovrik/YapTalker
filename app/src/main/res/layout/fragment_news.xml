@@ -26,7 +26,7 @@
     android:elevation="@dimen/material_elevation_fab_resting"
     app:fabSize="normal"
     app:ico_color="?attr/colorFabIcon"
-    app:ico_icon="cmd-refresh"
+    app:ico_icon="typ-refresh"
     app:ico_padding="@dimen/fab_icon_padding"
     tools:targetApi="lollipop" />
 

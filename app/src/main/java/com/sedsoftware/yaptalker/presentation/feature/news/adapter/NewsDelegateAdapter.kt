@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlAndRoundCorners
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
@@ -83,7 +83,7 @@ class NewsDelegateAdapter(
 
         if (newsItem.images.isNotEmpty()) {
           val url = newsItem.images.first()
-          news_content_image.loadFromUrl(url)
+          news_content_image.loadFromUrlAndRoundCorners(url)
           news_content_image_container.isVisible = true
           news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, "", false) }
         } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {

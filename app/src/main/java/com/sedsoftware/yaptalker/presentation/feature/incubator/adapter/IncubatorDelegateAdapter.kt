@@ -10,7 +10,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlAndRoundCorners
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
@@ -82,7 +82,7 @@ class IncubatorDelegateAdapter(
 
         if (incubatorItem.images.isNotEmpty()) {
           val url = incubatorItem.images.first()
-          incubator_topic_content_image.loadFromUrl(url)
+          incubator_topic_content_image.loadFromUrlAndRoundCorners(url)
           incubator_topic_content_image_container.isVisible = true
 
           incubator_topic_content_image.setOnClickListener {
