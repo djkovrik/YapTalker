@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.2.40'
+    ext.kotlin_version = '1.2.41'
     ext.goole_play_services_version = '3.2.1'
     ext.fabric_version = '1.25.3'
     repositories {
@@ -8,7 +8,7 @@ buildscript {
         maven { url "https://maven.fabric.io/public" }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:3.2.0-alpha12"
+        classpath "com.android.tools.build:gradle:3.2.0-alpha14"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.gms:google-services:$goole_play_services_version"
         classpath "io.fabric.tools:gradle:$fabric_version"
