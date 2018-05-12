@@ -120,11 +120,14 @@ dependencies {
     implementation presentationDependencies.okhttpInterceptor
     implementation presentationDependencies.picasso
 
+    //implementation presentationDependencies.materialDesign
     implementation presentationDependencies.materialValues
     implementation(presentationDependencies.materialDrawer) { transitive = true }
     implementation presentationDependencies.iconicsCore
     implementation presentationDependencies.iconicsView
     implementation presentationDependencies.materialTypeface
+    implementation presentationDependencies.entypoTypeface
+    implementation presentationDependencies.typeiconcsTypeface
     implementation presentationDependencies.materialDialogs
     implementation presentationDependencies.materialDialogsCommons
     implementation presentationDependencies.photoView
