@@ -120,7 +120,6 @@ dependencies {
     implementation presentationDependencies.okhttpInterceptor
     implementation presentationDependencies.picasso
 
-    //implementation presentationDependencies.materialDesign
     implementation presentationDependencies.materialValues
     implementation(presentationDependencies.materialDrawer) { transitive = true }
     implementation presentationDependencies.iconicsCore
