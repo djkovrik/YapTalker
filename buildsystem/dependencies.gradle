@@ -40,7 +40,6 @@ ext {
     final ICONICS_VERSION = "3.0.3@aar"
     final COMMUNITY_MATERIAL_ICONS_VERSION = "2.0.46.1@aar"
     final TYPEICONS_VERSION = "2.0.7.4@aar"
-    final ENTYPO_ICONS_VERSION = "1.0.0.4@aar"
     final MATERIAL_DIALOGUES_VERSION = "0.9.6.0"
     final PHOTOVIEW_VERSION = "2.1.3"
     final TOP_SNACKBAR_VERSION = "1.1.1"
@@ -160,7 +159,6 @@ ext {
             iconicsView             : "com.mikepenz:iconics-views:$ICONICS_VERSION",
             materialTypeface        : "com.mikepenz:community-material-typeface:$COMMUNITY_MATERIAL_ICONS_VERSION",
             typeiconcsTypeface      : "com.mikepenz:typeicons-typeface:$TYPEICONS_VERSION",
-            entypoTypeface          : "com.mikepenz:entypo-typeface:$ENTYPO_ICONS_VERSION",
             materialDialogs         : "com.afollestad.material-dialogs:core:$MATERIAL_DIALOGUES_VERSION",
             materialDialogsCommons  : "com.afollestad.material-dialogs:commons:$MATERIAL_DIALOGUES_VERSION",
             photoView               : "com.github.chrisbanes:PhotoView:$PHOTOVIEW_VERSION",

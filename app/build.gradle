@@ -126,7 +126,6 @@ dependencies {
     implementation presentationDependencies.iconicsCore
     implementation presentationDependencies.iconicsView
     implementation presentationDependencies.materialTypeface
-    implementation presentationDependencies.entypoTypeface
     implementation presentationDependencies.typeiconcsTypeface
     implementation presentationDependencies.materialDialogs
     implementation presentationDependencies.materialDialogsCommons
