@@ -1,6 +1,6 @@
 <resources>
   <!-- LIGHT THEME -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
     <item name="themeName">@string/theme_light</item>
     <!-- Base -->
     <item name="colorPrimary">@color/colorPrimaryL</item>
@@ -108,7 +108,7 @@
 
 
   <!-- LIGHT THEME - CONTRAST -->
-  <style name="AppTheme.LightContrast" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="AppTheme.LightContrast" parent="Theme.MaterialComponents.Light.NoActionBar">
     <item name="themeName">@string/theme_light_contrast</item>
     <!-- Base -->
     <item name="colorPrimary">@color/colorPrimaryLC</item>
@@ -216,7 +216,7 @@
 
 
   <!-- LIGHT THEME - YAP -->
-  <style name="AppTheme.LightYap" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="AppTheme.LightYap" parent="Theme.MaterialComponents.Light.NoActionBar">
     <item name="themeName">@string/theme_light_yap</item>
     <!-- Base -->
     <item name="colorPrimary">@color/colorPrimaryLY</item>
@@ -324,7 +324,7 @@
 
 
   <!-- DARK THEME -->
-  <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+  <style name="AppTheme.Dark" parent="Theme.MaterialComponents.NoActionBar">
     <item name="themeName">@string/theme_dark</item>
     <!-- Base -->
     <item name="colorPrimary">@color/colorPrimaryD</item>
@@ -434,7 +434,7 @@
 
 
   <!-- DARK THEME - Black-->
-  <style name="AppTheme.DarkBlack" parent="Theme.AppCompat.NoActionBar">
+  <style name="AppTheme.DarkBlack" parent="Theme.MaterialComponents.NoActionBar">
     <item name="themeName">@string/theme_dark_black</item>
     <!-- Base -->
     <item name="colorPrimary">@color/colorPrimaryDB</item>
