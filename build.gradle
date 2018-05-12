@@ -32,10 +32,8 @@ def versionPatch = 7
 allprojects {
     ext {
         compileSdkVersion = 'android-P'
-        buildToolsVersion = "27.0.3"
-        minSdkVersion = 19
-        minSdkDevVersion = 22
-        targetSdkVersion = 'P'
+        minSdkVersion = 21
+        targetSdkVersion = 27
         androidApplicationId = "com.sedsoftware.yaptalker"
         androidVersionCode = versionMajor * 1000000 + versionMinor * 1000 + versionPatch
         androidVersionName = "${versionMajor}.${versionMinor}.${versionPatch}"
