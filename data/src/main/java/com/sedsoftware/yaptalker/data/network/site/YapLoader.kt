@@ -156,6 +156,20 @@ interface YapLoader {
     @Part("sort_by") sortBy: String
   ): Single<SearchTopicsPageParsed>
 
+  /**
+   * Loads tag search result topics list.
+   *
+   * @param act Search request action type.
+   * @param code Search request action code.
+   *
+   * @return Parsed search results page.
+   */
+  @GET("/act/{act}/CODE/{CODE}/{tag}")
+  fun loadSearchedTagTopics(
+    @Path("act") act: String,
+    @Path("CODE") code: String,
+    @Path("tag") tag: String
+  ): Single<SearchTopicsPageParsed>
 
   /**
    * Loads next page of search result topics list.

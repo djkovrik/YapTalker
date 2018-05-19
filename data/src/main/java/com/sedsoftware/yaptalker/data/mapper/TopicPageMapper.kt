@@ -84,6 +84,6 @@ class TopicPageMapper @Inject constructor() : Function<TopicPageParsed, List<Bas
     Tag(
       name = from.name,
       link = from.link,
-      searchParameter = from.link.substringAfterLast("/")
+      searchParameter = from.name.substringAfter("#")
     )
 }

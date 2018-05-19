@@ -14,6 +14,10 @@ interface SearchTopicsRepository {
     prune: Int
   ): Single<List<BaseEntity>>
 
+  fun getTagSearchResults(
+    keyword: String
+  ): Single<List<BaseEntity>>
+
   fun getSearchResultsNextPage(
     keyword: String,
     searchId: String,

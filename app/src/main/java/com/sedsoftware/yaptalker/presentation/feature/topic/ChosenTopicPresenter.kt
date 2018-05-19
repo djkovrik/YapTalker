@@ -14,6 +14,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.feature.search.SearchRequest
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.EditedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.QuotedPostModelMapper
@@ -198,7 +199,8 @@ class ChosenTopicPresenter @Inject constructor(
   }
 
   override fun onTopicTagClicked(tag: TagModel) {
-
+    router.navigateTo(
+      NavigationScreen.SEARCH_RESULTS, SearchRequest(searchFor = tag.searchParameter, searchInTags = true))
   }
 
   override fun goToFirstPage() {
