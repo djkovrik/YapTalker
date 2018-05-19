@@ -37,14 +37,12 @@ class TopicGalleryAdapter @Inject constructor(
   override fun getItemCount(): Int = items.size
 
   fun addList(images: List<SinglePostGalleryImageModel>) {
-
     if (images.isNotEmpty()) {
       clearLoadingIndicators()
       items.addAll(images)
-    } else {
-      showLastLoadingIndicator()
     }
 
+    showLastLoadingIndicator()
     notifyDataSetChanged()
   }
 
@@ -69,13 +67,17 @@ class TopicGalleryAdapter @Inject constructor(
     fun bind(image: SinglePostGalleryImageModel) {
       with(itemView) {
         load_more_button.isInvisible = true
+        load_more_label.isInvisible = true
+        load_more_progress.isInvisible = true
         gallery_image.loadFromUrl(image.url)
 
         if (image.showLoadMore && !isLastPageVisible) {
           load_more_button.isVisible = true
           load_more_label.isVisible = true
+          load_more_progress.isInvisible = true
           load_more_button.setOnClickListener {
             loadMoreCallback.onLoadMoreClicked()
+            load_more_button.isVisible = true
             load_more_label.isInvisible = true
             load_more_progress.isVisible = true
           }
