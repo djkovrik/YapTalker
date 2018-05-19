@@ -3,6 +3,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:background="?attr/selectableItemBackground"
   android:orientation="vertical"
   tools:keep="@layout/fragment_chosen_topic_item">
@@ -78,14 +79,16 @@
       android:layout_marginStart="@dimen/materialize_screen_edge"
       android:orientation="vertical" />
 
-    <android.support.design.chip.ChipGroup
+    <com.google.android.flexbox.FlexboxLayout
       android:id="@+id/post_content_tags_container"
       android:layout_width="@dimen/topic_content_media_width"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
+      app:alignContent="stretch"
+      app:alignItems="stretch"
+      app:flexWrap="wrap"
       android:layout_marginEnd="@dimen/materialize_screen_edge"
-      android:layout_marginStart="@dimen/materialize_screen_edge"
-      android:orientation="vertical" />
+      android:layout_marginStart="@dimen/materialize_screen_edge" />
 
   </LinearLayout>
 

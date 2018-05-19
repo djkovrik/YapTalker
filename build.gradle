@@ -31,7 +31,7 @@ def versionPatch = 8
 
 allprojects {
     ext {
-        compileSdkVersion = 'android-P'
+        compileSdkVersion = 27
         minSdkVersion = 21
         targetSdkVersion = 27
         androidApplicationId = "com.sedsoftware.yaptalker"

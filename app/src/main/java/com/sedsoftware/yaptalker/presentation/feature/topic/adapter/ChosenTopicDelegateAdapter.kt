@@ -1,8 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.topic.adapter
 
-import android.content.res.ColorStateList
 import android.graphics.Typeface
-import android.support.design.chip.Chip
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.text.method.LinkMovementMethod
@@ -14,6 +12,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.google.android.flexbox.FlexboxLayout
+import com.robertlevonyan.views.chip.Chip
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
@@ -325,11 +325,22 @@ class ChosenTopicDelegateAdapter(
             val chip = Chip(context)
             chip.chipText = tag.name
             chip.gravity = Gravity.CENTER
-            chip.chipCornerRadius = 32f
-            chip.chipStrokeWidth = 2f
-            chip.chipStrokeColor = ColorStateList.valueOf(context.colorFromAttr(R.attr.colorAccent))
-            chip.setOnClickListener { clickListener.onTopicTagClicked(tag) }
+            chip.cornerRadius = 16
+            chip.strokeSize = 2
+            chip.strokeColor = context.colorFromAttr(R.attr.colorAccent)
+            chip.changeBackgroundColor(context.colorFromAttr(R.attr.chipBackground))
+            chip.textColor= context.colorFromAttr(R.attr.colorNavDefaultText)
+            chip.setOnChipClickListener { clickListener.onTopicTagClicked(tag) }
+
             post_content_tags_container.addView(chip)
+
+            val params = (chip.layoutParams as FlexboxLayout.LayoutParams).apply {
+              marginStart = 8
+              marginEnd = 8
+              bottomMargin = 8
+              topMargin = 8
+            }
+            chip.layoutParams = params
           }
         } else {
           post_content_tags_container.isGone = true

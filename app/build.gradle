@@ -119,6 +119,8 @@ dependencies {
 
     implementation presentationDependencies.materialValues
     implementation(presentationDependencies.materialDrawer) { transitive = true }
+    implementation presentationDependencies.materialChip
+    implementation presentationDependencies.flexbox
     implementation presentationDependencies.iconicsCore
     implementation presentationDependencies.iconicsView
     implementation presentationDependencies.materialTypeface

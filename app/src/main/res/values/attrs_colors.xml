@@ -45,4 +45,5 @@
   <attr name="snackColorSuccess" format="color" />
   <attr name="snackColorWarning" format="color" />
   <attr name="snackColorText" format="color" />
+  <attr name="chipBackground" format="color" />
 </resources>
