@@ -89,7 +89,6 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail</item>
-    <item name="iconVideoOverlay">@drawable/ic_video_play</item>
     <item name="iconRemoveAttachment">@drawable/ic_close</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.AppBarOverlay</item>
@@ -197,7 +196,6 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile_light_contrast</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_light_contrast</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail_light_contrast</item>
-    <item name="iconVideoOverlay">@drawable/ic_video_play_light_contrast</item>
     <item name="iconRemoveAttachment">@drawable/ic_close_light_contrast</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.LightContrast.AppBarOverlay</item>
@@ -305,7 +303,6 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile_light_yap</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_light_yap</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail_light_yap</item>
-    <item name="iconVideoOverlay">@drawable/ic_video_play_light_yap</item>
     <item name="iconRemoveAttachment">@drawable/ic_close_light_yap</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.LightYap.AppBarOverlay</item>
@@ -415,7 +412,6 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile_dark</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_dark</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail_dark</item>
-    <item name="iconVideoOverlay">@drawable/ic_video_play_dark</item>
     <item name="iconRemoveAttachment">@drawable/ic_close_dark</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.Dark.AppBarOverlay</item>
@@ -524,7 +520,6 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile_dark_black</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_dark_black</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail_dark_black</item>
-    <item name="iconVideoOverlay">@drawable/ic_video_play_dark_black</item>
     <item name="iconRemoveAttachment">@drawable/ic_close_dark_black</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.DarkBlack.AppBarOverlay</item>

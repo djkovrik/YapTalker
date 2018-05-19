@@ -4,11 +4,11 @@ import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.text.method.LinkMovementMethod
+import android.view.Gravity
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.ImageView.ScaleType
 import android.widget.TextView
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -35,6 +35,8 @@ import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 import java.util.ArrayList
 
+
+
 class ChosenTopicDelegateAdapter(
   private val clickListener: ChosenTopicElementsClickListener,
   private val thumbnailLoader: ThumbnailsLoader,
@@ -43,6 +45,8 @@ class ChosenTopicDelegateAdapter(
 
   companion object {
     private const val INITIAL_NESTING_LEVEL = 0
+    private const val OVERLAY_MARGIN = 8
+    private const val OVERLAY_TEXT_PADDING = 2
   }
 
   private val normalFontSize by lazy {
@@ -204,10 +208,11 @@ class ChosenTopicDelegateAdapter(
           thumbnail.setPadding(0, imagePadding, 0, imagePadding)
 
           // Overlay
-          val overlay = ImageView(itemView.context)
-          val layoutParams = ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-          overlay.layoutParams = layoutParams
-          overlay.scaleType = ScaleType.CENTER
+          val overlay = TextView(itemView.context)
+          overlay.text = post.videoTypes[index]
+          overlay.setBackgroundResource(R.drawable.bg_primary_solid)
+          overlay.setPadding(OVERLAY_TEXT_PADDING, OVERLAY_TEXT_PADDING, OVERLAY_TEXT_PADDING, OVERLAY_TEXT_PADDING)
+          overlay.gravity = Gravity.START or Gravity.TOP
 
           // Container
           val container = FrameLayout(itemView.context)
@@ -217,17 +222,19 @@ class ChosenTopicDelegateAdapter(
 
           container.addView(thumbnail)
           container.addView(overlay)
+
+          val verticalMargin = OVERLAY_MARGIN + imagePadding
+          val overlayParams = (overlay.layoutParams as FrameLayout.LayoutParams).apply {
+            width = FrameLayout.LayoutParams.WRAP_CONTENT
+            height = FrameLayout.LayoutParams.WRAP_CONTENT
+            setMargins(OVERLAY_MARGIN, verticalMargin, OVERLAY_MARGIN, verticalMargin)
+          }
+          overlay.layoutParams = overlayParams
+
           itemView.post_content_video_container.addView(container)
 
           // Load thumbnail
           thumbnailLoader.loadThumbnail(url, thumbnail)
-
-          // Load overlay
-          val a = itemView.context.theme.obtainStyledAttributes(R.style.AppTheme, intArrayOf(R.attr.iconVideoOverlay))
-          val attributeResourceId = a.getResourceId(0, 0)
-          val drawable = itemView.context.resources.getDrawable(attributeResourceId, itemView.context.theme)
-          a.recycle()
-          overlay.setImageDrawable(drawable)
 
           thumbnail.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawHtml, true) }
         }

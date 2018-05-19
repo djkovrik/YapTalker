@@ -52,14 +52,14 @@
     android:layout_height="wrap_content"
     android:layout_below="@id/post_author_avatar"
     android:layout_marginBottom="@dimen/material_card_title_block_small_padding_vertical"
-    android:layout_marginEnd="@dimen/materialize_screen_edge"
-    android:layout_marginStart="@dimen/materialize_screen_edge"
     android:orientation="vertical">
 
     <LinearLayout
       android:id="@+id/post_content_text_container"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/materialize_screen_edge"
+      android:layout_marginStart="@dimen/materialize_screen_edge"
       android:orientation="vertical" />
 
     <LinearLayout
@@ -74,6 +74,8 @@
       android:layout_width="@dimen/topic_content_media_width"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
+      android:layout_marginEnd="@dimen/materialize_screen_edge"
+      android:layout_marginStart="@dimen/materialize_screen_edge"
       android:orientation="vertical" />
 
   </LinearLayout>
