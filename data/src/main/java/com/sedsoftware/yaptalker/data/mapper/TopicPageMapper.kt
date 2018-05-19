@@ -2,9 +2,11 @@ package com.sedsoftware.yaptalker.data.mapper
 
 import com.sedsoftware.yaptalker.data.mapper.util.PostContentParser
 import com.sedsoftware.yaptalker.data.parsed.TopicPageParsed
+import com.sedsoftware.yaptalker.data.parsed.TopicTagParsed
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.NavigationPanel
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePost
+import com.sedsoftware.yaptalker.domain.entity.base.Tag
 import com.sedsoftware.yaptalker.domain.entity.base.TopicInfoBlock
 import io.reactivex.functions.Function
 import java.util.ArrayList
@@ -59,7 +61,8 @@ class TopicPageMapper @Inject constructor() : Function<TopicPageParsed, List<Bas
             postContentParsed = PostContentParser(post.postContent).getParsedPost(),
             postId = post.postId.toInt(),
             hasQuoteButton = post.hasQuoteButton.isNotEmpty(),
-            hasEditButton = post.hasEditButton.isNotEmpty()
+            hasEditButton = post.hasEditButton.isNotEmpty(),
+            tags = post.tags.map { mapTag(it) }
           )
         )
       }
@@ -76,4 +79,11 @@ class TopicPageMapper @Inject constructor() : Function<TopicPageParsed, List<Bas
 
     return result
   }
+
+  private fun mapTag(from: TopicTagParsed): Tag =
+    Tag(
+      name = from.name,
+      link = from.link,
+      searchParameter = from.link.substringAfterLast("/")
+    )
 }
