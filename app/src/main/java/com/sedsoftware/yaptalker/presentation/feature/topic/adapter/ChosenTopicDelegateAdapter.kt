@@ -37,8 +37,7 @@ import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 import java.util.ArrayList
 
-
-
+@Suppress("MagicNumber")
 class ChosenTopicDelegateAdapter(
   private val clickListener: ChosenTopicElementsClickListener,
   private val thumbnailLoader: ThumbnailsLoader,

@@ -24,7 +24,6 @@ class RoundedTransformation(private val radius: Float? = null, private val margi
     return output
   }
 
-  override fun key(): String {
-    return "rounded(radius=$radius, margin=$margin)"
-  }
+  override fun key(): String =
+    "rounded(radius=$radius, margin=$margin)"
 }
