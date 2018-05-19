@@ -34,7 +34,7 @@ class BookmarksDelegateAdapter(
       with(itemView) {
         bookmark_title.text = topicItem.title
         bookmark_title.textSize = normalFontSize
-        bookmark_delete_icon.setOnClickListener { clickListener.onDeleteIconClick(topicItem.bookmarkId) }
+        bookmark_delete_icon.setOnClickListener { clickListener.onDeleteIconClick(topicItem) }
         setOnClickListener { clickListener.onTopicItemClick(topicItem.link) }
       }
     }

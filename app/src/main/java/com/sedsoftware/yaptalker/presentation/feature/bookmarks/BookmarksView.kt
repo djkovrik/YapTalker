@@ -19,7 +19,9 @@ interface BookmarksView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator,
   @StateStrategyType(SingleStateStrategy::class)
   fun clearBookmarksList()
 
-  fun showDeleteConfirmationDialog(bookmarkId: Int)
+  fun showDeleteConfirmationDialog(item: BookmarkedTopicModel)
 
   fun showBookmarkDeletedMessage()
+
+  fun deleteItemFromBookmarks(item: BookmarkedTopicModel)
 }
