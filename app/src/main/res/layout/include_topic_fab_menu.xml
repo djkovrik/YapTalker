@@ -39,7 +39,7 @@
       android:visibility="visible"
       app:fabSize="normal"
       app:ico_color="?attr/colorFabIcon"
-      app:ico_icon="cmd-gesture-tap"
+      app:ico_icon="typ-th-menu"
       app:ico_padding="@dimen/fab_icon_padding"
       tools:targetApi="lollipop" />
 
@@ -73,7 +73,7 @@
         android:visibility="gone"
         app:fabSize="normal"
         app:ico_color="?attr/colorFabIcon"
-        app:ico_icon="cmd-pencil"
+        app:ico_icon="typ-pencil"
         app:ico_padding="@dimen/fab_icon_padding"
         tools:targetApi="lollipop" />
 
@@ -142,7 +142,7 @@
       android:elevation="@dimen/material_elevation_fab_resting"
       app:fabSize="mini"
       app:ico_color="?attr/colorFabIcon"
-      app:ico_icon="cmd-bookmark"
+      app:ico_icon="typ-bookmark"
       app:ico_padding="@dimen/mini_fab_icon_padding"
       tools:targetApi="lollipop" />
 

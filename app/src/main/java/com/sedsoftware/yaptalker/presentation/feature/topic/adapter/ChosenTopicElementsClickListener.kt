@@ -1,5 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.topic.adapter
 
+import com.sedsoftware.yaptalker.presentation.model.base.TagModel
+
 interface ChosenTopicElementsClickListener {
 
   fun onPostItemClicked(postId: Int, isKarmaAvailable: Boolean)
@@ -11,4 +13,6 @@ interface ChosenTopicElementsClickListener {
   fun onReplyButtonClicked(authorNickname: String, postDate: String, postId: Int)
 
   fun onEditButtonClicked(postId: Int)
+
+  fun onTopicTagClicked(tag: TagModel)
 }

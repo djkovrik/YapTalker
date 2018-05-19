@@ -14,6 +14,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.feature.search.SearchRequest
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.EditedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.QuotedPostModelMapper
@@ -25,6 +26,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.sedsoftware.yaptalker.presentation.model.base.QuotedPostModel
 import com.sedsoftware.yaptalker.presentation.model.base.ServerResponseModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
+import com.sedsoftware.yaptalker.presentation.model.base.TagModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicInfoBlockModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
@@ -194,6 +196,11 @@ class ChosenTopicPresenter @Inject constructor(
       }, { error ->
         error.message?.let { viewState.showErrorMessage(it) }
       })
+  }
+
+  override fun onTopicTagClicked(tag: TagModel) {
+    router.navigateTo(
+      NavigationScreen.SEARCH_RESULTS, SearchRequest(searchFor = tag.searchParameter, searchInTags = true))
   }
 
   override fun goToFirstPage() {

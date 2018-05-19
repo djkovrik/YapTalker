@@ -134,6 +134,7 @@ class SearchFormFragment : BaseFragment(), SearchFormView {
       targetForums = getCheckedCategories(),
       searchIn = SEARCH_IN,
       searchHow = currentSearchConditions,
+      searchInTags = false,
       sortBy = currentSortingMode,
       periodInDays = currentSearchPeriod
     )

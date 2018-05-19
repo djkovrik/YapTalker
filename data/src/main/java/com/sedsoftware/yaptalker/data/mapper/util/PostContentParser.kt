@@ -40,6 +40,7 @@ class PostContentParser(private val content: String) {
     private const val QUOTE_AUTHOR_MARKER = "@"
     private const val QUOTE_MARKER = "Цитата"
     private const val POST_EDIT_MARKER = "edit"
+    private const val POST_TAGS_BLOCK_SELECTOR = "div.topic-tags"
 
     private val tagsToSkip =
       setOf("#root", "html", "head", "body", "table", "tbody", "tr", "br", "b", "i", "u")
@@ -85,6 +86,7 @@ class PostContentParser(private val content: String) {
           element.select(CLIENT_SELECTOR).remove()
           element.select(WARNING_HEADER_SELECTOR).remove()
           element.select(WARNING_TEXT_SELECTOR).remove()
+          element.select(POST_TAGS_BLOCK_SELECTOR).remove()
           element.select(IMG_TAG).not(EMOTICON_SRC_SELECTOR).remove()
 
           element.html().formatPostHtmlCode().trimLinebreakTags().apply {

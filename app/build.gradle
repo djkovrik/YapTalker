@@ -8,7 +8,6 @@ android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
     compileSdkVersion globalConfiguration["compileSdkVersion"]
-    buildToolsVersion globalConfiguration["buildToolsVersion"]
 
     defaultConfig {
         minSdkVersion globalConfiguration["minSdkVersion"]
@@ -24,12 +23,10 @@ android {
     productFlavors {
         dev {
             dimension "variant"
-            minSdkVersion globalConfiguration["minSdkDevVersion"]
             multiDexEnabled true
         }
         prod {
             dimension "variant"
-            minSdkVersion globalConfiguration["minSdkVersion"]
         }
     }
     signingConfigs {
@@ -125,6 +122,7 @@ dependencies {
     implementation presentationDependencies.iconicsCore
     implementation presentationDependencies.iconicsView
     implementation presentationDependencies.materialTypeface
+    implementation presentationDependencies.typeiconcsTypeface
     implementation presentationDependencies.materialDialogs
     implementation presentationDependencies.materialDialogsCommons
     implementation presentationDependencies.photoView

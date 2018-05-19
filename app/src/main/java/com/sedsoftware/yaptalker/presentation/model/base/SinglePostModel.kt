@@ -21,7 +21,8 @@ class SinglePostModel(
   val postContentParsed: SinglePostParsedModel,
   val postId: Int,
   val hasQuoteButton: Boolean,
-  val hasEditButton: Boolean
+  val hasEditButton: Boolean,
+  val tags: List<TagModel>
 ) : DisplayedItemModel {
 
   override fun getEntityType(): Int = DisplayedItemType.SINGLE_POST

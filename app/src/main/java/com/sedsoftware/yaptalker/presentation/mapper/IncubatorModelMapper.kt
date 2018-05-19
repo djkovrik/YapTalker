@@ -4,13 +4,15 @@ import com.sedsoftware.yaptalker.data.extensions.getLastDigits
 import com.sedsoftware.yaptalker.domain.entity.base.IncubatorItem
 import com.sedsoftware.yaptalker.presentation.mapper.util.DateTransformer
 import com.sedsoftware.yaptalker.presentation.mapper.util.TextTransformer
+import com.sedsoftware.yaptalker.presentation.mapper.util.VideoTypeDetector
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 import io.reactivex.functions.Function
 import javax.inject.Inject
 
 class IncubatorModelMapper @Inject constructor(
   private val textTransformer: TextTransformer,
-  private val dateTransformer: DateTransformer
+  private val dateTransformer: DateTransformer,
+  private val videoTypeDetector: VideoTypeDetector
 ) : Function<IncubatorItem, IncubatorItemModel> {
 
   override fun apply(item: IncubatorItem): IncubatorItemModel =
@@ -22,6 +24,7 @@ class IncubatorModelMapper @Inject constructor(
       images = item.images,
       videos = item.videos,
       videosRaw = item.videosRaw,
+      videoTypes = item.videos.map { videoTypeDetector.detectVideoType(it) },
       author = item.author,
       authorLink = item.authorLink,
       date = dateTransformer.transformDateToShortView(item.date),

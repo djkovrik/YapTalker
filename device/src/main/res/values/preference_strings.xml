@@ -31,8 +31,8 @@
   <string name="pref_appearance_avatar_size_label_medium">Medium</string>
   <string name="pref_appearance_avatar_size_label_large">Large</string>
   <string name="pref_appearance_avatar_size_value_small" translatable="false">38</string>
-  <string name="pref_appearance_avatar_size_value_medium" translatable="false">46</string>
-  <string name="pref_appearance_avatar_size_value_large" translatable="false">54</string>
+  <string name="pref_appearance_avatar_size_value_medium" translatable="false">48</string>
+  <string name="pref_appearance_avatar_size_value_large" translatable="false">58</string>
   <!-- Theme -->
   <string name="pref_appearance_theme_title">Theme</string>
   <string name="pref_appearance_theme_label_light">Light</string>

@@ -19,6 +19,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
+import com.mikepenz.typeicons_typeface_library.Typeicons
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResourceTablets
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
@@ -160,7 +161,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
     drawerItemMainPage = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.MAIN_PAGE)
       .withName(R.string.nav_drawer_main_page)
-      .withIcon(CommunityMaterial.Icon.cmd_home)
+      .withIcon(Typeicons.Icon.typ_home)
       .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
       .withIconColor(colorFromAttr(R.attr.colorNavMainPage))
       .withSelectedTextColor(colorFromAttr(R.attr.colorNavMainPage))
@@ -169,7 +170,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
     drawerItemForums = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.FORUMS)
       .withName(R.string.nav_drawer_forums)
-      .withIcon(CommunityMaterial.Icon.cmd_forum)
+      .withIcon(Typeicons.Icon.typ_group)
       .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
       .withIconColor(colorFromAttr(R.attr.colorNavForums))
       .withSelectedTextColor(colorFromAttr(R.attr.colorNavForums))
@@ -187,7 +188,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
     drawerItemIncubator = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.INCUBATOR)
       .withName(R.string.nav_drawer_incubator)
-      .withIcon(CommunityMaterial.Icon.cmd_human_child)
+      .withIcon(Typeicons.Icon.typ_user)
       .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
       .withIconColor(colorFromAttr(R.attr.colorNavIncubator))
       .withSelectedTextColor(colorFromAttr(R.attr.colorNavIncubator))
@@ -196,7 +197,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
     drawerItemBookmarks = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.BOOKMARKS)
       .withName(R.string.nav_drawer_bookmarks)
-      .withIcon(CommunityMaterial.Icon.cmd_bookmark_outline)
+      .withIcon(Typeicons.Icon.typ_bookmark)
       .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
       .withIconColor(colorFromAttr(R.attr.colorNavBookmarks))
       .withSelectedTextColor(colorFromAttr(R.attr.colorNavBookmarks))
@@ -213,7 +214,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
 
     drawerItemSettings = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.SETTINGS)
-      .withIcon(CommunityMaterial.Icon.cmd_settings)
+      .withIcon(Typeicons.Icon.typ_cog)
       .withName(R.string.nav_drawer_settings)
       .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
       .withIconColor(colorFromAttr(R.attr.colorNavSettings))
@@ -222,7 +223,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
 
     drawerItemUpdater = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.APP_UPDATES)
-      .withIcon(CommunityMaterial.Icon.cmd_download_network)
+      .withIcon(Typeicons.Icon.typ_download)
       .withName(R.string.nav_drawer_updates)
       .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
       .withIconColor(colorFromAttr(R.attr.colorNavSettings))

@@ -68,6 +68,19 @@ class SearchResultsPresenter @Inject constructor(
       .subscribe(getSearchResultsObserver())
   }
 
+  fun searchInTags(tag: String) {
+    searchInteractor
+      .getTagSearchResults(tag)
+      .subscribeOn(Schedulers.io())
+      .map(searchResultsMapper)
+      .flatMapObservable { list: List<DisplayedItemModel> -> Observable.fromIterable(list) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSubscribe { viewState.showLoadingIndicator() }
+      .doFinally { viewState.hideLoadingIndicator() }
+      .autoDisposable(event(PresenterLifecycle.DESTROY))
+      .subscribe(getSearchResultsObserver())
+  }
+
   fun loadNextSearchResultsPage() {
 
     val startingTopicNumber = currentPage * TOPICS_PER_PAGE

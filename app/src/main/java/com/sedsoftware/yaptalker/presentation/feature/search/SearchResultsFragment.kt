@@ -25,9 +25,7 @@ class SearchResultsFragment : BaseFragment(), SearchResultsView {
 
   companion object {
     fun getNewInstance(request: SearchRequest): SearchResultsFragment =
-      SearchResultsFragment().apply {
-        arguments = bundleOf(SEARCH_REQUEST_KEY to request)
-      }
+      SearchResultsFragment().apply { arguments = bundleOf(SEARCH_REQUEST_KEY to request) }
 
     private const val SEARCH_REQUEST_KEY = "SEARCH_REQUEST_KEY"
   }
@@ -44,6 +42,10 @@ class SearchResultsFragment : BaseFragment(), SearchResultsView {
 
   private val searchRequest: SearchRequest by lazy {
     arguments?.getParcelable(SEARCH_REQUEST_KEY) as SearchRequest
+  }
+
+  private val searchInTags: Boolean by lazy {
+    searchRequest.searchInTags
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,12 +69,16 @@ class SearchResultsFragment : BaseFragment(), SearchResultsView {
 
     search_refresh_layout.setIndicatorColorScheme()
 
-    presenter.searchForFirstTime(searchRequest)
-
     RxSwipeRefreshLayout
       .refreshes(search_refresh_layout)
       .autoDisposable(event(FragmentLifecycle.DESTROY))
       .subscribe { search_refresh_layout?.isRefreshing = false }
+
+    if (searchInTags) {
+      presenter.searchInTags(searchRequest.searchFor)
+    } else {
+      presenter.searchForFirstTime(searchRequest)
+    }
   }
 
   override fun showErrorMessage(message: String) {
