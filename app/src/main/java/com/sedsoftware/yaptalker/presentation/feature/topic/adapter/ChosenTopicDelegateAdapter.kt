@@ -1,6 +1,8 @@
 package com.sedsoftware.yaptalker.presentation.feature.topic.adapter
 
+import android.content.res.ColorStateList
 import android.graphics.Typeface
+import android.support.design.chip.Chip
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.text.method.LinkMovementMethod
@@ -83,6 +85,7 @@ class ChosenTopicDelegateAdapter(
       fillPostImages(postItem.postContentParsed)
       fillPostVideos(postItem.postContentParsed)
       fillControls(postItem)
+      fillTags(postItem)
     }
 
     @Suppress("NestedBlockDepth")
@@ -310,6 +313,27 @@ class ChosenTopicDelegateAdapter(
           }
         } else {
           post_button_edit.isGone = true
+        }
+      }
+    }
+
+    private fun fillTags(post: SinglePostModel) {
+      with(itemView) {
+        if (post.tags.isNotEmpty()) {
+          post_content_tags_container.isVisible = true
+
+          post.tags.forEach { tag ->
+            val chip = Chip(context)
+            chip.chipText = tag.name
+            chip.gravity = Gravity.CENTER
+            chip.chipCornerRadius = 32f
+            chip.chipStrokeWidth = 2f
+            chip.chipStrokeColor = ColorStateList.valueOf(context.colorFromAttr(R.attr.colorAccent))
+            chip.setOnClickListener { clickListener.onTopicTagClicked(tag) }
+            post_content_tags_container.addView(chip)
+          }
+        } else {
+          post_content_tags_container.isGone = true
         }
       }
     }

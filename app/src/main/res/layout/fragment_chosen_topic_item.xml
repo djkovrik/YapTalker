@@ -78,6 +78,15 @@
       android:layout_marginStart="@dimen/materialize_screen_edge"
       android:orientation="vertical" />
 
+    <android.support.design.chip.ChipGroup
+      android:id="@+id/post_content_tags_container"
+      android:layout_width="@dimen/topic_content_media_width"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginEnd="@dimen/materialize_screen_edge"
+      android:layout_marginStart="@dimen/materialize_screen_edge"
+      android:orientation="vertical" />
+
   </LinearLayout>
 
   <TextView

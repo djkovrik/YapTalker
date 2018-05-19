@@ -25,6 +25,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.sedsoftware.yaptalker.presentation.model.base.QuotedPostModel
 import com.sedsoftware.yaptalker.presentation.model.base.ServerResponseModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
+import com.sedsoftware.yaptalker.presentation.model.base.TagModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicInfoBlockModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
@@ -194,6 +195,10 @@ class ChosenTopicPresenter @Inject constructor(
       }, { error ->
         error.message?.let { viewState.showErrorMessage(it) }
       })
+  }
+
+  override fun onTopicTagClicked(tag: TagModel) {
+
   }
 
   override fun goToFirstPage() {
