@@ -95,9 +95,13 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/materialize_screen_edge"
     android:text="@string/updater_btn_check_for_updates"
+    app:layout_constraintBottom_toTopOf="@+id/updater_btn_download"
     app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/updater_progressbar" />
+    app:layout_constraintTop_toBottomOf="@+id/updater_progressbar"
+    app:layout_constraintVertical_bias="0.0"
+    app:layout_constraintVertical_chainStyle="packed" />
 
   <TextView
     android:id="@+id/updater_btn_download"
@@ -107,7 +111,9 @@
     android:layout_marginTop="@dimen/materialize_screen_edge"
     android:text="@string/updater_btn_download"
     android:visibility="gone"
+    app:layout_constraintBottom_toTopOf="@+id/updater_btn_changelog"
     app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/updater_btn_check_updates" />
 
@@ -118,7 +124,9 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/materialize_screen_edge"
     android:text="@string/updater_btn_changelog"
+    app:layout_constraintBottom_toTopOf="@+id/updater_progressbar_status"
     app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/updater_btn_download" />
 

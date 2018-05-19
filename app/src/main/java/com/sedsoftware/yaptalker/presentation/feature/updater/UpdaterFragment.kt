@@ -5,7 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.View
-import androidx.core.view.isInvisible
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -108,11 +108,9 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
 
   override fun setDownloadButtonVisibility(isVisible: Boolean) {
     if (isVisible) {
-      updater_btn_check_updates.isInvisible = true
       updater_btn_download.isVisible = true
     } else {
-      updater_btn_download.isInvisible = true
-      updater_btn_check_updates.isVisible = true
+      updater_btn_download.isGone = true
     }
   }
 
