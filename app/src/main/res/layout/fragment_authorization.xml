@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   style="?attr/customCardViewStyle"
   android:layout_width="match_parent"
@@ -20,6 +20,7 @@
     <android.support.design.widget.TextInputLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlineBox"
       android:theme="@style/EditTextStyle">
 
       <EditText
@@ -37,6 +38,7 @@
     <android.support.design.widget.TextInputLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlineBox"
       android:theme="@style/EditTextStyle">
 
       <EditText
@@ -58,11 +60,12 @@
       android:layout_height="wrap_content"
       android:text="@string/authorization_anonymous" />
 
-    <Button
+    <android.support.design.button.MaterialButton
       android:id="@+id/button_sign_in"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:enabled="false"
+      style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
       android:stateListAnimator="@null"
       android:text="@string/authorization_button_login"
       android:theme="@style/SignInButton"
@@ -70,4 +73,4 @@
 
   </LinearLayout>
 
-</android.support.v7.widget.CardView>
+</android.support.design.card.MaterialCardView>
