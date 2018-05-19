@@ -41,6 +41,21 @@ class NewsDelegateAdapter(
   inner class NewsViewHolder(parent: ViewGroup) :
     RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_news_item)) {
 
+    private val imageLayoutParams: ConstraintLayout.LayoutParams by lazy {
+      (itemView.news_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
+        width = ConstraintLayout.LayoutParams.MATCH_PARENT
+        height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+      }
+    }
+
+    private val videoLayoutParams: ConstraintLayout.LayoutParams by lazy {
+      (itemView.news_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
+        width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+        height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+        dimensionRatio = "16:9"
+      }
+    }
+
     fun bindTo(newsItem: NewsItemModel) {
       setViewsTextSize(itemView)
       setViewsContent(itemView, newsItem)
@@ -76,20 +91,20 @@ class NewsDelegateAdapter(
     private fun setMediaContent(itemView: View, newsItem: NewsItemModel) {
 
       with(itemView) {
-
         news_content_image.setOnClickListener(null)
         news_content_image.setImageDrawable(null)
         news_content_image_container.isGone = true
         news_content_image_overlay.isGone = true
 
-        val layoutParams = news_content_image.layoutParams as ConstraintLayout.LayoutParams
-        layoutParams.dimensionRatio = "16:9"
-
         if (newsItem.images.isNotEmpty()) {
           val url = newsItem.images.first()
-          news_content_image.loadFromUrlAndRoundCorners(url)
           news_content_image_container.isVisible = true
-          news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, "", false) }
+          news_content_image.layoutParams = imageLayoutParams
+          news_content_image.loadFromUrlAndRoundCorners(url)
+
+          news_content_image.setOnClickListener {
+            clickListener.onMediaPreviewClicked(url, "", false)
+          }
         } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
           val url = newsItem.videos.first()
           val rawVideo = newsItem.videosRaw.first()
@@ -97,8 +112,7 @@ class NewsDelegateAdapter(
           news_content_image_container.isVisible = true
           news_content_image_overlay.isVisible = true
           news_content_image_overlay.text = videoType
-          news_content_image.layoutParams = layoutParams
-
+          news_content_image.layoutParams = videoLayoutParams
           thumbnailsLoader.loadThumbnail(url, news_content_image)
 
           news_content_image.setOnClickListener {

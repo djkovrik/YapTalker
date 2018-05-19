@@ -41,6 +41,21 @@ class IncubatorDelegateAdapter(
   inner class IncubatorViewHolder(parent: ViewGroup) :
     RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_incubator_item)) {
 
+    private val imageLayoutParams: ConstraintLayout.LayoutParams by lazy {
+      (itemView.incubator_topic_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
+        width = ConstraintLayout.LayoutParams.MATCH_PARENT
+        height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+      }
+    }
+
+    private val videoLayoutParams: ConstraintLayout.LayoutParams by lazy {
+      (itemView.incubator_topic_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
+        width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+        height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+        dimensionRatio = "16:9"
+      }
+    }
+
     fun bindTo(incubatorItem: IncubatorItemModel) {
       setViewsTextSize(itemView)
       setViewsContent(itemView, incubatorItem)
@@ -86,8 +101,9 @@ class IncubatorDelegateAdapter(
 
         if (incubatorItem.images.isNotEmpty()) {
           val url = incubatorItem.images.first()
-          incubator_topic_content_image.loadFromUrlAndRoundCorners(url)
           incubator_topic_content_image_container.isVisible = true
+          incubator_topic_content_image.layoutParams = imageLayoutParams
+          incubator_topic_content_image.loadFromUrlAndRoundCorners(url)
 
           incubator_topic_content_image.setOnClickListener {
             clickListener.onMediaPreviewClicked(url, "", false)
@@ -99,7 +115,7 @@ class IncubatorDelegateAdapter(
           incubator_topic_content_image_container.isVisible = true
           incubator_topic_content_image_overlay.isVisible = true
           incubator_topic_content_image_overlay.text = videoType
-          incubator_topic_content_image.layoutParams = layoutParams
+          incubator_topic_content_image.layoutParams = videoLayoutParams
 
           thumbnailsLoader.loadThumbnail(url, incubator_topic_content_image)
 
