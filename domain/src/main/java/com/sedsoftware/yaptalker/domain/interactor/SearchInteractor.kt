@@ -18,6 +18,9 @@ class SearchInteractor @Inject constructor(
     repository
       .getSearchResults(keyword, searchIn, searchHow, sortBy, targetForums, prune)
 
+  fun getTagSearchResults(keyword: String): Single<List<BaseEntity>> =
+    repository.getTagSearchResults(keyword)
+
   fun getSearchResultsNextPage(keyword: String,
                                searchId: String,
                                searchIn: String,

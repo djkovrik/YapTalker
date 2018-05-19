@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.news.adapter
 
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.View
@@ -10,7 +11,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlAndRoundCorners
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
@@ -39,6 +40,21 @@ class NewsDelegateAdapter(
 
   inner class NewsViewHolder(parent: ViewGroup) :
     RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_news_item)) {
+
+    private val imageLayoutParams: ConstraintLayout.LayoutParams by lazy {
+      (itemView.news_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
+        width = ConstraintLayout.LayoutParams.MATCH_PARENT
+        height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+      }
+    }
+
+    private val videoLayoutParams: ConstraintLayout.LayoutParams by lazy {
+      (itemView.news_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
+        width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+        height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+        dimensionRatio = "16:9"
+      }
+    }
 
     fun bindTo(newsItem: NewsItemModel) {
       setViewsTextSize(itemView)
@@ -75,7 +91,6 @@ class NewsDelegateAdapter(
     private fun setMediaContent(itemView: View, newsItem: NewsItemModel) {
 
       with(itemView) {
-
         news_content_image.setOnClickListener(null)
         news_content_image.setImageDrawable(null)
         news_content_image_container.isGone = true
@@ -83,16 +98,26 @@ class NewsDelegateAdapter(
 
         if (newsItem.images.isNotEmpty()) {
           val url = newsItem.images.first()
-          news_content_image.loadFromUrl(url)
           news_content_image_container.isVisible = true
-          news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, "", false) }
+          news_content_image.layoutParams = imageLayoutParams
+          news_content_image.loadFromUrlAndRoundCorners(url)
+
+          news_content_image.setOnClickListener {
+            clickListener.onMediaPreviewClicked(url, "", false)
+          }
         } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
           val url = newsItem.videos.first()
           val rawVideo = newsItem.videosRaw.first()
-          thumbnailsLoader.loadThumbnail(url, news_content_image)
+          val videoType = newsItem.videoTypes.first()
           news_content_image_container.isVisible = true
           news_content_image_overlay.isVisible = true
-          news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawVideo, true) }
+          news_content_image_overlay.text = videoType
+          news_content_image.layoutParams = videoLayoutParams
+          thumbnailsLoader.loadThumbnail(url, news_content_image)
+
+          news_content_image.setOnClickListener {
+            clickListener.onMediaPreviewClicked(url, rawVideo, true)
+          }
         }
 
         setOnClickListener { clickListener.onNewsItemClicked(newsItem.forumId, newsItem.topicId) }

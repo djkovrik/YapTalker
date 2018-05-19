@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.incubator.adapter
 
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.View
@@ -10,7 +11,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlAndRoundCorners
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
@@ -39,6 +40,21 @@ class IncubatorDelegateAdapter(
 
   inner class IncubatorViewHolder(parent: ViewGroup) :
     RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_incubator_item)) {
+
+    private val imageLayoutParams: ConstraintLayout.LayoutParams by lazy {
+      (itemView.incubator_topic_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
+        width = ConstraintLayout.LayoutParams.MATCH_PARENT
+        height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+      }
+    }
+
+    private val videoLayoutParams: ConstraintLayout.LayoutParams by lazy {
+      (itemView.incubator_topic_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
+        width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+        height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+        dimensionRatio = "16:9"
+      }
+    }
 
     fun bindTo(incubatorItem: IncubatorItemModel) {
       setViewsTextSize(itemView)
@@ -75,6 +91,9 @@ class IncubatorDelegateAdapter(
     private fun setMediaContent(itemView: View, incubatorItem: IncubatorItemModel) {
 
       with(itemView) {
+        val layoutParams = incubator_topic_content_image.layoutParams as ConstraintLayout.LayoutParams
+        layoutParams.dimensionRatio = "16:9"
+
         incubator_topic_content_image.setOnClickListener(null)
         incubator_topic_content_image.setImageDrawable(null)
         incubator_topic_content_image_container.isGone = true
@@ -82,8 +101,9 @@ class IncubatorDelegateAdapter(
 
         if (incubatorItem.images.isNotEmpty()) {
           val url = incubatorItem.images.first()
-          incubator_topic_content_image.loadFromUrl(url)
           incubator_topic_content_image_container.isVisible = true
+          incubator_topic_content_image.layoutParams = imageLayoutParams
+          incubator_topic_content_image.loadFromUrlAndRoundCorners(url)
 
           incubator_topic_content_image.setOnClickListener {
             clickListener.onMediaPreviewClicked(url, "", false)
@@ -91,9 +111,13 @@ class IncubatorDelegateAdapter(
         } else if (incubatorItem.videos.isNotEmpty() && incubatorItem.videosRaw.isNotEmpty()) {
           val url = incubatorItem.videos.first()
           val rawVideo = incubatorItem.videosRaw.first()
-          thumbnailsLoader.loadThumbnail(url, incubator_topic_content_image)
+          val videoType = incubatorItem.videoTypes.first()
           incubator_topic_content_image_container.isVisible = true
           incubator_topic_content_image_overlay.isVisible = true
+          incubator_topic_content_image_overlay.text = videoType
+          incubator_topic_content_image.layoutParams = videoLayoutParams
+
+          thumbnailsLoader.loadThumbnail(url, incubator_topic_content_image)
 
           incubator_topic_content_image.setOnClickListener {
             clickListener.onMediaPreviewClicked(url, rawVideo, true)

@@ -15,6 +15,7 @@ class YapSearchTopicsRepository @Inject constructor(
   companion object {
     private const val SEARCH_ACT = "Search"
     private const val SEARCH_CODE = "01"
+    private const val SEARCH_TAGS_CODE = "tags"
     private const val SEARCH_CODE_NEXT_PAGE = "show"
     private const val SEARCH_SUBS = 1
   }
@@ -36,6 +37,15 @@ class YapSearchTopicsRepository @Inject constructor(
         searchIn = searchIn,
         searchSubs = SEARCH_SUBS,
         sortBy = sortBy
+      )
+      .map(dataMapper)
+
+  override fun getTagSearchResults(keyword: String): Single<List<BaseEntity>> =
+    dataLoader
+      .loadSearchedTagTopics(
+        act = SEARCH_ACT,
+        code = SEARCH_TAGS_CODE,
+        tag = keyword
       )
       .map(dataMapper)
 

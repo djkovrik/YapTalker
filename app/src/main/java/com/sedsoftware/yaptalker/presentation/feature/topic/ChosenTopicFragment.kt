@@ -110,7 +110,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsLoader {
 
     subscribeViews()
 
-    topicScrollState = topic_posts_list.layoutManager.onSaveInstanceState()
+    topicScrollState = topic_posts_list.layoutManager?.onSaveInstanceState() ?: Bundle()
   }
 
   override fun onBackPressed(): Boolean {
@@ -221,11 +221,11 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsLoader {
   }
 
   override fun saveScrollPosition() {
-    topicScrollState = topic_posts_list.layoutManager.onSaveInstanceState()
+    topicScrollState = topic_posts_list.layoutManager?.onSaveInstanceState() ?: Bundle()
   }
 
   override fun restoreScrollPosition() {
-    topic_posts_list.layoutManager.onRestoreInstanceState(topicScrollState)
+    topic_posts_list.layoutManager?.onRestoreInstanceState(topicScrollState)
   }
 
   override fun scrollToViewTop() {

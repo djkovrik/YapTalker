@@ -80,19 +80,23 @@ class BookmarksFragment : BaseFragment(), BookmarksView {
     bookmarksAdapter.clearBookmarksList()
   }
 
-  override fun showDeleteConfirmationDialog(bookmarkId: Int) {
+  override fun showDeleteConfirmationDialog(item: BookmarkedTopicModel) {
     context?.let { ctx ->
       MaterialDialog.Builder(ctx)
         .content(R.string.msg_bookmark_confirm_action)
         .positiveText(R.string.msg_bookmark_confirm_yes)
         .negativeText(R.string.msg_bookmark_confirm_no)
-        .onPositive { _, _ -> presenter.deleteSelectedBookmark(bookmarkId) }
+        .onPositive { _, _ -> presenter.deleteSelectedBookmark(item) }
         .show()
     }
   }
 
   override fun showBookmarkDeletedMessage() {
     messagesDelegate.showMessageInfo(getString(R.string.msg_bookmark_topic_deleted))
+  }
+
+  override fun deleteItemFromBookmarks(item: BookmarkedTopicModel) {
+    bookmarksAdapter.deleteFromList(item)
   }
 
   private fun subscribeViews() {

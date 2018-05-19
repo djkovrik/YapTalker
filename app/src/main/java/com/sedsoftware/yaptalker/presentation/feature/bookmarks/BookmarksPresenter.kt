@@ -36,8 +36,8 @@ class BookmarksPresenter @Inject constructor(
     viewState.updateCurrentUiState()
   }
 
-  override fun onDeleteIconClick(bookmarkId: Int) {
-    viewState.showDeleteConfirmationDialog(bookmarkId)
+  override fun onDeleteIconClick(item: BookmarkedTopicModel) {
+    viewState.showDeleteConfirmationDialog(item)
   }
 
   override fun onTopicItemClick(link: String) {
@@ -62,16 +62,16 @@ class BookmarksPresenter @Inject constructor(
       .subscribe(getBookmarksObserver())
   }
 
-  fun deleteSelectedBookmark(bookmarkId: Int) {
+  fun deleteSelectedBookmark(item: BookmarkedTopicModel) {
     bookmarksInteractor
-      .deleteFromBookmarks(bookmarkId)
+      .deleteFromBookmarks(item.bookmarkId)
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
       .autoDisposable(event(PresenterLifecycle.DESTROY))
       .subscribe({
         Timber.i("Bookmark deletion completed.")
         viewState.showBookmarkDeletedMessage()
-        loadBookmarks()
+        viewState.deleteItemFromBookmarks(item)
       }, { error ->
         error.message?.let { viewState.showErrorMessage(it) }
       })

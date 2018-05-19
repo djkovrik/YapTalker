@@ -1,6 +1,6 @@
 <resources>
   <!-- LIGHT THEME -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
     <item name="themeName">@string/theme_light</item>
     <!-- Base -->
     <item name="colorPrimary">@color/colorPrimaryL</item>
@@ -89,7 +89,6 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail</item>
-    <item name="iconVideoOverlay">@drawable/ic_video_play</item>
     <item name="iconRemoveAttachment">@drawable/ic_close</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.AppBarOverlay</item>
@@ -108,7 +107,7 @@
 
 
   <!-- LIGHT THEME - CONTRAST -->
-  <style name="AppTheme.LightContrast" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="AppTheme.LightContrast" parent="Theme.MaterialComponents.Light.NoActionBar">
     <item name="themeName">@string/theme_light_contrast</item>
     <!-- Base -->
     <item name="colorPrimary">@color/colorPrimaryLC</item>
@@ -197,7 +196,6 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile_light_contrast</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_light_contrast</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail_light_contrast</item>
-    <item name="iconVideoOverlay">@drawable/ic_video_play_light_contrast</item>
     <item name="iconRemoveAttachment">@drawable/ic_close_light_contrast</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.LightContrast.AppBarOverlay</item>
@@ -216,7 +214,7 @@
 
 
   <!-- LIGHT THEME - YAP -->
-  <style name="AppTheme.LightYap" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="AppTheme.LightYap" parent="Theme.MaterialComponents.Light.NoActionBar">
     <item name="themeName">@string/theme_light_yap</item>
     <!-- Base -->
     <item name="colorPrimary">@color/colorPrimaryLY</item>
@@ -305,7 +303,6 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile_light_yap</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_light_yap</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail_light_yap</item>
-    <item name="iconVideoOverlay">@drawable/ic_video_play_light_yap</item>
     <item name="iconRemoveAttachment">@drawable/ic_close_light_yap</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.LightYap.AppBarOverlay</item>
@@ -324,7 +321,7 @@
 
 
   <!-- DARK THEME -->
-  <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+  <style name="AppTheme.Dark" parent="Theme.MaterialComponents.NoActionBar">
     <item name="themeName">@string/theme_dark</item>
     <!-- Base -->
     <item name="colorPrimary">@color/colorPrimaryD</item>
@@ -415,7 +412,6 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile_dark</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_dark</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail_dark</item>
-    <item name="iconVideoOverlay">@drawable/ic_video_play_dark</item>
     <item name="iconRemoveAttachment">@drawable/ic_close_dark</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.Dark.AppBarOverlay</item>
@@ -434,7 +430,7 @@
 
 
   <!-- DARK THEME - Black-->
-  <style name="AppTheme.DarkBlack" parent="Theme.AppCompat.NoActionBar">
+  <style name="AppTheme.DarkBlack" parent="Theme.MaterialComponents.NoActionBar">
     <item name="themeName">@string/theme_dark_black</item>
     <!-- Base -->
     <item name="colorPrimary">@color/colorPrimaryDB</item>
@@ -524,7 +520,6 @@
     <item name="iconProfileInfo">@drawable/ic_face_profile_dark_black</item>
     <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_dark_black</item>
     <item name="iconProfileContacts">@drawable/ic_contact_mail_dark_black</item>
-    <item name="iconVideoOverlay">@drawable/ic_video_play_dark_black</item>
     <item name="iconRemoveAttachment">@drawable/ic_close_dark_black</item>
     <!-- Overlays -->
     <item name="AppBarOverlay">@style/AppTheme.DarkBlack.AppBarOverlay</item>

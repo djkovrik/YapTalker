@@ -31,4 +31,6 @@ class PostItemParsed {
   lateinit var hasQuoteButton: String
   @Selector(value = "a:containsOwn(правка)", attr = "href", defValue = "")
   lateinit var hasEditButton: String
+  @Selector("a.title:containsOwn(#)")
+  var tags: List<TopicTagParsed> = emptyList()
 }

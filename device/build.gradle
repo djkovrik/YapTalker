@@ -5,7 +5,6 @@ android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
     compileSdkVersion globalConfiguration["compileSdkVersion"]
-    buildToolsVersion globalConfiguration["buildToolsVersion"]
 
     defaultConfig {
         minSdkVersion globalConfiguration["minSdkVersion"]
@@ -20,11 +19,9 @@ android {
     productFlavors {
         dev {
             dimension "variant"
-            minSdkVersion globalConfiguration["minSdkDevVersion"]
         }
         prod {
             dimension "variant"
-            minSdkVersion globalConfiguration["minSdkVersion"]
         }
     }
     buildTypes {

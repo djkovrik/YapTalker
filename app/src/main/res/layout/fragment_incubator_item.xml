@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   style="?attr/customCardViewStyle"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:layout_marginBottom="@dimen/card_margin_value_half"
-  android:layout_marginTop="@dimen/card_margin_value_half"
-  android:elevation="@dimen/material_elevation_card_resting"
-  tools:keep="@layout/fragment_incubator_item"
-  tools:targetApi="lollipop">
+  android:layout_marginTop="@dimen/card_margin_value_half">
 
   <RelativeLayout
     android:layout_width="match_parent"
@@ -74,7 +71,7 @@
       android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
       tools:text="Here is a long news text, here is a long news text here" />
 
-    <FrameLayout
+    <android.support.constraint.ConstraintLayout
       android:id="@+id/incubator_topic_content_image_container"
       android:layout_width="@dimen/news_content_media_width"
       android:layout_height="wrap_content"
@@ -89,22 +86,29 @@
 
       <ImageView
         android:id="@+id/incubator_topic_content_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/a11y_news_image" />
+        android:contentDescription="@string/a11y_news_image"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/dummy_photo" />
 
-      <ImageView
+      <TextView
         android:id="@+id/incubator_topic_content_image_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="center"
-        android:visibility="gone"
-        app:srcCompat="?attr/iconVideoOverlay"
-        tools:ignore="ContentDescription" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/materialize_spacing"
+        android:background="@drawable/bg_primary_solid"
+        android:padding="2dp"
+        app:layout_constraintLeft_toLeftOf="@+id/incubator_topic_content_image"
+        app:layout_constraintTop_toTopOf="@+id/incubator_topic_content_image"
+        tools:text="Youtube" />
 
-    </FrameLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <com.mikepenz.iconics.view.IconicsTextView
       android:id="@+id/incubator_topic_comments_counter"
@@ -131,4 +135,5 @@
       tools:text="+100" />
   </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+</android.support.design.card.MaterialCardView>
+

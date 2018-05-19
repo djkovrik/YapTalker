@@ -12,6 +12,5 @@
   <attr name="iconProfileInfo" format="reference" />
   <attr name="iconProfileStatistic" format="reference" />
   <attr name="iconProfileContacts" format="reference" />
-  <attr name="iconVideoOverlay" format="reference" />
   <attr name="iconRemoveAttachment" format="reference" />
 </resources>

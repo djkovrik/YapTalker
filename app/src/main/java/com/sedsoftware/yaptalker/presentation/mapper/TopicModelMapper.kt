@@ -12,9 +12,11 @@ import com.sedsoftware.yaptalker.domain.entity.base.PostContent.PostText
 import com.sedsoftware.yaptalker.domain.entity.base.PostContent.PostWarning
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePost
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePostParsed
+import com.sedsoftware.yaptalker.domain.entity.base.Tag
 import com.sedsoftware.yaptalker.domain.entity.base.TopicInfoBlock
 import com.sedsoftware.yaptalker.presentation.mapper.util.DateTransformer
 import com.sedsoftware.yaptalker.presentation.mapper.util.TextTransformer
+import com.sedsoftware.yaptalker.presentation.mapper.util.VideoTypeDetector
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel
@@ -26,6 +28,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostTe
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWarningModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
+import com.sedsoftware.yaptalker.presentation.model.base.TagModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicInfoBlockModel
 import io.reactivex.functions.Function
 import java.util.ArrayList
@@ -33,7 +36,8 @@ import javax.inject.Inject
 
 class TopicModelMapper @Inject constructor(
   private val dateTransformer: DateTransformer,
-  private val textTransformer: TextTransformer
+  private val textTransformer: TextTransformer,
+  private val videoTypeDetector: VideoTypeDetector
 ) : Function<List<BaseEntity>, List<DisplayedItemModel>> {
 
   override fun apply(items: List<BaseEntity>): List<DisplayedItemModel> {
@@ -82,7 +86,8 @@ class TopicModelMapper @Inject constructor(
             postContentParsed = transform(item.postContentParsed),
             postId = item.postId,
             hasQuoteButton = item.hasQuoteButton,
-            hasEditButton = item.hasEditButton
+            hasEditButton = item.hasEditButton,
+            tags = item.tags.map { mapTag(it) }
           )
         )
       }
@@ -109,6 +114,14 @@ class TopicModelMapper @Inject constructor(
         .toMutableList(),
       images = post.images,
       videos = post.videos,
-      videosRaw = post.videosRaw
+      videosRaw = post.videosRaw,
+      videoTypes = post.videos.map { videoTypeDetector.detectVideoType(it) }
     )
-}
+
+  private fun mapTag(from: Tag): TagModel =
+      TagModel(
+        name = from.name,
+        link = from.link,
+        searchParameter = from.searchParameter
+      )
+ }
