@@ -1,5 +1,17 @@
 ## Changelog
 
+### [0.9.8] - 2018-05-19
+
+**Fixed**
+* Buttons positioning glitch in app updater layout
+
+**Added**
+* Topic tags and tags search on click
+
+**Changed**
+* Video thumbnail now displays video source label instead of play icon  (youtube, vk, yap etc.)
+* A lot of minor design tweaks
+
 ### [0.9.7] - 2018-05-08
 
 **Fixed**
