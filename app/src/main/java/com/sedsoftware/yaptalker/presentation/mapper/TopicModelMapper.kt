@@ -15,6 +15,7 @@ import com.sedsoftware.yaptalker.domain.entity.base.SinglePostParsed
 import com.sedsoftware.yaptalker.domain.entity.base.TopicInfoBlock
 import com.sedsoftware.yaptalker.presentation.mapper.util.DateTransformer
 import com.sedsoftware.yaptalker.presentation.mapper.util.TextTransformer
+import com.sedsoftware.yaptalker.presentation.mapper.util.VideoTypeDetector
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel
@@ -33,7 +34,8 @@ import javax.inject.Inject
 
 class TopicModelMapper @Inject constructor(
   private val dateTransformer: DateTransformer,
-  private val textTransformer: TextTransformer
+  private val textTransformer: TextTransformer,
+  private val videoTypeDetector: VideoTypeDetector
 ) : Function<List<BaseEntity>, List<DisplayedItemModel>> {
 
   override fun apply(items: List<BaseEntity>): List<DisplayedItemModel> {
@@ -109,6 +111,7 @@ class TopicModelMapper @Inject constructor(
         .toMutableList(),
       images = post.images,
       videos = post.videos,
-      videosRaw = post.videosRaw
+      videosRaw = post.videosRaw,
+      videoTypes = post.videos.map { videoTypeDetector.detectVideoType(it) }
     )
 }

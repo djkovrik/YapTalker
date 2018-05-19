@@ -89,26 +89,24 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/a11y_news_image"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/a11y_news_image" />
+        tools:src="@drawable/dummy_photo" />
 
-      <ImageView
+      <TextView
         android:id="@+id/incubator_topic_content_image_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="center"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/incubator_topic_content_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/materialize_spacing"
+        android:background="@drawable/bg_primary_solid"
+        android:padding="2dp"
         app:layout_constraintLeft_toLeftOf="@+id/incubator_topic_content_image"
-        app:layout_constraintRight_toRightOf="@+id/incubator_topic_content_image"
         app:layout_constraintTop_toTopOf="@+id/incubator_topic_content_image"
-        app:srcCompat="?attr/iconVideoOverlay"
-        tools:ignore="ContentDescription" />
+        tools:text="Youtube" />
 
     </android.support.constraint.ConstraintLayout>
 

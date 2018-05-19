@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.news.adapter
 
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.View
@@ -81,6 +82,9 @@ class NewsDelegateAdapter(
         news_content_image_container.isGone = true
         news_content_image_overlay.isGone = true
 
+        val layoutParams = news_content_image.layoutParams as ConstraintLayout.LayoutParams
+        layoutParams.dimensionRatio = "16:9"
+
         if (newsItem.images.isNotEmpty()) {
           val url = newsItem.images.first()
           news_content_image.loadFromUrlAndRoundCorners(url)
@@ -89,10 +93,17 @@ class NewsDelegateAdapter(
         } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
           val url = newsItem.videos.first()
           val rawVideo = newsItem.videosRaw.first()
-          thumbnailsLoader.loadThumbnail(url, news_content_image)
+          val videoType = newsItem.videoTypes.first()
           news_content_image_container.isVisible = true
           news_content_image_overlay.isVisible = true
-          news_content_image.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawVideo, true) }
+          news_content_image_overlay.text = videoType
+          news_content_image.layoutParams = layoutParams
+
+          thumbnailsLoader.loadThumbnail(url, news_content_image)
+
+          news_content_image.setOnClickListener {
+            clickListener.onMediaPreviewClicked(url, rawVideo, true)
+          }
         }
 
         setOnClickListener { clickListener.onNewsItemClicked(newsItem.forumId, newsItem.topicId) }

@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.incubator.adapter
 
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.View
@@ -75,6 +76,9 @@ class IncubatorDelegateAdapter(
     private fun setMediaContent(itemView: View, incubatorItem: IncubatorItemModel) {
 
       with(itemView) {
+        val layoutParams = incubator_topic_content_image.layoutParams as ConstraintLayout.LayoutParams
+        layoutParams.dimensionRatio = "16:9"
+
         incubator_topic_content_image.setOnClickListener(null)
         incubator_topic_content_image.setImageDrawable(null)
         incubator_topic_content_image_container.isGone = true
@@ -91,9 +95,13 @@ class IncubatorDelegateAdapter(
         } else if (incubatorItem.videos.isNotEmpty() && incubatorItem.videosRaw.isNotEmpty()) {
           val url = incubatorItem.videos.first()
           val rawVideo = incubatorItem.videosRaw.first()
-          thumbnailsLoader.loadThumbnail(url, incubator_topic_content_image)
+          val videoType = incubatorItem.videoTypes.first()
           incubator_topic_content_image_container.isVisible = true
           incubator_topic_content_image_overlay.isVisible = true
+          incubator_topic_content_image_overlay.text = videoType
+          incubator_topic_content_image.layoutParams = layoutParams
+
+          thumbnailsLoader.loadThumbnail(url, incubator_topic_content_image)
 
           incubator_topic_content_image.setOnClickListener {
             clickListener.onMediaPreviewClicked(url, rawVideo, true)

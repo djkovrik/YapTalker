@@ -229,4 +229,11 @@
   <string name="theme_dark" translatable="false">dark</string>
   <string name="theme_dark_black" translatable="false">dark</string>
 
+  <!-- Video types -->
+  <string name="video_coub" translatable="false">Coub</string>
+  <string name="video_youtube" translatable="false">Youtube</string>
+  <string name="video_rutube" translatable="false">Rutube</string>
+  <string name="video_vk" translatable="false">VK</string>
+  <string name="video_yap" translatable="false">YapFiles</string>
+  <string name="video_other" translatable="false">Video</string>
 </resources>
