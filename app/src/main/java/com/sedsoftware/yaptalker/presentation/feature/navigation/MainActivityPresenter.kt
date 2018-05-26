@@ -59,7 +59,7 @@ class MainActivityPresenter @Inject constructor(
       NavigationSection.INCUBATOR -> router.newRootScreen(NavigationScreen.INCUBATOR_SCREEN)
       NavigationSection.SIGN_IN -> router.navigateTo(NavigationScreen.AUTHORIZATION_SCREEN)
       NavigationSection.SIGN_OUT -> sendSignOutRequest()
-      NavigationSection.BOOKMARKS -> router.newRootScreen(NavigationScreen.BOOKMARKS_SCREEN)
+      NavigationSection.BOOKMARKS -> router.navigateTo(NavigationScreen.BOOKMARKS_SCREEN)
       NavigationSection.SITE_SEARCH -> router.newRootScreen(NavigationScreen.SEARCH_FORM)
       NavigationSection.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
       NavigationSection.SETTINGS -> router.navigateTo(NavigationScreen.SETTINGS_SCREEN)
