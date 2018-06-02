@@ -37,7 +37,7 @@ class PostContentParser(private val content: String) {
     private const val IMG_TAG = "img"
     private const val TD_TAG = "td"
     private const val SRC_ATTR = "src"
-    private const val QUOTE_AUTHOR_MARKER = "@"
+    private const val QUOTE_AUTHOR_MARKER_REGEX = " @ \\d{1,2}\\.\\d{2}.\\d{4}"
     private const val QUOTE_MARKER = "Цитата"
     private const val POST_EDIT_MARKER = "edit"
     private const val POST_TAGS_BLOCK_SELECTOR = "div.topic-tags"
@@ -78,9 +78,7 @@ class PostContentParser(private val content: String) {
       }
       .forEach { element ->
         // Texts
-        if (element.tagName() == POST_TAG &&
-          element.className() == POST_TEXT_CLASS
-        ) {
+        if (element.tagName() == POST_TAG && element.className() == POST_TEXT_CLASS) {
           element.select(RATING_SELECTOR).remove()
           element.select(EDITED_TIME_SELECTOR).remove()
           element.select(CLIENT_SELECTOR).remove()
@@ -96,9 +94,7 @@ class PostContentParser(private val content: String) {
         }
 
         // Quotes
-        if (element.attributes().toString().contains(QUOTE_SELECTOR)
-          && !element.text().contains(QUOTE_START_TEXT)
-        ) {
+        if (element.attributes().toString().contains(QUOTE_SELECTOR) && !element.text().contains(QUOTE_START_TEXT)) {
           element.html().formatPostHtmlCode().trimLinebreakTags().apply {
             if (this.isNotEmpty())
               result.content.add(PostQuote(text = this))
@@ -106,18 +102,14 @@ class PostContentParser(private val content: String) {
         }
 
         // Quote authors
-        if (element.text().contains(QUOTE_AUTHOR_MARKER) &&
-          !element.html().contains(Regex("[\\r\\n]+"))
-        ) {
+        if (element.text().contains(Regex(QUOTE_AUTHOR_MARKER_REGEX)) && !element.html().contains(Regex("[\\r\\n]+"))) {
           result.content.add(PostQuoteAuthor(text = element.html()))
         } else if (element.text() == QUOTE_MARKER) {
           result.content.add(PostQuoteAuthor(text = element.html()))
         }
 
         // Spoilers
-        if (element.tagName() == TD_TAG &&
-          element.attributes().toString().contains(SPOILER_SELECTOR)
-        ) {
+        if (element.tagName() == TD_TAG && element.attributes().toString().contains(SPOILER_SELECTOR)) {
           element.html().formatPostHtmlCode().trimLinebreakTags().apply {
             if (this.isNotEmpty())
               result.content.add(PostHiddenText(text = this))
@@ -135,26 +127,18 @@ class PostContentParser(private val content: String) {
         }
 
         // Videos
-        if (element.tagName() == IFRAME_TAG &&
-          element.hasAttr(SRC_ATTR)
-        ) {
+        if (element.tagName() == IFRAME_TAG && element.hasAttr(SRC_ATTR)) {
           result.videos.add(element.attr(SRC_ATTR))
           result.videosRaw.add(element.toString().replace("&amp;", "&"))
         }
 
         // P.S.
         if (element.attributes().toString().contains(POST_EDIT_MARKER)) {
-          result.content.add(
-            PostScript(
-              text = element.html()
-            )
-          )
+          result.content.add(PostScript(text = element.html()))
         }
 
         // Warnings
-        if (element.tagName() == TD_TAG &&
-          element.className() == POST_TEXT_CLASS
-        ) {
+        if (element.tagName() == TD_TAG && element.className() == POST_TEXT_CLASS) {
           result.content.add(PostWarning(element.html()))
         }
       }
