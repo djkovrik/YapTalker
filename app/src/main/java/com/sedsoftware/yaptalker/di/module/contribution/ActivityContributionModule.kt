@@ -7,8 +7,6 @@ import com.sedsoftware.yaptalker.presentation.feature.changelog.ChangelogActivit
 import com.sedsoftware.yaptalker.presentation.feature.changelog.di.ChangelogActivityModule
 import com.sedsoftware.yaptalker.presentation.feature.gallery.TopicGalleryActivity
 import com.sedsoftware.yaptalker.presentation.feature.gallery.di.TopicGalleryActivityModule
-import com.sedsoftware.yaptalker.presentation.feature.gifdisplay.GifDisplayActivity
-import com.sedsoftware.yaptalker.presentation.feature.gifdisplay.di.GifDisplayActivityModule
 import com.sedsoftware.yaptalker.presentation.feature.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.presentation.feature.imagedisplay.di.ImageDisplayActivityModule
 import com.sedsoftware.yaptalker.presentation.feature.navigation.MainActivity
@@ -39,10 +37,6 @@ interface ActivityContributionModule {
   @ActivityScope
   @ContributesAndroidInjector(modules = [(VideoDisplayActivityModule::class)])
   fun videoActivityInjector(): VideoDisplayActivity
-
-  @ActivityScope
-  @ContributesAndroidInjector(modules = [(GifDisplayActivityModule::class)])
-  fun gifActivityInjector(): GifDisplayActivity
 
   @ActivityScope
   @ContributesAndroidInjector(modules = [(TopicGalleryActivityModule::class)])

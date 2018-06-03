@@ -141,10 +141,6 @@ class ChosenTopicPresenter @Inject constructor(
         router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
       }
 
-      (url.contains(Regex("(\\.gif|\\.GIF)"))) -> {
-        router.navigateTo(NavigationScreen.GIF_DISPLAY_SCREEN, url)
-      }
-
       else -> {
         router.navigateTo(
           NavigationScreen.TOPIC_GALLERY,

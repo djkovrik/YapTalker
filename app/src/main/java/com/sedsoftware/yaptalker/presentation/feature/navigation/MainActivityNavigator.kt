@@ -15,7 +15,6 @@ import com.sedsoftware.yaptalker.presentation.feature.changelog.ChangelogActivit
 import com.sedsoftware.yaptalker.presentation.feature.forum.ChosenForumFragment
 import com.sedsoftware.yaptalker.presentation.feature.forumslist.ForumsFragment
 import com.sedsoftware.yaptalker.presentation.feature.gallery.TopicGalleryActivity
-import com.sedsoftware.yaptalker.presentation.feature.gifdisplay.GifDisplayActivity
 import com.sedsoftware.yaptalker.presentation.feature.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.presentation.feature.incubator.IncubatorFragment
 import com.sedsoftware.yaptalker.presentation.feature.news.NewsFragment
@@ -42,7 +41,6 @@ class MainActivityNavigator @Inject constructor(
     NavigationScreen.SETTINGS_SCREEN -> SettingsActivity.getIntent(activity)
     NavigationScreen.IMAGE_DISPLAY_SCREEN -> ImageDisplayActivity.getIntent(activity, data as String)
     NavigationScreen.VIDEO_DISPLAY_SCREEN -> VideoDisplayActivity.getIntent(activity, data as String)
-    NavigationScreen.GIF_DISPLAY_SCREEN -> GifDisplayActivity.getIntent(activity, data as String)
     NavigationScreen.TOPIC_GALLERY -> TopicGalleryActivity.getIntent(activity, data as GalleryInitialState)
     NavigationScreen.CHANGELOG_SCREEN -> ChangelogActivity.getIntent(activity)
     else -> null
