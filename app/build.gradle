@@ -116,9 +116,12 @@ dependencies {
     implementation presentationDependencies.okhttp
     implementation presentationDependencies.okhttpInterceptor
     implementation presentationDependencies.picasso
+    implementation presentationDependencies.glide
 
     implementation presentationDependencies.materialValues
     implementation(presentationDependencies.materialDrawer) { transitive = true }
+    implementation presentationDependencies.materialChip
+    implementation presentationDependencies.flexbox
     implementation presentationDependencies.iconicsCore
     implementation presentationDependencies.iconicsView
     implementation presentationDependencies.materialTypeface

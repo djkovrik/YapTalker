@@ -10,6 +10,7 @@
   <color name="colorAccentL">#0277bd</color>
   <!-- Window -->
   <color name="windowBackgroundL">@color/material_color_grey_100</color>
+  <color name="chipBackgroundL">@color/material_color_grey_200</color>
   <!-- Text -->
   <color name="textColorPrimaryL">@color/material_color_grey_600</color>
   <color name="textColorPrimaryInverseL">@color/material_color_grey_300</color>
@@ -87,6 +88,7 @@
   <color name="colorAccentLC">#0288d1</color>
   <!-- Window -->
   <color name="windowBackgroundLC">@color/material_color_grey_100</color>
+  <color name="chipBackgroundLC">@color/material_color_grey_300</color>
   <!-- Text -->
   <color name="textColorPrimaryLC">@color/material_color_black_87_percent</color>
   <color name="textColorPrimaryInverseLC">@color/material_color_grey_300</color>
@@ -164,6 +166,7 @@
   <color name="colorAccentLY">#5c88c8</color>
   <!-- Window -->
   <color name="windowBackgroundLY">#ffffff</color>
+  <color name="chipBackgroundLY">@color/material_color_grey_200</color>
   <!-- Text -->
   <color name="textColorPrimaryLY">@color/material_color_grey_700</color>
   <color name="textColorPrimaryInverseLY">@color/material_color_grey_300</color>
@@ -241,6 +244,7 @@
   <color name="colorAccentD">@color/material_color_orange_600</color>
   <!-- Window -->
   <color name="windowBackgroundD">@color/material_color_grey_900</color>
+  <color name="chipBackgroundD">@color/material_color_grey_800</color>
   <!-- Text -->
   <color name="textColorPrimaryD">@color/material_color_grey_200</color>
   <color name="textColorPrimaryInverseD">@color/material_color_grey_700</color>
@@ -318,6 +322,7 @@
   <color name="colorAccentDB">@color/material_color_amber_600</color>
   <!-- Window -->
   <color name="windowBackgroundDB">@color/material_color_grey_900</color>
+  <color name="chipBackgroundDB">@color/material_color_grey_900</color>
   <!-- Text -->
   <color name="textColorPrimaryDB">@color/material_color_grey_100</color>
   <color name="textColorPrimaryInverseDB">@color/material_color_grey_500</color>

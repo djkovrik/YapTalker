@@ -7,10 +7,12 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlWithGifSupport
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
-import kotlinx.android.synthetic.main.activity_topic_gallery_item.view.*
-import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.*
+import kotlinx.android.synthetic.main.activity_topic_gallery_item.view.gallery_image
+import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.load_more_button
+import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.load_more_label
+import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.load_more_progress
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -69,7 +71,7 @@ class TopicGalleryAdapter @Inject constructor(
         load_more_button.isInvisible = true
         load_more_label.isInvisible = true
         load_more_progress.isInvisible = true
-        gallery_image.loadFromUrl(image.url)
+        gallery_image.loadFromUrlWithGifSupport(image.url)
 
         if (image.showLoadMore && !isLastPageVisible) {
           load_more_button.isVisible = true

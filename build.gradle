@@ -8,7 +8,7 @@ buildscript {
         maven { url "https://maven.fabric.io/public" }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:3.2.0-alpha14"
+        classpath "com.android.tools.build:gradle:3.2.0-alpha16"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.gms:google-services:$goole_play_services_version"
         classpath "io.fabric.tools:gradle:$fabric_version"
@@ -24,14 +24,14 @@ apply from: 'buildsystem/dependencies.gradle'
 
 // Versioning convention from ribot:
 // Major -> Millions, Minor -> Thousands, Bugfix -> Hundreds. E.g 1.3.72 == 1,003,072
-// Current: 0.9.8 (000,009,008)
+// Current: 0.9.9 (000,009,009)
 def versionMajor = 0
 def versionMinor = 9
-def versionPatch = 8
+def versionPatch = 9
 
 allprojects {
     ext {
-        compileSdkVersion = 'android-P'
+        compileSdkVersion = 27
         minSdkVersion = 21
         targetSdkVersion = 27
         androidApplicationId = "com.sedsoftware.yaptalker"
