@@ -1,5 +1,14 @@
 ## Changelog
 
+### [0.9.9] - 2018-06-04
+
+**Fixed**
+* Signature parsing bugs
+
+**Changed**
+* Bookmarks page do not reset navigation state now
+* Advanced GIF support
+
 ### [0.9.8] - 2018-05-19
 
 **Fixed**
