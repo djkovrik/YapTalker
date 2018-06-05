@@ -1,5 +1,13 @@
 ## Changelog
 
+### [0.9.10] - 2018-06-05
+
+**Fixed**
+* GIF loading troubles
+
+**Added**
+* GIF thumbnail now also have source type label
+
 ### [0.9.9] - 2018-06-04
 
 **Fixed**

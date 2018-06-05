@@ -11,6 +11,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isGone
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.google.android.flexbox.FlexboxLayout
 import com.robertlevonyan.views.chip.Chip
@@ -22,6 +23,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.currentDensity
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadAvatarFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.textFromHtmlWithEmoji
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
@@ -34,7 +36,21 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWa
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
 import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_author
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_author_avatar
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_button_edit
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_button_reply
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_image_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_tags_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_text_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_video_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_date
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_block
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_down
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_down_available
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_up
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_up_available
 import java.util.ArrayList
 
 @Suppress("MagicNumber")
@@ -178,11 +194,47 @@ class ChosenTopicDelegateAdapter(
 
       if (post.images.isNotEmpty()) {
         itemView.post_content_image_container.isVisible = true
+
         post.images.forEach { url ->
+
+          // Thumbnail
           val image = ImageView(itemView.context)
           image.adjustViewBounds = true
           image.setPadding(0, imagePadding, 0, imagePadding)
-          itemView.post_content_image_container.addView(image)
+
+          // Overlay
+          val overlay = TextView(itemView.context)
+          overlay.setBackgroundResource(R.drawable.bg_primary_solid)
+          overlay.setPadding(OVERLAY_TEXT_PADDING, OVERLAY_TEXT_PADDING, OVERLAY_TEXT_PADDING, OVERLAY_TEXT_PADDING)
+          overlay.gravity = Gravity.START or Gravity.TOP
+
+          overlay.text =
+              if (url.endsWith(".gif", true)) {
+                itemView.context.string(R.string.video_gif)
+              } else {
+                overlay.isInvisible = true
+                ""
+              }
+
+          // Container
+          val container = FrameLayout(itemView.context)
+          val containerParams = FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+          container.layoutParams = containerParams
+
+          container.addView(image)
+          container.addView(overlay)
+
+          val verticalMargin = OVERLAY_MARGIN + imagePadding
+          val overlayParams = (overlay.layoutParams as FrameLayout.LayoutParams).apply {
+            width = FrameLayout.LayoutParams.WRAP_CONTENT
+            height = FrameLayout.LayoutParams.WRAP_CONTENT
+            setMargins(OVERLAY_MARGIN, verticalMargin, OVERLAY_MARGIN, verticalMargin)
+          }
+          overlay.layoutParams = overlayParams
+
+          itemView.post_content_image_container.addView(container)
+
+          // Load thumbnail
           image.loadFromUrl(url)
           image.setOnClickListener { clickListener.onMediaPreviewClicked(url, "", false) }
         }
