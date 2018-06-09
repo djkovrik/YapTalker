@@ -41,7 +41,8 @@ import javax.inject.Inject
 class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDrawerProvider {
 
   companion object {
-    private const val BOOKMARKS_ITEM_INSERT_POSITION = 4
+    private const val MAIL_ITEM_INSERT_POSITION = 4
+    private const val BOOKMARKS_ITEM_INSERT_POSITION = 5
   }
 
   @Inject
@@ -64,6 +65,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
   private lateinit var drawerItemForums: PrimaryDrawerItem
   private lateinit var drawerItemActiveTopics: PrimaryDrawerItem
   private lateinit var drawerItemIncubator: PrimaryDrawerItem
+  private lateinit var drawerItemMail: PrimaryDrawerItem
   private lateinit var drawerItemBookmarks: PrimaryDrawerItem
   private lateinit var drawerItemSearch: PrimaryDrawerItem
   private lateinit var drawerItemSettings: PrimaryDrawerItem
@@ -136,9 +138,11 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
     navDrawer.removeItem(NavigationSection.SIGN_IN)
     navDrawer.removeItem(NavigationSection.SIGN_OUT)
     navDrawer.removeItem(NavigationSection.BOOKMARKS)
+    navDrawer.removeItem(NavigationSection.MAIL)
   }
 
   override fun displaySignedInNavigation() {
+    navDrawer.addItemAtPosition(drawerItemMail, MAIL_ITEM_INSERT_POSITION)
     navDrawer.addItemAtPosition(drawerItemBookmarks, BOOKMARKS_ITEM_INSERT_POSITION)
     navDrawer.addItem(drawerItemSignOut)
   }
@@ -194,8 +198,17 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
       .withSelectedTextColor(colorFromAttr(R.attr.colorNavIncubator))
       .withSelectedIconColor(colorFromAttr(R.attr.colorNavIncubator))
 
-    drawerItemBookmarks = PrimaryDrawerItem()
+    drawerItemMail = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.BOOKMARKS)
+      .withName(R.string.nav_drawer_mail)
+      .withIcon(Typeicons.Icon.typ_mail)
+      .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
+      .withIconColor(colorFromAttr(R.attr.colorNavMail))
+      .withSelectedTextColor(colorFromAttr(R.attr.colorNavMail))
+      .withSelectedIconColor(colorFromAttr(R.attr.colorNavMail))
+
+    drawerItemBookmarks = PrimaryDrawerItem()
+      .withIdentifier(NavigationSection.MAIL)
       .withName(R.string.nav_drawer_bookmarks)
       .withIcon(Typeicons.Icon.typ_bookmark)
       .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
