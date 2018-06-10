@@ -14,7 +14,7 @@ ext {
 
     // Rx
     final RX_ANDROID_VERSION = "2.0.2"
-    final RX_JAVA_VERSION = "2.1.12"
+    final RX_JAVA_VERSION = "2.1.14"
     final RX_KOTLIN_VERSION = "2.2.0"
     final RX_RELAY_VERSION = "2.0.0"
     final RX_LINT_VERSION = "1.6.1"
@@ -32,7 +32,7 @@ ext {
     final RETROFIT_VERSION = "2.4.0"
     final JSPOON_VERSION = "1.3.0"
     final OKHTTP_VERSION = "3.10.0"
-    final GSON_VERSION = "2.8.4"
+    final GSON_VERSION = "2.8.5"
 
     // UI
     final MATERIAL_VALUES_VERSION = "1.1.1"
@@ -43,8 +43,8 @@ ext {
     final MATERIAL_DIALOGUES_VERSION = "0.9.6.0"
     final PHOTOVIEW_VERSION = "2.1.3"
     final TOP_SNACKBAR_VERSION = "1.1.1"
-    final MARKWON_VERSION = "1.0.4"
-    final MATERIAL_CHIP_VERSION = "1.2.1"
+    final MARKWON_VERSION = "1.0.5"
+    final MATERIAL_CHIP_VERSION = "1.2.2"
     final FLEXBOX_VERSION = "1.0.0"
 
     // Testing
@@ -52,7 +52,7 @@ ext {
     final JUNIT_VERSION = "4.12"
 
     // Supporting tools
-    final ANDROID_CRASHALYTICS_VERSION = "2.9.2@aar"
+    final ANDROID_CRASHALYTICS_VERSION = "2.9.3@aar"
     final FIREBASE_CORE_VERSION = "15.0.2"
 
     // Development tools
