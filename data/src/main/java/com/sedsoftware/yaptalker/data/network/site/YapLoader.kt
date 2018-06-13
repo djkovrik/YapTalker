@@ -454,4 +454,33 @@ interface YapLoader {
     @Query("t") topicId: Int,
     @Query("n") type: Int
   ): Single<Response<ResponseBody>>
+
+
+  /**
+   * Load received mails list from the site.
+   *
+   * @return
+   */
+  @GET("/mail/")
+  fun getMailInbox()
+
+
+  /**
+   * Load sent mails list from the site.
+   *
+   * @return
+   */
+  @GET("/mail/sent/")
+  fun getMailSett()
+
+
+  /**
+   * Load particular letter.
+   *
+   * @param letterId Letter uinque id.
+   *
+   * @return
+   */
+  @GET("/mail/{letterId}")
+  fun getLetter(@Path("letterId") letterId: Int)
 }
