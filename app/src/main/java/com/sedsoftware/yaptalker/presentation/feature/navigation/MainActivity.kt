@@ -43,8 +43,7 @@ import javax.inject.Inject
 class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDrawerProvider {
 
   companion object {
-    private const val MAIL_ITEM_INSERT_POSITION = 4
-    private const val BOOKMARKS_ITEM_INSERT_POSITION = 5
+    private const val SIGNED_IN_ITEMS_INSERT_POSITION = 4
   }
 
   @Inject
@@ -145,8 +144,8 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
   }
 
   override fun displaySignedInNavigation() {
-    navDrawer.addItemAtPosition(drawerItemMail, MAIL_ITEM_INSERT_POSITION)
-    navDrawer.addItemAtPosition(drawerItemBookmarks, BOOKMARKS_ITEM_INSERT_POSITION)
+    navDrawer.addItemAtPosition(drawerItemBookmarks, SIGNED_IN_ITEMS_INSERT_POSITION)
+    navDrawer.addItemAtPosition(drawerItemMail, SIGNED_IN_ITEMS_INSERT_POSITION)
     navDrawer.addItem(drawerItemSignOut)
   }
 
@@ -212,7 +211,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
       .withSelectedIconColor(colorFromAttr(R.attr.colorNavMail))
 
     drawerItemBookmarks = PrimaryDrawerItem()
-      .withIdentifier(NavigationSection.MAIL)
+      .withIdentifier(NavigationSection.BOOKMARKS)
       .withName(R.string.nav_drawer_bookmarks)
       .withIcon(Typeicons.Icon.typ_bookmark)
       .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
