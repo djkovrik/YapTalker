@@ -138,6 +138,8 @@
         android:value=".presentation.feature.settings.SettingsActivity" />
     </activity>
 
+    <activity android:name=".presentation.feature.mail.MailActivity" />
+
     <provider
       android:name="android.support.v4.content.FileProvider"
       android:authorities="com.sedsoftware.yaptalker"
