@@ -14,6 +14,7 @@ class LoginSessionInfoMapper @Inject constructor() : Function<LoginSessionInfoPa
       title = from.title,
       uq = from.uq.toInt(),
       avatar = from.avatar,
+      mailCounter = from.mailCounter,
       sessionId = from.sessionId
     )
 }

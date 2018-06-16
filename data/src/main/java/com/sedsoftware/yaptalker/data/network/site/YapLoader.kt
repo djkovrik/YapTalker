@@ -7,6 +7,9 @@ import com.sedsoftware.yaptalker.data.parsed.EmojiListParsed
 import com.sedsoftware.yaptalker.data.parsed.ForumPageParsed
 import com.sedsoftware.yaptalker.data.parsed.ForumsListParsed
 import com.sedsoftware.yaptalker.data.parsed.LoginSessionInfoParsed
+import com.sedsoftware.yaptalker.data.parsed.MailInboxPageParsed
+import com.sedsoftware.yaptalker.data.parsed.MailLetterContentParsed
+import com.sedsoftware.yaptalker.data.parsed.MailSentPageParsed
 import com.sedsoftware.yaptalker.data.parsed.NewsPageParsed
 import com.sedsoftware.yaptalker.data.parsed.QuotedPostParsed
 import com.sedsoftware.yaptalker.data.parsed.SearchTopicsPageParsed

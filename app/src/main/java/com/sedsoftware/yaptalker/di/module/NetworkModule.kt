@@ -5,6 +5,7 @@ import com.sedsoftware.yaptalker.data.network.external.AppUpdatesChecker
 import com.sedsoftware.yaptalker.data.network.external.GitHubLoader
 import com.sedsoftware.yaptalker.data.network.site.YapIncubatorLoader
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
+import com.sedsoftware.yaptalker.data.network.site.YapLoaderAlpha
 import com.sedsoftware.yaptalker.data.network.site.YapSearchIdLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.CoubLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.RutubeLoader
@@ -31,6 +32,8 @@ class NetworkModule {
     // Yap
     private const val SITE_BASE_URL = "http://www.yaplakal.com/"
     private const val SITE_BASE_URL_HTTPS = "https://www.yaplakal.com/"
+    private const val SITE_ALPHA_URL = "http://alpha.yaplakal.com/"
+    private const val SITE_ALPHA_URL_HTTPS = "https://alpha.yaplakal.com/"
     private const val SITE_INCUBATOR_BASE_URL = "http://inkubator.yaplakal.com/"
     private const val SITE_INCUBATOR_BASE_URL_HTTPS = "https://inkubator.yaplakal.com/"
 
@@ -74,6 +77,30 @@ class NetworkModule {
       .addConverterFactory(ScalarsConverterFactory.create())
       .build()
       .create(YapLoader::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun provideYapLoaderAlpha(
+    @Named("siteClient") okHttpClient: OkHttpClient,
+    settings: Settings
+  ): YapLoaderAlpha {
+
+    val endpoint = if (settings.isHttpsEnabled()) {
+      SITE_ALPHA_URL_HTTPS
+    } else {
+      SITE_ALPHA_URL
+    }
+
+    return Retrofit
+      .Builder()
+      .baseUrl(endpoint)
+      .client(okHttpClient)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(JspoonConverterFactory.create())
+      .addConverterFactory(ScalarsConverterFactory.create())
+      .build()
+      .create(YapLoaderAlpha::class.java)
   }
 
   @Singleton

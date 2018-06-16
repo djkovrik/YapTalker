@@ -43,6 +43,7 @@ class MainActivityNavigator @Inject constructor(
     NavigationScreen.VIDEO_DISPLAY_SCREEN -> VideoDisplayActivity.getIntent(activity, data as String)
     NavigationScreen.TOPIC_GALLERY -> TopicGalleryActivity.getIntent(activity, data as GalleryInitialState)
     NavigationScreen.CHANGELOG_SCREEN -> ChangelogActivity.getIntent(activity)
+//    NavigationScreen.MAIL_SCREEN -> MailActivity.getIntent(activity)
     else -> null
   }
 

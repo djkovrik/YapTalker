@@ -1,6 +1,6 @@
 buildscript {
-    ext.kotlin_version = '1.2.41'
-    ext.goole_play_services_version = '3.2.1'
+    ext.kotlin_version = '1.2.50'
+    ext.goole_play_services_version = '4.0.1'
     ext.fabric_version = '1.25.4'
     repositories {
         google()
@@ -8,7 +8,7 @@ buildscript {
         maven { url "https://maven.fabric.io/public" }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:3.2.0-alpha16"
+        classpath 'com.android.tools.build:gradle:3.2.0-alpha18'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.gms:google-services:$goole_play_services_version"
         classpath "io.fabric.tools:gradle:$fabric_version"
@@ -17,7 +17,7 @@ buildscript {
 
 plugins {
     id "io.gitlab.arturbosch.detekt" version "1.0.0.RC6-3"
-    id "com.github.ben-manes.versions" version "0.17.0"
+    id "com.github.ben-manes.versions" version "0.19.0"
 }
 
 apply from: 'buildsystem/dependencies.gradle'

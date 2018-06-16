@@ -104,15 +104,6 @@
     </activity>
 
     <activity
-      android:name=".presentation.feature.gifdisplay.GifDisplayActivity"
-      android:label="@string/app_name"
-      android:parentActivityName=".presentation.feature.navigation.MainActivity">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".presentation.feature.navigation.MainActivity" />
-    </activity>
-
-    <activity
       android:name=".presentation.feature.changelog.ChangelogActivity"
       android:parentActivityName=".presentation.feature.navigation.MainActivity">
       <meta-data
@@ -136,6 +127,13 @@
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
         android:value=".presentation.feature.settings.SettingsActivity" />
+    </activity>
+
+    <activity android:name=".presentation.feature.mail.MailActivity"
+      android:parentActivityName=".presentation.feature.navigation.MainActivity">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".presentation.feature.navigation.MainActivity" />
     </activity>
 
     <provider

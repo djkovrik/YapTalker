@@ -15,6 +15,7 @@ class NavigationSection {
     const val CHANGELOG = 8L
     const val SIGN_IN = 9L
     const val SIGN_OUT = 10L
+    const val MAIL = 11L
   }
 
   @Retention(AnnotationRetention.SOURCE)
@@ -29,7 +30,8 @@ class NavigationSection {
     APP_UPDATES,
     CHANGELOG,
     SIGN_IN,
-    SIGN_OUT
+    SIGN_OUT,
+    MAIL
   )
   annotation class Section
 }

@@ -11,5 +11,6 @@ class LoginSessionInfo(
   val title: String,
   val uq: Int,
   val avatar: String,
+  val mailCounter: String,
   val sessionId: String
 ) : BaseEntity
