@@ -6,9 +6,9 @@ allprojects {
 
 ext {
     // Android
-    final KOTLIN_VERSION = "1.2.41"
+    final KOTLIN_VERSION = "1.2.50"
     final SUPPORT_LIBRARY_VERSION = "27.1.1"
-    final CONSTRAINT_LAYOUT_VERSION = "1.1.0"
+    final CONSTRAINT_LAYOUT_VERSION = "1.1.2"
     final ANDROID_KTX_VERSION = "0.3"
     final ROOM_VERSION = "1.1.0"
 
@@ -37,7 +37,7 @@ ext {
     // UI
     final MATERIAL_VALUES_VERSION = "1.1.1"
     final MATERIAL_DRAWER_VERSION = "6.0.6@aar" // DO NOT UPDATE, 6.0.7 contains breaking changes
-    final ICONICS_VERSION = "3.0.3@aar"
+    final ICONICS_VERSION = "3.0.4@aar"
     final COMMUNITY_MATERIAL_ICONS_VERSION = "2.0.46.1@aar"
     final TYPEICONS_VERSION = "2.0.7.4@aar"
     final MATERIAL_DIALOGUES_VERSION = "0.9.6.0"
@@ -52,8 +52,8 @@ ext {
     final JUNIT_VERSION = "4.12"
 
     // Supporting tools
-    final ANDROID_CRASHALYTICS_VERSION = "2.9.3@aar"
-    final FIREBASE_CORE_VERSION = "15.0.2"
+    final ANDROID_CRASHALYTICS_VERSION = "2.9.4@aar"
+    final FIREBASE_CORE_VERSION = "16.0.1"
 
     // Development tools
     final TIMBER_VERSION = "4.7.0"
