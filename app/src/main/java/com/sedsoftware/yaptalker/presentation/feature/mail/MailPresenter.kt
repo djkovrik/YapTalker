@@ -25,12 +25,12 @@ class MailPresenter @Inject constructor(
       .subscribe({ inboxPage ->
         inboxPage.letters.forEach { letter ->
           Timber.d("authorNickname = ${letter.authorNickname}")
-          Timber.d("authorLink = ${letter.authorLink}")
-          Timber.d("dateString = ${letter.dateString}")
-          Timber.d("isNew = ${letter.isNew}")
-          Timber.d("letterId = ${letter.letterId}")
-          Timber.d("letterLink = ${letter.letterLink}")
-          Timber.d("letterPreview = ${letter.letterPreview}")
+//          Timber.d("authorLink = ${letter.authorLink}")
+//          Timber.d("dateString = ${letter.dateString}")
+//          Timber.d("isNew = ${letter.isNew}")
+//          Timber.d("letterId = ${letter.letterId}")
+//          Timber.d("letterLink = ${letter.letterLink}")
+//          Timber.d("letterPreview = ${letter.letterPreview}")
           Timber.d("---")
         }
       }, { e ->

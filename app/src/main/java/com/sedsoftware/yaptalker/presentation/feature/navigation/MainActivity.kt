@@ -2,7 +2,6 @@ package com.sedsoftware.yaptalker.presentation.feature.navigation
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.view.View
@@ -15,7 +14,6 @@ import com.mikepenz.materialdrawer.AccountHeader.OnAccountHeaderProfileImageList
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
-import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
@@ -66,7 +64,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
   private lateinit var drawerItemForums: PrimaryDrawerItem
   private lateinit var drawerItemActiveTopics: PrimaryDrawerItem
   private lateinit var drawerItemIncubator: PrimaryDrawerItem
-  private lateinit var drawerItemMail: PrimaryDrawerItem
+//  private lateinit var drawerItemMail: PrimaryDrawerItem
   private lateinit var drawerItemBookmarks: PrimaryDrawerItem
   private lateinit var drawerItemSearch: PrimaryDrawerItem
   private lateinit var drawerItemSettings: PrimaryDrawerItem
@@ -119,7 +117,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
 
   override fun updateNavDrawerProfile(userInfo: LoginSessionInfoModel) {
     val profile = if (userInfo.nickname.isNotEmpty()) {
-      drawerItemMail.badge.setText(userInfo.mailCounter)
+//      drawerItemMail.badge.setText(userInfo.mailCounter)
       ProfileDrawerItem()
         .withName(userInfo.nickname)
         .withEmail(userInfo.title)
@@ -145,7 +143,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
 
   override fun displaySignedInNavigation() {
     navDrawer.addItemAtPosition(drawerItemBookmarks, SIGNED_IN_ITEMS_INSERT_POSITION)
-    navDrawer.addItemAtPosition(drawerItemMail, SIGNED_IN_ITEMS_INSERT_POSITION)
+//    navDrawer.addItemAtPosition(drawerItemMail, SIGNED_IN_ITEMS_INSERT_POSITION)
     navDrawer.addItem(drawerItemSignOut)
   }
 
@@ -200,15 +198,15 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
       .withSelectedTextColor(colorFromAttr(R.attr.colorNavIncubator))
       .withSelectedIconColor(colorFromAttr(R.attr.colorNavIncubator))
 
-    drawerItemMail = PrimaryDrawerItem()
-      .withIdentifier(NavigationSection.MAIL)
-      .withName(R.string.nav_drawer_mail)
-      .withBadge("0").withBadgeStyle(BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.material_color_red_500))
-      .withIcon(Typeicons.Icon.typ_mail)
-      .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
-      .withIconColor(colorFromAttr(R.attr.colorNavMail))
-      .withSelectedTextColor(colorFromAttr(R.attr.colorNavMail))
-      .withSelectedIconColor(colorFromAttr(R.attr.colorNavMail))
+//    drawerItemMail = PrimaryDrawerItem()
+//      .withIdentifier(NavigationSection.MAIL)
+//      .withName(R.string.nav_drawer_mail)
+//      .withBadge("0").withBadgeStyle(BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.material_color_red_500))
+//      .withIcon(Typeicons.Icon.typ_mail)
+//      .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
+//      .withIconColor(colorFromAttr(R.attr.colorNavMail))
+//      .withSelectedTextColor(colorFromAttr(R.attr.colorNavMail))
+//      .withSelectedIconColor(colorFromAttr(R.attr.colorNavMail))
 
     drawerItemBookmarks = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.BOOKMARKS)

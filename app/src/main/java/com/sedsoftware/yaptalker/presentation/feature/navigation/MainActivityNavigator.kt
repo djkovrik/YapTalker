@@ -17,7 +17,6 @@ import com.sedsoftware.yaptalker.presentation.feature.forumslist.ForumsFragment
 import com.sedsoftware.yaptalker.presentation.feature.gallery.TopicGalleryActivity
 import com.sedsoftware.yaptalker.presentation.feature.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.presentation.feature.incubator.IncubatorFragment
-import com.sedsoftware.yaptalker.presentation.feature.mail.MailActivity
 import com.sedsoftware.yaptalker.presentation.feature.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.feature.posting.AddMessageFragment
 import com.sedsoftware.yaptalker.presentation.feature.search.SearchFormFragment
@@ -44,7 +43,7 @@ class MainActivityNavigator @Inject constructor(
     NavigationScreen.VIDEO_DISPLAY_SCREEN -> VideoDisplayActivity.getIntent(activity, data as String)
     NavigationScreen.TOPIC_GALLERY -> TopicGalleryActivity.getIntent(activity, data as GalleryInitialState)
     NavigationScreen.CHANGELOG_SCREEN -> ChangelogActivity.getIntent(activity)
-    NavigationScreen.MAIL_SCREEN -> MailActivity.getIntent(activity)
+//    NavigationScreen.MAIL_SCREEN -> MailActivity.getIntent(activity)
     else -> null
   }
 

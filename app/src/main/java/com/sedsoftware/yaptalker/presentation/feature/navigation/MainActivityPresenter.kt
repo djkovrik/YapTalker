@@ -64,7 +64,7 @@ class MainActivityPresenter @Inject constructor(
       NavigationSection.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
       NavigationSection.SETTINGS -> router.navigateTo(NavigationScreen.SETTINGS_SCREEN)
       NavigationSection.APP_UPDATES -> router.newRootScreen(NavigationScreen.UPDATES_SCREEN)
-      NavigationSection.MAIL -> router.navigateTo(NavigationScreen.MAIL_SCREEN)
+//      NavigationSection.MAIL -> router.navigateTo(NavigationScreen.MAIL_SCREEN)
     }
   }
 
