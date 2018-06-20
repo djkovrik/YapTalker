@@ -183,7 +183,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
     drawerItemActiveTopics = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.ACTIVE_TOPICS)
       .withName(R.string.nav_drawer_active_topics)
-      .withIcon(CommunityMaterial.Icon.cmd_bulletin_board)
+      .withIcon(Typeicons.Icon.typ_starburst)
       .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
       .withIconColor(colorFromAttr(R.attr.colorNavActiveTopics))
       .withSelectedTextColor(colorFromAttr(R.attr.colorNavActiveTopics))

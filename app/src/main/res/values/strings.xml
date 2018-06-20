@@ -223,6 +223,12 @@
   <string name="a11y_bookmark_delete">Delete topic from bookmarks</string>
   <string name="a11y_blacklist_delete">Delete topic from blacklist</string>
 
+  <!-- Shortcuts -->
+  <string name="shortcut_home">Home</string>
+  <string name="shortcut_forums">Forums</string>
+  <string name="shortcut_active_topics">Active topics</string>
+  <string name="shortcut_incubator">Incubator</string>
+
   <!-- Current theme markers -->
   <string name="theme_light" translatable="false">light</string>
   <string name="theme_light_contrast" translatable="false">light_contrast</string>
