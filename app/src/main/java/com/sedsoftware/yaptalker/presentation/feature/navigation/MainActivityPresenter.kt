@@ -27,20 +27,15 @@ class MainActivityPresenter @Inject constructor(
 ) : BasePresenter<MainActivityView>() {
 
   init {
-    router.setResultListener(RequestCode.SIGN_IN, {
+    router.setResultListener(RequestCode.SIGN_IN) {
       refreshAuthorization()
       navigateToDefaultHomePage()
-    })
+    }
   }
 
   private var currentUserKey = ""
   private var currentUserId = 0
   private var isLinkNavigationPending = false
-
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
-    navigateToDefaultHomePage()
-  }
 
   override fun attachView(view: MainActivityView?) {
     super.attachView(view)
@@ -81,8 +76,23 @@ class MainActivityPresenter @Inject constructor(
     }
   }
 
-  private fun navigateToDefaultHomePage() {
+  fun navigateToMain() {
+    router.navigateTo(NavigationScreen.NEWS_SCREEN)
+  }
 
+  fun navigateToForums() {
+    router.navigateTo(NavigationScreen.FORUMS_LIST_SCREEN)
+  }
+
+  fun navigateToActiveTopics() {
+    router.navigateTo(NavigationScreen.ACTIVE_TOPICS_SCREEN)
+  }
+
+  fun navigateToIncubator() {
+    router.navigateTo(NavigationScreen.INCUBATOR_SCREEN)
+  }
+
+  fun navigateToDefaultHomePage() {
     if (isLinkNavigationPending) {
       isLinkNavigationPending = false
       return

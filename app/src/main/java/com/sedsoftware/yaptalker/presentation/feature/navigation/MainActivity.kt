@@ -41,10 +41,10 @@ import javax.inject.Inject
 class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDrawerProvider {
 
   companion object {
-    const val ACTION_NAVIGATE_TO_MAIN = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_MAIN"
-    const val ACTION_NAVIGATE_TO_FORUMS = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_FORUMS"
-    const val ACTION_NAVIGATE_TO_ACTIVE_TOPICS = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_ACTIVE_TOPICS"
-    const val ACTION_NAVIGATE_TO_INCUBATOR = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_INCUBATOR"
+    private const val ACTION_NAVIGATE_TO_MAIN = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_MAIN"
+    private const val ACTION_NAVIGATE_TO_FORUMS = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_FORUMS"
+    private const val ACTION_NAVIGATE_TO_ACTIVE_TOPICS = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_ACTIVE_TOPICS"
+    private const val ACTION_NAVIGATE_TO_INCUBATOR = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_INCUBATOR"
 
     private const val SIGNED_IN_ITEMS_INSERT_POSITION = 4
   }
@@ -313,16 +313,22 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
 
   private fun handleLinkIntent() {
     val appLinkIntent = intent
-    val appLinkAction = appLinkIntent.action
     val appLinkData = appLinkIntent.data
 
-    if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
-
-      val navigateTo = appLinkData.toString().extractYapIds()
-
-      if (navigateTo.first != 0) {
-        presenter.navigateWithIntentLink(navigateTo)
+    when(intent.action) {
+      ACTION_NAVIGATE_TO_MAIN -> presenter.navigateToMain()
+      ACTION_NAVIGATE_TO_FORUMS -> presenter.navigateToForums()
+      ACTION_NAVIGATE_TO_ACTIVE_TOPICS -> presenter.navigateToActiveTopics()
+      ACTION_NAVIGATE_TO_INCUBATOR -> presenter.navigateToIncubator()
+      Intent.ACTION_VIEW  -> {
+        if (appLinkData != null) {
+          val navigateTo = appLinkData.toString().extractYapIds()
+          if (navigateTo.first != 0) {
+            presenter.navigateWithIntentLink(navigateTo)
+          }
+        }
       }
+      else -> presenter.navigateToDefaultHomePage()
     }
   }
 }
