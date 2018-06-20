@@ -77,19 +77,19 @@ class MainActivityPresenter @Inject constructor(
   }
 
   fun navigateToMain() {
-    router.navigateTo(NavigationScreen.NEWS_SCREEN)
+    router.newRootScreen(NavigationScreen.NEWS_SCREEN)
   }
 
   fun navigateToForums() {
-    router.navigateTo(NavigationScreen.FORUMS_LIST_SCREEN)
+    router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
   }
 
   fun navigateToActiveTopics() {
-    router.navigateTo(NavigationScreen.ACTIVE_TOPICS_SCREEN)
+    router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
   }
 
   fun navigateToIncubator() {
-    router.navigateTo(NavigationScreen.INCUBATOR_SCREEN)
+    router.newRootScreen(NavigationScreen.INCUBATOR_SCREEN)
   }
 
   fun navigateToDefaultHomePage() {
