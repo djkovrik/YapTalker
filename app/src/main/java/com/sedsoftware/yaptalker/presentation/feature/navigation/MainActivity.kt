@@ -41,6 +41,11 @@ import javax.inject.Inject
 class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDrawerProvider {
 
   companion object {
+    const val ACTION_NAVIGATE_TO_MAIN = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_MAIN"
+    const val ACTION_NAVIGATE_TO_FORUMS = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_FORUMS"
+    const val ACTION_NAVIGATE_TO_ACTIVE_TOPICS = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_ACTIVE_TOPICS"
+    const val ACTION_NAVIGATE_TO_INCUBATOR = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_INCUBATOR"
+
     private const val SIGNED_IN_ITEMS_INSERT_POSITION = 4
   }
 
