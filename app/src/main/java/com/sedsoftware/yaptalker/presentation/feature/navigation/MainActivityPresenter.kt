@@ -36,6 +36,7 @@ class MainActivityPresenter @Inject constructor(
   private var currentUserKey = ""
   private var currentUserId = 0
   private var isLinkNavigationPending = false
+  private var isStartupLaunchNavigated = false
 
   override fun attachView(view: MainActivityView?) {
     super.attachView(view)
@@ -77,18 +78,22 @@ class MainActivityPresenter @Inject constructor(
   }
 
   fun navigateToMain() {
+    isStartupLaunchNavigated = true
     router.newRootScreen(NavigationScreen.NEWS_SCREEN)
   }
 
   fun navigateToForums() {
+    isStartupLaunchNavigated = true
     router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
   }
 
   fun navigateToActiveTopics() {
+    isStartupLaunchNavigated = true
     router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
   }
 
   fun navigateToIncubator() {
+    isStartupLaunchNavigated = true
     router.newRootScreen(NavigationScreen.INCUBATOR_SCREEN)
   }
 
@@ -97,6 +102,12 @@ class MainActivityPresenter @Inject constructor(
       isLinkNavigationPending = false
       return
     }
+
+    if (isStartupLaunchNavigated) {
+      return
+    }
+
+    isStartupLaunchNavigated = true
 
     when (settings.getStartingPage()) {
       DefaultHomeScreen.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)

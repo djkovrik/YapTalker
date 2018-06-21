@@ -77,7 +77,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
   private lateinit var drawerItemSignIn: PrimaryDrawerItem
   private lateinit var drawerItemSignOut: PrimaryDrawerItem
 
-  private var defaultPageNavigated = false
+  private var isDefaultPageNavigated = false
 
   // Init Iconics here
   override fun attachBaseContext(base: Context?) {
@@ -330,12 +330,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
           }
         }
       }
-      else -> {
-        if (!defaultPageNavigated) {
-          defaultPageNavigated = true
-          presenter.navigateToDefaultHomePage()
-        }
-      }
+      else -> presenter.navigateToDefaultHomePage()
     }
   }
 }
