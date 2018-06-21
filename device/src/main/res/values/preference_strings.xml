@@ -25,6 +25,8 @@
   <string name="pref_appearance_font_size_value_16" translatable="false">16</string>
   <string name="pref_appearance_font_size_value_17" translatable="false">17</string>
   <string name="pref_appearance_font_size_value_18" translatable="false">18</string>
+  <string name="pref_appearance_font_size_value_19" translatable="false">19</string>
+  <string name="pref_appearance_font_size_value_20" translatable="false">20</string>
   <!-- Avatars size -->
   <string name="pref_appearance_avatar_size_title">Avatar size</string>
   <string name="pref_appearance_avatar_size_label_small">Small</string>

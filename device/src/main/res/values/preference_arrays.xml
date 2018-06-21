@@ -24,6 +24,8 @@
     <item>@string/pref_appearance_font_size_value_16</item>
     <item>@string/pref_appearance_font_size_value_17</item>
     <item>@string/pref_appearance_font_size_value_18</item>
+    <item>@string/pref_appearance_font_size_value_19</item>
+    <item>@string/pref_appearance_font_size_value_20</item>
   </string-array>
 
   <!-- Appearance: Avatar size labels -->

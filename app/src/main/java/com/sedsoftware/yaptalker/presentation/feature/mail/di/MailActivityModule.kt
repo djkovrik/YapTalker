@@ -7,8 +7,10 @@ import dagger.Module
 import dagger.Provides
 import java.lang.ref.WeakReference
 
+@Suppress("UtilityClassWithPublicConstructor")
 @Module
 abstract class MailActivityModule {
+
   @Module
   companion object {
     @ActivityScope
