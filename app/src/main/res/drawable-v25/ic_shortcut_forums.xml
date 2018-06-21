@@ -3,8 +3,8 @@
   <item android:drawable="@drawable/ic_shortcut_background" />
   <item
     android:drawable="@drawable/ic_shortcut_icon_forums"
-    android:bottom="4dp"
-    android:end="4dp"
-    android:start="4dp"
-    android:top="4dp" />
+    android:bottom="8dp"
+    android:end="8dp"
+    android:start="8dp"
+    android:top="8dp" />
 </layer-list>
