@@ -1,0 +1,55 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <shortcut
+    android:enabled="true"
+    android:icon="@drawable/ic_shortcut_incubator"
+    android:shortcutId="incubator"
+    android:shortcutLongLabel="@string/shortcut_incubator"
+    android:shortcutShortLabel="@string/shortcut_incubator">
+    <intent
+      android:action="com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_INCUBATOR"
+      android:targetClass="com.sedsoftware.yaptalker.presentation.feature.navigation.MainActivity"
+      android:targetPackage="com.sedsoftware.yaptalker" />
+    <categories android:name="android.shortcut.conversation" />
+  </shortcut>
+
+  <shortcut
+    android:enabled="true"
+    android:icon="@drawable/ic_shortcut_active_topics"
+    android:shortcutId="active_topics"
+    android:shortcutLongLabel="@string/shortcut_active_topics"
+    android:shortcutShortLabel="@string/shortcut_active_topics">
+    <intent
+      android:action="com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_ACTIVE_TOPICS"
+      android:targetClass="com.sedsoftware.yaptalker.presentation.feature.navigation.MainActivity"
+      android:targetPackage="com.sedsoftware.yaptalker" />
+    <categories android:name="android.shortcut.conversation" />
+  </shortcut>
+
+  <shortcut
+    android:enabled="true"
+    android:icon="@drawable/ic_shortcut_forums"
+    android:shortcutId="forums"
+    android:shortcutLongLabel="@string/shortcut_forums"
+    android:shortcutShortLabel="@string/shortcut_forums">
+    <intent
+      android:action="com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_FORUMS"
+      android:targetClass="com.sedsoftware.yaptalker.presentation.feature.navigation.MainActivity"
+      android:targetPackage="com.sedsoftware.yaptalker" />
+    <categories android:name="android.shortcut.conversation" />
+  </shortcut>
+
+  <shortcut
+    android:enabled="true"
+    android:icon="@drawable/ic_shortcut_home"
+    android:shortcutId="home"
+    android:shortcutLongLabel="@string/shortcut_home"
+    android:shortcutShortLabel="@string/shortcut_home">
+    <intent
+      android:action="com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_MAIN"
+      android:targetClass="com.sedsoftware.yaptalker.presentation.feature.navigation.MainActivity"
+      android:targetPackage="com.sedsoftware.yaptalker" />
+    <categories android:name="android.shortcut.conversation" />
+  </shortcut>
+
+</shortcuts>

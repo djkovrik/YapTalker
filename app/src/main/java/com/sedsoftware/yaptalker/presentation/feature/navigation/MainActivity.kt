@@ -31,8 +31,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
 import com.sedsoftware.yaptalker.presentation.provider.ActionBarProvider
 import com.sedsoftware.yaptalker.presentation.provider.NavDrawerProvider
-import kotlinx.android.synthetic.main.activity_main_tablets.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.activity_main_tablets.navigation_drawer
+import kotlinx.android.synthetic.main.include_main_appbar.toolbar
 import ru.terrakok.cicerone.Navigator
 import timber.log.Timber
 import javax.inject.Inject
@@ -41,7 +41,12 @@ import javax.inject.Inject
 class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDrawerProvider {
 
   companion object {
-    private const val BOOKMARKS_ITEM_INSERT_POSITION = 4
+    private const val ACTION_NAVIGATE_TO_MAIN = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_MAIN"
+    private const val ACTION_NAVIGATE_TO_FORUMS = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_FORUMS"
+    private const val ACTION_NAVIGATE_TO_ACTIVE_TOPICS = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_ACTIVE_TOPICS"
+    private const val ACTION_NAVIGATE_TO_INCUBATOR = "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_INCUBATOR"
+
+    private const val SIGNED_IN_ITEMS_INSERT_POSITION = 4
   }
 
   @Inject
@@ -64,12 +69,15 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
   private lateinit var drawerItemForums: PrimaryDrawerItem
   private lateinit var drawerItemActiveTopics: PrimaryDrawerItem
   private lateinit var drawerItemIncubator: PrimaryDrawerItem
+//  private lateinit var drawerItemMail: PrimaryDrawerItem
   private lateinit var drawerItemBookmarks: PrimaryDrawerItem
   private lateinit var drawerItemSearch: PrimaryDrawerItem
   private lateinit var drawerItemSettings: PrimaryDrawerItem
   private lateinit var drawerItemUpdater: PrimaryDrawerItem
   private lateinit var drawerItemSignIn: PrimaryDrawerItem
   private lateinit var drawerItemSignOut: PrimaryDrawerItem
+
+  private var defaultPageNavigated = false
 
   // Init Iconics here
   override fun attachBaseContext(base: Context?) {
@@ -116,6 +124,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
 
   override fun updateNavDrawerProfile(userInfo: LoginSessionInfoModel) {
     val profile = if (userInfo.nickname.isNotEmpty()) {
+//      drawerItemMail.badge.setText(userInfo.mailCounter)
       ProfileDrawerItem()
         .withName(userInfo.nickname)
         .withEmail(userInfo.title)
@@ -136,10 +145,12 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
     navDrawer.removeItem(NavigationSection.SIGN_IN)
     navDrawer.removeItem(NavigationSection.SIGN_OUT)
     navDrawer.removeItem(NavigationSection.BOOKMARKS)
+    navDrawer.removeItem(NavigationSection.MAIL)
   }
 
   override fun displaySignedInNavigation() {
-    navDrawer.addItemAtPosition(drawerItemBookmarks, BOOKMARKS_ITEM_INSERT_POSITION)
+    navDrawer.addItemAtPosition(drawerItemBookmarks, SIGNED_IN_ITEMS_INSERT_POSITION)
+//    navDrawer.addItemAtPosition(drawerItemMail, SIGNED_IN_ITEMS_INSERT_POSITION)
     navDrawer.addItem(drawerItemSignOut)
   }
 
@@ -179,7 +190,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
     drawerItemActiveTopics = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.ACTIVE_TOPICS)
       .withName(R.string.nav_drawer_active_topics)
-      .withIcon(CommunityMaterial.Icon.cmd_bulletin_board)
+      .withIcon(Typeicons.Icon.typ_star)
       .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
       .withIconColor(colorFromAttr(R.attr.colorNavActiveTopics))
       .withSelectedTextColor(colorFromAttr(R.attr.colorNavActiveTopics))
@@ -193,6 +204,16 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
       .withIconColor(colorFromAttr(R.attr.colorNavIncubator))
       .withSelectedTextColor(colorFromAttr(R.attr.colorNavIncubator))
       .withSelectedIconColor(colorFromAttr(R.attr.colorNavIncubator))
+
+//    drawerItemMail = PrimaryDrawerItem()
+//      .withIdentifier(NavigationSection.MAIL)
+//      .withName(R.string.nav_drawer_mail)
+//      .withBadge("0").withBadgeStyle(BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.))
+//      .withIcon(Typeicons.Icon.typ_mail)
+//      .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
+//      .withIconColor(colorFromAttr(R.attr.colorNavMail))
+//      .withSelectedTextColor(colorFromAttr(R.attr.colorNavMail))
+//      .withSelectedIconColor(colorFromAttr(R.attr.colorNavMail))
 
     drawerItemBookmarks = PrimaryDrawerItem()
       .withIdentifier(NavigationSection.BOOKMARKS)
@@ -294,15 +315,26 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
 
   private fun handleLinkIntent() {
     val appLinkIntent = intent
-    val appLinkAction = appLinkIntent.action
     val appLinkData = appLinkIntent.data
 
-    if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
-
-      val navigateTo = appLinkData.toString().extractYapIds()
-
-      if (navigateTo.first != 0) {
-        presenter.navigateWithIntentLink(navigateTo)
+    when(intent.action) {
+      ACTION_NAVIGATE_TO_MAIN -> presenter.navigateToMain()
+      ACTION_NAVIGATE_TO_FORUMS -> presenter.navigateToForums()
+      ACTION_NAVIGATE_TO_ACTIVE_TOPICS -> presenter.navigateToActiveTopics()
+      ACTION_NAVIGATE_TO_INCUBATOR -> presenter.navigateToIncubator()
+      Intent.ACTION_VIEW  -> {
+        if (appLinkData != null) {
+          val navigateTo = appLinkData.toString().extractYapIds()
+          if (navigateTo.first != 0) {
+            presenter.navigateWithIntentLink(navigateTo)
+          }
+        }
+      }
+      else -> {
+        if (!defaultPageNavigated) {
+          defaultPageNavigated = true
+          presenter.navigateToDefaultHomePage()
+        }
       }
     }
   }

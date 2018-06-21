@@ -34,6 +34,7 @@
   <color name="colorNavForumsL">@color/material_color_purple_500</color>
   <color name="colorNavActiveTopicsL">@color/material_color_green_500</color>
   <color name="colorNavIncubatorL">@color/material_color_light_blue_700</color>
+  <color name="colorNavMailL">@color/material_color_pink_700</color>
   <color name="colorNavBookmarksL">@color/material_color_orange_800</color>
   <color name="colorNavSearchL">@color/material_color_cyan_700</color>
   <color name="colorNavSettingsL">@color/textColorPrimaryL</color>
@@ -112,6 +113,7 @@
   <color name="colorNavForumsLC">@color/material_color_purple_600</color>
   <color name="colorNavActiveTopicsLC">@color/material_color_green_600</color>
   <color name="colorNavIncubatorLC">@color/material_color_light_blue_800</color>
+  <color name="colorNavMailLC">@color/material_color_pink_800</color>
   <color name="colorNavBookmarksLC">@color/material_color_orange_900</color>
   <color name="colorNavSearchLC">@color/material_color_cyan_800</color>
   <color name="colorNavSettingsLC">@color/textColorPrimaryLC</color>
@@ -190,6 +192,7 @@
   <color name="colorNavForumsLY">#196393</color>
   <color name="colorNavActiveTopicsLY">@color/material_color_green_400</color>
   <color name="colorNavIncubatorLY">#d4d944</color>
+  <color name="colorNavMailLY">@color/material_color_pink_500</color>
   <color name="colorNavBookmarksLY">@color/material_color_orange_400</color>
   <color name="colorNavSearchLY">@color/material_color_cyan_600</color>
   <color name="colorNavSettingsLY">@color/textColorPrimaryLY</color>
@@ -268,6 +271,7 @@
   <color name="colorNavForumsD">@color/material_color_purple_400</color>
   <color name="colorNavActiveTopicsD">@color/material_color_green_500</color>
   <color name="colorNavIncubatorD">@color/material_color_light_blue_700</color>
+  <color name="colorNavMailD">@color/material_color_pink_400</color>
   <color name="colorNavBookmarksD">@color/material_color_orange_800</color>
   <color name="colorNavSearchD">@color/material_color_cyan_700</color>
   <color name="colorNavSettingsD">@color/material_color_grey_600</color>
@@ -346,6 +350,7 @@
   <color name="colorNavForumsDB">@color/material_color_purple_400</color>
   <color name="colorNavActiveTopicsDB">@color/material_color_green_400</color>
   <color name="colorNavIncubatorDB">@color/material_color_light_blue_400</color>
+  <color name="colorNavMailDB">@color/material_color_pink_400</color>
   <color name="colorNavBookmarksDB">@color/material_color_orange_400</color>
   <color name="colorNavSearchDB">@color/material_color_cyan_400</color>
   <color name="colorNavSettingsDB">@color/material_color_grey_500</color>

@@ -11,6 +11,7 @@
   <string name="nav_drawer_incubator">Incubator</string>
   <string name="nav_drawer_settings">Settings</string>
   <string name="nav_drawer_updates">App updates</string>
+  <string name="nav_drawer_mail">Mail</string>
   <string name="nav_drawer_bookmarks">Bookmarks</string>
   <string name="nav_drawer_search">Search</string>
   <string name="nav_drawer_sign_in">Sign In</string>
@@ -221,6 +222,12 @@
   <string name="a11y_news_image">News content image</string>
   <string name="a11y_bookmark_delete">Delete topic from bookmarks</string>
   <string name="a11y_blacklist_delete">Delete topic from blacklist</string>
+
+  <!-- Shortcuts -->
+  <string name="shortcut_home">Home</string>
+  <string name="shortcut_forums">Forums</string>
+  <string name="shortcut_active_topics">Active topics</string>
+  <string name="shortcut_incubator">Incubator</string>
 
   <!-- Current theme markers -->
   <string name="theme_light" translatable="false">light</string>

@@ -9,6 +9,8 @@ import com.sedsoftware.yaptalker.presentation.feature.gallery.TopicGalleryActivi
 import com.sedsoftware.yaptalker.presentation.feature.gallery.di.TopicGalleryActivityModule
 import com.sedsoftware.yaptalker.presentation.feature.imagedisplay.ImageDisplayActivity
 import com.sedsoftware.yaptalker.presentation.feature.imagedisplay.di.ImageDisplayActivityModule
+import com.sedsoftware.yaptalker.presentation.feature.mail.MailActivity
+import com.sedsoftware.yaptalker.presentation.feature.mail.di.MailActivityModule
 import com.sedsoftware.yaptalker.presentation.feature.navigation.MainActivity
 import com.sedsoftware.yaptalker.presentation.feature.navigation.di.MainActivityModule
 import com.sedsoftware.yaptalker.presentation.feature.settings.SettingsActivity
@@ -49,4 +51,8 @@ interface ActivityContributionModule {
   @ActivityScope
   @ContributesAndroidInjector(modules = [(BlacklistActivityModule::class)])
   fun blacklistActivityInjector(): BlacklistActivity
+
+  @ActivityScope
+  @ContributesAndroidInjector(modules = [(MailActivityModule::class)])
+  fun mailActivityInjector(): MailActivity
 }

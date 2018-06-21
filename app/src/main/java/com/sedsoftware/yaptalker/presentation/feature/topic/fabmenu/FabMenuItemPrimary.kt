@@ -21,11 +21,14 @@ class FabMenuItemPrimary(
 
   override fun show() {
     if (showSecondaryView) {
-
       val hideAnimator = AnimatorInflater.loadAnimator(context, R.animator.fab_menu_rotate_button_hide) as AnimatorSet
       hideAnimator.interpolator = OvershootInterpolator()
       hideAnimator.setTarget(mainView)
       hideAnimator.addListener(object : AnimatorListenerAdapter() {
+        override fun onAnimationStart(animation: Animator?, isReverse: Boolean) {
+          super.onAnimationStart(animation, isReverse)
+          mainView.isEnabled = false
+        }
         override fun onAnimationEnd(animation: Animator?) {
           super.onAnimationEnd(animation)
           mainView.isInvisible = true
@@ -37,9 +40,9 @@ class FabMenuItemPrimary(
       showAnimator.interpolator = OvershootInterpolator()
       showAnimator.setTarget(secondaryView)
       showAnimator.addListener(object : AnimatorListenerAdapter() {
-
         override fun onAnimationStart(animation: Animator?) {
           super.onAnimationStart(animation)
+          secondaryView.isEnabled = true
           secondaryView.isVisible = true
           showLabelAnimated()
         }
@@ -54,6 +57,10 @@ class FabMenuItemPrimary(
       hideAnimator.interpolator = OvershootInterpolator()
       hideAnimator.setTarget(secondaryView)
       hideAnimator.addListener(object : AnimatorListenerAdapter() {
+        override fun onAnimationStart(animation: Animator?) {
+          super.onAnimationStart(animation)
+          secondaryView.isEnabled = false
+        }
         override fun onAnimationEnd(animation: Animator?) {
           super.onAnimationEnd(animation)
           secondaryView.isInvisible = true
@@ -67,6 +74,7 @@ class FabMenuItemPrimary(
       showAnimator.addListener(object : AnimatorListenerAdapter() {
         override fun onAnimationStart(animation: Animator?) {
           super.onAnimationStart(animation)
+          mainView.isEnabled = true
           mainView.isVisible = true
           hideLabelAnimated()
         }

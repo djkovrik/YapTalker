@@ -17,7 +17,7 @@ import javax.inject.Singleton
 class HttpClientsModule {
 
   private val loggingLevel: Level by lazy {
-    if (BuildConfig.DEBUG) Level.HEADERS
+    if (BuildConfig.DEBUG) Level.BODY
     else Level.NONE
   }
 

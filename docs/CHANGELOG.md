@@ -1,5 +1,14 @@
 ## Changelog
 
+### [0.9.11] - 2018-06-21
+
+**Fixed**
+* Bug with fab disappearing on double tab
+
+**Added**
+* Added app shortcuts (works on Android 7.1+)
+* Two more font size options
+
 ### [0.9.10] - 2018-06-05
 
 **Fixed**

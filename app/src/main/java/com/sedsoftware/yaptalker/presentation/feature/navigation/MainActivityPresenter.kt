@@ -27,20 +27,15 @@ class MainActivityPresenter @Inject constructor(
 ) : BasePresenter<MainActivityView>() {
 
   init {
-    router.setResultListener(RequestCode.SIGN_IN, {
+    router.setResultListener(RequestCode.SIGN_IN) {
       refreshAuthorization()
       navigateToDefaultHomePage()
-    })
+    }
   }
 
   private var currentUserKey = ""
   private var currentUserId = 0
   private var isLinkNavigationPending = false
-
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
-    navigateToDefaultHomePage()
-  }
 
   override fun attachView(view: MainActivityView?) {
     super.attachView(view)
@@ -64,6 +59,7 @@ class MainActivityPresenter @Inject constructor(
       NavigationSection.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
       NavigationSection.SETTINGS -> router.navigateTo(NavigationScreen.SETTINGS_SCREEN)
       NavigationSection.APP_UPDATES -> router.newRootScreen(NavigationScreen.UPDATES_SCREEN)
+//      NavigationSection.MAIL -> router.navigateTo(NavigationScreen.MAIL_SCREEN)
     }
   }
 
@@ -80,8 +76,23 @@ class MainActivityPresenter @Inject constructor(
     }
   }
 
-  private fun navigateToDefaultHomePage() {
+  fun navigateToMain() {
+    router.newRootScreen(NavigationScreen.NEWS_SCREEN)
+  }
 
+  fun navigateToForums() {
+    router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
+  }
+
+  fun navigateToActiveTopics() {
+    router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
+  }
+
+  fun navigateToIncubator() {
+    router.newRootScreen(NavigationScreen.INCUBATOR_SCREEN)
+  }
+
+  fun navigateToDefaultHomePage() {
     if (isLinkNavigationPending) {
       isLinkNavigationPending = false
       return

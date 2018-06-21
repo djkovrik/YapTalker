@@ -31,6 +31,7 @@
     <item name="colorNavForums">@color/colorNavForumsL</item>
     <item name="colorNavActiveTopics">@color/colorNavActiveTopicsL</item>
     <item name="colorNavIncubator">@color/colorNavIncubatorL</item>
+    <item name="colorNavMail">@color/colorNavMailL</item>
     <item name="colorNavBookmarks">@color/colorNavBookmarksL</item>
     <item name="colorNavSearch">@color/colorNavSearchL</item>
     <item name="colorNavSettings">@color/colorNavSettingsL</item>
@@ -139,6 +140,7 @@
     <item name="colorNavForums">@color/colorNavForumsLC</item>
     <item name="colorNavActiveTopics">@color/colorNavActiveTopicsLC</item>
     <item name="colorNavIncubator">@color/colorNavIncubatorLC</item>
+    <item name="colorNavMail">@color/colorNavMailLC</item>
     <item name="colorNavBookmarks">@color/colorNavBookmarksLC</item>
     <item name="colorNavSearch">@color/colorNavSearchLC</item>
     <item name="colorNavSettings">@color/colorNavSettingsLC</item>
@@ -247,6 +249,7 @@
     <item name="colorNavForums">@color/colorNavForumsLY</item>
     <item name="colorNavActiveTopics">@color/colorNavActiveTopicsLY</item>
     <item name="colorNavIncubator">@color/colorNavIncubatorLY</item>
+    <item name="colorNavMail">@color/colorNavMailLY</item>
     <item name="colorNavBookmarks">@color/colorNavBookmarksLY</item>
     <item name="colorNavSearch">@color/colorNavSearchLY</item>
     <item name="colorNavSettings">@color/colorNavSettingsLY</item>
@@ -355,6 +358,7 @@
     <item name="colorNavForums">@color/colorNavForumsD</item>
     <item name="colorNavActiveTopics">@color/colorNavActiveTopicsD</item>
     <item name="colorNavIncubator">@color/colorNavIncubatorD</item>
+    <item name="colorNavMail">@color/colorNavMailD</item>
     <item name="colorNavBookmarks">@color/colorNavBookmarksD</item>
     <item name="colorNavSearch">@color/colorNavSearchD</item>
     <item name="colorNavSettings">@color/colorNavSettingsD</item>
@@ -465,6 +469,7 @@
     <item name="colorNavForums">@color/colorNavForumsDB</item>
     <item name="colorNavActiveTopics">@color/colorNavActiveTopicsDB</item>
     <item name="colorNavIncubator">@color/colorNavIncubatorDB</item>
+    <item name="colorNavMail">@color/colorNavMailDB</item>
     <item name="colorNavBookmarks">@color/colorNavBookmarksDB</item>
     <item name="colorNavSearch">@color/colorNavSearchDB</item>
     <item name="colorNavSettings">@color/colorNavSettingsDB</item>

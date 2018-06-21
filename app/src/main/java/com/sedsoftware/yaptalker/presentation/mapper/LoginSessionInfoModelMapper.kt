@@ -15,6 +15,7 @@ class LoginSessionInfoModelMapper @Inject constructor() : Function<LoginSessionI
       title = info.title,
       uq = info.uq,
       avatar = info.avatar,
+      mailCounter = info.mailCounter,
       sessionId = info.sessionId
     )
 }
