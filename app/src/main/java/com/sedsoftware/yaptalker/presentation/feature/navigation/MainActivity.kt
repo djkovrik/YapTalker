@@ -31,8 +31,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
 import com.sedsoftware.yaptalker.presentation.provider.ActionBarProvider
 import com.sedsoftware.yaptalker.presentation.provider.NavDrawerProvider
-import kotlinx.android.synthetic.main.activity_main_tablets.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.activity_main_tablets.navigation_drawer
+import kotlinx.android.synthetic.main.include_main_appbar.toolbar
 import ru.terrakok.cicerone.Navigator
 import timber.log.Timber
 import javax.inject.Inject
@@ -76,6 +76,8 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
   private lateinit var drawerItemUpdater: PrimaryDrawerItem
   private lateinit var drawerItemSignIn: PrimaryDrawerItem
   private lateinit var drawerItemSignOut: PrimaryDrawerItem
+
+  private var defaultPageNavigated = false
 
   // Init Iconics here
   override fun attachBaseContext(base: Context?) {
@@ -206,7 +208,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
 //    drawerItemMail = PrimaryDrawerItem()
 //      .withIdentifier(NavigationSection.MAIL)
 //      .withName(R.string.nav_drawer_mail)
-//      .withBadge("0").withBadgeStyle(BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.material_color_red_500))
+//      .withBadge("0").withBadgeStyle(BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.))
 //      .withIcon(Typeicons.Icon.typ_mail)
 //      .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
 //      .withIconColor(colorFromAttr(R.attr.colorNavMail))
@@ -328,7 +330,12 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
           }
         }
       }
-      else -> presenter.navigateToDefaultHomePage()
+      else -> {
+        if (!defaultPageNavigated) {
+          defaultPageNavigated = true
+          presenter.navigateToDefaultHomePage()
+        }
+      }
     }
   }
 }

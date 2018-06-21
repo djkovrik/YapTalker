@@ -53,7 +53,7 @@ import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_ratin
 import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_up_available
 import java.util.ArrayList
 
-@Suppress("MagicNumber")
+@Suppress("MagicNumber", "LargeClass")
 class ChosenTopicDelegateAdapter(
   private val clickListener: ChosenTopicElementsClickListener,
   private val thumbnailLoader: ThumbnailsLoader,
@@ -368,6 +368,7 @@ class ChosenTopicDelegateAdapter(
       }
     }
 
+    @Suppress("NestedBlockDepth")
     private fun fillTags(post: SinglePostModel) {
       with(itemView) {
         if (post.tags.isNotEmpty()) {
