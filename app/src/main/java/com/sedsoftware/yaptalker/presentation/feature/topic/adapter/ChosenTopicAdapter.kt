@@ -8,13 +8,16 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelDelegateAdapter
+import com.sedsoftware.yaptalker.presentation.mapper.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
+import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import java.util.ArrayList
 import javax.inject.Inject
 
 class ChosenTopicAdapter @Inject constructor(
+  private val textTransformer: TextTransformer,
   elementsClickListener: ChosenTopicElementsClickListener,
   navigationClickListener: NavigationPanelClickListener,
   thumbnailLoader: ThumbnailsLoader,
@@ -61,5 +64,29 @@ class ChosenTopicAdapter @Inject constructor(
   fun clearPostsList() {
     notifyItemRangeRemoved(0, items.size)
     items.clear()
+  }
+
+  fun updateKarmaUi(targetPostId: Int, shouldIncrease: Boolean) {
+
+    items
+      .find { it is SinglePostModel && it.postId == targetPostId }
+      .let { post ->
+        post as SinglePostModel
+
+        val position = items.indexOf(post)
+        val diff = if (shouldIncrease) 1 else -1
+        val newRank = post.postRank + diff
+
+        post.postRank = newRank
+        post.postRankText = textTransformer.transformRankToFormattedText(newRank)
+
+        if (shouldIncrease) {
+          post.postRankPlusClicked = true
+        } else {
+          post.postRankMinusClicked = true
+        }
+
+        notifyItemChanged(position)
+      }
   }
 }

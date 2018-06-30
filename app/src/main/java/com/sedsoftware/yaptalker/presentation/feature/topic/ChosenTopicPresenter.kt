@@ -341,7 +341,7 @@ class ChosenTopicPresenter @Inject constructor(
       .doOnSubscribe { viewState.showLoadingIndicator() }
       .doFinally { viewState.hideLoadingIndicator() }
       .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe(getKarmaResponseObserver(isTopic))
+      .subscribe(getKarmaResponseObserver(isTopic, targetPostId, shouldIncrease))
   }
 
   fun requestThumbnail(videoUrl: String): Single<String> =
@@ -421,7 +421,7 @@ class ChosenTopicPresenter @Inject constructor(
 
   // ==== OBSERVERS ====
 
-  private fun getKarmaResponseObserver(isTopic: Boolean) =
+  private fun getKarmaResponseObserver(isTopic: Boolean, targetPostId: Int, shouldIncrease: Boolean) =
     object : SingleObserver<ServerResponseModel?> {
 
       override fun onSubscribe(d: Disposable) {
@@ -434,7 +434,7 @@ class ChosenTopicPresenter @Inject constructor(
         }
 
         Timber.i("Karma changing request completed.")
-        refreshCurrentPage()
+        viewState.updateKarmaUi(targetPostId, shouldIncrease)
       }
 
       override fun onError(error: Throwable) {
