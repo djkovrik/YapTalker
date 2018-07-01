@@ -311,6 +311,10 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsLoader {
     context?.browse(url.validateUrl())
   }
 
+  override fun updateKarmaUi(postId: Int, shouldIncrease: Boolean) {
+    topicAdapter.updateKarmaUi(postId, shouldIncrease)
+  }
+
   override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
     presenter
       .requestThumbnail(videoUrl)

@@ -1,5 +1,13 @@
 ## Changelog
 
+### [0.9.12] - 2018-07-01
+
+**Fixed**
+* News and incubator parsing problems
+
+**Changed**
+* Change post karma request now updates UI properly without page refreshing
+
 ### [0.9.11] - 2018-06-21
 
 **Fixed**
