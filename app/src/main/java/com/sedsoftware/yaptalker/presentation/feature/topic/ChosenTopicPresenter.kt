@@ -434,7 +434,9 @@ class ChosenTopicPresenter @Inject constructor(
         }
 
         Timber.i("Karma changing request completed.")
-        viewState.updateKarmaUi(targetPostId, shouldIncrease)
+        if (!isTopic) {
+          viewState.updateKarmaUi(targetPostId, shouldIncrease)
+        }
       }
 
       override fun onError(error: Throwable) {

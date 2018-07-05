@@ -70,7 +70,7 @@ class ChosenTopicAdapter @Inject constructor(
 
     items
       .find { it is SinglePostModel && it.postId == targetPostId }
-      .let { post ->
+      ?.let { post ->
         post as SinglePostModel
 
         val position = items.indexOf(post)
