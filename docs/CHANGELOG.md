@@ -1,5 +1,10 @@
 ## Changelog
 
+### [0.9.13] - 2018-07-05
+
+**Fixed**
+* Crash after changing topic karma
+
 ### [0.9.12] - 2018-07-01
 
 **Fixed**
