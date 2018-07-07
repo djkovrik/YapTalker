@@ -85,9 +85,9 @@ class ChosenTopicPresenter @Inject constructor(
 
     init {
         router.setResultListener(
-            RequestCode.MESSAGE_TEXT,
-            { message -> sendMessage(message as Pair<String, String>) })
-        router.setResultListener(RequestCode.EDITED_MESSAGE_TEXT, { message -> sendEditedMessage(message as String) })
+            RequestCode.MESSAGE_TEXT
+        ) { message -> sendMessage(message as Pair<String, String>) }
+        router.setResultListener(RequestCode.EDITED_MESSAGE_TEXT) { message -> sendEditedMessage(message as String) }
     }
 
     override fun onFirstViewAttach() {

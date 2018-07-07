@@ -33,7 +33,6 @@ class ActiveTopicsDelegateAdapter(
 
         fun bindTo(topicItem: ActiveTopicModel) {
             with(itemView) {
-
                 active_topic_name.text = topicItem.title
                 active_topic_forum.text = topicItem.forumTitle
                 active_topic_last_post_date.text = topicItem.lastPostDate

@@ -26,7 +26,6 @@ class ActiveTopicsAdapter @Inject constructor(
     private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
     init {
-
         delegateAdapters.put(
             DisplayedItemType.ACTIVE_TOPIC,
             ActiveTopicsDelegateAdapter(

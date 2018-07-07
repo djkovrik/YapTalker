@@ -185,7 +185,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
                 .negativeText(R.string.post_button_dismiss)
                 .inputType(InputType.TYPE_CLASS_TEXT)
                 .alwaysCallInputCallback()
-                .input(R.string.post_insert_link_title_hint, 0, false, { _, _ -> })
+                .input(R.string.post_insert_link_title_hint, 0, false) { _, _ -> }
                 .onPositive { secondDialog, _ ->
                     title = secondDialog.inputEditText?.text.toString()
 
@@ -202,10 +202,10 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
                 .negativeText(R.string.post_button_dismiss)
                 .inputType(InputType.TYPE_CLASS_TEXT)
                 .alwaysCallInputCallback()
-                .input(R.string.post_insert_link_hint, 0, false, { firstDialog, firstInput ->
+                .input(R.string.post_insert_link_hint, 0, false) { firstDialog, firstInput ->
                     firstDialog.getActionButton(DialogAction.POSITIVE).isEnabled =
-                            firstInput.toString().startsWith("http")
-                })
+                        firstInput.toString().startsWith("http")
+                }
                 .onPositive { firstDialog, _ ->
                     url = firstDialog.inputEditText?.text.toString()
                     titleDialog?.show()
@@ -223,7 +223,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
                 .negativeText(R.string.post_button_dismiss)
                 .inputType(InputType.TYPE_CLASS_TEXT)
                 .alwaysCallInputCallback()
-                .input(R.string.post_insert_video_hint, 0, false, { _, _ -> })
+                .input(R.string.post_insert_video_hint, 0, false) { _, _ -> }
                 .onPositive { dialog, _ ->
                     val url = dialog.inputEditText?.text.toString()
                     presenter.insertVideoTag(url)

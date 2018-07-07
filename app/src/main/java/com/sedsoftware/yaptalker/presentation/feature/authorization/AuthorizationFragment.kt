@@ -24,7 +24,7 @@ import javax.inject.Inject
 class AuthorizationFragment : BaseFragment(), AuthorizationView {
 
     companion object {
-        fun getNewInstance() = AuthorizationFragment()
+        fun getNewInstance(): AuthorizationFragment = AuthorizationFragment()
     }
 
     @Inject

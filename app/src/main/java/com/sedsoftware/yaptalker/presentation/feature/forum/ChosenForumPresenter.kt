@@ -36,7 +36,7 @@ class ChosenForumPresenter @Inject constructor(
     }
 
     init {
-        router.setResultListener(RequestCode.REFRESH_REQUEST, { loadForumCurrentPage() })
+        router.setResultListener(RequestCode.REFRESH_REQUEST) { loadForumCurrentPage() }
     }
 
     private var currentForumId = 0

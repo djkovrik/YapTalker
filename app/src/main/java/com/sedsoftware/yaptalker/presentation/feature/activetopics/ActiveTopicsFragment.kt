@@ -27,7 +27,7 @@ import javax.inject.Inject
 class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView {
 
     companion object {
-        fun getNewInstance() = ActiveTopicsFragment()
+        fun getNewInstance(): ActiveTopicsFragment = ActiveTopicsFragment()
     }
 
     @Inject
@@ -90,9 +90,9 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView {
             MaterialDialog.Builder(ctx)
                 .title(R.string.navigation_go_to_page_title)
                 .inputType(InputType.TYPE_CLASS_NUMBER)
-                .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
+                .input(R.string.navigation_go_to_page_hint, 0, false) { _, input ->
                     presenter.goToChosenPage(input.toString().toInt())
-                })
+                }
                 .show()
         }
     }

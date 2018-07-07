@@ -33,7 +33,7 @@ class YapImageStorage @Inject constructor(
         }
 
     private fun saveToDisk(response: Response, filename: String): Single<File> =
-        Single.create({ emitter ->
+        Single.create { emitter ->
             try {
                 val storageDir = Environment.getExternalStoragePublicDirectory(
                     "${Environment.DIRECTORY_PICTURES}/YapTalker"
@@ -54,5 +54,5 @@ class YapImageStorage @Inject constructor(
                 e.printStackTrace()
                 emitter.onError(e)
             }
-        })
+        }
 }

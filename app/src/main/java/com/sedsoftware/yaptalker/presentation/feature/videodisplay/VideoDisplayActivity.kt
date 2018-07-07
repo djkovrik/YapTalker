@@ -64,14 +64,14 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.decorView.setOnSystemUiVisibilityChangeListener({ visibility ->
+        window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
             isSystemUiShown = if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
                 handler.postDelayed(checkSystemUiRunnable, SYSTEM_UI_HIDE_DELAY)
                 true
             } else {
                 false
             }
-        })
+        }
     }
 
     override fun onResume() {

@@ -32,7 +32,7 @@ class ActiveTopicsPresenter @Inject constructor(
     }
 
     init {
-        router.setResultListener(RequestCode.REFRESH_REQUEST, { loadActiveTopicsForCurrentPage() })
+        router.setResultListener(RequestCode.REFRESH_REQUEST) { loadActiveTopicsForCurrentPage() }
     }
 
     private var searchIdKey = ""

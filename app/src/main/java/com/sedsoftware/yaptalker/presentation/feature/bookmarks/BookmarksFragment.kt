@@ -25,7 +25,7 @@ import javax.inject.Inject
 class BookmarksFragment : BaseFragment(), BookmarksView {
 
     companion object {
-        fun getNewInstance() = BookmarksFragment()
+        fun getNewInstance(): BookmarksFragment = BookmarksFragment()
     }
 
     @Inject

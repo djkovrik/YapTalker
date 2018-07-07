@@ -70,8 +70,7 @@ class FilePathResolver @Inject constructor(private val context: Context) {
                 return cursor.getString(columnIndex)
             }
         } finally {
-            if (cursor != null)
-                cursor.close()
+            cursor?.close()
         }
         return null
     }
