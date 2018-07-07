@@ -14,12 +14,12 @@ import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlAndRoundCorners
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import kotlinx.android.synthetic.main.fragment_news_item.view.*
 
 class NewsDelegateAdapter(
     private val clickListener: NewsItemElementsClickListener,
-    private val thumbnailsLoader: ThumbnailsLoader,
+    private val thumbnailsProvider: ThumbnailsProvider,
     private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
@@ -113,7 +113,7 @@ class NewsDelegateAdapter(
                     news_content_image_overlay.isVisible = true
                     news_content_image_overlay.text = videoType
                     news_content_image.layoutParams = videoLayoutParams
-                    thumbnailsLoader.loadThumbnail(url, news_content_image)
+                    thumbnailsProvider.loadThumbnail(url, news_content_image)
 
                     news_content_image.setOnClickListener {
                         clickListener.onMediaPreviewClicked(url, rawVideo, true)

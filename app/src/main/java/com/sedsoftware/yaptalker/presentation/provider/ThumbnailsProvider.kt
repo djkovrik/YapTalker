@@ -1,8 +1,8 @@
-package com.sedsoftware.yaptalker.presentation.thumbnail
+package com.sedsoftware.yaptalker.presentation.provider
 
 import android.widget.ImageView
 
-interface ThumbnailsLoader {
+interface ThumbnailsProvider {
 
     fun loadThumbnail(videoUrl: String, imageView: ImageView)
 }

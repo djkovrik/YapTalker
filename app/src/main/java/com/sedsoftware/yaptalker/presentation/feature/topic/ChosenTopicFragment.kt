@@ -32,7 +32,7 @@ import com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu.FabMenuItemP
 import com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu.FabMenuItemSecondary
 import com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu.FabOverlay
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -47,7 +47,7 @@ import javax.inject.Inject
 
 @Suppress("LargeClass", "TooManyFunctions")
 @LayoutResource(value = R.layout.fragment_chosen_topic)
-class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsLoader {
+class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider {
 
     companion object {
         fun getNewInstance(triple: Triple<Int, Int, Int>): ChosenTopicFragment =

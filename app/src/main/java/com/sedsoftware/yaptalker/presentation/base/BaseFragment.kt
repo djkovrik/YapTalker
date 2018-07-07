@@ -93,7 +93,7 @@ abstract class BaseFragment : MvpAppCompatFragment() {
     }
 
     protected fun event(@FragmentLifecycle.Event event: Long): Maybe<*> =
-        lifecycle.filter({ e -> e == event }).firstElement()
+        lifecycle.filter { it == event }.firstElement()
 
     protected fun setCurrentAppbarTitle(title: String) {
         appBarProvider.getCurrentActionBar()?.title = title

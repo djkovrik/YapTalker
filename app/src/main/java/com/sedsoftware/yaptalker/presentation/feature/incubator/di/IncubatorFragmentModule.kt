@@ -12,7 +12,7 @@ import com.sedsoftware.yaptalker.presentation.feature.incubator.IncubatorFragmen
 import com.sedsoftware.yaptalker.presentation.feature.incubator.IncubatorPresenter
 import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.IncubatorElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.IncubatorModelMapper
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -47,7 +47,7 @@ abstract class IncubatorFragmentModule {
 
     @FragmentScope
     @Binds
-    abstract fun incubatorThumbnailsLoader(fragment: IncubatorFragment): ThumbnailsLoader
+    abstract fun incubatorThumbnailsProvider(fragment: IncubatorFragment): ThumbnailsProvider
 
     @FragmentScope
     @Binds

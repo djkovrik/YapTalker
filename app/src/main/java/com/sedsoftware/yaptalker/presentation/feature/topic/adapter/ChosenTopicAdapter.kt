@@ -12,7 +12,7 @@ import com.sedsoftware.yaptalker.presentation.mapper.util.TextTransformer
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ class ChosenTopicAdapter @Inject constructor(
     private val textTransformer: TextTransformer,
     elementsClickListener: ChosenTopicElementsClickListener,
     navigationClickListener: NavigationPanelClickListener,
-    thumbnailLoader: ThumbnailsLoader,
+    thumbnailsProvider: ThumbnailsProvider,
     settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -30,7 +30,7 @@ class ChosenTopicAdapter @Inject constructor(
     init {
         delegateAdapters.put(
             DisplayedItemType.SINGLE_POST,
-            ChosenTopicDelegateAdapter(elementsClickListener, thumbnailLoader, settings)
+            ChosenTopicDelegateAdapter(elementsClickListener, thumbnailsProvider, settings)
         )
 
         delegateAdapters.put(

@@ -23,7 +23,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.IncubatorAdapter
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -33,7 +33,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_incubator)
-class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader {
+class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsProvider {
 
     companion object {
         fun getNewInstance() = IncubatorFragment()

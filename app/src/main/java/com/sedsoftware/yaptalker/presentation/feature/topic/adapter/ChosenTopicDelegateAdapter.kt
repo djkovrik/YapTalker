@@ -35,14 +35,14 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostTe
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWarningModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
 import java.util.ArrayList
 
 @Suppress("MagicNumber", "LargeClass")
 class ChosenTopicDelegateAdapter(
     private val clickListener: ChosenTopicElementsClickListener,
-    private val thumbnailLoader: ThumbnailsLoader,
+    private val thumbnailProvider: ThumbnailsProvider,
     private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
@@ -286,7 +286,7 @@ class ChosenTopicDelegateAdapter(
                     itemView.post_content_video_container.addView(container)
 
                     // Load thumbnail
-                    thumbnailLoader.loadThumbnail(url, thumbnail)
+                    thumbnailProvider.loadThumbnail(url, thumbnail)
 
                     thumbnail.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawHtml, true) }
                 }

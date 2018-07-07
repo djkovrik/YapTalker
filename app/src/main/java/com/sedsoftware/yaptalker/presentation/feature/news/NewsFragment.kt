@@ -25,7 +25,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -35,7 +35,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_news)
-class NewsFragment : BaseFragment(), NewsView, ThumbnailsLoader {
+class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
 
     companion object {
         fun getNewInstance() = NewsFragment()

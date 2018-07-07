@@ -10,13 +10,13 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import java.util.ArrayList
 import javax.inject.Inject
 
 class NewsAdapter @Inject constructor(
     clickListener: NewsItemElementsClickListener,
-    thumbnailsLoader: ThumbnailsLoader,
+    thumbnailsProvider: ThumbnailsProvider,
     settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -25,7 +25,7 @@ class NewsAdapter @Inject constructor(
 
     init {
         delegateAdapters.put(
-            DisplayedItemType.NEWS, NewsDelegateAdapter(clickListener, thumbnailsLoader, settings)
+            DisplayedItemType.NEWS, NewsDelegateAdapter(clickListener, thumbnailsProvider, settings)
         )
 
         items = ArrayList()

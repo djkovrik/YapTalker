@@ -23,7 +23,7 @@ import com.sedsoftware.yaptalker.presentation.mapper.EditedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.QuotedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.ServerResponseModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.TopicModelMapper
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -86,7 +86,7 @@ abstract class ChosenTopicFragmentModule {
 
     @FragmentScope
     @Binds
-    abstract fun topicThumbnailsLoader(fragment: ChosenTopicFragment): ThumbnailsLoader
+    abstract fun topicThumbnailsProvider(fragment: ChosenTopicFragment): ThumbnailsProvider
 
     @FragmentScope
     @Binds

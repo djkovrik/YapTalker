@@ -15,7 +15,7 @@ import com.sedsoftware.yaptalker.presentation.feature.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.feature.news.NewsPresenter
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsItemElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.NewsModelMapper
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -55,7 +55,7 @@ abstract class NewsFragmentModule {
 
     @FragmentScope
     @Binds
-    abstract fun newsThumbnailsLoader(fragment: NewsFragment): ThumbnailsLoader
+    abstract fun newsThumbnailsProvider(fragment: NewsFragment): ThumbnailsProvider
 
     @FragmentScope
     @Binds

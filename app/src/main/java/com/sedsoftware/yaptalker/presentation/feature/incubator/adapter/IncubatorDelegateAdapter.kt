@@ -14,12 +14,12 @@ import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlAndRoundCorners
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import kotlinx.android.synthetic.main.fragment_incubator_item.view.*
 
 class IncubatorDelegateAdapter(
     private val clickListener: IncubatorElementsClickListener,
-    private val thumbnailsLoader: ThumbnailsLoader,
+    private val thumbnailsProvider: ThumbnailsProvider,
     private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
@@ -117,7 +117,7 @@ class IncubatorDelegateAdapter(
                     incubator_topic_content_image_overlay.text = videoType
                     incubator_topic_content_image.layoutParams = videoLayoutParams
 
-                    thumbnailsLoader.loadThumbnail(url, incubator_topic_content_image)
+                    thumbnailsProvider.loadThumbnail(url, incubator_topic_content_image)
 
                     incubator_topic_content_image.setOnClickListener {
                         clickListener.onMediaPreviewClicked(url, rawVideo, true)

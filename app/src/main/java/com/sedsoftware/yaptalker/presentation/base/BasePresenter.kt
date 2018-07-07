@@ -30,5 +30,5 @@ abstract class BasePresenter<View : MvpView> : MvpPresenter<View>() {
     }
 
     protected fun event(@PresenterLifecycle.Event event: Long): Maybe<*> =
-        lifecycle.filter({ e -> e == event }).firstElement()
+        lifecycle.filter { it == event }.firstElement()
 }
