@@ -41,21 +41,6 @@ class IncubatorDelegateAdapter(
     inner class IncubatorViewHolder(parent: ViewGroup) :
         RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_incubator_item)) {
 
-        private val imageLayoutParams: ConstraintLayout.LayoutParams by lazy {
-            (itemView.incubator_topic_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
-                width = ConstraintLayout.LayoutParams.MATCH_PARENT
-                height = ConstraintLayout.LayoutParams.WRAP_CONTENT
-            }
-        }
-
-        private val videoLayoutParams: ConstraintLayout.LayoutParams by lazy {
-            (itemView.incubator_topic_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
-                width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
-                height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
-                dimensionRatio = "16:9"
-            }
-        }
-
         fun bindTo(incubatorItem: IncubatorItemModel) {
             setViewsTextSize(itemView)
             setViewsContent(itemView, incubatorItem)
@@ -102,7 +87,11 @@ class IncubatorDelegateAdapter(
                 if (incubatorItem.images.isNotEmpty()) {
                     val url = incubatorItem.images.first()
                     incubator_topic_content_image_container.isVisible = true
-                    incubator_topic_content_image.layoutParams = imageLayoutParams
+                    val params = incubator_topic_content_image.layoutParams as ConstraintLayout.LayoutParams
+                    params.width = ConstraintLayout.LayoutParams.MATCH_PARENT
+                    params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                    params.dimensionRatio = ""
+                    incubator_topic_content_image.layoutParams = params
                     incubator_topic_content_image.loadFromUrlAndRoundCorners(url)
 
                     incubator_topic_content_image.setOnClickListener {
@@ -115,8 +104,11 @@ class IncubatorDelegateAdapter(
                     incubator_topic_content_image_container.isVisible = true
                     incubator_topic_content_image_overlay.isVisible = true
                     incubator_topic_content_image_overlay.text = videoType
-                    incubator_topic_content_image.layoutParams = videoLayoutParams
-
+                    val params = incubator_topic_content_image.layoutParams as ConstraintLayout.LayoutParams
+                    params.width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+                    params.height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+                    params.dimensionRatio = "16:9"
+                    incubator_topic_content_image.layoutParams = params
                     thumbnailsProvider.loadThumbnail(url, incubator_topic_content_image)
 
                     incubator_topic_content_image.setOnClickListener {

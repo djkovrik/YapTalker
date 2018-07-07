@@ -41,21 +41,6 @@ class NewsDelegateAdapter(
     inner class NewsViewHolder(parent: ViewGroup) :
         RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_news_item)) {
 
-        private val imageLayoutParams: ConstraintLayout.LayoutParams by lazy {
-            (itemView.news_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
-                width = ConstraintLayout.LayoutParams.MATCH_PARENT
-                height = ConstraintLayout.LayoutParams.WRAP_CONTENT
-            }
-        }
-
-        private val videoLayoutParams: ConstraintLayout.LayoutParams by lazy {
-            (itemView.news_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
-                width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
-                height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
-                dimensionRatio = "16:9"
-            }
-        }
-
         fun bindTo(newsItem: NewsItemModel) {
             setViewsTextSize(itemView)
             setViewsContent(itemView, newsItem)
@@ -99,7 +84,12 @@ class NewsDelegateAdapter(
                 if (newsItem.images.isNotEmpty()) {
                     val url = newsItem.images.first()
                     news_content_image_container.isVisible = true
-                    news_content_image.layoutParams = imageLayoutParams
+
+                    val params = news_content_image.layoutParams as ConstraintLayout.LayoutParams
+                    params.width = ConstraintLayout.LayoutParams.MATCH_PARENT
+                    params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                    params.dimensionRatio = ""
+                    news_content_image.layoutParams = params
                     news_content_image.loadFromUrlAndRoundCorners(url)
 
                     news_content_image.setOnClickListener {
@@ -112,7 +102,11 @@ class NewsDelegateAdapter(
                     news_content_image_container.isVisible = true
                     news_content_image_overlay.isVisible = true
                     news_content_image_overlay.text = videoType
-                    news_content_image.layoutParams = videoLayoutParams
+                    val params = news_content_image.layoutParams as ConstraintLayout.LayoutParams
+                    params.width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+                    params.height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+                    params.dimensionRatio = "16:9"
+                    news_content_image.layoutParams = params
                     thumbnailsProvider.loadThumbnail(url, news_content_image)
 
                     news_content_image.setOnClickListener {
