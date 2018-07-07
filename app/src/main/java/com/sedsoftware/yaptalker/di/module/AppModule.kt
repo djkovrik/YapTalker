@@ -14,23 +14,23 @@ import javax.inject.Singleton
 @Module(includes = [(AndroidInjectionModule::class)])
 abstract class AppModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
 
-    @Provides
-    @Singleton
-    @JvmStatic
-    fun provideContext(app: YapTalkerApp): Context = app
+        @Provides
+        @Singleton
+        @JvmStatic
+        fun provideContext(app: YapTalkerApp): Context = app
 
-    @Provides
-    @Singleton
-    @JvmStatic
-    fun provideDatabase(context: Context): YapTalkerDatabase =
-        Room
-          .databaseBuilder(context, YapTalkerDatabase::class.java, YapTalkerDatabase.DATABASE_NAME)
-          .build()
-  }
+        @Provides
+        @Singleton
+        @JvmStatic
+        fun provideDatabase(context: Context): YapTalkerDatabase =
+            Room
+                .databaseBuilder(context, YapTalkerDatabase::class.java, YapTalkerDatabase.DATABASE_NAME)
+                .build()
+    }
 
-  @Binds
-  abstract fun application(app: YapTalkerApp): Application
+    @Binds
+    abstract fun application(app: YapTalkerApp): Application
 }

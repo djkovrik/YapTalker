@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class EditedPostModelMapper @Inject constructor() : Function<EditedPost, EditedPostModel> {
 
-  override fun apply(item: EditedPost): EditedPostModel =
-    EditedPostModel(text = item.text)
+    override fun apply(item: EditedPost): EditedPostModel =
+        EditedPostModel(text = item.text)
 }

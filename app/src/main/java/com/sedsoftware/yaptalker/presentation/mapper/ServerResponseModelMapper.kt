@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class ServerResponseModelMapper @Inject constructor() : Function<ServerResponse, ServerResponseModel> {
 
-  override fun apply(response: ServerResponse): ServerResponseModel =
-    ServerResponseModel(text = response.text)
+    override fun apply(response: ServerResponse): ServerResponseModel =
+        ServerResponseModel(text = response.text)
 }

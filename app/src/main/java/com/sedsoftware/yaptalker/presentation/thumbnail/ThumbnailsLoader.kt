@@ -4,5 +4,5 @@ import android.widget.ImageView
 
 interface ThumbnailsLoader {
 
-  fun loadThumbnail(videoUrl: String, imageView: ImageView)
+    fun loadThumbnail(videoUrl: String, imageView: ImageView)
 }

@@ -12,23 +12,23 @@ import com.sedsoftware.yaptalker.presentation.model.base.EmojiModel
 @StateStrategyType(SkipStrategy::class)
 interface AddMessageView : MvpView, CanShowErrorMessage, CanUpdateUiState {
 
-  @StateStrategyType(AddToEndStrategy::class)
-  fun appendEmojiItem(item: EmojiModel)
+    @StateStrategyType(AddToEndStrategy::class)
+    fun appendEmojiItem(item: EmojiModel)
 
-  @StateStrategyType(SingleStateStrategy::class)
-  fun clearEmojiList()
+    @StateStrategyType(SingleStateStrategy::class)
+    fun clearEmojiList()
 
-  fun insertTag(tag: String)
+    fun insertTag(tag: String)
 
-  fun insertTags(openingTag: String, closingTag: String)
+    fun insertTags(openingTag: String, closingTag: String)
 
-  fun showLinkParametersDialogs()
+    fun showLinkParametersDialogs()
 
-  fun showVideoLinkParametersDialog()
+    fun showVideoLinkParametersDialog()
 
-  fun hideKeyboard()
+    fun hideKeyboard()
 
-  fun callForSmilesBottomSheet()
+    fun callForSmilesBottomSheet()
 
-  fun showImagePickerDialog()
+    fun showImagePickerDialog()
 }

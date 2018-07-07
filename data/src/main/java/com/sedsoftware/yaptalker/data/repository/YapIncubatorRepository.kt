@@ -9,14 +9,14 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class YapIncubatorRepository @Inject constructor(
-  private val dataLoader: YapIncubatorLoader,
-  private val dataMapper: IncubatorPageMapper,
-  private val listMapper: ListToObservablesMapper<IncubatorItem>
+    private val dataLoader: YapIncubatorLoader,
+    private val dataMapper: IncubatorPageMapper,
+    private val listMapper: ListToObservablesMapper<IncubatorItem>
 ) : IncubatorRepository {
 
-  override fun getIncubatorTopics(page: Int): Observable<IncubatorItem> =
-    dataLoader
-      .loadIncubator(startPage = page)
-      .map(dataMapper)
-      .flatMap(listMapper)
+    override fun getIncubatorTopics(page: Int): Observable<IncubatorItem> =
+        dataLoader
+            .loadIncubator(startPage = page)
+            .map(dataMapper)
+            .flatMap(listMapper)
 }

@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class ServerResponseMapper @Inject constructor() : Function<Response<ResponseBody>, ServerResponse> {
 
-  override fun apply(from: Response<ResponseBody>): ServerResponse {
-    val responseBodyText = from.body()?.string() ?: ""
-    return ServerResponse(text = responseBodyText)
-  }
+    override fun apply(from: Response<ResponseBody>): ServerResponse {
+        val responseBodyText = from.body()?.string() ?: ""
+        return ServerResponse(text = responseBodyText)
+    }
 }

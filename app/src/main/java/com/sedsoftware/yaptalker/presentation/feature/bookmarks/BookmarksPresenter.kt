@@ -19,82 +19,82 @@ import javax.inject.Inject
 
 @InjectViewState
 class BookmarksPresenter @Inject constructor(
-  private val router: Router,
-  private val bookmarksInteractor: BookmarksInteractor,
-  private val bookmarksMapper: BookmarksModelMapper
+    private val router: Router,
+    private val bookmarksInteractor: BookmarksInteractor,
+    private val bookmarksMapper: BookmarksModelMapper
 ) : BasePresenter<BookmarksView>(), BookmarksElementsClickListener {
 
-  private var clearCurrentList = false
+    private var clearCurrentList = false
 
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
-    loadBookmarks()
-  }
-
-  override fun attachView(view: BookmarksView?) {
-    super.attachView(view)
-    viewState.updateCurrentUiState()
-  }
-
-  override fun onDeleteIconClick(item: BookmarkedTopicModel) {
-    viewState.showDeleteConfirmationDialog(item)
-  }
-
-  override fun onTopicItemClick(link: String) {
-    val triple = link.extractYapIds()
-    if (triple.first != 0) {
-      router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        loadBookmarks()
     }
-  }
 
-  fun loadBookmarks() {
+    override fun attachView(view: BookmarksView?) {
+        super.attachView(view)
+        viewState.updateCurrentUiState()
+    }
 
-    clearCurrentList = true
+    override fun onDeleteIconClick(item: BookmarkedTopicModel) {
+        viewState.showDeleteConfirmationDialog(item)
+    }
 
-    bookmarksInteractor
-      .getBookmarks()
-      .subscribeOn(Schedulers.io())
-      .map(bookmarksMapper)
-      .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { viewState.showLoadingIndicator() }
-      .doFinally { viewState.hideLoadingIndicator() }
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe(getBookmarksObserver())
-  }
-
-  fun deleteSelectedBookmark(item: BookmarkedTopicModel) {
-    bookmarksInteractor
-      .deleteFromBookmarks(item.bookmarkId)
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe({
-        Timber.i("Bookmark deletion completed.")
-        viewState.showBookmarkDeletedMessage()
-        viewState.deleteItemFromBookmarks(item)
-      }, { error ->
-        error.message?.let { viewState.showErrorMessage(it) }
-      })
-  }
-
-  private fun getBookmarksObserver() =
-    object : DisposableObserver<BookmarkedTopicModel?>() {
-
-      override fun onNext(item: BookmarkedTopicModel) {
-        if (clearCurrentList) {
-          clearCurrentList = false
-          viewState.clearBookmarksList()
+    override fun onTopicItemClick(link: String) {
+        val triple = link.extractYapIds()
+        if (triple.first != 0) {
+            router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, triple)
         }
-
-        viewState.appendBookmarkItem(item)
-      }
-
-      override fun onComplete() {
-        Timber.i("Bookmarks loading completed.")
-      }
-
-      override fun onError(e: Throwable) {
-        e.message?.let { viewState.showErrorMessage(it) }
-      }
     }
+
+    fun loadBookmarks() {
+
+        clearCurrentList = true
+
+        bookmarksInteractor
+            .getBookmarks()
+            .subscribeOn(Schedulers.io())
+            .map(bookmarksMapper)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { viewState.showLoadingIndicator() }
+            .doFinally { viewState.hideLoadingIndicator() }
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe(getBookmarksObserver())
+    }
+
+    fun deleteSelectedBookmark(item: BookmarkedTopicModel) {
+        bookmarksInteractor
+            .deleteFromBookmarks(item.bookmarkId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe({
+                Timber.i("Bookmark deletion completed.")
+                viewState.showBookmarkDeletedMessage()
+                viewState.deleteItemFromBookmarks(item)
+            }, { error ->
+                error.message?.let { viewState.showErrorMessage(it) }
+            })
+    }
+
+    private fun getBookmarksObserver() =
+        object : DisposableObserver<BookmarkedTopicModel?>() {
+
+            override fun onNext(item: BookmarkedTopicModel) {
+                if (clearCurrentList) {
+                    clearCurrentList = false
+                    viewState.clearBookmarksList()
+                }
+
+                viewState.appendBookmarkItem(item)
+            }
+
+            override fun onComplete() {
+                Timber.i("Bookmarks loading completed.")
+            }
+
+            override fun onError(e: Throwable) {
+                e.message?.let { viewState.showErrorMessage(it) }
+            }
+        }
 }

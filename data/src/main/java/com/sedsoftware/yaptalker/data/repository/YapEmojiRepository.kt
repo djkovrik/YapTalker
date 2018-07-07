@@ -9,22 +9,22 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class YapEmojiRepository @Inject constructor(
-  private val dataLoader: YapLoader,
-  private val dataMapper: EmojiListMapper,
-  private val listMapper: ListToObservablesMapper<Emoji>
+    private val dataLoader: YapLoader,
+    private val dataMapper: EmojiListMapper,
+    private val listMapper: ListToObservablesMapper<Emoji>
 ) : EmojiRepository {
 
-  companion object {
-    private const val EMOJI_ACT = "legends"
-    private const val EMOJI_CODE = "emoticons"
-  }
+    companion object {
+        private const val EMOJI_ACT = "legends"
+        private const val EMOJI_CODE = "emoticons"
+    }
 
-  override fun getEmojiList(): Observable<Emoji> =
-    dataLoader
-      .loadEmojiList(
-        act = EMOJI_ACT,
-        code = EMOJI_CODE
-      )
-      .map(dataMapper)
-      .flatMapObservable(listMapper)
+    override fun getEmojiList(): Observable<Emoji> =
+        dataLoader
+            .loadEmojiList(
+                act = EMOJI_ACT,
+                code = EMOJI_CODE
+            )
+            .map(dataMapper)
+            .flatMapObservable(listMapper)
 }

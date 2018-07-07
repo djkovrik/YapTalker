@@ -15,48 +15,48 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 class ForumModelMapper @Inject constructor(
-  private val textTransformer: TextTransformer,
-  private val dateTransformer: DateTransformer
+    private val textTransformer: TextTransformer,
+    private val dateTransformer: DateTransformer
 ) : Function<List<BaseEntity>, List<DisplayedItemModel>> {
 
-  override fun apply(items: List<BaseEntity>): List<DisplayedItemModel> {
+    override fun apply(items: List<BaseEntity>): List<DisplayedItemModel> {
 
-    val result: MutableList<DisplayedItemModel> = ArrayList(items.size)
+        val result: MutableList<DisplayedItemModel> = ArrayList(items.size)
 
-    items.forEach { item ->
-      when (item) {
-        is ForumInfoBlock -> result.add(
-          ForumInfoBlockModel(
-            forumTitle = item.forumTitle,
-            forumId = item.forumId
-          )
-        )
-        is NavigationPanel -> result.add(
-          NavigationPanelModel(
-            currentPage = item.currentPage,
-            totalPages = item.totalPages,
-            navigationLabel = textTransformer.createNavigationLabel(item.currentPage, item.totalPages)
-          )
-        )
-        is Topic -> result.add(
-          TopicModel(
-            title = textTransformer.createForumTopicTitle(item.isPinned, item.isClosed, item.title),
-            link = item.link,
-            id = item.id,
-            isPinned = item.isPinned,
-            isClosed = item.isClosed,
-            author = item.author,
-            authorLink = item.authorLink,
-            rating = item.rating,
-            ratingText = item.rating.toString(),
-            answers = textTransformer.transformCommentsLabelShort(item.answers),
-            lastPostDate = dateTransformer.transformDateToShortView(item.lastPostDate),
-            lastPostAuthor = item.lastPostAuthor
-          )
-        )
-      }
+        items.forEach { item ->
+            when (item) {
+                is ForumInfoBlock -> result.add(
+                    ForumInfoBlockModel(
+                        forumTitle = item.forumTitle,
+                        forumId = item.forumId
+                    )
+                )
+                is NavigationPanel -> result.add(
+                    NavigationPanelModel(
+                        currentPage = item.currentPage,
+                        totalPages = item.totalPages,
+                        navigationLabel = textTransformer.createNavigationLabel(item.currentPage, item.totalPages)
+                    )
+                )
+                is Topic -> result.add(
+                    TopicModel(
+                        title = textTransformer.createForumTopicTitle(item.isPinned, item.isClosed, item.title),
+                        link = item.link,
+                        id = item.id,
+                        isPinned = item.isPinned,
+                        isClosed = item.isClosed,
+                        author = item.author,
+                        authorLink = item.authorLink,
+                        rating = item.rating,
+                        ratingText = item.rating.toString(),
+                        answers = textTransformer.transformCommentsLabelShort(item.answers),
+                        lastPostDate = dateTransformer.transformDateToShortView(item.lastPostDate),
+                        lastPostAuthor = item.lastPostAuthor
+                    )
+                )
+            }
+        }
+
+        return result
     }
-
-    return result
-  }
 }

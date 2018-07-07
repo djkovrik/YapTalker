@@ -13,17 +13,17 @@ import java.lang.ref.WeakReference
 @Module
 abstract class ChangelogActivityModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
+
+        @ActivityScope
+        @Provides
+        @JvmStatic
+        fun provideMessagesDelegate(activity: ChangelogActivity): MessagesDelegate =
+            MessagesDelegate(WeakReference(activity))
+    }
 
     @ActivityScope
-    @Provides
-    @JvmStatic
-    fun provideMessagesDelegate(activity: ChangelogActivity): MessagesDelegate =
-      MessagesDelegate(WeakReference(activity))
-  }
-
-  @ActivityScope
-  @Binds
-  abstract fun changelogRepository(repo: AppChangelogRepository): ChangelogRepository
+    @Binds
+    abstract fun changelogRepository(repo: AppChangelogRepository): ChangelogRepository
 }

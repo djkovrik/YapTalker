@@ -11,78 +11,78 @@ import android.webkit.WebView
 
 class VideoWebView : WebView {
 
-  private var videoEnabledWebChromeClient: VideoWebChromeClient? = null
-  private var addedJavascriptInterface: Boolean = false
+    private var videoEnabledWebChromeClient: VideoWebChromeClient? = null
+    private var addedJavascriptInterface: Boolean = false
 
-  interface ToggledFullscreenCallback {
-    fun toggledFullscreen(fullscreen: Boolean)
-  }
-
-  constructor(context: Context) : super(context) {
-    addedJavascriptInterface = false
-  }
-
-  constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-    addedJavascriptInterface = false
-  }
-
-  constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
-    addedJavascriptInterface = false
-  }
-
-  @SuppressLint("SetJavaScriptEnabled")
-  override fun setWebChromeClient(client: WebChromeClient) {
-    settings.javaScriptEnabled = true
-
-    if (client is VideoWebChromeClient) {
-      this.videoEnabledWebChromeClient = client
+    interface ToggledFullscreenCallback {
+        fun toggledFullscreen(fullscreen: Boolean)
     }
 
-    super.setWebChromeClient(client)
-  }
+    constructor(context: Context) : super(context) {
+        addedJavascriptInterface = false
+    }
 
-  override fun loadData(data: String, mimeType: String, encoding: String) {
-    addJavascriptInterface()
-    super.loadData(data, mimeType, encoding)
-  }
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        addedJavascriptInterface = false
+    }
 
-  override fun loadDataWithBaseURL(
-    baseUrl: String?,
-    data: String?,
-    mimeType: String?,
-    encoding: String?,
-    historyUrl: String?
-  ) {
-    addJavascriptInterface()
-    super.loadDataWithBaseURL(baseUrl, data, mimeType, encoding, historyUrl)
-  }
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
+        addedJavascriptInterface = false
+    }
 
-  override fun loadUrl(url: String) {
-    addJavascriptInterface()
-    super.loadUrl(url)
-  }
+    @SuppressLint("SetJavaScriptEnabled")
+    override fun setWebChromeClient(client: WebChromeClient) {
+        settings.javaScriptEnabled = true
 
-  override fun loadUrl(url: String, additionalHttpHeaders: Map<String, String>) {
-    addJavascriptInterface()
-    super.loadUrl(url, additionalHttpHeaders)
-  }
-
-  private fun addJavascriptInterface() {
-    if (!addedJavascriptInterface) {
-
-      addJavascriptInterface(object : Any() {
-        @JavascriptInterface
-        fun notifyVideoEnd() {
-
-          Handler(Looper.getMainLooper()).post {
-            if (videoEnabledWebChromeClient != null) {
-              videoEnabledWebChromeClient?.onHideCustomView()
-            }
-          }
+        if (client is VideoWebChromeClient) {
+            this.videoEnabledWebChromeClient = client
         }
-      }, "_VideoEnabledWebView")
 
-      addedJavascriptInterface = true
+        super.setWebChromeClient(client)
     }
-  }
+
+    override fun loadData(data: String, mimeType: String, encoding: String) {
+        addJavascriptInterface()
+        super.loadData(data, mimeType, encoding)
+    }
+
+    override fun loadDataWithBaseURL(
+        baseUrl: String?,
+        data: String?,
+        mimeType: String?,
+        encoding: String?,
+        historyUrl: String?
+    ) {
+        addJavascriptInterface()
+        super.loadDataWithBaseURL(baseUrl, data, mimeType, encoding, historyUrl)
+    }
+
+    override fun loadUrl(url: String) {
+        addJavascriptInterface()
+        super.loadUrl(url)
+    }
+
+    override fun loadUrl(url: String, additionalHttpHeaders: Map<String, String>) {
+        addJavascriptInterface()
+        super.loadUrl(url, additionalHttpHeaders)
+    }
+
+    private fun addJavascriptInterface() {
+        if (!addedJavascriptInterface) {
+
+            addJavascriptInterface(object : Any() {
+                @JavascriptInterface
+                fun notifyVideoEnd() {
+
+                    Handler(Looper.getMainLooper()).post {
+                        if (videoEnabledWebChromeClient != null) {
+                            videoEnabledWebChromeClient?.onHideCustomView()
+                        }
+                    }
+                }
+            }, "_VideoEnabledWebView")
+
+            addedJavascriptInterface = true
+        }
+    }
 }

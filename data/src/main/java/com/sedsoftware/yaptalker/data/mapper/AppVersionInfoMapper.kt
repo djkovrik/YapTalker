@@ -7,10 +7,10 @@ import javax.inject.Inject
 
 class AppVersionInfoMapper @Inject constructor() : Function<AppVersionInfo, VersionInfo> {
 
-  override fun apply(from: AppVersionInfo): VersionInfo =
-    VersionInfo(
-      versionCode = from.versionCode,
-      versionName = from.versionName,
-      downloadLink = from.downloadLink
-    )
+    override fun apply(from: AppVersionInfo): VersionInfo =
+        VersionInfo(
+            versionCode = from.versionCode,
+            versionName = from.versionName,
+            downloadLink = from.downloadLink
+        )
 }

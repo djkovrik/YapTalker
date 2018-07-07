@@ -7,14 +7,14 @@ import javax.inject.Inject
 
 class LoginSessionInfoMapper @Inject constructor() : Function<LoginSessionInfoParsed, LoginSessionInfo> {
 
-  override fun apply(from: LoginSessionInfoParsed): LoginSessionInfo =
-    LoginSessionInfo(
-      nickname = from.nickname,
-      profileLink = from.profileLink,
-      title = from.title,
-      uq = from.uq.toInt(),
-      avatar = from.avatar,
-      mailCounter = from.mailCounter,
-      sessionId = from.sessionId
-    )
+    override fun apply(from: LoginSessionInfoParsed): LoginSessionInfo =
+        LoginSessionInfo(
+            nickname = from.nickname,
+            profileLink = from.profileLink,
+            title = from.title,
+            uq = from.uq.toInt(),
+            avatar = from.avatar,
+            mailCounter = from.mailCounter,
+            sessionId = from.sessionId
+        )
 }

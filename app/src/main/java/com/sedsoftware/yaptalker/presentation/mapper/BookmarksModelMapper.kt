@@ -7,10 +7,10 @@ import javax.inject.Inject
 
 class BookmarksModelMapper @Inject constructor() : Function<BookmarkedTopic, BookmarkedTopicModel> {
 
-  override fun apply(item: BookmarkedTopic): BookmarkedTopicModel =
-    BookmarkedTopicModel(
-      bookmarkId = item.bookmarkId,
-      title = item.title,
-      link = item.link
-    )
+    override fun apply(item: BookmarkedTopic): BookmarkedTopicModel =
+        BookmarkedTopicModel(
+            bookmarkId = item.bookmarkId,
+            title = item.title,
+            link = item.link
+        )
 }

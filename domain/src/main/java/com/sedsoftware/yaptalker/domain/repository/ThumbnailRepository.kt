@@ -4,5 +4,5 @@ import io.reactivex.Single
 
 interface ThumbnailRepository {
 
-  fun getThumbnail(videoLink: String): Single<String>
+    fun getThumbnail(videoLink: String): Single<String>
 }

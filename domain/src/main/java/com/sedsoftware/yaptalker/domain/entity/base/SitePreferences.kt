@@ -6,6 +6,6 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
  * Class which represents site user settings in domain layer.
  */
 class SitePreferences(
-  val messagesPerTopicPage: Int,
-  val topicsPerForumPage: Int
+    val messagesPerTopicPage: Int,
+    val topicsPerForumPage: Int
 ) : BaseEntity

@@ -15,23 +15,25 @@ import ru.terrakok.cicerone.Router
 @Module
 abstract class AddMessageFragmentModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
+
+        @FragmentScope
+        @Provides
+        @JvmStatic
+        fun providePresenter(
+            router: Router,
+            interactor: EmojiInteractor,
+            mapper: EmojiModelMapper
+        ): AddMessagePresenter =
+            AddMessagePresenter(router, interactor, mapper)
+    }
 
     @FragmentScope
-    @Provides
-    @JvmStatic
-    fun providePresenter(router: Router,
-                         interactor: EmojiInteractor,
-                         mapper: EmojiModelMapper): AddMessagePresenter =
-      AddMessagePresenter(router, interactor, mapper)
-  }
+    @Binds
+    abstract fun emojiRepository(repository: YapEmojiRepository): EmojiRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun emojiRepository(repository: YapEmojiRepository): EmojiRepository
-
-  @FragmentScope
-  @Binds
-  abstract fun emojiClickListener(presenter: AddMessagePresenter): EmojiClickListener
+    @FragmentScope
+    @Binds
+    abstract fun emojiClickListener(presenter: AddMessagePresenter): EmojiClickListener
 }

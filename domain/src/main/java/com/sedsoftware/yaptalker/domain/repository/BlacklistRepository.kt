@@ -6,13 +6,13 @@ import io.reactivex.Single
 
 interface BlacklistRepository {
 
-  fun getBlacklistedTopics(): Single<List<BlacklistedTopic>>
+    fun getBlacklistedTopics(): Single<List<BlacklistedTopic>>
 
-  fun addTopicToBlacklist(topic: BlacklistedTopic): Completable
+    fun addTopicToBlacklist(topic: BlacklistedTopic): Completable
 
-  fun removeTopicFromBlacklistById(id: Int): Completable
+    fun removeTopicFromBlacklistById(id: Int): Completable
 
-  fun clearTopicsBlacklist(): Completable
+    fun clearTopicsBlacklist(): Completable
 
-  fun clearMonthOldTopicsBlacklist(): Completable
+    fun clearMonthOldTopicsBlacklist(): Completable
 }

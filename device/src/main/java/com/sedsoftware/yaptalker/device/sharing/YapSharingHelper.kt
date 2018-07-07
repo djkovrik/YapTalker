@@ -7,16 +7,16 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class YapSharingHelper @Inject constructor(
-  private val context: Context
+    private val context: Context
 ) : SharingHelper {
 
-  override fun shareImage(url: String): Completable =
-    Completable.fromAction {
-      if (url.isNotEmpty()) {
-        Picasso
-          .with(context)
-          .load(url)
-          .into(ShareTarget(context))
-      }
-    }
+    override fun shareImage(url: String): Completable =
+        Completable.fromAction {
+            if (url.isNotEmpty()) {
+                Picasso
+                    .with(context)
+                    .load(url)
+                    .into(ShareTarget(context))
+            }
+        }
 }

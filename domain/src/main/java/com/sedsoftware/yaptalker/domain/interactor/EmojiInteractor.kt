@@ -6,10 +6,10 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class EmojiInteractor @Inject constructor(
-  private val emojiRepository: EmojiRepository
+    private val emojiRepository: EmojiRepository
 ) {
 
-  fun loadEmojiList(): Observable<Emoji> =
-    emojiRepository
-      .getEmojiList()
+    fun loadEmojiList(): Observable<Emoji> =
+        emojiRepository
+            .getEmojiList()
 }

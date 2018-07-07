@@ -37,136 +37,143 @@ import javax.inject.Inject
 @LayoutResource(value = R.layout.fragment_news)
 class NewsFragment : BaseFragment(), NewsView, ThumbnailsLoader {
 
-  companion object {
-    fun getNewInstance() = NewsFragment()
-  }
-
-  @Inject
-  lateinit var settings: Settings
-
-  @Inject
-  lateinit var newsAdapter: NewsAdapter
-
-  @Inject
-  @InjectPresenter
-  lateinit var presenter: NewsPresenter
-
-  @ProvidePresenter
-  fun provideNewsPresenter() = presenter
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-
-    with(news_list) {
-      val linearLayout = LinearLayoutManager(context)
-      layoutManager = linearLayout
-      adapter = newsAdapter
-      setHasFixedSize(true)
-      clearOnScrollListeners()
-
-      addOnScrollListener(InfiniteScrollListener({
-        presenter.loadNews(loadFromFirstPage = false)
-      }, linearLayout))
+    companion object {
+        fun getNewInstance() = NewsFragment()
     }
 
-    refresh_layout.setIndicatorColorScheme()
+    @Inject
+    lateinit var settings: Settings
 
-    subscribeViews()
-  }
+    @Inject
+    lateinit var newsAdapter: NewsAdapter
 
-  override fun showErrorMessage(message: String) {
-    messagesDelegate.showMessageError(message)
-  }
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: NewsPresenter
 
-  override fun updateCurrentUiState() {
-    setCurrentAppbarTitle(string(R.string.nav_drawer_main_page))
-    setCurrentNavDrawerItem(NavigationSection.MAIN_PAGE)
-  }
+    @ProvidePresenter
+    fun provideNewsPresenter() = presenter
 
-  override fun appendNewsItem(item: NewsItemModel) {
-    newsAdapter.addNewsItem(item)
-  }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-  override fun clearNewsList() {
-    newsAdapter.clearNews()
-  }
+        with(news_list) {
+            val linearLayout = LinearLayoutManager(context)
+            layoutManager = linearLayout
+            adapter = newsAdapter
+            setHasFixedSize(true)
+            clearOnScrollListeners()
 
-  override fun browseExternalResource(url: String) {
-    context?.browse(url.validateUrl())
-  }
-
-  override fun showLoadingIndicator() {
-    refresh_layout?.isRefreshing = true
-  }
-
-  override fun hideLoadingIndicator() {
-    refresh_layout?.isRefreshing = false
-  }
-
-  override fun showFab() {
-    news_fab?.moveWithAnimationAxisY(offset = 0f)
-  }
-
-  override fun hideFab() {
-    news_fab?.let { fab ->
-      val offset = fab.height + fab.paddingTop + fab.paddingBottom
-      fab.moveWithAnimationAxisY(offset = offset.toFloat())
-    }
-  }
-
-  override fun showBlacklistRequest() {
-    context?.let { ctx ->
-      MaterialDialog.Builder(ctx)
-        .content(R.string.msg_blacklist_request)
-        .positiveText(R.string.msg_blacklist_confirm_yes)
-        .negativeText(R.string.msg_blacklist_confirm_no)
-        .onPositive { _, _ -> presenter.addSelectedTopicToBlacklist() }
-        .show()
-    }
-  }
-
-  override fun showTopicBlacklistedMessage() {
-    context?.string(R.string.msg_blacklist_added)?.let { message ->
-      messagesDelegate.showMessageInfo(message)
-    }
-  }
-
-  override fun removeBlacklistedTopicFromList(topic: NewsItemModel) {
-    newsAdapter.removeNewsItem(topic)
-  }
-
-  override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
-    presenter
-      .requestThumbnail(videoUrl)
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe({ url ->
-        if (url.isNotEmpty()) {
-          imageView.loadFromUrl(url)
-        } else {
-          context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
+            addOnScrollListener(InfiniteScrollListener({
+                presenter.loadNews(loadFromFirstPage = false)
+            }, linearLayout))
         }
-      }, { throwable ->
-        Timber.e("Can't load image: ${throwable.message}")
-      })
-  }
 
-  private fun subscribeViews() {
+        refresh_layout.setIndicatorColorScheme()
 
-    RxSwipeRefreshLayout
-      .refreshes(refresh_layout)
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe { presenter.loadNews(loadFromFirstPage = true) }
+        subscribeViews()
+    }
 
-    RxRecyclerView
-      .scrollEvents(news_list)
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
+    override fun showErrorMessage(message: String) {
+        messagesDelegate.showMessageError(message)
+    }
 
-    RxView
-      .clicks(news_fab)
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe { presenter.loadNews(loadFromFirstPage = true) }
-  }
+    override fun updateCurrentUiState() {
+        setCurrentAppbarTitle(string(R.string.nav_drawer_main_page))
+        setCurrentNavDrawerItem(NavigationSection.MAIN_PAGE)
+    }
+
+    override fun appendNewsItem(item: NewsItemModel) {
+        newsAdapter.addNewsItem(item)
+    }
+
+    override fun clearNewsList() {
+        newsAdapter.clearNews()
+    }
+
+    override fun browseExternalResource(url: String) {
+        context?.browse(url.validateUrl())
+    }
+
+    override fun showLoadingIndicator() {
+        refresh_layout?.isRefreshing = true
+    }
+
+    override fun hideLoadingIndicator() {
+        refresh_layout?.isRefreshing = false
+    }
+
+    override fun showFab() {
+        news_fab?.moveWithAnimationAxisY(offset = 0f)
+    }
+
+    override fun hideFab() {
+        news_fab?.let { fab ->
+            val offset = fab.height + fab.paddingTop + fab.paddingBottom
+            fab.moveWithAnimationAxisY(offset = offset.toFloat())
+        }
+    }
+
+    override fun showBlacklistRequest() {
+        context?.let { ctx ->
+            MaterialDialog.Builder(ctx)
+                .content(R.string.msg_blacklist_request)
+                .positiveText(R.string.msg_blacklist_confirm_yes)
+                .negativeText(R.string.msg_blacklist_confirm_no)
+                .onPositive { _, _ -> presenter.addSelectedTopicToBlacklist() }
+                .show()
+        }
+    }
+
+    override fun showTopicBlacklistedMessage() {
+        context?.string(R.string.msg_blacklist_added)?.let { message ->
+            messagesDelegate.showMessageInfo(message)
+        }
+    }
+
+    override fun removeBlacklistedTopicFromList(topic: NewsItemModel) {
+        newsAdapter.removeNewsItem(topic)
+    }
+
+    override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
+        presenter
+            .requestThumbnail(videoUrl)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe({ url ->
+                if (url.isNotEmpty()) {
+                    imageView.loadFromUrl(url)
+                } else {
+                    context?.let {
+                        imageView.setImageDrawable(
+                            ContextCompat.getDrawable(
+                                it,
+                                R.drawable.ic_othervideo
+                            )
+                        )
+                    }
+                }
+            }, { throwable ->
+                Timber.e("Can't load image: ${throwable.message}")
+            })
+    }
+
+    private fun subscribeViews() {
+
+        RxSwipeRefreshLayout
+            .refreshes(refresh_layout)
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe { presenter.loadNews(loadFromFirstPage = true) }
+
+        RxRecyclerView
+            .scrollEvents(news_list)
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
+
+        RxView
+            .clicks(news_fab)
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe { presenter.loadNews(loadFromFirstPage = true) }
+    }
 }

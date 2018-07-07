@@ -10,29 +10,29 @@ import io.reactivex.functions.Function
 import javax.inject.Inject
 
 class IncubatorModelMapper @Inject constructor(
-  private val textTransformer: TextTransformer,
-  private val dateTransformer: DateTransformer,
-  private val videoTypeDetector: VideoTypeDetector
+    private val textTransformer: TextTransformer,
+    private val dateTransformer: DateTransformer,
+    private val videoTypeDetector: VideoTypeDetector
 ) : Function<IncubatorItem, IncubatorItemModel> {
 
-  override fun apply(item: IncubatorItem): IncubatorItemModel =
-    IncubatorItemModel(
-      title = item.title,
-      link = item.link,
-      topicId = item.link.getLastDigits(),
-      rating = textTransformer.transformRankToFormattedText(item.rating),
-      images = item.images,
-      videos = item.videos,
-      videosRaw = item.videosRaw,
-      videoTypes = item.videos.map { videoTypeDetector.detectVideoType(it) },
-      author = item.author,
-      authorLink = item.authorLink,
-      date = dateTransformer.transformDateToShortView(item.date),
-      forumName = textTransformer.transformNewsForumTitle(item.forumName),
-      forumLink = item.forumLink,
-      forumId = item.forumLink.getLastDigits(),
-      comments = textTransformer.transformCommentsLabel(item.comments),
-      cleanedDescription = textTransformer.transformHtmlToSpanned(item.cleanedDescription),
-      isYapLink = item.link.contains("yaplakal") && !item.link.contains("/go/")
-    )
+    override fun apply(item: IncubatorItem): IncubatorItemModel =
+        IncubatorItemModel(
+            title = item.title,
+            link = item.link,
+            topicId = item.link.getLastDigits(),
+            rating = textTransformer.transformRankToFormattedText(item.rating),
+            images = item.images,
+            videos = item.videos,
+            videosRaw = item.videosRaw,
+            videoTypes = item.videos.map { videoTypeDetector.detectVideoType(it) },
+            author = item.author,
+            authorLink = item.authorLink,
+            date = dateTransformer.transformDateToShortView(item.date),
+            forumName = textTransformer.transformNewsForumTitle(item.forumName),
+            forumLink = item.forumLink,
+            forumId = item.forumLink.getLastDigits(),
+            comments = textTransformer.transformCommentsLabel(item.comments),
+            cleanedDescription = textTransformer.transformHtmlToSpanned(item.cleanedDescription),
+            isYapLink = item.link.contains("yaplakal") && !item.link.contains("/go/")
+        )
 }

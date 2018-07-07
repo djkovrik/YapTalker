@@ -9,7 +9,7 @@ import dagger.Module
 @Module
 abstract class AuthorizationFragmentModule {
 
-  @FragmentScope
-  @Binds
-  abstract fun sitePreferencesRepository(repo: YapSitePreferencesRepository): SitePreferencesRepository
+    @FragmentScope
+    @Binds
+    abstract fun sitePreferencesRepository(repo: YapSitePreferencesRepository): SitePreferencesRepository
 }

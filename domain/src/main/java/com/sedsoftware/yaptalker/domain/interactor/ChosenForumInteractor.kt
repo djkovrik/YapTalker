@@ -6,10 +6,10 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class ChosenForumInteractor @Inject constructor(
-  private val chosenForumRepository: ChosenForumRepository
+    private val chosenForumRepository: ChosenForumRepository
 ) {
 
-  fun getChosenForum(forumId: Int, startPage: Int, sortingMode: String): Observable<List<BaseEntity>> =
-    chosenForumRepository
-      .getChosenForum(forumId, startPage, sortingMode)
+    fun getChosenForum(forumId: Int, startPage: Int, sortingMode: String): Observable<List<BaseEntity>> =
+        chosenForumRepository
+            .getChosenForum(forumId, startPage, sortingMode)
 }

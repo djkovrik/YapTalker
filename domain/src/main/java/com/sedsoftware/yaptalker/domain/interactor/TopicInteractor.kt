@@ -10,23 +10,23 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class TopicInteractor @Inject constructor(
-  private val chosenTopicRepository: ChosenTopicRepository,
-  private val bookmarksRepository: BookmarksRepository
+    private val chosenTopicRepository: ChosenTopicRepository,
+    private val bookmarksRepository: BookmarksRepository
 ) {
 
-  fun getChosenTopic(forumId: Int, topicId: Int, startPage: Int): Single<List<BaseEntity>> =
-    chosenTopicRepository
-      .getChosenTopic(forumId, topicId, startPage)
+    fun getChosenTopic(forumId: Int, topicId: Int, startPage: Int): Single<List<BaseEntity>> =
+        chosenTopicRepository
+            .getChosenTopic(forumId, topicId, startPage)
 
-  fun requestPostTextForEditing(forumId: Int, topicId: Int, postId: Int, startingPost: Int): Single<EditedPost> =
-    chosenTopicRepository
-      .requestPostTextForEditing(forumId, topicId, postId, startingPost)
+    fun requestPostTextForEditing(forumId: Int, topicId: Int, postId: Int, startingPost: Int): Single<EditedPost> =
+        chosenTopicRepository
+            .requestPostTextForEditing(forumId, topicId, postId, startingPost)
 
-  fun requestPostTextAsQuote(forumId: Int, topicId: Int, postId: Int): Single<QuotedPost> =
-    chosenTopicRepository
-      .requestPostTextAsQuote(forumId, topicId, postId)
+    fun requestPostTextAsQuote(forumId: Int, topicId: Int, postId: Int): Single<QuotedPost> =
+        chosenTopicRepository
+            .requestPostTextAsQuote(forumId, topicId, postId)
 
-  fun requestBookmarkAdding(topicId: Int, startingPost: Int): Completable =
-    bookmarksRepository
-      .requestBookmarkAdding(topicId, startingPost)
+    fun requestBookmarkAdding(topicId: Int, startingPost: Int): Completable =
+        bookmarksRepository
+            .requestBookmarkAdding(topicId, startingPost)
 }

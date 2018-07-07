@@ -7,13 +7,13 @@ import javax.inject.Inject
 
 class BookmarksMapper @Inject constructor() : Function<BookmarksParsed, List<BookmarkedTopic>> {
 
-  override fun apply(from: BookmarksParsed): List<BookmarkedTopic> =
-    from.topics
-      .map { parsedTopic ->
-        BookmarkedTopic(
-          bookmarkId = parsedTopic.bookmarkId.toInt(),
-          title = parsedTopic.title,
-          link = parsedTopic.link
-        )
-      }
+    override fun apply(from: BookmarksParsed): List<BookmarkedTopic> =
+        from.topics
+            .map { parsedTopic ->
+                BookmarkedTopic(
+                    bookmarkId = parsedTopic.bookmarkId.toInt(),
+                    title = parsedTopic.title,
+                    link = parsedTopic.link
+                )
+            }
 }

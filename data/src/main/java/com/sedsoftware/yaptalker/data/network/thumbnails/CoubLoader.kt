@@ -7,6 +7,6 @@ import retrofit2.http.Query
 
 interface CoubLoader {
 
-  @GET("/api/oembed.json")
-  fun loadThumbnail(@Query("url") url: String): Single<CoubData>
+    @GET("/api/oembed.json")
+    fun loadThumbnail(@Query("url") url: String): Single<CoubData>
 }

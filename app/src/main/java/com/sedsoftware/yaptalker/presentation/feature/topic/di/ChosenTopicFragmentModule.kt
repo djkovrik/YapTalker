@@ -33,62 +33,66 @@ import ru.terrakok.cicerone.Router
 @Module
 abstract class ChosenTopicFragmentModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
+
+        @FragmentScope
+        @Provides
+        @JvmStatic
+        fun providePresenter(
+            router: Router,
+            settings: Settings,
+            topicInteractor: TopicInteractor,
+            karmaInteractor: SiteKarmaInteractor,
+            postingInteractor: MessagePostingInteractor,
+            thumbnailsInteractor: VideoThumbnailsInteractor,
+            blacklistInteractor: BlacklistInteractor,
+            topicMapper: TopicModelMapper,
+            quoteDataMapper: QuotedPostModelMapper,
+            editedTextDataMapper: EditedPostModelMapper,
+            serverResponseMapper: ServerResponseModelMapper
+        ): ChosenTopicPresenter =
+
+            ChosenTopicPresenter(
+                router,
+                settings,
+                topicInteractor,
+                karmaInteractor,
+                postingInteractor,
+                thumbnailsInteractor,
+                blacklistInteractor,
+                topicMapper,
+                quoteDataMapper,
+                editedTextDataMapper,
+                serverResponseMapper
+            )
+    }
 
     @FragmentScope
-    @Provides
-    @JvmStatic
-    fun providePresenter(router: Router,
-                         settings: Settings,
-                         topicInteractor: TopicInteractor,
-                         karmaInteractor: SiteKarmaInteractor,
-                         postingInteractor: MessagePostingInteractor,
-                         thumbnailsInteractor: VideoThumbnailsInteractor,
-                         blacklistInteractor: BlacklistInteractor,
-                         topicMapper: TopicModelMapper,
-                         quoteDataMapper: QuotedPostModelMapper,
-                         editedTextDataMapper: EditedPostModelMapper,
-                         serverResponseMapper: ServerResponseModelMapper): ChosenTopicPresenter =
+    @Binds
+    abstract fun chosenTopicRepository(repo: YapChosenTopicRepository): ChosenTopicRepository
 
-      ChosenTopicPresenter(router,
-                          settings,
-                          topicInteractor,
-                          karmaInteractor,
-                          postingInteractor,
-                          thumbnailsInteractor,
-                          blacklistInteractor,
-                          topicMapper,
-                          quoteDataMapper,
-                          editedTextDataMapper,
-                          serverResponseMapper)
-  }
+    @FragmentScope
+    @Binds
+    abstract fun thumbnailsRepository(repo: YapThumbnailRepository): ThumbnailRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun chosenTopicRepository(repo: YapChosenTopicRepository): ChosenTopicRepository
+    @FragmentScope
+    @Binds
+    abstract fun topicBookmarksRepository(repository: YapBookmarksRepository): BookmarksRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun thumbnailsRepository(repo: YapThumbnailRepository): ThumbnailRepository
+    @FragmentScope
+    @Binds
+    abstract fun topicBlacklistRepository(repository: YapBlacklistRepository): BlacklistRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun topicBookmarksRepository(repository: YapBookmarksRepository): BookmarksRepository
+    @FragmentScope
+    @Binds
+    abstract fun topicThumbnailsLoader(fragment: ChosenTopicFragment): ThumbnailsLoader
 
-  @FragmentScope
-  @Binds
-  abstract fun topicBlacklistRepository(repository: YapBlacklistRepository): BlacklistRepository
+    @FragmentScope
+    @Binds
+    abstract fun topicElementsClickListener(presenter: ChosenTopicPresenter): ChosenTopicElementsClickListener
 
-  @FragmentScope
-  @Binds
-  abstract fun topicThumbnailsLoader(fragment: ChosenTopicFragment): ThumbnailsLoader
-
-  @FragmentScope
-  @Binds
-  abstract fun topicElementsClickListener(presenter: ChosenTopicPresenter): ChosenTopicElementsClickListener
-
-  @FragmentScope
-  @Binds
-  abstract fun topicNavigationClickListener(presenter: ChosenTopicPresenter): NavigationPanelClickListener
+    @FragmentScope
+    @Binds
+    abstract fun topicNavigationClickListener(presenter: ChosenTopicPresenter): NavigationPanelClickListener
 }

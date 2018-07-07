@@ -8,20 +8,20 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class YapSitePreferencesRepository @Inject constructor(
-  private val dataLoader: YapLoader,
-  private val dataMapper: SettingsPageMapper
+    private val dataLoader: YapLoader,
+    private val dataMapper: SettingsPageMapper
 ) : SitePreferencesRepository {
 
-  companion object {
-    private const val SETTINGS_ACT = "UserCP"
-    private const val SETTINGS_CODE = "04"
-  }
+    companion object {
+        private const val SETTINGS_ACT = "UserCP"
+        private const val SETTINGS_CODE = "04"
+    }
 
-  override fun getSitePreferences(): Single<SitePreferences> =
-    dataLoader
-      .loadSitePreferences(
-        act = SETTINGS_ACT,
-        code = SETTINGS_CODE
-      )
-      .map(dataMapper)
+    override fun getSitePreferences(): Single<SitePreferences> =
+        dataLoader
+            .loadSitePreferences(
+                act = SETTINGS_ACT,
+                code = SETTINGS_CODE
+            )
+            .map(dataMapper)
 }

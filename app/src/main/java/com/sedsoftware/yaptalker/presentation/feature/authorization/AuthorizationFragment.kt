@@ -23,70 +23,70 @@ import javax.inject.Inject
 @LayoutResource(value = R.layout.fragment_authorization)
 class AuthorizationFragment : BaseFragment(), AuthorizationView {
 
-  companion object {
-    fun getNewInstance() = AuthorizationFragment()
-  }
+    companion object {
+        fun getNewInstance() = AuthorizationFragment()
+    }
 
-  @Inject
-  @InjectPresenter
-  lateinit var presenter: AuthorizationPresenter
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: AuthorizationPresenter
 
-  @ProvidePresenter
-  fun provideAuthPresenter() = presenter
+    @ProvidePresenter
+    fun provideAuthPresenter() = presenter
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    subscribeViews()
-  }
+        subscribeViews()
+    }
 
-  override fun updateCurrentUiState() {
-    setCurrentAppbarTitle(string(R.string.nav_drawer_sign_in))
-    setCurrentNavDrawerItem(NavigationSection.SIGN_IN)
-  }
+    override fun updateCurrentUiState() {
+        setCurrentAppbarTitle(string(R.string.nav_drawer_sign_in))
+        setCurrentNavDrawerItem(NavigationSection.SIGN_IN)
+    }
 
-  override fun showLoginSuccessMessage() {
-    messagesDelegate.showMessageSuccess(string(R.string.msg_login_success))
-  }
+    override fun showLoginSuccessMessage() {
+        messagesDelegate.showMessageSuccess(string(R.string.msg_login_success))
+    }
 
-  override fun showLoginErrorMessage() {
-    messagesDelegate.showMessageSuccess(string(R.string.msg_login_error))
-  }
+    override fun showLoginErrorMessage() {
+        messagesDelegate.showMessageSuccess(string(R.string.msg_login_error))
+    }
 
-  override fun showErrorMessage(message: String) {
-    messagesDelegate.showMessageError(message)
-  }
+    override fun showErrorMessage(message: String) {
+        messagesDelegate.showMessageError(message)
+    }
 
-  override fun setSignInButtonState(isEnabled: Boolean) {
-    button_sign_in?.isEnabled = isEnabled
-  }
+    override fun setSignInButtonState(isEnabled: Boolean) {
+        button_sign_in?.isEnabled = isEnabled
+    }
 
-  override fun hideKeyboard() {
-    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(view?.windowToken, 0)
-  }
+    override fun hideKeyboard() {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
 
-  private fun subscribeViews() {
+    private fun subscribeViews() {
 
-    Observable
-      .combineLatest(
-        RxTextView.textChanges(authorization_login),
-        RxTextView.textChanges(authorization_password),
-        BiFunction { login: CharSequence, password: CharSequence ->
-          login.isNotEmpty() && password.isNotEmpty()
-        })
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe { enabled -> presenter.handleSignInButton(enabled) }
+        Observable
+            .combineLatest(
+                RxTextView.textChanges(authorization_login),
+                RxTextView.textChanges(authorization_password),
+                BiFunction { login: CharSequence, password: CharSequence ->
+                    login.isNotEmpty() && password.isNotEmpty()
+                })
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe { enabled -> presenter.handleSignInButton(enabled) }
 
-    RxView
-      .clicks(button_sign_in)
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe {
-        presenter.performLoginAttempt(
-          authorization_login.text.toString(),
-          authorization_password.text.toString(),
-          authorization_anonymous.isChecked
-        )
-      }
-  }
+        RxView
+            .clicks(button_sign_in)
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe {
+                presenter.performLoginAttempt(
+                    authorization_login.text.toString(),
+                    authorization_password.text.toString(),
+                    authorization_anonymous.isChecked
+                )
+            }
+    }
 }

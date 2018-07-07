@@ -10,37 +10,37 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class YapActiveTopicsRepository @Inject constructor(
-  private val dataLoader: YapLoader,
-  private val dataMapper: ActiveTopicsPageMapper,
-  private val database: YapTalkerDatabase
+    private val dataLoader: YapLoader,
+    private val dataMapper: ActiveTopicsPageMapper,
+    private val database: YapTalkerDatabase
 ) : ActiveTopicsRepository {
 
-  companion object {
-    private const val ACTIVE_TOPICS_ACT = "Search"
-    private const val ACTIVE_TOPICS_CODE = "getactive"
-  }
+    companion object {
+        private const val ACTIVE_TOPICS_ACT = "Search"
+        private const val ACTIVE_TOPICS_CODE = "getactive"
+    }
 
-  override fun getActiveTopics(hash: String, page: Int): Single<List<BaseEntity>> =
-    database
-      .getTopicsDao()
-      .getBlacklistedTopicIds()
-      .flatMap { blacklistedIds ->
-        dataLoader
-          .loadActiveTopics(
-            act = ACTIVE_TOPICS_ACT,
-            code = ACTIVE_TOPICS_CODE,
-            searchId = hash,
-            startTopicNumber = page
-          )
-          .map(dataMapper)
-          .map { list: List<BaseEntity> ->
-            list.filter { item ->
-              if (item is ActiveTopic) {
-                !blacklistedIds.contains(item.id)
-              } else {
-                true
-              }
+    override fun getActiveTopics(hash: String, page: Int): Single<List<BaseEntity>> =
+        database
+            .getTopicsDao()
+            .getBlacklistedTopicIds()
+            .flatMap { blacklistedIds ->
+                dataLoader
+                    .loadActiveTopics(
+                        act = ACTIVE_TOPICS_ACT,
+                        code = ACTIVE_TOPICS_CODE,
+                        searchId = hash,
+                        startTopicNumber = page
+                    )
+                    .map(dataMapper)
+                    .map { list: List<BaseEntity> ->
+                        list.filter { item ->
+                            if (item is ActiveTopic) {
+                                !blacklistedIds.contains(item.id)
+                            } else {
+                                true
+                            }
+                        }
+                    }
             }
-          }
-      }
 }

@@ -2,13 +2,13 @@ package com.sedsoftware.yaptalker.presentation.base.navigation
 
 interface NavigationPanelClickListener {
 
-  fun goToFirstPage()
+    fun goToFirstPage()
 
-  fun goToLastPage()
+    fun goToLastPage()
 
-  fun goToPreviousPage()
+    fun goToPreviousPage()
 
-  fun goToNextPage()
+    fun goToNextPage()
 
-  fun goToSelectedPage()
+    fun goToSelectedPage()
 }

@@ -12,31 +12,31 @@ import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
 import kotlinx.android.synthetic.main.fragment_bookmarks_item.view.*
 
 class BookmarksDelegateAdapter(
-  private val clickListener: BookmarksElementsClickListener,
-  private val settings: Settings
+    private val clickListener: BookmarksElementsClickListener,
+    private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
-  private val normalFontSize by lazy {
-    settings.getNormalFontSize()
-  }
-
-  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = BookmarkViewHolder(parent)
-
-  override fun onBindViewHolder(holder: ViewHolder, item: DisplayedItemModel) {
-    holder as BookmarkViewHolder
-    holder.bindTo(item as BookmarkedTopicModel)
-  }
-
-  inner class BookmarkViewHolder(parent: ViewGroup) :
-    RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_bookmarks_item)) {
-
-    fun bindTo(topicItem: BookmarkedTopicModel) {
-      with(itemView) {
-        bookmark_title.text = topicItem.title
-        bookmark_title.textSize = normalFontSize
-        bookmark_delete_icon.setOnClickListener { clickListener.onDeleteIconClick(topicItem) }
-        setOnClickListener { clickListener.onTopicItemClick(topicItem.link) }
-      }
+    private val normalFontSize by lazy {
+        settings.getNormalFontSize()
     }
-  }
+
+    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = BookmarkViewHolder(parent)
+
+    override fun onBindViewHolder(holder: ViewHolder, item: DisplayedItemModel) {
+        holder as BookmarkViewHolder
+        holder.bindTo(item as BookmarkedTopicModel)
+    }
+
+    inner class BookmarkViewHolder(parent: ViewGroup) :
+        RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_bookmarks_item)) {
+
+        fun bindTo(topicItem: BookmarkedTopicModel) {
+            with(itemView) {
+                bookmark_title.text = topicItem.title
+                bookmark_title.textSize = normalFontSize
+                bookmark_delete_icon.setOnClickListener { clickListener.onDeleteIconClick(topicItem) }
+                setOnClickListener { clickListener.onTopicItemClick(topicItem.link) }
+            }
+        }
+    }
 }

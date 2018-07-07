@@ -24,38 +24,40 @@ import ru.terrakok.cicerone.Router
 @Module
 abstract class NewsFragmentModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
+
+        @FragmentScope
+        @Provides
+        @JvmStatic
+        fun providePresenter(
+            router: Router,
+            settings: Settings,
+            newsInteractor: NewsInteractor,
+            thumbnailsInteractor: VideoThumbnailsInteractor,
+            blacklistInteractor: BlacklistInteractor,
+            mapper: NewsModelMapper
+        ): NewsPresenter =
+            NewsPresenter(router, settings, newsInteractor, thumbnailsInteractor, blacklistInteractor, mapper)
+    }
 
     @FragmentScope
-    @Provides
-    @JvmStatic
-    fun providePresenter(router: Router,
-                         settings: Settings,
-                         newsInteractor: NewsInteractor,
-                         thumbnailsInteractor: VideoThumbnailsInteractor,
-                         blacklistInteractor: BlacklistInteractor,
-                         mapper: NewsModelMapper): NewsPresenter =
-      NewsPresenter(router, settings, newsInteractor, thumbnailsInteractor, blacklistInteractor, mapper)
-  }
+    @Binds
+    abstract fun newsRepository(repo: YapNewsRepository): NewsRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun newsRepository(repo: YapNewsRepository): NewsRepository
+    @FragmentScope
+    @Binds
+    abstract fun newsThumbnailsRepository(repo: YapThumbnailRepository): ThumbnailRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun newsThumbnailsRepository(repo: YapThumbnailRepository): ThumbnailRepository
+    @FragmentScope
+    @Binds
+    abstract fun topicBlacklistRepository(repository: YapBlacklistRepository): BlacklistRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun topicBlacklistRepository(repository: YapBlacklistRepository): BlacklistRepository
+    @FragmentScope
+    @Binds
+    abstract fun newsThumbnailsLoader(fragment: NewsFragment): ThumbnailsLoader
 
-  @FragmentScope
-  @Binds
-  abstract fun newsThumbnailsLoader(fragment: NewsFragment): ThumbnailsLoader
-
-  @FragmentScope
-  @Binds
-  abstract fun newsElementsClickListener(presenter: NewsPresenter): NewsItemElementsClickListener
+    @FragmentScope
+    @Binds
+    abstract fun newsElementsClickListener(presenter: NewsPresenter): NewsItemElementsClickListener
 }

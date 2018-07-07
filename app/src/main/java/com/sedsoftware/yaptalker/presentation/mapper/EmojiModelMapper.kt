@@ -8,6 +8,6 @@ import javax.inject.Inject
 
 class EmojiModelMapper @Inject constructor() : Function<Emoji, EmojiModel> {
 
-  override fun apply(emoji: Emoji): EmojiModel =
-    EmojiModel(emoji.code, emoji.link.validateUrl())
+    override fun apply(emoji: Emoji): EmojiModel =
+        EmojiModel(emoji.code, emoji.link.validateUrl())
 }

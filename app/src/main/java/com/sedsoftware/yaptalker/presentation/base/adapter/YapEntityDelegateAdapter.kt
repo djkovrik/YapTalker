@@ -6,7 +6,7 @@ import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 
 interface YapEntityDelegateAdapter {
 
-  fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
+    fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
 
-  fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: DisplayedItemModel)
+    fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: DisplayedItemModel)
 }

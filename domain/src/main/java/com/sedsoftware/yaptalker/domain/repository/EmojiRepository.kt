@@ -5,5 +5,5 @@ import io.reactivex.Observable
 
 interface EmojiRepository {
 
-  fun getEmojiList(): Observable<Emoji>
+    fun getEmojiList(): Observable<Emoji>
 }

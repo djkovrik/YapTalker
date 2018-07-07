@@ -13,16 +13,16 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-  modules = [
-    (ActivityContributionModule::class),
-    (AppModule::class),
-    (DeviceModule::class),
-    (NavigationModule::class),
-    (NetworkModule::class)
-  ]
+    modules = [
+        (ActivityContributionModule::class),
+        (AppModule::class),
+        (DeviceModule::class),
+        (NavigationModule::class),
+        (NetworkModule::class)
+    ]
 )
 interface AppComponent : AndroidInjector<YapTalkerApp> {
 
-  @Component.Builder
-  abstract class Builder : AndroidInjector.Builder<YapTalkerApp>()
+    @Component.Builder
+    abstract class Builder : AndroidInjector.Builder<YapTalkerApp>()
 }

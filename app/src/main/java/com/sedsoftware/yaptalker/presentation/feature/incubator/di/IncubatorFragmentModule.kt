@@ -8,11 +8,11 @@ import com.sedsoftware.yaptalker.domain.interactor.IncubatorInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
 import com.sedsoftware.yaptalker.domain.repository.IncubatorRepository
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import com.sedsoftware.yaptalker.presentation.feature.incubator.IncubatorFragment
 import com.sedsoftware.yaptalker.presentation.feature.incubator.IncubatorPresenter
 import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.IncubatorElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.IncubatorModelMapper
+import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -21,33 +21,35 @@ import ru.terrakok.cicerone.Router
 @Module
 abstract class IncubatorFragmentModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
+
+        @FragmentScope
+        @Provides
+        @JvmStatic
+        fun providePresenter(
+            router: Router,
+            settings: Settings,
+            incubatorInteractor: IncubatorInteractor,
+            videoThumbnailsInteractor: VideoThumbnailsInteractor,
+            mapper: IncubatorModelMapper
+        ): IncubatorPresenter =
+            IncubatorPresenter(router, settings, incubatorInteractor, videoThumbnailsInteractor, mapper)
+    }
 
     @FragmentScope
-    @Provides
-    @JvmStatic
-    fun providePresenter(router: Router,
-                         settings: Settings,
-                         incubatorInteractor: IncubatorInteractor,
-                         videoThumbnailsInteractor: VideoThumbnailsInteractor,
-                         mapper: IncubatorModelMapper): IncubatorPresenter =
-      IncubatorPresenter(router, settings, incubatorInteractor, videoThumbnailsInteractor, mapper)
-  }
+    @Binds
+    abstract fun incubatorRepository(repo: YapIncubatorRepository): IncubatorRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun incubatorRepository(repo: YapIncubatorRepository): IncubatorRepository
+    @FragmentScope
+    @Binds
+    abstract fun incubatorThumbnailsRepository(repo: YapThumbnailRepository): ThumbnailRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun incubatorThumbnailsRepository(repo: YapThumbnailRepository): ThumbnailRepository
+    @FragmentScope
+    @Binds
+    abstract fun incubatorThumbnailsLoader(fragment: IncubatorFragment): ThumbnailsLoader
 
-  @FragmentScope
-  @Binds
-  abstract fun incubatorThumbnailsLoader(fragment: IncubatorFragment): ThumbnailsLoader
-
-  @FragmentScope
-  @Binds
-  abstract fun incubatorElementsClickListener(presenter: IncubatorPresenter): IncubatorElementsClickListener
+    @FragmentScope
+    @Binds
+    abstract fun incubatorElementsClickListener(presenter: IncubatorPresenter): IncubatorElementsClickListener
 }

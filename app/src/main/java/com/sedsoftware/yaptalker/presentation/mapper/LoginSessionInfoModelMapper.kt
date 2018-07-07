@@ -8,14 +8,14 @@ import javax.inject.Inject
 
 class LoginSessionInfoModelMapper @Inject constructor() : Function<LoginSessionInfo, LoginSessionInfoModel> {
 
-  override fun apply(info: LoginSessionInfo): LoginSessionInfoModel =
-    LoginSessionInfoModel(
-      nickname = info.nickname,
-      userId = if (info.profileLink.isEmpty()) 0 else info.profileLink.getLastDigits(),
-      title = info.title,
-      uq = info.uq,
-      avatar = info.avatar,
-      mailCounter = info.mailCounter,
-      sessionId = info.sessionId
-    )
+    override fun apply(info: LoginSessionInfo): LoginSessionInfoModel =
+        LoginSessionInfoModel(
+            nickname = info.nickname,
+            userId = if (info.profileLink.isEmpty()) 0 else info.profileLink.getLastDigits(),
+            title = info.title,
+            uq = info.uq,
+            avatar = info.avatar,
+            mailCounter = info.mailCounter,
+            sessionId = info.sessionId
+        )
 }

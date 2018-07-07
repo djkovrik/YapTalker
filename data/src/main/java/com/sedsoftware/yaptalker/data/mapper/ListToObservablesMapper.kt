@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class ListToObservablesMapper<T> @Inject constructor() : Function<List<T>, Observable<T>> {
 
-  override fun apply(from: List<T>): Observable<T> =
-    Observable.fromIterable(from)
+    override fun apply(from: List<T>): Observable<T> =
+        Observable.fromIterable(from)
 }

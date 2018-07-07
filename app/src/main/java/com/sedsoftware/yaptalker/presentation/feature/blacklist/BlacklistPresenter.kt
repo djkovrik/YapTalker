@@ -15,78 +15,78 @@ import javax.inject.Inject
 
 @InjectViewState
 class BlacklistPresenter @Inject constructor(
-  private val router: Router,
-  private val blacklistInteractor: BlacklistInteractor,
-  private val topicsMapper: BlacklistTopicModelMapper
+    private val router: Router,
+    private val blacklistInteractor: BlacklistInteractor,
+    private val topicsMapper: BlacklistTopicModelMapper
 ) : BasePresenter<BlacklistView>(), BlacklistElementsClickListener {
 
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
-    loadBlacklist()
-  }
-
-  override fun attachView(view: BlacklistView?) {
-    super.attachView(view)
-    viewState.updateCurrentUiState()
-  }
-
-  override fun onDeleteIconClick(topicId: Int) {
-    viewState.showDeleteConfirmationDialog(topicId)
-  }
-
-  fun deleteTopicFromBlacklist(topicId: Int) {
-    blacklistInteractor
-      .removeTopicFromBlacklistById(topicId)
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe({
-        Timber.i("Topic deleted from blacklist")
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
         loadBlacklist()
-      }, { error ->
-        error.message?.let { viewState.showErrorMessage(it) }
-      })
-  }
+    }
 
-  fun clearBlacklist() {
-    blacklistInteractor
-      .clearTopicsBlacklist()
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe({
-        Timber.i("Blacklist cleared")
-        loadBlacklist()
-      }, { error ->
-        error.message?.let { viewState.showErrorMessage(it) }
-      })
-  }
+    override fun attachView(view: BlacklistView?) {
+        super.attachView(view)
+        viewState.updateCurrentUiState()
+    }
 
-  fun clearBlacklistMonthOld() {
-    blacklistInteractor
-      .clearMonthOldTopicsBlacklist()
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe({
-        Timber.i("Month old topics cleared")
-        loadBlacklist()
-      }, { error ->
-        error.message?.let { viewState.showErrorMessage(it) }
-      })
-  }
+    override fun onDeleteIconClick(topicId: Int) {
+        viewState.showDeleteConfirmationDialog(topicId)
+    }
 
-  private fun loadBlacklist() {
-    blacklistInteractor
-      .getBlacklistedTopics()
-      .subscribeOn(Schedulers.io())
-      .map(topicsMapper)
-      .observeOn(AndroidSchedulers.mainThread())
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe({ topics ->
-        viewState.showBlacklistedTopics(topics)
-      }, { error ->
-        error.message?.let { viewState.showErrorMessage(it) }
-      })
-  }
+    fun deleteTopicFromBlacklist(topicId: Int) {
+        blacklistInteractor
+            .removeTopicFromBlacklistById(topicId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe({
+                Timber.i("Topic deleted from blacklist")
+                loadBlacklist()
+            }, { error ->
+                error.message?.let { viewState.showErrorMessage(it) }
+            })
+    }
+
+    fun clearBlacklist() {
+        blacklistInteractor
+            .clearTopicsBlacklist()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe({
+                Timber.i("Blacklist cleared")
+                loadBlacklist()
+            }, { error ->
+                error.message?.let { viewState.showErrorMessage(it) }
+            })
+    }
+
+    fun clearBlacklistMonthOld() {
+        blacklistInteractor
+            .clearMonthOldTopicsBlacklist()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe({
+                Timber.i("Month old topics cleared")
+                loadBlacklist()
+            }, { error ->
+                error.message?.let { viewState.showErrorMessage(it) }
+            })
+    }
+
+    private fun loadBlacklist() {
+        blacklistInteractor
+            .getBlacklistedTopics()
+            .subscribeOn(Schedulers.io())
+            .map(topicsMapper)
+            .observeOn(AndroidSchedulers.mainThread())
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe({ topics ->
+                viewState.showBlacklistedTopics(topics)
+            }, { error ->
+                error.message?.let { viewState.showErrorMessage(it) }
+            })
+    }
 }

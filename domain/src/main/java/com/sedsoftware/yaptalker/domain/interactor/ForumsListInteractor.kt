@@ -6,10 +6,10 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class ForumsListInteractor @Inject constructor(
-  private val forumsListRepository: ForumsListRepository
+    private val forumsListRepository: ForumsListRepository
 ) {
 
-  fun getForumsList(): Observable<Forum> =
-    forumsListRepository
-      .getMainForumsList()
+    fun getForumsList(): Observable<Forum> =
+        forumsListRepository
+            .getMainForumsList()
 }

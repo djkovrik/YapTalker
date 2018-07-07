@@ -5,5 +5,5 @@ import io.reactivex.Observable
 
 interface IncubatorRepository {
 
-  fun getIncubatorTopics(page: Int): Observable<IncubatorItem>
+    fun getIncubatorTopics(page: Int): Observable<IncubatorItem>
 }

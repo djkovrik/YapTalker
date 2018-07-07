@@ -5,8 +5,8 @@ import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 /**
  * Class which represents single topic post tag item in domain layer.
  */
-data class Tag(
-  val name: String,
-  val link: String,
-  val searchParameter: String
+class Tag(
+    val name: String,
+    val link: String,
+    val searchParameter: String
 ) : BaseEntity

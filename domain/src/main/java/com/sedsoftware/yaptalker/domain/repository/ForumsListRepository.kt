@@ -5,5 +5,5 @@ import io.reactivex.Observable
 
 interface ForumsListRepository {
 
-  fun getMainForumsList(): Observable<Forum>
+    fun getMainForumsList(): Observable<Forum>
 }

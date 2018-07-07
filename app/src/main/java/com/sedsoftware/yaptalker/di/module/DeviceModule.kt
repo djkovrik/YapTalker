@@ -14,18 +14,18 @@ import javax.inject.Singleton
 @Module
 class DeviceModule {
 
-  @Singleton
-  @Provides
-  fun provideSharedPreferences(ctx: Context): SharedPreferences =
-    PreferenceManager.getDefaultSharedPreferences(ctx)
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(ctx: Context): SharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(ctx)
 
-  @Singleton
-  @Provides
-  fun provideSettings(ctx: Context, prefs: SharedPreferences): Settings =
-    SettingsManager(ctx, prefs)
+    @Singleton
+    @Provides
+    fun provideSettings(ctx: Context, prefs: SharedPreferences): Settings =
+        SettingsManager(ctx, prefs)
 
-  @Singleton
-  @Provides
-  fun provideCookieStorage(settings: Settings): CookieStorage =
-    YapCookieStorage(settings)
+    @Singleton
+    @Provides
+    fun provideCookieStorage(settings: Settings): CookieStorage =
+        YapCookieStorage(settings)
 }

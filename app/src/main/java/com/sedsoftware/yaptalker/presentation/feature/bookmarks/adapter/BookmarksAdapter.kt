@@ -14,64 +14,64 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 class BookmarksAdapter @Inject constructor(
-  clickListener: BookmarksElementsClickListener,
-  settings: Settings
+    clickListener: BookmarksElementsClickListener,
+    settings: Settings
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-  private var items: ArrayList<BookmarkedTopicModel>
-  private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
+    private var items: ArrayList<BookmarkedTopicModel>
+    private var delegateAdapters = SparseArrayCompat<YapEntityDelegateAdapter>()
 
-  init {
-    delegateAdapters.put(
-      DisplayedItemType.BOOKMARKED_TOPIC, BookmarksDelegateAdapter(clickListener, settings)
-    )
+    init {
+        delegateAdapters.put(
+            DisplayedItemType.BOOKMARKED_TOPIC, BookmarksDelegateAdapter(clickListener, settings)
+        )
 
-    items = ArrayList()
+        items = ArrayList()
 
-    setHasStableIds(true)
-  }
-
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-    delegateAdapters.get(viewType).onCreateViewHolder(parent)
-
-  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])
-
-    with(holder.itemView) {
-      AnimationUtils.loadAnimation(context, R.anim.recyclerview_fade_in).apply {
-        startAnimation(this)
-      }
+        setHasStableIds(true)
     }
 
-  }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
+        delegateAdapters.get(viewType).onCreateViewHolder(parent)
 
-  override fun onViewDetachedFromWindow(holder: ViewHolder) {
-    super.onViewDetachedFromWindow(holder)
-    holder.itemView.clearAnimation()
-  }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])
 
-  override fun getItemViewType(position: Int): Int = items[position].getEntityType()
+        with(holder.itemView) {
+            AnimationUtils.loadAnimation(context, R.anim.recyclerview_fade_in).apply {
+                startAnimation(this)
+            }
+        }
 
-  override fun getItemCount() = items.size
-
-  override fun getItemId(position: Int) = position.toLong()
-
-  fun addBookmarkItem(item: BookmarkedTopicModel) {
-    val insertPosition = items.size
-    items.add(item)
-    notifyItemInserted(insertPosition)
-  }
-
-  fun clearBookmarksList() {
-    notifyItemRangeRemoved(0, items.size)
-    items.clear()
-  }
-
-  fun deleteFromList(item: BookmarkedTopicModel) {
-    val position = items.indexOf(item)
-    if (position != -1) {
-      items.removeAt(position)
-      notifyItemRemoved(position)
     }
-  }
+
+    override fun onViewDetachedFromWindow(holder: ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.itemView.clearAnimation()
+    }
+
+    override fun getItemViewType(position: Int): Int = items[position].getEntityType()
+
+    override fun getItemCount() = items.size
+
+    override fun getItemId(position: Int) = position.toLong()
+
+    fun addBookmarkItem(item: BookmarkedTopicModel) {
+        val insertPosition = items.size
+        items.add(item)
+        notifyItemInserted(insertPosition)
+    }
+
+    fun clearBookmarksList() {
+        notifyItemRangeRemoved(0, items.size)
+        items.clear()
+    }
+
+    fun deleteFromList(item: BookmarkedTopicModel) {
+        val position = items.indexOf(item)
+        if (position != -1) {
+            items.removeAt(position)
+            notifyItemRemoved(position)
+        }
+    }
 }

@@ -13,15 +13,15 @@ import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 @StateStrategyType(SkipStrategy::class)
 interface ActiveTopicsView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanUpdateUiState {
 
-  @StateStrategyType(AddToEndStrategy::class)
-  fun appendActiveTopicItem(item: DisplayedItemModel)
+    @StateStrategyType(AddToEndStrategy::class)
+    fun appendActiveTopicItem(item: DisplayedItemModel)
 
-  @StateStrategyType(SingleStateStrategy::class)
-  fun clearActiveTopicsList()
+    @StateStrategyType(SingleStateStrategy::class)
+    fun clearActiveTopicsList()
 
-  fun scrollToViewTop()
+    fun scrollToViewTop()
 
-  fun showPageSelectionDialog()
+    fun showPageSelectionDialog()
 
-  fun showCantLoadPageMessage(page: Int)
+    fun showCantLoadPageMessage(page: Int)
 }

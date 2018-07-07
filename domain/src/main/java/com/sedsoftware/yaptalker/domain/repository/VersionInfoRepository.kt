@@ -5,7 +5,7 @@ import io.reactivex.Single
 
 interface VersionInfoRepository {
 
-  fun getRemoteVersionInfo(): Single<VersionInfo>
+    fun getRemoteVersionInfo(): Single<VersionInfo>
 
-  fun getInstalledVersionInfo(): Single<VersionInfo>
+    fun getInstalledVersionInfo(): Single<VersionInfo>
 }

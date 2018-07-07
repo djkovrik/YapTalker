@@ -7,15 +7,15 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class ActiveTopicsInteractor @Inject constructor(
-  private val activeTopicsRepository: ActiveTopicsRepository,
-  private val searchIdRepository: SearchIdRepository
+    private val activeTopicsRepository: ActiveTopicsRepository,
+    private val searchIdRepository: SearchIdRepository
 ) {
 
-  fun getActiveTopics(hash: String, page: Int): Single<List<BaseEntity>> =
-    activeTopicsRepository
-      .getActiveTopics(hash, page)
+    fun getActiveTopics(hash: String, page: Int): Single<List<BaseEntity>> =
+        activeTopicsRepository
+            .getActiveTopics(hash, page)
 
-  fun getSearchId(): Single<String> =
-    searchIdRepository
-      .getSearchId()
+    fun getSearchId(): Single<String> =
+        searchIdRepository
+            .getSearchId()
 }

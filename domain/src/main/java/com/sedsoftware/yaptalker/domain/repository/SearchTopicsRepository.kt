@@ -5,23 +5,23 @@ import io.reactivex.Single
 
 interface SearchTopicsRepository {
 
-  fun getSearchResults(
-    keyword: String,
-    searchIn: String,
-    searchHow: String,
-    sortBy: String,
-    targetForums: List<String>,
-    prune: Int
-  ): Single<List<BaseEntity>>
+    fun getSearchResults(
+        keyword: String,
+        searchIn: String,
+        searchHow: String,
+        sortBy: String,
+        targetForums: List<String>,
+        prune: Int
+    ): Single<List<BaseEntity>>
 
-  fun getTagSearchResults(
-    keyword: String
-  ): Single<List<BaseEntity>>
+    fun getTagSearchResults(
+        keyword: String
+    ): Single<List<BaseEntity>>
 
-  fun getSearchResultsNextPage(
-    keyword: String,
-    searchId: String,
-    searchIn: String,
-    page: Int
-  ): Single<List<BaseEntity>>
+    fun getSearchResultsNextPage(
+        keyword: String,
+        searchId: String,
+        searchIn: String,
+        page: Int
+    ): Single<List<BaseEntity>>
 }

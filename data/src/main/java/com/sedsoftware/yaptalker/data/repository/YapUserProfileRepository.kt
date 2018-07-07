@@ -8,12 +8,12 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class YapUserProfileRepository @Inject constructor(
-  private val dataLoader: YapLoader,
-  private val dataMapper: UserProfileMapper
+    private val dataLoader: YapLoader,
+    private val dataMapper: UserProfileMapper
 ) : UserProfileRepository {
 
-  override fun getUserProfile(userId: Int): Single<UserProfile> =
-    dataLoader
-      .loadUserProfile(userId)
-      .map(dataMapper)
+    override fun getUserProfile(userId: Int): Single<UserProfile> =
+        dataLoader
+            .loadUserProfile(userId)
+            .map(dataMapper)
 }

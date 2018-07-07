@@ -9,7 +9,7 @@ import dagger.Module
 @Module
 abstract class UserProfileFragmentModule {
 
-  @FragmentScope
-  @Binds
-  abstract fun profileRepository(repo: YapUserProfileRepository): UserProfileRepository
+    @FragmentScope
+    @Binds
+    abstract fun profileRepository(repo: YapUserProfileRepository): UserProfileRepository
 }

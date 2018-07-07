@@ -6,9 +6,9 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class YapLastUpdateCheckRepository @Inject constructor(
-  private val settings: Settings
+    private val settings: Settings
 ) : LastUpdateCheckRepository {
 
-  override fun getLastUpdateCheckDate(): Single<Long> =
-    Single.just(settings.getLastUpdateCheckDate())
+    override fun getLastUpdateCheckDate(): Single<Long> =
+        Single.just(settings.getLastUpdateCheckDate())
 }

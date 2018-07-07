@@ -8,24 +8,24 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class LoginSessionInteractor @Inject constructor(
-  private val loginSessionRepository: LoginSessionRepository,
-  private val settings: Settings
+    private val loginSessionRepository: LoginSessionRepository,
+    private val settings: Settings
 ) {
 
-  companion object {
-    private const val MESSAGES_PER_PAGE_DEFAULT = 25
-    private const val TOPICS_PER_PAGE_DEFAULT = 30
-  }
+    companion object {
+        private const val MESSAGES_PER_PAGE_DEFAULT = 25
+        private const val TOPICS_PER_PAGE_DEFAULT = 30
+    }
 
-  fun getLoginSessionInfo(): Single<LoginSessionInfo> =
-    loginSessionRepository
-      .getLoginSessionInfo()
+    fun getLoginSessionInfo(): Single<LoginSessionInfo> =
+        loginSessionRepository
+            .getLoginSessionInfo()
 
-  fun sendSignOutRequest(userKey: String): Completable =
-    loginSessionRepository
-      .requestSignOut(userKey)
-      .doOnComplete {
-        settings.saveMessagesPerPagePref(MESSAGES_PER_PAGE_DEFAULT)
-        settings.saveTopicsPerPagePref(TOPICS_PER_PAGE_DEFAULT)
-      }
+    fun sendSignOutRequest(userKey: String): Completable =
+        loginSessionRepository
+            .requestSignOut(userKey)
+            .doOnComplete {
+                settings.saveMessagesPerPagePref(MESSAGES_PER_PAGE_DEFAULT)
+                settings.saveTopicsPerPagePref(TOPICS_PER_PAGE_DEFAULT)
+            }
 }

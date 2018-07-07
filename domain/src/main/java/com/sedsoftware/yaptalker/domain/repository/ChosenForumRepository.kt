@@ -5,5 +5,5 @@ import io.reactivex.Observable
 
 interface ChosenForumRepository {
 
-  fun getChosenForum(forumId: Int, startPageNumber: Int, sortingMode: String): Observable<List<BaseEntity>>
+    fun getChosenForum(forumId: Int, startPageNumber: Int, sortingMode: String): Observable<List<BaseEntity>>
 }

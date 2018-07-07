@@ -6,10 +6,10 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class IncubatorInteractor @Inject constructor(
-  private val incubatorRepository: IncubatorRepository
+    private val incubatorRepository: IncubatorRepository
 ) {
 
-  fun getIncubatorPage(pageNumber: Int): Observable<IncubatorItem> =
-    incubatorRepository
-      .getIncubatorTopics(pageNumber)
+    fun getIncubatorPage(pageNumber: Int): Observable<IncubatorItem> =
+        incubatorRepository
+            .getIncubatorTopics(pageNumber)
 }

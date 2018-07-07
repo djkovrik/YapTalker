@@ -15,23 +15,25 @@ import ru.terrakok.cicerone.Router
 @Module
 abstract class BookmarksFragmentModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
+
+        @FragmentScope
+        @Provides
+        @JvmStatic
+        fun providePresenter(
+            router: Router,
+            interactor: BookmarksInteractor,
+            mapper: BookmarksModelMapper
+        ): BookmarksPresenter =
+            BookmarksPresenter(router, interactor, mapper)
+    }
 
     @FragmentScope
-    @Provides
-    @JvmStatic
-    fun providePresenter(router: Router,
-                         interactor: BookmarksInteractor,
-                         mapper: BookmarksModelMapper): BookmarksPresenter =
-      BookmarksPresenter(router, interactor, mapper)
-  }
+    @Binds
+    abstract fun bookmarksRepository(repository: YapBookmarksRepository): BookmarksRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun bookmarksRepository(repository: YapBookmarksRepository): BookmarksRepository
-
-  @FragmentScope
-  @Binds
-  abstract fun bookmarkElementsClickListener(presenter: BookmarksPresenter): BookmarksElementsClickListener
+    @FragmentScope
+    @Binds
+    abstract fun bookmarkElementsClickListener(presenter: BookmarksPresenter): BookmarksElementsClickListener
 }

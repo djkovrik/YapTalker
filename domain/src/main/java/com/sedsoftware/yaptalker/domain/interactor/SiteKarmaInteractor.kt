@@ -6,13 +6,15 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class SiteKarmaInteractor @Inject constructor(
-  private val chosenTopicRepository: ChosenTopicRepository
+    private val chosenTopicRepository: ChosenTopicRepository
 ) {
 
-  fun sendChangeKarmaRequest(isTopic: Boolean,
-                             targetPostId: Int,
-                             targetTopicId: Int,
-                             diff: Int): Single<ServerResponse> =
-    chosenTopicRepository
-      .requestKarmaChange(isTopic, targetPostId, targetTopicId, diff)
+    fun sendChangeKarmaRequest(
+        isTopic: Boolean,
+        targetPostId: Int,
+        targetTopicId: Int,
+        diff: Int
+    ): Single<ServerResponse> =
+        chosenTopicRepository
+            .requestKarmaChange(isTopic, targetPostId, targetTopicId, diff)
 }

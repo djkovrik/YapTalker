@@ -18,29 +18,31 @@ import java.lang.ref.WeakReference
 @Module
 abstract class BlacklistActivityModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
+
+        @ActivityScope
+        @Provides
+        @JvmStatic
+        fun providePresenter(
+            router: Router,
+            interactor: BlacklistInteractor,
+            mapper: BlacklistTopicModelMapper
+        ): BlacklistPresenter =
+            BlacklistPresenter(router, interactor, mapper)
+
+        @ActivityScope
+        @Provides
+        @JvmStatic
+        fun provideMessagesDelegate(activity: BlacklistActivity): MessagesDelegate =
+            MessagesDelegate(WeakReference(activity))
+    }
 
     @ActivityScope
-    @Provides
-    @JvmStatic
-    fun providePresenter(router: Router,
-                         interactor: BlacklistInteractor,
-                         mapper: BlacklistTopicModelMapper): BlacklistPresenter =
-      BlacklistPresenter(router, interactor, mapper)
+    @Binds
+    abstract fun bookmarksRepository(repository: YapBlacklistRepository): BlacklistRepository
 
     @ActivityScope
-    @Provides
-    @JvmStatic
-    fun provideMessagesDelegate(activity: BlacklistActivity): MessagesDelegate =
-      MessagesDelegate(WeakReference(activity))
-  }
-
-  @ActivityScope
-  @Binds
-  abstract fun bookmarksRepository(repository: YapBlacklistRepository): BlacklistRepository
-
-  @ActivityScope
-  @Binds
-  abstract fun bookmarkElementsClickListener(presenter: BlacklistPresenter): BlacklistElementsClickListener
+    @Binds
+    abstract fun bookmarkElementsClickListener(presenter: BlacklistPresenter): BlacklistElementsClickListener
 }

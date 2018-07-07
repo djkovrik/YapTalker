@@ -14,42 +14,42 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 class ActiveTopicModelMapper @Inject constructor(
-  private val textTransformer: TextTransformer,
-  private val dateTransformer: DateTransformer
+    private val textTransformer: TextTransformer,
+    private val dateTransformer: DateTransformer
 ) : Function<List<BaseEntity>, List<DisplayedItemModel>> {
 
-  override fun apply(items: List<BaseEntity>): List<DisplayedItemModel> {
+    override fun apply(items: List<BaseEntity>): List<DisplayedItemModel> {
 
-    val result: MutableList<DisplayedItemModel> = ArrayList(items.size)
+        val result: MutableList<DisplayedItemModel> = ArrayList(items.size)
 
-    items.forEach { item ->
-      when (item) {
-        is NavigationPanel -> result.add(
-          NavigationPanelModel(
-            currentPage = item.currentPage,
-            totalPages = item.totalPages,
-            navigationLabel = textTransformer.createNavigationLabel(item.currentPage, item.totalPages)
-          )
-        )
-        is ActiveTopic -> result.add(
-          ActiveTopicModel(
-            title = textTransformer.createForumTopicTitle(item.isPinned, item.isClosed, item.title),
-            link = item.link,
-            topicId = item.id,
-            isPinned = item.isPinned,
-            isClosed = item.isClosed,
-            forumTitle = item.forumTitle,
-            forumLink = item.forumLink,
-            forumId = item.forumLink.getLastDigits(),
-            rating = item.rating,
-            ratingText = item.rating.toString(),
-            answers = textTransformer.transformCommentsLabelShort(item.answers),
-            lastPostDate = dateTransformer.transformDateToShortView(item.lastPostDate)
-          )
-        )
-      }
+        items.forEach { item ->
+            when (item) {
+                is NavigationPanel -> result.add(
+                    NavigationPanelModel(
+                        currentPage = item.currentPage,
+                        totalPages = item.totalPages,
+                        navigationLabel = textTransformer.createNavigationLabel(item.currentPage, item.totalPages)
+                    )
+                )
+                is ActiveTopic -> result.add(
+                    ActiveTopicModel(
+                        title = textTransformer.createForumTopicTitle(item.isPinned, item.isClosed, item.title),
+                        link = item.link,
+                        topicId = item.id,
+                        isPinned = item.isPinned,
+                        isClosed = item.isClosed,
+                        forumTitle = item.forumTitle,
+                        forumLink = item.forumLink,
+                        forumId = item.forumLink.getLastDigits(),
+                        rating = item.rating,
+                        ratingText = item.rating.toString(),
+                        answers = textTransformer.transformCommentsLabelShort(item.answers),
+                        lastPostDate = dateTransformer.transformDateToShortView(item.lastPostDate)
+                    )
+                )
+            }
+        }
+
+        return result
     }
-
-    return result
-  }
 }

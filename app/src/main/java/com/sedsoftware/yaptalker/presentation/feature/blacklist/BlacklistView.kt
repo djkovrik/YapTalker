@@ -11,8 +11,8 @@ import com.sedsoftware.yaptalker.presentation.model.base.BlacklistedTopicModel
 @StateStrategyType(SkipStrategy::class)
 interface BlacklistView : MvpView, CanShowErrorMessage, CanUpdateUiState {
 
-  @StateStrategyType(AddToEndStrategy::class)
-  fun showBlacklistedTopics(topics: List<BlacklistedTopicModel>)
+    @StateStrategyType(AddToEndStrategy::class)
+    fun showBlacklistedTopics(topics: List<BlacklistedTopicModel>)
 
-  fun showDeleteConfirmationDialog(topicId: Int)
+    fun showDeleteConfirmationDialog(topicId: Int)
 }

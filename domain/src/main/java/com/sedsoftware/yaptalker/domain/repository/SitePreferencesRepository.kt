@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface SitePreferencesRepository {
 
-  fun getSitePreferences(): Single<SitePreferences>
+    fun getSitePreferences(): Single<SitePreferences>
 }

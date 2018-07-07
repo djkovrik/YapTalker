@@ -35,112 +35,119 @@ import javax.inject.Inject
 @LayoutResource(value = R.layout.fragment_incubator)
 class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsLoader {
 
-  companion object {
-    fun getNewInstance() = IncubatorFragment()
-  }
-
-  @Inject
-  lateinit var incubatorAdapter: IncubatorAdapter
-
-  @Inject
-  @InjectPresenter
-  lateinit var presenter: IncubatorPresenter
-
-  @ProvidePresenter
-  fun provideNewsPresenter() = presenter
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-
-    with(incubator_topics_list) {
-      val linearLayout = LinearLayoutManager(context)
-      layoutManager = linearLayout
-      adapter = incubatorAdapter
-      setHasFixedSize(true)
-      clearOnScrollListeners()
-
-      addOnScrollListener(InfiniteScrollListener({
-        presenter.loadIncubator(loadFromFirstPage = false)
-      }, linearLayout))
+    companion object {
+        fun getNewInstance() = IncubatorFragment()
     }
 
-    incubator_refresh_layout.setIndicatorColorScheme()
+    @Inject
+    lateinit var incubatorAdapter: IncubatorAdapter
 
-    subscribeViews()
-  }
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: IncubatorPresenter
 
-  override fun showErrorMessage(message: String) {
-    messagesDelegate.showMessageError(message)
-  }
+    @ProvidePresenter
+    fun provideNewsPresenter() = presenter
 
-  override fun showLoadingIndicator() {
-    incubator_refresh_layout?.isRefreshing = true
-  }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-  override fun hideLoadingIndicator() {
-    incubator_refresh_layout?.isRefreshing = false
-  }
+        with(incubator_topics_list) {
+            val linearLayout = LinearLayoutManager(context)
+            layoutManager = linearLayout
+            adapter = incubatorAdapter
+            setHasFixedSize(true)
+            clearOnScrollListeners()
 
-  override fun updateCurrentUiState() {
-    setCurrentAppbarTitle(string(R.string.nav_drawer_incubator))
-    setCurrentNavDrawerItem(NavigationSection.INCUBATOR)
-  }
-
-  override fun appendIncubatorItem(item: IncubatorItemModel) {
-    incubatorAdapter.addIncubatorItem(item)
-  }
-
-  override fun clearIncubatorsList() {
-    incubatorAdapter.clearIncubatorItems()
-  }
-
-  override fun browseExternalResource(url: String) {
-    context?.browse(url.validateUrl())
-  }
-
-  override fun showFab() {
-    incubator_fab?.moveWithAnimationAxisY(offset = 0f)
-  }
-
-  override fun hideFab() {
-    incubator_fab?.let { fab ->
-      val offset = fab.height + fab.paddingTop + fab.paddingBottom
-      fab.moveWithAnimationAxisY(offset = offset.toFloat())
-    }
-  }
-
-  override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
-    presenter
-      .requestThumbnail(videoUrl)
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe({ url ->
-        if (url.isNotEmpty()) {
-          imageView.loadFromUrl(url)
-        } else {
-          context?.let { imageView.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_othervideo)) }
+            addOnScrollListener(InfiniteScrollListener({
+                presenter.loadIncubator(loadFromFirstPage = false)
+            }, linearLayout))
         }
-      }, { throwable ->
-        Timber.e("Can't load image: ${throwable.message}")
-      })
-  }
 
-  private fun subscribeViews() {
+        incubator_refresh_layout.setIndicatorColorScheme()
 
-    RxSwipeRefreshLayout
-      .refreshes(incubator_refresh_layout)
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe { presenter.loadIncubator(loadFromFirstPage = true) }
+        subscribeViews()
+    }
 
-    RxRecyclerView
-      .scrollEvents(incubator_topics_list)
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
+    override fun showErrorMessage(message: String) {
+        messagesDelegate.showMessageError(message)
+    }
 
-    RxView
-      .clicks(incubator_fab)
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe { presenter.loadIncubator(loadFromFirstPage = true) }
-  }
+    override fun showLoadingIndicator() {
+        incubator_refresh_layout?.isRefreshing = true
+    }
+
+    override fun hideLoadingIndicator() {
+        incubator_refresh_layout?.isRefreshing = false
+    }
+
+    override fun updateCurrentUiState() {
+        setCurrentAppbarTitle(string(R.string.nav_drawer_incubator))
+        setCurrentNavDrawerItem(NavigationSection.INCUBATOR)
+    }
+
+    override fun appendIncubatorItem(item: IncubatorItemModel) {
+        incubatorAdapter.addIncubatorItem(item)
+    }
+
+    override fun clearIncubatorsList() {
+        incubatorAdapter.clearIncubatorItems()
+    }
+
+    override fun browseExternalResource(url: String) {
+        context?.browse(url.validateUrl())
+    }
+
+    override fun showFab() {
+        incubator_fab?.moveWithAnimationAxisY(offset = 0f)
+    }
+
+    override fun hideFab() {
+        incubator_fab?.let { fab ->
+            val offset = fab.height + fab.paddingTop + fab.paddingBottom
+            fab.moveWithAnimationAxisY(offset = offset.toFloat())
+        }
+    }
+
+    override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
+        presenter
+            .requestThumbnail(videoUrl)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe({ url ->
+                if (url.isNotEmpty()) {
+                    imageView.loadFromUrl(url)
+                } else {
+                    context?.let {
+                        imageView.setImageDrawable(
+                            ContextCompat.getDrawable(
+                                it,
+                                R.drawable.ic_othervideo
+                            )
+                        )
+                    }
+                }
+            }, { throwable ->
+                Timber.e("Can't load image: ${throwable.message}")
+            })
+    }
+
+    private fun subscribeViews() {
+
+        RxSwipeRefreshLayout
+            .refreshes(incubator_refresh_layout)
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe { presenter.loadIncubator(loadFromFirstPage = true) }
+
+        RxRecyclerView
+            .scrollEvents(incubator_topics_list)
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
+
+        RxView
+            .clicks(incubator_fab)
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe { presenter.loadIncubator(loadFromFirstPage = true) }
+    }
 }

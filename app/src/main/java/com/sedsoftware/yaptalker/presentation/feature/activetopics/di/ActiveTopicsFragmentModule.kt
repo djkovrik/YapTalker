@@ -18,31 +18,33 @@ import ru.terrakok.cicerone.Router
 @Module
 abstract class ActiveTopicsFragmentModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
+
+        @FragmentScope
+        @Provides
+        @JvmStatic
+        fun providePresenter(
+            router: Router,
+            interactor: ActiveTopicsInteractor,
+            mapper: ActiveTopicModelMapper
+        ): ActiveTopicsPresenter =
+            ActiveTopicsPresenter(router, interactor, mapper)
+    }
 
     @FragmentScope
-    @Provides
-    @JvmStatic
-    fun providePresenter(router: Router,
-                         interactor: ActiveTopicsInteractor,
-                         mapper: ActiveTopicModelMapper): ActiveTopicsPresenter =
-      ActiveTopicsPresenter(router, interactor, mapper)
-  }
+    @Binds
+    abstract fun searchIdRepository(repo: YapSearchIdRepository): SearchIdRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun searchIdRepository(repo: YapSearchIdRepository): SearchIdRepository
+    @FragmentScope
+    @Binds
+    abstract fun thumbnailsRepository(repo: YapActiveTopicsRepository): ActiveTopicsRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun thumbnailsRepository(repo: YapActiveTopicsRepository): ActiveTopicsRepository
+    @FragmentScope
+    @Binds
+    abstract fun activeTopicsItemClickListener(presenter: ActiveTopicsPresenter): ActiveTopicsItemClickListener
 
-  @FragmentScope
-  @Binds
-  abstract fun activeTopicsItemClickListener(presenter: ActiveTopicsPresenter): ActiveTopicsItemClickListener
-
-  @FragmentScope
-  @Binds
-  abstract fun navigationPanelClickListener(presenter: ActiveTopicsPresenter): NavigationPanelClickListener
+    @FragmentScope
+    @Binds
+    abstract fun navigationPanelClickListener(presenter: ActiveTopicsPresenter): NavigationPanelClickListener
 }

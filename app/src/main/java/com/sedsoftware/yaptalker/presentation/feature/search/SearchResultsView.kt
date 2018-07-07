@@ -12,6 +12,6 @@ import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 @StateStrategyType(SkipStrategy::class)
 interface SearchResultsView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanUpdateUiState {
 
-  @StateStrategyType(AddToEndStrategy::class)
-  fun appendSearchResultsTopicItem(item: DisplayedItemModel)
+    @StateStrategyType(AddToEndStrategy::class)
+    fun appendSearchResultsTopicItem(item: DisplayedItemModel)
 }

@@ -27,89 +27,89 @@ import javax.inject.Inject
 @Suppress("ConstantConditionIf")
 class YapTalkerApp : Application(), HasActivityInjector {
 
-  companion object {
-    private const val NAV_DRAWER_AVATAR_PADDING = 16
-  }
-
-  @Inject
-  lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
-
-  override fun onCreate() {
-    super.onCreate()
-
-    if (LeakCanary.isInAnalyzerProcess(this)) {
-      return
+    companion object {
+        private const val NAV_DRAWER_AVATAR_PADDING = 16
     }
 
-    LeakCanary.install(this)
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
-    DaggerAppComponent.builder().create(this).inject(this)
+    override fun onCreate() {
+        super.onCreate()
 
-    initStetho()
-    initTimber()
-    initMaterialDrawerImageLoader()
-    initMarkwon()
-    dumpAppInfo()
-  }
-
-  override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
-
-  private fun initStetho() {
-    if (BuildConfig.DEBUG) {
-      Stetho.initializeWithDefaults(this)
-    }
-  }
-
-  private fun initTimber() {
-    Timber.uprootAll()
-
-    if (BuildConfig.DEBUG) {
-      Timber.plant(Timber.DebugTree())
-    } else {
-      Timber.plant(CrashReportingTree())
-    }
-  }
-
-  private fun initMaterialDrawerImageLoader() {
-    DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
-      override fun set(imageView: ImageView?, uri: Uri?, placeholder: Drawable?, tag: String?) {
-        Picasso.with(imageView?.context).load(uri).placeholder(placeholder).into(imageView)
-      }
-
-      override fun cancel(imageView: ImageView?) {
-        Picasso.with(imageView?.context).cancelRequest(imageView)
-      }
-
-      override fun placeholder(ctx: Context?, tag: String?): Drawable =
-        when (tag) {
-          DrawerImageLoader.Tags.PROFILE.name ->
-            IconicsDrawable(ctx)
-              .icon(CommunityMaterial.Icon.cmd_account)
-              .colorRes(R.color.colorGuestProfile)
-              .backgroundColorRes(R.color.colorGuestProfileBackground)
-              .paddingDp(NAV_DRAWER_AVATAR_PADDING)
-
-          else -> super.placeholder(ctx, tag)
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return
         }
-    })
-  }
 
-  private fun initMarkwon() {
-    val theme = SpannableTheme.builderWithDefaults(this)
-      .codeTextColor(Color.parseColor("#C0341D"))
-      .codeBackgroundColor(Color.parseColor("#FCEDEA"))
-      .build()
-    SpannableConfiguration.builder(this)
-      .theme(theme)
-      .build()
-  }
+        LeakCanary.install(this)
 
-  private fun dumpAppInfo() {
-    if (BuildConfig.DEBUG) {
-      packageManager.getPackageInfo(packageName, 0).let { packageInfo ->
-        Timber.d("Init YapTalker:")
-        Timber.d("--- version name: ${packageInfo.versionName}")
-      }
+        DaggerAppComponent.builder().create(this).inject(this)
+
+        initStetho()
+        initTimber()
+        initMaterialDrawerImageLoader()
+        initMarkwon()
+        dumpAppInfo()
     }
-  }
+
+    override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
+
+    private fun initStetho() {
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this)
+        }
+    }
+
+    private fun initTimber() {
+        Timber.uprootAll()
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        } else {
+            Timber.plant(CrashReportingTree())
+        }
+    }
+
+    private fun initMaterialDrawerImageLoader() {
+        DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
+            override fun set(imageView: ImageView?, uri: Uri?, placeholder: Drawable?, tag: String?) {
+                Picasso.with(imageView?.context).load(uri).placeholder(placeholder).into(imageView)
+            }
+
+            override fun cancel(imageView: ImageView?) {
+                Picasso.with(imageView?.context).cancelRequest(imageView)
+            }
+
+            override fun placeholder(ctx: Context?, tag: String?): Drawable =
+                when (tag) {
+                    DrawerImageLoader.Tags.PROFILE.name ->
+                        IconicsDrawable(ctx)
+                            .icon(CommunityMaterial.Icon.cmd_account)
+                            .colorRes(R.color.colorGuestProfile)
+                            .backgroundColorRes(R.color.colorGuestProfileBackground)
+                            .paddingDp(NAV_DRAWER_AVATAR_PADDING)
+
+                    else -> super.placeholder(ctx, tag)
+                }
+        })
+    }
+
+    private fun initMarkwon() {
+        val theme = SpannableTheme.builderWithDefaults(this)
+            .codeTextColor(Color.parseColor("#C0341D"))
+            .codeBackgroundColor(Color.parseColor("#FCEDEA"))
+            .build()
+        SpannableConfiguration.builder(this)
+            .theme(theme)
+            .build()
+    }
+
+    private fun dumpAppInfo() {
+        if (BuildConfig.DEBUG) {
+            packageManager.getPackageInfo(packageName, 0).let { packageInfo ->
+                Timber.d("Init YapTalker:")
+                Timber.d("--- version name: ${packageInfo.versionName}")
+            }
+        }
+    }
 }

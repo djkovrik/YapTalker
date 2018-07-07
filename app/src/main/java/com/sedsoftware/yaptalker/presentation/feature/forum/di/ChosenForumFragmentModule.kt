@@ -17,28 +17,30 @@ import ru.terrakok.cicerone.Router
 @Module
 abstract class ChosenForumFragmentModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
+
+        @FragmentScope
+        @Provides
+        @JvmStatic
+        fun providePresenter(
+            router: Router,
+            interactor: ChosenForumInteractor,
+            mapper: ForumModelMapper,
+            settings: Settings
+        ): ChosenForumPresenter =
+            ChosenForumPresenter(router, interactor, mapper, settings)
+    }
 
     @FragmentScope
-    @Provides
-    @JvmStatic
-    fun providePresenter(router: Router,
-                         interactor: ChosenForumInteractor,
-                         mapper: ForumModelMapper,
-                         settings: Settings): ChosenForumPresenter =
-      ChosenForumPresenter(router, interactor, mapper, settings)
-  }
+    @Binds
+    abstract fun chosenForumRepository(repo: YapChosenForumRepository): ChosenForumRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun chosenForumRepository(repo: YapChosenForumRepository): ChosenForumRepository
+    @FragmentScope
+    @Binds
+    abstract fun chosenForumItemClickListener(presenter: ChosenForumPresenter): ChosenForumItemClickListener
 
-  @FragmentScope
-  @Binds
-  abstract fun chosenForumItemClickListener(presenter: ChosenForumPresenter): ChosenForumItemClickListener
-
-  @FragmentScope
-  @Binds
-  abstract fun navigationPanelClickListener(presenter: ChosenForumPresenter): NavigationPanelClickListener
+    @FragmentScope
+    @Binds
+    abstract fun navigationPanelClickListener(presenter: ChosenForumPresenter): NavigationPanelClickListener
 }

@@ -26,86 +26,87 @@ import javax.inject.Inject
 @LayoutResource(value = R.layout.fragment_active_topics)
 class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView {
 
-  companion object {
-    fun getNewInstance() = ActiveTopicsFragment()
-  }
-
-  @Inject
-  lateinit var topicsAdapter: ActiveTopicsAdapter
-
-  @Inject
-  @InjectPresenter
-  lateinit var presenter: ActiveTopicsPresenter
-
-  @ProvidePresenter
-  fun provideActiveTopicsPresenter() = presenter
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-
-    with(active_topics_list) {
-      val linearLayout = LinearLayoutManager(context)
-      layoutManager = linearLayout
-      adapter = topicsAdapter
-      addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-      setHasFixedSize(true)
+    companion object {
+        fun getNewInstance() = ActiveTopicsFragment()
     }
 
-    active_topics_refresh_layout.setIndicatorColorScheme()
+    @Inject
+    lateinit var topicsAdapter: ActiveTopicsAdapter
 
-    subscribeViews()
-  }
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: ActiveTopicsPresenter
 
-  override fun showLoadingIndicator() {
-    active_topics_refresh_layout.isRefreshing = true
-  }
+    @ProvidePresenter
+    fun provideActiveTopicsPresenter() = presenter
 
-  override fun hideLoadingIndicator() {
-    active_topics_refresh_layout.isRefreshing = false
-  }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-  override fun showErrorMessage(message: String) {
-    messagesDelegate.showMessageError(message)
-  }
+        with(active_topics_list) {
+            val linearLayout = LinearLayoutManager(context)
+            layoutManager = linearLayout
+            adapter = topicsAdapter
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            setHasFixedSize(true)
+        }
 
-  override fun updateCurrentUiState() {
-    setCurrentAppbarTitle(string(R.string.nav_drawer_active_topics))
-    setCurrentNavDrawerItem(NavigationSection.ACTIVE_TOPICS)
-  }
+        active_topics_refresh_layout.setIndicatorColorScheme()
 
-  override fun appendActiveTopicItem(item: DisplayedItemModel) {
-    topicsAdapter.addActiveTopicItem(item)
-  }
-
-  override fun clearActiveTopicsList() {
-    topicsAdapter.clearActiveTopics()
-  }
-
-  override fun scrollToViewTop() {
-    active_topics_list?.layoutManager?.scrollToPosition(0)
-  }
-
-  override fun showPageSelectionDialog() {
-    context?.let { ctx ->
-      MaterialDialog.Builder(ctx)
-        .title(R.string.navigation_go_to_page_title)
-        .inputType(InputType.TYPE_CLASS_NUMBER)
-        .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
-          presenter.goToChosenPage(input.toString().toInt())
-        })
-        .show()
+        subscribeViews()
     }
-  }
 
-  override fun showCantLoadPageMessage(page: Int) {
-    messagesDelegate.showMessageWarning(
-      String.format(Locale.getDefault(), string(R.string.navigation_page_not_available), page))
-  }
+    override fun showLoadingIndicator() {
+        active_topics_refresh_layout.isRefreshing = true
+    }
 
-  private fun subscribeViews() {
-    RxSwipeRefreshLayout
-      .refreshes(active_topics_refresh_layout)
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe { presenter.refreshActiveTopicsList() }
-  }
+    override fun hideLoadingIndicator() {
+        active_topics_refresh_layout.isRefreshing = false
+    }
+
+    override fun showErrorMessage(message: String) {
+        messagesDelegate.showMessageError(message)
+    }
+
+    override fun updateCurrentUiState() {
+        setCurrentAppbarTitle(string(R.string.nav_drawer_active_topics))
+        setCurrentNavDrawerItem(NavigationSection.ACTIVE_TOPICS)
+    }
+
+    override fun appendActiveTopicItem(item: DisplayedItemModel) {
+        topicsAdapter.addActiveTopicItem(item)
+    }
+
+    override fun clearActiveTopicsList() {
+        topicsAdapter.clearActiveTopics()
+    }
+
+    override fun scrollToViewTop() {
+        active_topics_list?.layoutManager?.scrollToPosition(0)
+    }
+
+    override fun showPageSelectionDialog() {
+        context?.let { ctx ->
+            MaterialDialog.Builder(ctx)
+                .title(R.string.navigation_go_to_page_title)
+                .inputType(InputType.TYPE_CLASS_NUMBER)
+                .input(R.string.navigation_go_to_page_hint, 0, false, { _, input ->
+                    presenter.goToChosenPage(input.toString().toInt())
+                })
+                .show()
+        }
+    }
+
+    override fun showCantLoadPageMessage(page: Int) {
+        messagesDelegate.showMessageWarning(
+            String.format(Locale.getDefault(), string(R.string.navigation_page_not_available), page)
+        )
+    }
+
+    private fun subscribeViews() {
+        RxSwipeRefreshLayout
+            .refreshes(active_topics_refresh_layout)
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe { presenter.refreshActiveTopicsList() }
+    }
 }

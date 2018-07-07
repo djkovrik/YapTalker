@@ -11,19 +11,19 @@ import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 @StateStrategyType(SkipStrategy::class)
 interface TopicGalleryView : MvpView, CanShowErrorMessage {
 
-  @StateStrategyType(AddToEndStrategy::class)
-  fun appendImages(images: List<DisplayedItemModel>)
+    @StateStrategyType(AddToEndStrategy::class)
+    fun appendImages(images: List<DisplayedItemModel>)
 
-  @StateStrategyType(AddToEndSingleStrategy::class)
-  fun updateCurrentUiState(title: String)
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun updateCurrentUiState(title: String)
 
-  fun scrollToFirstNewImage(newImagesOffset: Int)
+    fun scrollToFirstNewImage(newImagesOffset: Int)
 
-  fun scrollToSelectedImage(imageUrl: String)
+    fun scrollToSelectedImage(imageUrl: String)
 
-  fun lastPageReached()
+    fun lastPageReached()
 
-  fun fileSavedMessage(filepath: String)
+    fun fileSavedMessage(filepath: String)
 
-  fun fileNotSavedMessage()
+    fun fileNotSavedMessage()
 }

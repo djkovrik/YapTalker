@@ -5,6 +5,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 interface CanUpdateUiState {
 
-  @StateStrategyType(AddToEndSingleStrategy::class)
-  fun updateCurrentUiState()
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun updateCurrentUiState()
 }

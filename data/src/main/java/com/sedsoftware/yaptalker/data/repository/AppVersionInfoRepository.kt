@@ -9,21 +9,21 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class AppVersionInfoRepository @Inject constructor(
-  private val dataLoader: AppUpdatesChecker,
-  private val dataMapper: AppVersionInfoMapper
+    private val dataLoader: AppUpdatesChecker,
+    private val dataMapper: AppVersionInfoMapper
 ) : VersionInfoRepository {
 
-  override fun getRemoteVersionInfo(): Single<VersionInfo> =
-    dataLoader
-      .loadCurrentVersionInfo()
-      .map(dataMapper)
+    override fun getRemoteVersionInfo(): Single<VersionInfo> =
+        dataLoader
+            .loadCurrentVersionInfo()
+            .map(dataMapper)
 
-  override fun getInstalledVersionInfo(): Single<VersionInfo> =
-    Single.just(
-      VersionInfo(
-        versionCode = BuildConfig.VERSION_CODE,
-        versionName = BuildConfig.VERSION_NAME,
-        downloadLink = ""
-      )
-    )
+    override fun getInstalledVersionInfo(): Single<VersionInfo> =
+        Single.just(
+            VersionInfo(
+                versionCode = BuildConfig.VERSION_CODE,
+                versionName = BuildConfig.VERSION_NAME,
+                downloadLink = ""
+            )
+        )
 }

@@ -7,17 +7,17 @@ import javax.inject.Inject
 @InjectViewState
 class VideoDisplayPresenter @Inject constructor() : BasePresenter<VideoDisplayView>() {
 
-  fun loadVideoContent() {
-    viewState.displayWebViewContent()
-  }
+    fun loadVideoContent() {
+        viewState.displayWebViewContent()
+    }
 
-  override fun attachView(view: VideoDisplayView?) {
-    super.attachView(view)
-    viewState.initWebView()
-  }
+    override fun attachView(view: VideoDisplayView?) {
+        super.attachView(view)
+        viewState.initWebView()
+    }
 
-  override fun detachView(view: VideoDisplayView?) {
-    viewState.clearWebView()
-    super.detachView(view)
-  }
+    override fun detachView(view: VideoDisplayView?) {
+        viewState.clearWebView()
+        super.detachView(view)
+    }
 }
