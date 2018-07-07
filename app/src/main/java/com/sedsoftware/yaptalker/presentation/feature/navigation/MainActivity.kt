@@ -326,7 +326,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
             Intent.ACTION_VIEW -> {
                 if (appLinkData != null) {
                     val navigateTo = appLinkData.toString().extractYapIds()
-                    if (navigateTo.first != 0) {
+                    if (navigateTo.second != 0) {
                         presenter.navigateWithIntentLink(navigateTo)
                     }
                 }
