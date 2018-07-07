@@ -8,7 +8,12 @@ fun String.getLastDigits(): Int {
     val matcher = regex.matcher(this)
 
     if (matcher.find()) {
-        return Integer.parseInt(matcher.group(1))
+        return try {
+            Integer.parseInt(matcher.group(1))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            0
+        }
     }
 
     return 0
