@@ -11,9 +11,9 @@ import com.sedsoftware.yaptalker.presentation.model.base.ForumModel
 
 interface ForumsView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanUpdateUiState {
 
-  @StateStrategyType(AddToEndStrategy::class)
-  fun appendForumItem(item: ForumModel)
+    @StateStrategyType(AddToEndStrategy::class)
+    fun appendForumItem(item: ForumModel)
 
-  @StateStrategyType(SingleStateStrategy::class)
-  fun clearForumsList()
+    @StateStrategyType(SingleStateStrategy::class)
+    fun clearForumsList()
 }

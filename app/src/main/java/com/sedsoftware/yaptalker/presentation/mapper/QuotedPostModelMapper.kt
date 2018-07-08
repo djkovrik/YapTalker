@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class QuotedPostModelMapper @Inject constructor() : Function<QuotedPost, QuotedPostModel> {
 
-  override fun apply(item: QuotedPost): QuotedPostModel =
-    QuotedPostModel(text = item.text)
+    override fun apply(item: QuotedPost): QuotedPostModel =
+        QuotedPostModel(text = item.text)
 }

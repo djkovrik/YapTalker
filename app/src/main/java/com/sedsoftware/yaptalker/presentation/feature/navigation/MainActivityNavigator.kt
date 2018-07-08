@@ -34,41 +34,43 @@ import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
 class MainActivityNavigator @Inject constructor(
-  private val activity: MainActivity
+    private val activity: MainActivity
 ) : SupportAppNavigator(activity, activity.supportFragmentManager, R.id.content_frame) {
 
-  override fun createActivityIntent(context: Context?, screenKey: String?, data: Any?): Intent? = when (screenKey) {
-    NavigationScreen.SETTINGS_SCREEN -> SettingsActivity.getIntent(activity)
-    NavigationScreen.IMAGE_DISPLAY_SCREEN -> ImageDisplayActivity.getIntent(activity, data as String)
-    NavigationScreen.VIDEO_DISPLAY_SCREEN -> VideoDisplayActivity.getIntent(activity, data as String)
-    NavigationScreen.TOPIC_GALLERY -> TopicGalleryActivity.getIntent(activity, data as GalleryInitialState)
-    NavigationScreen.CHANGELOG_SCREEN -> ChangelogActivity.getIntent(activity)
+    override fun createActivityIntent(context: Context?, screenKey: String?, data: Any?): Intent? = when (screenKey) {
+        NavigationScreen.SETTINGS_SCREEN -> SettingsActivity.getIntent(activity)
+        NavigationScreen.IMAGE_DISPLAY_SCREEN -> ImageDisplayActivity.getIntent(activity, data as String)
+        NavigationScreen.VIDEO_DISPLAY_SCREEN -> VideoDisplayActivity.getIntent(activity, data as String)
+        NavigationScreen.TOPIC_GALLERY -> TopicGalleryActivity.getIntent(activity, data as GalleryInitialState)
+        NavigationScreen.CHANGELOG_SCREEN -> ChangelogActivity.getIntent(activity)
 //    NavigationScreen.MAIL_SCREEN -> MailActivity.getIntent(activity)
-    else -> null
-  }
+        else -> null
+    }
 
-  override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
-    NavigationScreen.NEWS_SCREEN -> NewsFragment.getNewInstance()
-    NavigationScreen.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
-    NavigationScreen.INCUBATOR_SCREEN -> IncubatorFragment.getNewInstance()
-    NavigationScreen.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()
-    NavigationScreen.BOOKMARKS_SCREEN -> BookmarksFragment.getNewInstance()
-    NavigationScreen.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
-    NavigationScreen.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Pair<Int, String>)
-    NavigationScreen.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
-    NavigationScreen.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
-    NavigationScreen.MESSAGE_EDITOR_SCREEN -> AddMessageFragment.getNewInstance(data as Triple<String, String, String>)
-    NavigationScreen.SEARCH_FORM -> SearchFormFragment.getNewInstance()
-    NavigationScreen.SEARCH_RESULTS -> SearchResultsFragment.getNewInstance(data as SearchRequest)
-    NavigationScreen.UPDATES_SCREEN -> UpdaterFragment.getNewInstance()
-    else -> null
-  }
+    override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
+        NavigationScreen.NEWS_SCREEN -> NewsFragment.getNewInstance()
+        NavigationScreen.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
+        NavigationScreen.INCUBATOR_SCREEN -> IncubatorFragment.getNewInstance()
+        NavigationScreen.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()
+        NavigationScreen.BOOKMARKS_SCREEN -> BookmarksFragment.getNewInstance()
+        NavigationScreen.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
+        NavigationScreen.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Pair<Int, String>)
+        NavigationScreen.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
+        NavigationScreen.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
+        NavigationScreen.MESSAGE_EDITOR_SCREEN -> AddMessageFragment.getNewInstance(data as Triple<String, String, String>)
+        NavigationScreen.SEARCH_FORM -> SearchFormFragment.getNewInstance()
+        NavigationScreen.SEARCH_RESULTS -> SearchResultsFragment.getNewInstance(data as SearchRequest)
+        NavigationScreen.UPDATES_SCREEN -> UpdaterFragment.getNewInstance()
+        else -> null
+    }
 
-  override fun setupFragmentTransactionAnimation(command: Command?,
-                                                 currentFragment: Fragment?,
-                                                 nextFragment: Fragment?,
-                                                 fragmentTransaction: FragmentTransaction?) {
+    override fun setupFragmentTransactionAnimation(
+        command: Command?,
+        currentFragment: Fragment?,
+        nextFragment: Fragment?,
+        fragmentTransaction: FragmentTransaction?
+    ) {
 
-    fragmentTransaction?.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-  }
+        fragmentTransaction?.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
 }

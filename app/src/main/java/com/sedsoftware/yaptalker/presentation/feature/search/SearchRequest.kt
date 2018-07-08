@@ -10,11 +10,11 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class SearchRequest(
-  val searchFor: String,
-  val targetForums: List<String> = emptyList(),
-  val searchIn: String = "",
-  val searchInTags: Boolean = false,
-  @SearchConditions.Value val searchHow: String = SearchConditions.ALL_WORDS,
-  @SortingMode.Value val sortBy: String = SortingMode.DATE,
-  @TargetPeriod.Value val periodInDays: Long = TargetPeriod.ALL_TIME
+    val searchFor: String,
+    val targetForums: List<String> = emptyList(),
+    val searchIn: String = "",
+    val searchInTags: Boolean = false,
+    @SearchConditions.Value val searchHow: String = SearchConditions.ALL_WORDS,
+    @SortingMode.Value val sortBy: String = SortingMode.DATE,
+    @TargetPeriod.Value val periodInDays: Long = TargetPeriod.ALL_TIME
 ) : Parcelable

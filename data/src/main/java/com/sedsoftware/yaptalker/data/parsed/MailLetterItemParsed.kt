@@ -3,8 +3,8 @@ package com.sedsoftware.yaptalker.data.parsed
 import pl.droidsonroids.jspoon.annotation.Selector
 
 class MailLetterItemParsed {
-  @Selector(value = "a.user-link", defValue = "")
-  lateinit var authorNickname: String
+    @Selector(value = "a.user-link", defValue = "")
+    lateinit var authorNickname: String
 //  @Selector(value = "a.user-link", attr = "href", defValue = "")
 //  lateinit var authorLink: String
 //  @Selector(value = ".time-info", defValue = "")

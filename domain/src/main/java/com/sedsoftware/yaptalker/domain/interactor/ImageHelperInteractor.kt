@@ -7,15 +7,15 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class ImageHelperInteractor @Inject constructor(
-  private val imageStorage: ImageStorage,
-  private val sharingHelper: SharingHelper
+    private val imageStorage: ImageStorage,
+    private val sharingHelper: SharingHelper
 ) {
 
-  fun saveImage(url: String): Single<String> =
-    imageStorage
-      .saveImage(url)
+    fun saveImage(url: String): Single<String> =
+        imageStorage
+            .saveImage(url)
 
-  fun shareImage(url: String): Completable =
-    sharingHelper
-      .shareImage(url)
+    fun shareImage(url: String): Completable =
+        sharingHelper
+            .shareImage(url)
 }

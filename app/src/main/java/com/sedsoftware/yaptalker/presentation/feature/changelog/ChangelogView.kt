@@ -9,5 +9,5 @@ import com.sedsoftware.yaptalker.presentation.base.CanShowLoadingIndicator
 @StateStrategyType(SkipStrategy::class)
 interface ChangelogView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator {
 
-  fun displayChangelog(markdown: String)
+    fun displayChangelog(markdown: String)
 }

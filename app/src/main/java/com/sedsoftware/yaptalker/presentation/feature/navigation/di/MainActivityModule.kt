@@ -45,82 +45,82 @@ import java.lang.ref.WeakReference
 @Module
 abstract class MainActivityModule {
 
-  @Module
-  companion object {
-    @ActivityScope
-    @Provides
-    @JvmStatic
-    fun provideMainActivityNavigator(activity: MainActivity): Navigator =
-      MainActivityNavigator(activity)
+    @Module
+    companion object {
+        @ActivityScope
+        @Provides
+        @JvmStatic
+        fun provideMainActivityNavigator(activity: MainActivity): Navigator =
+            MainActivityNavigator(activity)
+
+        @ActivityScope
+        @Provides
+        @JvmStatic
+        fun provideMessagesDelegate(activity: MainActivity): MessagesDelegate =
+            MessagesDelegate(WeakReference(activity))
+    }
 
     @ActivityScope
-    @Provides
-    @JvmStatic
-    fun provideMessagesDelegate(activity: MainActivity): MessagesDelegate =
-      MessagesDelegate(WeakReference(activity))
-  }
+    @Binds
+    abstract fun actionBarProvider(activity: MainActivity): ActionBarProvider
 
-  @ActivityScope
-  @Binds
-  abstract fun actionBarProvider(activity: MainActivity): ActionBarProvider
+    @ActivityScope
+    @Binds
+    abstract fun navDrawerProvider(activity: MainActivity): NavDrawerProvider
 
-  @ActivityScope
-  @Binds
-  abstract fun navDrawerProvider(activity: MainActivity): NavDrawerProvider
+    @ActivityScope
+    @Binds
+    abstract fun loginSessionRepository(repo: YapLoginSessionRepository): LoginSessionRepository
 
-  @ActivityScope
-  @Binds
-  abstract fun loginSessionRepository(repo: YapLoginSessionRepository): LoginSessionRepository
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(NewsFragmentModule::class)])
+    abstract fun newsFragmentInjector(): NewsFragment
 
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [(NewsFragmentModule::class)])
-  abstract fun newsFragmentInjector(): NewsFragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(ActiveTopicsFragmentModule::class)])
+    abstract fun activeTopicsFragmentInjector(): ActiveTopicsFragment
 
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [(ActiveTopicsFragmentModule::class)])
-  abstract fun activeTopicsFragmentInjector(): ActiveTopicsFragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(AuthorizationFragmentModule::class)])
+    abstract fun authorizationFragmentInjector(): AuthorizationFragment
 
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [(AuthorizationFragmentModule::class)])
-  abstract fun authorizationFragmentInjector(): AuthorizationFragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(BookmarksFragmentModule::class)])
+    abstract fun bookmarksFragmentInjector(): BookmarksFragment
 
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [(BookmarksFragmentModule::class)])
-  abstract fun bookmarksFragmentInjector(): BookmarksFragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(ForumsFragmentModule::class)])
+    abstract fun forumsListFragmentInjector(): ForumsFragment
 
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [(ForumsFragmentModule::class)])
-  abstract fun forumsListFragmentInjector(): ForumsFragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(ChosenForumFragmentModule::class)])
+    abstract fun chosenForumFragmentInjector(): ChosenForumFragment
 
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [(ChosenForumFragmentModule::class)])
-  abstract fun chosenForumFragmentInjector(): ChosenForumFragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(ChosenTopicFragmentModule::class)])
+    abstract fun chosenTopicFragmentInjector(): ChosenTopicFragment
 
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [(ChosenTopicFragmentModule::class)])
-  abstract fun chosenTopicFragmentInjector(): ChosenTopicFragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(UserProfileFragmentModule::class)])
+    abstract fun userProfileFragmentInjector(): UserProfileFragment
 
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [(UserProfileFragmentModule::class)])
-  abstract fun userProfileFragmentInjector(): UserProfileFragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(AddMessageFragmentModule::class)])
+    abstract fun addMessageFragmentInjector(): AddMessageFragment
 
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [(AddMessageFragmentModule::class)])
-  abstract fun addMessageFragmentInjector(): AddMessageFragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(IncubatorFragmentModule::class)])
+    abstract fun incubatorFragmentInjector(): IncubatorFragment
 
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [(IncubatorFragmentModule::class)])
-  abstract fun incubatorFragmentInjector(): IncubatorFragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(SearchFormFragmentModule::class)])
+    abstract fun searchFormFragmentInjector(): SearchFormFragment
 
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [(SearchFormFragmentModule::class)])
-  abstract fun searchFormFragmentInjector(): SearchFormFragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(SearchResultsFragmentModule::class)])
+    abstract fun searchResultsFragmentInjector(): SearchResultsFragment
 
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [(SearchResultsFragmentModule::class)])
-  abstract fun searchResultsFragmentInjector(): SearchResultsFragment
-
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [(UpdaterFragmentModule::class)])
-  abstract fun updaterFragmentInjector(): UpdaterFragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [(UpdaterFragmentModule::class)])
+    abstract fun updaterFragmentInjector(): UpdaterFragment
 }

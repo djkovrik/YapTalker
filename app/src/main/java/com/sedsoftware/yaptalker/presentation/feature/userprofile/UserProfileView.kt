@@ -9,9 +9,9 @@ import com.sedsoftware.yaptalker.presentation.model.base.UserProfileModel
 
 interface UserProfileView : MvpView, CanShowErrorMessage {
 
-  @StateStrategyType(SkipStrategy::class)
-  fun displayProfile(profile: UserProfileModel)
+    @StateStrategyType(SkipStrategy::class)
+    fun displayProfile(profile: UserProfileModel)
 
-  @StateStrategyType(AddToEndSingleStrategy::class)
-  fun updateCurrentUiState(title: String)
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun updateCurrentUiState(title: String)
 }

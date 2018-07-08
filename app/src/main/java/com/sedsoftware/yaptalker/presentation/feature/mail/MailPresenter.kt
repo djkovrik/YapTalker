@@ -12,29 +12,29 @@ import javax.inject.Inject
 
 @InjectViewState
 class MailPresenter @Inject constructor(
-  private val api: YapLoaderAlpha
+    private val api: YapLoaderAlpha
 ) : BasePresenter<MailView>() {
 
-  override fun attachView(view: MailView?) {
-    super.attachView(view)
+    override fun attachView(view: MailView?) {
+        super.attachView(view)
 
-    api.getMailInbox()
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe({ inboxPage ->
-        inboxPage.letters.forEach { letter ->
-          Timber.d("authorNickname = ${letter.authorNickname}")
+        api.getMailInbox()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe({ inboxPage ->
+                inboxPage.letters.forEach { letter ->
+                    Timber.d("authorNickname = ${letter.authorNickname}")
 //          Timber.d("authorLink = ${letter.authorLink}")
 //          Timber.d("dateString = ${letter.dateString}")
 //          Timber.d("isNew = ${letter.isNew}")
 //          Timber.d("letterId = ${letter.letterId}")
 //          Timber.d("letterLink = ${letter.letterLink}")
 //          Timber.d("letterPreview = ${letter.letterPreview}")
-          Timber.d("---")
-        }
-      }, { e ->
-        e.message?.let { viewState.showErrorMessage(it) }
-      })
-  }
+                    Timber.d("---")
+                }
+            }, { e ->
+                e.message?.let { viewState.showErrorMessage(it) }
+            })
+    }
 }

@@ -24,138 +24,138 @@ import javax.inject.Inject
 
 @InjectViewState
 class NewsPresenter @Inject constructor(
-  private val router: Router,
-  private val settings: Settings,
-  private val newsInteractor: NewsInteractor,
-  private val videoThumbnailsInteractor: VideoThumbnailsInteractor,
-  private val blacklistInteractor: BlacklistInteractor,
-  private val newsModelMapper: NewsModelMapper
+    private val router: Router,
+    private val settings: Settings,
+    private val newsInteractor: NewsInteractor,
+    private val videoThumbnailsInteractor: VideoThumbnailsInteractor,
+    private val blacklistInteractor: BlacklistInteractor,
+    private val newsModelMapper: NewsModelMapper
 ) : BasePresenter<NewsView>(), NewsItemElementsClickListener {
 
-  companion object {
-    private const val NEWS_PER_PAGE = 50
-  }
-
-  private var currentPage = 0
-  private var backToFirstPage = false
-  private lateinit var currentNewsItem: NewsItemModel
-
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
-    loadNews(loadFromFirstPage = true)
-  }
-
-  override fun attachView(view: NewsView?) {
-    super.attachView(view)
-    viewState.updateCurrentUiState()
-  }
-
-  override fun onNewsItemClicked(forumId: Int, topicId: Int) {
-    router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, Triple(forumId, topicId, 0))
-  }
-
-  override fun onNewsItemLongClicked(item: NewsItemModel) {
-    currentNewsItem = item
-    viewState.showBlacklistRequest()
-  }
-
-  override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
-    when {
-      isVideo && url.contains("youtube") -> {
-        val videoId = url.extractYoutubeVideoId()
-        viewState.browseExternalResource("http://www.youtube.com/watch?v=$videoId")
-      }
-
-      isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
-        viewState.browseExternalResource(url.validateUrl())
-      }
-
-      isVideo && !url.contains("youtube") -> {
-        router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
-      }
-
-      else -> {
-        router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
-      }
-    }
-  }
-
-  fun addSelectedTopicToBlacklist() {
-    blacklistInteractor
-      .addTopicToBlacklist(currentNewsItem.title, currentNewsItem.topicId)
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe({
-        Timber.i("Current topic added to blacklist.")
-        viewState.showTopicBlacklistedMessage()
-        viewState.removeBlacklistedTopicFromList(currentNewsItem)
-      }, { error ->
-        error.message?.let { viewState.showErrorMessage(it) }
-      })
-  }
-
-  fun handleFabVisibility(diff: Int) {
-    when {
-      diff > 0 -> viewState.hideFab()
-      diff < 0 -> viewState.showFab()
-    }
-  }
-
-  fun requestThumbnail(videoUrl: String): Single<String> =
-    videoThumbnailsInteractor
-      .getThumbnail(videoUrl)
-
-  fun loadNews(loadFromFirstPage: Boolean) {
-
-    backToFirstPage = loadFromFirstPage
-
-    if (backToFirstPage) {
-      currentPage = 0
-    } else {
-      currentPage += NEWS_PER_PAGE
+    companion object {
+        private const val NEWS_PER_PAGE = 50
     }
 
-    loadDataForCurrentPage()
-  }
+    private var currentPage = 0
+    private var backToFirstPage = false
+    private lateinit var currentNewsItem: NewsItemModel
 
-  fun navigateToChosenVideo(html: String) {
-    router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
-  }
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        loadNews(loadFromFirstPage = true)
+    }
 
-  fun navigateToChosenImage(url: String) {
-    router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
-  }
+    override fun attachView(view: NewsView?) {
+        super.attachView(view)
+        viewState.updateCurrentUiState()
+    }
 
-  private fun loadDataForCurrentPage() {
-    newsInteractor
-      .getNewsPage(currentPage)
-      .subscribeOn(Schedulers.io())
-      .map(newsModelMapper)
-      .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { viewState.showLoadingIndicator() }
-      .doFinally { viewState.hideLoadingIndicator() }
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe(getNewsObserver())
-  }
+    override fun onNewsItemClicked(forumId: Int, topicId: Int) {
+        router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, Triple(forumId, topicId, 0))
+    }
 
-  private fun getNewsObserver() =
-    object : DisposableObserver<NewsItemModel>() {
-      override fun onNext(item: NewsItemModel) {
+    override fun onNewsItemLongClicked(item: NewsItemModel) {
+        currentNewsItem = item
+        viewState.showBlacklistRequest()
+    }
+
+    override fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean) {
+        when {
+            isVideo && url.contains("youtube") -> {
+                val videoId = url.extractYoutubeVideoId()
+                viewState.browseExternalResource("http://www.youtube.com/watch?v=$videoId")
+            }
+
+            isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
+                viewState.browseExternalResource(url.validateUrl())
+            }
+
+            isVideo && !url.contains("youtube") -> {
+                router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
+            }
+
+            else -> {
+                router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
+            }
+        }
+    }
+
+    fun addSelectedTopicToBlacklist() {
+        blacklistInteractor
+            .addTopicToBlacklist(currentNewsItem.title, currentNewsItem.topicId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe({
+                Timber.i("Current topic added to blacklist.")
+                viewState.showTopicBlacklistedMessage()
+                viewState.removeBlacklistedTopicFromList(currentNewsItem)
+            }, { error ->
+                error.message?.let { viewState.showErrorMessage(it) }
+            })
+    }
+
+    fun handleFabVisibility(diff: Int) {
+        when {
+            diff > 0 -> viewState.hideFab()
+            diff < 0 -> viewState.showFab()
+        }
+    }
+
+    fun requestThumbnail(videoUrl: String): Single<String> =
+        videoThumbnailsInteractor
+            .getThumbnail(videoUrl)
+
+    fun loadNews(loadFromFirstPage: Boolean) {
+
+        backToFirstPage = loadFromFirstPage
+
         if (backToFirstPage) {
-          viewState.clearNewsList()
-          backToFirstPage = false
+            currentPage = 0
+        } else {
+            currentPage += NEWS_PER_PAGE
         }
 
-        viewState.appendNewsItem(item)
-      }
-
-      override fun onComplete() {
-        Timber.i("News page loading completed.")
-      }
-
-      override fun onError(e: Throwable) {
-        e.message?.let { viewState.showErrorMessage(it) }
-      }
+        loadDataForCurrentPage()
     }
+
+    fun navigateToChosenVideo(html: String) {
+        router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
+    }
+
+    fun navigateToChosenImage(url: String) {
+        router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
+    }
+
+    private fun loadDataForCurrentPage() {
+        newsInteractor
+            .getNewsPage(currentPage)
+            .subscribeOn(Schedulers.io())
+            .map(newsModelMapper)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { viewState.showLoadingIndicator() }
+            .doFinally { viewState.hideLoadingIndicator() }
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe(getNewsObserver())
+    }
+
+    private fun getNewsObserver() =
+        object : DisposableObserver<NewsItemModel>() {
+            override fun onNext(item: NewsItemModel) {
+                if (backToFirstPage) {
+                    viewState.clearNewsList()
+                    backToFirstPage = false
+                }
+
+                viewState.appendNewsItem(item)
+            }
+
+            override fun onComplete() {
+                Timber.i("News page loading completed.")
+            }
+
+            override fun onError(e: Throwable) {
+                e.message?.let { viewState.showErrorMessage(it) }
+            }
+        }
 }

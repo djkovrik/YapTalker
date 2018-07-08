@@ -13,30 +13,30 @@ import javax.inject.Inject
 
 @InjectViewState
 class ImageDisplayPresenter @Inject constructor(
-  private val imageHelperInteractor: ImageHelperInteractor
+    private val imageHelperInteractor: ImageHelperInteractor
 ) : BasePresenter<ImageDisplayView>() {
 
-  fun saveImage(url: String) {
-    imageHelperInteractor
-      .saveImage(url.validateUrl())
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe({ fileName ->
-        viewState.fileSavedMessage(fileName)
-      }, { _ ->
-        viewState.fileNotSavedMessage()
-      })
-  }
+    fun saveImage(url: String) {
+        imageHelperInteractor
+            .saveImage(url.validateUrl())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe({ fileName ->
+                viewState.fileSavedMessage(fileName)
+            }, { _ ->
+                viewState.fileNotSavedMessage()
+            })
+    }
 
-  fun shareImage(url: String) {
-    imageHelperInteractor
-      .shareImage(url.validateUrl())
-      .autoDisposable(event(PresenterLifecycle.DETACH_VIEW))
-      .subscribe({
-        Timber.d("Image sharing request launched.")
-      }, { e ->
-        e.message?.let { viewState.showErrorMessage(it) }
-      })
-  }
+    fun shareImage(url: String) {
+        imageHelperInteractor
+            .shareImage(url.validateUrl())
+            .autoDisposable(event(PresenterLifecycle.DETACH_VIEW))
+            .subscribe({
+                Timber.d("Image sharing request launched.")
+            }, { e ->
+                e.message?.let { viewState.showErrorMessage(it) }
+            })
+    }
 }

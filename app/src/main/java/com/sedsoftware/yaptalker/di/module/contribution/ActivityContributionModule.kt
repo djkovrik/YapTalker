@@ -24,35 +24,35 @@ import dagger.android.support.AndroidSupportInjectionModule
 @Module(includes = [(AndroidSupportInjectionModule::class)])
 interface ActivityContributionModule {
 
-  @ActivityScope
-  @ContributesAndroidInjector(modules = [(MainActivityModule::class)])
-  fun mainActivityInjector(): MainActivity
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [(MainActivityModule::class)])
+    fun mainActivityInjector(): MainActivity
 
-  @ActivityScope
-  @ContributesAndroidInjector(modules = [(SettingsActivityModule::class)])
-  fun settingsActivityInjector(): SettingsActivity
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [(SettingsActivityModule::class)])
+    fun settingsActivityInjector(): SettingsActivity
 
-  @ActivityScope
-  @ContributesAndroidInjector(modules = [(ImageDisplayActivityModule::class)])
-  fun imageActivityInjector(): ImageDisplayActivity
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [(ImageDisplayActivityModule::class)])
+    fun imageActivityInjector(): ImageDisplayActivity
 
-  @ActivityScope
-  @ContributesAndroidInjector(modules = [(VideoDisplayActivityModule::class)])
-  fun videoActivityInjector(): VideoDisplayActivity
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [(VideoDisplayActivityModule::class)])
+    fun videoActivityInjector(): VideoDisplayActivity
 
-  @ActivityScope
-  @ContributesAndroidInjector(modules = [(TopicGalleryActivityModule::class)])
-  fun galleryActivityInjector(): TopicGalleryActivity
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [(TopicGalleryActivityModule::class)])
+    fun galleryActivityInjector(): TopicGalleryActivity
 
-  @ActivityScope
-  @ContributesAndroidInjector(modules = [(ChangelogActivityModule::class)])
-  fun changelogActivityInjector(): ChangelogActivity
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [(ChangelogActivityModule::class)])
+    fun changelogActivityInjector(): ChangelogActivity
 
-  @ActivityScope
-  @ContributesAndroidInjector(modules = [(BlacklistActivityModule::class)])
-  fun blacklistActivityInjector(): BlacklistActivity
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [(BlacklistActivityModule::class)])
+    fun blacklistActivityInjector(): BlacklistActivity
 
-  @ActivityScope
-  @ContributesAndroidInjector(modules = [(MailActivityModule::class)])
-  fun mailActivityInjector(): MailActivity
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [(MailActivityModule::class)])
+    fun mailActivityInjector(): MailActivity
 }

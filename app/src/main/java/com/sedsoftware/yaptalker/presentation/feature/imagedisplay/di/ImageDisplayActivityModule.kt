@@ -15,20 +15,20 @@ import java.lang.ref.WeakReference
 @Module
 abstract class ImageDisplayActivityModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
+        @ActivityScope
+        @Provides
+        @JvmStatic
+        fun provideMessagesDelegate(activity: ImageDisplayActivity): MessagesDelegate =
+            MessagesDelegate(WeakReference(activity))
+    }
+
     @ActivityScope
-    @Provides
-    @JvmStatic
-    fun provideMessagesDelegate(activity: ImageDisplayActivity): MessagesDelegate =
-      MessagesDelegate(WeakReference(activity))
-  }
+    @Binds
+    abstract fun imageSharingHelper(helper: YapSharingHelper): SharingHelper
 
-  @ActivityScope
-  @Binds
-  abstract fun imageSharingHelper(helper: YapSharingHelper): SharingHelper
-
-  @ActivityScope
-  @Binds
-  abstract fun imageStorage(storage: YapImageStorage): ImageStorage
+    @ActivityScope
+    @Binds
+    abstract fun imageStorage(storage: YapImageStorage): ImageStorage
 }

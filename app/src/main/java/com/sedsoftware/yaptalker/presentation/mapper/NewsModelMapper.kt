@@ -10,29 +10,29 @@ import io.reactivex.functions.Function
 import javax.inject.Inject
 
 class NewsModelMapper @Inject constructor(
-  private val textTransformer: TextTransformer,
-  private val dateTransformer: DateTransformer,
-  private val videoTypeDetector: VideoTypeDetector
+    private val textTransformer: TextTransformer,
+    private val dateTransformer: DateTransformer,
+    private val videoTypeDetector: VideoTypeDetector
 ) : Function<NewsItem, NewsItemModel> {
 
-  override fun apply(item: NewsItem): NewsItemModel =
-    NewsItemModel(
-      title = item.title,
-      link = item.link,
-      topicId = item.id,
-      rating = textTransformer.transformRankToFormattedText(item.rating),
-      images = item.images,
-      videos = item.videos,
-      videosRaw = item.videosRaw,
-      videoTypes = item.videos.map { videoTypeDetector.detectVideoType(it) },
-      author = item.author,
-      authorLink = item.authorLink,
-      date = dateTransformer.transformDateToShortView(item.date),
-      forumName = textTransformer.transformNewsForumTitle(item.forumName),
-      forumLink = item.forumLink,
-      forumId = item.forumLink.getLastDigits(),
-      comments = textTransformer.transformCommentsLabel(item.comments),
-      cleanedDescription = textTransformer.transformHtmlToSpanned(item.cleanedDescription),
-      isYapLink = item.isYapLink
-    )
+    override fun apply(item: NewsItem): NewsItemModel =
+        NewsItemModel(
+            title = item.title,
+            link = item.link,
+            topicId = item.id,
+            rating = textTransformer.transformRankToFormattedText(item.rating),
+            images = item.images,
+            videos = item.videos,
+            videosRaw = item.videosRaw,
+            videoTypes = item.videos.map { videoTypeDetector.detectVideoType(it) },
+            author = item.author,
+            authorLink = item.authorLink,
+            date = dateTransformer.transformDateToShortView(item.date),
+            forumName = textTransformer.transformNewsForumTitle(item.forumName),
+            forumLink = item.forumLink,
+            forumId = item.forumLink.getLastDigits(),
+            comments = textTransformer.transformCommentsLabel(item.comments),
+            cleanedDescription = textTransformer.transformHtmlToSpanned(item.cleanedDescription),
+            isYapLink = item.isYapLink
+        )
 }

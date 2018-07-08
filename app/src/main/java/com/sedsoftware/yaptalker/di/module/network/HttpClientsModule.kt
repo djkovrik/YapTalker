@@ -16,29 +16,29 @@ import javax.inject.Singleton
 @Module
 class HttpClientsModule {
 
-  private val loggingLevel: Level by lazy {
-    if (BuildConfig.DEBUG) Level.BODY
-    else Level.NONE
-  }
+    private val loggingLevel: Level by lazy {
+        if (BuildConfig.DEBUG) Level.BODY
+        else Level.NONE
+    }
 
-  private val loggingInterceptor: HttpLoggingInterceptor by lazy {
-    HttpLoggingInterceptor().setLevel(loggingLevel)
-  }
+    private val loggingInterceptor: HttpLoggingInterceptor by lazy {
+        HttpLoggingInterceptor().setLevel(loggingLevel)
+    }
 
-  @Singleton
-  @Provides
-  @Named("siteClient")
-  fun provideSiteClient(cookieStorage: CookieStorage): OkHttpClient =
-    OkHttpClient
-      .Builder()
-      .addInterceptor(CustomHeadersInterceptor())
-      .addInterceptor(SaveReceivedCookiesInterceptor(cookieStorage))
-      .addInterceptor(SendSavedCookiesInterceptor(cookieStorage))
-      .addInterceptor(loggingInterceptor)
-      .build()
+    @Singleton
+    @Provides
+    @Named("siteClient")
+    fun provideSiteClient(cookieStorage: CookieStorage): OkHttpClient =
+        OkHttpClient
+            .Builder()
+            .addInterceptor(CustomHeadersInterceptor())
+            .addInterceptor(SaveReceivedCookiesInterceptor(cookieStorage))
+            .addInterceptor(SendSavedCookiesInterceptor(cookieStorage))
+            .addInterceptor(loggingInterceptor)
+            .build()
 
-  @Singleton
-  @Provides
-  @Named("fileClient")
-  fun provideFileClient(): OkHttpClient = OkHttpClient.Builder().build()
+    @Singleton
+    @Provides
+    @Named("fileClient")
+    fun provideFileClient(): OkHttpClient = OkHttpClient.Builder().build()
 }

@@ -24,86 +24,86 @@ import javax.inject.Inject
 @LayoutResource(value = R.layout.fragment_bookmarks)
 class BookmarksFragment : BaseFragment(), BookmarksView {
 
-  companion object {
-    fun getNewInstance() = BookmarksFragment()
-  }
-
-  @Inject
-  lateinit var bookmarksAdapter: BookmarksAdapter
-
-  @Inject
-  @InjectPresenter
-  lateinit var presenter: BookmarksPresenter
-
-  @ProvidePresenter
-  fun provideBookmarksPresenter() = presenter
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-
-    with(bookmarks_list) {
-      val linearLayout = LinearLayoutManager(context)
-      layoutManager = linearLayout
-      adapter = bookmarksAdapter
-      addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-      setHasFixedSize(true)
+    companion object {
+        fun getNewInstance(): BookmarksFragment = BookmarksFragment()
     }
 
-    bookmarks_refresh_layout.setIndicatorColorScheme()
+    @Inject
+    lateinit var bookmarksAdapter: BookmarksAdapter
 
-    subscribeViews()
-  }
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: BookmarksPresenter
 
-  override fun showLoadingIndicator() {
-    bookmarks_refresh_layout.isRefreshing = true
-  }
+    @ProvidePresenter
+    fun provideBookmarksPresenter() = presenter
 
-  override fun hideLoadingIndicator() {
-    bookmarks_refresh_layout.isRefreshing = false
-  }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-  override fun showErrorMessage(message: String) {
-    messagesDelegate.showMessageError(message)
-  }
+        with(bookmarks_list) {
+            val linearLayout = LinearLayoutManager(context)
+            layoutManager = linearLayout
+            adapter = bookmarksAdapter
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            setHasFixedSize(true)
+        }
 
-  override fun updateCurrentUiState() {
-    setCurrentAppbarTitle(string(R.string.nav_drawer_bookmarks))
-    setCurrentNavDrawerItem(NavigationSection.BOOKMARKS)
-  }
+        bookmarks_refresh_layout.setIndicatorColorScheme()
 
-
-  override fun appendBookmarkItem(item: BookmarkedTopicModel) {
-    bookmarksAdapter.addBookmarkItem(item)
-  }
-
-  override fun clearBookmarksList() {
-    bookmarksAdapter.clearBookmarksList()
-  }
-
-  override fun showDeleteConfirmationDialog(item: BookmarkedTopicModel) {
-    context?.let { ctx ->
-      MaterialDialog.Builder(ctx)
-        .content(R.string.msg_bookmark_confirm_action)
-        .positiveText(R.string.msg_bookmark_confirm_yes)
-        .negativeText(R.string.msg_bookmark_confirm_no)
-        .onPositive { _, _ -> presenter.deleteSelectedBookmark(item) }
-        .show()
+        subscribeViews()
     }
-  }
 
-  override fun showBookmarkDeletedMessage() {
-    messagesDelegate.showMessageInfo(getString(R.string.msg_bookmark_topic_deleted))
-  }
+    override fun showLoadingIndicator() {
+        bookmarks_refresh_layout.isRefreshing = true
+    }
 
-  override fun deleteItemFromBookmarks(item: BookmarkedTopicModel) {
-    bookmarksAdapter.deleteFromList(item)
-  }
+    override fun hideLoadingIndicator() {
+        bookmarks_refresh_layout.isRefreshing = false
+    }
 
-  private fun subscribeViews() {
+    override fun showErrorMessage(message: String) {
+        messagesDelegate.showMessageError(message)
+    }
 
-    RxSwipeRefreshLayout
-      .refreshes(bookmarks_refresh_layout)
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe { presenter.loadBookmarks() }
-  }
+    override fun updateCurrentUiState() {
+        setCurrentAppbarTitle(string(R.string.nav_drawer_bookmarks))
+        setCurrentNavDrawerItem(NavigationSection.BOOKMARKS)
+    }
+
+
+    override fun appendBookmarkItem(item: BookmarkedTopicModel) {
+        bookmarksAdapter.addBookmarkItem(item)
+    }
+
+    override fun clearBookmarksList() {
+        bookmarksAdapter.clearBookmarksList()
+    }
+
+    override fun showDeleteConfirmationDialog(item: BookmarkedTopicModel) {
+        context?.let { ctx ->
+            MaterialDialog.Builder(ctx)
+                .content(R.string.msg_bookmark_confirm_action)
+                .positiveText(R.string.msg_bookmark_confirm_yes)
+                .negativeText(R.string.msg_bookmark_confirm_no)
+                .onPositive { _, _ -> presenter.deleteSelectedBookmark(item) }
+                .show()
+        }
+    }
+
+    override fun showBookmarkDeletedMessage() {
+        messagesDelegate.showMessageInfo(getString(R.string.msg_bookmark_topic_deleted))
+    }
+
+    override fun deleteItemFromBookmarks(item: BookmarkedTopicModel) {
+        bookmarksAdapter.deleteFromList(item)
+    }
+
+    private fun subscribeViews() {
+
+        RxSwipeRefreshLayout
+            .refreshes(bookmarks_refresh_layout)
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe { presenter.loadBookmarks() }
+    }
 }

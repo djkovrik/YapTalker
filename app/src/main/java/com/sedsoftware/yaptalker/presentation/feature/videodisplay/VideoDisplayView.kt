@@ -8,9 +8,9 @@ import com.sedsoftware.yaptalker.presentation.base.CanShowErrorMessage
 @StateStrategyType(SkipStrategy::class)
 interface VideoDisplayView : MvpView, CanShowErrorMessage {
 
-  fun initWebView()
+    fun initWebView()
 
-  fun displayWebViewContent()
+    fun displayWebViewContent()
 
-  fun clearWebView()
+    fun clearWebView()
 }

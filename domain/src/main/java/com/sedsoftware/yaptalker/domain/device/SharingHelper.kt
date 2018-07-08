@@ -4,5 +4,5 @@ import io.reactivex.Completable
 
 interface SharingHelper {
 
-  fun shareImage(url: String): Completable
+    fun shareImage(url: String): Completable
 }

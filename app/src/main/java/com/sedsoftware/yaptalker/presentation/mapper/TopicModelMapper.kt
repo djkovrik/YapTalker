@@ -35,93 +35,93 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 class TopicModelMapper @Inject constructor(
-  private val dateTransformer: DateTransformer,
-  private val textTransformer: TextTransformer,
-  private val videoTypeDetector: VideoTypeDetector
+    private val dateTransformer: DateTransformer,
+    private val textTransformer: TextTransformer,
+    private val videoTypeDetector: VideoTypeDetector
 ) : Function<List<BaseEntity>, List<DisplayedItemModel>> {
 
-  override fun apply(items: List<BaseEntity>): List<DisplayedItemModel> {
+    override fun apply(items: List<BaseEntity>): List<DisplayedItemModel> {
 
-    val result: MutableList<DisplayedItemModel> = ArrayList(items.size)
+        val result: MutableList<DisplayedItemModel> = ArrayList(items.size)
 
-    items.forEach { item ->
-      when (item) {
-        is TopicInfoBlock -> result.add(
-          TopicInfoBlockModel(
-            topicTitle = item.topicTitle,
-            isClosed = item.isClosed,
-            authKey = item.authKey,
-            topicRating = item.topicRating,
-            topicRatingPlusAvailable = item.topicRatingPlusAvailable,
-            topicRatingMinusAvailable = item.topicRatingMinusAvailable,
-            topicRatingPlusClicked = item.topicRatingPlusClicked,
-            topicRatingMinusClicked = item.topicRatingMinusClicked,
-            topicRatingTargetId = item.topicRatingTargetId
-          )
-        )
+        items.forEach { item ->
+            when (item) {
+                is TopicInfoBlock -> result.add(
+                    TopicInfoBlockModel(
+                        topicTitle = item.topicTitle,
+                        isClosed = item.isClosed,
+                        authKey = item.authKey,
+                        topicRating = item.topicRating,
+                        topicRatingPlusAvailable = item.topicRatingPlusAvailable,
+                        topicRatingMinusAvailable = item.topicRatingMinusAvailable,
+                        topicRatingPlusClicked = item.topicRatingPlusClicked,
+                        topicRatingMinusClicked = item.topicRatingMinusClicked,
+                        topicRatingTargetId = item.topicRatingTargetId
+                    )
+                )
 
-        is NavigationPanel -> result.add(
-          NavigationPanelModel(
-            currentPage = item.currentPage,
-            totalPages = item.totalPages,
-            navigationLabel = textTransformer.createNavigationLabel(item.currentPage, item.totalPages)
-          )
-        )
+                is NavigationPanel -> result.add(
+                    NavigationPanelModel(
+                        currentPage = item.currentPage,
+                        totalPages = item.totalPages,
+                        navigationLabel = textTransformer.createNavigationLabel(item.currentPage, item.totalPages)
+                    )
+                )
 
-        is SinglePost -> result.add(
-          SinglePostModel(
-            authorNickname = item.authorNickname,
-            authorProfile = item.authorProfile,
-            authorProfileId = item.authorProfile.getLastDigits(),
-            authorAvatar = item.authorAvatar,
-            authorMessagesCount = item.authorMessagesCount,
-            postDate = dateTransformer.transformDateToShortView(item.postDate),
-            postDateFull = item.postDate,
-            postRank = item.postRank,
-            postRankText = textTransformer.transformRankToFormattedText(item.postRank),
-            postRankPlusAvailable = item.postRankPlusAvailable,
-            postRankMinusAvailable = item.postRankMinusAvailable,
-            postRankPlusClicked = item.postRankPlusClicked,
-            postRankMinusClicked = item.postRankMinusClicked,
-            postContentParsed = transform(item.postContentParsed),
-            postId = item.postId,
-            hasQuoteButton = item.hasQuoteButton,
-            hasEditButton = item.hasEditButton,
-            tags = item.tags.map { mapTag(it) }
-          )
-        )
-      }
+                is SinglePost -> result.add(
+                    SinglePostModel(
+                        authorNickname = item.authorNickname,
+                        authorProfile = item.authorProfile,
+                        authorProfileId = item.authorProfile.getLastDigits(),
+                        authorAvatar = item.authorAvatar,
+                        authorMessagesCount = item.authorMessagesCount,
+                        postDate = dateTransformer.transformDateToShortView(item.postDate),
+                        postDateFull = item.postDate,
+                        postRank = item.postRank,
+                        postRankText = textTransformer.transformRankToFormattedText(item.postRank),
+                        postRankPlusAvailable = item.postRankPlusAvailable,
+                        postRankMinusAvailable = item.postRankMinusAvailable,
+                        postRankPlusClicked = item.postRankPlusClicked,
+                        postRankMinusClicked = item.postRankMinusClicked,
+                        postContentParsed = transform(item.postContentParsed),
+                        postId = item.postId,
+                        hasQuoteButton = item.hasQuoteButton,
+                        hasEditButton = item.hasEditButton,
+                        tags = item.tags.map { mapTag(it) }
+                    )
+                )
+            }
+        }
+
+        return result
     }
 
-    return result
-  }
+    private fun transform(content: PostContent): PostContentModel =
+        when (content) {
+            is PostText -> PostTextModel(content.text)
+            is PostQuote -> PostQuoteModel(content.text)
+            is PostQuoteAuthor -> PostQuoteAuthorModel(textTransformer.transformHtmlToSpanned(content.text))
+            is PostHiddenText -> PostHiddenTextModel(content.text)
+            is PostScript -> PostScriptModel(textTransformer.transformHtmlToSpanned(content.text))
+            is PostWarning -> PostWarningModel(textTransformer.transformHtmlToSpanned(content.text))
+        }
 
-  private fun transform(content: PostContent): PostContentModel =
-    when (content) {
-      is PostText -> PostTextModel(content.text)
-      is PostQuote -> PostQuoteModel(content.text)
-      is PostQuoteAuthor -> PostQuoteAuthorModel(textTransformer.transformHtmlToSpanned(content.text))
-      is PostHiddenText -> PostHiddenTextModel(content.text)
-      is PostScript -> PostScriptModel(textTransformer.transformHtmlToSpanned(content.text))
-      is PostWarning -> PostWarningModel(textTransformer.transformHtmlToSpanned(content.text))
-    }
+    private fun transform(post: SinglePostParsed): SinglePostParsedModel =
+        SinglePostParsedModel(
+            content = post
+                .content
+                .map { item -> transform(item) }
+                .toMutableList(),
+            images = post.images,
+            videos = post.videos,
+            videosRaw = post.videosRaw,
+            videoTypes = post.videos.map { videoTypeDetector.detectVideoType(it) }
+        )
 
-  private fun transform(post: SinglePostParsed): SinglePostParsedModel =
-    SinglePostParsedModel(
-      content = post
-        .content
-        .map { item -> transform(item) }
-        .toMutableList(),
-      images = post.images,
-      videos = post.videos,
-      videosRaw = post.videosRaw,
-      videoTypes = post.videos.map { videoTypeDetector.detectVideoType(it) }
-    )
-
-  private fun mapTag(from: Tag): TagModel =
-      TagModel(
-        name = from.name,
-        link = from.link,
-        searchParameter = from.searchParameter
-      )
- }
+    private fun mapTag(from: Tag): TagModel =
+        TagModel(
+            name = from.name,
+            link = from.link,
+            searchParameter = from.searchParameter
+        )
+}

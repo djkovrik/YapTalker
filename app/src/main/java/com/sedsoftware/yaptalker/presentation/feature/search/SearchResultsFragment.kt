@@ -23,82 +23,82 @@ import javax.inject.Inject
 @LayoutResource(value = R.layout.fragment_site_search_results)
 class SearchResultsFragment : BaseFragment(), SearchResultsView {
 
-  companion object {
-    fun getNewInstance(request: SearchRequest): SearchResultsFragment =
-      SearchResultsFragment().apply { arguments = bundleOf(SEARCH_REQUEST_KEY to request) }
+    companion object {
+        fun getNewInstance(request: SearchRequest): SearchResultsFragment =
+            SearchResultsFragment().apply { arguments = bundleOf(SEARCH_REQUEST_KEY to request) }
 
-    private const val SEARCH_REQUEST_KEY = "SEARCH_REQUEST_KEY"
-  }
-
-  @Inject
-  lateinit var searchResultsAdapter: SearchResultsAdapter
-
-  @Inject
-  @InjectPresenter
-  lateinit var presenter: SearchResultsPresenter
-
-  @ProvidePresenter
-  fun provideSearchResultsPresenter() = presenter
-
-  private val searchRequest: SearchRequest by lazy {
-    arguments?.getParcelable(SEARCH_REQUEST_KEY) as SearchRequest
-  }
-
-  private val searchInTags: Boolean by lazy {
-    searchRequest.searchInTags
-  }
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-
-    with(search_results_list) {
-      val linearLayout = LinearLayoutManager(context)
-      layoutManager = linearLayout
-      adapter = searchResultsAdapter
-      setHasFixedSize(true)
-      clearOnScrollListeners()
-
-      addOnScrollListener(
-        InfiniteScrollListener(
-          func = { presenter.loadNextSearchResultsPage() },
-          layoutManager = linearLayout,
-          visibleThreshold = 6
-        )
-      )
+        private const val SEARCH_REQUEST_KEY = "SEARCH_REQUEST_KEY"
     }
 
-    search_refresh_layout.setIndicatorColorScheme()
+    @Inject
+    lateinit var searchResultsAdapter: SearchResultsAdapter
 
-    RxSwipeRefreshLayout
-      .refreshes(search_refresh_layout)
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe { search_refresh_layout?.isRefreshing = false }
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: SearchResultsPresenter
 
-    if (searchInTags) {
-      presenter.searchInTags(searchRequest.searchFor)
-    } else {
-      presenter.searchForFirstTime(searchRequest)
+    @ProvidePresenter
+    fun provideSearchResultsPresenter() = presenter
+
+    private val searchRequest: SearchRequest by lazy {
+        arguments?.getParcelable(SEARCH_REQUEST_KEY) as SearchRequest
     }
-  }
 
-  override fun showErrorMessage(message: String) {
-    messagesDelegate.showMessageError(message)
-  }
+    private val searchInTags: Boolean by lazy {
+        searchRequest.searchInTags
+    }
 
-  override fun showLoadingIndicator() {
-    search_refresh_layout?.isRefreshing = true
-  }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-  override fun hideLoadingIndicator() {
-    search_refresh_layout?.isRefreshing = false
-  }
+        with(search_results_list) {
+            val linearLayout = LinearLayoutManager(context)
+            layoutManager = linearLayout
+            adapter = searchResultsAdapter
+            setHasFixedSize(true)
+            clearOnScrollListeners()
 
-  override fun updateCurrentUiState() {
-    setCurrentAppbarTitle(searchRequest.searchFor)
-    setCurrentNavDrawerItem(NavigationSection.SITE_SEARCH)
-  }
+            addOnScrollListener(
+                InfiniteScrollListener(
+                    func = { presenter.loadNextSearchResultsPage() },
+                    layoutManager = linearLayout,
+                    visibleThreshold = 6
+                )
+            )
+        }
 
-  override fun appendSearchResultsTopicItem(item: DisplayedItemModel) {
-    searchResultsAdapter.addResultsItem(item)
-  }
+        search_refresh_layout.setIndicatorColorScheme()
+
+        RxSwipeRefreshLayout
+            .refreshes(search_refresh_layout)
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe { search_refresh_layout?.isRefreshing = false }
+
+        if (searchInTags) {
+            presenter.searchInTags(searchRequest.searchFor)
+        } else {
+            presenter.searchForFirstTime(searchRequest)
+        }
+    }
+
+    override fun showErrorMessage(message: String) {
+        messagesDelegate.showMessageError(message)
+    }
+
+    override fun showLoadingIndicator() {
+        search_refresh_layout?.isRefreshing = true
+    }
+
+    override fun hideLoadingIndicator() {
+        search_refresh_layout?.isRefreshing = false
+    }
+
+    override fun updateCurrentUiState() {
+        setCurrentAppbarTitle(searchRequest.searchFor)
+        setCurrentNavDrawerItem(NavigationSection.SITE_SEARCH)
+    }
+
+    override fun appendSearchResultsTopicItem(item: DisplayedItemModel) {
+        searchResultsAdapter.addResultsItem(item)
+    }
 }

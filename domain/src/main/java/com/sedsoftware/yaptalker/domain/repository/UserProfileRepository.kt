@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface UserProfileRepository {
 
-  fun getUserProfile(userId: Int): Single<UserProfile>
+    fun getUserProfile(userId: Int): Single<UserProfile>
 }

@@ -19,87 +19,87 @@ import javax.inject.Inject
 
 abstract class BaseFragment : MvpAppCompatFragment() {
 
-  @Inject
-  lateinit var appBarProvider: ActionBarProvider
+    @Inject
+    lateinit var appBarProvider: ActionBarProvider
 
-  @Inject
-  lateinit var navDrawerProvider: NavDrawerProvider
+    @Inject
+    lateinit var navDrawerProvider: NavDrawerProvider
 
-  @Inject
-  lateinit var messagesDelegate: MessagesDelegate
+    @Inject
+    lateinit var messagesDelegate: MessagesDelegate
 
-  private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
-  private lateinit var backPressHandler: CanHandleBackPressed
+    private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
+    private lateinit var backPressHandler: CanHandleBackPressed
 
-  open fun onBackPressed(): Boolean = false
+    open fun onBackPressed(): Boolean = false
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidSupportInjection.inject(this)
-    super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidSupportInjection.inject(this)
+        super.onCreate(savedInstanceState)
 
-    lifecycle.accept(FragmentLifecycle.CREATE)
+        lifecycle.accept(FragmentLifecycle.CREATE)
 
-    if (activity is CanHandleBackPressed) {
-      backPressHandler = activity as CanHandleBackPressed
-    } else {
-      throw ClassCastException("Base activity must implement BackPressHandler interface.")
+        if (activity is CanHandleBackPressed) {
+            backPressHandler = activity as CanHandleBackPressed
+        } else {
+            throw ClassCastException("Base activity must implement BackPressHandler interface.")
+        }
     }
-  }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    val clazz = this::class.java
-    if (clazz.isAnnotationPresent(LayoutResource::class.java)) {
-      val layoutId = clazz.getAnnotation(LayoutResource::class.java).value
-      return inflater.inflate(layoutId, container, false)
-    } else {
-      throw MissingAnnotationException("$this must be annotated with @LayoutResource annotation.")
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val clazz = this::class.java
+        if (clazz.isAnnotationPresent(LayoutResource::class.java)) {
+            val layoutId = clazz.getAnnotation(LayoutResource::class.java).value
+            return inflater.inflate(layoutId, container, false)
+        } else {
+            throw MissingAnnotationException("$this must be annotated with @LayoutResource annotation.")
+        }
     }
-  }
 
-  override fun onAttach(context: Context?) {
-    super.onAttach(context)
-    lifecycle.accept(FragmentLifecycle.ATTACH)
-  }
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        lifecycle.accept(FragmentLifecycle.ATTACH)
+    }
 
-  override fun onStart() {
-    super.onStart()
-    lifecycle.accept(FragmentLifecycle.START)
-    backPressHandler.setSelectedFragment(this)
-  }
+    override fun onStart() {
+        super.onStart()
+        lifecycle.accept(FragmentLifecycle.START)
+        backPressHandler.setSelectedFragment(this)
+    }
 
-  override fun onResume() {
-    super.onResume()
-    lifecycle.accept(FragmentLifecycle.RESUME)
-  }
+    override fun onResume() {
+        super.onResume()
+        lifecycle.accept(FragmentLifecycle.RESUME)
+    }
 
-  override fun onPause() {
-    super.onPause()
-    lifecycle.accept(FragmentLifecycle.PAUSE)
-  }
+    override fun onPause() {
+        super.onPause()
+        lifecycle.accept(FragmentLifecycle.PAUSE)
+    }
 
-  override fun onStop() {
-    super.onStop()
-    lifecycle.accept(FragmentLifecycle.STOP)
-  }
+    override fun onStop() {
+        super.onStop()
+        lifecycle.accept(FragmentLifecycle.STOP)
+    }
 
-  override fun onDestroy() {
-    super.onDestroy()
-    lifecycle.accept(FragmentLifecycle.DESTROY)
-  }
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.accept(FragmentLifecycle.DESTROY)
+    }
 
-  override fun onDetach() {
-    super.onDetach()
-    lifecycle.accept(FragmentLifecycle.DETACH)
-  }
+    override fun onDetach() {
+        super.onDetach()
+        lifecycle.accept(FragmentLifecycle.DETACH)
+    }
 
-  protected fun event(@FragmentLifecycle.Event event: Long): Maybe<*> =
-    lifecycle.filter({ e -> e == event }).firstElement()
+    protected fun event(@FragmentLifecycle.Event event: Long): Maybe<*> =
+        lifecycle.filter { it == event }.firstElement()
 
-  protected fun setCurrentAppbarTitle(title: String) {
-    appBarProvider.getCurrentActionBar()?.title = title
-  }
+    protected fun setCurrentAppbarTitle(title: String) {
+        appBarProvider.getCurrentActionBar()?.title = title
+    }
 
-  protected fun setCurrentNavDrawerItem(item: Long) {
-    navDrawerProvider.getCurrentDrawer().setSelection(item, false)
-  }
+    protected fun setCurrentNavDrawerItem(item: Long) {
+        navDrawerProvider.getCurrentDrawer().setSelection(item, false)
+    }
 }

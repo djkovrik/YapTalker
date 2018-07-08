@@ -13,15 +13,15 @@ import dagger.Module
 @Module
 abstract class UpdaterFragmentModule {
 
-  @FragmentScope
-  @Binds
-  abstract fun versionInfoRepository(repo: AppVersionInfoRepository): VersionInfoRepository
+    @FragmentScope
+    @Binds
+    abstract fun versionInfoRepository(repo: AppVersionInfoRepository): VersionInfoRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun lastUpdateInfoRepository(repo: YapLastUpdateCheckRepository): LastUpdateCheckRepository
+    @FragmentScope
+    @Binds
+    abstract fun lastUpdateInfoRepository(repo: YapLastUpdateCheckRepository): LastUpdateCheckRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun updatesDownloader(downloader: YapUpdatesDownloader): UpdatesDownloader
+    @FragmentScope
+    @Binds
+    abstract fun updatesDownloader(downloader: YapUpdatesDownloader): UpdatesDownloader
 }

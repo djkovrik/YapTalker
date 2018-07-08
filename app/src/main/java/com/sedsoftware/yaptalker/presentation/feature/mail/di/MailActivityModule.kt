@@ -11,12 +11,12 @@ import java.lang.ref.WeakReference
 @Module
 abstract class MailActivityModule {
 
-  @Module
-  companion object {
-    @ActivityScope
-    @Provides
-    @JvmStatic
-    fun provideMessagesDelegate(activity: MailActivity): MessagesDelegate =
-      MessagesDelegate(WeakReference(activity))
-  }
+    @Module
+    companion object {
+        @ActivityScope
+        @Provides
+        @JvmStatic
+        fun provideMessagesDelegate(activity: MailActivity): MessagesDelegate =
+            MessagesDelegate(WeakReference(activity))
+    }
 }

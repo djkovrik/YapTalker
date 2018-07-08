@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class QuotedPostMapper @Inject constructor() : Function<QuotedPostParsed, QuotedPost> {
 
-  override fun apply(from: QuotedPostParsed): QuotedPost =
-    QuotedPost(text = from.quotedText)
+    override fun apply(from: QuotedPostParsed): QuotedPost =
+        QuotedPost(text = from.quotedText)
 }

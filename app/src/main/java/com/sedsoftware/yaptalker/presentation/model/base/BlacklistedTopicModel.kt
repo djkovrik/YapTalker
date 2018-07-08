@@ -5,11 +5,11 @@ import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 import java.util.Date
 
 class BlacklistedTopicModel(
-  val topicName: String,
-  val topicId: Int,
-  val dateAdded: Date,
-  val dateAddedLabel: String
+    val topicName: String,
+    val topicId: Int,
+    val dateAdded: Date,
+    val dateAddedLabel: String
 ) : DisplayedItemModel {
 
-  override fun getEntityType(): Int = DisplayedItemType.BLACKLISTED_TOPIC
+    override fun getEntityType(): Int = DisplayedItemType.BLACKLISTED_TOPIC
 }

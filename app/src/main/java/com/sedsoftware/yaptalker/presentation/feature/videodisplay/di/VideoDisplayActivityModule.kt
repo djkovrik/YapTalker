@@ -10,8 +10,8 @@ import java.lang.ref.WeakReference
 @Module
 class VideoDisplayActivityModule {
 
-  @ActivityScope
-  @Provides
-  fun provideMessagesDelegate(activity: VideoDisplayActivity): MessagesDelegate =
-    MessagesDelegate(WeakReference(activity))
+    @ActivityScope
+    @Provides
+    fun provideMessagesDelegate(activity: VideoDisplayActivity): MessagesDelegate =
+        MessagesDelegate(WeakReference(activity))
 }

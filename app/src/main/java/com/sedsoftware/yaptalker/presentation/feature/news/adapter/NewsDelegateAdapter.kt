@@ -14,119 +14,113 @@ import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlAndRoundCorners
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import kotlinx.android.synthetic.main.fragment_news_item.view.*
 
 class NewsDelegateAdapter(
-  private val clickListener: NewsItemElementsClickListener,
-  private val thumbnailsLoader: ThumbnailsLoader,
-  private val settings: Settings
+    private val clickListener: NewsItemElementsClickListener,
+    private val thumbnailsProvider: ThumbnailsProvider,
+    private val settings: Settings
 ) : YapEntityDelegateAdapter {
 
-  private val normalFontSize by lazy {
-    settings.getNormalFontSize()
-  }
-
-  private val bigFontSize by lazy {
-    settings.getBigFontSize()
-  }
-
-  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = NewsViewHolder(parent)
-
-  override fun onBindViewHolder(holder: ViewHolder, item: DisplayedItemModel) {
-    holder as NewsViewHolder
-    holder.bindTo(item as NewsItemModel)
-  }
-
-  inner class NewsViewHolder(parent: ViewGroup) :
-    RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_news_item)) {
-
-    private val imageLayoutParams: ConstraintLayout.LayoutParams by lazy {
-      (itemView.news_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
-        width = ConstraintLayout.LayoutParams.MATCH_PARENT
-        height = ConstraintLayout.LayoutParams.WRAP_CONTENT
-      }
+    private val normalFontSize by lazy {
+        settings.getNormalFontSize()
     }
 
-    private val videoLayoutParams: ConstraintLayout.LayoutParams by lazy {
-      (itemView.news_content_image.layoutParams as ConstraintLayout.LayoutParams).apply {
-        width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
-        height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
-        dimensionRatio = "16:9"
-      }
+    private val bigFontSize by lazy {
+        settings.getBigFontSize()
     }
 
-    fun bindTo(newsItem: NewsItemModel) {
-      setViewsTextSize(itemView)
-      setViewsContent(itemView, newsItem)
-      setMediaContent(itemView, newsItem)
+    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = NewsViewHolder(parent)
+
+    override fun onBindViewHolder(holder: ViewHolder, item: DisplayedItemModel) {
+        holder as NewsViewHolder
+        holder.bindTo(item as NewsItemModel)
     }
 
-    private fun setViewsTextSize(itemView: View) {
+    inner class NewsViewHolder(parent: ViewGroup) :
+        RecyclerView.ViewHolder(parent.inflate(R.layout.fragment_news_item)) {
 
-      with(itemView) {
-        news_author.textSize = normalFontSize
-        news_title.textSize = bigFontSize
-        news_forum.textSize = normalFontSize
-        news_date.textSize = normalFontSize
-        news_rating.textSize = normalFontSize
-        news_comments_counter.textSize = normalFontSize
-        news_content_text.textSize = normalFontSize
-      }
-    }
-
-    private fun setViewsContent(itemView: View, newsItem: NewsItemModel) {
-
-      with(itemView) {
-        news_author.text = newsItem.author
-        news_title.text = newsItem.title
-        news_forum.text = newsItem.forumName
-        news_date.text = newsItem.date
-        news_rating.text = newsItem.rating
-        news_comments_counter.text = newsItem.comments
-        news_content_text.text = newsItem.cleanedDescription
-      }
-    }
-
-    private fun setMediaContent(itemView: View, newsItem: NewsItemModel) {
-
-      with(itemView) {
-        news_content_image.setOnClickListener(null)
-        news_content_image.setImageDrawable(null)
-        news_content_image_container.isGone = true
-        news_content_image_overlay.isGone = true
-
-        if (newsItem.images.isNotEmpty()) {
-          val url = newsItem.images.first()
-          news_content_image_container.isVisible = true
-          news_content_image.layoutParams = imageLayoutParams
-          news_content_image.loadFromUrlAndRoundCorners(url)
-
-          news_content_image.setOnClickListener {
-            clickListener.onMediaPreviewClicked(url, "", false)
-          }
-        } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
-          val url = newsItem.videos.first()
-          val rawVideo = newsItem.videosRaw.first()
-          val videoType = newsItem.videoTypes.first()
-          news_content_image_container.isVisible = true
-          news_content_image_overlay.isVisible = true
-          news_content_image_overlay.text = videoType
-          news_content_image.layoutParams = videoLayoutParams
-          thumbnailsLoader.loadThumbnail(url, news_content_image)
-
-          news_content_image.setOnClickListener {
-            clickListener.onMediaPreviewClicked(url, rawVideo, true)
-          }
+        fun bindTo(newsItem: NewsItemModel) {
+            setViewsTextSize(itemView)
+            setViewsContent(itemView, newsItem)
+            setMediaContent(itemView, newsItem)
         }
 
-        setOnClickListener { clickListener.onNewsItemClicked(newsItem.forumId, newsItem.topicId) }
+        private fun setViewsTextSize(itemView: View) {
 
-        setOnLongClickListener {
-          clickListener.onNewsItemLongClicked(newsItem)
-          true
+            with(itemView) {
+                news_author.textSize = normalFontSize
+                news_title.textSize = bigFontSize
+                news_forum.textSize = normalFontSize
+                news_date.textSize = normalFontSize
+                news_rating.textSize = normalFontSize
+                news_comments_counter.textSize = normalFontSize
+                news_content_text.textSize = normalFontSize
+            }
         }
-      }
+
+        private fun setViewsContent(itemView: View, newsItem: NewsItemModel) {
+
+            with(itemView) {
+                news_author.text = newsItem.author
+                news_title.text = newsItem.title
+                news_forum.text = newsItem.forumName
+                news_date.text = newsItem.date
+                news_rating.text = newsItem.rating
+                news_comments_counter.text = newsItem.comments
+                news_content_text.text = newsItem.cleanedDescription
+            }
+        }
+
+        private fun setMediaContent(itemView: View, newsItem: NewsItemModel) {
+
+            with(itemView) {
+                news_content_image.setOnClickListener(null)
+                news_content_image.setImageDrawable(null)
+                news_content_image_container.isGone = true
+                news_content_image_overlay.isGone = true
+
+                if (newsItem.images.isNotEmpty()) {
+                    val url = newsItem.images.first()
+                    news_content_image_container.isVisible = true
+
+                    val params = news_content_image.layoutParams as ConstraintLayout.LayoutParams
+                    params.width = ConstraintLayout.LayoutParams.MATCH_PARENT
+                    params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                    params.dimensionRatio = ""
+                    news_content_image.layoutParams = params
+                    news_content_image.loadFromUrlAndRoundCorners(url)
+
+                    news_content_image.setOnClickListener {
+                        clickListener.onMediaPreviewClicked(url, "", false)
+                    }
+                } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
+                    val url = newsItem.videos.first()
+                    val rawVideo = newsItem.videosRaw.first()
+                    val videoType = newsItem.videoTypes.first()
+                    news_content_image_container.isVisible = true
+                    news_content_image_overlay.isVisible = true
+                    news_content_image_overlay.text = videoType
+                    val params = news_content_image.layoutParams as ConstraintLayout.LayoutParams
+                    params.width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+                    params.height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+                    params.dimensionRatio = "16:9"
+                    news_content_image.layoutParams = params
+                    thumbnailsProvider.loadThumbnail(url, news_content_image)
+
+                    news_content_image.setOnClickListener {
+                        clickListener.onMediaPreviewClicked(url, rawVideo, true)
+                    }
+                }
+
+                setOnClickListener { clickListener.onNewsItemClicked(newsItem.forumId, newsItem.topicId) }
+
+                setOnLongClickListener {
+                    clickListener.onNewsItemLongClicked(newsItem)
+                    true
+                }
+            }
+        }
     }
-  }
 }

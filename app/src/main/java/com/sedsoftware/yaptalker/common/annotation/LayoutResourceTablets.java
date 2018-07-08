@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface LayoutResourceTablets {
 
-  @LayoutRes int normalValue();
+    @LayoutRes int normalValue();
 
-  @LayoutRes int tabletsValue();
+    @LayoutRes int tabletsValue();
 }

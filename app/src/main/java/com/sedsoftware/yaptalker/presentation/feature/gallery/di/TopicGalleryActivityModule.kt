@@ -24,47 +24,49 @@ import java.lang.ref.WeakReference
 @Module
 abstract class TopicGalleryActivityModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
+
+        @ActivityScope
+        @Provides
+        @JvmStatic
+        fun provideInitialGalleryState(activity: TopicGalleryActivity): GalleryInitialState =
+            activity.galleryInitialState
+
+        @ActivityScope
+        @Provides
+        @JvmStatic
+        fun provideMessagesDelegate(activity: TopicGalleryActivity): MessagesDelegate =
+            MessagesDelegate(WeakReference(activity))
+
+        @ActivityScope
+        @Provides
+        @JvmStatic
+        fun providePresenter(
+            settings: Settings,
+            galleryInteractor: TopicGalleryInteractor,
+            imageHelper: ImageHelperInteractor,
+            mapper: TopicGalleryModelMapper,
+            initialState: GalleryInitialState
+        ): TopicGalleryPresenter =
+            TopicGalleryPresenter(settings, galleryInteractor, imageHelper, mapper, initialState)
+    }
 
     @ActivityScope
-    @Provides
-    @JvmStatic
-    fun provideInitialGalleryState(activity: TopicGalleryActivity): GalleryInitialState =
-      activity.galleryInitialState
+    @Binds
+    abstract fun chosenTopicGalleryRepository(repo: YapChosenTopicRepository): ChosenTopicRepository
 
     @ActivityScope
-    @Provides
-    @JvmStatic
-    fun provideMessagesDelegate(activity: TopicGalleryActivity): MessagesDelegate =
-      MessagesDelegate(WeakReference(activity))
+    @Binds
+    abstract fun galleryClickListener(presenter: TopicGalleryPresenter): TopicGalleryLoadMoreClickListener
 
     @ActivityScope
-    @Provides
-    @JvmStatic
-    fun providePresenter(settings: Settings,
-                         galleryInteractor: TopicGalleryInteractor,
-                         imageHelper: ImageHelperInteractor,
-                         mapper: TopicGalleryModelMapper,
-                         initialState: GalleryInitialState): TopicGalleryPresenter =
-      TopicGalleryPresenter(settings, galleryInteractor, imageHelper, mapper, initialState)
-  }
+    @Binds
+    abstract fun imageSharingHelper(helper: YapSharingHelper): SharingHelper
 
-  @ActivityScope
-  @Binds
-  abstract fun chosenTopicGalleryRepository(repo: YapChosenTopicRepository): ChosenTopicRepository
-
-  @ActivityScope
-  @Binds
-  abstract fun galleryClickListener(presenter: TopicGalleryPresenter): TopicGalleryLoadMoreClickListener
-
-  @ActivityScope
-  @Binds
-  abstract fun imageSharingHelper(helper: YapSharingHelper): SharingHelper
-
-  @ActivityScope
-  @Binds
-  abstract fun imageStorage(storage: YapImageStorage): ImageStorage
+    @ActivityScope
+    @Binds
+    abstract fun imageStorage(storage: YapImageStorage): ImageStorage
 }
 
 

@@ -15,25 +15,25 @@ import ru.terrakok.cicerone.Router
 @Module
 abstract class SearchResultsFragmentModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
+
+        @FragmentScope
+        @Provides
+        @JvmStatic
+        fun providePresenter(
+            router: Router,
+            interactor: SearchInteractor,
+            mapper: SearchResultsModelMapper
+        ): SearchResultsPresenter =
+            SearchResultsPresenter(router, interactor, mapper)
+    }
 
     @FragmentScope
-    @Provides
-    @JvmStatic
-    fun providePresenter(
-      router: Router,
-      interactor: SearchInteractor,
-      mapper: SearchResultsModelMapper
-    ): SearchResultsPresenter =
-      SearchResultsPresenter(router, interactor, mapper)
-  }
+    @Binds
+    abstract fun searchRepository(repo: YapSearchTopicsRepository): SearchTopicsRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun searchRepository(repo: YapSearchTopicsRepository): SearchTopicsRepository
-
-  @FragmentScope
-  @Binds
-  abstract fun searchResultsClickListener(presenter: SearchResultsPresenter): SearchResultsItemClickListener
+    @FragmentScope
+    @Binds
+    abstract fun searchResultsClickListener(presenter: SearchResultsPresenter): SearchResultsItemClickListener
 }

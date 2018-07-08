@@ -4,5 +4,5 @@ import android.support.v7.app.ActionBar
 
 interface ActionBarProvider {
 
-  fun getCurrentActionBar(): ActionBar?
+    fun getCurrentActionBar(): ActionBar?
 }

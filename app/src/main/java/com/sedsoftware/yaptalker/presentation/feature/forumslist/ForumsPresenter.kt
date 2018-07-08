@@ -18,61 +18,61 @@ import javax.inject.Inject
 
 @InjectViewState
 class ForumsPresenter @Inject constructor(
-  private val router: Router,
-  private val forumsListInteractor: ForumsListInteractor,
-  private val forumsListModelMapper: ForumsListModelMapper
+    private val router: Router,
+    private val forumsListInteractor: ForumsListInteractor,
+    private val forumsListModelMapper: ForumsListModelMapper
 ) : BasePresenter<ForumsView>(), ForumsItemClickListener {
 
-  private var clearCurrentList = false
+    private var clearCurrentList = false
 
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
-    loadForumsList()
-  }
-
-  override fun attachView(view: ForumsView?) {
-    super.attachView(view)
-    viewState.updateCurrentUiState()
-  }
-
-  override fun onForumItemClick(forumId: Int, forumTitle: String) {
-    router.navigateTo(NavigationScreen.CHOSEN_FORUM_SCREEN, Pair(forumId, forumTitle))
-  }
-
-  fun loadForumsList() {
-
-    clearCurrentList = true
-
-    forumsListInteractor
-      .getForumsList()
-      .subscribeOn(Schedulers.io())
-      .map(forumsListModelMapper)
-      .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { viewState.showLoadingIndicator() }
-      .doFinally { viewState.hideLoadingIndicator() }
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe(getForumsListObserver())
-  }
-
-  private fun getForumsListObserver() =
-    object : DisposableObserver<ForumModel>() {
-
-      override fun onNext(item: ForumModel) {
-
-        if (clearCurrentList) {
-          clearCurrentList = false
-          viewState.clearForumsList()
-        }
-
-        viewState.appendForumItem(item)
-      }
-
-      override fun onComplete() {
-        Timber.i("Forums list loading completed.")
-      }
-
-      override fun onError(e: Throwable) {
-        e.message?.let { viewState.showErrorMessage(it) }
-      }
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        loadForumsList()
     }
+
+    override fun attachView(view: ForumsView?) {
+        super.attachView(view)
+        viewState.updateCurrentUiState()
+    }
+
+    override fun onForumItemClick(forumId: Int, forumTitle: String) {
+        router.navigateTo(NavigationScreen.CHOSEN_FORUM_SCREEN, Pair(forumId, forumTitle))
+    }
+
+    fun loadForumsList() {
+
+        clearCurrentList = true
+
+        forumsListInteractor
+            .getForumsList()
+            .subscribeOn(Schedulers.io())
+            .map(forumsListModelMapper)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { viewState.showLoadingIndicator() }
+            .doFinally { viewState.hideLoadingIndicator() }
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe(getForumsListObserver())
+    }
+
+    private fun getForumsListObserver() =
+        object : DisposableObserver<ForumModel>() {
+
+            override fun onNext(item: ForumModel) {
+
+                if (clearCurrentList) {
+                    clearCurrentList = false
+                    viewState.clearForumsList()
+                }
+
+                viewState.appendForumItem(item)
+            }
+
+            override fun onComplete() {
+                Timber.i("Forums list loading completed.")
+            }
+
+            override fun onError(e: Throwable) {
+                e.message?.let { viewState.showErrorMessage(it) }
+            }
+        }
 }

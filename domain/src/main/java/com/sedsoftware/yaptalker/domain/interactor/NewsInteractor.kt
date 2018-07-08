@@ -6,10 +6,10 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class NewsInteractor @Inject constructor(
-  private val newsRepository: NewsRepository
+    private val newsRepository: NewsRepository
 ) {
 
-  fun getNewsPage(pageNumber: Int): Observable<NewsItem> =
-    newsRepository
-      .getNews(pageNumber)
+    fun getNewsPage(pageNumber: Int): Observable<NewsItem> =
+        newsRepository
+            .getNews(pageNumber)
 }

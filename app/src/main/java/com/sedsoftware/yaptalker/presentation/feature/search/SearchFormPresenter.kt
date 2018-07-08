@@ -8,15 +8,15 @@ import javax.inject.Inject
 
 @InjectViewState
 class SearchFormPresenter @Inject constructor(
-  private val router: Router
+    private val router: Router
 ) : BasePresenter<SearchFormView>() {
 
-  override fun attachView(view: SearchFormView?) {
-    super.attachView(view)
-    viewState.updateCurrentUiState()
-  }
+    override fun attachView(view: SearchFormView?) {
+        super.attachView(view)
+        viewState.updateCurrentUiState()
+    }
 
-  fun performSearchRequest(request: SearchRequest) {
-    router.navigateTo(NavigationScreen.SEARCH_RESULTS, request)
-  }
+    fun performSearchRequest(request: SearchRequest) {
+        router.navigateTo(NavigationScreen.SEARCH_RESULTS, request)
+    }
 }

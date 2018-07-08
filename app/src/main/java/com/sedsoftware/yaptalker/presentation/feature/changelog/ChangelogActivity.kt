@@ -19,42 +19,42 @@ import javax.inject.Inject
 @LayoutResource(R.layout.activity_changelog)
 class ChangelogActivity : BaseActivity(), ChangelogView {
 
-  companion object {
-    fun getIntent(ctx: Context): Intent = Intent(ctx, ChangelogActivity::class.java)
-  }
+    companion object {
+        fun getIntent(ctx: Context): Intent = Intent(ctx, ChangelogActivity::class.java)
+    }
 
-  @Inject
-  lateinit var messagesDelegate: MessagesDelegate
+    @Inject
+    lateinit var messagesDelegate: MessagesDelegate
 
-  @Inject
-  @InjectPresenter
-  lateinit var presenter: ChangelogPresenter
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: ChangelogPresenter
 
-  @ProvidePresenter
-  fun providePresenter() = presenter
+    @ProvidePresenter
+    fun providePresenter() = presenter
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    setSupportActionBar(toolbar)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-  }
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
-  override fun displayChangelog(markdown: String) {
-    Markwon.setMarkdown(changelog, markdown)
-  }
+    override fun displayChangelog(markdown: String) {
+        Markwon.setMarkdown(changelog, markdown)
+    }
 
-  override fun showLoadingIndicator() {
-    changelog_container.isGone = true
-    changelog_progressbar.isVisible = true
-  }
+    override fun showLoadingIndicator() {
+        changelog_container.isGone = true
+        changelog_progressbar.isVisible = true
+    }
 
-  override fun hideLoadingIndicator() {
-    changelog_progressbar.isGone = true
-    changelog_container.isVisible = true
-  }
+    override fun hideLoadingIndicator() {
+        changelog_progressbar.isGone = true
+        changelog_container.isVisible = true
+    }
 
-  override fun showErrorMessage(message: String) {
-    messagesDelegate.showMessageError(message)
-  }
+    override fun showErrorMessage(message: String) {
+        messagesDelegate.showMessageError(message)
+    }
 }

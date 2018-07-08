@@ -11,18 +11,18 @@ import kotlinx.android.synthetic.main.include_main_appbar.*
 @LayoutResource(value = R.layout.activity_settings)
 class SettingsActivity : BaseActivity() {
 
-  companion object {
-    fun getIntent(ctx: Context) = Intent(ctx, SettingsActivity::class.java)
-  }
+    companion object {
+        fun getIntent(ctx: Context) = Intent(ctx, SettingsActivity::class.java)
+    }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    setSupportActionBar(toolbar)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-    fragmentManager.beginTransaction()
-      .replace(R.id.settings_container, SettingsFragment())
-      .commit()
-  }
+        fragmentManager.beginTransaction()
+            .replace(R.id.settings_container, SettingsFragment())
+            .commit()
+    }
 }

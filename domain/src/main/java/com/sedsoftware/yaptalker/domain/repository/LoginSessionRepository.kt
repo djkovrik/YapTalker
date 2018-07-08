@@ -6,9 +6,9 @@ import io.reactivex.Single
 
 interface LoginSessionRepository {
 
-  fun getLoginSessionInfo(): Single<LoginSessionInfo>
+    fun getLoginSessionInfo(): Single<LoginSessionInfo>
 
-  fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Completable
+    fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Completable
 
-  fun requestSignOut(userKey: String): Completable
+    fun requestSignOut(userKey: String): Completable
 }

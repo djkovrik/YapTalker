@@ -4,5 +4,5 @@ import io.reactivex.Single
 
 interface ImageStorage {
 
-  fun saveImage(url: String): Single<String>
+    fun saveImage(url: String): Single<String>
 }

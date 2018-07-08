@@ -8,7 +8,7 @@ import com.sedsoftware.yaptalker.presentation.base.CanShowErrorMessage
 @StateStrategyType(SkipStrategy::class)
 interface ImageDisplayView : MvpView, CanShowErrorMessage {
 
-  fun fileSavedMessage(filepath: String)
+    fun fileSavedMessage(filepath: String)
 
-  fun fileNotSavedMessage()
+    fun fileNotSavedMessage()
 }

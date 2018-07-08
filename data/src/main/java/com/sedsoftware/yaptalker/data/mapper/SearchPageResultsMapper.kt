@@ -10,40 +10,40 @@ import javax.inject.Inject
 
 class SearchPageResultsMapper @Inject constructor() : Function<SearchTopicsPageParsed, List<BaseEntity>> {
 
-  companion object {
-    private const val TOPICS_PER_PAGE = 25
-  }
-
-  override fun apply(from: SearchTopicsPageParsed): List<BaseEntity> {
-
-    val result: MutableList<BaseEntity> = ArrayList(TOPICS_PER_PAGE)
-
-    with(from) {
-
-      result.add(
-        SearchTopicsPageInfo(
-          hasNextPage = hasNextPage.isNotEmpty(),
-          searchId = searchId
-        )
-      )
-
-      topics.forEach { topic ->
-        result.add(
-          SearchTopicItem(
-            title = topic.title,
-            link = topic.link,
-            isPinned = topic.isPinned.isNotEmpty(),
-            isClosed = topic.isClosed.isNotEmpty(),
-            forumTitle = topic.forumTitle,
-            forumLink = topic.forumLink,
-            rating = topic.rating.toInt(),
-            answers = topic.answers.toInt(),
-            lastPostDate = topic.lastPostDate
-          )
-        )
-      }
+    companion object {
+        private const val TOPICS_PER_PAGE = 25
     }
 
-    return result
-  }
+    override fun apply(from: SearchTopicsPageParsed): List<BaseEntity> {
+
+        val result: MutableList<BaseEntity> = ArrayList(TOPICS_PER_PAGE)
+
+        with(from) {
+
+            result.add(
+                SearchTopicsPageInfo(
+                    hasNextPage = hasNextPage.isNotEmpty(),
+                    searchId = searchId
+                )
+            )
+
+            topics.forEach { topic ->
+                result.add(
+                    SearchTopicItem(
+                        title = topic.title,
+                        link = topic.link,
+                        isPinned = topic.isPinned.isNotEmpty(),
+                        isClosed = topic.isClosed.isNotEmpty(),
+                        forumTitle = topic.forumTitle,
+                        forumLink = topic.forumLink,
+                        rating = topic.rating.toInt(),
+                        answers = topic.answers.toInt(),
+                        lastPostDate = topic.lastPostDate
+                    )
+                )
+            }
+        }
+
+        return result
+    }
 }

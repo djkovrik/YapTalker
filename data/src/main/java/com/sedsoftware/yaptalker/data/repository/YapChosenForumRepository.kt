@@ -10,28 +10,32 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class YapChosenForumRepository @Inject constructor(
-  private val dataLoader: YapLoader,
-  private val dataMapper: ForumPageMapper,
-  private val database: YapTalkerDatabase
+    private val dataLoader: YapLoader,
+    private val dataMapper: ForumPageMapper,
+    private val database: YapTalkerDatabase
 ) : ChosenForumRepository {
 
-  override fun getChosenForum(forumId: Int, startPageNumber: Int, sortingMode: String): Observable<List<BaseEntity>> =
-    database
-      .getTopicsDao()
-      .getBlacklistedTopicIds()
-      .flatMapObservable { blacklistedIds ->
-        dataLoader
-          .loadForumPage(forumId, startPageNumber, sortingMode)
-          .map(dataMapper)
-          .map { list: List<BaseEntity> ->
-            list.filter { item ->
-              if (item is Topic) {
-                !blacklistedIds.contains(item.id)
-              } else {
-                true
-              }
+    override fun getChosenForum(
+        forumId: Int,
+        startPageNumber: Int,
+        sortingMode: String
+    ): Observable<List<BaseEntity>> =
+        database
+            .getTopicsDao()
+            .getBlacklistedTopicIds()
+            .flatMapObservable { blacklistedIds ->
+                dataLoader
+                    .loadForumPage(forumId, startPageNumber, sortingMode)
+                    .map(dataMapper)
+                    .map { list: List<BaseEntity> ->
+                        list.filter { item ->
+                            if (item is Topic) {
+                                !blacklistedIds.contains(item.id)
+                            } else {
+                                true
+                            }
+                        }
+                    }
             }
-          }
-      }
 }
 

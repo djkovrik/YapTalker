@@ -8,13 +8,13 @@ import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
 @StateStrategyType(SkipStrategy::class)
 interface MainActivityView : MvpView {
 
-  fun updateNavDrawerProfile(userInfo: LoginSessionInfoModel)
+    fun updateNavDrawerProfile(userInfo: LoginSessionInfoModel)
 
-  fun clearDynamicNavigationItems()
+    fun clearDynamicNavigationItems()
 
-  fun displaySignedInNavigation()
+    fun displaySignedInNavigation()
 
-  fun displaySignedOutNavigation()
+    fun displaySignedOutNavigation()
 
-  fun closeNavigationDrawer()
+    fun closeNavigationDrawer()
 }

@@ -8,19 +8,19 @@ import io.reactivex.functions.Function
 import javax.inject.Inject
 
 class BlacklistTopicModelMapper @Inject constructor(
-  private val textTransformer: TextTransformer,
-  private val dateTransformer: DateTransformer
+    private val textTransformer: TextTransformer,
+    private val dateTransformer: DateTransformer
 ) : Function<List<BlacklistedTopic>, List<BlacklistedTopicModel>> {
 
-  override fun apply(from: List<BlacklistedTopic>): List<BlacklistedTopicModel> =
-    from.map { element ->
-      BlacklistedTopicModel(
-        topicName = element.topicName,
-        topicId = element.topicId,
-        dateAdded = element.dateAdded,
-        dateAddedLabel = textTransformer.transformBlacklistDate(
-          dateTransformer.transformLongToDateString(element.dateAdded.time)
-        )
-      )
-    }
+    override fun apply(from: List<BlacklistedTopic>): List<BlacklistedTopicModel> =
+        from.map { element ->
+            BlacklistedTopicModel(
+                topicName = element.topicName,
+                topicId = element.topicId,
+                dateAdded = element.dateAdded,
+                dateAddedLabel = textTransformer.transformBlacklistDate(
+                    dateTransformer.transformLongToDateString(element.dateAdded.time)
+                )
+            )
+        }
 }

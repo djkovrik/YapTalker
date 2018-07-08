@@ -5,10 +5,10 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class ChangelogInteractor @Inject constructor(
-  private val repository: ChangelogRepository
+    private val repository: ChangelogRepository
 ) {
 
-  fun getChangelogText(): Single<String> =
-    repository
-      .getChangelog()
+    fun getChangelogText(): Single<String> =
+        repository
+            .getChangelog()
 }

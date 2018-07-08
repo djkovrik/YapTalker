@@ -10,26 +10,26 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class YapForumsListRepository @Inject constructor(
-  private val dataLoader: YapLoader,
-  private val dataMapper: ForumsListMapper,
-  private val listMapper: ListToObservablesMapper<Forum>,
-  private val settings: Settings
+    private val dataLoader: YapLoader,
+    private val dataMapper: ForumsListMapper,
+    private val listMapper: ListToObservablesMapper<Forum>,
+    private val settings: Settings
 ) : ForumsListRepository {
 
-  @Suppress("MagicNumber")
-  companion object {
-    private val nsfwForumSections = setOf(4, 33, 36)
-  }
+    @Suppress("MagicNumber")
+    companion object {
+        private val nsfwForumSections = setOf(4, 33, 36)
+    }
 
-  override fun getMainForumsList(): Observable<Forum> =
-    dataLoader
-      .loadForumsList()
-      .map(dataMapper)
-      .flatMap(listMapper)
-      .filter { forumItem ->
-        if (settings.isNsfwEnabled())
-          true
-        else
-          !nsfwForumSections.contains(forumItem.forumId)
-      }
+    override fun getMainForumsList(): Observable<Forum> =
+        dataLoader
+            .loadForumsList()
+            .map(dataMapper)
+            .flatMap(listMapper)
+            .filter { forumItem ->
+                if (settings.isNsfwEnabled())
+                    true
+                else
+                    !nsfwForumSections.contains(forumItem.forumId)
+            }
 }

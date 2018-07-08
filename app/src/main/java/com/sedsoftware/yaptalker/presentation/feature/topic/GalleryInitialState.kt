@@ -5,8 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class GalleryInitialState(
-  val currentForumId: Int,
-  val currentTopicId: Int,
-  val currentPage: Int = 1,
-  val currentImage: String = ""
+    val currentForumId: Int,
+    val currentTopicId: Int,
+    val currentPage: Int = 1,
+    val currentImage: String = ""
 ) : Parcelable

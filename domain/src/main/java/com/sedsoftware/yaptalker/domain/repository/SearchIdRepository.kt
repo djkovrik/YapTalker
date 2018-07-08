@@ -4,5 +4,5 @@ import io.reactivex.Single
 
 interface SearchIdRepository {
 
-  fun getSearchId(): Single<String>
+    fun getSearchId(): Single<String>
 }

@@ -9,33 +9,33 @@ import retrofit2.http.Path
 
 interface YapLoaderAlpha {
 
-  /**
-   * Load received mails list from the site.
-   *
-   * @return Inbox page letters list.
-   */
-  @GET("/mail/")
-  fun getMailInbox(): Single<MailInboxPageParsed>
+    /**
+     * Load received mails list from the site.
+     *
+     * @return Inbox page letters list.
+     */
+    @GET("/mail/")
+    fun getMailInbox(): Single<MailInboxPageParsed>
 
 
-  /**
-   * Load sent mails list from the site.
-   *
-   * @return Sent page letters list.
-   */
-  @GET("/mail/sent/")
-  fun getMailSent(): Single<MailSentPageParsed>
+    /**
+     * Load sent mails list from the site.
+     *
+     * @return Sent page letters list.
+     */
+    @GET("/mail/sent/")
+    fun getMailSent(): Single<MailSentPageParsed>
 
 
-  /**
-   * Load particular letter.
-   *
-   * @param letterId Letter uinque id.
-   *
-   * @return Parsed letter content.
-   */
-  @GET("/mail/{letterId}")
-  fun getLetter(
-    @Path("letterId") letterId: Int
-  ): Single<MailLetterContentParsed>
+    /**
+     * Load particular letter.
+     *
+     * @param letterId Letter uinque id.
+     *
+     * @return Parsed letter content.
+     */
+    @GET("/mail/{letterId}")
+    fun getLetter(
+        @Path("letterId") letterId: Int
+    ): Single<MailLetterContentParsed>
 }

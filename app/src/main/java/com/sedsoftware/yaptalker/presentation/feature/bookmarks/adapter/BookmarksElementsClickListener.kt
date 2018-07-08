@@ -4,7 +4,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
 
 interface BookmarksElementsClickListener {
 
-  fun onDeleteIconClick(item: BookmarkedTopicModel)
+    fun onDeleteIconClick(item: BookmarkedTopicModel)
 
-  fun onTopicItemClick(link: String)
+    fun onTopicItemClick(link: String)
 }

@@ -13,15 +13,15 @@ import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 @StateStrategyType(SkipStrategy::class)
 interface IncubatorView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanUpdateUiState {
 
-  @StateStrategyType(AddToEndStrategy::class)
-  fun appendIncubatorItem(item: IncubatorItemModel)
+    @StateStrategyType(AddToEndStrategy::class)
+    fun appendIncubatorItem(item: IncubatorItemModel)
 
-  @StateStrategyType(SingleStateStrategy::class)
-  fun clearIncubatorsList()
+    @StateStrategyType(SingleStateStrategy::class)
+    fun clearIncubatorsList()
 
-  fun browseExternalResource(url: String)
+    fun browseExternalResource(url: String)
 
-  fun showFab()
+    fun showFab()
 
-  fun hideFab()
+    fun hideFab()
 }

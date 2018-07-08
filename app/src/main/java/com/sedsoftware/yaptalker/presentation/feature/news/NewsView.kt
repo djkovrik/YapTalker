@@ -13,21 +13,21 @@ import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 @StateStrategyType(SkipStrategy::class)
 interface NewsView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanUpdateUiState {
 
-  @StateStrategyType(AddToEndStrategy::class)
-  fun appendNewsItem(item: NewsItemModel)
+    @StateStrategyType(AddToEndStrategy::class)
+    fun appendNewsItem(item: NewsItemModel)
 
-  @StateStrategyType(SingleStateStrategy::class)
-  fun clearNewsList()
+    @StateStrategyType(SingleStateStrategy::class)
+    fun clearNewsList()
 
-  fun browseExternalResource(url: String)
+    fun browseExternalResource(url: String)
 
-  fun showFab()
+    fun showFab()
 
-  fun hideFab()
+    fun hideFab()
 
-  fun showBlacklistRequest()
+    fun showBlacklistRequest()
 
-  fun showTopicBlacklistedMessage()
+    fun showTopicBlacklistedMessage()
 
-  fun removeBlacklistedTopicFromList(topic: NewsItemModel)
+    fun removeBlacklistedTopicFromList(topic: NewsItemModel)
 }

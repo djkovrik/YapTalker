@@ -8,29 +8,29 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class AppChangelogRepository @Inject constructor(
-  private val context: Context,
-  private val dataLoader: GitHubLoader
+    private val context: Context,
+    private val dataLoader: GitHubLoader
 ) : ChangelogRepository {
 
-  private companion object {
-    const val LOCALE_EN = "en"
-  }
-
-  @Suppress("DEPRECATION")
-  override fun getChangelog(): Single<String> {
-
-    val resources = context.resources
-    val locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      resources.configuration.locales.get(0)
-    } else {
-      resources.configuration.locale
+    private companion object {
+        const val LOCALE_EN = "en"
     }
 
-    return if (locale.language == LOCALE_EN) {
-      dataLoader.loadChangelogEn()
-    } else {
-      dataLoader.loadChangelogRu()
+    @Suppress("DEPRECATION")
+    override fun getChangelog(): Single<String> {
+
+        val resources = context.resources
+        val locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            resources.configuration.locales.get(0)
+        } else {
+            resources.configuration.locale
+        }
+
+        return if (locale.language == LOCALE_EN) {
+            dataLoader.loadChangelogEn()
+        } else {
+            dataLoader.loadChangelogRu()
+        }
+            .map { response -> response.body()?.string() ?: "" }
     }
-      .map { response -> response.body()?.string() ?: "" }
-  }
 }

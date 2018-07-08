@@ -15,7 +15,7 @@ import com.sedsoftware.yaptalker.presentation.feature.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.feature.news.NewsPresenter
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsItemElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.NewsModelMapper
-import com.sedsoftware.yaptalker.presentation.thumbnail.ThumbnailsLoader
+import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -24,38 +24,40 @@ import ru.terrakok.cicerone.Router
 @Module
 abstract class NewsFragmentModule {
 
-  @Module
-  companion object {
+    @Module
+    companion object {
+
+        @FragmentScope
+        @Provides
+        @JvmStatic
+        fun providePresenter(
+            router: Router,
+            settings: Settings,
+            newsInteractor: NewsInteractor,
+            thumbnailsInteractor: VideoThumbnailsInteractor,
+            blacklistInteractor: BlacklistInteractor,
+            mapper: NewsModelMapper
+        ): NewsPresenter =
+            NewsPresenter(router, settings, newsInteractor, thumbnailsInteractor, blacklistInteractor, mapper)
+    }
 
     @FragmentScope
-    @Provides
-    @JvmStatic
-    fun providePresenter(router: Router,
-                         settings: Settings,
-                         newsInteractor: NewsInteractor,
-                         thumbnailsInteractor: VideoThumbnailsInteractor,
-                         blacklistInteractor: BlacklistInteractor,
-                         mapper: NewsModelMapper): NewsPresenter =
-      NewsPresenter(router, settings, newsInteractor, thumbnailsInteractor, blacklistInteractor, mapper)
-  }
+    @Binds
+    abstract fun newsRepository(repo: YapNewsRepository): NewsRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun newsRepository(repo: YapNewsRepository): NewsRepository
+    @FragmentScope
+    @Binds
+    abstract fun newsThumbnailsRepository(repo: YapThumbnailRepository): ThumbnailRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun newsThumbnailsRepository(repo: YapThumbnailRepository): ThumbnailRepository
+    @FragmentScope
+    @Binds
+    abstract fun topicBlacklistRepository(repository: YapBlacklistRepository): BlacklistRepository
 
-  @FragmentScope
-  @Binds
-  abstract fun topicBlacklistRepository(repository: YapBlacklistRepository): BlacklistRepository
+    @FragmentScope
+    @Binds
+    abstract fun newsThumbnailsProvider(fragment: NewsFragment): ThumbnailsProvider
 
-  @FragmentScope
-  @Binds
-  abstract fun newsThumbnailsLoader(fragment: NewsFragment): ThumbnailsLoader
-
-  @FragmentScope
-  @Binds
-  abstract fun newsElementsClickListener(presenter: NewsPresenter): NewsItemElementsClickListener
+    @FragmentScope
+    @Binds
+    abstract fun newsElementsClickListener(presenter: NewsPresenter): NewsItemElementsClickListener
 }

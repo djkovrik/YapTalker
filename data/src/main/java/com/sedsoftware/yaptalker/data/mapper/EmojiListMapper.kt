@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class EmojiListMapper @Inject constructor() : Function<EmojiListParsed, List<Emoji>> {
 
-  override fun apply(from: EmojiListParsed): List<Emoji> =
-    from.emojis
-      .map { emoji -> Emoji(emoji.code, emoji.link) }
+    override fun apply(from: EmojiListParsed): List<Emoji> =
+        from.emojis
+            .map { emoji -> Emoji(emoji.code, emoji.link) }
 }

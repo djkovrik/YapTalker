@@ -8,21 +8,21 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class AppUpdaterInteractor @Inject constructor(
-  private val versionInfoRepository: VersionInfoRepository,
-  private val lastUpdateCheckRepository: LastUpdateCheckRepository,
-  private val settings: Settings
+    private val versionInfoRepository: VersionInfoRepository,
+    private val lastUpdateCheckRepository: LastUpdateCheckRepository,
+    private val settings: Settings
 ) {
 
-  fun getInstalledVersionInfo(): Single<VersionInfo> =
-    versionInfoRepository
-      .getInstalledVersionInfo()
+    fun getInstalledVersionInfo(): Single<VersionInfo> =
+        versionInfoRepository
+            .getInstalledVersionInfo()
 
-  fun getLastUpdateCheckDate(): Single<Long> =
-    lastUpdateCheckRepository
-      .getLastUpdateCheckDate()
+    fun getLastUpdateCheckDate(): Single<Long> =
+        lastUpdateCheckRepository
+            .getLastUpdateCheckDate()
 
-  fun getRemoteVersionInfo(): Single<VersionInfo> =
-    versionInfoRepository
-      .getRemoteVersionInfo()
-      .doOnSuccess { settings.saveLastUpdateCheckDate() }
+    fun getRemoteVersionInfo(): Single<VersionInfo> =
+        versionInfoRepository
+            .getRemoteVersionInfo()
+            .doOnSuccess { settings.saveLastUpdateCheckDate() }
 }

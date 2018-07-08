@@ -11,27 +11,27 @@ import com.sedsoftware.yaptalker.presentation.model.base.AppVersionInfoModel
 @StateStrategyType(SkipStrategy::class)
 interface UpdaterView : MvpView, CanShowErrorMessage, CanUpdateUiState {
 
-  @StateStrategyType(value = AddToEndSingleStrategy::class, tag = "updateInfo")
-  fun showUpdateAvailableLabel()
+    @StateStrategyType(value = AddToEndSingleStrategy::class, tag = "updateInfo")
+    fun showUpdateAvailableLabel()
 
-  @StateStrategyType(value = AddToEndSingleStrategy::class, tag = "updateInfo")
-  fun showNoUpdateAvailableLabel()
+    @StateStrategyType(value = AddToEndSingleStrategy::class, tag = "updateInfo")
+    fun showNoUpdateAvailableLabel()
 
-  fun displayInstalledVersionInfo(versionInfo: AppVersionInfoModel)
+    fun displayInstalledVersionInfo(versionInfo: AppVersionInfoModel)
 
-  fun displayRemoteVersionInfo(versionInfo: AppVersionInfoModel)
+    fun displayRemoteVersionInfo(versionInfo: AppVersionInfoModel)
 
-  fun displayLastUpdateCheckDate(date: String)
+    fun displayLastUpdateCheckDate(date: String)
 
-  fun showCheckingStatus()
+    fun showCheckingStatus()
 
-  fun showUpdateCompletedStatus()
+    fun showUpdateCompletedStatus()
 
-  fun showUpdateErrorStatus()
+    fun showUpdateErrorStatus()
 
-  fun showEmptyUpdateStatus()
+    fun showEmptyUpdateStatus()
 
-  fun setUpdateButtonAvailability(isAvailable: Boolean)
+    fun setUpdateButtonAvailability(isAvailable: Boolean)
 
-  fun setDownloadButtonVisibility(isVisible: Boolean)
+    fun setDownloadButtonVisibility(isVisible: Boolean)
 }

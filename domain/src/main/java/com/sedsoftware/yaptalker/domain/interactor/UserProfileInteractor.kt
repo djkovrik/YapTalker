@@ -6,10 +6,10 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class UserProfileInteractor @Inject constructor(
-  private val userProfileRepository: UserProfileRepository
+    private val userProfileRepository: UserProfileRepository
 ) {
 
-  fun getUserProfile(userId: Int): Single<UserProfile> =
-    userProfileRepository
-      .getUserProfile(userId)
+    fun getUserProfile(userId: Int): Single<UserProfile> =
+        userProfileRepository
+            .getUserProfile(userId)
 }

@@ -11,29 +11,29 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class YapNewsRepository @Inject constructor(
-  private val dataLoader: YapLoader,
-  private val dataMapper: NewsPageMapper,
-  private val listMapper: ListToObservablesMapper<NewsItem>,
-  private val database: YapTalkerDatabase,
-  private val settings: Settings
+    private val dataLoader: YapLoader,
+    private val dataMapper: NewsPageMapper,
+    private val listMapper: ListToObservablesMapper<NewsItem>,
+    private val database: YapTalkerDatabase,
+    private val settings: Settings
 ) : NewsRepository {
 
-  private val newsCategories by lazy {
-    settings.getNewsCategories()
-  }
+    private val newsCategories by lazy {
+        settings.getNewsCategories()
+    }
 
-  override fun getNews(page: Int): Observable<NewsItem> =
-    database
-      .getTopicsDao()
-      .getBlacklistedTopicIds()
-      .flatMapObservable { blacklistedIds ->
-        dataLoader
-          .loadNews(page)
-          .map(dataMapper)
-          .flatMap(listMapper)
-          .filter { newsCategories.contains(it.forumLink) }
-          .filter { it.isYapLink }
-          .filter { it.comments != 0 }
-          .filter { !blacklistedIds.contains(it.id) }
-      }
+    override fun getNews(page: Int): Observable<NewsItem> =
+        database
+            .getTopicsDao()
+            .getBlacklistedTopicIds()
+            .flatMapObservable { blacklistedIds ->
+                dataLoader
+                    .loadNews(page)
+                    .map(dataMapper)
+                    .flatMap(listMapper)
+                    .filter { newsCategories.contains(it.forumLink) }
+                    .filter { it.isYapLink }
+                    .filter { it.comments != 0 }
+                    .filter { !blacklistedIds.contains(it.id) }
+            }
 }

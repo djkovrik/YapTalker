@@ -8,12 +8,12 @@ import java.util.Date
 
 @Entity(tableName = YapTalkerDatabase.TOPICS_BLACKLIST_TABLE)
 data class BlacklistedTopicDbModel(
-  @PrimaryKey(autoGenerate = true)
-  var id: Long = 0L,
-  @ColumnInfo(name = "topic_name")
-  var topicName: String = "",
-  @ColumnInfo(name = "topic_id")
-  var topicId: Int = 0,
-  @ColumnInfo(name = "date_added")
-  var dateAdded: Date = Date()
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0L,
+    @ColumnInfo(name = "topic_name")
+    var topicName: String = "",
+    @ColumnInfo(name = "topic_id")
+    var topicId: Int = 0,
+    @ColumnInfo(name = "date_added")
+    var dateAdded: Date = Date()
 )

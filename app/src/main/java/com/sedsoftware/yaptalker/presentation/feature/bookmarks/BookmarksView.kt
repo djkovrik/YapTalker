@@ -13,15 +13,15 @@ import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
 @StateStrategyType(SkipStrategy::class)
 interface BookmarksView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanUpdateUiState {
 
-  @StateStrategyType(AddToEndStrategy::class)
-  fun appendBookmarkItem(item: BookmarkedTopicModel)
+    @StateStrategyType(AddToEndStrategy::class)
+    fun appendBookmarkItem(item: BookmarkedTopicModel)
 
-  @StateStrategyType(SingleStateStrategy::class)
-  fun clearBookmarksList()
+    @StateStrategyType(SingleStateStrategy::class)
+    fun clearBookmarksList()
 
-  fun showDeleteConfirmationDialog(item: BookmarkedTopicModel)
+    fun showDeleteConfirmationDialog(item: BookmarkedTopicModel)
 
-  fun showBookmarkDeletedMessage()
+    fun showBookmarkDeletedMessage()
 
-  fun deleteItemFromBookmarks(item: BookmarkedTopicModel)
+    fun deleteItemFromBookmarks(item: BookmarkedTopicModel)
 }

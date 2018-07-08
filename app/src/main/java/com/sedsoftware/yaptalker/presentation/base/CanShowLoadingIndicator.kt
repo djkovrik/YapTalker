@@ -5,9 +5,9 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 interface CanShowLoadingIndicator {
 
-  @StateStrategyType(value = AddToEndSingleStrategy::class, tag = "LoadingIndicator")
-  fun showLoadingIndicator()
+    @StateStrategyType(value = AddToEndSingleStrategy::class, tag = "LoadingIndicator")
+    fun showLoadingIndicator()
 
-  @StateStrategyType(value = AddToEndSingleStrategy::class, tag = "LoadingIndicator")
-  fun hideLoadingIndicator()
+    @StateStrategyType(value = AddToEndSingleStrategy::class, tag = "LoadingIndicator")
+    fun hideLoadingIndicator()
 }

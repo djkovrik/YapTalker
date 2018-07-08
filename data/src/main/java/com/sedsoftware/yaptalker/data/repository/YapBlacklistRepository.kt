@@ -11,46 +11,46 @@ import javax.inject.Inject
 
 
 class YapBlacklistRepository @Inject constructor(
-  private val database: YapTalkerDatabase,
-  private val mapper: BlacklistDbMapper
+    private val database: YapTalkerDatabase,
+    private val mapper: BlacklistDbMapper
 ) : BlacklistRepository {
 
-  private val monthThreeshold: Long by lazy {
-    Calendar.getInstance().apply { add(Calendar.MONTH, -1) }.time.time
-  }
-
-  override fun getBlacklistedTopics(): Single<List<BlacklistedTopic>> =
-    database
-      .getTopicsDao()
-      .getAllTopics()
-      .map { topics -> topics.map { mapper.mapFromDb(it) } }
-
-  override fun addTopicToBlacklist(topic: BlacklistedTopic): Completable =
-    Completable.fromAction {
-      database
-        .getTopicsDao()
-        .insertTopic(mapper.mapToDb(topic))
+    private val monthThreshold: Long by lazy {
+        Calendar.getInstance().apply { add(Calendar.MONTH, -1) }.time.time
     }
 
-  override fun removeTopicFromBlacklistById(id: Int): Completable =
-    Completable.fromAction {
-      database
-        .getTopicsDao()
-        .deleteTopicById(id)
-    }
+    override fun getBlacklistedTopics(): Single<List<BlacklistedTopic>> =
+        database
+            .getTopicsDao()
+            .getAllTopics()
+            .map { topics -> topics.map { mapper.mapFromDb(it) } }
+
+    override fun addTopicToBlacklist(topic: BlacklistedTopic): Completable =
+        Completable.fromAction {
+            database
+                .getTopicsDao()
+                .insertTopic(mapper.mapToDb(topic))
+        }
+
+    override fun removeTopicFromBlacklistById(id: Int): Completable =
+        Completable.fromAction {
+            database
+                .getTopicsDao()
+                .deleteTopicById(id)
+        }
 
 
-  override fun clearTopicsBlacklist(): Completable =
-    Completable.fromAction {
-      database
-        .getTopicsDao()
-        .deleteAllTopics()
-    }
+    override fun clearTopicsBlacklist(): Completable =
+        Completable.fromAction {
+            database
+                .getTopicsDao()
+                .deleteAllTopics()
+        }
 
-  override fun clearMonthOldTopicsBlacklist(): Completable =
-    Completable.fromAction {
-      database
-        .getTopicsDao()
-        .deleteTopicByDate(monthThreeshold)
-    }
+    override fun clearMonthOldTopicsBlacklist(): Completable =
+        Completable.fromAction {
+            database
+                .getTopicsDao()
+                .deleteTopicByDate(monthThreshold)
+        }
 }

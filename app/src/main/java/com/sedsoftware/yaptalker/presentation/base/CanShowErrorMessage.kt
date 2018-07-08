@@ -5,6 +5,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 interface CanShowErrorMessage {
 
-  @StateStrategyType(SkipStrategy::class)
-  fun showErrorMessage(message: String)
+    @StateStrategyType(SkipStrategy::class)
+    fun showErrorMessage(message: String)
 }

@@ -16,34 +16,34 @@ import javax.inject.Inject
 
 @InjectViewState
 class UserProfilePresenter @Inject constructor(
-  private val userProfileInteractor: UserProfileInteractor,
-  private val userProfileModelMapper: UserProfileModelMapper
+    private val userProfileInteractor: UserProfileInteractor,
+    private val userProfileModelMapper: UserProfileModelMapper
 ) : BasePresenter<UserProfileView>() {
 
-  fun loadUserProfile(profileId: Int) {
-    userProfileInteractor
-      .getUserProfile(profileId)
-      .subscribeOn(Schedulers.io())
-      .map(userProfileModelMapper)
-      .observeOn(AndroidSchedulers.mainThread())
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe(getUserProfileObserver())
-  }
-
-  private fun getUserProfileObserver() =
-    object : SingleObserver<UserProfileModel> {
-
-      override fun onSuccess(profile: UserProfileModel) {
-        viewState.displayProfile(profile)
-        viewState.updateCurrentUiState(profile.nickname)
-        Timber.i("User profile loaded successfully.")
-      }
-
-      override fun onSubscribe(d: Disposable) {
-      }
-
-      override fun onError(e: Throwable) {
-        e.message?.let { viewState.showErrorMessage(it) }
-      }
+    fun loadUserProfile(profileId: Int) {
+        userProfileInteractor
+            .getUserProfile(profileId)
+            .subscribeOn(Schedulers.io())
+            .map(userProfileModelMapper)
+            .observeOn(AndroidSchedulers.mainThread())
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe(getUserProfileObserver())
     }
+
+    private fun getUserProfileObserver() =
+        object : SingleObserver<UserProfileModel> {
+
+            override fun onSuccess(profile: UserProfileModel) {
+                viewState.displayProfile(profile)
+                viewState.updateCurrentUiState(profile.nickname)
+                Timber.i("User profile loaded successfully.")
+            }
+
+            override fun onSubscribe(d: Disposable) {
+            }
+
+            override fun onError(e: Throwable) {
+                e.message?.let { viewState.showErrorMessage(it) }
+            }
+        }
 }

@@ -4,5 +4,5 @@ import io.reactivex.Single
 
 interface LastUpdateCheckRepository {
 
-  fun getLastUpdateCheckDate(): Single<Long>
+    fun getLastUpdateCheckDate(): Single<Long>
 }

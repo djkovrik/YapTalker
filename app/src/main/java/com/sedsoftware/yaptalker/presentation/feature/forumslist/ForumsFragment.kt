@@ -23,65 +23,65 @@ import javax.inject.Inject
 @LayoutResource(value = R.layout.fragment_forums_list)
 class ForumsFragment : BaseFragment(), ForumsView {
 
-  companion object {
-    fun getNewInstance() = ForumsFragment()
-  }
-
-  @Inject
-  lateinit var forumsAdapter: ForumsAdapter
-
-  @Inject
-  @InjectPresenter
-  lateinit var presenter: ForumsPresenter
-
-  @ProvidePresenter
-  fun provideForumsPresenter() = presenter
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-
-    with(forums_list) {
-      val linearLayout = LinearLayoutManager(context)
-      layoutManager = linearLayout
-      adapter = forumsAdapter
-      addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-      setHasFixedSize(true)
+    companion object {
+        fun getNewInstance() = ForumsFragment()
     }
 
-    forums_list_refresh_layout.setIndicatorColorScheme()
+    @Inject
+    lateinit var forumsAdapter: ForumsAdapter
 
-    subscribeViews()
-  }
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: ForumsPresenter
 
-  override fun showLoadingIndicator() {
-    forums_list_refresh_layout.isRefreshing = true
-  }
+    @ProvidePresenter
+    fun provideForumsPresenter() = presenter
 
-  override fun hideLoadingIndicator() {
-    forums_list_refresh_layout.isRefreshing = false
-  }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-  override fun showErrorMessage(message: String) {
-    messagesDelegate.showMessageError(message)
-  }
+        with(forums_list) {
+            val linearLayout = LinearLayoutManager(context)
+            layoutManager = linearLayout
+            adapter = forumsAdapter
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            setHasFixedSize(true)
+        }
 
-  override fun updateCurrentUiState() {
-    setCurrentAppbarTitle(string(R.string.nav_drawer_forums))
-    setCurrentNavDrawerItem(NavigationSection.FORUMS)
-  }
+        forums_list_refresh_layout.setIndicatorColorScheme()
 
-  override fun appendForumItem(item: ForumModel) {
-    forumsAdapter.addForumsListItem(item)
-  }
+        subscribeViews()
+    }
 
-  override fun clearForumsList() {
-    forumsAdapter.clearForumsList()
-  }
+    override fun showLoadingIndicator() {
+        forums_list_refresh_layout.isRefreshing = true
+    }
 
-  private fun subscribeViews() {
-    RxSwipeRefreshLayout
-      .refreshes(forums_list_refresh_layout)
-      .autoDisposable(event(FragmentLifecycle.DESTROY))
-      .subscribe { presenter.loadForumsList() }
-  }
+    override fun hideLoadingIndicator() {
+        forums_list_refresh_layout.isRefreshing = false
+    }
+
+    override fun showErrorMessage(message: String) {
+        messagesDelegate.showMessageError(message)
+    }
+
+    override fun updateCurrentUiState() {
+        setCurrentAppbarTitle(string(R.string.nav_drawer_forums))
+        setCurrentNavDrawerItem(NavigationSection.FORUMS)
+    }
+
+    override fun appendForumItem(item: ForumModel) {
+        forumsAdapter.addForumsListItem(item)
+    }
+
+    override fun clearForumsList() {
+        forumsAdapter.clearForumsList()
+    }
+
+    private fun subscribeViews() {
+        RxSwipeRefreshLayout
+            .refreshes(forums_list_refresh_layout)
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe { presenter.loadForumsList() }
+    }
 }

@@ -5,10 +5,10 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class VideoThumbnailsInteractor @Inject constructor(
-  private val thumbnailRepository: ThumbnailRepository
+    private val thumbnailRepository: ThumbnailRepository
 ) {
 
-  fun getThumbnail(link: String): Single<String> =
-    thumbnailRepository
-      .getThumbnail(link)
+    fun getThumbnail(link: String): Single<String> =
+        thumbnailRepository
+            .getThumbnail(link)
 }

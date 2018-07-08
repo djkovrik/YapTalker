@@ -11,23 +11,23 @@ import javax.inject.Inject
 
 @InjectViewState
 class ChangelogPresenter @Inject constructor(
-  private val changelogInteractor: ChangelogInteractor
+    private val changelogInteractor: ChangelogInteractor
 ) : BasePresenter<ChangelogView>() {
 
-  override fun onFirstViewAttach() {
-    super.onFirstViewAttach()
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
 
-    changelogInteractor
-      .getChangelogText()
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { viewState.showLoadingIndicator() }
-      .doFinally { viewState.hideLoadingIndicator() }
-      .autoDisposable(event(PresenterLifecycle.DESTROY))
-      .subscribe({ markdown ->
-        viewState.displayChangelog(markdown)
-      }, { throwable ->
-        throwable.message?.let { viewState.showErrorMessage(it) }
-      })
-  }
+        changelogInteractor
+            .getChangelogText()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { viewState.showLoadingIndicator() }
+            .doFinally { viewState.hideLoadingIndicator() }
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe({ markdown ->
+                viewState.displayChangelog(markdown)
+            }, { throwable ->
+                throwable.message?.let { viewState.showErrorMessage(it) }
+            })
+    }
 }

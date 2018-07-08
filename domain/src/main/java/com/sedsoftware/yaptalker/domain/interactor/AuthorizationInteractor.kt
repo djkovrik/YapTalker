@@ -7,21 +7,21 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class AuthorizationInteractor @Inject constructor(
-  private val loginSessionRepository: LoginSessionRepository,
-  private val siteSettingsRepository: SitePreferencesRepository,
-  private val settings: Settings
+    private val loginSessionRepository: LoginSessionRepository,
+    private val siteSettingsRepository: SitePreferencesRepository,
+    private val settings: Settings
 ) {
 
-  fun getSiteUserPreferences(): Completable =
-    siteSettingsRepository
-      .getSitePreferences()
-      .flatMapCompletable { sitePrefs ->
-        settings.saveMessagesPerPagePref(sitePrefs.messagesPerTopicPage)
-        settings.saveTopicsPerPagePref(sitePrefs.topicsPerForumPage)
-        Completable.complete()
-      }
+    fun getSiteUserPreferences(): Completable =
+        siteSettingsRepository
+            .getSitePreferences()
+            .flatMapCompletable { sitePrefs ->
+                settings.saveMessagesPerPagePref(sitePrefs.messagesPerTopicPage)
+                settings.saveTopicsPerPagePref(sitePrefs.topicsPerForumPage)
+                Completable.complete()
+            }
 
-  fun sendSignInRequest(login: String, password: String, anonymously: Boolean): Completable =
-    loginSessionRepository
-      .requestSignIn(login, password, anonymously)
+    fun sendSignInRequest(login: String, password: String, anonymously: Boolean): Completable =
+        loginSessionRepository
+            .requestSignIn(login, password, anonymously)
 }

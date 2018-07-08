@@ -133,7 +133,8 @@
         android:value=".presentation.feature.settings.SettingsActivity" />
     </activity>
 
-    <activity android:name=".presentation.feature.mail.MailActivity"
+    <activity
+      android:name=".presentation.feature.mail.MailActivity"
       android:parentActivityName=".presentation.feature.navigation.MainActivity">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
