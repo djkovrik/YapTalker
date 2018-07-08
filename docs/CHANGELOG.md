@@ -1,5 +1,14 @@
 ## Changelog
 
+### [0.9.14] - 2018-07-08
+
+**Fixed**
+* Adverts parsing
+* AppLinks crash
+
+**Changed**
+* News and incubator images ratio handling
+
 ### [0.9.13] - 2018-07-05
 
 **Fixed**
