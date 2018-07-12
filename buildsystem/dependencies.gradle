@@ -10,11 +10,11 @@ ext {
     final SUPPORT_LIBRARY_VERSION = "27.1.1"
     final CONSTRAINT_LAYOUT_VERSION = "1.1.2"
     final ANDROID_KTX_VERSION = "0.3"
-    final ROOM_VERSION = "1.1.0"
+    final ROOM_VERSION = "1.1.1"
 
     // Rx
     final RX_ANDROID_VERSION = "2.0.2"
-    final RX_JAVA_VERSION = "2.1.14"
+    final RX_JAVA_VERSION = "2.1.16"
     final RX_KOTLIN_VERSION = "2.2.0"
     final RX_RELAY_VERSION = "2.0.0"
     final RX_LINT_VERSION = "1.6.1"
@@ -41,9 +41,9 @@ ext {
     final COMMUNITY_MATERIAL_ICONS_VERSION = "2.0.46.1@aar"
     final TYPEICONS_VERSION = "2.0.7.4@aar"
     final MATERIAL_DIALOGUES_VERSION = "0.9.6.0"
-    final PHOTOVIEW_VERSION = "2.1.3"
+    final PHOTOVIEW_VERSION = "2.1.4"
     final TOP_SNACKBAR_VERSION = "1.1.1"
-    final MARKWON_VERSION = "1.0.5"
+    final MARKWON_VERSION = "1.0.6"
     final MATERIAL_CHIP_VERSION = "1.2.2"
     final FLEXBOX_VERSION = "1.0.0"
 
@@ -56,7 +56,7 @@ ext {
     final FIREBASE_CORE_VERSION = "16.0.1"
 
     // Development tools
-    final TIMBER_VERSION = "4.7.0"
+    final TIMBER_VERSION = "4.7.1"
     final LEAK_CANARY_VERSION = "1.5.4"
     final STETHO_VERSION = "1.5.0"
 
