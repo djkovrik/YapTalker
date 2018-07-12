@@ -22,6 +22,4 @@ interface BookmarksView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator,
     fun showDeleteConfirmationDialog(item: BookmarkedTopicModel)
 
     fun showBookmarkDeletedMessage()
-
-    fun deleteItemFromBookmarks(item: BookmarkedTopicModel)
 }

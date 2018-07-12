@@ -71,7 +71,7 @@ class BookmarksPresenter @Inject constructor(
             .subscribe({
                 Timber.i("Bookmark deletion completed.")
                 viewState.showBookmarkDeletedMessage()
-                viewState.deleteItemFromBookmarks(item)
+                loadBookmarks()
             }, { error ->
                 error.message?.let { viewState.showErrorMessage(it) }
             })
