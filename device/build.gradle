@@ -55,6 +55,7 @@ dependencies {
     implementation deviceDependencies.rxKotlin
     implementation deviceDependencies.okhttp
     implementation deviceDependencies.picasso
+    implementation deviceDependencies.gson
 
     implementation developmentDependencies.timber
 
