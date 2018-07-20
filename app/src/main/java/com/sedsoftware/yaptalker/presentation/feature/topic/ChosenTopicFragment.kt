@@ -17,6 +17,8 @@ import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
+import com.sedsoftware.yaptalker.device.storage.state.TopicState
+import com.sedsoftware.yaptalker.device.storage.state.TopicStateStorage
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
@@ -68,6 +70,9 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
     lateinit var settings: Settings
 
     @Inject
+    lateinit var topicStateStorage: TopicStateStorage
+
+    @Inject
     lateinit var topicAdapter: ChosenTopicAdapter
 
     @Inject
@@ -94,6 +99,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
     private var fabMenu = FabMenu(isMenuExpanded = false)
     private var isLoggedIn = false
     private var isKarmaAvailable = false
+    private var shouldSaveState = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -119,7 +125,25 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
             return true
         }
 
+        shouldSaveState = false
         return false
+    }
+
+    override fun onStop() {
+        if(shouldSaveState) {
+            val state = TopicState(
+                forumId = presenter.currentForumId,
+                topicId = presenter.currentTopicId,
+                currentPage = presenter.currentPage,
+                scrollState = topic_posts_list.layoutManager.onSaveInstanceState()
+            )
+
+            topicStateStorage.saveState(state)
+        } else {
+            topicStateStorage.clearState()
+        }
+
+        super.onStop()
     }
 
     override fun showErrorMessage(message: String) {

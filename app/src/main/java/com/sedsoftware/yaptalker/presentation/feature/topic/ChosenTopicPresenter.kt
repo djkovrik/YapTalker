@@ -66,12 +66,15 @@ class ChosenTopicPresenter @Inject constructor(
         settings.isScreenAlwaysOnEnabled()
     }
 
-    private val postsPerPage = settings.getMessagesPerPage()
-    private var currentForumId = 0
-    private var currentTopicId = 0
+    private val postsPerPage: Int by lazy {
+        settings.getMessagesPerPage()
+    }
+
+    var currentForumId = 0
+    var currentTopicId = 0
+    var currentPage = 1
+    var totalPages = 1
     private var currentEditedPost = 0
-    private var currentPage = 1
-    private var totalPages = 1
     private var rating = 0
     private var ratingPlusAvailable = false
     private var ratingMinusAvailable = false
