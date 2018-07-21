@@ -45,6 +45,8 @@ interface ChosenTopicView : MvpView, CanShowErrorMessage, CanShowLoadingIndicato
 
     fun restoreScrollPosition()
 
+    fun restoreScrollState()
+
     fun scrollToViewTop()
 
     fun showPageSelectionDialog()

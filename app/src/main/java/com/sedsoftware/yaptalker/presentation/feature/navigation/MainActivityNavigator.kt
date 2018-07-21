@@ -7,6 +7,7 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.device.storage.state.TopicState
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.ActiveTopicsFragment
 import com.sedsoftware.yaptalker.presentation.feature.authorization.AuthorizationFragment
@@ -43,7 +44,6 @@ class MainActivityNavigator @Inject constructor(
         NavigationScreen.VIDEO_DISPLAY_SCREEN -> VideoDisplayActivity.getIntent(activity, data as String)
         NavigationScreen.TOPIC_GALLERY -> TopicGalleryActivity.getIntent(activity, data as GalleryInitialState)
         NavigationScreen.CHANGELOG_SCREEN -> ChangelogActivity.getIntent(activity)
-//    NavigationScreen.MAIL_SCREEN -> MailActivity.getIntent(activity)
         else -> null
     }
 
@@ -56,6 +56,7 @@ class MainActivityNavigator @Inject constructor(
         NavigationScreen.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
         NavigationScreen.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Pair<Int, String>)
         NavigationScreen.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
+        NavigationScreen.RESTORED_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as TopicState)
         NavigationScreen.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
         NavigationScreen.MESSAGE_EDITOR_SCREEN -> AddMessageFragment.getNewInstance(data as Triple<String, String, String>)
         NavigationScreen.SEARCH_FORM -> SearchFormFragment.getNewInstance()

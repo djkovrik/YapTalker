@@ -91,6 +91,7 @@ ext {
 
     deviceDependencies = [
             appCompat: "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION",
+            recycler : "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION",
             kotlin   : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION",
             javax    : "javax.inject:javax.inject:$JAVAX_INJECT_VERSION",
             rxAndroid: "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION",

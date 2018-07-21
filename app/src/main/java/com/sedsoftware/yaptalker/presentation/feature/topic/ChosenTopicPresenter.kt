@@ -250,6 +250,14 @@ class ChosenTopicPresenter @Inject constructor(
         loadTopicCurrentPage(shouldScrollToViewTop = true)
     }
 
+    fun loadRestoredTopic(forumId: Int, topicId: Int, page: Int) {
+        currentForumId = forumId
+        currentTopicId = topicId
+        currentPage = page
+
+        loadTopicCurrentPage(shouldScrollToViewTop = false, restoreScrollState = true)
+    }
+
     fun refreshCurrentPage() {
         loadTopicCurrentPage(shouldScrollToViewTop = false)
     }
@@ -411,7 +419,7 @@ class ChosenTopicPresenter @Inject constructor(
             })
     }
 
-    private fun loadTopicCurrentPage(shouldScrollToViewTop: Boolean) {
+    private fun loadTopicCurrentPage(shouldScrollToViewTop: Boolean, restoreScrollState: Boolean = false) {
 
         if (!shouldScrollToViewTop) {
             viewState.saveScrollPosition()
@@ -429,7 +437,7 @@ class ChosenTopicPresenter @Inject constructor(
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
-            .subscribe(getTopicObserver(shouldScrollToViewTop))
+            .subscribe(getTopicObserver(shouldScrollToViewTop, restoreScrollState))
     }
 
     // ==== OBSERVERS ====
@@ -459,7 +467,7 @@ class ChosenTopicPresenter @Inject constructor(
             }
         }
 
-    private fun getTopicObserver(scrollToViewTop: Boolean) =
+    private fun getTopicObserver(scrollToViewTop: Boolean, restoreScrollState: Boolean) =
         object : DisposableObserver<DisplayedItemModel?>() {
 
             override fun onNext(item: DisplayedItemModel) {
@@ -498,6 +506,8 @@ class ChosenTopicPresenter @Inject constructor(
 
                 if (scrollToViewTop) {
                     viewState.scrollToViewTop()
+                } else if (restoreScrollState) {
+                    viewState.restoreScrollState()
                 } else {
                     viewState.restoreScrollPosition()
                 }

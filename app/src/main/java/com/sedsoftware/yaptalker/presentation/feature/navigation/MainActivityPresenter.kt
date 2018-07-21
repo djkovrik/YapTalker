@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.presentation.feature.navigation
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.device.settings.DefaultHomeScreen
+import com.sedsoftware.yaptalker.device.storage.state.TopicStateStorage
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.LoginSessionInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
@@ -23,7 +24,8 @@ class MainActivityPresenter @Inject constructor(
     private val router: Router,
     private val settings: Settings,
     private val loginSessionInteractor: LoginSessionInteractor,
-    private val sessionInfoMapper: LoginSessionInfoModelMapper
+    private val sessionInfoMapper: LoginSessionInfoModelMapper,
+    private val topicStateStorage: TopicStateStorage
 ) : BasePresenter<MainActivityView>() {
 
     init {
@@ -60,7 +62,6 @@ class MainActivityPresenter @Inject constructor(
             NavigationSection.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
             NavigationSection.SETTINGS -> router.navigateTo(NavigationScreen.SETTINGS_SCREEN)
             NavigationSection.APP_UPDATES -> router.newRootScreen(NavigationScreen.UPDATES_SCREEN)
-//      NavigationSection.MAIL -> router.navigateTo(NavigationScreen.MAIL_SCREEN)
         }
     }
 
@@ -109,11 +110,24 @@ class MainActivityPresenter @Inject constructor(
 
         isStartupLaunchNavigated = true
 
-        when (settings.getStartingPage()) {
-            DefaultHomeScreen.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
-            DefaultHomeScreen.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
-            DefaultHomeScreen.INCUBATOR -> router.newRootScreen(NavigationScreen.INCUBATOR_SCREEN)
-            else -> router.newRootScreen(NavigationScreen.NEWS_SCREEN)
+        val savedTopicState = topicStateStorage.getState()
+
+        when {
+            savedTopicState?.forumId != 0 && savedTopicState?.topicId != 0 -> {
+                router.newRootScreen(NavigationScreen.RESTORED_TOPIC_SCREEN, savedTopicState)
+            }
+            settings.getStartingPage() == DefaultHomeScreen.FORUMS -> {
+                router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
+            }
+            settings.getStartingPage() == DefaultHomeScreen.ACTIVE_TOPICS -> {
+                router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
+            }
+            settings.getStartingPage() == DefaultHomeScreen.INCUBATOR -> {
+                router.newRootScreen(NavigationScreen.INCUBATOR_SCREEN)
+            }
+            else -> {
+                router.newRootScreen(NavigationScreen.NEWS_SCREEN)
+            }
         }
     }
 

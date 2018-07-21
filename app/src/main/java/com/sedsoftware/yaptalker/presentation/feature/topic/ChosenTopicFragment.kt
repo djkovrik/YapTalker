@@ -61,9 +61,20 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
                 )
             }
 
+        fun getNewInstance(state: TopicState): ChosenTopicFragment =
+            ChosenTopicFragment().apply {
+                arguments = bundleOf(
+                    FORUM_ID_KEY to state.forumId,
+                    TOPIC_ID_KEY to state.topicId,
+                    STARTING_POST_KEY to state.currentPage,
+                    SAVED_SCROLL_STATE to state.scrollState
+                )
+            }
+
         private const val FORUM_ID_KEY = "FORUM_ID_KEY"
         private const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
-        private const val STARTING_POST_KEY = "STARTING_POST_KEY"
+        private const val STARTING_POST_KEY = "SAVED_SCROLL_STATE"
+        private const val SAVED_SCROLL_STATE = "STARTING_POST_KEY"
     }
 
     @Inject
@@ -92,6 +103,10 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
 
     private val startingPost: Int by lazy {
         arguments?.getInt(STARTING_POST_KEY) ?: 0
+    }
+
+    private val savedScrollState: LinearLayoutManager.SavedState? by lazy {
+        arguments?.getParcelable<LinearLayoutManager.SavedState>(SAVED_SCROLL_STATE)
     }
 
     private lateinit var topicScrollState: Parcelable
@@ -135,9 +150,8 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
                 forumId = presenter.currentForumId,
                 topicId = presenter.currentTopicId,
                 currentPage = presenter.currentPage,
-                scrollState = topic_posts_list.layoutManager.onSaveInstanceState()
+                scrollState = topic_posts_list.layoutManager.onSaveInstanceState() as LinearLayoutManager.SavedState
             )
-
             topicStateStorage.saveState(state)
         } else {
             topicStateStorage.clearState()
@@ -180,7 +194,11 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
     }
 
     override fun initiateTopicLoading() {
-        presenter.loadTopic(forumId, topicId, startingPost)
+        if (savedScrollState != null) {
+            presenter.loadRestoredTopic(forumId, topicId, startingPost)
+        } else {
+            presenter.loadTopic(forumId, topicId, startingPost)
+        }
     }
 
     override fun showUserProfile(userId: Int) {
@@ -250,6 +268,10 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
 
     override fun restoreScrollPosition() {
         topic_posts_list.layoutManager?.onRestoreInstanceState(topicScrollState)
+    }
+
+    override fun restoreScrollState() {
+        topic_posts_list.layoutManager.onRestoreInstanceState(savedScrollState)
     }
 
     override fun scrollToViewTop() {

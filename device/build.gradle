@@ -48,6 +48,7 @@ dependencies {
     implementation project(':domain')
 
     implementation deviceDependencies.appCompat
+    implementation deviceDependencies.recycler
     implementation deviceDependencies.kotlin
     implementation deviceDependencies.javax
     implementation deviceDependencies.rxAndroid

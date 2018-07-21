@@ -1,10 +1,42 @@
 package com.sedsoftware.yaptalker.device.storage.state
 
+import android.os.Parcel
 import android.os.Parcelable
+import android.os.Parcelable.Creator
+import android.support.v7.widget.LinearLayoutManager.SavedState
 
-class TopicState(
+data class TopicState(
     val forumId: Int = 0,
     val topicId: Int = 0,
     val currentPage: Int = 0,
-    val scrollState: Parcelable = TopicScrollStateStub()
-)
+    val scrollState: SavedState? = null
+) : Parcelable {
+
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readParcelable(SavedState::class.java.classLoader)
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(forumId)
+        parcel.writeInt(topicId)
+        parcel.writeInt(currentPage)
+        parcel.writeParcelable(scrollState, flags)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Creator<TopicState> {
+        override fun createFromParcel(parcel: Parcel): TopicState {
+            return TopicState(parcel)
+        }
+
+        override fun newArray(size: Int): Array<TopicState?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
