@@ -3,7 +3,8 @@ package com.sedsoftware.yaptalker.device.storage.state
 import android.os.Parcelable
 
 class TopicState(
-    val forumId: Int,
-    val topicId: Int,
-    val currentPage: Int,
-    val scrollState: Parcelable)
+    val forumId: Int = 0,
+    val topicId: Int = 0,
+    val currentPage: Int = 0,
+    val scrollState: Parcelable = TopicScrollStateStub()
+)

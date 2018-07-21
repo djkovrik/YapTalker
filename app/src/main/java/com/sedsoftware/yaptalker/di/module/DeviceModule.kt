@@ -34,7 +34,7 @@ class DeviceModule {
     @Singleton
     @Provides
     fun provideGson(): Gson =
-      Gson()
+        Gson()
 
     @Singleton
     @Provides

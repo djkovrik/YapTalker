@@ -10,6 +10,10 @@ class TopicStateStorage @Inject constructor(
     sharedPreferences: SharedPreferences
 ) {
 
+    private val emptyState: TopicState by lazy {
+        TopicState()
+    }
+
     private var savedState: TopicState? by SharedPrefsDelegate(TopicState::class.java, gson, sharedPreferences)
 
     fun getState(): TopicState? = savedState
@@ -19,6 +23,6 @@ class TopicStateStorage @Inject constructor(
     }
 
     fun clearState() {
-        savedState = null
+        savedState = emptyState
     }
 }
