@@ -26,17 +26,13 @@ data class TopicState(
         parcel.writeParcelable(scrollState, flags)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
     companion object CREATOR : Creator<TopicState> {
-        override fun createFromParcel(parcel: Parcel): TopicState {
-            return TopicState(parcel)
-        }
+        override fun createFromParcel(parcel: Parcel): TopicState =
+            TopicState(parcel)
 
-        override fun newArray(size: Int): Array<TopicState?> {
-            return arrayOfNulls(size)
-        }
+        override fun newArray(size: Int): Array<TopicState?> =
+            arrayOfNulls(size)
     }
 }

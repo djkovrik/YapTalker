@@ -33,7 +33,7 @@ import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
 
-@Suppress("UNCHECKED_CAST")
+@Suppress("UNCHECKED_CAST", "MaxLineLength")
 class MainActivityNavigator @Inject constructor(
     private val activity: MainActivity
 ) : SupportAppNavigator(activity, activity.supportFragmentManager, R.id.content_frame) {
@@ -47,6 +47,7 @@ class MainActivityNavigator @Inject constructor(
         else -> null
     }
 
+    @Suppress("ComplexMethod")
     override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
         NavigationScreen.NEWS_SCREEN -> NewsFragment.getNewInstance()
         NavigationScreen.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()

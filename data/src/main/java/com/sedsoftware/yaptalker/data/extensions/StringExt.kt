@@ -10,8 +10,7 @@ fun String.getLastDigits(): Int {
     if (matcher.find()) {
         return try {
             Integer.parseInt(matcher.group(1))
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (e: NumberFormatException) {
             0
         }
     }
