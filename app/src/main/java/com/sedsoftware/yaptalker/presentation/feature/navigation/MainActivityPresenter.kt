@@ -113,7 +113,7 @@ class MainActivityPresenter @Inject constructor(
         val savedTopicState = topicStateStorage.getState()
 
         when {
-            savedTopicState?.forumId != 0 && savedTopicState?.topicId != 0 -> {
+            savedTopicState != null && savedTopicState.forumId != 0 && savedTopicState.topicId != 0 -> {
                 router.newRootScreen(NavigationScreen.RESTORED_TOPIC_SCREEN, savedTopicState)
             }
             settings.getStartingPage() == DefaultHomeScreen.FORUMS -> {

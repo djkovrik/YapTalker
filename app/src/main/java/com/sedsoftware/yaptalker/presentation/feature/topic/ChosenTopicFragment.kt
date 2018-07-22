@@ -61,13 +61,13 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
                 )
             }
 
-        fun getNewInstance(state: TopicState): ChosenTopicFragment =
+        fun getNewInstance(state: TopicState?): ChosenTopicFragment =
             ChosenTopicFragment().apply {
                 arguments = bundleOf(
-                    FORUM_ID_KEY to state.forumId,
-                    TOPIC_ID_KEY to state.topicId,
-                    STARTING_POST_KEY to state.currentPage,
-                    SAVED_SCROLL_STATE to state.scrollState
+                    FORUM_ID_KEY to state?.forumId,
+                    TOPIC_ID_KEY to state?.topicId,
+                    STARTING_POST_KEY to state?.currentPage,
+                    SAVED_SCROLL_STATE to state?.scrollState
                 )
             }
 

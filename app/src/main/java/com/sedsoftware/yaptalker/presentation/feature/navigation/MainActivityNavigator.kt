@@ -57,7 +57,7 @@ class MainActivityNavigator @Inject constructor(
         NavigationScreen.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
         NavigationScreen.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Pair<Int, String>)
         NavigationScreen.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
-        NavigationScreen.RESTORED_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as TopicState)
+        NavigationScreen.RESTORED_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as TopicState?)
         NavigationScreen.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
         NavigationScreen.MESSAGE_EDITOR_SCREEN -> AddMessageFragment.getNewInstance(data as Triple<String, String, String>)
         NavigationScreen.SEARCH_FORM -> SearchFormFragment.getNewInstance()
