@@ -1,5 +1,13 @@
 ## Changelog
 
+### [0.9.15] - 2018-07-23
+
+**Fixed**
+* Bookmarks deletion crash
+
+**Added**
+* Simple topic state saving system
+
 ### [0.9.14] - 2018-07-08
 
 **Fixed**
