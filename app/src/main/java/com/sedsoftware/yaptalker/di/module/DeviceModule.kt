@@ -3,8 +3,10 @@ package com.sedsoftware.yaptalker.di.module
 import android.content.Context
 import android.content.SharedPreferences
 import android.support.v7.preference.PreferenceManager
+import com.google.gson.Gson
 import com.sedsoftware.yaptalker.device.cookies.YapCookieStorage
 import com.sedsoftware.yaptalker.device.settings.SettingsManager
+import com.sedsoftware.yaptalker.device.storage.state.TopicStateStorage
 import com.sedsoftware.yaptalker.domain.device.CookieStorage
 import com.sedsoftware.yaptalker.domain.device.Settings
 import dagger.Module
@@ -28,4 +30,14 @@ class DeviceModule {
     @Provides
     fun provideCookieStorage(settings: Settings): CookieStorage =
         YapCookieStorage(settings)
+
+    @Singleton
+    @Provides
+    fun provideGson(): Gson =
+        Gson()
+
+    @Singleton
+    @Provides
+    fun provideTopicStateStorage(gson: Gson, preferences: SharedPreferences): TopicStateStorage =
+        TopicStateStorage(gson, preferences)
 }

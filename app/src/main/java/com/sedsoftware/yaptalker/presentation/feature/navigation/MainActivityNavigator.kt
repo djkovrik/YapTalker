@@ -7,6 +7,7 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.device.storage.state.TopicState
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.ActiveTopicsFragment
 import com.sedsoftware.yaptalker.presentation.feature.authorization.AuthorizationFragment
@@ -32,7 +33,7 @@ import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
 
-@Suppress("UNCHECKED_CAST")
+@Suppress("UNCHECKED_CAST", "MaxLineLength")
 class MainActivityNavigator @Inject constructor(
     private val activity: MainActivity
 ) : SupportAppNavigator(activity, activity.supportFragmentManager, R.id.content_frame) {
@@ -43,10 +44,10 @@ class MainActivityNavigator @Inject constructor(
         NavigationScreen.VIDEO_DISPLAY_SCREEN -> VideoDisplayActivity.getIntent(activity, data as String)
         NavigationScreen.TOPIC_GALLERY -> TopicGalleryActivity.getIntent(activity, data as GalleryInitialState)
         NavigationScreen.CHANGELOG_SCREEN -> ChangelogActivity.getIntent(activity)
-//    NavigationScreen.MAIL_SCREEN -> MailActivity.getIntent(activity)
         else -> null
     }
 
+    @Suppress("ComplexMethod")
     override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
         NavigationScreen.NEWS_SCREEN -> NewsFragment.getNewInstance()
         NavigationScreen.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
@@ -56,6 +57,7 @@ class MainActivityNavigator @Inject constructor(
         NavigationScreen.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()
         NavigationScreen.CHOSEN_FORUM_SCREEN -> ChosenForumFragment.getNewInstance(data as Pair<Int, String>)
         NavigationScreen.CHOSEN_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as Triple<Int, Int, Int>)
+        NavigationScreen.RESTORED_TOPIC_SCREEN -> ChosenTopicFragment.getNewInstance(data as TopicState?)
         NavigationScreen.USER_PROFILE_SCREEN -> UserProfileFragment.getNewInstance(data as Int)
         NavigationScreen.MESSAGE_EDITOR_SCREEN -> AddMessageFragment.getNewInstance(data as Triple<String, String, String>)
         NavigationScreen.SEARCH_FORM -> SearchFormFragment.getNewInstance()

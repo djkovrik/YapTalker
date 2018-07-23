@@ -95,10 +95,6 @@ class BookmarksFragment : BaseFragment(), BookmarksView {
         messagesDelegate.showMessageInfo(getString(R.string.msg_bookmark_topic_deleted))
     }
 
-    override fun deleteItemFromBookmarks(item: BookmarkedTopicModel) {
-        bookmarksAdapter.deleteFromList(item)
-    }
-
     private fun subscribeViews() {
 
         RxSwipeRefreshLayout

@@ -16,6 +16,7 @@ import java.util.ArrayList
  *
  * @param content Raw html post content
  */
+@Suppress("MaxLineLength")
 class PostContentParser(private val content: String) {
 
     companion object {

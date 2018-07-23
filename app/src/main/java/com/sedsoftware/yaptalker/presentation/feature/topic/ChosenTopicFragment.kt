@@ -17,6 +17,8 @@ import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
+import com.sedsoftware.yaptalker.device.storage.state.TopicState
+import com.sedsoftware.yaptalker.device.storage.state.TopicStateStorage
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
@@ -59,13 +61,27 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
                 )
             }
 
+        fun getNewInstance(state: TopicState?): ChosenTopicFragment =
+            ChosenTopicFragment().apply {
+                arguments = bundleOf(
+                    FORUM_ID_KEY to state?.forumId,
+                    TOPIC_ID_KEY to state?.topicId,
+                    STARTING_POST_KEY to state?.currentPage,
+                    SAVED_SCROLL_STATE to state?.scrollState
+                )
+            }
+
         private const val FORUM_ID_KEY = "FORUM_ID_KEY"
         private const val TOPIC_ID_KEY = "TOPIC_ID_KEY"
-        private const val STARTING_POST_KEY = "STARTING_POST_KEY"
+        private const val STARTING_POST_KEY = "SAVED_SCROLL_STATE"
+        private const val SAVED_SCROLL_STATE = "STARTING_POST_KEY"
     }
 
     @Inject
     lateinit var settings: Settings
+
+    @Inject
+    lateinit var topicStateStorage: TopicStateStorage
 
     @Inject
     lateinit var topicAdapter: ChosenTopicAdapter
@@ -89,11 +105,16 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
         arguments?.getInt(STARTING_POST_KEY) ?: 0
     }
 
+    private val savedScrollState: LinearLayoutManager.SavedState? by lazy {
+        arguments?.getParcelable<LinearLayoutManager.SavedState>(SAVED_SCROLL_STATE)
+    }
+
     private lateinit var topicScrollState: Parcelable
 
     private var fabMenu = FabMenu(isMenuExpanded = false)
     private var isLoggedIn = false
     private var isKarmaAvailable = false
+    private var shouldSaveState = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -119,7 +140,24 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
             return true
         }
 
+        shouldSaveState = false
         return false
+    }
+
+    override fun onStop() {
+        if(shouldSaveState) {
+            val state = TopicState(
+                forumId = presenter.currentForumId,
+                topicId = presenter.currentTopicId,
+                currentPage = presenter.currentPage,
+                scrollState = topic_posts_list.layoutManager.onSaveInstanceState() as LinearLayoutManager.SavedState
+            )
+            topicStateStorage.saveState(state)
+        } else {
+            topicStateStorage.clearState()
+        }
+
+        super.onStop()
     }
 
     override fun showErrorMessage(message: String) {
@@ -156,7 +194,11 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
     }
 
     override fun initiateTopicLoading() {
-        presenter.loadTopic(forumId, topicId, startingPost)
+        if (savedScrollState != null) {
+            presenter.loadRestoredTopic(forumId, topicId, startingPost)
+        } else {
+            presenter.loadTopic(forumId, topicId, startingPost)
+        }
     }
 
     override fun showUserProfile(userId: Int) {
@@ -226,6 +268,10 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
 
     override fun restoreScrollPosition() {
         topic_posts_list.layoutManager?.onRestoreInstanceState(topicScrollState)
+    }
+
+    override fun restoreScrollState() {
+        topic_posts_list.layoutManager.onRestoreInstanceState(savedScrollState)
     }
 
     override fun scrollToViewTop() {

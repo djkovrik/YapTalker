@@ -19,5 +19,5 @@ object NavigationScreen {
     const val TOPIC_GALLERY = "TOPIC_GALLERY"
     const val CHANGELOG_SCREEN = "CHANGELOG_SCREEN"
     const val UPDATES_SCREEN = "UPDATES_SCREEN"
-    const val MAIL_SCREEN = "MAIL_SCREEN"
+    const val RESTORED_TOPIC_SCREEN = "RESTORED_TOPIC_SCREEN"
 }

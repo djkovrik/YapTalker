@@ -66,12 +66,4 @@ class BookmarksAdapter @Inject constructor(
         notifyItemRangeRemoved(0, items.size)
         items.clear()
     }
-
-    fun deleteFromList(item: BookmarkedTopicModel) {
-        val position = items.indexOf(item)
-        if (position != -1) {
-            items.removeAt(position)
-            notifyItemRemoved(position)
-        }
-    }
 }
