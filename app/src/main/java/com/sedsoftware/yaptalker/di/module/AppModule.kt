@@ -4,7 +4,9 @@ import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
 import com.sedsoftware.yaptalker.YapTalkerApp
+import com.sedsoftware.yaptalker.common.AppSchedulers
 import com.sedsoftware.yaptalker.data.database.YapTalkerDatabase
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -29,6 +31,12 @@ abstract class AppModule {
             Room
                 .databaseBuilder(context, YapTalkerDatabase::class.java, YapTalkerDatabase.DATABASE_NAME)
                 .build()
+
+        @Provides
+        @Singleton
+        @JvmStatic
+        fun provideSchedulers(): SchedulersProvider =
+            AppSchedulers()
     }
 
     @Binds

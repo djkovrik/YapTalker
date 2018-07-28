@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.data.repository
 
 import com.sedsoftware.yaptalker.data.mapper.SearchPageResultsMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.repository.SearchTopicsRepository
 import io.reactivex.Single
@@ -9,7 +10,8 @@ import javax.inject.Inject
 
 class YapSearchTopicsRepository @Inject constructor(
     private val dataLoader: YapLoader,
-    private val dataMapper: SearchPageResultsMapper
+    private val dataMapper: SearchPageResultsMapper,
+    private val schedulers: SchedulersProvider
 ) : SearchTopicsRepository {
 
     companion object {
@@ -20,14 +22,12 @@ class YapSearchTopicsRepository @Inject constructor(
         private const val SEARCH_SUBS = 1
     }
 
-    override fun getSearchResults(
-        keyword: String,
-        searchIn: String,
-        searchHow: String,
-        sortBy: String,
-        targetForums: List<String>,
-        prune: Int
-    ): Single<List<BaseEntity>> =
+    override fun getSearchResults(keyword: String,
+                                  searchIn: String,
+                                  searchHow: String,
+                                  sortBy: String,
+                                  targetForums: List<String>,
+                                  prune: Int): Single<List<BaseEntity>> =
         dataLoader
             .loadSearchedTopics(
                 act = SEARCH_ACT,
@@ -41,6 +41,7 @@ class YapSearchTopicsRepository @Inject constructor(
                 sortBy = sortBy
             )
             .map(dataMapper)
+            .subscribeOn(schedulers.io())
 
     override fun getTagSearchResults(keyword: String): Single<List<BaseEntity>> =
         dataLoader
@@ -50,13 +51,12 @@ class YapSearchTopicsRepository @Inject constructor(
                 tag = keyword
             )
             .map(dataMapper)
+            .subscribeOn(schedulers.io())
 
-    override fun getSearchResultsNextPage(
-        keyword: String,
-        searchId: String,
-        searchIn: String,
-        page: Int
-    ): Single<List<BaseEntity>> =
+    override fun getSearchResultsNextPage(keyword: String,
+                                          searchId: String,
+                                          searchIn: String,
+                                          page: Int): Single<List<BaseEntity>> =
         dataLoader
             .loadSearchedTopicsNextPage(
                 act = SEARCH_ACT,
@@ -69,4 +69,5 @@ class YapSearchTopicsRepository @Inject constructor(
                 st = page
             )
             .map(dataMapper)
+            .subscribeOn(schedulers.io())
 }

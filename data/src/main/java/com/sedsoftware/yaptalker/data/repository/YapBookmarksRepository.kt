@@ -5,6 +5,7 @@ import com.sedsoftware.yaptalker.data.mapper.BookmarksMapper
 import com.sedsoftware.yaptalker.data.mapper.ListToObservablesMapper
 import com.sedsoftware.yaptalker.data.mapper.ServerResponseMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.entity.base.BookmarkedTopic
 import com.sedsoftware.yaptalker.domain.repository.BookmarksRepository
 import io.reactivex.Completable
@@ -15,7 +16,8 @@ class YapBookmarksRepository @Inject constructor(
     private val dataLoader: YapLoader,
     private val dataMapper: BookmarksMapper,
     private val responseMapper: ServerResponseMapper,
-    private val listMapper: ListToObservablesMapper<BookmarkedTopic>
+    private val listMapper: ListToObservablesMapper<BookmarkedTopic>,
+    private val schedulers: SchedulersProvider
 ) : BookmarksRepository {
 
     companion object {
@@ -35,6 +37,7 @@ class YapBookmarksRepository @Inject constructor(
             )
             .map(dataMapper)
             .flatMap(listMapper)
+            .subscribeOn(schedulers.io())
 
     override fun requestBookmarkAdding(topicId: Int, startingPost: Int): Completable =
         dataLoader
@@ -53,6 +56,7 @@ class YapBookmarksRepository @Inject constructor(
                     Completable.error(RequestErrorException("Failed to add new bookmark"))
                 }
             }
+            .subscribeOn(schedulers.io())
 
     override fun requestBookmarkDeletion(bookmarkId: Int): Completable =
         dataLoader
@@ -61,5 +65,6 @@ class YapBookmarksRepository @Inject constructor(
                 code = BOOKMARKS_CODE_REMOVE,
                 id = bookmarkId
             )
-            .toCompletable()
+            .ignoreElement()
+            .subscribeOn(schedulers.io())
 }

@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.data.repository
 import com.sedsoftware.yaptalker.data.mapper.EmojiListMapper
 import com.sedsoftware.yaptalker.data.mapper.ListToObservablesMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.entity.base.Emoji
 import com.sedsoftware.yaptalker.domain.repository.EmojiRepository
 import io.reactivex.Observable
@@ -11,7 +12,8 @@ import javax.inject.Inject
 class YapEmojiRepository @Inject constructor(
     private val dataLoader: YapLoader,
     private val dataMapper: EmojiListMapper,
-    private val listMapper: ListToObservablesMapper<Emoji>
+    private val listMapper: ListToObservablesMapper<Emoji>,
+    private val schedulers: SchedulersProvider
 ) : EmojiRepository {
 
     companion object {
@@ -27,4 +29,5 @@ class YapEmojiRepository @Inject constructor(
             )
             .map(dataMapper)
             .flatMapObservable(listMapper)
+            .subscribeOn(schedulers.io())
 }
