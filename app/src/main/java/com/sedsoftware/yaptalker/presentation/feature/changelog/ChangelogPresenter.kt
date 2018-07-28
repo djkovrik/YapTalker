@@ -1,17 +1,17 @@
 package com.sedsoftware.yaptalker.presentation.feature.changelog
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.interactor.ChangelogInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @InjectViewState
 class ChangelogPresenter @Inject constructor(
-    private val changelogInteractor: ChangelogInteractor
+    private val changelogInteractor: ChangelogInteractor,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<ChangelogView>() {
 
     override fun onFirstViewAttach() {
@@ -19,8 +19,7 @@ class ChangelogPresenter @Inject constructor(
 
         changelogInteractor
             .getChangelogText()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))

@@ -27,8 +27,6 @@ import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_news.*
 import org.jetbrains.anko.browse
 import timber.log.Timber
@@ -138,8 +136,6 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
     override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
         presenter
             .requestThumbnail(videoUrl)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .autoDisposable(event(FragmentLifecycle.DESTROY))
             .subscribe({ url ->
                 if (url.isNotEmpty()) {

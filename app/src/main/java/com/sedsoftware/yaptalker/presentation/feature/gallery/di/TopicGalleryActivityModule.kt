@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.gallery.di
 
 import com.sedsoftware.yaptalker.data.repository.YapChosenTopicRepository
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.device.sharing.YapSharingHelper
 import com.sedsoftware.yaptalker.device.storage.YapImageStorage
 import com.sedsoftware.yaptalker.di.scope.ActivityScope
@@ -47,9 +48,10 @@ abstract class TopicGalleryActivityModule {
             galleryInteractor: TopicGalleryInteractor,
             imageHelper: ImageHelperInteractor,
             mapper: TopicGalleryModelMapper,
-            initialState: GalleryInitialState
+            initialState: GalleryInitialState,
+            schedulers: SchedulersProvider
         ): TopicGalleryPresenter =
-            TopicGalleryPresenter(settings, galleryInteractor, imageHelper, mapper, initialState)
+            TopicGalleryPresenter(settings, galleryInteractor, imageHelper, mapper, initialState, schedulers)
     }
 
     @ActivityScope

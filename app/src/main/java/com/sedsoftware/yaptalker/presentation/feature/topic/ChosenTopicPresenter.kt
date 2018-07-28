@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.topic
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
 import com.sedsoftware.yaptalker.domain.interactor.MessagePostingInteractor
@@ -32,10 +33,8 @@ import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -53,7 +52,8 @@ class ChosenTopicPresenter @Inject constructor(
     private val topicMapper: TopicModelMapper,
     private val quoteDataMapper: QuotedPostModelMapper,
     private val editedTextDataMapper: EditedPostModelMapper,
-    private val serverResponseMapper: ServerResponseModelMapper
+    private val serverResponseMapper: ServerResponseModelMapper,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<ChosenTopicView>(), ChosenTopicElementsClickListener, NavigationPanelClickListener {
 
     companion object {
@@ -164,9 +164,8 @@ class ChosenTopicPresenter @Inject constructor(
     override fun onReplyButtonClicked(authorNickname: String, postDate: String, postId: Int) {
         topicInteractor
             .requestPostTextAsQuote(currentForumId, currentTopicId, postId)
-            .subscribeOn(Schedulers.io())
             .map(quoteDataMapper)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
@@ -185,9 +184,8 @@ class ChosenTopicPresenter @Inject constructor(
 
         topicInteractor
             .requestPostTextForEditing(currentForumId, currentTopicId, postId, startingPost)
-            .subscribeOn(Schedulers.io())
             .map(editedTextDataMapper)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
@@ -308,8 +306,7 @@ class ChosenTopicPresenter @Inject constructor(
 
         topicInteractor
             .requestBookmarkAdding(currentTopicId, startingPost)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
@@ -324,8 +321,7 @@ class ChosenTopicPresenter @Inject constructor(
     fun addCurrentTopicToBlacklist() {
         blacklistInteractor
             .addTopicToBlacklist(currentTitle, currentTopicId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({
                 Timber.i("Current topic added to blacklist.")
@@ -349,9 +345,8 @@ class ChosenTopicPresenter @Inject constructor(
 
         siteKarmaInteractor
             .sendChangeKarmaRequest(isTopic, targetPostId, currentTopicId, diff)
-            .subscribeOn(Schedulers.io())
             .map(serverResponseMapper)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
@@ -361,6 +356,7 @@ class ChosenTopicPresenter @Inject constructor(
     fun requestThumbnail(videoUrl: String): Single<String> =
         videoThumbnailsInteractor
             .getThumbnail(videoUrl)
+            .observeOn(schedulers.ui())
 
     private fun sendMessage(message: Pair<String, String>) {
 
@@ -372,8 +368,7 @@ class ChosenTopicPresenter @Inject constructor(
 
         messagePostingInteractor
             .sendMessageRequest(currentForumId, currentTopicId, startingPost, authKey, message.first, message.second)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
@@ -400,10 +395,8 @@ class ChosenTopicPresenter @Inject constructor(
                 currentEditedPost,
                 startingPost,
                 authKey,
-                message
-            )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+                message)
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
@@ -426,10 +419,9 @@ class ChosenTopicPresenter @Inject constructor(
 
         topicInteractor
             .getChosenTopic(currentForumId, currentTopicId, startingPost)
-            .subscribeOn(Schedulers.io())
             .map(topicMapper)
-            .flatMapObservable { items: List<DisplayedItemModel> -> Observable.fromIterable(items) }
-            .observeOn(AndroidSchedulers.mainThread())
+            .flatMapObservable { Observable.fromIterable(it) }
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))

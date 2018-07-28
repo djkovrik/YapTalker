@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.presentation.feature.incubator.di
 
 import com.sedsoftware.yaptalker.data.repository.YapIncubatorRepository
 import com.sedsoftware.yaptalker.data.repository.YapThumbnailRepository
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.IncubatorInteractor
@@ -32,9 +33,10 @@ abstract class IncubatorFragmentModule {
             settings: Settings,
             incubatorInteractor: IncubatorInteractor,
             videoThumbnailsInteractor: VideoThumbnailsInteractor,
-            mapper: IncubatorModelMapper
+            mapper: IncubatorModelMapper,
+            schedulers: SchedulersProvider
         ): IncubatorPresenter =
-            IncubatorPresenter(router, settings, incubatorInteractor, videoThumbnailsInteractor, mapper)
+            IncubatorPresenter(router, settings, incubatorInteractor, videoThumbnailsInteractor, mapper, schedulers)
     }
 
     @FragmentScope

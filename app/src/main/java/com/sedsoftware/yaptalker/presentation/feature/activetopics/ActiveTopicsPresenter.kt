@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.activetopics
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.interactor.ActiveTopicsInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -13,9 +14,7 @@ import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -23,7 +22,8 @@ import javax.inject.Inject
 class ActiveTopicsPresenter @Inject constructor(
     private val router: Router,
     private val activeTopicsInteractor: ActiveTopicsInteractor,
-    private val activeTopicsModelMapper: ActiveTopicModelMapper
+    private val activeTopicsModelMapper: ActiveTopicModelMapper,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<ActiveTopicsView>(), ActiveTopicsItemClickListener, NavigationPanelClickListener {
 
     companion object {
@@ -102,10 +102,9 @@ class ActiveTopicsPresenter @Inject constructor(
                 searchIdKey = hash
                 activeTopicsInteractor.getActiveTopics(hash = searchIdKey, page = 0)
             }
-            .subscribeOn(Schedulers.io())
             .map(activeTopicsModelMapper)
-            .flatMapObservable { topics: List<DisplayedItemModel> -> Observable.fromIterable(topics) }
-            .observeOn(AndroidSchedulers.mainThread())
+            .flatMapObservable { Observable.fromIterable(it) }
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
@@ -120,10 +119,9 @@ class ActiveTopicsPresenter @Inject constructor(
 
         activeTopicsInteractor
             .getActiveTopics(hash = searchIdKey, page = startingTopicNumber)
-            .subscribeOn(Schedulers.io())
             .map(activeTopicsModelMapper)
-            .flatMapObservable { topics: List<DisplayedItemModel> -> Observable.fromIterable(topics) }
-            .observeOn(AndroidSchedulers.mainThread())
+            .flatMapObservable { Observable.fromIterable(it) }
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))

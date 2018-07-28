@@ -1,21 +1,21 @@
 package com.sedsoftware.yaptalker.presentation.feature.blacklist
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.feature.blacklist.adapter.BlacklistElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.BlacklistTopicModelMapper
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState
 class BlacklistPresenter @Inject constructor(
     private val blacklistInteractor: BlacklistInteractor,
-    private val topicsMapper: BlacklistTopicModelMapper
+    private val topicsMapper: BlacklistTopicModelMapper,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<BlacklistView>(), BlacklistElementsClickListener {
 
     override fun onFirstViewAttach() {
@@ -35,8 +35,7 @@ class BlacklistPresenter @Inject constructor(
     fun deleteTopicFromBlacklist(topicId: Int) {
         blacklistInteractor
             .removeTopicFromBlacklistById(topicId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({
                 Timber.i("Topic deleted from blacklist")
@@ -49,8 +48,7 @@ class BlacklistPresenter @Inject constructor(
     fun clearBlacklist() {
         blacklistInteractor
             .clearTopicsBlacklist()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({
                 Timber.i("Blacklist cleared")
@@ -63,8 +61,7 @@ class BlacklistPresenter @Inject constructor(
     fun clearBlacklistMonthOld() {
         blacklistInteractor
             .clearMonthOldTopicsBlacklist()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({
                 Timber.i("Month old topics cleared")
@@ -77,9 +74,8 @@ class BlacklistPresenter @Inject constructor(
     private fun loadBlacklist() {
         blacklistInteractor
             .getBlacklistedTopics()
-            .subscribeOn(Schedulers.io())
             .map(topicsMapper)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({ topics ->
                 viewState.showBlacklistedTopics(topics)

@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.navigation
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.device.settings.DefaultHomeScreen
 import com.sedsoftware.yaptalker.device.storage.state.TopicStateStorage
 import com.sedsoftware.yaptalker.domain.device.Settings
@@ -13,8 +14,6 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.mapper.LoginSessionInfoModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -25,7 +24,8 @@ class MainActivityPresenter @Inject constructor(
     private val settings: Settings,
     private val loginSessionInteractor: LoginSessionInteractor,
     private val sessionInfoMapper: LoginSessionInfoModelMapper,
-    private val topicStateStorage: TopicStateStorage
+    private val topicStateStorage: TopicStateStorage,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<MainActivityView>() {
 
     init {
@@ -134,9 +134,8 @@ class MainActivityPresenter @Inject constructor(
     private fun refreshAuthorization() {
         loginSessionInteractor
             .getLoginSessionInfo()
-            .subscribeOn(Schedulers.io())
             .map(sessionInfoMapper)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({ info ->
                 displayLoginSessionInfo(info)
@@ -163,8 +162,7 @@ class MainActivityPresenter @Inject constructor(
     private fun sendSignOutRequest() {
         loginSessionInteractor
             .sendSignOutRequest(currentUserKey)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({
                 refreshAuthorization()

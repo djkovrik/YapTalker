@@ -25,8 +25,6 @@ import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.Incubato
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_incubator.*
 import org.jetbrains.anko.browse
 import timber.log.Timber
@@ -112,8 +110,6 @@ class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsProvider {
     override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
         presenter
             .requestThumbnail(videoUrl)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .autoDisposable(event(FragmentLifecycle.DESTROY))
             .subscribe({ url ->
                 if (url.isNotEmpty()) {

@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.search.di
 
 import com.sedsoftware.yaptalker.data.repository.YapSearchTopicsRepository
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.interactor.SearchInteractor
 import com.sedsoftware.yaptalker.domain.repository.SearchTopicsRepository
@@ -24,9 +25,10 @@ abstract class SearchResultsFragmentModule {
         fun providePresenter(
             router: Router,
             interactor: SearchInteractor,
-            mapper: SearchResultsModelMapper
+            mapper: SearchResultsModelMapper,
+            schedulers: SchedulersProvider
         ): SearchResultsPresenter =
-            SearchResultsPresenter(router, interactor, mapper)
+            SearchResultsPresenter(router, interactor, mapper, schedulers)
     }
 
     @FragmentScope

@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.updater
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.device.UpdatesDownloader
 import com.sedsoftware.yaptalker.domain.interactor.AppUpdaterInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
@@ -10,8 +11,6 @@ import com.sedsoftware.yaptalker.presentation.mapper.LastUpdateDateMapper
 import com.sedsoftware.yaptalker.presentation.mapper.VersionInfoMapper
 import com.sedsoftware.yaptalker.presentation.model.base.AppVersionInfoModel
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -21,7 +20,8 @@ class UpdaterPresenter @Inject constructor(
     private val appUpdaterInteractor: AppUpdaterInteractor,
     private val versionInfoMapper: VersionInfoMapper,
     private val dateMapper: LastUpdateDateMapper,
-    private val updatesDownloader: UpdatesDownloader
+    private val updatesDownloader: UpdatesDownloader,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<UpdaterView>() {
 
     private var currentVersionCode = 0
@@ -52,8 +52,7 @@ class UpdaterPresenter @Inject constructor(
         appUpdaterInteractor
             .getRemoteVersionInfo()
             .map(versionInfoMapper)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .doOnSubscribe {
                 viewState.showCheckingStatus()
                 viewState.setUpdateButtonAvailability(isAvailable = false)
@@ -96,8 +95,7 @@ class UpdaterPresenter @Inject constructor(
         appUpdaterInteractor
             .getInstalledVersionInfo()
             .map(versionInfoMapper)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({ info: AppVersionInfoModel ->
                 currentVersionCode = info.versionCode
@@ -111,8 +109,7 @@ class UpdaterPresenter @Inject constructor(
         appUpdaterInteractor
             .getLastUpdateCheckDate()
             .map(dateMapper)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({ date: String ->
                 viewState.displayLastUpdateCheckDate(date)

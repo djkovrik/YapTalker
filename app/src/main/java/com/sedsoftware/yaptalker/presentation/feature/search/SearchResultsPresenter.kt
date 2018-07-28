@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.search
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.interactor.SearchInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -11,9 +12,7 @@ import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.SearchTopicsPageInfoModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -22,7 +21,8 @@ import javax.inject.Inject
 class SearchResultsPresenter @Inject constructor(
     private val router: Router,
     private val searchInteractor: SearchInteractor,
-    private val searchResultsMapper: SearchResultsModelMapper
+    private val searchResultsMapper: SearchResultsModelMapper,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<SearchResultsView>(), SearchResultsItemClickListener {
 
     companion object {
@@ -56,12 +56,10 @@ class SearchResultsPresenter @Inject constructor(
                 searchHow = request.searchHow,
                 sortBy = request.sortBy,
                 targetForums = request.targetForums,
-                prune = request.periodInDays.toInt()
-            )
-            .subscribeOn(Schedulers.io())
+                prune = request.periodInDays.toInt())
             .map(searchResultsMapper)
-            .flatMapObservable { list: List<DisplayedItemModel> -> Observable.fromIterable(list) }
-            .observeOn(AndroidSchedulers.mainThread())
+            .flatMapObservable { Observable.fromIterable(it) }
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
@@ -71,10 +69,9 @@ class SearchResultsPresenter @Inject constructor(
     fun searchInTags(tag: String) {
         searchInteractor
             .getTagSearchResults(tag)
-            .subscribeOn(Schedulers.io())
             .map(searchResultsMapper)
-            .flatMapObservable { list: List<DisplayedItemModel> -> Observable.fromIterable(list) }
-            .observeOn(AndroidSchedulers.mainThread())
+            .flatMapObservable { Observable.fromIterable(it) }
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
@@ -91,12 +88,10 @@ class SearchResultsPresenter @Inject constructor(
                 keyword = searchKeyword,
                 searchId = searchIdKey,
                 searchIn = searchInParam,
-                page = startingTopicNumber
-            )
-            .subscribeOn(Schedulers.io())
+                page = startingTopicNumber)
             .map(searchResultsMapper)
-            .flatMapObservable { topics: List<DisplayedItemModel> -> Observable.fromIterable(topics) }
-            .observeOn(AndroidSchedulers.mainThread())
+            .flatMapObservable { Observable.fromIterable(it) }
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))

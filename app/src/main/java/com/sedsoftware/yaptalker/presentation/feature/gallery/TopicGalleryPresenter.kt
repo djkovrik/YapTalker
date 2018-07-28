@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.gallery
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.ImageHelperInteractor
 import com.sedsoftware.yaptalker.domain.interactor.TopicGalleryInteractor
@@ -14,9 +15,7 @@ import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -26,7 +25,8 @@ class TopicGalleryPresenter @Inject constructor(
     private val topicGalleryInteractor: TopicGalleryInteractor,
     private val imageHelperInteractor: ImageHelperInteractor,
     private val galleryMapper: TopicGalleryModelMapper,
-    private val initialState: GalleryInitialState
+    private val initialState: GalleryInitialState,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<TopicGalleryView>(), TopicGalleryLoadMoreClickListener {
 
     companion object {
@@ -63,9 +63,8 @@ class TopicGalleryPresenter @Inject constructor(
 
         topicGalleryInteractor
             .getTopicGallery(initialState.currentForumId, initialState.currentTopicId, startingPost)
-            .subscribeOn(Schedulers.io())
             .map(galleryMapper)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe(getTopicGalleryObserver())
     }
@@ -109,8 +108,7 @@ class TopicGalleryPresenter @Inject constructor(
     fun saveImage(url: String) {
         imageHelperInteractor
             .saveImage(url.validateUrl())
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({ fileName ->
                 viewState.fileSavedMessage(fileName)

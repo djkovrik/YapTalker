@@ -4,6 +4,7 @@ import com.sedsoftware.yaptalker.data.repository.YapBlacklistRepository
 import com.sedsoftware.yaptalker.data.repository.YapBookmarksRepository
 import com.sedsoftware.yaptalker.data.repository.YapChosenTopicRepository
 import com.sedsoftware.yaptalker.data.repository.YapThumbnailRepository
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
@@ -50,7 +51,8 @@ abstract class ChosenTopicFragmentModule {
             topicMapper: TopicModelMapper,
             quoteDataMapper: QuotedPostModelMapper,
             editedTextDataMapper: EditedPostModelMapper,
-            serverResponseMapper: ServerResponseModelMapper
+            serverResponseMapper: ServerResponseModelMapper,
+            schedulers: SchedulersProvider
         ): ChosenTopicPresenter =
 
             ChosenTopicPresenter(
@@ -64,7 +66,8 @@ abstract class ChosenTopicFragmentModule {
                 topicMapper,
                 quoteDataMapper,
                 editedTextDataMapper,
-                serverResponseMapper
+                serverResponseMapper,
+                schedulers
             )
     }
 

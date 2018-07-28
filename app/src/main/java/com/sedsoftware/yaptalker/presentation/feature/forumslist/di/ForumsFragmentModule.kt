@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.forumslist.di
 
 import com.sedsoftware.yaptalker.data.repository.YapForumsListRepository
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.interactor.ForumsListInteractor
 import com.sedsoftware.yaptalker.domain.repository.ForumsListRepository
@@ -24,9 +25,10 @@ abstract class ForumsFragmentModule {
         fun providePresenter(
             router: Router,
             interactor: ForumsListInteractor,
-            mapper: ForumsListModelMapper
+            mapper: ForumsListModelMapper,
+            schedulers: SchedulersProvider
         ): ForumsPresenter =
-            ForumsPresenter(router, interactor, mapper)
+            ForumsPresenter(router, interactor, mapper, schedulers)
     }
 
     @FragmentScope

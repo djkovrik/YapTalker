@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.posting
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.interactor.EmojiInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -12,9 +13,7 @@ import com.sedsoftware.yaptalker.presentation.feature.posting.tags.MessageTags
 import com.sedsoftware.yaptalker.presentation.mapper.EmojiModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.EmojiModel
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import java.util.Locale
@@ -24,7 +23,8 @@ import javax.inject.Inject
 class AddMessagePresenter @Inject constructor(
     private val router: Router,
     private val emojiInteractor: EmojiInteractor,
-    private val emojiMapper: EmojiModelMapper
+    private val emojiMapper: EmojiModelMapper,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<AddMessageView>(), EmojiClickListener {
 
     private var clearCurrentList = false
@@ -146,9 +146,8 @@ class AddMessagePresenter @Inject constructor(
 
         emojiInteractor
             .loadEmojiList()
-            .subscribeOn(Schedulers.io())
             .map(emojiMapper)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe(getEmojiObserver())
     }
