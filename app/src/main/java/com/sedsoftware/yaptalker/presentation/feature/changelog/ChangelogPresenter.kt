@@ -26,8 +26,8 @@ class ChangelogPresenter @Inject constructor(
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({ markdown ->
                 viewState.displayChangelog(markdown)
-            }, { throwable ->
-                throwable.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 }

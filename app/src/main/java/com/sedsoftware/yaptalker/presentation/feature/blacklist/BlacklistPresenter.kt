@@ -9,13 +9,11 @@ import com.sedsoftware.yaptalker.presentation.mapper.BlacklistTopicModelMapper
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState
 class BlacklistPresenter @Inject constructor(
-    private val router: Router,
     private val blacklistInteractor: BlacklistInteractor,
     private val topicsMapper: BlacklistTopicModelMapper
 ) : BasePresenter<BlacklistView>(), BlacklistElementsClickListener {
@@ -43,8 +41,8 @@ class BlacklistPresenter @Inject constructor(
             .subscribe({
                 Timber.i("Topic deleted from blacklist")
                 loadBlacklist()
-            }, { error ->
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 
@@ -57,8 +55,8 @@ class BlacklistPresenter @Inject constructor(
             .subscribe({
                 Timber.i("Blacklist cleared")
                 loadBlacklist()
-            }, { error ->
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 
@@ -71,8 +69,8 @@ class BlacklistPresenter @Inject constructor(
             .subscribe({
                 Timber.i("Month old topics cleared")
                 loadBlacklist()
-            }, { error ->
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 
@@ -85,8 +83,8 @@ class BlacklistPresenter @Inject constructor(
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({ topics ->
                 viewState.showBlacklistedTopics(topics)
-            }, { error ->
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 }

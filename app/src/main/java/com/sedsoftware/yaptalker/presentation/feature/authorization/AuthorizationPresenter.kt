@@ -42,7 +42,10 @@ class AuthorizationPresenter @Inject constructor(
                 viewState.showLoginSuccessMessage()
                 Timber.i("Sign In request completed, start site preferences loading...")
                 loadSitePreferences()
-            }, { viewState.showLoginErrorMessage() })
+            }, { e: Throwable ->
+                Timber.e("Error: ${e.message}")
+                viewState.showLoginErrorMessage()
+            })
     }
 
     private fun loadSitePreferences() {
@@ -54,8 +57,8 @@ class AuthorizationPresenter @Inject constructor(
             .subscribe({
                 Timber.i("Site preferences loading completed.")
                 router.exitWithResult(RequestCode.SIGN_IN, true)
-            }, { error ->
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 }

@@ -12,7 +12,6 @@ import com.sedsoftware.yaptalker.presentation.mapper.BlacklistTopicModelMapper
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import ru.terrakok.cicerone.Router
 import java.lang.ref.WeakReference
 
 @Module
@@ -25,11 +24,10 @@ abstract class BlacklistActivityModule {
         @Provides
         @JvmStatic
         fun providePresenter(
-            router: Router,
             interactor: BlacklistInteractor,
             mapper: BlacklistTopicModelMapper
         ): BlacklistPresenter =
-            BlacklistPresenter(router, interactor, mapper)
+            BlacklistPresenter(interactor, mapper)
 
         @ActivityScope
         @Provides

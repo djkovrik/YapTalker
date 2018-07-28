@@ -44,9 +44,9 @@ class ShareTarget @Inject constructor(val context: Context) : ImageTarget {
                         context.getString(R.string.title_share_image)
                     ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
-            }, { throwable ->
+            }, { e: Throwable ->
                 // onError
-                Timber.e("Image sharing error: ${throwable.message}")
+                Timber.e("Image sharing error: ${e.message}")
             })
     }
 

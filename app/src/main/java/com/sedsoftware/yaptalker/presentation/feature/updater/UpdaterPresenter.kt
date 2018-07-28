@@ -83,8 +83,8 @@ class UpdaterPresenter @Inject constructor(
 
                 fetchLastUpdateCheckDate()
 
-            }, { throwable: Throwable? ->
-                throwable?.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable? ->
+                e?.message?.let { viewState.showErrorMessage(it) }
             })
     }
 
@@ -102,8 +102,8 @@ class UpdaterPresenter @Inject constructor(
             .subscribe({ info: AppVersionInfoModel ->
                 currentVersionCode = info.versionCode
                 viewState.displayInstalledVersionInfo(info)
-            }, { throwable: Throwable? ->
-                throwable?.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable? ->
+                e?.message?.let { viewState.showErrorMessage(it) }
             })
     }
 
@@ -116,8 +116,8 @@ class UpdaterPresenter @Inject constructor(
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({ date: String ->
                 viewState.displayLastUpdateCheckDate(date)
-            }, { throwable: Throwable? ->
-                throwable?.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable? ->
+                e?.message?.let { viewState.showErrorMessage(it) }
             })
     }
 }

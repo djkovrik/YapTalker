@@ -174,8 +174,8 @@ class ChosenTopicPresenter @Inject constructor(
                 post as QuotedPostModel
                 val quote = "[QUOTE=$authorNickname,$postDate]${post.text}[/QUOTE]\n"
                 router.navigateTo(NavigationScreen.MESSAGE_EDITOR_SCREEN, Triple(currentTitle, quote, ""))
-            }, { error ->
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 
@@ -194,8 +194,8 @@ class ChosenTopicPresenter @Inject constructor(
             .subscribe({ post ->
                 post as EditedPostModel
                 router.navigateTo(NavigationScreen.MESSAGE_EDITOR_SCREEN, Triple(currentTitle, "", post.text))
-            }, { error ->
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 
@@ -316,8 +316,8 @@ class ChosenTopicPresenter @Inject constructor(
             .subscribe({
                 Timber.i("Current topic added to bookmarks.")
                 viewState.showBookmarkAddedMessage()
-            }, { error ->
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 
@@ -331,8 +331,8 @@ class ChosenTopicPresenter @Inject constructor(
                 Timber.i("Current topic added to blacklist.")
                 viewState.showTopicBlacklistedMessage()
                 router.exitWithResult(RequestCode.REFRESH_REQUEST, true)
-            }, { error ->
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 
@@ -378,12 +378,10 @@ class ChosenTopicPresenter @Inject constructor(
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({
-                // onComplete
                 Timber.i("Send message request completed.")
                 refreshCurrentPage()
-            }, { error ->
-                // onError
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 
@@ -410,12 +408,10 @@ class ChosenTopicPresenter @Inject constructor(
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({
-                // onComplete
                 Timber.i("Send edited message request completed.")
                 refreshCurrentPage()
-            }, { error ->
-                // onError
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 
@@ -504,12 +500,10 @@ class ChosenTopicPresenter @Inject constructor(
                 viewState.updateCurrentUiState(currentTitle)
                 setupCurrentLoginSessionState()
 
-                if (scrollToViewTop) {
-                    viewState.scrollToViewTop()
-                } else if (restoreScrollState) {
-                    viewState.restoreScrollState()
-                } else {
-                    viewState.restoreScrollPosition()
+                when {
+                    scrollToViewTop -> viewState.scrollToViewTop()
+                    restoreScrollState -> viewState.restoreScrollState()
+                    else -> viewState.restoreScrollPosition()
                 }
             }
 

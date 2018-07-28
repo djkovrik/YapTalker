@@ -128,8 +128,8 @@ class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsProvider {
                         )
                     }
                 }
-            }, { throwable ->
-                Timber.e("Can't load image: ${throwable.message}")
+            }, { e: Throwable ->
+                Timber.e("Can't load image: ${e.message}")
             })
     }
 

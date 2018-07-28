@@ -24,7 +24,8 @@ class ImageDisplayPresenter @Inject constructor(
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({ fileName ->
                 viewState.fileSavedMessage(fileName)
-            }, { _ ->
+            }, { e: Throwable ->
+                Timber.e("Saving error: ${e.message}")
                 viewState.fileNotSavedMessage()
             })
     }
@@ -35,7 +36,7 @@ class ImageDisplayPresenter @Inject constructor(
             .autoDisposable(event(PresenterLifecycle.DETACH_VIEW))
             .subscribe({
                 Timber.d("Image sharing request launched.")
-            }, { e ->
+            }, { e: Throwable ->
                 e.message?.let { viewState.showErrorMessage(it) }
             })
     }

@@ -90,8 +90,8 @@ class NewsPresenter @Inject constructor(
                 Timber.i("Current topic added to blacklist.")
                 viewState.showTopicBlacklistedMessage()
                 viewState.removeBlacklistedTopicFromList(currentNewsItem)
-            }, { error ->
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 
@@ -117,14 +117,6 @@ class NewsPresenter @Inject constructor(
         }
 
         loadDataForCurrentPage()
-    }
-
-    fun navigateToChosenVideo(html: String) {
-        router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
-    }
-
-    fun navigateToChosenImage(url: String) {
-        router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
     }
 
     private fun loadDataForCurrentPage() {

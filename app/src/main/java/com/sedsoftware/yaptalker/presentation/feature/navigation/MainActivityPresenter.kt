@@ -141,8 +141,8 @@ class MainActivityPresenter @Inject constructor(
             .subscribe({ info ->
                 displayLoginSessionInfo(info)
                 Timber.i("Login session info updated.")
-            }, { error ->
-                Timber.e("Login session refresh error: ${error.message}")
+            }, { e: Throwable ->
+                Timber.e("Login session refresh error: ${e.message}")
             })
     }
 
@@ -170,8 +170,8 @@ class MainActivityPresenter @Inject constructor(
                 refreshAuthorization()
                 navigateToDefaultHomePage()
                 Timber.i("Sign Out request completed.")
-            }, { error ->
-                Timber.e("Sign Out error: ${error.message}")
+            }, { e: Throwable ->
+                Timber.e("Sign Out error: ${e.message}")
             })
     }
 }
