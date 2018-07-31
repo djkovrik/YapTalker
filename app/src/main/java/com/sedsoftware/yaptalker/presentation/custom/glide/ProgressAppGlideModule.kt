@@ -11,7 +11,7 @@ import okhttp3.OkHttpClient
 import java.io.InputStream
 
 @GlideModule
-class ProgressGlideModule : AppGlideModule() {
+class ProgressAppGlideModule : AppGlideModule() {
 
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
         super.registerComponents(context, glide, registry)
