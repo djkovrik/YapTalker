@@ -18,13 +18,17 @@ class GlideWithProgressImageLoader(
     private val textLabel: TextView?
 ) {
 
+    companion object {
+        private const val MAX_PROGRESS_VALUE = 100
+    }
+
     fun load(url: String, options: RequestOptions) {
 
         onConnecting()
 
         DispatchingProgressListener.expect(url, object : UiOnProgressListener {
             override fun onProgress(bytesRead: Long, expectedLength: Long) {
-                progressBar?.progress = (100 * bytesRead / expectedLength).toInt()
+                progressBar?.progress = (MAX_PROGRESS_VALUE * bytesRead / expectedLength).toInt()
             }
 
             override fun getGranualityPercentage(): Float = 1.0f

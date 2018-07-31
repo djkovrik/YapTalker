@@ -13,6 +13,8 @@ class DispatchingProgressListener : ResponseProgressListener {
         private val listeners = WeakHashMap<String, UiOnProgressListener>()
         private val progresses = WeakHashMap<String, Long>()
 
+        private const val MAX_PROGRESS_VALUE = 100f
+
         fun forget(url: String) {
             listeners.remove(url)
             progresses.remove(url)
@@ -40,7 +42,7 @@ class DispatchingProgressListener : ResponseProgressListener {
         if (granularity == 0f || current == 0L || total == current) {
             return true
         }
-        val percent = 100f * current / total
+        val percent = MAX_PROGRESS_VALUE * current / total
         val currentProgress = (percent / granularity).toLong()
         val lastProgress = progresses[key]
         return if (lastProgress == null || currentProgress != lastProgress) {

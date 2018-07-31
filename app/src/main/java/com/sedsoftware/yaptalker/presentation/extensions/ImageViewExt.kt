@@ -1,8 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.extensions
 
 import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.sedsoftware.yaptalker.presentation.custom.CircleImageTransformation
 import com.sedsoftware.yaptalker.presentation.custom.RoundedTransformation
 import com.sedsoftware.yaptalker.presentation.custom.glide.GlideApp

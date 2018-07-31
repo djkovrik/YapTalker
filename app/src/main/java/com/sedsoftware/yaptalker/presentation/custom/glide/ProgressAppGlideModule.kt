@@ -10,6 +10,7 @@ import com.bumptech.glide.module.AppGlideModule
 import okhttp3.OkHttpClient
 import java.io.InputStream
 
+@Suppress("UtilityClassWithPublicConstructor", "NewLineAtEndOfFile", "EmptyClassBlock")
 @GlideModule
 class ProgressAppGlideModule : AppGlideModule() {
 

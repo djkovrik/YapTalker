@@ -33,8 +33,8 @@ class OkHttpProgressResponseBody(
     }
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    private fun source(source: Source?): Source {
-        return object : ForwardingSource(source) {
+    private fun source(source: Source?): Source =
+        object : ForwardingSource(source) {
             var totalBytesRead = 0L
 
             @Throws(IOException::class)
@@ -49,6 +49,5 @@ class OkHttpProgressResponseBody(
                 progressListener?.update(url, totalBytesRead, fullLength)
                 return bytesRead
             }
-        }
     }
 }
