@@ -38,7 +38,7 @@ class GlideWithProgressImageLoader {
                 override fun getGranualityPercentage(): Float = 1.0f
             })
 
-            Glide.with(imageView.context)
+            GlideApp.with(imageView.context)
                 .load(url)
                 .apply(options)
                 .listener(object : RequestListener<Drawable?> {
