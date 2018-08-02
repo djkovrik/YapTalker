@@ -11,12 +11,16 @@ import android.view.Menu
 import android.view.MenuItem
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
+import com.sedsoftware.yaptalker.presentation.custom.glide.GlideWithProgressImageLoader
 import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlWithGifSupport
 import com.sedsoftware.yaptalker.presentation.extensions.string
+import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import kotlinx.android.synthetic.main.activity_image_display.*
 import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
 import java.util.Locale
@@ -57,7 +61,14 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         if (imageUrl.isNotEmpty()) {
-            photo_view.loadFromUrlWithGifSupport(imageUrl)
+//            photo_view.loadFromUrlWithGifSupport(imageUrl)
+            GlideWithProgressImageLoader.load(
+                url = imageUrl.validateUrl(),
+                imageView = photo_view,
+                progressBar = image_progress,
+                textLabel = image_progress_label,
+                options = RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.AUTOMATIC)
+            )
         }
     }
 
