@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import java.util.Locale
 
 class GlideWithProgressImageLoader(
     private val imageView: ImageView,
@@ -28,7 +29,9 @@ class GlideWithProgressImageLoader(
 
         DispatchingProgressListener.expect(url, object : UiOnProgressListener {
             override fun onProgress(bytesRead: Long, expectedLength: Long) {
-                progressBar?.progress = (MAX_PROGRESS_VALUE * bytesRead / expectedLength).toInt()
+                val progressValue = (MAX_PROGRESS_VALUE * bytesRead / expectedLength).toInt()
+                progressBar?.progress = progressValue
+                textLabel?.text = String.format(Locale.getDefault(), "%s %", progressValue)
             }
 
             override fun getGranualityPercentage(): Float = 1.0f
