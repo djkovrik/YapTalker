@@ -19,6 +19,7 @@ class ImageDisplayPresenter @Inject constructor(
     fun saveImage(url: String) {
         imageHelperInteractor
             .saveImage(url.validateUrl())
+            .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({ fileName ->

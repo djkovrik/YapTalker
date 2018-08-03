@@ -1,5 +1,8 @@
 package com.sedsoftware.yaptalker.device.storage
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Environment
 import com.sedsoftware.yaptalker.domain.device.ImageStorage
 import io.reactivex.Single
@@ -13,6 +16,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class YapImageStorage @Inject constructor(
+    private val context: Context,
     @Named("fileClient") private val httpClient: OkHttpClient
 ) : ImageStorage {
 
@@ -46,8 +50,9 @@ class YapImageStorage @Inject constructor(
                 val file = File(storageDir, filename)
                 val sink = Okio.buffer(Okio.sink(file))
 
-                response.body()?.source()?.let { bufferedSource -> sink.writeAll(bufferedSource) }
+                response.body()?.source()?.let { sink.writeAll(it) }
                 sink.close()
+                scanForMedia(file)
                 emitter.onSuccess(file)
 
             } catch (e: IOException) {
@@ -55,4 +60,8 @@ class YapImageStorage @Inject constructor(
                 emitter.onError(e)
             }
         }
+
+    private fun scanForMedia(image: File) {
+        context.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(image)))
+    }
 }
