@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.forumslist
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.interactor.ForumsListInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -9,9 +10,7 @@ import com.sedsoftware.yaptalker.presentation.feature.forumslist.adapter.ForumsI
 import com.sedsoftware.yaptalker.presentation.mapper.ForumsListModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.ForumModel
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,7 +19,8 @@ import javax.inject.Inject
 class ForumsPresenter @Inject constructor(
     private val router: Router,
     private val forumsListInteractor: ForumsListInteractor,
-    private val forumsListModelMapper: ForumsListModelMapper
+    private val forumsListModelMapper: ForumsListModelMapper,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<ForumsView>(), ForumsItemClickListener {
 
     private var clearCurrentList = false
@@ -45,9 +45,8 @@ class ForumsPresenter @Inject constructor(
 
         forumsListInteractor
             .getForumsList()
-            .subscribeOn(Schedulers.io())
             .map(forumsListModelMapper)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))

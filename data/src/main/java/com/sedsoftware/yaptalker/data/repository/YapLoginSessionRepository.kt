@@ -4,6 +4,7 @@ import com.sedsoftware.yaptalker.data.exception.RequestErrorException
 import com.sedsoftware.yaptalker.data.mapper.LoginSessionInfoMapper
 import com.sedsoftware.yaptalker.data.mapper.ServerResponseMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.entity.base.LoginSessionInfo
 import com.sedsoftware.yaptalker.domain.repository.LoginSessionRepository
 import io.reactivex.Completable
@@ -13,7 +14,8 @@ import javax.inject.Inject
 class YapLoginSessionRepository @Inject constructor(
     private val dataLoader: YapLoader,
     private val dataMapper: LoginSessionInfoMapper,
-    private val responseMapper: ServerResponseMapper
+    private val responseMapper: ServerResponseMapper,
+    private val schedulers: SchedulersProvider
 ) : LoginSessionRepository {
 
     companion object {
@@ -29,6 +31,7 @@ class YapLoginSessionRepository @Inject constructor(
         dataLoader
             .loadAuthorizedUserInfo()
             .map(dataMapper)
+            .subscribeOn(schedulers.io())
 
     override fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Completable =
         dataLoader
@@ -39,8 +42,7 @@ class YapLoginSessionRepository @Inject constructor(
                 userName = userLogin,
                 referer = LOGIN_REFERRER,
                 submit = LOGIN_SUBMIT,
-                userKey = "$userLogin${System.currentTimeMillis()}".toMd5()
-            )
+                userKey = "$userLogin${System.currentTimeMillis()}".toMd5())
             .map(responseMapper)
             .flatMapCompletable { response ->
                 if (response.text.contains(SIGN_IN_SUCCESS_MARKER)) {
@@ -49,6 +51,7 @@ class YapLoginSessionRepository @Inject constructor(
                     Completable.error(RequestErrorException("Unable to complete sign in request."))
                 }
             }
+            .subscribeOn(schedulers.io())
 
     override fun requestSignOut(userKey: String): Completable =
         dataLoader
@@ -61,11 +64,11 @@ class YapLoginSessionRepository @Inject constructor(
                     Completable.error(RequestErrorException("Unable to complete sign out request."))
                 }
             }
+            .subscribeOn(schedulers.io())
 
 
     @Suppress("MagicNumber")
     private fun String.toMd5(): String {
-
         val digest = java.security.MessageDigest.getInstance("MD5")
         digest.update(this.toByteArray())
         val messageDigest = digest.digest()

@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.posting.di
 
 import com.sedsoftware.yaptalker.data.repository.YapEmojiRepository
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.interactor.EmojiInteractor
 import com.sedsoftware.yaptalker.domain.repository.EmojiRepository
@@ -24,9 +25,10 @@ abstract class AddMessageFragmentModule {
         fun providePresenter(
             router: Router,
             interactor: EmojiInteractor,
-            mapper: EmojiModelMapper
+            mapper: EmojiModelMapper,
+            schedulers: SchedulersProvider
         ): AddMessagePresenter =
-            AddMessagePresenter(router, interactor, mapper)
+            AddMessagePresenter(router, interactor, mapper, schedulers)
     }
 
     @FragmentScope

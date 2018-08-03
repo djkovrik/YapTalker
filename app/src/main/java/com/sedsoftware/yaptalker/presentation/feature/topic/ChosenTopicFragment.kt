@@ -36,8 +36,6 @@ import com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu.FabOverlay
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_chosen_topic.*
 import kotlinx.android.synthetic.main.include_topic_fab_menu.*
 import org.jetbrains.anko.browse
@@ -364,8 +362,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
     override fun loadThumbnail(videoUrl: String, imageView: ImageView) {
         presenter
             .requestThumbnail(videoUrl)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .autoDisposable(event(FragmentLifecycle.DESTROY))
             .subscribe({ url ->
                 if (url.isNotEmpty()) {
@@ -380,8 +376,8 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
                         )
                     }
                 }
-            }, { throwable ->
-                Timber.e("Can't load image: ${throwable.message}")
+            }, { e: Throwable ->
+                Timber.e("Can't load image: ${e.message}")
             })
     }
 

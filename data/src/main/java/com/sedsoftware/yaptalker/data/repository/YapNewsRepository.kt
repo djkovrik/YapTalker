@@ -4,6 +4,7 @@ import com.sedsoftware.yaptalker.data.database.YapTalkerDatabase
 import com.sedsoftware.yaptalker.data.mapper.ListToObservablesMapper
 import com.sedsoftware.yaptalker.data.mapper.NewsPageMapper
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.base.NewsItem
 import com.sedsoftware.yaptalker.domain.repository.NewsRepository
@@ -15,7 +16,8 @@ class YapNewsRepository @Inject constructor(
     private val dataMapper: NewsPageMapper,
     private val listMapper: ListToObservablesMapper<NewsItem>,
     private val database: YapTalkerDatabase,
-    private val settings: Settings
+    private val settings: Settings,
+    private val schedulers: SchedulersProvider
 ) : NewsRepository {
 
     private val newsCategories by lazy {
@@ -36,4 +38,5 @@ class YapNewsRepository @Inject constructor(
                     .filter { it.comments != 0 }
                     .filter { !blacklistedIds.contains(it.id) }
             }
+            .subscribeOn(schedulers.io())
 }

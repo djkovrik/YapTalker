@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.forum
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.ChosenForumInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
@@ -15,9 +16,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.ForumInfoBlockModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,7 +26,8 @@ class ChosenForumPresenter @Inject constructor(
     private val router: Router,
     private val forumInteractor: ChosenForumInteractor,
     private val forumModelMapper: ForumModelMapper,
-    private val settings: Settings
+    private val settings: Settings,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<ChosenForumView>(), ChosenForumItemClickListener, NavigationPanelClickListener {
 
     companion object {
@@ -112,10 +112,9 @@ class ChosenForumPresenter @Inject constructor(
 
         forumInteractor
             .getChosenForum(currentForumId, startingTopic, currentSorting)
-            .subscribeOn(Schedulers.io())
             .map(forumModelMapper)
-            .flatMap { topics: List<DisplayedItemModel> -> Observable.fromIterable(topics) }
-            .observeOn(AndroidSchedulers.mainThread())
+            .flatMap { Observable.fromIterable(it) }
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))

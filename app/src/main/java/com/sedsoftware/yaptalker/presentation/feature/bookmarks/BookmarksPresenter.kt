@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.bookmarks
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.interactor.BookmarksInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -10,9 +11,7 @@ import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapter.Bookmark
 import com.sedsoftware.yaptalker.presentation.mapper.BookmarksModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,7 +20,8 @@ import javax.inject.Inject
 class BookmarksPresenter @Inject constructor(
     private val router: Router,
     private val bookmarksInteractor: BookmarksInteractor,
-    private val bookmarksMapper: BookmarksModelMapper
+    private val bookmarksMapper: BookmarksModelMapper,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<BookmarksView>(), BookmarksElementsClickListener {
 
     private var clearCurrentList = false
@@ -53,9 +53,8 @@ class BookmarksPresenter @Inject constructor(
 
         bookmarksInteractor
             .getBookmarks()
-            .subscribeOn(Schedulers.io())
             .map(bookmarksMapper)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
@@ -65,15 +64,14 @@ class BookmarksPresenter @Inject constructor(
     fun deleteSelectedBookmark(item: BookmarkedTopicModel) {
         bookmarksInteractor
             .deleteFromBookmarks(item.bookmarkId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({
                 Timber.i("Bookmark deletion completed.")
                 viewState.showBookmarkDeletedMessage()
                 loadBookmarks()
-            }, { error ->
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 

@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.presentation.feature.news.di
 import com.sedsoftware.yaptalker.data.repository.YapBlacklistRepository
 import com.sedsoftware.yaptalker.data.repository.YapNewsRepository
 import com.sedsoftware.yaptalker.data.repository.YapThumbnailRepository
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
@@ -33,12 +34,13 @@ abstract class NewsFragmentModule {
         fun providePresenter(
             router: Router,
             settings: Settings,
-            newsInteractor: NewsInteractor,
-            thumbnailsInteractor: VideoThumbnailsInteractor,
-            blacklistInteractor: BlacklistInteractor,
-            mapper: NewsModelMapper
+            getNews: NewsInteractor,
+            getThumbnails: VideoThumbnailsInteractor,
+            getBlacklist: BlacklistInteractor,
+            mapper: NewsModelMapper,
+            schedulers: SchedulersProvider
         ): NewsPresenter =
-            NewsPresenter(router, settings, newsInteractor, thumbnailsInteractor, blacklistInteractor, mapper)
+            NewsPresenter(router, settings, getNews, getThumbnails, getBlacklist, mapper, schedulers)
     }
 
     @FragmentScope

@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.bookmarks.di
 
 import com.sedsoftware.yaptalker.data.repository.YapBookmarksRepository
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.interactor.BookmarksInteractor
 import com.sedsoftware.yaptalker.domain.repository.BookmarksRepository
@@ -24,9 +25,10 @@ abstract class BookmarksFragmentModule {
         fun providePresenter(
             router: Router,
             interactor: BookmarksInteractor,
-            mapper: BookmarksModelMapper
+            mapper: BookmarksModelMapper,
+            schedulers: SchedulersProvider
         ): BookmarksPresenter =
-            BookmarksPresenter(router, interactor, mapper)
+            BookmarksPresenter(router, interactor, mapper, schedulers)
     }
 
     @FragmentScope

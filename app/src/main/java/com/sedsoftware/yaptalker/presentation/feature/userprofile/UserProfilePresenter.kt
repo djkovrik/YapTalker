@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.userprofile
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.interactor.UserProfileInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -8,24 +9,22 @@ import com.sedsoftware.yaptalker.presentation.mapper.UserProfileModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.UserProfileModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState
 class UserProfilePresenter @Inject constructor(
     private val userProfileInteractor: UserProfileInteractor,
-    private val userProfileModelMapper: UserProfileModelMapper
+    private val userProfileModelMapper: UserProfileModelMapper,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<UserProfileView>() {
 
     fun loadUserProfile(profileId: Int) {
         userProfileInteractor
             .getUserProfile(profileId)
-            .subscribeOn(Schedulers.io())
             .map(userProfileModelMapper)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe(getUserProfileObserver())
     }

@@ -5,12 +5,19 @@ import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.sedsoftware.yaptalker.R
+import com.sedsoftware.yaptalker.presentation.custom.glide.GlideWithProgressImageLoader
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
-import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlWithGifSupport
+import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
-import kotlinx.android.synthetic.main.activity_topic_gallery_item.view.*
-import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.*
+import kotlinx.android.synthetic.main.activity_topic_gallery_item.view.gallery_image
+import kotlinx.android.synthetic.main.activity_topic_gallery_item.view.gallery_image_progress
+import kotlinx.android.synthetic.main.activity_topic_gallery_item.view.gallery_image_progress_label
+import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.load_more_button
+import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.load_more_label
+import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.load_more_progress
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -69,7 +76,15 @@ class TopicGalleryAdapter @Inject constructor(
                 load_more_button.isInvisible = true
                 load_more_label.isInvisible = true
                 load_more_progress.isInvisible = true
-                gallery_image.loadFromUrlWithGifSupport(image.url)
+//                gallery_image.loadFromUrlWithGifSupport(image.url)
+
+                GlideWithProgressImageLoader.load(
+                    url = image.url.validateUrl(),
+                    imageView = gallery_image,
+                    progressBar = gallery_image_progress,
+                    textLabel = gallery_image_progress_label,
+                    options = RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.AUTOMATIC)
+                )
 
                 if (image.showLoadMore && !isLastPageVisible) {
                     load_more_button.isVisible = true

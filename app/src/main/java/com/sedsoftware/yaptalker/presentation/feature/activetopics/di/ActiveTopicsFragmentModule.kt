@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.presentation.feature.activetopics.di
 
 import com.sedsoftware.yaptalker.data.repository.YapActiveTopicsRepository
 import com.sedsoftware.yaptalker.data.repository.YapSearchIdRepository
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.interactor.ActiveTopicsInteractor
 import com.sedsoftware.yaptalker.domain.repository.ActiveTopicsRepository
@@ -27,9 +28,10 @@ abstract class ActiveTopicsFragmentModule {
         fun providePresenter(
             router: Router,
             interactor: ActiveTopicsInteractor,
-            mapper: ActiveTopicModelMapper
+            mapper: ActiveTopicModelMapper,
+            schedulers: SchedulersProvider
         ): ActiveTopicsPresenter =
-            ActiveTopicsPresenter(router, interactor, mapper)
+            ActiveTopicsPresenter(router, interactor, mapper, schedulers)
     }
 
     @FragmentScope

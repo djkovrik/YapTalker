@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.incubator
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.IncubatorInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
@@ -14,9 +15,7 @@ import com.sedsoftware.yaptalker.presentation.mapper.IncubatorModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,7 +26,8 @@ class IncubatorPresenter @Inject constructor(
     private val settings: Settings,
     private val incubatorInteractor: IncubatorInteractor,
     private val videoThumbnailsInteractor: VideoThumbnailsInteractor,
-    private val incubatorModelMapper: IncubatorModelMapper
+    private val incubatorModelMapper: IncubatorModelMapper,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<IncubatorView>(), IncubatorElementsClickListener {
 
     companion object {
@@ -82,6 +82,7 @@ class IncubatorPresenter @Inject constructor(
     fun requestThumbnail(videoUrl: String): Single<String> =
         videoThumbnailsInteractor
             .getThumbnail(videoUrl)
+            .observeOn(schedulers.ui())
 
     fun loadIncubator(loadFromFirstPage: Boolean) {
 
@@ -99,9 +100,8 @@ class IncubatorPresenter @Inject constructor(
     private fun loadDataForCurrentPage() {
         incubatorInteractor
             .getIncubatorPage(currentPage)
-            .subscribeOn(Schedulers.io())
             .map(incubatorModelMapper)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))

@@ -117,6 +117,8 @@ dependencies {
     implementation presentationDependencies.okhttpInterceptor
     implementation presentationDependencies.picasso
     implementation presentationDependencies.glide
+    implementation presentationDependencies.glideOkHttp3
+    kapt presentationDependencies.glideCompiler
 
     implementation presentationDependencies.materialValues
     implementation(presentationDependencies.materialDrawer) { transitive = true }

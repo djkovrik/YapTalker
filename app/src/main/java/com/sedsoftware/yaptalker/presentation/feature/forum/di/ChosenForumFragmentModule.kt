@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.forum.di
 
 import com.sedsoftware.yaptalker.data.repository.YapChosenForumRepository
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.ChosenForumInteractor
@@ -27,9 +28,10 @@ abstract class ChosenForumFragmentModule {
             router: Router,
             interactor: ChosenForumInteractor,
             mapper: ForumModelMapper,
-            settings: Settings
+            settings: Settings,
+            schedulers: SchedulersProvider
         ): ChosenForumPresenter =
-            ChosenForumPresenter(router, interactor, mapper, settings)
+            ChosenForumPresenter(router, interactor, mapper, settings, schedulers)
     }
 
     @FragmentScope

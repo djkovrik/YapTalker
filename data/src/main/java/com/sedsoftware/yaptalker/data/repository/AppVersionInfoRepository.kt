@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.data.repository
 import com.sedsoftware.yaptalker.data.BuildConfig
 import com.sedsoftware.yaptalker.data.mapper.AppVersionInfoMapper
 import com.sedsoftware.yaptalker.data.network.external.AppUpdatesChecker
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.entity.base.VersionInfo
 import com.sedsoftware.yaptalker.domain.repository.VersionInfoRepository
 import io.reactivex.Single
@@ -10,13 +11,15 @@ import javax.inject.Inject
 
 class AppVersionInfoRepository @Inject constructor(
     private val dataLoader: AppUpdatesChecker,
-    private val dataMapper: AppVersionInfoMapper
+    private val dataMapper: AppVersionInfoMapper,
+    private val schedulers: SchedulersProvider
 ) : VersionInfoRepository {
 
     override fun getRemoteVersionInfo(): Single<VersionInfo> =
         dataLoader
             .loadCurrentVersionInfo()
             .map(dataMapper)
+            .subscribeOn(schedulers.io())
 
     override fun getInstalledVersionInfo(): Single<VersionInfo> =
         Single.just(
@@ -26,4 +29,5 @@ class AppVersionInfoRepository @Inject constructor(
                 downloadLink = ""
             )
         )
+            .subscribeOn(schedulers.io())
 }

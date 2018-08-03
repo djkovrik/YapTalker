@@ -3,13 +3,15 @@ package com.sedsoftware.yaptalker.data.repository
 import android.content.Context
 import android.os.Build
 import com.sedsoftware.yaptalker.data.network.external.GitHubLoader
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.repository.ChangelogRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
 class AppChangelogRepository @Inject constructor(
     private val context: Context,
-    private val dataLoader: GitHubLoader
+    private val dataLoader: GitHubLoader,
+    private val schedulers: SchedulersProvider
 ) : ChangelogRepository {
 
     private companion object {
@@ -26,11 +28,14 @@ class AppChangelogRepository @Inject constructor(
             resources.configuration.locale
         }
 
-        return if (locale.language == LOCALE_EN) {
+        val callback = if (locale.language == LOCALE_EN) {
             dataLoader.loadChangelogEn()
         } else {
             dataLoader.loadChangelogRu()
         }
+
+        return callback
             .map { response -> response.body()?.string() ?: "" }
+            .subscribeOn(schedulers.io())
     }
 }

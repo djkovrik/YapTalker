@@ -1,6 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.feature.news
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
 import com.sedsoftware.yaptalker.domain.interactor.NewsInteractor
@@ -15,9 +16,7 @@ import com.sedsoftware.yaptalker.presentation.mapper.NewsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -29,7 +28,8 @@ class NewsPresenter @Inject constructor(
     private val newsInteractor: NewsInteractor,
     private val videoThumbnailsInteractor: VideoThumbnailsInteractor,
     private val blacklistInteractor: BlacklistInteractor,
-    private val newsModelMapper: NewsModelMapper
+    private val newsModelMapper: NewsModelMapper,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<NewsView>(), NewsItemElementsClickListener {
 
     companion object {
@@ -83,15 +83,14 @@ class NewsPresenter @Inject constructor(
     fun addSelectedTopicToBlacklist() {
         blacklistInteractor
             .addTopicToBlacklist(currentNewsItem.title, currentNewsItem.topicId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({
                 Timber.i("Current topic added to blacklist.")
                 viewState.showTopicBlacklistedMessage()
                 viewState.removeBlacklistedTopicFromList(currentNewsItem)
-            }, { error ->
-                error.message?.let { viewState.showErrorMessage(it) }
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
             })
     }
 
@@ -105,6 +104,7 @@ class NewsPresenter @Inject constructor(
     fun requestThumbnail(videoUrl: String): Single<String> =
         videoThumbnailsInteractor
             .getThumbnail(videoUrl)
+            .observeOn(schedulers.ui())
 
     fun loadNews(loadFromFirstPage: Boolean) {
 
@@ -119,20 +119,11 @@ class NewsPresenter @Inject constructor(
         loadDataForCurrentPage()
     }
 
-    fun navigateToChosenVideo(html: String) {
-        router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
-    }
-
-    fun navigateToChosenImage(url: String) {
-        router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
-    }
-
     private fun loadDataForCurrentPage() {
         newsInteractor
             .getNewsPage(currentPage)
-            .subscribeOn(Schedulers.io())
             .map(newsModelMapper)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
