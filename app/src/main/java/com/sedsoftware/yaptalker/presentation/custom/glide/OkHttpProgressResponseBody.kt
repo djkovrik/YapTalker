@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.custom.glide
 
+import com.sedsoftware.yaptalker.presentation.extensions.orZero
 import okhttp3.HttpUrl
 import okhttp3.MediaType
 import okhttp3.ResponseBody
@@ -19,7 +20,7 @@ class OkHttpProgressResponseBody(
     private var bufferedSource: BufferedSource? = null
 
     override fun contentLength(): Long =
-        responseBody?.contentLength() ?: 0L
+        responseBody?.contentLength().orZero()
 
     override fun contentType(): MediaType? =
         responseBody?.contentType()
@@ -40,7 +41,7 @@ class OkHttpProgressResponseBody(
             @Throws(IOException::class)
             override fun read(sink: Buffer, byteCount: Long): Long {
                 val bytesRead = super.read(sink, byteCount)
-                val fullLength = responseBody?.contentLength() ?: 0L
+                val fullLength = responseBody?.contentLength().orZero()
                 if (bytesRead == -1L) {
                     totalBytesRead = fullLength
                 } else {

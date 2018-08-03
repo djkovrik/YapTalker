@@ -70,15 +70,15 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     fun provideAddMessagePresenter() = presenter
 
     private val currentTopicTitle: String by lazy {
-        arguments?.getString(TOPIC_TITLE_KEY) ?: ""
+        arguments?.getString(TOPIC_TITLE_KEY).orEmpty()
     }
 
     private val quotedText: String by lazy {
-        arguments?.getString(QUOTED_TEXT_KEY) ?: ""
+        arguments?.getString(QUOTED_TEXT_KEY).orEmpty()
     }
 
     private val editedText: String by lazy {
-        arguments?.getString(EDITED_TEXT_KEY) ?: ""
+        arguments?.getString(EDITED_TEXT_KEY).orEmpty()
     }
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
@@ -142,7 +142,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_REQUEST) {
-            chosenImagePath = data?.let { pathResolver.getFilePathFromUri(data.data) } ?: ""
+            chosenImagePath = data?.let { pathResolver.getFilePathFromUri(data.data) }.orEmpty()
             handleAttachmentCardState()
         }
     }

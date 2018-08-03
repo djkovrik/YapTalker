@@ -11,6 +11,7 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.orZero
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.model.base.UserProfileModel
 import kotlinx.android.synthetic.main.fragment_user_profile.*
@@ -38,7 +39,7 @@ class UserProfileFragment : BaseFragment(), UserProfileView {
     fun provideUserProfilePresenter() = presenter
 
     private val userId by lazy {
-        arguments?.getInt(USER_ID_KEY) ?: 0
+        arguments?.getInt(USER_ID_KEY).orZero()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -35,7 +35,7 @@ class AppChangelogRepository @Inject constructor(
         }
 
         return callback
-            .map { response -> response.body()?.string() ?: "" }
+            .map { response -> response.body()?.string().orEmpty()}
             .subscribeOn(schedulers.io())
     }
 }

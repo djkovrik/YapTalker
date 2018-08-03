@@ -9,7 +9,7 @@ import javax.inject.Inject
 class ServerResponseMapper @Inject constructor() : Function<Response<ResponseBody>, ServerResponse> {
 
     override fun apply(from: Response<ResponseBody>): ServerResponse {
-        val responseBodyText = from.body()?.string() ?: ""
+        val responseBodyText = from.body()?.string().orEmpty()
         return ServerResponse(text = responseBodyText)
     }
 }

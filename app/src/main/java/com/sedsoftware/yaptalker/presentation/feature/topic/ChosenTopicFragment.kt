@@ -25,6 +25,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifec
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
+import com.sedsoftware.yaptalker.presentation.extensions.orZero
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
@@ -92,15 +93,15 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
     fun provideTopicPresenter() = presenter
 
     private val forumId: Int by lazy {
-        arguments?.getInt(FORUM_ID_KEY) ?: 0
+        arguments?.getInt(FORUM_ID_KEY).orZero()
     }
 
     private val topicId: Int by lazy {
-        arguments?.getInt(TOPIC_ID_KEY) ?: 0
+        arguments?.getInt(TOPIC_ID_KEY).orZero()
     }
 
     private val startingPost: Int by lazy {
-        arguments?.getInt(STARTING_POST_KEY) ?: 0
+        arguments?.getInt(STARTING_POST_KEY).orZero()
     }
 
     private val savedScrollState: LinearLayoutManager.SavedState? by lazy {
