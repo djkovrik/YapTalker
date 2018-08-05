@@ -16,17 +16,19 @@ class DispatchingProgressListener : ResponseProgressListener {
         private const val MAX_PROGRESS_VALUE = 100f
 
         fun forget(url: String) {
-            listeners.remove(url)
-            progresses.remove(url)
+            val key = url.substringAfter(".")
+            listeners.remove(key)
+            progresses.remove(key)
         }
 
         fun expect(url: String, listener: UiOnProgressListener) {
-            listeners[url] = listener
+            val key = url.substringAfter(".")
+            listeners[key] = listener
         }
     }
 
     override fun update(url: HttpUrl, bytesRead: Long, contentLength: Long) {
-        val key = url.toString()
+        val key = url.toString().substringAfter(".")
         val listener = listeners[key] ?: return
 
         if (contentLength <= bytesRead) {
