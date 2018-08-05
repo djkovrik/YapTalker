@@ -18,7 +18,6 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.custom.glide.GlideWithProgressImageLoader
 import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
-import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlWithGifSupport
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import kotlinx.android.synthetic.main.activity_image_display.*

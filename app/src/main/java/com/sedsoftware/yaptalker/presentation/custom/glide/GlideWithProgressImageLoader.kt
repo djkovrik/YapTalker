@@ -6,7 +6,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -71,4 +70,6 @@ class GlideWithProgressImageLoader {
                 .into(imageView)
         }
     }
+
+    private constructor()
 }
