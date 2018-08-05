@@ -1,5 +1,16 @@
 ## Changelog
 
+### [0.9.16] - 2018-08-05
+
+**Fixed**
+* Performing search request now hides keyboard before results loading
+
+**Added**
+* Overall loading progress indicator for all images (including gifs)
+
+**Changed**
+* Image saving now triggers system media scan
+
 ### [0.9.15] - 2018-07-23
 
 **Fixed**
@@ -96,6 +107,9 @@
 
 ### [0.9.4] - 2018-04-05
 
+**Fixed**
+* Empty-linked user profiles parsing crash
+
 **Added**
 * App updater
 * Changelog screen
@@ -106,27 +120,24 @@
 and scrolls it to clicked image
 * Tweaked layout for "Next" gallery button
 
-**Fixed**
-* Empty-linked user profiles parsing crash
-
 ### [0.9.3] - 2018-03-18
+
+**Fixed**
+* Image saving crash when topic gallery mode was active
 
 **Changed**
 * Temporary restored old webView video player to fix vk.com videos problems
 * Changed topic item layouts to display longer topic names
 * News with zero comments and/or with external web links now hidden from main page
 
-**Fixed**
-* Image saving crash when topic gallery mode was active
-
 ### [0.9.2] - 2018-03-11
+
+**Fixed**
+* Share image crash on Android 5.0 and 6.0
 
 **Changed**
 * Notifications displaying, now snackbars instead of toasts
 * Reverted: Selectable text for messages
-
-**Fixed**
-* Share image crash on Android 5.0 and 6.0
 
 ### [0.9.1] - 2018-03-05
 
@@ -142,14 +153,14 @@ and scrolls it to clicked image
 
 ### [0.8.11] - 2018-02-11
 
+**Fixed**
+* Karma request bugfixes
+
 **Added**
 * Site search
 
 **Changed**
 * Optimized video icon overlay scaling
-
-**Fixed**
-* Karma request bugfixes
 
 ### [0.8.10] - 2018-01-27
 
@@ -177,15 +188,15 @@ and scrolls it to clicked image
 
 ### [0.8.7] - 2018-01-07
 
+**Fixed**
+* More fixes for Unable to load publicsuffixes.gz error
+
 **Added**
 * Sync with forums and topics displaying site preferences
 
 **Changed**
 * Topic actions menu replaced with fab menu
 * Improved scroll position saving during topic refreshing
-
-**Fixed**
-* More fixes for Unable to load publicsuffixes.gz error
 
 ### [0.8.6] - 2018-01-04
 
@@ -198,13 +209,16 @@ and scrolls it to clicked image
 
 ### [0.8.5] - 2018-01-02
 
-**Changed**
-* Single post rating displaying
-
 **Fixed**
 * Negative messages count displaying bug
 
+**Changed**
+* Single post rating displaying
+
 ### [0.8.4] - 2017-12-31
+
+**Fixed**
+* Broken EditText width for new message layout
 
 **Added**
 * Incubator site section
@@ -215,9 +229,6 @@ and scrolls it to clicked image
 * Each site topic now also has top navigation panel
 * Added post-loading scroll to targeted post for post karma changing
 * Added messages for karma changing request results
-
-**Fixed**
-* Broken EditText width for new message layout
 
 ### [0.8.3] - 2017-12-30
 
@@ -233,19 +244,22 @@ and scrolls it to clicked image
 
 ### [0.7.0] - 2017-11-14
 
+**Fixed**
+* Youtube thumbnail id parsing crash
+
 **Added**
 * New setting to keep screen awake while reading forum topic
 * New setting to choose user avatar size
 * Basic tablet layouts
 
 **Changed**
-
 * Navigation drawer items highlighting
 
-**Fixed**
-* Youtube thumbnail id parsing crash
-
 ### [0.6.0] - 2017-11-10
+
+**Fixed**
+* Crash after click on chosen active topic
+* Sign Out request now closes site login session
 
 **Added**
 * Topics rating
@@ -253,22 +267,17 @@ and scrolls it to clicked image
 * Given rating displaying for topic posts
 
 **Changed**
-
 * Launcher icon updated
 * All links in post TextView now clickable
 
-**Fixed**
-* Crash after click on chosen active topic
-* Sign Out request now closes site login session
-
 ### [0.5.0] - 2017-11-03
+
+**Fixed**
+* Incorrect moderator warning displaying
 
 **Added**
 * Active topics browsing
 * Bookmarks loading and management
-
-**Fixed**
-* Incorrect moderator warning displaying
 
 ### [0.4.1] - 2017-10-25
 
