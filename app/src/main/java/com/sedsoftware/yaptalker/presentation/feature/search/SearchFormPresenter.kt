@@ -17,6 +17,7 @@ class SearchFormPresenter @Inject constructor(
     }
 
     fun performSearchRequest(request: SearchRequest) {
+        viewState.hideKeyboard()
         router.navigateTo(NavigationScreen.SEARCH_RESULTS, request)
     }
 }

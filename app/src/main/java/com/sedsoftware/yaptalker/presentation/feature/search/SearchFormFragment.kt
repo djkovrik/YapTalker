@@ -1,7 +1,9 @@
 package com.sedsoftware.yaptalker.presentation.feature.search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.view.RxView
@@ -96,6 +98,11 @@ class SearchFormFragment : BaseFragment(), SearchFormView {
     override fun updateCurrentUiState() {
         setCurrentAppbarTitle(string(R.string.nav_drawer_search))
         setCurrentNavDrawerItem(NavigationSection.SITE_SEARCH)
+    }
+
+    override fun hideKeyboard() {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     private fun getCheckedCategories(): List<String> {
