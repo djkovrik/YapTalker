@@ -64,6 +64,7 @@ class TopicGalleryPresenter @Inject constructor(
         topicGalleryInteractor
             .getTopicGallery(initialState.currentForumId, initialState.currentTopicId, startingPost)
             .map(galleryMapper)
+            .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe(getTopicGalleryObserver())
@@ -108,6 +109,7 @@ class TopicGalleryPresenter @Inject constructor(
     fun saveImage(url: String) {
         imageHelperInteractor
             .saveImage(url.validateUrl())
+            .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({ fileName ->
