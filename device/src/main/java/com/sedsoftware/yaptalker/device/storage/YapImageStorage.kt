@@ -40,7 +40,7 @@ class YapImageStorage @Inject constructor(
         Single.create { emitter ->
             try {
                 val storageDir = Environment.getExternalStoragePublicDirectory(
-                    "${Environment.DIRECTORY_PICTURES}/YapTalker"
+                        Environment.DIRECTORY_PICTURES
                 )
 
                 if (!storageDir.exists() && !storageDir.mkdir()) {
