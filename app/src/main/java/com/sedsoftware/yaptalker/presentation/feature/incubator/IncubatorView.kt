@@ -14,7 +14,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 interface IncubatorView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanUpdateUiState {
 
     @StateStrategyType(AddToEndStrategy::class)
-    fun appendIncubatorItem(item: IncubatorItemModel)
+    fun appendIncubatorItems(items: List<IncubatorItemModel>)
 
     @StateStrategyType(SingleStateStrategy::class)
     fun clearIncubatorsList()

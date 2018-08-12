@@ -84,8 +84,8 @@ class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsProvider {
         setCurrentNavDrawerItem(NavigationSection.INCUBATOR)
     }
 
-    override fun appendIncubatorItem(item: IncubatorItemModel) {
-        incubatorAdapter.addIncubatorItem(item)
+    override fun appendIncubatorItems(items: List<IncubatorItemModel>) {
+        incubatorAdapter.addIncubatorItems(items)
     }
 
     override fun clearIncubatorsList() {

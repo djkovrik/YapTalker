@@ -13,9 +13,12 @@ class IncubatorModelMapper @Inject constructor(
     private val textTransformer: TextTransformer,
     private val dateTransformer: DateTransformer,
     private val videoTypeDetector: VideoTypeDetector
-) : Function<IncubatorItem, IncubatorItemModel> {
+) : Function<List<IncubatorItem>, List<IncubatorItemModel>> {
 
-    override fun apply(item: IncubatorItem): IncubatorItemModel =
+    override fun apply(from: List<IncubatorItem>): List<IncubatorItemModel> =
+        from.map { mapItem(it) }
+
+    private fun mapItem(item: IncubatorItem): IncubatorItemModel =
         IncubatorItemModel(
             title = item.title,
             link = item.link,

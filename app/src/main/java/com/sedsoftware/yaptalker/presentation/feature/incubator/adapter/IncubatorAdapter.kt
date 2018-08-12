@@ -57,10 +57,10 @@ class IncubatorAdapter @Inject constructor(
 
     override fun getItemViewType(position: Int): Int = items[position].getEntityType()
 
-    fun addIncubatorItem(item: DisplayedItemModel) {
+    fun addIncubatorItems(list: List<DisplayedItemModel>) {
         val insertPosition = items.size
-        items.add(item)
-        notifyItemInserted(insertPosition)
+        items.addAll(list)
+        notifyItemRangeChanged(insertPosition, items.size)
     }
 
     fun clearIncubatorItems() {

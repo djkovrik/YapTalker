@@ -15,7 +15,8 @@ import com.sedsoftware.yaptalker.presentation.mapper.IncubatorModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Single
-import io.reactivex.observers.DisposableObserver
+import io.reactivex.SingleObserver
+import io.reactivex.disposables.Disposable
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -34,6 +35,7 @@ class IncubatorPresenter @Inject constructor(
         private const val ITEMS_PER_PAGE = 50
     }
 
+    private val displayedTopics = mutableSetOf<Int>()
     private var currentPage = 0
     private var backToFirstPage = false
 
@@ -109,19 +111,28 @@ class IncubatorPresenter @Inject constructor(
     }
 
     private fun getIncubatorObserver() =
-        object : DisposableObserver<IncubatorItemModel>() {
+        object : SingleObserver<List<IncubatorItemModel>> {
 
-            override fun onNext(item: IncubatorItemModel) {
+            override fun onSubscribe(d: Disposable) {
+                Timber.i("Incubator page loading started.")
+            }
+
+            override fun onSuccess(list: List<IncubatorItemModel>) {
                 if (backToFirstPage) {
                     viewState.clearIncubatorsList()
+                    displayedTopics.clear()
                     backToFirstPage = false
                 }
 
-                viewState.appendIncubatorItem(item)
-            }
+                val displayedList = list.filter { !displayedTopics.contains(it.topicId) }
 
-            override fun onComplete() {
-                Timber.i("Incubator page loading completed.")
+                if (displayedList.isEmpty()) {
+                    currentPage += ITEMS_PER_PAGE
+                    loadDataForCurrentPage()
+                } else {
+                    viewState.appendIncubatorItems(list)
+                    displayedTopics.addAll(displayedList.map { it.topicId })
+                }
             }
 
             override fun onError(e: Throwable) {

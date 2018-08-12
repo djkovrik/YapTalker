@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.data.network.site
 
 import com.sedsoftware.yaptalker.data.parsed.IncubatorPageParsed
-import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -15,5 +15,5 @@ interface YapIncubatorLoader {
      * @return Parsed incubator page Observable.
      */
     @GET("/st/{startPage}/")
-    fun loadIncubator(@Path("startPage") startPage: Int): Observable<IncubatorPageParsed>
+    fun loadIncubator(@Path("startPage") startPage: Int): Single<IncubatorPageParsed>
 }
