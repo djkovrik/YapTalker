@@ -8,7 +8,7 @@ import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.base.NewsItem
 import com.sedsoftware.yaptalker.domain.repository.NewsRepository
-import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class YapNewsRepository @Inject constructor(
@@ -24,7 +24,7 @@ class YapNewsRepository @Inject constructor(
         settings.getNewsCategories()
     }
 
-    override fun getNews(page: Int): Observable<NewsItem> =
+    override fun getNews(page: Int): Single<List<NewsItem>> =
         database
             .getTopicsDao()
             .getBlacklistedTopicIds()
@@ -38,5 +38,6 @@ class YapNewsRepository @Inject constructor(
                     .filter { it.comments != 0 }
                     .filter { !blacklistedIds.contains(it.id) }
             }
+            .toList()
             .subscribeOn(schedulers.io())
 }

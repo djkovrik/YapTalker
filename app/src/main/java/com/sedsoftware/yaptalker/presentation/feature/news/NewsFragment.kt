@@ -81,8 +81,8 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
         setCurrentNavDrawerItem(NavigationSection.MAIN_PAGE)
     }
 
-    override fun appendNewsItem(item: NewsItemModel) {
-        newsAdapter.addNewsItem(item)
+    override fun appendNewsItems(items: List<NewsItemModel>) {
+        newsAdapter.addNewsItems(items)
     }
 
     override fun clearNewsList() {

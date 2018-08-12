@@ -16,7 +16,8 @@ import com.sedsoftware.yaptalker.presentation.mapper.NewsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Single
-import io.reactivex.observers.DisposableObserver
+import io.reactivex.SingleObserver
+import io.reactivex.disposables.Disposable
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -36,6 +37,7 @@ class NewsPresenter @Inject constructor(
         private const val NEWS_PER_PAGE = 50
     }
 
+    private val displayedTopics = mutableSetOf<Int>()
     private var currentPage = 0
     private var backToFirstPage = false
     private lateinit var currentNewsItem: NewsItemModel
@@ -131,18 +133,28 @@ class NewsPresenter @Inject constructor(
     }
 
     private fun getNewsObserver() =
-        object : DisposableObserver<NewsItemModel>() {
-            override fun onNext(item: NewsItemModel) {
+        object : SingleObserver<List<NewsItemModel>> {
+            override fun onSubscribe(d: Disposable) {
+                Timber.i("News page loading started.")
+            }
+
+            override fun onSuccess(items: List<NewsItemModel>) {
                 if (backToFirstPage) {
                     viewState.clearNewsList()
+                    displayedTopics.clear()
                     backToFirstPage = false
                 }
 
-                viewState.appendNewsItem(item)
-            }
 
-            override fun onComplete() {
-                Timber.i("News page loading completed.")
+                val displayedList = items.filter { !displayedTopics.contains(it.topicId) }
+
+                if (displayedList.isEmpty()) {
+                    currentPage += NEWS_PER_PAGE
+                    loadDataForCurrentPage()
+                } else {
+                    viewState.appendNewsItems(items)
+                    displayedTopics.addAll(displayedList.map { it.topicId })
+                }
             }
 
             override fun onError(e: Throwable) {

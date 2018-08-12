@@ -14,7 +14,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 interface NewsView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanUpdateUiState {
 
     @StateStrategyType(AddToEndStrategy::class)
-    fun appendNewsItem(item: NewsItemModel)
+    fun appendNewsItems(items: List<NewsItemModel>)
 
     @StateStrategyType(SingleStateStrategy::class)
     fun clearNewsList()

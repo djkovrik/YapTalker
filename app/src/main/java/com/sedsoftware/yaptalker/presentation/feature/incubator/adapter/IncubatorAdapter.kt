@@ -60,7 +60,7 @@ class IncubatorAdapter @Inject constructor(
     fun addIncubatorItems(list: List<DisplayedItemModel>) {
         val insertPosition = items.size
         items.addAll(list)
-        notifyItemRangeChanged(insertPosition, items.size)
+        notifyItemRangeInserted(insertPosition, items.size)
     }
 
     fun clearIncubatorItems() {

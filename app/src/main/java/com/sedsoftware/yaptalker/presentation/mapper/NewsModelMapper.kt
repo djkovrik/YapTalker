@@ -13,9 +13,12 @@ class NewsModelMapper @Inject constructor(
     private val textTransformer: TextTransformer,
     private val dateTransformer: DateTransformer,
     private val videoTypeDetector: VideoTypeDetector
-) : Function<NewsItem, NewsItemModel> {
+) : Function<List<NewsItem>, List<NewsItemModel>> {
 
-    override fun apply(item: NewsItem): NewsItemModel =
+    override fun apply(from: List<NewsItem>): List<NewsItemModel> =
+        from.map { mapItem(it) }
+
+    private fun mapItem(item: NewsItem): NewsItemModel =
         NewsItemModel(
             title = item.title,
             link = item.link,

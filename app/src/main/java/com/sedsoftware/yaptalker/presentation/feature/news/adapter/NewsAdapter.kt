@@ -55,10 +55,10 @@ class NewsAdapter @Inject constructor(
 
     override fun getItemViewType(position: Int): Int = items[position].getEntityType()
 
-    fun addNewsItem(item: NewsItemModel) {
+    fun addNewsItems(list: List<NewsItemModel>) {
         val insertPosition = items.size
-        items.add(item)
-        notifyItemInserted(insertPosition)
+        items.addAll(list)
+        notifyItemRangeInserted(insertPosition, items.size)
     }
 
     fun removeNewsItem(item: NewsItemModel) {
