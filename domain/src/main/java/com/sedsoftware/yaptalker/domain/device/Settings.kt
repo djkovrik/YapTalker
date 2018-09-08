@@ -34,6 +34,8 @@ interface Settings {
 
     fun isInTwoPaneMode(): Boolean
 
+    fun isVideoLandscapeEnabled(): Boolean
+
     fun saveSingleCookie(cookie: String)
 
     fun saveMessagesPerPagePref(value: Int)

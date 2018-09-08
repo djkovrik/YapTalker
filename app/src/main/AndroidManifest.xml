@@ -97,10 +97,8 @@
 
     <activity
       android:name=".presentation.feature.videodisplay.VideoDisplayActivity"
-      android:configChanges="orientation|keyboardHidden"
       android:label="@string/app_name"
       android:parentActivityName=".presentation.feature.navigation.MainActivity"
-      android:screenOrientation="landscape"
       android:theme="@style/AppTheme.DarkBackground">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"

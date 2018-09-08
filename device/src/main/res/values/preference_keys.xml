@@ -15,4 +15,5 @@
   <string name="pref_key_two_pane_mode" translatable="false">pref_two_pane_mode</string>
   <string name="pref_key_last_update_check" translatable="false">pref_last_update_check</string>
   <string name="pref_key_coub_external" translatable="false">pref_coub_external</string>
+  <string name="pref_key_video_landscape" translatable="false">pref_video_landscape</string>
 </resources>

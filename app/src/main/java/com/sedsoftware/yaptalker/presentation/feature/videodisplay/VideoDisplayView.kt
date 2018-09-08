@@ -13,4 +13,6 @@ interface VideoDisplayView : MvpView, CanShowErrorMessage {
     fun displayWebViewContent()
 
     fun clearWebView()
+
+    fun forceLandscapeOrientation()
 }

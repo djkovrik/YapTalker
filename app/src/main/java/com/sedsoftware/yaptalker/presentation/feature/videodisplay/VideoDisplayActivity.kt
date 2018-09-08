@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.presentation.feature.videodisplay
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -57,7 +58,6 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
     """
     }
 
-
     private val handler = Handler()
     private var isSystemUiShown = true
 
@@ -93,20 +93,11 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun initWebView() {
-
-//    val webChromeClient = VideoWebChromeClient(non_video_layout, video_layout, video_loading, video_view)
-//
-//    webChromeClient.setOnToggledFullscreen(object : FullscreenCallback {
-//      override fun toggledFullscreen(fullscreen: Boolean) {
-//        if (fullscreen) {
-//          checkHideSystemUI()
-//        }
-//      }
-//    })
-
         video_view.settings?.setAppCacheEnabled(false)
         video_view.settings?.javaScriptEnabled = true
         video_view.webChromeClient = WebChromeClient()
+
+        presenter.checkScreenOrientation()
     }
 
     override fun displayWebViewContent() {
@@ -119,6 +110,14 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
     override fun clearWebView() {
         video_view?.clearHistory()
         video_view?.loadUrl("about:blank")
+    }
+
+    override fun forceLandscapeOrientation() {
+        video_view.settings?.apply {
+            loadWithOverviewMode = true
+            useWideViewPort = true
+        }
+        this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
     }
 
     private fun checkHideSystemUI() {

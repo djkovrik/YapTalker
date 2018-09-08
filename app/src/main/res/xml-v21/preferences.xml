@@ -75,6 +75,13 @@
       android:summary="@string/pref_media_coub_external_summary"
       android:title="@string/pref_media_coub_external_title" />
 
+    <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="@string/pref_key_video_landscape"
+      android:persistent="true"
+      android:summary="@string/pref_media_video_rotation_summary"
+      android:title="@string/pref_media_video_rotation_title" />
+
   </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/pref_category_title_system">

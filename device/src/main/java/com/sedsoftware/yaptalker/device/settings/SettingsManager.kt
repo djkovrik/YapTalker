@@ -98,6 +98,9 @@ class SettingsManager @Inject constructor(
     override fun isInTwoPaneMode(): Boolean =
         getBooleanPref(R.string.pref_key_two_pane_mode, context.resources.getBoolean(R.bool.two_pane_mode))
 
+    override fun isVideoLandscapeEnabled(): Boolean =
+        getBooleanPref(R.string.pref_key_video_landscape, true)
+
     override fun saveSingleCookie(cookie: String) {
         preferences.edit().putString(context.resources.getString(R.string.pref_key_cookie), cookie).apply()
     }
