@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/content_container"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context="com.sedsoftware.yaptalker.presentation.feature.imagedisplay.ImageDisplayActivity">
-
-  <com.github.chrisbanes.photoview.PhotoView
-    android:id="@+id/photo_view"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    tools:context="com.sedsoftware.yaptalker.presentation.feature.imagedisplay.ImageDisplayActivity">
 
-  <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:orientation="vertical">
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/photo_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <ProgressBar
-      android:id="@+id/image_progress"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:indeterminate="false" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
-    <TextView
-      android:id="@+id/image_progress_label"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:textColor="?attr/colorAccent"
-      tools:text="50%" />
+        <ProgressBar
+            android:id="@+id/image_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="false" />
 
-  </LinearLayout>
+        <TextView
+            android:id="@+id/image_progress_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="?attr/colorAccent"
+            tools:text="50%" />
+
+    </LinearLayout>
 
 
-  <include layout="@layout/include_main_appbar_transparent" />
+    <include layout="@layout/include_main_appbar_transparent" />
 
 </FrameLayout>

@@ -50,5 +50,5 @@ class OkHttpProgressResponseBody(
                 progressListener?.update(url, totalBytesRead, fullLength)
                 return bytesRead
             }
-    }
+        }
 }

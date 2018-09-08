@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="pref_key_start_page" translatable="false">pref_start_page</string>
-  <string name="pref_key_font_size" translatable="false">pref_font_size</string>
-  <string name="pref_key_avatar_size" translatable="false">pref_avatar_size</string>
-  <string name="pref_key_theme" translatable="false">pref_theme</string>
-  <string name="pref_key_categorizer" translatable="false">pref_categorizer</string>
-  <string name="pref_key_nswf" translatable="false">pref_nswf</string>
-  <string name="pref_key_blacklist" translatable="false">pref_blacklist</string>
-  <string name="pref_key_screen_always_on" translatable="false">pref_screen_always_on</string>
-  <string name="pref_key_https_enabled" translatable="false">pref_https_enabled</string>
-  <string name="pref_key_messages_per_page" translatable="false">pref_messages_per_page</string>
-  <string name="pref_key_topics_per_page" translatable="false">pref_topics_per_page</string>
-  <string name="pref_key_cookie" translatable="false">pref_cookie</string>
-  <string name="pref_key_two_pane_mode" translatable="false">pref_two_pane_mode</string>
-  <string name="pref_key_last_update_check" translatable="false">pref_last_update_check</string>
-  <string name="pref_key_coub_external" translatable="false">pref_coub_external</string>
-  <string name="pref_key_video_landscape" translatable="false">pref_video_landscape</string>
+    <string name="pref_key_start_page" translatable="false">pref_start_page</string>
+    <string name="pref_key_font_size" translatable="false">pref_font_size</string>
+    <string name="pref_key_avatar_size" translatable="false">pref_avatar_size</string>
+    <string name="pref_key_theme" translatable="false">pref_theme</string>
+    <string name="pref_key_categorizer" translatable="false">pref_categorizer</string>
+    <string name="pref_key_nswf" translatable="false">pref_nswf</string>
+    <string name="pref_key_blacklist" translatable="false">pref_blacklist</string>
+    <string name="pref_key_screen_always_on" translatable="false">pref_screen_always_on</string>
+    <string name="pref_key_https_enabled" translatable="false">pref_https_enabled</string>
+    <string name="pref_key_messages_per_page" translatable="false">pref_messages_per_page</string>
+    <string name="pref_key_topics_per_page" translatable="false">pref_topics_per_page</string>
+    <string name="pref_key_cookie" translatable="false">pref_cookie</string>
+    <string name="pref_key_two_pane_mode" translatable="false">pref_two_pane_mode</string>
+    <string name="pref_key_last_update_check" translatable="false">pref_last_update_check</string>
+    <string name="pref_key_coub_external" translatable="false">pref_coub_external</string>
+    <string name="pref_key_video_landscape" translatable="false">pref_video_landscape</string>
 </resources>

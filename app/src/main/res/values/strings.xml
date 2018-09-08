@@ -1,247 +1,247 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="app_name">YapTalker</string>
+    <string name="app_name">YapTalker</string>
 
-  <!-- NAVIGATION DRAWER -->
-  <!-- Header items -->
-  <string name="nav_drawer_guest_name">Guest</string>
-  <!-- Navigation items -->
-  <string name="nav_drawer_main_page">Main page</string>
-  <string name="nav_drawer_forums">Forums</string>
-  <string name="nav_drawer_active_topics">Active topics</string>
-  <string name="nav_drawer_incubator">Incubator</string>
-  <string name="nav_drawer_settings">Settings</string>
-  <string name="nav_drawer_updates">App updates</string>
-  <string name="nav_drawer_mail">Mail</string>
-  <string name="nav_drawer_bookmarks">Bookmarks</string>
-  <string name="nav_drawer_search">Search</string>
-  <string name="nav_drawer_sign_in">Sign In</string>
-  <string name="nav_drawer_sign_out">Sign Out</string>
+    <!-- NAVIGATION DRAWER -->
+    <!-- Header items -->
+    <string name="nav_drawer_guest_name">Guest</string>
+    <!-- Navigation items -->
+    <string name="nav_drawer_main_page">Main page</string>
+    <string name="nav_drawer_forums">Forums</string>
+    <string name="nav_drawer_active_topics">Active topics</string>
+    <string name="nav_drawer_incubator">Incubator</string>
+    <string name="nav_drawer_settings">Settings</string>
+    <string name="nav_drawer_updates">App updates</string>
+    <string name="nav_drawer_mail">Mail</string>
+    <string name="nav_drawer_bookmarks">Bookmarks</string>
+    <string name="nav_drawer_search">Search</string>
+    <string name="nav_drawer_sign_in">Sign In</string>
+    <string name="nav_drawer_sign_out">Sign Out</string>
 
-  <!-- NEWS -->
-  <plurals name="news_comments_template">
-    <item quantity="one"><xliff:g id="icon">{cmd-comment-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comment</item>
-    <item quantity="few"><xliff:g id="icon">{cmd-comment-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
-    <item quantity="many"><xliff:g id="icon">{cmd-comment-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
-    <item quantity="other"><xliff:g id="icon">{cmd-comment-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
-  </plurals>
+    <!-- NEWS -->
+    <plurals name="news_comments_template">
+        <item quantity="one"><xliff:g id="icon">{cmd-comment-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comment</item>
+        <item quantity="few"><xliff:g id="icon">{cmd-comment-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
+        <item quantity="many"><xliff:g id="icon">{cmd-comment-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
+        <item quantity="other"><xliff:g id="icon">{cmd-comment-outline}</xliff:g> <xliff:g id="count">%s</xliff:g> comments</item>
+    </plurals>
 
-  <string name="news_comments_template_short" translatable="false"><xliff:g id="icon">{cmd-comment-outline}</xliff:g> <xliff:g id="count">%s</xliff:g></string>
-  <string name="news_forum_title_template" translatable="false"><xliff:g id="bullet">\u25AA</xliff:g> <xliff:g id="forum">%s</xliff:g></string>
+    <string name="news_comments_template_short" translatable="false"><xliff:g id="icon">{cmd-comment-outline}</xliff:g> <xliff:g id="count">%s</xliff:g></string>
+    <string name="news_forum_title_template" translatable="false"><xliff:g id="bullet">\u25AA</xliff:g> <xliff:g id="forum">%s</xliff:g></string>
 
-  <!-- FORUMS -->
-  <string name="forum_comments_template">Comments: <xliff:g id="answers">%s</xliff:g></string>
-  <string name="forum_pinned_topic_template" translatable="false"><xliff:g id="icon">{typ-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
-  <string name="forum_closed_topic_template" translatable="false"><xliff:g id="icon">{cmd-lock}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
-  <string name="forum_pinned_and_closed_topic_template" translatable="false"><xliff:g id="icons">{cmd-lock} {typ-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
+    <!-- FORUMS -->
+    <string name="forum_comments_template">Comments: <xliff:g id="answers">%s</xliff:g></string>
+    <string name="forum_pinned_topic_template" translatable="false"><xliff:g id="icon">{typ-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
+    <string name="forum_closed_topic_template" translatable="false"><xliff:g id="icon">{cmd-lock}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
+    <string name="forum_pinned_and_closed_topic_template" translatable="false"><xliff:g id="icons">{cmd-lock} {typ-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
 
-  <!-- NAVIGATION -->
-  <string name="navigation_pages_template"><xliff:g id="page">%d</xliff:g> of <xliff:g id="total_pages">%d</xliff:g></string>
-  <string name="navigation_go_to_page_title">Go to page</string>
-  <string name="navigation_go_to_page_hint">Enter page number…</string>
-  <string name="navigation_page_not_available">Page <xliff:g id="page">%d</xliff:g> is not available</string>
-  <string name="navigation_previous" translatable="false" tools:keep="@string/navigation_previous">&lt;</string>
-  <string name="navigation_next" translatable="false" tools:keep="@string/navigation_next">&gt;</string>
-  <string name="navigation_first" translatable="false" tools:keep="@string/navigation_first">&lt;&lt;</string>
-  <string name="navigation_last" translatable="false" tools:keep="@string/navigation_last">&gt;&gt;</string>
-  <string name="navigation_load_more">Next</string>
-  <string name="navigation_gallery_page">Page: <xliff:g id="page">%s</xliff:g></string>
+    <!-- NAVIGATION -->
+    <string name="navigation_pages_template"><xliff:g id="page">%d</xliff:g> of <xliff:g id="total_pages">%d</xliff:g></string>
+    <string name="navigation_go_to_page_title">Go to page</string>
+    <string name="navigation_go_to_page_hint">Enter page number…</string>
+    <string name="navigation_page_not_available">Page <xliff:g id="page">%d</xliff:g> is not available</string>
+    <string name="navigation_previous" translatable="false" tools:keep="@string/navigation_previous">&lt;</string>
+    <string name="navigation_next" translatable="false" tools:keep="@string/navigation_next">&gt;</string>
+    <string name="navigation_first" translatable="false" tools:keep="@string/navigation_first">&lt;&lt;</string>
+    <string name="navigation_last" translatable="false" tools:keep="@string/navigation_last">&gt;&gt;</string>
+    <string name="navigation_load_more">Next</string>
+    <string name="navigation_gallery_page">Page: <xliff:g id="page">%s</xliff:g></string>
 
-  <!-- AUTHORIZATION -->
-  <string name="authorization_login_label">Login</string>
-  <string name="authorization_password_label">Password</string>
-  <string name="authorization_button_login">Sign In</string>
-  <string name="authorization_anonymous">Sign In anonymously</string>
+    <!-- AUTHORIZATION -->
+    <string name="authorization_login_label">Login</string>
+    <string name="authorization_password_label">Password</string>
+    <string name="authorization_button_login">Sign In</string>
+    <string name="authorization_anonymous">Sign In anonymously</string>
 
-  <!-- TOPIC -->
-  <string name="topic_post_edit_button">{typ-pencil} Edit</string>
-  <string name="topic_post_reply_button">{typ-arrow-back} Reply</string>
-  <string name="topic_post_karma_thumb_up" translatable="false">{cmd-thumb-up} </string>
-  <string name="topic_post_karma_thumb_down" translatable="false">{cmd-thumb-down} </string>
+    <!-- TOPIC -->
+    <string name="topic_post_edit_button">{typ-pencil} Edit</string>
+    <string name="topic_post_reply_button">{typ-arrow-back} Reply</string>
+    <string name="topic_post_karma_thumb_up" translatable="false">{cmd-thumb-up} </string>
+    <string name="topic_post_karma_thumb_down" translatable="false">{cmd-thumb-down} </string>
 
-  <!-- FAB labels -->
-  <string name="fab_label_karma">Rate topic</string>
-  <string name="fab_label_bookmark">Bookmark</string>
-  <string name="fab_label_new_message">New message</string>
-  <string name="fab_label_refresh">Refresh</string>
-  <string name="fab_label_share">Share</string>
-  <string name="fab_label_gallery">Gallery</string>
-  <string name="fab_label_blacklist">Blacklist</string>
+    <!-- FAB labels -->
+    <string name="fab_label_karma">Rate topic</string>
+    <string name="fab_label_bookmark">Bookmark</string>
+    <string name="fab_label_new_message">New message</string>
+    <string name="fab_label_refresh">Refresh</string>
+    <string name="fab_label_share">Share</string>
+    <string name="fab_label_gallery">Gallery</string>
+    <string name="fab_label_blacklist">Blacklist</string>
 
-  <!-- ADD MESSAGE ACTIVITY -->
-  <string name="post_message_hint">Enter your message…</string>
-  <string name="post_insert_link">Link</string>
-  <string name="post_insert_link_hint">Insert link here…</string>
-  <string name="post_insert_link_title">Link title</string>
-  <string name="post_insert_link_title_hint">Enter link title…</string>
-  <string name="post_insert_video">Video</string>
-  <string name="post_insert_video_hint">Insert video link here…</string>
-  <string name="post_button_submit">OK</string>
-  <string name="post_button_dismiss">Cancel</string>
+    <!-- ADD MESSAGE ACTIVITY -->
+    <string name="post_message_hint">Enter your message…</string>
+    <string name="post_insert_link">Link</string>
+    <string name="post_insert_link_hint">Insert link here…</string>
+    <string name="post_insert_link_title">Link title</string>
+    <string name="post_insert_link_title_hint">Enter link title…</string>
+    <string name="post_insert_video">Video</string>
+    <string name="post_insert_video_hint">Insert video link here…</string>
+    <string name="post_button_submit">OK</string>
+    <string name="post_button_dismiss">Cancel</string>
 
-  <!-- UPDATER -->
-  <string name="updater_title_no_updates">No updates available</string>
-  <string name="updater_title_update_available">Update available</string>
-  <string name="updater_info_installed_version">Installed version:</string>
-  <string name="updater_info_latest_version">Latest version:</string>
-  <string name="updater_info_last_update_check">Last update check:</string>
-  <string name="updater_btn_check_for_updates">Check for updates</string>
-  <string name="updater_btn_changelog">Changelog</string>
-  <string name="updater_btn_download">Download</string>
-  <string name="updater_status_checking">Checking for updates…</string>
-  <string name="updater_status_checked">You have the latest version!</string>
-  <string name="updater_status_new_version_available">New version available!</string>
+    <!-- UPDATER -->
+    <string name="updater_title_no_updates">No updates available</string>
+    <string name="updater_title_update_available">Update available</string>
+    <string name="updater_info_installed_version">Installed version:</string>
+    <string name="updater_info_latest_version">Latest version:</string>
+    <string name="updater_info_last_update_check">Last update check:</string>
+    <string name="updater_btn_check_for_updates">Check for updates</string>
+    <string name="updater_btn_changelog">Changelog</string>
+    <string name="updater_btn_download">Download</string>
+    <string name="updater_status_checking">Checking for updates…</string>
+    <string name="updater_status_checked">You have the latest version!</string>
+    <string name="updater_status_new_version_available">New version available!</string>
 
-  <!-- USER PROFILE -->
-  <!-- Personal data -->
-  <string name="profile_label_personal_data"> Personal data</string>
-  <string name="profile_group">Group: <xliff:g id="forum_group">%s</xliff:g></string>
-  <string name="profile_status">Status: <xliff:g id="status">%s</xliff:g></string>
-  <string name="profile_uq">User quality:</string>
-  <string name="profile_sign">Signature:</string>
-  <string name="profile_rewards">Rewards:</string>
-  <!-- User info -->
-  <string name="profile_label_info"> User info</string>
-  <string name="profile_registered">Registered: <xliff:g id="date">%s</xliff:g></string>
-  <string name="profile_time_zone">Time zone: <xliff:g id="time_zone">%s</xliff:g></string>
-  <string name="profile_web_site"><![CDATA[<a href=\"%s\">Web site</a>]]></string>
-  <string name="profile_birth_date">Birth date: <xliff:g id="date">%s</xliff:g></string>
-  <string name="profile_location">Location: <xliff:g id="place">%s</xliff:g></string>
-  <string name="profile_interests">Interests: <xliff:g id="list">%s</xliff:g></string>
-  <string name="profile_sex">Sex: <xliff:g id="gender">%s</xliff:g></string>
-  <!-- Statistics -->
-  <string name="profile_label_statistics"> Forum statistics</string>
-  <string name="profile_messages">Messages: <xliff:g id="messages">%s</xliff:g></string>
-  <string name="profile_messages_day">Message per day: <xliff:g id="messages">%s</xliff:g></string>
-  <string name="profile_bayans">Outdated news: <xliff:g id="news">%s</xliff:g></string>
-  <string name="profile_topics_today">Created topics today: <xliff:g id="topics">%s</xliff:g></string>
-  <!-- Contacts -->
-  <string name="profile_label_contacts"> Contacts</string>
-  <string name="profile_email">Email: <xliff:g id="email">%s</xliff:g></string>
-  <string name="profile_icq">ICQ: <xliff:g id="icq">%s</xliff:g></string>
+    <!-- USER PROFILE -->
+    <!-- Personal data -->
+    <string name="profile_label_personal_data"> Personal data</string>
+    <string name="profile_group">Group: <xliff:g id="forum_group">%s</xliff:g></string>
+    <string name="profile_status">Status: <xliff:g id="status">%s</xliff:g></string>
+    <string name="profile_uq">User quality:</string>
+    <string name="profile_sign">Signature:</string>
+    <string name="profile_rewards">Rewards:</string>
+    <!-- User info -->
+    <string name="profile_label_info"> User info</string>
+    <string name="profile_registered">Registered: <xliff:g id="date">%s</xliff:g></string>
+    <string name="profile_time_zone">Time zone: <xliff:g id="time_zone">%s</xliff:g></string>
+    <string name="profile_web_site"><![CDATA[<a href=\"%s\">Web site</a>]]></string>
+    <string name="profile_birth_date">Birth date: <xliff:g id="date">%s</xliff:g></string>
+    <string name="profile_location">Location: <xliff:g id="place">%s</xliff:g></string>
+    <string name="profile_interests">Interests: <xliff:g id="list">%s</xliff:g></string>
+    <string name="profile_sex">Sex: <xliff:g id="gender">%s</xliff:g></string>
+    <!-- Statistics -->
+    <string name="profile_label_statistics"> Forum statistics</string>
+    <string name="profile_messages">Messages: <xliff:g id="messages">%s</xliff:g></string>
+    <string name="profile_messages_day">Message per day: <xliff:g id="messages">%s</xliff:g></string>
+    <string name="profile_bayans">Outdated news: <xliff:g id="news">%s</xliff:g></string>
+    <string name="profile_topics_today">Created topics today: <xliff:g id="topics">%s</xliff:g></string>
+    <!-- Contacts -->
+    <string name="profile_label_contacts"> Contacts</string>
+    <string name="profile_email">Email: <xliff:g id="email">%s</xliff:g></string>
+    <string name="profile_icq">ICQ: <xliff:g id="icq">%s</xliff:g></string>
 
-  <!-- SEARCH SCREEN -->
-  <string name="btn_search">Search</string>
-  <string name="search_text_hint">Enter search keyword…</string>
-  <string name="search_rb_date">By date</string>
-  <string name="search_rb_relevant">Relevant</string>
-  <string name="search_rb_words_any">Any word</string>
-  <string name="search_rb_words_all">All words</string>
-  <string name="search_rb_words_phrase">Whole phrase</string>
-  <string name="search_label_sorting">Sorting options</string>
-  <string name="search_label_conditions">Search conditions</string>
-  <string name="search_label_target">Search targets</string>
-  <string name="search_box_feed">Feed</string>
-  <string name="search_box_communication">Communication</string>
-  <string name="search_box_chaos">Chaos</string>
+    <!-- SEARCH SCREEN -->
+    <string name="btn_search">Search</string>
+    <string name="search_text_hint">Enter search keyword…</string>
+    <string name="search_rb_date">By date</string>
+    <string name="search_rb_relevant">Relevant</string>
+    <string name="search_rb_words_any">Any word</string>
+    <string name="search_rb_words_all">All words</string>
+    <string name="search_rb_words_phrase">Whole phrase</string>
+    <string name="search_label_sorting">Sorting options</string>
+    <string name="search_label_conditions">Search conditions</string>
+    <string name="search_label_target">Search targets</string>
+    <string name="search_box_feed">Feed</string>
+    <string name="search_box_communication">Communication</string>
+    <string name="search_box_chaos">Chaos</string>
 
-  <string-array name="search_array_period">
-    <item>All time</item>
-    <item>Today</item>
-    <item>Last 7 days</item>
-    <item>Last 30 days</item>
-    <item>Last 60 days</item>
-    <item>Last 90 days</item>
-    <item>Last 180 days</item>
-    <item>Last 365 days</item>
-  </string-array>
+    <string-array name="search_array_period">
+        <item>All time</item>
+        <item>Today</item>
+        <item>Last 7 days</item>
+        <item>Last 30 days</item>
+        <item>Last 60 days</item>
+        <item>Last 90 days</item>
+        <item>Last 180 days</item>
+        <item>Last 365 days</item>
+    </string-array>
 
-  <!-- MESSAGES AND TITLES -->
-  <string name="msg_file_saved">File saved to <xliff:g id="filepath">%s</xliff:g></string>
-  <string name="msg_file_not_saved">File not saved!</string>
-  <string name="msg_login_success">Successful login!</string>
-  <string name="msg_login_error">Login error!</string>
-  <string name="msg_sign_out">Sign out successful</string>
-  <string name="msg_unknown_error">Unknown error!</string>
-  <string name="msg_bookmark_confirm_action">Delete this topic from bookmarks?</string>
-  <string name="msg_bookmark_confirm_yes">Delete</string>
-  <string name="msg_bookmark_confirm_no">Cancel</string>
-  <string name="msg_bookmark_topic_deleted">Topic successfully deleted from bookmarks</string>
-  <string name="msg_bookmark_topic_added">Topic added to bookmarks</string>
-  <string name="msg_karma_changed_post">Post karma changed successfully</string>
-  <string name="msg_karma_already_rated_post">You already rated this post</string>
-  <string name="msg_karma_changed_topic">Topic karma changed successfully</string>
-  <string name="msg_karma_already_rated_topic">You already rated this post</string>
-  <string name="msg_blacklist_request">Add this topic to blacklist?</string>
-  <string name="msg_blacklist_added">Topic added to blacklist</string>
-  <string name="msg_blacklist_confirm_yes">Add</string>
-  <string name="msg_blacklist_confirm_no">Cancel</string>
-  <string name="msg_blacklist_request_deletion">Delete this topic from blacklist?</string>
-  <string name="msg_blacklist_confirm_delete">Delete</string>
-  <string name="title_image_selection">Select image</string>
-  <string name="title_changelog_activity">Changelog</string>
-  <string name="title_blacklisted_date">Added: <xliff:g id="date">%s</xliff:g></string>
-  <string name="title_blacklist">Blacklist</string>
+    <!-- MESSAGES AND TITLES -->
+    <string name="msg_file_saved">File saved to <xliff:g id="filepath">%s</xliff:g></string>
+    <string name="msg_file_not_saved">File not saved!</string>
+    <string name="msg_login_success">Successful login!</string>
+    <string name="msg_login_error">Login error!</string>
+    <string name="msg_sign_out">Sign out successful</string>
+    <string name="msg_unknown_error">Unknown error!</string>
+    <string name="msg_bookmark_confirm_action">Delete this topic from bookmarks?</string>
+    <string name="msg_bookmark_confirm_yes">Delete</string>
+    <string name="msg_bookmark_confirm_no">Cancel</string>
+    <string name="msg_bookmark_topic_deleted">Topic successfully deleted from bookmarks</string>
+    <string name="msg_bookmark_topic_added">Topic added to bookmarks</string>
+    <string name="msg_karma_changed_post">Post karma changed successfully</string>
+    <string name="msg_karma_already_rated_post">You already rated this post</string>
+    <string name="msg_karma_changed_topic">Topic karma changed successfully</string>
+    <string name="msg_karma_already_rated_topic">You already rated this post</string>
+    <string name="msg_blacklist_request">Add this topic to blacklist?</string>
+    <string name="msg_blacklist_added">Topic added to blacklist</string>
+    <string name="msg_blacklist_confirm_yes">Add</string>
+    <string name="msg_blacklist_confirm_no">Cancel</string>
+    <string name="msg_blacklist_request_deletion">Delete this topic from blacklist?</string>
+    <string name="msg_blacklist_confirm_delete">Delete</string>
+    <string name="title_image_selection">Select image</string>
+    <string name="title_changelog_activity">Changelog</string>
+    <string name="title_blacklisted_date">Added: <xliff:g id="date">%s</xliff:g></string>
+    <string name="title_blacklist">Blacklist</string>
 
-  <!-- MENUS -->
-  <string name="action_save">Save</string>
-  <string name="action_share">Share</string>
-  <string name="action_send">Send</string>
-  <string name="action_attach">Attach image</string>
-  <string name="action_topic_karma_plus">Add +1</string>
-  <string name="action_topic_karma_minus">Add -1</string>
-  <string name="action_post_karma_plus">Add +1</string>
-  <string name="action_post_karma_minus">Add -1</string>
-  <string name="title_topic_karma_menu">Rate topic:</string>
-  <string name="title_post_context_menu">Rate post:</string>
-  <string name="action_delete_all">Delete all topics</string>
-  <string name="action_delete_month">Delete month old topics</string>
+    <!-- MENUS -->
+    <string name="action_save">Save</string>
+    <string name="action_share">Share</string>
+    <string name="action_send">Send</string>
+    <string name="action_attach">Attach image</string>
+    <string name="action_topic_karma_plus">Add +1</string>
+    <string name="action_topic_karma_minus">Add -1</string>
+    <string name="action_post_karma_plus">Add +1</string>
+    <string name="action_post_karma_minus">Add -1</string>
+    <string name="title_topic_karma_menu">Rate topic:</string>
+    <string name="title_post_context_menu">Rate post:</string>
+    <string name="action_delete_all">Delete all topics</string>
+    <string name="action_delete_month">Delete month old topics</string>
 
-  <!-- SHORT DATE STRINGS -->
-  <plurals name="short_date_years">
-    <item quantity="one"><xliff:g id="years">%d</xliff:g> year(s)</item>
-    <item quantity="few"><xliff:g id="years">%d</xliff:g> year(s)</item>
-    <item quantity="many"><xliff:g id="years">%d</xliff:g> year(s)</item>
-    <item quantity="other"><xliff:g id="years">%d</xliff:g> year(s)</item>
-  </plurals>
+    <!-- SHORT DATE STRINGS -->
+    <plurals name="short_date_years">
+        <item quantity="one"><xliff:g id="years">%d</xliff:g> year(s)</item>
+        <item quantity="few"><xliff:g id="years">%d</xliff:g> year(s)</item>
+        <item quantity="many"><xliff:g id="years">%d</xliff:g> year(s)</item>
+        <item quantity="other"><xliff:g id="years">%d</xliff:g> year(s)</item>
+    </plurals>
 
-  <string name="short_date_month" tools:ignore="PluralsCandidate">
+    <string name="short_date_month" tools:ignore="PluralsCandidate">
     <xliff:g id="month">%d</xliff:g> month(s)
   </string>
 
-  <plurals name="short_date_days">
-    <item quantity="one"><xliff:g id="days">%d</xliff:g> day(s)</item>
-    <item quantity="few"><xliff:g id="days">%d</xliff:g> day(s)</item>
-    <item quantity="many"><xliff:g id="years">%d</xliff:g> day(s)</item>
-    <item quantity="other"><xliff:g id="days">%d</xliff:g> day(s)</item>
-  </plurals>
+    <plurals name="short_date_days">
+        <item quantity="one"><xliff:g id="days">%d</xliff:g> day(s)</item>
+        <item quantity="few"><xliff:g id="days">%d</xliff:g> day(s)</item>
+        <item quantity="many"><xliff:g id="years">%d</xliff:g> day(s)</item>
+        <item quantity="other"><xliff:g id="days">%d</xliff:g> day(s)</item>
+    </plurals>
 
-  <plurals name="short_date_hours">
-    <item quantity="one"><xliff:g id="days">%d</xliff:g> hour(s)</item>
-    <item quantity="few"><xliff:g id="days">%d</xliff:g> hour(s)</item>
-    <item quantity="many"><xliff:g id="years">%d</xliff:g> hour(s)</item>
-    <item quantity="other"><xliff:g id="days">%d</xliff:g> hour(s)</item>
-  </plurals>
+    <plurals name="short_date_hours">
+        <item quantity="one"><xliff:g id="days">%d</xliff:g> hour(s)</item>
+        <item quantity="few"><xliff:g id="days">%d</xliff:g> hour(s)</item>
+        <item quantity="many"><xliff:g id="years">%d</xliff:g> hour(s)</item>
+        <item quantity="other"><xliff:g id="days">%d</xliff:g> hour(s)</item>
+    </plurals>
 
-  <string name="short_date_minutes"><xliff:g id="minutes">%d</xliff:g> min(s)</string>
-  <string name="short_date_seconds_now">just now</string>
+    <string name="short_date_minutes"><xliff:g id="minutes">%d</xliff:g> min(s)</string>
+    <string name="short_date_seconds_now">just now</string>
 
-  <!-- A11Y -->
-  <string name="a11y_avatar">User avatar</string>
-  <string name="a11y_photo">User photo</string>
-  <string name="a11y_forum_image">Forum image</string>
-  <string name="a11y_news_image">News content image</string>
-  <string name="a11y_bookmark_delete">Delete topic from bookmarks</string>
-  <string name="a11y_blacklist_delete">Delete topic from blacklist</string>
+    <!-- A11Y -->
+    <string name="a11y_avatar">User avatar</string>
+    <string name="a11y_photo">User photo</string>
+    <string name="a11y_forum_image">Forum image</string>
+    <string name="a11y_news_image">News content image</string>
+    <string name="a11y_bookmark_delete">Delete topic from bookmarks</string>
+    <string name="a11y_blacklist_delete">Delete topic from blacklist</string>
 
-  <!-- Shortcuts -->
-  <string name="shortcut_home">Home</string>
-  <string name="shortcut_forums">Forums</string>
-  <string name="shortcut_active_topics">Active topics</string>
-  <string name="shortcut_incubator">Incubator</string>
+    <!-- Shortcuts -->
+    <string name="shortcut_home">Home</string>
+    <string name="shortcut_forums">Forums</string>
+    <string name="shortcut_active_topics">Active topics</string>
+    <string name="shortcut_incubator">Incubator</string>
 
-  <!-- Current theme markers -->
-  <string name="theme_light" translatable="false">light</string>
-  <string name="theme_light_contrast" translatable="false">light_contrast</string>
-  <string name="theme_light_yap" translatable="false">light_pap</string>
-  <string name="theme_dark" translatable="false">dark</string>
-  <string name="theme_dark_black" translatable="false">dark</string>
+    <!-- Current theme markers -->
+    <string name="theme_light" translatable="false">light</string>
+    <string name="theme_light_contrast" translatable="false">light_contrast</string>
+    <string name="theme_light_yap" translatable="false">light_pap</string>
+    <string name="theme_dark" translatable="false">dark</string>
+    <string name="theme_dark_black" translatable="false">dark</string>
 
-  <!-- Video types -->
-  <string name="video_coub" translatable="false">Coub</string>
-  <string name="video_youtube" translatable="false">Youtube</string>
-  <string name="video_rutube" translatable="false">Rutube</string>
-  <string name="video_vk" translatable="false">VK</string>
-  <string name="video_yap" translatable="false">YapFiles</string>
-  <string name="video_other" translatable="false">Video</string>
-  <string name="video_gif" translatable="false">GIF</string>
+    <!-- Video types -->
+    <string name="video_coub" translatable="false">Coub</string>
+    <string name="video_youtube" translatable="false">Youtube</string>
+    <string name="video_rutube" translatable="false">Rutube</string>
+    <string name="video_vk" translatable="false">VK</string>
+    <string name="video_yap" translatable="false">YapFiles</string>
+    <string name="video_other" translatable="false">Video</string>
+    <string name="video_gif" translatable="false">GIF</string>
 </resources>

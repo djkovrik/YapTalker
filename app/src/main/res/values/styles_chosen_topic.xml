@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="PostAuthorNickname">
-    <item name="android:textColor">?android:textColorPrimary</item>
-    <item name="android:textStyle">bold</item>
-    <item name="android:ellipsize">end</item>
-    <item name="android:maxLines">1</item>
-  </style>
+    <style name="PostAuthorNickname">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
 
-  <style name="PostRating">
-    <item name="android:textColor">?attr/colorRatingGreen</item>
-  </style>
+    <style name="PostRating">
+        <item name="android:textColor">?attr/colorRatingGreen</item>
+    </style>
 
-  <style name="RatingThumbsUp">
-    <item name="android:textColor">?attr/colorRatingThumbUp</item>
-  </style>
+    <style name="RatingThumbsUp">
+        <item name="android:textColor">?attr/colorRatingThumbUp</item>
+    </style>
 
-  <style name="RatingThumbsDown">
-    <item name="android:textColor">?attr/colorRatingThumbDown</item>
-  </style>
+    <style name="RatingThumbsDown">
+        <item name="android:textColor">?attr/colorRatingThumbDown</item>
+    </style>
 
-  <style name="RatingThumbsAvailable">
-    <item name="android:textColor">?attr/colorRatingThumbAvailable</item>
-  </style>
+    <style name="RatingThumbsAvailable">
+        <item name="android:textColor">?attr/colorRatingThumbAvailable</item>
+    </style>
 
-  <style name="FabMenuLabel">
-    <item name="android:background">@drawable/fab_label_background</item>
-    <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
-    <item name="android:textColor">?attr/colorFabLabelText</item>
-  </style>
+    <style name="FabMenuLabel">
+        <item name="android:background">@drawable/fab_label_background</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
+        <item name="android:textColor">?attr/colorFabLabelText</item>
+    </style>
 
 </resources>

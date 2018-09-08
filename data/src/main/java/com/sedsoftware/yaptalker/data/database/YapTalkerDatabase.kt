@@ -13,12 +13,12 @@ import com.sedsoftware.yaptalker.data.database.model.BlacklistedTopicDbModel
 @TypeConverters(DateConverter::class)
 abstract class YapTalkerDatabase : RoomDatabase() {
 
-  companion object {
-    const val DATABASE_NAME = "yaptalker_db"
-    const val TAGS_BLACKLIST_TABLE = "blacklist_tags"
-    const val TOPICS_BLACKLIST_TABLE = "blacklist_topics"
-  }
+    companion object {
+        const val DATABASE_NAME = "yaptalker_db"
+        const val TAGS_BLACKLIST_TABLE = "blacklist_tags"
+        const val TOPICS_BLACKLIST_TABLE = "blacklist_topics"
+    }
 
-  abstract fun getTagsDao(): BlacklistedTagDao
-  abstract fun getTopicsDao(): BlacklistedTopicDao
+    abstract fun getTagsDao(): BlacklistedTagDao
+    abstract fun getTopicsDao(): BlacklistedTopicDao
 }

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="SearchTopicTitle">
-    <item name="android:textColor">?android:textColorPrimary</item>
-    <item name="android:textStyle">bold</item>
-    <item name="android:ellipsize">end</item>
-    <item name="android:maxLines">1</item>
-    <item name="android:singleLine">true</item>
-  </style>
+    <style name="SearchTopicTitle">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
 
-  <style name="SearchTopicForum">
-    <item name="android:textColor">?attr/colorAccentOverride</item>
-    <item name="android:ellipsize">end</item>
-    <item name="android:maxLines">1</item>
-  </style>
+    <style name="SearchTopicForum">
+        <item name="android:textColor">?attr/colorAccentOverride</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
 
-  <style name="SearchTopicAnswers" parent="CommonSupportingText">
-    <item name="android:textStyle">italic</item>
-  </style>
+    <style name="SearchTopicAnswers" parent="CommonSupportingText">
+        <item name="android:textStyle">italic</item>
+    </style>
 
 </resources>

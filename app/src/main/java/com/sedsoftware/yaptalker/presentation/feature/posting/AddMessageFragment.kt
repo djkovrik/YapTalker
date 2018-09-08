@@ -204,7 +204,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
                 .alwaysCallInputCallback()
                 .input(R.string.post_insert_link_hint, 0, false) { firstDialog, firstInput ->
                     firstDialog.getActionButton(DialogAction.POSITIVE).isEnabled =
-                        firstInput.toString().startsWith("http")
+                            firstInput.toString().startsWith("http")
                 }
                 .onPositive { firstDialog, _ ->
                     url = firstDialog.inputEditText?.text.toString()

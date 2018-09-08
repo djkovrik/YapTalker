@@ -1,561 +1,561 @@
 <resources>
-  <!-- LIGHT THEME -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="themeName">@string/theme_light</item>
-    <!-- Base -->
-    <item name="colorPrimary">@color/colorPrimaryL</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDarkL</item>
-    <item name="colorAccent">@color/colorAccentL</item>
-    <item name="colorAccentOverride">@color/colorAccentL</item>
-    <!-- Window -->
-    <item name="android:windowBackground">@color/windowBackgroundL</item>
-    <item name="chipBackground">@color/chipBackgroundL</item>
-    <!-- Text -->
-    <item name="android:textColorPrimary">@color/textColorPrimaryL</item>
-    <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverseL</item>
-    <item name="android:textColorSecondary">@color/textColorSecondaryL</item>
-    <item name="android:textColorSecondaryInverse">@color/textColorSecondaryInverseL</item>
-    <!-- Material Drawer -->
-    <item name="material_drawer_background">@color/material_drawer_background_l</item>
-    <item name="material_drawer_primary_text">@color/material_drawer_primary_text_l</item>
-    <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon_l</item>
-    <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text_l</item>
-    <item name="material_drawer_hint_text">@color/material_drawer_hint_text_l</item>
-    <item name="material_drawer_divider">@color/material_drawer_divider_l</item>
-    <item name="material_drawer_selected">@color/material_drawer_selected_l</item>
-    <item name="material_drawer_selected_text">@color/material_drawer_selected_text_l</item>
-    <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text_l</item>
-    <!-- Navigation drawer -->
-    <item name="colorNavDefaultText">@color/colorNavDefaultTextL</item>
-    <item name="colorNavMainPage">@color/colorNavMainPageL</item>
-    <item name="colorNavForums">@color/colorNavForumsL</item>
-    <item name="colorNavActiveTopics">@color/colorNavActiveTopicsL</item>
-    <item name="colorNavIncubator">@color/colorNavIncubatorL</item>
-    <item name="colorNavMail">@color/colorNavMailL</item>
-    <item name="colorNavBookmarks">@color/colorNavBookmarksL</item>
-    <item name="colorNavSearch">@color/colorNavSearchL</item>
-    <item name="colorNavSettings">@color/colorNavSettingsL</item>
-    <item name="colorNavSignIn">@color/colorNavSignInL</item>
-    <!-- Load more button -->
-    <item name="colorLoadMore">@color/colorLoadMoreL</item>
-    <item name="colorLoadMoreStroke">@color/colorLoadMoreStrokeL</item>
-    <!-- Quote -->
-    <item name="colorQuoteBackground">@color/colorQuoteBackgroundL</item>
-    <!-- FAB -->
-    <item name="colorFabIcon">@color/colorFabIconL</item>
-    <item name="colorFabLabelBackground">@color/colorFabLabelBackgroundL</item>
-    <item name="colorFabLabelText">@color/colorFabLabelTextL</item>
-    <item name="colorFabOverlay">@color/colorFabOverlayL</item>
-    <!-- Scrollbar -->
-    <item name="colorScrollbarThumb">@color/colorScrollbarThumbL</item>
-    <item name="colorScrollbarBackground">@color/colorScrollbarBackgroundL</item>
-    <!-- Spinner -->
-    <item name="colorRefreshSpinner1">@color/colorRefreshSpinner1L</item>
-    <item name="colorRefreshSpinner2">@color/colorRefreshSpinner2L</item>
-    <item name="colorRefreshSpinner3">@color/colorRefreshSpinner3L</item>
-    <item name="colorRefreshSpinner4">@color/colorRefreshSpinner4L</item>
-    <!-- UQ colors -->
-    <item name="colorRatingPlatinum">@color/colorRatingPlatinumL</item>
-    <item name="colorRatingGold">@color/colorRatingGoldL</item>
-    <item name="colorRatingGreen">@color/colorRatingGreenL</item>
-    <item name="colorRatingGrey">@color/colorRatingGreyL</item>
-    <item name="colorRatingRed">@color/colorRatingRedL</item>
-    <item name="colorRatingDarkRed">@color/colorRatingDarkRedL</item>
-    <!-- UQ text -->
-    <item name="colorRatingPlatinumText">@color/colorRatingPlatinumTextL</item>
-    <item name="colorRatingGoldText">@color/colorRatingGoldTextL</item>
-    <item name="colorRatingGreenText">@color/colorRatingGreenTextL</item>
-    <item name="colorRatingGreyText">@color/colorRatingGreyTextL</item>
-    <item name="colorRatingRedText">@color/colorRatingRedTextL</item>
-    <item name="colorRatingDarkRedText">@color/colorRatingPlatinumTextL</item>
-    <!-- UQ thumbs -->
-    <item name="colorRatingThumbUp">@color/colorRatingThumbUpL</item>
-    <item name="colorRatingThumbDown">@color/colorRatingThumbDownL</item>
-    <item name="colorRatingThumbAvailable">@color/colorRatingThumbAvailableL</item>
-    <!-- Snackbars -->
-    <item name="snackColorError">@color/snackColorErrorL</item>
-    <item name="snackColorInfo">@color/snackColorInfoL</item>
-    <item name="snackColorSuccess">@color/snackColorSuccessL</item>
-    <item name="snackColorWarning">@color/snackColorWarningL</item>
-    <item name="snackColorText">@color/snackColorTextL</item>
-    <!-- Icons -->
-    <item name="iconAuthLogin">@drawable/ic_auth_login</item>
-    <item name="iconAuthPassword">@drawable/ic_auth_password</item>
-    <item name="iconEditorBold">@drawable/ic_bb_bold</item>
-    <item name="iconEditorItalic">@drawable/ic_bb_italic</item>
-    <item name="iconEditorUnderlined">@drawable/ic_bb_underline</item>
-    <item name="iconEditorLink">@drawable/ic_bb_link</item>
-    <item name="iconEditorVideo">@drawable/ic_bb_video</item>
-    <item name="iconEditorSmiles">@drawable/ic_bb_smiles</item>
-    <item name="iconProfileData">@drawable/ic_account</item>
-    <item name="iconProfileInfo">@drawable/ic_face_profile</item>
-    <item name="iconProfileStatistic">@drawable/ic_chart_areaspline</item>
-    <item name="iconProfileContacts">@drawable/ic_contact_mail</item>
-    <item name="iconRemoveAttachment">@drawable/ic_close</item>
-    <!-- Overlays -->
-    <item name="AppBarOverlay">@style/AppTheme.AppBarOverlay</item>
-    <item name="PopupOverlay">@style/AppTheme.PopupOverlay</item>
-    <!-- CardView -->
-    <item name="customCardViewStyle">@style/cardViewStyleLight</item>
-  </style>
-  <!-- Custom styles -->
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <!-- LIGHT THEME -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="themeName">@string/theme_light</item>
+        <!-- Base -->
+        <item name="colorPrimary">@color/colorPrimaryL</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkL</item>
+        <item name="colorAccent">@color/colorAccentL</item>
+        <item name="colorAccentOverride">@color/colorAccentL</item>
+        <!-- Window -->
+        <item name="android:windowBackground">@color/windowBackgroundL</item>
+        <item name="chipBackground">@color/chipBackgroundL</item>
+        <!-- Text -->
+        <item name="android:textColorPrimary">@color/textColorPrimaryL</item>
+        <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverseL</item>
+        <item name="android:textColorSecondary">@color/textColorSecondaryL</item>
+        <item name="android:textColorSecondaryInverse">@color/textColorSecondaryInverseL</item>
+        <!-- Material Drawer -->
+        <item name="material_drawer_background">@color/material_drawer_background_l</item>
+        <item name="material_drawer_primary_text">@color/material_drawer_primary_text_l</item>
+        <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon_l</item>
+        <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text_l</item>
+        <item name="material_drawer_hint_text">@color/material_drawer_hint_text_l</item>
+        <item name="material_drawer_divider">@color/material_drawer_divider_l</item>
+        <item name="material_drawer_selected">@color/material_drawer_selected_l</item>
+        <item name="material_drawer_selected_text">@color/material_drawer_selected_text_l</item>
+        <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text_l</item>
+        <!-- Navigation drawer -->
+        <item name="colorNavDefaultText">@color/colorNavDefaultTextL</item>
+        <item name="colorNavMainPage">@color/colorNavMainPageL</item>
+        <item name="colorNavForums">@color/colorNavForumsL</item>
+        <item name="colorNavActiveTopics">@color/colorNavActiveTopicsL</item>
+        <item name="colorNavIncubator">@color/colorNavIncubatorL</item>
+        <item name="colorNavMail">@color/colorNavMailL</item>
+        <item name="colorNavBookmarks">@color/colorNavBookmarksL</item>
+        <item name="colorNavSearch">@color/colorNavSearchL</item>
+        <item name="colorNavSettings">@color/colorNavSettingsL</item>
+        <item name="colorNavSignIn">@color/colorNavSignInL</item>
+        <!-- Load more button -->
+        <item name="colorLoadMore">@color/colorLoadMoreL</item>
+        <item name="colorLoadMoreStroke">@color/colorLoadMoreStrokeL</item>
+        <!-- Quote -->
+        <item name="colorQuoteBackground">@color/colorQuoteBackgroundL</item>
+        <!-- FAB -->
+        <item name="colorFabIcon">@color/colorFabIconL</item>
+        <item name="colorFabLabelBackground">@color/colorFabLabelBackgroundL</item>
+        <item name="colorFabLabelText">@color/colorFabLabelTextL</item>
+        <item name="colorFabOverlay">@color/colorFabOverlayL</item>
+        <!-- Scrollbar -->
+        <item name="colorScrollbarThumb">@color/colorScrollbarThumbL</item>
+        <item name="colorScrollbarBackground">@color/colorScrollbarBackgroundL</item>
+        <!-- Spinner -->
+        <item name="colorRefreshSpinner1">@color/colorRefreshSpinner1L</item>
+        <item name="colorRefreshSpinner2">@color/colorRefreshSpinner2L</item>
+        <item name="colorRefreshSpinner3">@color/colorRefreshSpinner3L</item>
+        <item name="colorRefreshSpinner4">@color/colorRefreshSpinner4L</item>
+        <!-- UQ colors -->
+        <item name="colorRatingPlatinum">@color/colorRatingPlatinumL</item>
+        <item name="colorRatingGold">@color/colorRatingGoldL</item>
+        <item name="colorRatingGreen">@color/colorRatingGreenL</item>
+        <item name="colorRatingGrey">@color/colorRatingGreyL</item>
+        <item name="colorRatingRed">@color/colorRatingRedL</item>
+        <item name="colorRatingDarkRed">@color/colorRatingDarkRedL</item>
+        <!-- UQ text -->
+        <item name="colorRatingPlatinumText">@color/colorRatingPlatinumTextL</item>
+        <item name="colorRatingGoldText">@color/colorRatingGoldTextL</item>
+        <item name="colorRatingGreenText">@color/colorRatingGreenTextL</item>
+        <item name="colorRatingGreyText">@color/colorRatingGreyTextL</item>
+        <item name="colorRatingRedText">@color/colorRatingRedTextL</item>
+        <item name="colorRatingDarkRedText">@color/colorRatingPlatinumTextL</item>
+        <!-- UQ thumbs -->
+        <item name="colorRatingThumbUp">@color/colorRatingThumbUpL</item>
+        <item name="colorRatingThumbDown">@color/colorRatingThumbDownL</item>
+        <item name="colorRatingThumbAvailable">@color/colorRatingThumbAvailableL</item>
+        <!-- Snackbars -->
+        <item name="snackColorError">@color/snackColorErrorL</item>
+        <item name="snackColorInfo">@color/snackColorInfoL</item>
+        <item name="snackColorSuccess">@color/snackColorSuccessL</item>
+        <item name="snackColorWarning">@color/snackColorWarningL</item>
+        <item name="snackColorText">@color/snackColorTextL</item>
+        <!-- Icons -->
+        <item name="iconAuthLogin">@drawable/ic_auth_login</item>
+        <item name="iconAuthPassword">@drawable/ic_auth_password</item>
+        <item name="iconEditorBold">@drawable/ic_bb_bold</item>
+        <item name="iconEditorItalic">@drawable/ic_bb_italic</item>
+        <item name="iconEditorUnderlined">@drawable/ic_bb_underline</item>
+        <item name="iconEditorLink">@drawable/ic_bb_link</item>
+        <item name="iconEditorVideo">@drawable/ic_bb_video</item>
+        <item name="iconEditorSmiles">@drawable/ic_bb_smiles</item>
+        <item name="iconProfileData">@drawable/ic_account</item>
+        <item name="iconProfileInfo">@drawable/ic_face_profile</item>
+        <item name="iconProfileStatistic">@drawable/ic_chart_areaspline</item>
+        <item name="iconProfileContacts">@drawable/ic_contact_mail</item>
+        <item name="iconRemoveAttachment">@drawable/ic_close</item>
+        <!-- Overlays -->
+        <item name="AppBarOverlay">@style/AppTheme.AppBarOverlay</item>
+        <item name="PopupOverlay">@style/AppTheme.PopupOverlay</item>
+        <!-- CardView -->
+        <item name="customCardViewStyle">@style/cardViewStyleLight</item>
+    </style>
+    <!-- Custom styles -->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-  <style name="cardViewStyleLight" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-    <item name="cardBackgroundColor">@color/cardBackgroundColorL</item>
-  </style>
-
-
-  <!-- LIGHT THEME - CONTRAST -->
-  <style name="AppTheme.LightContrast" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="themeName">@string/theme_light_contrast</item>
-    <!-- Base -->
-    <item name="colorPrimary">@color/colorPrimaryLC</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDarkLC</item>
-    <item name="colorAccent">@color/colorAccentLC</item>
-    <item name="colorAccentOverride">@color/colorAccentLC</item>
-    <!-- Window -->
-    <item name="android:windowBackground">@color/windowBackgroundLC</item>
-    <item name="chipBackground">@color/chipBackgroundLC</item>
-    <!-- Text -->
-    <item name="android:textColorPrimary">@color/textColorPrimaryLC</item>
-    <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverseLC</item>
-    <item name="android:textColorSecondary">@color/textColorSecondaryLC</item>
-    <item name="android:textColorSecondaryInverse">@color/textColorSecondaryInverseLC</item>
-    <!-- Material Drawer -->
-    <item name="material_drawer_background">@color/material_drawer_background_lc</item>
-    <item name="material_drawer_primary_text">@color/material_drawer_primary_text_lc</item>
-    <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon_lc</item>
-    <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text_lc</item>
-    <item name="material_drawer_hint_text">@color/material_drawer_hint_text_lc</item>
-    <item name="material_drawer_divider">@color/material_drawer_divider_lc</item>
-    <item name="material_drawer_selected">@color/material_drawer_selected_lc</item>
-    <item name="material_drawer_selected_text">@color/material_drawer_selected_text_lc</item>
-    <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text_lc</item>
-    <!-- Navigation drawer -->
-    <item name="colorNavDefaultText">@color/colorNavDefaultTextLC</item>
-    <item name="colorNavMainPage">@color/colorNavMainPageLC</item>
-    <item name="colorNavForums">@color/colorNavForumsLC</item>
-    <item name="colorNavActiveTopics">@color/colorNavActiveTopicsLC</item>
-    <item name="colorNavIncubator">@color/colorNavIncubatorLC</item>
-    <item name="colorNavMail">@color/colorNavMailLC</item>
-    <item name="colorNavBookmarks">@color/colorNavBookmarksLC</item>
-    <item name="colorNavSearch">@color/colorNavSearchLC</item>
-    <item name="colorNavSettings">@color/colorNavSettingsLC</item>
-    <item name="colorNavSignIn">@color/colorNavSignInLC</item>
-    <!-- Load more button -->
-    <item name="colorLoadMore">@color/colorLoadMoreLC</item>
-    <item name="colorLoadMoreStroke">@color/colorLoadMoreStrokeLC</item>
-    <!-- Quote -->
-    <item name="colorQuoteBackground">@color/colorQuoteBackgroundLC</item>
-    <!-- FAB -->
-    <item name="colorFabIcon">@color/colorFabIconLC</item>
-    <item name="colorFabLabelBackground">@color/colorFabLabelBackgroundLC</item>
-    <item name="colorFabLabelText">@color/colorFabLabelTextLC</item>
-    <item name="colorFabOverlay">@color/colorFabOverlayLC</item>
-    <!-- Scrollbar -->
-    <item name="colorScrollbarThumb">@color/colorScrollbarThumbLC</item>
-    <item name="colorScrollbarBackground">@color/colorScrollbarBackgroundLC</item>
-    <!-- Spinner -->
-    <item name="colorRefreshSpinner1">@color/colorRefreshSpinner1LC</item>
-    <item name="colorRefreshSpinner2">@color/colorRefreshSpinner2LC</item>
-    <item name="colorRefreshSpinner3">@color/colorRefreshSpinner3LC</item>
-    <item name="colorRefreshSpinner4">@color/colorRefreshSpinner4LC</item>
-    <!-- UQ colors -->
-    <item name="colorRatingPlatinum">@color/colorRatingPlatinumLC</item>
-    <item name="colorRatingGold">@color/colorRatingGoldLC</item>
-    <item name="colorRatingGreen">@color/colorRatingGreenLC</item>
-    <item name="colorRatingGrey">@color/colorRatingGreyLC</item>
-    <item name="colorRatingRed">@color/colorRatingRedLC</item>
-    <item name="colorRatingDarkRed">@color/colorRatingDarkRedLC</item>
-    <!-- UQ text -->
-    <item name="colorRatingPlatinumText">@color/colorRatingPlatinumTextLC</item>
-    <item name="colorRatingGoldText">@color/colorRatingGoldTextLC</item>
-    <item name="colorRatingGreenText">@color/colorRatingGreenTextLC</item>
-    <item name="colorRatingGreyText">@color/colorRatingGreyTextLC</item>
-    <item name="colorRatingRedText">@color/colorRatingRedTextLC</item>
-    <item name="colorRatingDarkRedText">@color/colorRatingPlatinumTextLC</item>
-    <!-- UQ thumbs -->
-    <item name="colorRatingThumbUp">@color/colorRatingThumbUpLC</item>
-    <item name="colorRatingThumbDown">@color/colorRatingThumbDownLC</item>
-    <item name="colorRatingThumbAvailable">@color/colorRatingThumbAvailableLC</item>
-    <!-- Snackbars -->
-    <item name="snackColorError">@color/snackColorErrorLC</item>
-    <item name="snackColorInfo">@color/snackColorInfoLC</item>
-    <item name="snackColorSuccess">@color/snackColorSuccessLC</item>
-    <item name="snackColorWarning">@color/snackColorWarningLC</item>
-    <item name="snackColorText">@color/snackColorTextLC</item>
-    <!-- Icons -->
-    <item name="iconAuthLogin">@drawable/ic_auth_login_light_contrast</item>
-    <item name="iconAuthPassword">@drawable/ic_auth_password_light_contrast</item>
-    <item name="iconEditorBold">@drawable/ic_bb_bold_light_contrast</item>
-    <item name="iconEditorItalic">@drawable/ic_bb_italic_light_contrast</item>
-    <item name="iconEditorUnderlined">@drawable/ic_bb_underline_light_contrast</item>
-    <item name="iconEditorLink">@drawable/ic_bb_link_light_contrast</item>
-    <item name="iconEditorVideo">@drawable/ic_bb_video_light_contrast</item>
-    <item name="iconEditorSmiles">@drawable/ic_bb_smiles_light_contrast</item>
-    <item name="iconProfileData">@drawable/ic_account_light_contrast</item>
-    <item name="iconProfileInfo">@drawable/ic_face_profile_light_contrast</item>
-    <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_light_contrast</item>
-    <item name="iconProfileContacts">@drawable/ic_contact_mail_light_contrast</item>
-    <item name="iconRemoveAttachment">@drawable/ic_close_light_contrast</item>
-    <!-- Overlays -->
-    <item name="AppBarOverlay">@style/AppTheme.LightContrast.AppBarOverlay</item>
-    <item name="PopupOverlay">@style/AppTheme.LightContrast.PopupOverlay</item>
-    <!-- CardView -->
-    <item name="customCardViewStyle">@style/cardViewStyleLightContrast</item>
-  </style>
-  <!-- Custom styles -->
-  <style name="AppTheme.LightContrast.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-  <style name="AppTheme.LightContrast.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-  <style name="cardViewStyleLightContrast" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-    <item name="cardBackgroundColor">@color/cardBackgroundColorL</item>
-  </style>
+    <style name="cardViewStyleLight" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="cardBackgroundColor">@color/cardBackgroundColorL</item>
+    </style>
 
 
-  <!-- LIGHT THEME - YAP -->
-  <style name="AppTheme.LightYap" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="themeName">@string/theme_light_yap</item>
-    <!-- Base -->
-    <item name="colorPrimary">@color/colorPrimaryLY</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDarkLY</item>
-    <item name="colorAccent">@color/colorAccentLY</item>
-    <item name="colorAccentOverride">@color/colorAccentLY</item>
-    <!-- Window -->
-    <item name="android:windowBackground">@color/windowBackgroundLY</item>
-    <item name="chipBackground">@color/chipBackgroundLY</item>
-    <!-- Text -->
-    <item name="android:textColorPrimary">@color/textColorPrimaryLY</item>
-    <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverseLY</item>
-    <item name="android:textColorSecondary">@color/textColorSecondaryLY</item>
-    <item name="android:textColorSecondaryInverse">@color/textColorSecondaryInverseLY</item>
-    <!-- Material Drawer -->
-    <item name="material_drawer_background">@color/material_drawer_background_ly</item>
-    <item name="material_drawer_primary_text">@color/material_drawer_primary_text_ly</item>
-    <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon_ly</item>
-    <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text_ly</item>
-    <item name="material_drawer_hint_text">@color/material_drawer_hint_text_ly</item>
-    <item name="material_drawer_divider">@color/material_drawer_divider_ly</item>
-    <item name="material_drawer_selected">@color/material_drawer_selected_ly</item>
-    <item name="material_drawer_selected_text">@color/material_drawer_selected_text_ly</item>
-    <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text_ly</item>
-    <!-- Navigation drawer -->
-    <item name="colorNavDefaultText">@color/colorNavDefaultTextLY</item>
-    <item name="colorNavMainPage">@color/colorNavMainPageLY</item>
-    <item name="colorNavForums">@color/colorNavForumsLY</item>
-    <item name="colorNavActiveTopics">@color/colorNavActiveTopicsLY</item>
-    <item name="colorNavIncubator">@color/colorNavIncubatorLY</item>
-    <item name="colorNavMail">@color/colorNavMailLY</item>
-    <item name="colorNavBookmarks">@color/colorNavBookmarksLY</item>
-    <item name="colorNavSearch">@color/colorNavSearchLY</item>
-    <item name="colorNavSettings">@color/colorNavSettingsLY</item>
-    <item name="colorNavSignIn">@color/colorNavSignInLY</item>
-    <!-- Load more button -->
-    <item name="colorLoadMore">@color/colorLoadMoreLY</item>
-    <item name="colorLoadMoreStroke">@color/colorLoadMoreStrokeLY</item>
-    <!-- Quote -->
-    <item name="colorQuoteBackground">@color/colorQuoteBackgroundLY</item>
-    <!-- Fab -->
-    <item name="colorFabIcon">@color/colorFabIconLY</item>
-    <item name="colorFabLabelBackground">@color/colorFabLabelBackgroundLY</item>
-    <item name="colorFabLabelText">@color/colorFabLabelTextLY</item>
-    <item name="colorFabOverlay">@color/colorFabOverlayLY</item>
-    <!-- Scrollbar -->
-    <item name="colorScrollbarThumb">@color/colorScrollbarThumbLY</item>
-    <item name="colorScrollbarBackground">@color/colorScrollbarBackgroundLY</item>
-    <!-- Spinner -->
-    <item name="colorRefreshSpinner1">@color/colorRefreshSpinner1LY</item>
-    <item name="colorRefreshSpinner2">@color/colorRefreshSpinner2LY</item>
-    <item name="colorRefreshSpinner3">@color/colorRefreshSpinner3LY</item>
-    <item name="colorRefreshSpinner4">@color/colorRefreshSpinner4LY</item>
-    <!-- UQ colors -->
-    <item name="colorRatingPlatinum">@color/colorRatingPlatinumLY</item>
-    <item name="colorRatingGold">@color/colorRatingGoldLY</item>
-    <item name="colorRatingGreen">@color/colorRatingGreenLY</item>
-    <item name="colorRatingGrey">@color/colorRatingGreyLY</item>
-    <item name="colorRatingRed">@color/colorRatingRedLY</item>
-    <item name="colorRatingDarkRed">@color/colorRatingDarkRedLY</item>
-    <!-- UQ text -->
-    <item name="colorRatingPlatinumText">@color/colorRatingPlatinumTextLY</item>
-    <item name="colorRatingGoldText">@color/colorRatingGoldTextLY</item>
-    <item name="colorRatingGreenText">@color/colorRatingGreenTextLY</item>
-    <item name="colorRatingGreyText">@color/colorRatingGreyTextLY</item>
-    <item name="colorRatingRedText">@color/colorRatingRedTextLY</item>
-    <item name="colorRatingDarkRedText">@color/colorRatingPlatinumTextLY</item>
-    <!-- UQ thumbs -->
-    <item name="colorRatingThumbUp">@color/colorRatingThumbUpLY</item>
-    <item name="colorRatingThumbDown">@color/colorRatingThumbDownLY</item>
-    <item name="colorRatingThumbAvailable">@color/colorRatingThumbAvailableLY</item>
-    <!-- Snackbars -->
-    <item name="snackColorError">@color/snackColorErrorLY</item>
-    <item name="snackColorInfo">@color/snackColorInfoLY</item>
-    <item name="snackColorSuccess">@color/snackColorSuccessLY</item>
-    <item name="snackColorWarning">@color/snackColorWarningLY</item>
-    <item name="snackColorText">@color/snackColorTextLY</item>
-    <!-- Icons -->
-    <item name="iconAuthLogin">@drawable/ic_auth_login_light_yap</item>
-    <item name="iconAuthPassword">@drawable/ic_auth_password_light_yap</item>
-    <item name="iconEditorBold">@drawable/ic_bb_bold_light_yap</item>
-    <item name="iconEditorItalic">@drawable/ic_bb_italic_light_yap</item>
-    <item name="iconEditorUnderlined">@drawable/ic_bb_underline_light_yap</item>
-    <item name="iconEditorLink">@drawable/ic_bb_link_light_yap</item>
-    <item name="iconEditorVideo">@drawable/ic_bb_video_light_yap</item>
-    <item name="iconEditorSmiles">@drawable/ic_bb_smiles_light_yap</item>
-    <item name="iconProfileData">@drawable/ic_account_light_yap</item>
-    <item name="iconProfileInfo">@drawable/ic_face_profile_light_yap</item>
-    <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_light_yap</item>
-    <item name="iconProfileContacts">@drawable/ic_contact_mail_light_yap</item>
-    <item name="iconRemoveAttachment">@drawable/ic_close_light_yap</item>
-    <!-- Overlays -->
-    <item name="AppBarOverlay">@style/AppTheme.LightYap.AppBarOverlay</item>
-    <item name="PopupOverlay">@style/AppTheme.LightYap.PopupOverlay</item>
-    <!-- CardView -->
-    <item name="customCardViewStyle">@style/cardViewStyleLightYap</item>
-  </style>
-  <!-- Custom styles -->
-  <style name="AppTheme.LightYap.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <!-- LIGHT THEME - CONTRAST -->
+    <style name="AppTheme.LightContrast" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="themeName">@string/theme_light_contrast</item>
+        <!-- Base -->
+        <item name="colorPrimary">@color/colorPrimaryLC</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkLC</item>
+        <item name="colorAccent">@color/colorAccentLC</item>
+        <item name="colorAccentOverride">@color/colorAccentLC</item>
+        <!-- Window -->
+        <item name="android:windowBackground">@color/windowBackgroundLC</item>
+        <item name="chipBackground">@color/chipBackgroundLC</item>
+        <!-- Text -->
+        <item name="android:textColorPrimary">@color/textColorPrimaryLC</item>
+        <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverseLC</item>
+        <item name="android:textColorSecondary">@color/textColorSecondaryLC</item>
+        <item name="android:textColorSecondaryInverse">@color/textColorSecondaryInverseLC</item>
+        <!-- Material Drawer -->
+        <item name="material_drawer_background">@color/material_drawer_background_lc</item>
+        <item name="material_drawer_primary_text">@color/material_drawer_primary_text_lc</item>
+        <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon_lc</item>
+        <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text_lc</item>
+        <item name="material_drawer_hint_text">@color/material_drawer_hint_text_lc</item>
+        <item name="material_drawer_divider">@color/material_drawer_divider_lc</item>
+        <item name="material_drawer_selected">@color/material_drawer_selected_lc</item>
+        <item name="material_drawer_selected_text">@color/material_drawer_selected_text_lc</item>
+        <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text_lc</item>
+        <!-- Navigation drawer -->
+        <item name="colorNavDefaultText">@color/colorNavDefaultTextLC</item>
+        <item name="colorNavMainPage">@color/colorNavMainPageLC</item>
+        <item name="colorNavForums">@color/colorNavForumsLC</item>
+        <item name="colorNavActiveTopics">@color/colorNavActiveTopicsLC</item>
+        <item name="colorNavIncubator">@color/colorNavIncubatorLC</item>
+        <item name="colorNavMail">@color/colorNavMailLC</item>
+        <item name="colorNavBookmarks">@color/colorNavBookmarksLC</item>
+        <item name="colorNavSearch">@color/colorNavSearchLC</item>
+        <item name="colorNavSettings">@color/colorNavSettingsLC</item>
+        <item name="colorNavSignIn">@color/colorNavSignInLC</item>
+        <!-- Load more button -->
+        <item name="colorLoadMore">@color/colorLoadMoreLC</item>
+        <item name="colorLoadMoreStroke">@color/colorLoadMoreStrokeLC</item>
+        <!-- Quote -->
+        <item name="colorQuoteBackground">@color/colorQuoteBackgroundLC</item>
+        <!-- FAB -->
+        <item name="colorFabIcon">@color/colorFabIconLC</item>
+        <item name="colorFabLabelBackground">@color/colorFabLabelBackgroundLC</item>
+        <item name="colorFabLabelText">@color/colorFabLabelTextLC</item>
+        <item name="colorFabOverlay">@color/colorFabOverlayLC</item>
+        <!-- Scrollbar -->
+        <item name="colorScrollbarThumb">@color/colorScrollbarThumbLC</item>
+        <item name="colorScrollbarBackground">@color/colorScrollbarBackgroundLC</item>
+        <!-- Spinner -->
+        <item name="colorRefreshSpinner1">@color/colorRefreshSpinner1LC</item>
+        <item name="colorRefreshSpinner2">@color/colorRefreshSpinner2LC</item>
+        <item name="colorRefreshSpinner3">@color/colorRefreshSpinner3LC</item>
+        <item name="colorRefreshSpinner4">@color/colorRefreshSpinner4LC</item>
+        <!-- UQ colors -->
+        <item name="colorRatingPlatinum">@color/colorRatingPlatinumLC</item>
+        <item name="colorRatingGold">@color/colorRatingGoldLC</item>
+        <item name="colorRatingGreen">@color/colorRatingGreenLC</item>
+        <item name="colorRatingGrey">@color/colorRatingGreyLC</item>
+        <item name="colorRatingRed">@color/colorRatingRedLC</item>
+        <item name="colorRatingDarkRed">@color/colorRatingDarkRedLC</item>
+        <!-- UQ text -->
+        <item name="colorRatingPlatinumText">@color/colorRatingPlatinumTextLC</item>
+        <item name="colorRatingGoldText">@color/colorRatingGoldTextLC</item>
+        <item name="colorRatingGreenText">@color/colorRatingGreenTextLC</item>
+        <item name="colorRatingGreyText">@color/colorRatingGreyTextLC</item>
+        <item name="colorRatingRedText">@color/colorRatingRedTextLC</item>
+        <item name="colorRatingDarkRedText">@color/colorRatingPlatinumTextLC</item>
+        <!-- UQ thumbs -->
+        <item name="colorRatingThumbUp">@color/colorRatingThumbUpLC</item>
+        <item name="colorRatingThumbDown">@color/colorRatingThumbDownLC</item>
+        <item name="colorRatingThumbAvailable">@color/colorRatingThumbAvailableLC</item>
+        <!-- Snackbars -->
+        <item name="snackColorError">@color/snackColorErrorLC</item>
+        <item name="snackColorInfo">@color/snackColorInfoLC</item>
+        <item name="snackColorSuccess">@color/snackColorSuccessLC</item>
+        <item name="snackColorWarning">@color/snackColorWarningLC</item>
+        <item name="snackColorText">@color/snackColorTextLC</item>
+        <!-- Icons -->
+        <item name="iconAuthLogin">@drawable/ic_auth_login_light_contrast</item>
+        <item name="iconAuthPassword">@drawable/ic_auth_password_light_contrast</item>
+        <item name="iconEditorBold">@drawable/ic_bb_bold_light_contrast</item>
+        <item name="iconEditorItalic">@drawable/ic_bb_italic_light_contrast</item>
+        <item name="iconEditorUnderlined">@drawable/ic_bb_underline_light_contrast</item>
+        <item name="iconEditorLink">@drawable/ic_bb_link_light_contrast</item>
+        <item name="iconEditorVideo">@drawable/ic_bb_video_light_contrast</item>
+        <item name="iconEditorSmiles">@drawable/ic_bb_smiles_light_contrast</item>
+        <item name="iconProfileData">@drawable/ic_account_light_contrast</item>
+        <item name="iconProfileInfo">@drawable/ic_face_profile_light_contrast</item>
+        <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_light_contrast</item>
+        <item name="iconProfileContacts">@drawable/ic_contact_mail_light_contrast</item>
+        <item name="iconRemoveAttachment">@drawable/ic_close_light_contrast</item>
+        <!-- Overlays -->
+        <item name="AppBarOverlay">@style/AppTheme.LightContrast.AppBarOverlay</item>
+        <item name="PopupOverlay">@style/AppTheme.LightContrast.PopupOverlay</item>
+        <!-- CardView -->
+        <item name="customCardViewStyle">@style/cardViewStyleLightContrast</item>
+    </style>
+    <!-- Custom styles -->
+    <style name="AppTheme.LightContrast.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-  <style name="AppTheme.LightYap.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.LightContrast.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-  <style name="cardViewStyleLightYap" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-    <item name="cardBackgroundColor">@color/cardBackgroundColorL</item>
-  </style>
-
-
-  <!-- DARK THEME -->
-  <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
-    <item name="themeName">@string/theme_dark</item>
-    <!-- Base -->
-    <item name="colorPrimary">@color/colorPrimaryD</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDarkD</item>
-    <item name="colorAccent">@color/colorAccentD</item>
-    <item name="colorAccentOverride">@color/colorAccentD</item>
-    <!-- Window -->
-    <item name="android:windowBackground">@color/windowBackgroundD</item>
-    <item name="chipBackground">@color/chipBackgroundD</item>
-    <!-- Text -->
-    <item name="android:textColorPrimary">@color/textColorPrimaryD</item>
-    <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverseD</item>
-    <item name="android:textColorSecondary">@color/textColorSecondaryD</item>
-    <item name="android:textColorSecondaryInverse">@color/textColorSecondaryInverseD</item>
-    <!-- Material Drawer -->
-    <item name="material_drawer_background">@color/material_drawer_background_d</item>
-    <item name="material_drawer_primary_text">@color/material_drawer_primary_text_d</item>
-    <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon_d</item>
-    <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text_d</item>
-    <item name="material_drawer_hint_text">@color/material_drawer_hint_text_d</item>
-    <item name="material_drawer_divider">@color/material_drawer_divider_d</item>
-    <item name="material_drawer_selected">@color/material_drawer_selected_d</item>
-    <item name="material_drawer_selected_text">@color/material_drawer_selected_text_d</item>
-    <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text_d</item>
-    <!-- Navigation drawer -->
-    <item name="colorNavDefaultText">@color/colorNavDefaultTextD</item>
-    <item name="colorNavMainPage">@color/colorNavMainPageD</item>
-    <item name="colorNavForums">@color/colorNavForumsD</item>
-    <item name="colorNavActiveTopics">@color/colorNavActiveTopicsD</item>
-    <item name="colorNavIncubator">@color/colorNavIncubatorD</item>
-    <item name="colorNavMail">@color/colorNavMailD</item>
-    <item name="colorNavBookmarks">@color/colorNavBookmarksD</item>
-    <item name="colorNavSearch">@color/colorNavSearchD</item>
-    <item name="colorNavSettings">@color/colorNavSettingsD</item>
-    <item name="colorNavSignIn">@color/colorNavSignInD</item>
-    <!-- CardView -->
-    <item name="cardBackgroundColor">@color/cardBackgroundColorD</item>
-    <!-- Load more button -->
-    <item name="colorLoadMore">@color/colorLoadMoreD</item>
-    <item name="colorLoadMoreStroke">@color/colorLoadMoreStrokeD</item>
-    <!-- Quote -->
-    <item name="colorQuoteBackground">@color/colorQuoteBackgroundD</item>
-    <!-- FAB -->
-    <item name="colorFabIcon">@color/colorFabIconD</item>
-    <item name="colorFabLabelBackground">@color/colorFabLabelBackgroundD</item>
-    <item name="colorFabLabelText">@color/colorFabLabelTextD</item>
-    <item name="colorFabOverlay">@color/colorFabOverlayD</item>
-    <!-- Scrollbar -->
-    <item name="colorScrollbarThumb">@color/colorScrollbarThumbD</item>
-    <item name="colorScrollbarBackground">@color/colorScrollbarBackgroundD</item>
-    <!-- Spinner -->
-    <item name="colorRefreshSpinner1">@color/colorRefreshSpinner1D</item>
-    <item name="colorRefreshSpinner2">@color/colorRefreshSpinner2D</item>
-    <item name="colorRefreshSpinner3">@color/colorRefreshSpinner3D</item>
-    <item name="colorRefreshSpinner4">@color/colorRefreshSpinner4D</item>
-    <!-- UQ colors -->
-    <item name="colorRatingPlatinum">@color/colorRatingPlatinumD</item>
-    <item name="colorRatingGold">@color/colorRatingGoldD</item>
-    <item name="colorRatingGreen">@color/colorRatingGreenD</item>
-    <item name="colorRatingGrey">@color/colorRatingGreyD</item>
-    <item name="colorRatingRed">@color/colorRatingRedD</item>
-    <item name="colorRatingDarkRed">@color/colorRatingDarkRedD</item>
-    <!-- UQ text -->
-    <item name="colorRatingPlatinumText">@color/colorRatingPlatinumTextD</item>
-    <item name="colorRatingGoldText">@color/colorRatingGoldTextD</item>
-    <item name="colorRatingGreenText">@color/colorRatingGreenTextD</item>
-    <item name="colorRatingGreyText">@color/colorRatingGreyTextD</item>
-    <item name="colorRatingRedText">@color/colorRatingRedTextD</item>
-    <item name="colorRatingDarkRedText">@color/colorRatingPlatinumTextD</item>
-    <!-- UQ thumbs -->
-    <item name="colorRatingThumbUp">@color/colorRatingThumbUpD</item>
-    <item name="colorRatingThumbDown">@color/colorRatingThumbDownD</item>
-    <item name="colorRatingThumbAvailable">@color/colorRatingThumbAvailableD</item>
-    <!-- Snackbars -->
-    <item name="snackColorError">@color/snackColorErrorD</item>
-    <item name="snackColorInfo">@color/snackColorInfoD</item>
-    <item name="snackColorSuccess">@color/snackColorSuccessD</item>
-    <item name="snackColorWarning">@color/snackColorWarningD</item>
-    <item name="snackColorText">@color/snackColorTextD</item>
-    <!-- Icons -->
-    <item name="iconAuthLogin">@drawable/ic_auth_login_dark</item>
-    <item name="iconAuthPassword">@drawable/ic_auth_password_dark</item>
-    <item name="iconEditorBold">@drawable/ic_bb_bold_dark</item>
-    <item name="iconEditorItalic">@drawable/ic_bb_italic_dark</item>
-    <item name="iconEditorUnderlined">@drawable/ic_bb_underline_dark</item>
-    <item name="iconEditorLink">@drawable/ic_bb_link_dark</item>
-    <item name="iconEditorVideo">@drawable/ic_bb_video_dark</item>
-    <item name="iconEditorSmiles">@drawable/ic_bb_smiles_dark</item>
-    <item name="iconProfileData">@drawable/ic_account_dark</item>
-    <item name="iconProfileInfo">@drawable/ic_face_profile_dark</item>
-    <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_dark</item>
-    <item name="iconProfileContacts">@drawable/ic_contact_mail_dark</item>
-    <item name="iconRemoveAttachment">@drawable/ic_close_dark</item>
-    <!-- Overlays -->
-    <item name="AppBarOverlay">@style/AppTheme.Dark.AppBarOverlay</item>
-    <item name="PopupOverlay">@style/AppTheme.Dark.PopupOverlay</item>
-    <!-- CardView -->
-    <item name="customCardViewStyle">@style/cardViewStyleDark</item>
-  </style>
-  <!-- Custom styles -->
-  <style name="AppTheme.Dark.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
-
-  <style name="AppTheme.Dark.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
-
-  <style name="cardViewStyleDark" parent="ThemeOverlay.AppCompat.ActionBar">
-    <item name="cardBackgroundColor">@color/cardBackgroundColorD</item>
-  </style>
+    <style name="cardViewStyleLightContrast" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="cardBackgroundColor">@color/cardBackgroundColorL</item>
+    </style>
 
 
-  <!-- DARK THEME - Black-->
-  <style name="AppTheme.DarkBlack" parent="Theme.AppCompat.NoActionBar">
-    <item name="themeName">@string/theme_dark_black</item>
-    <!-- Base -->
-    <item name="colorPrimary">@color/colorPrimaryDB</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDarkDB</item>
-    <item name="colorAccent">@color/colorAccentDB</item>
-    <item name="colorAccentOverride">@color/colorAccentDB</item>
-    <!-- Window -->
-    <item name="android:windowBackground">@color/windowBackgroundDB</item>
-    <item name="chipBackground">@color/chipBackgroundDB</item>
-    <!-- Text -->
-    <item name="android:textColorPrimary">@color/textColorPrimaryDB</item>
-    <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverseDB</item>
-    <item name="android:textColorSecondary">@color/textColorSecondaryDB</item>
-    <item name="android:textColorSecondaryInverse">@color/textColorSecondaryInverseDB</item>
-    <!-- Material Drawer -->
-    <item name="material_drawer_background">@color/material_drawer_background_db</item>
-    <item name="material_drawer_primary_text">@color/material_drawer_primary_text_db</item>
-    <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon_db</item>
-    <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text_db</item>
-    <item name="material_drawer_hint_text">@color/material_drawer_hint_text_db</item>
-    <item name="material_drawer_divider">@color/material_drawer_divider_db</item>
-    <item name="material_drawer_selected">@color/material_drawer_selected_db</item>
-    <item name="material_drawer_selected_text">@color/material_drawer_selected_text_db</item>
-    <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text_db</item>
-    <!-- Navigation drawer -->
-    <item name="colorNavDefaultText">@color/colorNavDefaultTextDB</item>
-    <item name="colorNavMainPage">@color/colorNavMainPageDB</item>
-    <item name="colorNavForums">@color/colorNavForumsDB</item>
-    <item name="colorNavActiveTopics">@color/colorNavActiveTopicsDB</item>
-    <item name="colorNavIncubator">@color/colorNavIncubatorDB</item>
-    <item name="colorNavMail">@color/colorNavMailDB</item>
-    <item name="colorNavBookmarks">@color/colorNavBookmarksDB</item>
-    <item name="colorNavSearch">@color/colorNavSearchDB</item>
-    <item name="colorNavSettings">@color/colorNavSettingsDB</item>
-    <item name="colorNavSignIn">@color/colorNavSignInDB</item>
-    <!-- CardView -->
-    <item name="cardBackgroundColor">@color/cardBackgroundColorDB</item>
-    <!-- Load more button -->
-    <item name="colorLoadMore">@color/colorLoadMoreDB</item>
-    <item name="colorLoadMoreStroke">@color/colorLoadMoreStrokeDB</item>
-    <!-- Quote -->
-    <item name="colorQuoteBackground">@color/colorQuoteBackgroundDB</item>
-    <!-- FAB -->
-    <item name="colorFabIcon">@color/colorFabIconDB</item>
-    <item name="colorFabLabelBackground">@color/colorFabLabelBackgroundDB</item>
-    <item name="colorFabLabelText">@color/colorFabLabelTextDB</item>
-    <item name="colorFabOverlay">@color/colorFabOverlayDB</item>
-    <item name="colorScrollbarThumb">@color/colorScrollbarThumbDB</item>
-    <item name="colorScrollbarBackground">@color/colorScrollbarBackgroundDB</item>
-    <!-- Spinner -->
-    <item name="colorRefreshSpinner1">@color/colorRefreshSpinner1DB</item>
-    <item name="colorRefreshSpinner2">@color/colorRefreshSpinner2DB</item>
-    <item name="colorRefreshSpinner3">@color/colorRefreshSpinner3DB</item>
-    <item name="colorRefreshSpinner4">@color/colorRefreshSpinner4DB</item>
-    <!-- UQ colors -->
-    <item name="colorRatingPlatinum">@color/colorRatingPlatinumDB</item>
-    <item name="colorRatingGold">@color/colorRatingGoldDB</item>
-    <item name="colorRatingGreen">@color/colorRatingGreenDB</item>
-    <item name="colorRatingGrey">@color/colorRatingGreyDB</item>
-    <item name="colorRatingRed">@color/colorRatingRedDB</item>
-    <item name="colorRatingDarkRed">@color/colorRatingDarkRedDB</item>
-    <!-- UQ text -->
-    <item name="colorRatingPlatinumText">@color/colorRatingPlatinumTextDB</item>
-    <item name="colorRatingGoldText">@color/colorRatingGoldTextDB</item>
-    <item name="colorRatingGreenText">@color/colorRatingGreenTextDB</item>
-    <item name="colorRatingGreyText">@color/colorRatingGreyTextDB</item>
-    <item name="colorRatingRedText">@color/colorRatingRedTextDB</item>
-    <item name="colorRatingDarkRedText">@color/colorRatingPlatinumTextDB</item>
-    <!-- UQ thumbs -->
-    <item name="colorRatingThumbUp">@color/colorRatingThumbUpDB</item>
-    <item name="colorRatingThumbDown">@color/colorRatingThumbDownDB</item>
-    <item name="colorRatingThumbAvailable">@color/colorRatingThumbAvailableDB</item>
-    <!-- Snackbars -->
-    <item name="snackColorError">@color/snackColorErrorDB</item>
-    <item name="snackColorInfo">@color/snackColorInfoDB</item>
-    <item name="snackColorSuccess">@color/snackColorSuccessDB</item>
-    <item name="snackColorWarning">@color/snackColorWarningDB</item>
-    <item name="snackColorText">@color/snackColorTextDB</item>
-    <!-- Icons -->
-    <item name="iconAuthLogin">@drawable/ic_auth_login_dark_black</item>
-    <item name="iconAuthPassword">@drawable/ic_auth_password_dark_black</item>
-    <item name="iconEditorBold">@drawable/ic_bb_bold_dark_black</item>
-    <item name="iconEditorItalic">@drawable/ic_bb_italic_dark_black</item>
-    <item name="iconEditorUnderlined">@drawable/ic_bb_underline_dark_black</item>
-    <item name="iconEditorLink">@drawable/ic_bb_link_dark_black</item>
-    <item name="iconEditorVideo">@drawable/ic_bb_video_dark_black</item>
-    <item name="iconEditorSmiles">@drawable/ic_bb_smiles_dark_black</item>
-    <item name="iconProfileData">@drawable/ic_account_dark_black</item>
-    <item name="iconProfileInfo">@drawable/ic_face_profile_dark_black</item>
-    <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_dark_black</item>
-    <item name="iconProfileContacts">@drawable/ic_contact_mail_dark_black</item>
-    <item name="iconRemoveAttachment">@drawable/ic_close_dark_black</item>
-    <!-- Overlays -->
-    <item name="AppBarOverlay">@style/AppTheme.DarkBlack.AppBarOverlay</item>
-    <item name="PopupOverlay">@style/AppTheme.DarkBlack.PopupOverlay</item>
-    <!-- CardView -->
-    <item name="customCardViewStyle">@style/cardViewStyleDarkBlack</item>
-  </style>
-  <!-- Custom styles -->
-  <style name="AppTheme.DarkBlack.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
+    <!-- LIGHT THEME - YAP -->
+    <style name="AppTheme.LightYap" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="themeName">@string/theme_light_yap</item>
+        <!-- Base -->
+        <item name="colorPrimary">@color/colorPrimaryLY</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkLY</item>
+        <item name="colorAccent">@color/colorAccentLY</item>
+        <item name="colorAccentOverride">@color/colorAccentLY</item>
+        <!-- Window -->
+        <item name="android:windowBackground">@color/windowBackgroundLY</item>
+        <item name="chipBackground">@color/chipBackgroundLY</item>
+        <!-- Text -->
+        <item name="android:textColorPrimary">@color/textColorPrimaryLY</item>
+        <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverseLY</item>
+        <item name="android:textColorSecondary">@color/textColorSecondaryLY</item>
+        <item name="android:textColorSecondaryInverse">@color/textColorSecondaryInverseLY</item>
+        <!-- Material Drawer -->
+        <item name="material_drawer_background">@color/material_drawer_background_ly</item>
+        <item name="material_drawer_primary_text">@color/material_drawer_primary_text_ly</item>
+        <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon_ly</item>
+        <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text_ly</item>
+        <item name="material_drawer_hint_text">@color/material_drawer_hint_text_ly</item>
+        <item name="material_drawer_divider">@color/material_drawer_divider_ly</item>
+        <item name="material_drawer_selected">@color/material_drawer_selected_ly</item>
+        <item name="material_drawer_selected_text">@color/material_drawer_selected_text_ly</item>
+        <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text_ly</item>
+        <!-- Navigation drawer -->
+        <item name="colorNavDefaultText">@color/colorNavDefaultTextLY</item>
+        <item name="colorNavMainPage">@color/colorNavMainPageLY</item>
+        <item name="colorNavForums">@color/colorNavForumsLY</item>
+        <item name="colorNavActiveTopics">@color/colorNavActiveTopicsLY</item>
+        <item name="colorNavIncubator">@color/colorNavIncubatorLY</item>
+        <item name="colorNavMail">@color/colorNavMailLY</item>
+        <item name="colorNavBookmarks">@color/colorNavBookmarksLY</item>
+        <item name="colorNavSearch">@color/colorNavSearchLY</item>
+        <item name="colorNavSettings">@color/colorNavSettingsLY</item>
+        <item name="colorNavSignIn">@color/colorNavSignInLY</item>
+        <!-- Load more button -->
+        <item name="colorLoadMore">@color/colorLoadMoreLY</item>
+        <item name="colorLoadMoreStroke">@color/colorLoadMoreStrokeLY</item>
+        <!-- Quote -->
+        <item name="colorQuoteBackground">@color/colorQuoteBackgroundLY</item>
+        <!-- Fab -->
+        <item name="colorFabIcon">@color/colorFabIconLY</item>
+        <item name="colorFabLabelBackground">@color/colorFabLabelBackgroundLY</item>
+        <item name="colorFabLabelText">@color/colorFabLabelTextLY</item>
+        <item name="colorFabOverlay">@color/colorFabOverlayLY</item>
+        <!-- Scrollbar -->
+        <item name="colorScrollbarThumb">@color/colorScrollbarThumbLY</item>
+        <item name="colorScrollbarBackground">@color/colorScrollbarBackgroundLY</item>
+        <!-- Spinner -->
+        <item name="colorRefreshSpinner1">@color/colorRefreshSpinner1LY</item>
+        <item name="colorRefreshSpinner2">@color/colorRefreshSpinner2LY</item>
+        <item name="colorRefreshSpinner3">@color/colorRefreshSpinner3LY</item>
+        <item name="colorRefreshSpinner4">@color/colorRefreshSpinner4LY</item>
+        <!-- UQ colors -->
+        <item name="colorRatingPlatinum">@color/colorRatingPlatinumLY</item>
+        <item name="colorRatingGold">@color/colorRatingGoldLY</item>
+        <item name="colorRatingGreen">@color/colorRatingGreenLY</item>
+        <item name="colorRatingGrey">@color/colorRatingGreyLY</item>
+        <item name="colorRatingRed">@color/colorRatingRedLY</item>
+        <item name="colorRatingDarkRed">@color/colorRatingDarkRedLY</item>
+        <!-- UQ text -->
+        <item name="colorRatingPlatinumText">@color/colorRatingPlatinumTextLY</item>
+        <item name="colorRatingGoldText">@color/colorRatingGoldTextLY</item>
+        <item name="colorRatingGreenText">@color/colorRatingGreenTextLY</item>
+        <item name="colorRatingGreyText">@color/colorRatingGreyTextLY</item>
+        <item name="colorRatingRedText">@color/colorRatingRedTextLY</item>
+        <item name="colorRatingDarkRedText">@color/colorRatingPlatinumTextLY</item>
+        <!-- UQ thumbs -->
+        <item name="colorRatingThumbUp">@color/colorRatingThumbUpLY</item>
+        <item name="colorRatingThumbDown">@color/colorRatingThumbDownLY</item>
+        <item name="colorRatingThumbAvailable">@color/colorRatingThumbAvailableLY</item>
+        <!-- Snackbars -->
+        <item name="snackColorError">@color/snackColorErrorLY</item>
+        <item name="snackColorInfo">@color/snackColorInfoLY</item>
+        <item name="snackColorSuccess">@color/snackColorSuccessLY</item>
+        <item name="snackColorWarning">@color/snackColorWarningLY</item>
+        <item name="snackColorText">@color/snackColorTextLY</item>
+        <!-- Icons -->
+        <item name="iconAuthLogin">@drawable/ic_auth_login_light_yap</item>
+        <item name="iconAuthPassword">@drawable/ic_auth_password_light_yap</item>
+        <item name="iconEditorBold">@drawable/ic_bb_bold_light_yap</item>
+        <item name="iconEditorItalic">@drawable/ic_bb_italic_light_yap</item>
+        <item name="iconEditorUnderlined">@drawable/ic_bb_underline_light_yap</item>
+        <item name="iconEditorLink">@drawable/ic_bb_link_light_yap</item>
+        <item name="iconEditorVideo">@drawable/ic_bb_video_light_yap</item>
+        <item name="iconEditorSmiles">@drawable/ic_bb_smiles_light_yap</item>
+        <item name="iconProfileData">@drawable/ic_account_light_yap</item>
+        <item name="iconProfileInfo">@drawable/ic_face_profile_light_yap</item>
+        <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_light_yap</item>
+        <item name="iconProfileContacts">@drawable/ic_contact_mail_light_yap</item>
+        <item name="iconRemoveAttachment">@drawable/ic_close_light_yap</item>
+        <!-- Overlays -->
+        <item name="AppBarOverlay">@style/AppTheme.LightYap.AppBarOverlay</item>
+        <item name="PopupOverlay">@style/AppTheme.LightYap.PopupOverlay</item>
+        <!-- CardView -->
+        <item name="customCardViewStyle">@style/cardViewStyleLightYap</item>
+    </style>
+    <!-- Custom styles -->
+    <style name="AppTheme.LightYap.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-  <style name="AppTheme.DarkBlack.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+    <style name="AppTheme.LightYap.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-  <style name="cardViewStyleDarkBlack" parent="ThemeOverlay.AppCompat.ActionBar">
-    <item name="cardBackgroundColor">@color/cardBackgroundColorDB</item>
-  </style>
+    <style name="cardViewStyleLightYap" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="cardBackgroundColor">@color/cardBackgroundColorL</item>
+    </style>
 
 
-  <!-- COMMONS -->
-  <style name="AppTheme.NoActionBar">
-    <item name="windowActionBar">false</item>
-    <item name="windowNoTitle">true</item>
-  </style>
+    <!-- DARK THEME -->
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+        <item name="themeName">@string/theme_dark</item>
+        <!-- Base -->
+        <item name="colorPrimary">@color/colorPrimaryD</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkD</item>
+        <item name="colorAccent">@color/colorAccentD</item>
+        <item name="colorAccentOverride">@color/colorAccentD</item>
+        <!-- Window -->
+        <item name="android:windowBackground">@color/windowBackgroundD</item>
+        <item name="chipBackground">@color/chipBackgroundD</item>
+        <!-- Text -->
+        <item name="android:textColorPrimary">@color/textColorPrimaryD</item>
+        <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverseD</item>
+        <item name="android:textColorSecondary">@color/textColorSecondaryD</item>
+        <item name="android:textColorSecondaryInverse">@color/textColorSecondaryInverseD</item>
+        <!-- Material Drawer -->
+        <item name="material_drawer_background">@color/material_drawer_background_d</item>
+        <item name="material_drawer_primary_text">@color/material_drawer_primary_text_d</item>
+        <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon_d</item>
+        <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text_d</item>
+        <item name="material_drawer_hint_text">@color/material_drawer_hint_text_d</item>
+        <item name="material_drawer_divider">@color/material_drawer_divider_d</item>
+        <item name="material_drawer_selected">@color/material_drawer_selected_d</item>
+        <item name="material_drawer_selected_text">@color/material_drawer_selected_text_d</item>
+        <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text_d</item>
+        <!-- Navigation drawer -->
+        <item name="colorNavDefaultText">@color/colorNavDefaultTextD</item>
+        <item name="colorNavMainPage">@color/colorNavMainPageD</item>
+        <item name="colorNavForums">@color/colorNavForumsD</item>
+        <item name="colorNavActiveTopics">@color/colorNavActiveTopicsD</item>
+        <item name="colorNavIncubator">@color/colorNavIncubatorD</item>
+        <item name="colorNavMail">@color/colorNavMailD</item>
+        <item name="colorNavBookmarks">@color/colorNavBookmarksD</item>
+        <item name="colorNavSearch">@color/colorNavSearchD</item>
+        <item name="colorNavSettings">@color/colorNavSettingsD</item>
+        <item name="colorNavSignIn">@color/colorNavSignInD</item>
+        <!-- CardView -->
+        <item name="cardBackgroundColor">@color/cardBackgroundColorD</item>
+        <!-- Load more button -->
+        <item name="colorLoadMore">@color/colorLoadMoreD</item>
+        <item name="colorLoadMoreStroke">@color/colorLoadMoreStrokeD</item>
+        <!-- Quote -->
+        <item name="colorQuoteBackground">@color/colorQuoteBackgroundD</item>
+        <!-- FAB -->
+        <item name="colorFabIcon">@color/colorFabIconD</item>
+        <item name="colorFabLabelBackground">@color/colorFabLabelBackgroundD</item>
+        <item name="colorFabLabelText">@color/colorFabLabelTextD</item>
+        <item name="colorFabOverlay">@color/colorFabOverlayD</item>
+        <!-- Scrollbar -->
+        <item name="colorScrollbarThumb">@color/colorScrollbarThumbD</item>
+        <item name="colorScrollbarBackground">@color/colorScrollbarBackgroundD</item>
+        <!-- Spinner -->
+        <item name="colorRefreshSpinner1">@color/colorRefreshSpinner1D</item>
+        <item name="colorRefreshSpinner2">@color/colorRefreshSpinner2D</item>
+        <item name="colorRefreshSpinner3">@color/colorRefreshSpinner3D</item>
+        <item name="colorRefreshSpinner4">@color/colorRefreshSpinner4D</item>
+        <!-- UQ colors -->
+        <item name="colorRatingPlatinum">@color/colorRatingPlatinumD</item>
+        <item name="colorRatingGold">@color/colorRatingGoldD</item>
+        <item name="colorRatingGreen">@color/colorRatingGreenD</item>
+        <item name="colorRatingGrey">@color/colorRatingGreyD</item>
+        <item name="colorRatingRed">@color/colorRatingRedD</item>
+        <item name="colorRatingDarkRed">@color/colorRatingDarkRedD</item>
+        <!-- UQ text -->
+        <item name="colorRatingPlatinumText">@color/colorRatingPlatinumTextD</item>
+        <item name="colorRatingGoldText">@color/colorRatingGoldTextD</item>
+        <item name="colorRatingGreenText">@color/colorRatingGreenTextD</item>
+        <item name="colorRatingGreyText">@color/colorRatingGreyTextD</item>
+        <item name="colorRatingRedText">@color/colorRatingRedTextD</item>
+        <item name="colorRatingDarkRedText">@color/colorRatingPlatinumTextD</item>
+        <!-- UQ thumbs -->
+        <item name="colorRatingThumbUp">@color/colorRatingThumbUpD</item>
+        <item name="colorRatingThumbDown">@color/colorRatingThumbDownD</item>
+        <item name="colorRatingThumbAvailable">@color/colorRatingThumbAvailableD</item>
+        <!-- Snackbars -->
+        <item name="snackColorError">@color/snackColorErrorD</item>
+        <item name="snackColorInfo">@color/snackColorInfoD</item>
+        <item name="snackColorSuccess">@color/snackColorSuccessD</item>
+        <item name="snackColorWarning">@color/snackColorWarningD</item>
+        <item name="snackColorText">@color/snackColorTextD</item>
+        <!-- Icons -->
+        <item name="iconAuthLogin">@drawable/ic_auth_login_dark</item>
+        <item name="iconAuthPassword">@drawable/ic_auth_password_dark</item>
+        <item name="iconEditorBold">@drawable/ic_bb_bold_dark</item>
+        <item name="iconEditorItalic">@drawable/ic_bb_italic_dark</item>
+        <item name="iconEditorUnderlined">@drawable/ic_bb_underline_dark</item>
+        <item name="iconEditorLink">@drawable/ic_bb_link_dark</item>
+        <item name="iconEditorVideo">@drawable/ic_bb_video_dark</item>
+        <item name="iconEditorSmiles">@drawable/ic_bb_smiles_dark</item>
+        <item name="iconProfileData">@drawable/ic_account_dark</item>
+        <item name="iconProfileInfo">@drawable/ic_face_profile_dark</item>
+        <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_dark</item>
+        <item name="iconProfileContacts">@drawable/ic_contact_mail_dark</item>
+        <item name="iconRemoveAttachment">@drawable/ic_close_dark</item>
+        <!-- Overlays -->
+        <item name="AppBarOverlay">@style/AppTheme.Dark.AppBarOverlay</item>
+        <item name="PopupOverlay">@style/AppTheme.Dark.PopupOverlay</item>
+        <!-- CardView -->
+        <item name="customCardViewStyle">@style/cardViewStyleDark</item>
+    </style>
+    <!-- Custom styles -->
+    <style name="AppTheme.Dark.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
 
-  <!-- Video activity theme -->
-  <style name="AppTheme.DarkBackground" parent="AppTheme.NoActionBar">
-    <item name="android:windowBackground">@color/material_color_black</item>
-  </style>
+    <style name="AppTheme.Dark.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
+    <style name="cardViewStyleDark" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="cardBackgroundColor">@color/cardBackgroundColorD</item>
+    </style>
+
+
+    <!-- DARK THEME - Black-->
+    <style name="AppTheme.DarkBlack" parent="Theme.AppCompat.NoActionBar">
+        <item name="themeName">@string/theme_dark_black</item>
+        <!-- Base -->
+        <item name="colorPrimary">@color/colorPrimaryDB</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkDB</item>
+        <item name="colorAccent">@color/colorAccentDB</item>
+        <item name="colorAccentOverride">@color/colorAccentDB</item>
+        <!-- Window -->
+        <item name="android:windowBackground">@color/windowBackgroundDB</item>
+        <item name="chipBackground">@color/chipBackgroundDB</item>
+        <!-- Text -->
+        <item name="android:textColorPrimary">@color/textColorPrimaryDB</item>
+        <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverseDB</item>
+        <item name="android:textColorSecondary">@color/textColorSecondaryDB</item>
+        <item name="android:textColorSecondaryInverse">@color/textColorSecondaryInverseDB</item>
+        <!-- Material Drawer -->
+        <item name="material_drawer_background">@color/material_drawer_background_db</item>
+        <item name="material_drawer_primary_text">@color/material_drawer_primary_text_db</item>
+        <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon_db</item>
+        <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text_db</item>
+        <item name="material_drawer_hint_text">@color/material_drawer_hint_text_db</item>
+        <item name="material_drawer_divider">@color/material_drawer_divider_db</item>
+        <item name="material_drawer_selected">@color/material_drawer_selected_db</item>
+        <item name="material_drawer_selected_text">@color/material_drawer_selected_text_db</item>
+        <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text_db</item>
+        <!-- Navigation drawer -->
+        <item name="colorNavDefaultText">@color/colorNavDefaultTextDB</item>
+        <item name="colorNavMainPage">@color/colorNavMainPageDB</item>
+        <item name="colorNavForums">@color/colorNavForumsDB</item>
+        <item name="colorNavActiveTopics">@color/colorNavActiveTopicsDB</item>
+        <item name="colorNavIncubator">@color/colorNavIncubatorDB</item>
+        <item name="colorNavMail">@color/colorNavMailDB</item>
+        <item name="colorNavBookmarks">@color/colorNavBookmarksDB</item>
+        <item name="colorNavSearch">@color/colorNavSearchDB</item>
+        <item name="colorNavSettings">@color/colorNavSettingsDB</item>
+        <item name="colorNavSignIn">@color/colorNavSignInDB</item>
+        <!-- CardView -->
+        <item name="cardBackgroundColor">@color/cardBackgroundColorDB</item>
+        <!-- Load more button -->
+        <item name="colorLoadMore">@color/colorLoadMoreDB</item>
+        <item name="colorLoadMoreStroke">@color/colorLoadMoreStrokeDB</item>
+        <!-- Quote -->
+        <item name="colorQuoteBackground">@color/colorQuoteBackgroundDB</item>
+        <!-- FAB -->
+        <item name="colorFabIcon">@color/colorFabIconDB</item>
+        <item name="colorFabLabelBackground">@color/colorFabLabelBackgroundDB</item>
+        <item name="colorFabLabelText">@color/colorFabLabelTextDB</item>
+        <item name="colorFabOverlay">@color/colorFabOverlayDB</item>
+        <item name="colorScrollbarThumb">@color/colorScrollbarThumbDB</item>
+        <item name="colorScrollbarBackground">@color/colorScrollbarBackgroundDB</item>
+        <!-- Spinner -->
+        <item name="colorRefreshSpinner1">@color/colorRefreshSpinner1DB</item>
+        <item name="colorRefreshSpinner2">@color/colorRefreshSpinner2DB</item>
+        <item name="colorRefreshSpinner3">@color/colorRefreshSpinner3DB</item>
+        <item name="colorRefreshSpinner4">@color/colorRefreshSpinner4DB</item>
+        <!-- UQ colors -->
+        <item name="colorRatingPlatinum">@color/colorRatingPlatinumDB</item>
+        <item name="colorRatingGold">@color/colorRatingGoldDB</item>
+        <item name="colorRatingGreen">@color/colorRatingGreenDB</item>
+        <item name="colorRatingGrey">@color/colorRatingGreyDB</item>
+        <item name="colorRatingRed">@color/colorRatingRedDB</item>
+        <item name="colorRatingDarkRed">@color/colorRatingDarkRedDB</item>
+        <!-- UQ text -->
+        <item name="colorRatingPlatinumText">@color/colorRatingPlatinumTextDB</item>
+        <item name="colorRatingGoldText">@color/colorRatingGoldTextDB</item>
+        <item name="colorRatingGreenText">@color/colorRatingGreenTextDB</item>
+        <item name="colorRatingGreyText">@color/colorRatingGreyTextDB</item>
+        <item name="colorRatingRedText">@color/colorRatingRedTextDB</item>
+        <item name="colorRatingDarkRedText">@color/colorRatingPlatinumTextDB</item>
+        <!-- UQ thumbs -->
+        <item name="colorRatingThumbUp">@color/colorRatingThumbUpDB</item>
+        <item name="colorRatingThumbDown">@color/colorRatingThumbDownDB</item>
+        <item name="colorRatingThumbAvailable">@color/colorRatingThumbAvailableDB</item>
+        <!-- Snackbars -->
+        <item name="snackColorError">@color/snackColorErrorDB</item>
+        <item name="snackColorInfo">@color/snackColorInfoDB</item>
+        <item name="snackColorSuccess">@color/snackColorSuccessDB</item>
+        <item name="snackColorWarning">@color/snackColorWarningDB</item>
+        <item name="snackColorText">@color/snackColorTextDB</item>
+        <!-- Icons -->
+        <item name="iconAuthLogin">@drawable/ic_auth_login_dark_black</item>
+        <item name="iconAuthPassword">@drawable/ic_auth_password_dark_black</item>
+        <item name="iconEditorBold">@drawable/ic_bb_bold_dark_black</item>
+        <item name="iconEditorItalic">@drawable/ic_bb_italic_dark_black</item>
+        <item name="iconEditorUnderlined">@drawable/ic_bb_underline_dark_black</item>
+        <item name="iconEditorLink">@drawable/ic_bb_link_dark_black</item>
+        <item name="iconEditorVideo">@drawable/ic_bb_video_dark_black</item>
+        <item name="iconEditorSmiles">@drawable/ic_bb_smiles_dark_black</item>
+        <item name="iconProfileData">@drawable/ic_account_dark_black</item>
+        <item name="iconProfileInfo">@drawable/ic_face_profile_dark_black</item>
+        <item name="iconProfileStatistic">@drawable/ic_chart_areaspline_dark_black</item>
+        <item name="iconProfileContacts">@drawable/ic_contact_mail_dark_black</item>
+        <item name="iconRemoveAttachment">@drawable/ic_close_dark_black</item>
+        <!-- Overlays -->
+        <item name="AppBarOverlay">@style/AppTheme.DarkBlack.AppBarOverlay</item>
+        <item name="PopupOverlay">@style/AppTheme.DarkBlack.PopupOverlay</item>
+        <!-- CardView -->
+        <item name="customCardViewStyle">@style/cardViewStyleDarkBlack</item>
+    </style>
+    <!-- Custom styles -->
+    <style name="AppTheme.DarkBlack.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
+
+    <style name="AppTheme.DarkBlack.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
+    <style name="cardViewStyleDarkBlack" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="cardBackgroundColor">@color/cardBackgroundColorDB</item>
+    </style>
+
+
+    <!-- COMMONS -->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Video activity theme -->
+    <style name="AppTheme.DarkBackground" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@color/material_color_black</item>
+    </style>
 
 </resources>

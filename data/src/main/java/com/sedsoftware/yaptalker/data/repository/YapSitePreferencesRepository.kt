@@ -23,7 +23,8 @@ class YapSitePreferencesRepository @Inject constructor(
         dataLoader
             .loadSitePreferences(
                 act = SETTINGS_ACT,
-                code = SETTINGS_CODE)
+                code = SETTINGS_CODE
+            )
             .map(dataMapper)
             .subscribeOn(schedulers.io())
 }

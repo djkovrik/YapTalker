@@ -42,7 +42,8 @@ class YapLoginSessionRepository @Inject constructor(
                 userName = userLogin,
                 referer = LOGIN_REFERRER,
                 submit = LOGIN_SUBMIT,
-                userKey = "$userLogin${System.currentTimeMillis()}".toMd5())
+                userKey = "$userLogin${System.currentTimeMillis()}".toMd5()
+            )
             .map(responseMapper)
             .flatMapCompletable { response ->
                 if (response.text.contains(SIGN_IN_SUCCESS_MARKER)) {

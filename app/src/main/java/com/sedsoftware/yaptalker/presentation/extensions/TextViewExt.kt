@@ -13,32 +13,32 @@ var TextView.textColor: Int
 fun TextView.loadRatingBackground(rating: Int) {
 
     when (rating) {
-    // Platinum
+        // Platinum
         in 1000..50000 -> {
             textColor = R.attr.colorRatingPlatinumText
             setBackgroundResource(R.drawable.topic_rating_platinum)
         }
-    // Gold
+        // Gold
         in 500..999 -> {
             textColor = R.attr.colorRatingGoldText
             setBackgroundResource(R.drawable.topic_rating_gold)
         }
-    // Green
+        // Green
         in 50..499 -> {
             textColor = R.attr.colorRatingGreenText
             setBackgroundResource(R.drawable.topic_rating_green)
         }
-    // Gray
+        // Gray
         in -9..49 -> {
             textColor = R.attr.colorRatingGreyText
             setBackgroundResource(R.drawable.topic_rating_grey)
         }
-    // Red
+        // Red
         in -99..-10 -> {
             textColor = R.attr.colorRatingRedText
             setBackgroundResource(R.drawable.topic_rating_red)
         }
-    // Dark Red
+        // Dark Red
         else -> {
             textColor = R.attr.colorRatingDarkRedText
             setBackgroundResource(R.drawable.topic_rating_dark_red)

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="title_share_image">Share Image</string>
+    <string name="title_share_image">Share Image</string>
 
-  <!-- Updates downloader -->
-  <string name="update_downloader_title">YapTalker: update downloading</string>
-  <string name="update_downloader_description">YapTalker newest version.</string>
+    <!-- Updates downloader -->
+    <string name="update_downloader_title">YapTalker: update downloading</string>
+    <string name="update_downloader_description">YapTalker newest version.</string>
 </resources>

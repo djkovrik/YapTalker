@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-  android:shape="rectangle">
+    android:shape="rectangle">
 
-  <solid android:color="?attr/colorScrollbarBackground" />
+    <solid android:color="?attr/colorScrollbarBackground" />
 
-  <padding
-    android:bottom="@dimen/scrollbar_background_line_padding"
-    android:left="@dimen/scrollbar_background_line_padding"
-    android:right="@dimen/scrollbar_background_line_padding"
-    android:top="@dimen/scrollbar_background_line_padding" />
+    <padding
+        android:bottom="@dimen/scrollbar_background_line_padding"
+        android:left="@dimen/scrollbar_background_line_padding"
+        android:right="@dimen/scrollbar_background_line_padding"
+        android:top="@dimen/scrollbar_background_line_padding" />
 </shape>

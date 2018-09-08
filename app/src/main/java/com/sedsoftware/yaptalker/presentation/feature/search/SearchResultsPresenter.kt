@@ -56,7 +56,8 @@ class SearchResultsPresenter @Inject constructor(
                 searchHow = request.searchHow,
                 sortBy = request.sortBy,
                 targetForums = request.targetForums,
-                prune = request.periodInDays.toInt())
+                prune = request.periodInDays.toInt()
+            )
             .map(searchResultsMapper)
             .flatMapObservable { Observable.fromIterable(it) }
             .observeOn(schedulers.ui())
@@ -88,7 +89,8 @@ class SearchResultsPresenter @Inject constructor(
                 keyword = searchKeyword,
                 searchId = searchIdKey,
                 searchIn = searchInParam,
-                page = startingTopicNumber)
+                page = startingTopicNumber
+            )
             .map(searchResultsMapper)
             .flatMapObservable { Observable.fromIterable(it) }
             .observeOn(schedulers.ui())

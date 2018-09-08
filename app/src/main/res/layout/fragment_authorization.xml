@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  style="?attr/customCardViewStyle"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:fitsSystemWindows="true">
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?attr/customCardViewStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-  <LinearLayout
-    android:layout_width="@dimen/sign_in_layout_width"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical|center_horizontal"
-    android:gravity="center_vertical|center_horizontal"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/material_card_supporting_text_padding_bottom"
-    android:paddingEnd="@dimen/material_card_supporting_text_padding_horizontal"
-    android:paddingStart="@dimen/material_card_supporting_text_padding_horizontal"
-    android:paddingTop="@dimen/material_card_supporting_text_padding_top">
-
-    <android.support.design.widget.TextInputLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:theme="@style/EditTextStyle">
-
-      <EditText
-        android:id="@+id/authorization_login"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="@dimen/sign_in_layout_width"
         android:layout_height="wrap_content"
-        android:drawablePadding="@dimen/auth_edit_text_drawable_padding"
-        android:drawableStart="?attr/iconAuthLogin"
-        android:hint="@string/authorization_login_label"
-        android:inputType="text|textNoSuggestions"
-        android:maxLines="1" />
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/material_card_supporting_text_padding_bottom"
+        android:paddingEnd="@dimen/material_card_supporting_text_padding_horizontal"
+        android:paddingStart="@dimen/material_card_supporting_text_padding_horizontal"
+        android:paddingTop="@dimen/material_card_supporting_text_padding_top">
 
-    </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/EditTextStyle">
 
-    <android.support.design.widget.TextInputLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:theme="@style/EditTextStyle">
+            <EditText
+                android:id="@+id/authorization_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/auth_edit_text_drawable_padding"
+                android:drawableStart="?attr/iconAuthLogin"
+                android:hint="@string/authorization_login_label"
+                android:inputType="text|textNoSuggestions"
+                android:maxLines="1" />
 
-      <EditText
-        android:id="@+id/authorization_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawablePadding="8dp"
-        android:drawableStart="?attr/iconAuthPassword"
-        android:hint="@string/authorization_password_label"
-        android:inputType="textPassword"
-        android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
 
-    </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/EditTextStyle">
 
-    <CheckBox
-      android:id="@+id/authorization_anonymous"
-      style="@style/CheckboxStyle"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@string/authorization_anonymous" />
+            <EditText
+                android:id="@+id/authorization_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:drawableStart="?attr/iconAuthPassword"
+                android:hint="@string/authorization_password_label"
+                android:inputType="textPassword"
+                android:maxLines="1" />
 
-    <Button
-      android:id="@+id/button_sign_in"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:enabled="false"
-      android:stateListAnimator="@null"
-      android:text="@string/authorization_button_login"
-      android:theme="@style/SignInButton"
-      tools:targetApi="lollipop" />
+        </android.support.design.widget.TextInputLayout>
 
-  </LinearLayout>
+        <CheckBox
+            android:id="@+id/authorization_anonymous"
+            style="@style/CheckboxStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/authorization_anonymous" />
+
+        <Button
+            android:id="@+id/button_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:stateListAnimator="@null"
+            android:text="@string/authorization_button_login"
+            android:theme="@style/SignInButton"
+            tools:targetApi="lollipop" />
+
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>

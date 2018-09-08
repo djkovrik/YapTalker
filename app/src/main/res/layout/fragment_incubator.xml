@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
-
-  <android.support.v4.widget.SwipeRefreshLayout
-    android:id="@+id/incubator_refresh_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-      android:id="@+id/incubator_topics_list"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/incubator_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-  </android.support.v4.widget.SwipeRefreshLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/incubator_topics_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-  <android.support.design.widget.FloatingActionButton
-    android:id="@+id/incubator_fab"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="end|bottom"
-    android:layout_margin="@dimen/materialize_screen_edge"
-    android:elevation="@dimen/material_elevation_fab_resting"
-    app:fabSize="normal"
-    app:ico_color="?attr/colorFabIcon"
-    app:ico_icon="cmd-refresh"
-    app:ico_padding="@dimen/fab_icon_padding"
-    tools:targetApi="lollipop" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/incubator_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/materialize_screen_edge"
+        android:elevation="@dimen/material_elevation_fab_resting"
+        app:fabSize="normal"
+        app:ico_color="?attr/colorFabIcon"
+        app:ico_icon="cmd-refresh"
+        app:ico_padding="@dimen/fab_icon_padding"
+        tools:targetApi="lollipop" />
 
 </FrameLayout>

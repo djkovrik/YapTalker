@@ -12,12 +12,8 @@ import com.sedsoftware.yaptalker.presentation.custom.glide.GlideWithProgressImag
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
-import kotlinx.android.synthetic.main.activity_topic_gallery_item.view.gallery_image
-import kotlinx.android.synthetic.main.activity_topic_gallery_item.view.gallery_image_progress
-import kotlinx.android.synthetic.main.activity_topic_gallery_item.view.gallery_image_progress_label
-import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.load_more_button
-import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.load_more_label
-import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.load_more_progress
+import kotlinx.android.synthetic.main.activity_topic_gallery_item.view.*
+import kotlinx.android.synthetic.main.activity_topic_gallery_item_load_more.view.*
 import java.util.ArrayList
 import javax.inject.Inject
 

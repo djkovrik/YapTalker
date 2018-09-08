@@ -22,12 +22,14 @@ class YapSearchTopicsRepository @Inject constructor(
         private const val SEARCH_SUBS = 1
     }
 
-    override fun getSearchResults(keyword: String,
-                                  searchIn: String,
-                                  searchHow: String,
-                                  sortBy: String,
-                                  targetForums: List<String>,
-                                  prune: Int): Single<List<BaseEntity>> =
+    override fun getSearchResults(
+        keyword: String,
+        searchIn: String,
+        searchHow: String,
+        sortBy: String,
+        targetForums: List<String>,
+        prune: Int
+    ): Single<List<BaseEntity>> =
         dataLoader
             .loadSearchedTopics(
                 act = SEARCH_ACT,
@@ -53,10 +55,12 @@ class YapSearchTopicsRepository @Inject constructor(
             .map(dataMapper)
             .subscribeOn(schedulers.io())
 
-    override fun getSearchResultsNextPage(keyword: String,
-                                          searchId: String,
-                                          searchIn: String,
-                                          page: Int): Single<List<BaseEntity>> =
+    override fun getSearchResultsNextPage(
+        keyword: String,
+        searchId: String,
+        searchIn: String,
+        page: Int
+    ): Single<List<BaseEntity>> =
         dataLoader
             .loadSearchedTopicsNextPage(
                 act = SEARCH_ACT,

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="SignInButton">
-    <item name="colorControlHighlight">?android:attr/colorPrimary</item>
-    <item name="colorButtonNormal">?attr/colorAccentOverride</item>
-    <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
-  </style>
+    <style name="SignInButton">
+        <item name="colorControlHighlight">?android:attr/colorPrimary</item>
+        <item name="colorButtonNormal">?attr/colorAccentOverride</item>
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+    </style>
 
-  <style name="EditTextStyle">
-    <item name="android:textColor">?attr/colorAccentOverride</item>
-    <item name="android:textColorHint">?android:textColorSecondary</item>
-    <item name="colorControlNormal">?android:textColorSecondary</item>
-    <item name="colorControlActivated">?attr/colorAccentOverride</item>
-  </style>
+    <style name="EditTextStyle">
+        <item name="android:textColor">?attr/colorAccentOverride</item>
+        <item name="android:textColorHint">?android:textColorSecondary</item>
+        <item name="colorControlNormal">?android:textColorSecondary</item>
+        <item name="colorControlActivated">?attr/colorAccentOverride</item>
+    </style>
 
-  <style name="CheckboxStyle">
-    <item name="android:textColor">?android:textColorPrimary</item>
-  </style>
+    <style name="CheckboxStyle">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
 
 </resources>

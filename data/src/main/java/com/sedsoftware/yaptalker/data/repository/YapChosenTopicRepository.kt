@@ -47,35 +47,43 @@ class YapChosenTopicRepository @Inject constructor(
         private const val MESSAGE_SENDING_ERROR_MARKER = "Возникли следующие трудности"
     }
 
-    override fun getChosenTopic(forumId: Int,
-                                topicId: Int,
-                                startPostNumber: Int): Single<List<BaseEntity>> =
+    override fun getChosenTopic(
+        forumId: Int,
+        topicId: Int,
+        startPostNumber: Int
+    ): Single<List<BaseEntity>> =
         dataLoader
             .loadTopicPage(forumId, topicId, startPostNumber)
             .map(dataMapper)
             .subscribeOn(schedulers.io())
 
-    override fun requestPostTextAsQuote(forumId: Int,
-                                        topicId: Int,
-                                        targetPostId: Int): Single<QuotedPost> =
+    override fun requestPostTextAsQuote(
+        forumId: Int,
+        topicId: Int,
+        targetPostId: Int
+    ): Single<QuotedPost> =
         dataLoader
             .loadTargetPostQuotedText(forumId, topicId, targetPostId)
             .map(quoteMapper)
             .subscribeOn(schedulers.io())
 
-    override fun requestPostTextForEditing(forumId: Int,
-                                           topicId: Int,
-                                           targetPostId: Int,
-                                           startingPost: Int): Single<EditedPost> =
+    override fun requestPostTextForEditing(
+        forumId: Int,
+        topicId: Int,
+        targetPostId: Int,
+        startingPost: Int
+    ): Single<EditedPost> =
         dataLoader
             .loadTargetPostEditedText(forumId, topicId, targetPostId, startingPost)
             .map(editedPostMapper)
             .subscribeOn(schedulers.io())
 
-    override fun requestKarmaChange(isTopic: Boolean,
-                                    targetPostId: Int,
-                                    targetTopicId: Int,
-                                    diff: Int): Single<ServerResponse> =
+    override fun requestKarmaChange(
+        isTopic: Boolean,
+        targetPostId: Int,
+        targetTopicId: Int,
+        diff: Int
+    ): Single<ServerResponse> =
         dataLoader
             .changeKarma(
                 act = KARMA_ACT,
@@ -83,13 +91,16 @@ class YapChosenTopicRepository @Inject constructor(
                 rank = diff,
                 postId = targetPostId,
                 topicId = targetTopicId,
-                type = if (isTopic) KARMA_TYPE_TOPIC else KARMA_TYPE_POST)
+                type = if (isTopic) KARMA_TYPE_TOPIC else KARMA_TYPE_POST
+            )
             .map(responseMapper)
             .subscribeOn(schedulers.io())
 
-    override fun requestPostKarmaChange(targetPostId: Int,
-                                        targetTopicId: Int,
-                                        diff: Int): Single<ServerResponse> =
+    override fun requestPostKarmaChange(
+        targetPostId: Int,
+        targetTopicId: Int,
+        diff: Int
+    ): Single<ServerResponse> =
         dataLoader
             .changeKarma(
                 act = KARMA_ACT,
@@ -102,9 +113,11 @@ class YapChosenTopicRepository @Inject constructor(
             .map(responseMapper)
             .subscribeOn(schedulers.io())
 
-    override fun requestTopicKarmaChange(targetPostId: Int,
-                                         targetTopicId: Int,
-                                         diff: Int): Single<ServerResponse> =
+    override fun requestTopicKarmaChange(
+        targetPostId: Int,
+        targetTopicId: Int,
+        diff: Int
+    ): Single<ServerResponse> =
         dataLoader
             .changeKarma(
                 act = KARMA_ACT,
@@ -117,12 +130,14 @@ class YapChosenTopicRepository @Inject constructor(
             .map(responseMapper)
             .subscribeOn(schedulers.io())
 
-    override fun requestMessageSending(targetForumId: Int,
-                                       targetTopicId: Int,
-                                       page: Int,
-                                       authKey: String,
-                                       message: String,
-                                       filePath: String): Completable =
+    override fun requestMessageSending(
+        targetForumId: Int,
+        targetTopicId: Int,
+        page: Int,
+        authKey: String,
+        message: String,
+        filePath: String
+    ): Completable =
         dataLoader
             .postMessage(
                 act = POST_ACT,
@@ -136,18 +151,21 @@ class YapChosenTopicRepository @Inject constructor(
                 postContent = message,
                 enabletag = 0,
                 maxFileSize = POST_MAX_FILE_SIZE,
-                uploadedFile = createMultiPartForFile(FILE_PART_NAME, filePath))
+                uploadedFile = createMultiPartForFile(FILE_PART_NAME, filePath)
+            )
             .map(responseMapper)
             .flatMapCompletable { checkMessageSending(it) }
             .subscribeOn(schedulers.io())
 
-    override fun requestEditedMessageSending(targetForumId: Int,
-                                             targetTopicId: Int,
-                                             targetPostId: Int,
-                                             page: Int,
-                                             authKey: String,
-                                             message: String,
-                                             file: String): Completable =
+    override fun requestEditedMessageSending(
+        targetForumId: Int,
+        targetTopicId: Int,
+        targetPostId: Int,
+        page: Int,
+        authKey: String,
+        message: String,
+        file: String
+    ): Completable =
         dataLoader
             .postEditedMessage(
                 st = page,
@@ -163,7 +181,8 @@ class YapChosenTopicRepository @Inject constructor(
                 post = targetPostId,
                 postContent = message,
                 enabletag = 0,
-                fileupload = file)
+                fileupload = file
+            )
             .map(responseMapper)
             .flatMapCompletable { checkMessageSending(it) }
             .subscribeOn(schedulers.io())

@@ -395,7 +395,8 @@ class ChosenTopicPresenter @Inject constructor(
                 currentEditedPost,
                 startingPost,
                 authKey,
-                message)
+                message
+            )
             .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }

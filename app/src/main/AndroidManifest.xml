@@ -1,170 +1,170 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.sedsoftware.yaptalker">
+    package="com.sedsoftware.yaptalker">
 
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-  <application
-    android:name=".YapTalkerApp"
-    android:allowBackup="true"
-    android:fullBackupContent="@xml/backup_descriptor"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
-    android:roundIcon="@mipmap/ic_launcher_round"
-    android:supportsRtl="true"
-    android:theme="@style/AppTheme">
+    <application
+        android:name=".YapTalkerApp"
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
 
-    <activity
-      android:name="com.sedsoftware.yaptalker.presentation.feature.navigation.MainActivity"
-      android:launchMode="singleTop"
-      android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name="com.sedsoftware.yaptalker.presentation.feature.navigation.MainActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
 
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-        <data
-          android:host="www.yaplakal.com"
-          android:pathPattern="/forum.*/topic.*\.html"
-          android:scheme="http" />
-      </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
+                <data
+                    android:host="www.yaplakal.com"
+                    android:pathPattern="/forum.*/topic.*\.html"
+                    android:scheme="http" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-        <data
-          android:host="www.yaplakal.com"
-          android:pathPattern="/forum.*/topic.*\.html"
-          android:scheme="https" />
-      </intent-filter>
+                <data
+                    android:host="www.yaplakal.com"
+                    android:pathPattern="/forum.*/topic.*\.html"
+                    android:scheme="https" />
+            </intent-filter>
 
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-        <data
-          android:host="www.yaplakal.com"
-          android:pathPattern="/forum.*/st/.*/topic.*\.html"
-          android:scheme="http" />
-      </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
+                <data
+                    android:host="www.yaplakal.com"
+                    android:pathPattern="/forum.*/st/.*/topic.*\.html"
+                    android:scheme="http" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-        <data
-          android:host="www.yaplakal.com"
-          android:pathPattern="/forum.*/st/.*/topic.*\.html"
-          android:scheme="https" />
-      </intent-filter>
+                <data
+                    android:host="www.yaplakal.com"
+                    android:pathPattern="/forum.*/st/.*/topic.*\.html"
+                    android:scheme="https" />
+            </intent-filter>
 
-      <meta-data
-        android:name="android.app.shortcuts"
-        android:resource="@xml/shortcuts" />
-    </activity>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
 
-    <activity
-      android:name=".presentation.feature.settings.SettingsActivity"
-      android:label="@string/nav_drawer_settings"
-      android:parentActivityName=".presentation.feature.navigation.MainActivity"
-      android:theme="@style/AppTheme.NoActionBar">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value="presentation.feature.navigation.MainActivity" />
-    </activity>
+        <activity
+            android:name=".presentation.feature.settings.SettingsActivity"
+            android:label="@string/nav_drawer_settings"
+            android:parentActivityName=".presentation.feature.navigation.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="presentation.feature.navigation.MainActivity" />
+        </activity>
 
-    <activity
-      android:name=".presentation.feature.imagedisplay.ImageDisplayActivity"
-      android:parentActivityName=".presentation.feature.navigation.MainActivity"
-      android:theme="@style/AppTheme.DarkBackground">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".presentation.feature.navigation.MainActivity" />
-    </activity>
+        <activity
+            android:name=".presentation.feature.imagedisplay.ImageDisplayActivity"
+            android:parentActivityName=".presentation.feature.navigation.MainActivity"
+            android:theme="@style/AppTheme.DarkBackground">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.feature.navigation.MainActivity" />
+        </activity>
 
-    <activity
-      android:name=".presentation.feature.videodisplay.VideoDisplayActivity"
-      android:label="@string/app_name"
-      android:parentActivityName=".presentation.feature.navigation.MainActivity"
-      android:theme="@style/AppTheme.DarkBackground">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".presentation.feature.navigation.MainActivity" />
-    </activity>
+        <activity
+            android:name=".presentation.feature.videodisplay.VideoDisplayActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".presentation.feature.navigation.MainActivity"
+            android:theme="@style/AppTheme.DarkBackground">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.feature.navigation.MainActivity" />
+        </activity>
 
-    <activity
-      android:name=".presentation.feature.changelog.ChangelogActivity"
-      android:parentActivityName=".presentation.feature.navigation.MainActivity">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".presentation.feature.navigation.MainActivity" />
-    </activity>
+        <activity
+            android:name=".presentation.feature.changelog.ChangelogActivity"
+            android:parentActivityName=".presentation.feature.navigation.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.feature.navigation.MainActivity" />
+        </activity>
 
-    <activity
-      android:name=".presentation.feature.gallery.TopicGalleryActivity"
-      android:parentActivityName=".presentation.feature.navigation.MainActivity"
-      android:theme="@style/AppTheme.DarkBackground">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".presentation.feature.navigation.MainActivity" />
-    </activity>
+        <activity
+            android:name=".presentation.feature.gallery.TopicGalleryActivity"
+            android:parentActivityName=".presentation.feature.navigation.MainActivity"
+            android:theme="@style/AppTheme.DarkBackground">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.feature.navigation.MainActivity" />
+        </activity>
 
-    <activity
-      android:name=".presentation.feature.blacklist.BlacklistActivity"
-      android:parentActivityName=".presentation.feature.settings.SettingsActivity"
-      android:theme="@style/AppTheme.NoActionBar">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".presentation.feature.settings.SettingsActivity" />
-    </activity>
+        <activity
+            android:name=".presentation.feature.blacklist.BlacklistActivity"
+            android:parentActivityName=".presentation.feature.settings.SettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.feature.settings.SettingsActivity" />
+        </activity>
 
-    <activity
-      android:name=".presentation.feature.mail.MailActivity"
-      android:parentActivityName=".presentation.feature.navigation.MainActivity">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".presentation.feature.navigation.MainActivity" />
-    </activity>
+        <activity
+            android:name=".presentation.feature.mail.MailActivity"
+            android:parentActivityName=".presentation.feature.navigation.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.feature.navigation.MainActivity" />
+        </activity>
 
-    <provider
-      android:name="android.support.v4.content.FileProvider"
-      android:authorities="com.sedsoftware.yaptalker"
-      android:exported="false"
-      android:grantUriPermissions="true">
-      <meta-data
-        android:name="android.support.FILE_PROVIDER_PATHS"
-        android:resource="@xml/fileprovider" />
-    </provider>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.sedsoftware.yaptalker"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider" />
+        </provider>
 
-    <provider
-      android:name=".device.fileprovider.ApkFileProvider"
-      android:authorities="com.sedsoftware.yaptalker.device.fileprovider"
-      android:exported="false"
-      android:grantUriPermissions="true">
-      <meta-data
-        android:name="android.support.FILE_PROVIDER_PATHS"
-        android:resource="@xml/provider_paths" />
-    </provider>
+        <provider
+            android:name=".device.fileprovider.ApkFileProvider"
+            android:authorities="com.sedsoftware.yaptalker.device.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
 
-    <receiver android:name=".presentation.custom.DownloadManagerReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-      </intent-filter>
-    </receiver>
+        <receiver android:name=".presentation.custom.DownloadManagerReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
 
-  </application>
+    </application>
 
 </manifest>

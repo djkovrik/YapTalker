@@ -1,105 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <PreferenceCategory android:title="@string/pref_category_title_general">
+    <PreferenceCategory android:title="@string/pref_category_title_general">
 
-    <com.afollestad.materialdialogs.prefs.MaterialListPreference
-      android:defaultValue="@string/pref_general_start_page_value_main"
-      android:entries="@array/pref_start_page_labels"
-      android:entryValues="@array/pref_start_page_values"
-      android:key="@string/pref_key_start_page"
-      android:persistent="true"
-      android:title="@string/pref_general_start_page_title" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:defaultValue="@string/pref_general_start_page_value_main"
+            android:entries="@array/pref_start_page_labels"
+            android:entryValues="@array/pref_start_page_values"
+            android:key="@string/pref_key_start_page"
+            android:persistent="true"
+            android:title="@string/pref_general_start_page_title" />
 
-  </PreferenceCategory>
+    </PreferenceCategory>
 
-  <PreferenceCategory android:title="@string/pref_category_title_appearance">
+    <PreferenceCategory android:title="@string/pref_category_title_appearance">
 
-    <com.afollestad.materialdialogs.prefs.MaterialListPreference
-      android:defaultValue="@string/pref_appearance_font_size_value_14"
-      android:entries="@array/pref_font_size_values"
-      android:entryValues="@array/pref_font_size_values"
-      android:key="@string/pref_key_font_size"
-      android:persistent="true"
-      android:title="@string/pref_appearance_font_size_title" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:defaultValue="@string/pref_appearance_font_size_value_14"
+            android:entries="@array/pref_font_size_values"
+            android:entryValues="@array/pref_font_size_values"
+            android:key="@string/pref_key_font_size"
+            android:persistent="true"
+            android:title="@string/pref_appearance_font_size_title" />
 
-    <com.afollestad.materialdialogs.prefs.MaterialListPreference
-      android:defaultValue="@string/pref_appearance_avatar_size_value_small"
-      android:entries="@array/pref_avatar_size_labels"
-      android:entryValues="@array/pref_avatar_size_values"
-      android:key="@string/pref_key_avatar_size"
-      android:persistent="true"
-      android:title="@string/pref_appearance_avatar_size_title" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:defaultValue="@string/pref_appearance_avatar_size_value_small"
+            android:entries="@array/pref_avatar_size_labels"
+            android:entryValues="@array/pref_avatar_size_values"
+            android:key="@string/pref_key_avatar_size"
+            android:persistent="true"
+            android:title="@string/pref_appearance_avatar_size_title" />
 
-    <com.afollestad.materialdialogs.prefs.MaterialListPreference
-      android:defaultValue="@string/pref_appearance_theme_value_light"
-      android:entries="@array/pref_theme_labels"
-      android:entryValues="@array/pref_theme_values"
-      android:key="@string/pref_key_theme"
-      android:persistent="true"
-      android:title="@string/pref_appearance_theme_title" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:defaultValue="@string/pref_appearance_theme_value_light"
+            android:entries="@array/pref_theme_labels"
+            android:entryValues="@array/pref_theme_values"
+            android:key="@string/pref_key_theme"
+            android:persistent="true"
+            android:title="@string/pref_appearance_theme_title" />
 
-  </PreferenceCategory>
+    </PreferenceCategory>
 
-  <PreferenceCategory android:title="@string/pref_category_title_content">
+    <PreferenceCategory android:title="@string/pref_category_title_content">
 
-    <com.afollestad.materialdialogs.prefs.MaterialMultiSelectListPreference
-      android:defaultValue="@array/pref_categorizer_values"
-      android:entries="@array/pref_categorizer_labels"
-      android:entryValues="@array/pref_categorizer_values"
-      android:key="@string/pref_key_categorizer"
-      android:persistent="true"
-      android:summary="@string/pref_content_categorizer_summary"
-      android:title="@string/pref_content_categorizer_label" />
+        <com.afollestad.materialdialogs.prefs.MaterialMultiSelectListPreference
+            android:defaultValue="@array/pref_categorizer_values"
+            android:entries="@array/pref_categorizer_labels"
+            android:entryValues="@array/pref_categorizer_values"
+            android:key="@string/pref_key_categorizer"
+            android:persistent="true"
+            android:summary="@string/pref_content_categorizer_summary"
+            android:title="@string/pref_content_categorizer_label" />
 
-    <CheckBoxPreference
-      android:defaultValue="false"
-      android:key="@string/pref_key_nswf"
-      android:persistent="true"
-      android:summary="@string/pref_content_nsfw_summary"
-      android:title="@string/pref_content_nsfw_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key_nswf"
+            android:persistent="true"
+            android:summary="@string/pref_content_nsfw_summary"
+            android:title="@string/pref_content_nsfw_title" />
 
-    <Preference
-      android:key="@string/pref_key_blacklist"
-      android:summary="@string/pref_content_blacklist_summary"
-      android:title="@string/pref_content_blacklist_title" />
+        <Preference
+            android:key="@string/pref_key_blacklist"
+            android:summary="@string/pref_content_blacklist_summary"
+            android:title="@string/pref_content_blacklist_title" />
 
-  </PreferenceCategory>
+    </PreferenceCategory>
 
-  <PreferenceCategory android:title="@string/pref_category_title_media">
+    <PreferenceCategory android:title="@string/pref_category_title_media">
 
-    <CheckBoxPreference
-      android:defaultValue="false"
-      android:key="@string/pref_key_coub_external"
-      android:persistent="true"
-      android:summary="@string/pref_media_coub_external_summary"
-      android:title="@string/pref_media_coub_external_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key_coub_external"
+            android:persistent="true"
+            android:summary="@string/pref_media_coub_external_summary"
+            android:title="@string/pref_media_coub_external_title" />
 
-    <CheckBoxPreference
-      android:defaultValue="true"
-      android:key="@string/pref_key_video_landscape"
-      android:persistent="true"
-      android:summary="@string/pref_media_video_rotation_summary"
-      android:title="@string/pref_media_video_rotation_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key_video_landscape"
+            android:persistent="true"
+            android:summary="@string/pref_media_video_rotation_summary"
+            android:title="@string/pref_media_video_rotation_title" />
 
-  </PreferenceCategory>
+    </PreferenceCategory>
 
-  <PreferenceCategory android:title="@string/pref_category_title_system">
+    <PreferenceCategory android:title="@string/pref_category_title_system">
 
-    <CheckBoxPreference
-      android:defaultValue="false"
-      android:key="@string/pref_key_https_enabled"
-      android:persistent="true"
-      android:summary="@string/pref_system_use_https_summary"
-      android:title="@string/pref_system_use_https_label" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key_https_enabled"
+            android:persistent="true"
+            android:summary="@string/pref_system_use_https_summary"
+            android:title="@string/pref_system_use_https_label" />
 
-    <CheckBoxPreference
-      android:defaultValue="false"
-      android:key="@string/pref_key_screen_always_on"
-      android:persistent="true"
-      android:summary="@string/pref_system_screen_always_on_summary"
-      android:title="@string/pref_system_screen_always_on_label" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key_screen_always_on"
+            android:persistent="true"
+            android:summary="@string/pref_system_screen_always_on_summary"
+            android:title="@string/pref_system_screen_always_on_label" />
 
-  </PreferenceCategory>
+    </PreferenceCategory>
 
 </PreferenceScreen>

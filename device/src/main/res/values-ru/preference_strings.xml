@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <!-- GENERAL -->
-  <string name="pref_category_title_general">Общие</string>
-  <!-- Start page -->
-  <string name="pref_general_start_page_title">Стартовая страница</string>
-  <string name="pref_general_start_page_label_main">Главная</string>
-  <string name="pref_general_start_page_label_forums">Форумы</string>
-  <string name="pref_general_start_page_label_active_topics">Активные темы</string>
-  <string name="pref_general_start_page_label_incubator">Инкубатор</string>
+    <!-- GENERAL -->
+    <string name="pref_category_title_general">Общие</string>
+    <!-- Start page -->
+    <string name="pref_general_start_page_title">Стартовая страница</string>
+    <string name="pref_general_start_page_label_main">Главная</string>
+    <string name="pref_general_start_page_label_forums">Форумы</string>
+    <string name="pref_general_start_page_label_active_topics">Активные темы</string>
+    <string name="pref_general_start_page_label_incubator">Инкубатор</string>
 
-  <!-- APPEARANCE -->
-  <string name="pref_category_title_appearance">Внешний вид</string>
-  <!-- Font size -->
-  <string name="pref_appearance_font_size_title">Базовый размер шрифта</string>
-  <!-- Avatars size -->
-  <string name="pref_appearance_avatar_size_title">Размер аватарок</string>
-  <string name="pref_appearance_avatar_size_label_small">Маленькие</string>
-  <string name="pref_appearance_avatar_size_label_medium">Средние</string>
-  <string name="pref_appearance_avatar_size_label_large">Большие</string>
-  <!-- Theme -->
-  <string name="pref_appearance_theme_title">Тема</string>
-  <string name="pref_appearance_theme_label_light">Светлая</string>
-  <string name="pref_appearance_theme_label_dark">Темная</string>
-  <string name="pref_appearance_theme_label_light_contrast">Светлая - контраст</string>
-  <string name="pref_appearance_theme_label_light_yap">Светлая - ЯП</string>
-  <string name="pref_appearance_theme_label_dark_black">Черная</string>
-  <!-- Two-pane mode -->
-  <string name="pref_appearance_two_pane_mode_title">Двухпанельный режим</string>
-  <string name="pref_appearance_two_pane_mode_summary">Использовать вариацию интерфейса для планшетов.</string>
+    <!-- APPEARANCE -->
+    <string name="pref_category_title_appearance">Внешний вид</string>
+    <!-- Font size -->
+    <string name="pref_appearance_font_size_title">Базовый размер шрифта</string>
+    <!-- Avatars size -->
+    <string name="pref_appearance_avatar_size_title">Размер аватарок</string>
+    <string name="pref_appearance_avatar_size_label_small">Маленькие</string>
+    <string name="pref_appearance_avatar_size_label_medium">Средние</string>
+    <string name="pref_appearance_avatar_size_label_large">Большие</string>
+    <!-- Theme -->
+    <string name="pref_appearance_theme_title">Тема</string>
+    <string name="pref_appearance_theme_label_light">Светлая</string>
+    <string name="pref_appearance_theme_label_dark">Темная</string>
+    <string name="pref_appearance_theme_label_light_contrast">Светлая - контраст</string>
+    <string name="pref_appearance_theme_label_light_yap">Светлая - ЯП</string>
+    <string name="pref_appearance_theme_label_dark_black">Черная</string>
+    <!-- Two-pane mode -->
+    <string name="pref_appearance_two_pane_mode_title">Двухпанельный режим</string>
+    <string name="pref_appearance_two_pane_mode_summary">Использовать вариацию интерфейса для планшетов.</string>
 
-  <!-- CONTENT -->
-  <string name="pref_category_title_content">Контент</string>
-  <!-- Categorizer -->
-  <string name="pref_content_categorizer_label">Категории новостей</string>
-  <string name="pref_content_categorizer_summary">Укажите категории новостей, которые будут отображаться на главной странице.</string>
-  <string name="pref_content_categorizer_label_pictures">Картинки</string>
-  <string name="pref_content_categorizer_label_video">Видео</string>
-  <string name="pref_content_categorizer_label_events">События</string>
-  <string name="pref_content_categorizer_label_auto">Авто/Мото</string>
-  <string name="pref_content_categorizer_label_animals">Зверье</string>
-  <string name="pref_content_categorizer_label_trading">Двигатель Торговли</string>
-  <string name="pref_content_categorizer_label_photo_trav">Фотопутешествия</string>
-  <string name="pref_content_categorizer_label_text">Тексты</string>
-  <string name="pref_content_categorizer_label_photoshop">Фотожаба</string>
-  <string name="pref_content_categorizer_label_creative">Креативы</string>
-  <string name="pref_content_categorizer_label_yapizdat">ЯП-издат</string>
-  <string name="pref_content_categorizer_label_flash">Флэш</string>
-  <string name="pref_content_categorizer_label_poetry">Поэзия</string>
-  <string name="pref_content_categorizer_label_rhyme">Весёлая рифма</string>
-  <string name="pref_content_categorizer_label_gold">Золото</string>
-  <string name="pref_content_categorizer_label_collection">Коллекция</string>
-  <string name="pref_content_categorizer_label_reviews">ЯП-Обзор</string>
-  <string name="pref_content_categorizer_label_building">Строительство</string>
-  <!-- nsfw -->
-  <string name="pref_content_nsfw_title">Мне больше 18 лет</string>
-  <string name="pref_content_nsfw_summary">Отображать разделы форумов, содержащие контент для взрослых.</string>
-  <!-- Blacklist -->
-  <string name="pref_content_blacklist_title">Черный список тем</string>
-  <string name="pref_content_blacklist_summary">Просмотр и очистка черного списка тем.</string>
+    <!-- CONTENT -->
+    <string name="pref_category_title_content">Контент</string>
+    <!-- Categorizer -->
+    <string name="pref_content_categorizer_label">Категории новостей</string>
+    <string name="pref_content_categorizer_summary">Укажите категории новостей, которые будут отображаться на главной странице.</string>
+    <string name="pref_content_categorizer_label_pictures">Картинки</string>
+    <string name="pref_content_categorizer_label_video">Видео</string>
+    <string name="pref_content_categorizer_label_events">События</string>
+    <string name="pref_content_categorizer_label_auto">Авто/Мото</string>
+    <string name="pref_content_categorizer_label_animals">Зверье</string>
+    <string name="pref_content_categorizer_label_trading">Двигатель Торговли</string>
+    <string name="pref_content_categorizer_label_photo_trav">Фотопутешествия</string>
+    <string name="pref_content_categorizer_label_text">Тексты</string>
+    <string name="pref_content_categorizer_label_photoshop">Фотожаба</string>
+    <string name="pref_content_categorizer_label_creative">Креативы</string>
+    <string name="pref_content_categorizer_label_yapizdat">ЯП-издат</string>
+    <string name="pref_content_categorizer_label_flash">Флэш</string>
+    <string name="pref_content_categorizer_label_poetry">Поэзия</string>
+    <string name="pref_content_categorizer_label_rhyme">Весёлая рифма</string>
+    <string name="pref_content_categorizer_label_gold">Золото</string>
+    <string name="pref_content_categorizer_label_collection">Коллекция</string>
+    <string name="pref_content_categorizer_label_reviews">ЯП-Обзор</string>
+    <string name="pref_content_categorizer_label_building">Строительство</string>
+    <!-- nsfw -->
+    <string name="pref_content_nsfw_title">Мне больше 18 лет</string>
+    <string name="pref_content_nsfw_summary">Отображать разделы форумов, содержащие контент для взрослых.</string>
+    <!-- Blacklist -->
+    <string name="pref_content_blacklist_title">Черный список тем</string>
+    <string name="pref_content_blacklist_summary">Просмотр и очистка черного списка тем.</string>
 
-  <!-- MEDIA -->
-  <string name="pref_category_title_media">Медиа</string>
-  <!-- Coubs -->
-  <string name="pref_media_coub_external_title">Внешний плеер для Coub</string>
-  <string name="pref_media_coub_external_summary">Проигрывать coub-видео в стороннем приложении.</string>
+    <!-- MEDIA -->
+    <string name="pref_category_title_media">Медиа</string>
+    <!-- Coubs -->
+    <string name="pref_media_coub_external_title">Внешний плеер для Coub</string>
+    <string name="pref_media_coub_external_summary">Проигрывать coub-видео в стороннем приложении.</string>
     <!-- Rotate video -->
     <string name="pref_media_video_rotation_title">Видео в альбомной ориентации</string>
     <string name="pref_media_video_rotation_summary">Проигрывать видео с принудительной альбомной ориентацией экрана.</string>
 
-  <!--- SYSTEM -->
-  <string name="pref_category_title_system">Системные</string>
-  <string name="pref_system_screen_always_on_label">Держать экран включенным</string>
-  <string name="pref_system_screen_always_on_summary">Блокировать затухание экрана во время чтения любой темы на форуме.</string>
-  <string name="pref_system_use_https_label">Соединяться через https</string>
-  <string name="pref_system_use_https_summary">Использовать https для всех запросов к сайту yaplakal.com.</string>
+    <!--- SYSTEM -->
+    <string name="pref_category_title_system">Системные</string>
+    <string name="pref_system_screen_always_on_label">Держать экран включенным</string>
+    <string name="pref_system_screen_always_on_summary">Блокировать затухание экрана во время чтения любой темы на форуме.</string>
+    <string name="pref_system_use_https_label">Соединяться через https</string>
+    <string name="pref_system_use_https_summary">Использовать https для всех запросов к сайту yaplakal.com.</string>
 
 </resources>

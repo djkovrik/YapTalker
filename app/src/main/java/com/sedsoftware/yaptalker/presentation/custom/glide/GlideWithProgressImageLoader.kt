@@ -18,11 +18,13 @@ class GlideWithProgressImageLoader {
     companion object {
         private const val MAX_PROGRESS_VALUE = 100
 
-        fun load(url: String,
-                 imageView: ImageView,
-                 progressBar: ProgressBar?,
-                 textLabel: TextView?,
-                 options: RequestOptions) {
+        fun load(
+            url: String,
+            imageView: ImageView,
+            progressBar: ProgressBar?,
+            textLabel: TextView?,
+            options: RequestOptions
+        ) {
 
             textLabel?.isVisible = true
             progressBar?.isVisible = true

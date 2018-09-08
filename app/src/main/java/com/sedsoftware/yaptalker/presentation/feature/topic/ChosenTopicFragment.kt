@@ -144,7 +144,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
     }
 
     override fun onStop() {
-        if(shouldSaveState) {
+        if (shouldSaveState) {
             val state = TopicState(
                 forumId = presenter.currentForumId,
                 topicId = presenter.currentTopicId,

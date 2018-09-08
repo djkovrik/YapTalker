@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <!-- News screen -->
-  <dimen name="card_margin_value_half">@dimen/material_baseline_grid_0.5x</dimen>
+    <!-- News screen -->
+    <dimen name="card_margin_value_half">@dimen/material_baseline_grid_0.5x</dimen>
 
-  <!-- Rating labels -->
-  <dimen name="rating_background_padding">2dp</dimen>
-  <dimen name="rating_background_corner_radius">1dp</dimen>
-  <dimen name="rating_background_width">50dp</dimen>
+    <!-- Rating labels -->
+    <dimen name="rating_background_padding">2dp</dimen>
+    <dimen name="rating_background_corner_radius">1dp</dimen>
+    <dimen name="rating_background_width">50dp</dimen>
 
-  <!-- Topic post padding parameters -->
-  <dimen name="post_image_vertical_padding">8dp</dimen>
-  <dimen name="post_text_horizontal_padding">8dp</dimen>
-  <dimen name="post_karma_thump_icon_padding">4dp</dimen>
+    <!-- Topic post padding parameters -->
+    <dimen name="post_image_vertical_padding">8dp</dimen>
+    <dimen name="post_text_horizontal_padding">8dp</dimen>
+    <dimen name="post_karma_thump_icon_padding">4dp</dimen>
 
-  <!-- Navigation -->
-  <dimen name="navigation_button_width">54dp</dimen>
-  <dimen name="load_more_corner_radius">8dp</dimen>
-  <dimen name="load_more_padding">8dp</dimen>
-  <dimen name="load_more_progress_indicator_size">24dp</dimen>
+    <!-- Navigation -->
+    <dimen name="navigation_button_width">54dp</dimen>
+    <dimen name="load_more_corner_radius">8dp</dimen>
+    <dimen name="load_more_padding">8dp</dimen>
+    <dimen name="load_more_progress_indicator_size">24dp</dimen>
 
-  <!-- FABs and menus-->
-  <dimen name="fab_icon_padding">4dp</dimen>
-  <dimen name="fab_label_corners">2dp</dimen>
-  <dimen name="fab_label_padding_horizontal">4dp</dimen>
-  <dimen name="fab_label_padding_vertical">2dp</dimen>
-  <dimen name="mini_fab_icon_padding">4dp</dimen>
-  <dimen name="mini_fab_label_margin">8dp</dimen>
-  <dimen name="mini_fab_additional_margin">8dp</dimen>
+    <!-- FABs and menus-->
+    <dimen name="fab_icon_padding">4dp</dimen>
+    <dimen name="fab_label_corners">2dp</dimen>
+    <dimen name="fab_label_padding_horizontal">4dp</dimen>
+    <dimen name="fab_label_padding_vertical">2dp</dimen>
+    <dimen name="mini_fab_icon_padding">4dp</dimen>
+    <dimen name="mini_fab_label_margin">8dp</dimen>
+    <dimen name="mini_fab_additional_margin">8dp</dimen>
 
-  <dimen name="search_inner_margin">8dp</dimen>
+    <dimen name="search_inner_margin">8dp</dimen>
 
-  <!-- Other -->
-  <dimen name="post_editor_margin">8dp</dimen>
-  <dimen name="post_editor_buttons_margin">6dp</dimen>
-  <dimen name="post_editor_square_button_size">48dp</dimen>
-  <dimen name="post_editor_emoji_size">20dp</dimen>
-  <dimen name="post_editor_emoji_item_margin">4dp</dimen>
-  <dimen name="auth_edit_text_drawable_padding">8dp</dimen>
-  <dimen name="scrollbar_thumb_padding">4dp</dimen>
-  <dimen name="scrollbar_thumb_corner_radius">4dp</dimen>
-  <dimen name="scrollbar_background_line_padding">2dp</dimen>
-  <dimen name="bottom_sheet_peek">140dp</dimen>
-  <dimen name="attachment_card_padding">4dp</dimen>
-  <dimen name="attachment_card_drawable_padding">2dp</dimen>
-  <dimen name="updater_icon_size">54dp</dimen>
-  <dimen name="updater_vertical_margin">8dp</dimen>
+    <!-- Other -->
+    <dimen name="post_editor_margin">8dp</dimen>
+    <dimen name="post_editor_buttons_margin">6dp</dimen>
+    <dimen name="post_editor_square_button_size">48dp</dimen>
+    <dimen name="post_editor_emoji_size">20dp</dimen>
+    <dimen name="post_editor_emoji_item_margin">4dp</dimen>
+    <dimen name="auth_edit_text_drawable_padding">8dp</dimen>
+    <dimen name="scrollbar_thumb_padding">4dp</dimen>
+    <dimen name="scrollbar_thumb_corner_radius">4dp</dimen>
+    <dimen name="scrollbar_background_line_padding">2dp</dimen>
+    <dimen name="bottom_sheet_peek">140dp</dimen>
+    <dimen name="attachment_card_padding">4dp</dimen>
+    <dimen name="attachment_card_drawable_padding">2dp</dimen>
+    <dimen name="updater_icon_size">54dp</dimen>
+    <dimen name="updater_vertical_margin">8dp</dimen>
 
-  <!-- TABLETS DIMENSION VARIATIONS -->
-  <dimen name="navigation_drawer_width">280dp</dimen>
-  <dimen name="sign_in_layout_width">@dimen/custom_match_parent</dimen>
-  <dimen name="news_content_media_width">@dimen/custom_match_parent</dimen>
-  <dimen name="topic_content_media_width">@dimen/custom_match_parent</dimen>
-  <dimen name="settings_block_width">@dimen/custom_match_parent</dimen>
+    <!-- TABLETS DIMENSION VARIATIONS -->
+    <dimen name="navigation_drawer_width">280dp</dimen>
+    <dimen name="sign_in_layout_width">@dimen/custom_match_parent</dimen>
+    <dimen name="news_content_media_width">@dimen/custom_match_parent</dimen>
+    <dimen name="topic_content_media_width">@dimen/custom_match_parent</dimen>
+    <dimen name="settings_block_width">@dimen/custom_match_parent</dimen>
 </resources>

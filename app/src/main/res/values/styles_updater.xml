@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="UpdaterStatusLabel">
-    <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Large</item>
-    <item name="android:textColor">?android:textColorPrimary</item>
-  </style>
+    <style name="UpdaterStatusLabel">
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Large</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
 
-  <style name="UpdaterNormalText">
-    <item name="android:textColor">?android:textColorPrimary</item>
-  </style>
+    <style name="UpdaterNormalText">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
 
-  <style name="UpdaterStatusText">
-    <item name="android:textColor">?attr/colorAccentOverride</item>
-  </style>
+    <style name="UpdaterStatusText">
+        <item name="android:textColor">?attr/colorAccentOverride</item>
+    </style>
 
-  <style name="UpdaterButton">
-    <item name="android:textColor">?android:textColorPrimary</item>
-    <item name="android:textStyle">bold</item>
-  </style>
+    <style name="UpdaterButton">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 </resources>

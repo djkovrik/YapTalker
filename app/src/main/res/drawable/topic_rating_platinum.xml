@@ -1,21 +1,21 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-  android:shape="rectangle">
+    android:shape="rectangle">
 
-  <solid android:color="?attr/colorRatingPlatinum" />
+    <solid android:color="?attr/colorRatingPlatinum" />
 
-  <padding
-    android:bottom="@dimen/rating_background_padding"
-    android:left="@dimen/rating_background_padding"
-    android:right="@dimen/rating_background_padding"
-    android:top="@dimen/rating_background_padding" />
+    <padding
+        android:bottom="@dimen/rating_background_padding"
+        android:left="@dimen/rating_background_padding"
+        android:right="@dimen/rating_background_padding"
+        android:top="@dimen/rating_background_padding" />
 
-  <stroke
-    android:width="1dp"
-    android:color="@color/material_color_black" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/material_color_black" />
 
-  <corners
-    android:bottomLeftRadius="@dimen/rating_background_corner_radius"
-    android:bottomRightRadius="@dimen/rating_background_corner_radius"
-    android:topLeftRadius="@dimen/rating_background_corner_radius"
-    android:topRightRadius="@dimen/rating_background_corner_radius" />
+    <corners
+        android:bottomLeftRadius="@dimen/rating_background_corner_radius"
+        android:bottomRightRadius="@dimen/rating_background_corner_radius"
+        android:topLeftRadius="@dimen/rating_background_corner_radius"
+        android:topRightRadius="@dimen/rating_background_corner_radius" />
 </shape>

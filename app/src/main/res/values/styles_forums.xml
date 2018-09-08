@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="ForumsForumTitle">
-    <item name="android:textColor">?android:textColorPrimary</item>
-    <item name="android:textStyle">bold</item>
-  </style>
+    <style name="ForumsForumTitle">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 </resources>

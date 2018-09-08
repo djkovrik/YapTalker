@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/navigation_panel"
-  style="?attr/customCardViewStyle"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  tools:keep="@layout/item_navigation_panel">
-
-  <LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_panel"
+    style="?attr/customCardViewStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:orientation="horizontal">
+    tools:keep="@layout/item_navigation_panel">
 
-    <Button
-      android:id="@+id/navigation_go_first"
-      style="@style/Widget.AppCompat.Button.Borderless"
-      android:layout_width="@dimen/navigation_button_width"
-      android:layout_height="wrap_content"
-      android:text="@string/navigation_first" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
-    <Button
-      android:id="@+id/navigation_go_previous"
-      style="@style/Widget.AppCompat.Button.Borderless"
-      android:layout_width="@dimen/navigation_button_width"
-      android:layout_height="wrap_content"
-      android:text="@string/navigation_previous" />
+        <Button
+            android:id="@+id/navigation_go_first"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/navigation_button_width"
+            android:layout_height="wrap_content"
+            android:text="@string/navigation_first" />
 
-    <TextView
-      android:id="@+id/navigation_pages_label"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:paddingEnd="@dimen/material_card_edge_margin"
-      android:paddingStart="@dimen/material_card_edge_margin"
-      tools:text="1 of 1000" />
+        <Button
+            android:id="@+id/navigation_go_previous"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/navigation_button_width"
+            android:layout_height="wrap_content"
+            android:text="@string/navigation_previous" />
 
-    <Button
-      android:id="@+id/navigation_go_next"
-      style="@style/Widget.AppCompat.Button.Borderless"
-      android:layout_width="@dimen/navigation_button_width"
-      android:layout_height="wrap_content"
-      android:text="@string/navigation_next" />
+        <TextView
+            android:id="@+id/navigation_pages_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/material_card_edge_margin"
+            android:paddingStart="@dimen/material_card_edge_margin"
+            tools:text="1 of 1000" />
 
-    <Button
-      android:id="@+id/navigation_go_last"
-      style="@style/Widget.AppCompat.Button.Borderless"
-      android:layout_width="@dimen/navigation_button_width"
-      android:layout_height="wrap_content"
-      android:text="@string/navigation_last" />
+        <Button
+            android:id="@+id/navigation_go_next"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/navigation_button_width"
+            android:layout_height="wrap_content"
+            android:text="@string/navigation_next" />
 
-  </LinearLayout>
+        <Button
+            android:id="@+id/navigation_go_last"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/navigation_button_width"
+            android:layout_height="wrap_content"
+            android:text="@string/navigation_last" />
+
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>

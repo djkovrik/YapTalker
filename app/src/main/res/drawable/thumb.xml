@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-  android:shape="rectangle">
+    android:shape="rectangle">
 
-  <corners
-    android:bottomLeftRadius="@dimen/scrollbar_thumb_corner_radius"
-    android:topLeftRadius="@dimen/scrollbar_thumb_corner_radius"
-    android:topRightRadius="@dimen/scrollbar_thumb_corner_radius" />
+    <corners
+        android:bottomLeftRadius="@dimen/scrollbar_thumb_corner_radius"
+        android:topLeftRadius="@dimen/scrollbar_thumb_corner_radius"
+        android:topRightRadius="@dimen/scrollbar_thumb_corner_radius" />
 
-  <padding
-    android:paddingLeft="@dimen/scrollbar_thumb_padding"
-    android:paddingRight="@dimen/scrollbar_thumb_padding" />
+    <padding
+        android:paddingLeft="@dimen/scrollbar_thumb_padding"
+        android:paddingRight="@dimen/scrollbar_thumb_padding" />
 
-  <solid android:color="?attr/colorScrollbarThumb" />
+    <solid android:color="?attr/colorScrollbarThumb" />
 
 </shape>
