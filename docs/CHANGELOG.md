@@ -1,5 +1,14 @@
 ## Changelog
 
+### [0.9.18] - 2018-09-16
+
+**Fixed**
+* More parsing errors
+* News and incubator content duplication
+
+**Added**
+* New setting to initial menu view orientation
+
 ### [0.9.17] - 2018-08-06
 
 **Fixed**
