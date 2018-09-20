@@ -124,14 +124,15 @@ class IncubatorPresenter @Inject constructor(
                     backToFirstPage = false
                 }
 
-                val displayedList = list.filter { !displayedTopics.contains(it.topicId) }
+                val loadedTopicIds = list.map { it.topicId }
+                val newTopics = list.filter { !displayedTopics.contains(it.topicId) }
+                displayedTopics.addAll(loadedTopicIds)
 
-                if (displayedList.isEmpty()) {
+                if (newTopics.isEmpty()) {
                     currentPage += ITEMS_PER_PAGE
                     loadDataForCurrentPage()
                 } else {
-                    viewState.appendIncubatorItems(list)
-                    displayedTopics.addAll(displayedList.map { it.topicId })
+                    viewState.appendIncubatorItems(newTopics)
                 }
             }
 

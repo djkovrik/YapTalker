@@ -19,7 +19,6 @@ import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import ru.terrakok.cicerone.Router
-import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState
@@ -145,15 +144,15 @@ class NewsPresenter @Inject constructor(
                     backToFirstPage = false
                 }
 
+                val loadedTopicIds = items.map { it.topicId }
+                val newTopics = items.filter { !displayedTopics.contains(it.topicId) }
+                displayedTopics.addAll(loadedTopicIds)
 
-                val displayedList = items.filter { !displayedTopics.contains(it.topicId) }
-
-                if (displayedList.isEmpty()) {
+                if (newTopics.isEmpty()) {
                     currentPage += NEWS_PER_PAGE
                     loadDataForCurrentPage()
                 } else {
-                    viewState.appendNewsItems(items)
-                    displayedTopics.addAll(displayedList.map { it.topicId })
+                    viewState.appendNewsItems(newTopics)
                 }
             }
 
