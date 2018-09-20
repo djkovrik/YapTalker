@@ -9,6 +9,7 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import java.util.Date
 import javax.inject.Inject
 
+@Suppress("TooManyFunctions")
 class SettingsManager @Inject constructor(
     private val context: Context,
     private val preferences: SharedPreferences

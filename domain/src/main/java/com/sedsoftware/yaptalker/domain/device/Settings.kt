@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.domain.device
 
+@Suppress("ComplexInterface", "TooManyFunctions")
 interface Settings {
 
     fun getSingleCookie(): String
