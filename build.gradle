@@ -54,7 +54,7 @@ subprojects {
         resolutionStrategy {
             eachDependency { DependencyResolveDetails details ->
                 if (details.requested.name == 'kotlin-compiler-embeddable') {
-                    details.useVersion "1.2.50"
+                    details.useVersion "1.2.70"
                 }
             }
         }

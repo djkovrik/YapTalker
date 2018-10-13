@@ -19,6 +19,7 @@ import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import ru.terrakok.cicerone.Router
+import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState

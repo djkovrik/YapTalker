@@ -6,7 +6,7 @@ allprojects {
 
 ext {
     // Android
-    final KOTLIN_VERSION = "1.2.50"
+    final KOTLIN_VERSION = "1.2.70"
     final SUPPORT_LIBRARY_VERSION = "27.1.1"
     final CONSTRAINT_LAYOUT_VERSION = "1.1.2"
     final ANDROID_KTX_VERSION = "0.3"
@@ -56,7 +56,7 @@ ext {
     final FIREBASE_CORE_VERSION = "16.0.1"
 
     // Development tools
-    final TIMBER_VERSION = "4.7.1"
+    final TIMBER_VERSION = "4.7.0"
     final LEAK_CANARY_VERSION = "1.5.4"
     final STETHO_VERSION = "1.5.0"
 
