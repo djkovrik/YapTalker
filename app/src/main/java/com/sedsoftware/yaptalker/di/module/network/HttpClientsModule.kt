@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.di.module.network
 
 import com.sedsoftware.yaptalker.BuildConfig
 import com.sedsoftware.yaptalker.di.module.network.interceptors.CustomHeadersInterceptor
+import com.sedsoftware.yaptalker.di.module.network.interceptors.HtmlFixerInterceptor
 import com.sedsoftware.yaptalker.di.module.network.interceptors.SaveReceivedCookiesInterceptor
 import com.sedsoftware.yaptalker.di.module.network.interceptors.SendSavedCookiesInterceptor
 import com.sedsoftware.yaptalker.domain.device.CookieStorage
@@ -31,6 +32,7 @@ class HttpClientsModule {
     fun provideSiteClient(cookieStorage: CookieStorage): OkHttpClient =
         OkHttpClient
             .Builder()
+            .addInterceptor(HtmlFixerInterceptor())
             .addInterceptor(CustomHeadersInterceptor())
             .addInterceptor(SaveReceivedCookiesInterceptor(cookieStorage))
             .addInterceptor(SendSavedCookiesInterceptor(cookieStorage))

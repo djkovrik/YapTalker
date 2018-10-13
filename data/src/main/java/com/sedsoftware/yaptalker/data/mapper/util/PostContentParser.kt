@@ -35,6 +35,7 @@ class PostContentParser(private val content: String) {
         private const val QUOTE_START_TEXT = "Цитата"
         private const val IFRAME_TAG = "iframe"
         private const val IMG_TAG = "img"
+        private const val IMAGE_LOADER_SELECTOR = "yaplakal.com/html/static/video-loader.gif"
         private const val TD_TAG = "td"
         private const val SRC_ATTR = "src"
         private const val QUOTE_AUTHOR_MARKER_REGEX = " @ \\d{1,2}\\.\\d{2}.\\d{4}"
@@ -42,9 +43,9 @@ class PostContentParser(private val content: String) {
         private const val POST_EDIT_MARKER = "edit"
         private const val POST_TAGS_BLOCK_SELECTOR = "div.topic-tags"
 
-        private val tagsToSkip =
-            setOf("#root", "html", "head", "body", "table", "tbody", "tr", "br", "b", "i", "u")
+        private val tagsToSkip = setOf("#root", "html", "head", "body", "table", "tbody", "tr", "br", "b", "i", "u")
         private val attrsToSkip = setOf("rating", "clear")
+
         private val contentWhitelist: Whitelist = Whitelist()
             .addTags("i", "u", "b", "br", "img", "a", "li", "ul")
             .addAttributes("img", "src")
@@ -124,6 +125,7 @@ class PostContentParser(private val content: String) {
                 if (element.tagName() == IMG_TAG &&
                     element.hasAttr(SRC_ATTR) &&
                     !element.attr(SRC_ATTR).contains(EMOTICON_SELECTOR) &&
+                    !element.attr(SRC_ATTR).contains(IMAGE_LOADER_SELECTOR) &&
                     !element.attr(SRC_ATTR).contains(WARNING_IMG_SELECTOR)
                 ) {
                     result.images.add(element.attr(SRC_ATTR))
