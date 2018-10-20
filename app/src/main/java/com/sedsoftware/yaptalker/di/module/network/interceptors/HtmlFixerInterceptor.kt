@@ -8,7 +8,7 @@ import okhttp3.ResponseBody
 class HtmlFixerInterceptor : Interceptor {
 
     companion object {
-        private const val SEARCH_REGEX = "<div align=.* id=[\"|'](.*)[\"|'] rel=[\"|']yapfiles[\"|'].*/>"
+        private const val SEARCH_REGEX = "<div align=.* id=[\"|'].*-(.*)[\"|'] rel=[\"|']yapfiles[\"|'].*</div>"
 
         private const val REPLACING_TEXT =
             """
