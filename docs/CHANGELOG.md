@@ -1,5 +1,10 @@
 ## Changelog
 
+### [0.9.20] - 2018-10-20
+
+**Fixed**
+* Yapfiles video playing
+
 ### [0.9.19] - 2018-10-13
 
 **Fixed**
