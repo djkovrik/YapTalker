@@ -133,6 +133,7 @@ dependencies {
     implementation presentationDependencies.photoView
     implementation presentationDependencies.tsnackbar
     implementation presentationDependencies.markwon
+    implementation presentationDependencies.swipeRefreshBottom
 
     kapt presentationDependencies.daggerCompiler
     kapt presentationDependencies.daggerAndroidCompiler

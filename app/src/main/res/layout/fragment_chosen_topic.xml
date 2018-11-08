@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
         android:id="@+id/topic_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:srl_direction="both"
         android:animateLayoutChanges="true">
 
         <android.support.v7.widget.RecyclerView
@@ -22,7 +23,7 @@
             app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
             app:fastScrollVerticalTrackDrawable="@drawable/line_drawable" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
     <include layout="@layout/include_topic_fab_menu" />
 

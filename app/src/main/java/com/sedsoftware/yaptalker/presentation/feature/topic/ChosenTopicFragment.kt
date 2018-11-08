@@ -128,6 +128,8 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
 
         topic_refresh_layout.setIndicatorColorScheme()
 
+        topic_refresh_layout.setOnRefreshListener { presenter.refreshCurrentPage()  }
+
         subscribeViews()
 
         topicScrollState = topic_posts_list.layoutManager?.onSaveInstanceState() ?: Bundle()
@@ -384,10 +386,10 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
 
     private fun subscribeViews() {
 
-        RxSwipeRefreshLayout
-            .refreshes(topic_refresh_layout)
-            .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { presenter.refreshCurrentPage() }
+//        RxSwipeRefreshLayout
+//            .refreshes(topic_refresh_layout)
+//            .autoDisposable(event(FragmentLifecycle.DESTROY))
+//            .subscribe { presenter.refreshCurrentPage() }
 
         RxRecyclerView
             .scrollEvents(topic_posts_list)
