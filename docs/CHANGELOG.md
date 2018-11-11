@@ -1,5 +1,14 @@
 ## Changelog
 
+### [0.9.21] - 2018-11-11
+
+**Added**
+* Playing yap videos with external player (new option in preferences)
+* Bottom swipe to refresh for topics
+
+**Fixed**
+* Yapfiles video playing
+
 ### [0.9.20] - 2018-10-20
 
 **Fixed**
