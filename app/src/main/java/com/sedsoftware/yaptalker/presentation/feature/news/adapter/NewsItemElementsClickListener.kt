@@ -4,9 +4,18 @@ import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 
 interface NewsItemElementsClickListener {
 
-    fun onNewsItemClicked(forumId: Int, topicId: Int)
+    fun onNewsItemClicked(
+        forumId: Int,
+        topicId: Int
+    )
 
     fun onNewsItemLongClicked(item: NewsItemModel)
 
-    fun onMediaPreviewClicked(url: String, directUrl: String, html: String, isVideo: Boolean)
+    fun onMediaPreviewClicked(
+        url: String,
+        directUrl: String = "",
+        type: String = "",
+        html: String = "",
+        isVideo: Boolean = false
+    )
 }

@@ -242,7 +242,7 @@ class ChosenTopicDelegateAdapter(
 
                     // Load thumbnail
                     image.loadFromUrl(url)
-                    image.setOnClickListener { clickListener.onMediaPreviewClicked(url, "", "", false) }
+                    image.setOnClickListener { clickListener.onMediaPreviewClicked(url) }
                 }
             }
         }
@@ -303,7 +303,10 @@ class ChosenTopicDelegateAdapter(
                     thumbnailProvider.loadThumbnail(url, thumbnail)
 
                     thumbnail.setOnClickListener {
-                        clickListener.onMediaPreviewClicked(url, post.videosLinks[index], rawHtml, true)
+                        val link = post.videosLinks[index]
+                        val type = post.videoTypes[index]
+
+                        clickListener.onMediaPreviewClicked(url, link, type, rawHtml, true)
                     }
                 }
             }

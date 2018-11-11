@@ -53,7 +53,7 @@ class IncubatorPresenter @Inject constructor(
         router.navigateTo(NavigationScreen.CHOSEN_TOPIC_SCREEN, Triple(forumId, topicId, 0))
     }
 
-    override fun onMediaPreviewClicked(url: String, directUrl: String, html: String, isVideo: Boolean) {
+    override fun onMediaPreviewClicked(url: String, directUrl: String, type: String, html: String, isVideo: Boolean) {
         when {
             isVideo && url.contains("youtube") -> {
                 val videoId = url.extractYoutubeVideoId()
@@ -64,7 +64,7 @@ class IncubatorPresenter @Inject constructor(
                 viewState.browseExternalResource(url.validateUrl())
             }
 
-            isVideo && settings.isExternalYapPlayer() -> {
+            isVideo && settings.isExternalYapPlayer() && type == "YapFiles" -> {
                 viewState.browseExternalResource(directUrl.validateUrl())
             }
 

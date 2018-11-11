@@ -102,12 +102,13 @@ class NewsDelegateAdapter(
                     news_content_image.loadFromUrlAndRoundCorners(url)
 
                     news_content_image.setOnClickListener {
-                        clickListener.onMediaPreviewClicked(url, "", "", false)
+                        clickListener.onMediaPreviewClicked(url)
                     }
                 } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
 
                     val url = newsItem.videos.first()
                     val directUrl = newsItem.videosLinks.first()
+                    val type = newsItem.videoTypes.first()
 
                     val rawVideo = newsItem.videosRaw.first()
                     val videoType = newsItem.videoTypes.first()
@@ -122,7 +123,7 @@ class NewsDelegateAdapter(
                     thumbnailsProvider.loadThumbnail(url, news_content_image)
 
                     news_content_image.setOnClickListener {
-                        clickListener.onMediaPreviewClicked(url, directUrl, rawVideo, true)
+                        clickListener.onMediaPreviewClicked(url, directUrl, type, rawVideo, true)
                     }
                 }
 

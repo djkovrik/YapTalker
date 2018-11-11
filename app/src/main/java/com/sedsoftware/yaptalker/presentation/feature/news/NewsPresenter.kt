@@ -61,7 +61,7 @@ class NewsPresenter @Inject constructor(
         viewState.showBlacklistRequest()
     }
 
-    override fun onMediaPreviewClicked(url: String, directUrl: String, html: String, isVideo: Boolean) {
+    override fun onMediaPreviewClicked(url: String, directUrl: String, type: String, html: String, isVideo: Boolean) {
         when {
             isVideo && url.contains("youtube") -> {
                 val videoId = url.extractYoutubeVideoId()
@@ -72,7 +72,7 @@ class NewsPresenter @Inject constructor(
                 viewState.browseExternalResource(url.validateUrl())
             }
 
-            isVideo && settings.isExternalYapPlayer() -> {
+            isVideo && settings.isExternalYapPlayer() && type == "YapFiles" -> {
                 viewState.browseExternalResource(directUrl.validateUrl())
             }
 

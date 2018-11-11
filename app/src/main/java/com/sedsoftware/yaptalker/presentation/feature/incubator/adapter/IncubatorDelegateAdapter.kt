@@ -104,14 +104,16 @@ class IncubatorDelegateAdapter(
                     incubator_topic_content_image.loadFromUrlAndRoundCorners(url)
 
                     incubator_topic_content_image.setOnClickListener {
-                        clickListener.onMediaPreviewClicked(url, "", "", false)
+                        clickListener.onMediaPreviewClicked(url)
                     }
                 } else if (incubatorItem.videos.isNotEmpty() && incubatorItem.videosRaw.isNotEmpty()) {
                     val url = incubatorItem.videos.first()
                     val directUrl = incubatorItem.videosLinks.first()
+                    val videoTypeMarker = incubatorItem.videoTypes.first()
 
                     val rawVideo = incubatorItem.videosRaw.first()
                     val videoType = incubatorItem.videoTypes.first()
+
                     incubator_topic_content_image_container.isVisible = true
                     incubator_topic_content_image_overlay.isVisible = true
                     incubator_topic_content_image_overlay.text = videoType
@@ -123,7 +125,7 @@ class IncubatorDelegateAdapter(
                     thumbnailsProvider.loadThumbnail(url, incubator_topic_content_image)
 
                     incubator_topic_content_image.setOnClickListener {
-                        clickListener.onMediaPreviewClicked(url, directUrl, rawVideo, true)
+                        clickListener.onMediaPreviewClicked(url, directUrl, videoTypeMarker, rawVideo, true)
                     }
                 }
 
