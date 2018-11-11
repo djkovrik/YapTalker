@@ -123,7 +123,7 @@ class IncubatorDelegateAdapter(
                     thumbnailsProvider.loadThumbnail(url, incubator_topic_content_image)
 
                     incubator_topic_content_image.setOnClickListener {
-                        clickListener.onMediaPreviewClicked(url, rawVideo, directUrl, true)
+                        clickListener.onMediaPreviewClicked(url, directUrl, rawVideo, true)
                     }
                 }
 
