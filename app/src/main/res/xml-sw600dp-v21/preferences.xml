@@ -83,6 +83,13 @@
             android:title="@string/pref_media_coub_external_title" />
 
         <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key_yap_external"
+            android:persistent="true"
+            android:summary="@string/pref_media_yapvideo_external_summary"
+            android:title="@string/pref_media_yapvideo_external_title" />
+
+        <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/pref_key_video_landscape"
             android:persistent="true"

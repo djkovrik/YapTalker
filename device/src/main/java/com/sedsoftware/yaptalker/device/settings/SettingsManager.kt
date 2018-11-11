@@ -87,6 +87,9 @@ class SettingsManager @Inject constructor(
     override fun isExternalCoubPlayer(): Boolean =
         getBooleanPref(R.string.pref_key_coub_external, false)
 
+    override fun isExternalYapPlayer(): Boolean =
+        getBooleanPref(R.string.pref_key_yap_external, false)
+
     override fun isScreenAlwaysOnEnabled(): Boolean =
         getBooleanPref(R.string.pref_key_screen_always_on, false)
 
