@@ -8,5 +8,5 @@ interface NewsItemElementsClickListener {
 
     fun onNewsItemLongClicked(item: NewsItemModel)
 
-    fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean)
+    fun onMediaPreviewClicked(url: String, directUrl: String, html: String, isVideo: Boolean)
 }

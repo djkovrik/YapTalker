@@ -6,7 +6,7 @@ interface ChosenTopicElementsClickListener {
 
     fun onPostItemClicked(postId: Int, isKarmaAvailable: Boolean)
 
-    fun onMediaPreviewClicked(url: String, html: String, isVideo: Boolean)
+    fun onMediaPreviewClicked(url: String, directUrl: String, html: String, isVideo: Boolean)
 
     fun onUserAvatarClicked(userId: Int)
 

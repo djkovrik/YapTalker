@@ -15,7 +15,16 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlAndRoundCorn
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
-import kotlinx.android.synthetic.main.fragment_news_item.view.*
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_author
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_comments_counter
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_content_image
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_content_image_container
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_content_image_overlay
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_content_text
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_date
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_forum
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_rating
+import kotlinx.android.synthetic.main.fragment_news_item.view.news_title
 
 class NewsDelegateAdapter(
     private val clickListener: NewsItemElementsClickListener,
@@ -93,16 +102,12 @@ class NewsDelegateAdapter(
                     news_content_image.loadFromUrlAndRoundCorners(url)
 
                     news_content_image.setOnClickListener {
-                        clickListener.onMediaPreviewClicked(url, "", false)
+                        clickListener.onMediaPreviewClicked(url, "", "", false)
                     }
                 } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
 
-                    val url = if (settings.isExternalYapPlayer()) {
-                        newsItem.videosLinks.first()
-                    }
-                    else {
-                        newsItem.videos.first()
-                    }
+                    val url = newsItem.videos.first()
+                    val directUrl = newsItem.videosLinks.first()
 
                     val rawVideo = newsItem.videosRaw.first()
                     val videoType = newsItem.videoTypes.first()
@@ -117,7 +122,7 @@ class NewsDelegateAdapter(
                     thumbnailsProvider.loadThumbnail(url, news_content_image)
 
                     news_content_image.setOnClickListener {
-                        clickListener.onMediaPreviewClicked(url, rawVideo, true)
+                        clickListener.onMediaPreviewClicked(url, directUrl, rawVideo, true)
                     }
                 }
 

@@ -15,7 +15,16 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlAndRoundCorn
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
-import kotlinx.android.synthetic.main.fragment_incubator_item.view.*
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_author
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_comments_counter
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_content_image
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_content_image_container
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_content_image_overlay
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_content_text
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_date
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_forum
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_rating
+import kotlinx.android.synthetic.main.fragment_incubator_item.view.incubator_topic_title
 
 class IncubatorDelegateAdapter(
     private val clickListener: IncubatorElementsClickListener,
@@ -95,15 +104,11 @@ class IncubatorDelegateAdapter(
                     incubator_topic_content_image.loadFromUrlAndRoundCorners(url)
 
                     incubator_topic_content_image.setOnClickListener {
-                        clickListener.onMediaPreviewClicked(url, "", false)
+                        clickListener.onMediaPreviewClicked(url, "", "", false)
                     }
                 } else if (incubatorItem.videos.isNotEmpty() && incubatorItem.videosRaw.isNotEmpty()) {
-                    val url = if (settings.isExternalYapPlayer()) {
-                        incubatorItem.videosLinks.first()
-                    }
-                    else {
-                        incubatorItem.videos.first()
-                    }
+                    val url = incubatorItem.videos.first()
+                    val directUrl = incubatorItem.videosLinks.first()
 
                     val rawVideo = incubatorItem.videosRaw.first()
                     val videoType = incubatorItem.videoTypes.first()
@@ -118,7 +123,7 @@ class IncubatorDelegateAdapter(
                     thumbnailsProvider.loadThumbnail(url, incubator_topic_content_image)
 
                     incubator_topic_content_image.setOnClickListener {
-                        clickListener.onMediaPreviewClicked(url, rawVideo, true)
+                        clickListener.onMediaPreviewClicked(url, rawVideo, directUrl, true)
                     }
                 }
 
