@@ -11,4 +11,6 @@ class IncubatorContent {
     var videos: List<String> = emptyList()
     @Selector(value = "iframe[src]", attr = "outerHtml")
     var videosRaw: List<String> = emptyList()
+    @Selector(value = ".news-content", attr = "outerHtml", defValue = "", regex = "Begin Video:(.*)-->")
+    var videosLinks: List<String> = emptyList()
 }

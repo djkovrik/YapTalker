@@ -27,6 +27,7 @@ class NewsModelMapper @Inject constructor(
             images = item.images,
             videos = item.videos,
             videosRaw = item.videosRaw,
+            videosLinks = item.videosLinks,
             videoTypes = item.videos.map { videoTypeDetector.detectVideoType(it) },
             author = item.author,
             authorLink = item.authorLink,

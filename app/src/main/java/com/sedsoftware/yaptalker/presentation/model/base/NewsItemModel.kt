@@ -12,6 +12,7 @@ class NewsItemModel(
     val images: List<String>,
     val videos: List<String>,
     val videosRaw: List<String>,
+    val videosLinks: List<String>,
     val videoTypes: List<String>,
     val author: String,
     val authorLink: String,

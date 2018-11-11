@@ -34,6 +34,7 @@ class NewsPageMapper @Inject constructor() : Function<NewsPageParsed, List<NewsI
                         images = contents[index].images,
                         videos = contents[index].videos,
                         videosRaw = contents[index].videosRaw,
+                        videosLinks = contents[index].videosLinks,
                         author = bottoms[index].author,
                         authorLink = bottoms[index].authorLink,
                         date = bottoms[index].date,
