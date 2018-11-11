@@ -5,5 +5,6 @@ class SinglePostParsedModel(
     val images: MutableList<String>,
     val videos: MutableList<String>,
     val videosRaw: MutableList<String>,
+    val videosLinks: MutableList<String>,
     val videoTypes: List<String>
 )

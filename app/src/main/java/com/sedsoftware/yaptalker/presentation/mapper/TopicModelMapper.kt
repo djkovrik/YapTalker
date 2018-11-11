@@ -115,6 +115,7 @@ class TopicModelMapper @Inject constructor(
             images = post.images,
             videos = post.videos,
             videosRaw = post.videosRaw,
+            videosLinks = post.videosLinks,
             videoTypes = post.videos.map { videoTypeDetector.detectVideoType(it) }
         )
 

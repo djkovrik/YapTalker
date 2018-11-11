@@ -42,6 +42,9 @@ class PostContentParser(private val content: String) {
         private const val QUOTE_MARKER = "Цитата"
         private const val POST_EDIT_MARKER = "edit"
         private const val POST_TAGS_BLOCK_SELECTOR = "div.topic-tags"
+        private const val VIDEO_LINK_SELECTOR_BEFORE = "Begin Video:"
+        private const val VIDEO_LINK_SELECTOR_AFTER = "-->"
+        private const val VIDEO_LINK_SELECTOR_END= "End Video"
 
         private val tagsToSkip = setOf("#root", "html", "head", "body", "table", "tbody", "tr", "br", "b", "i", "u")
         private val attrsToSkip = setOf("rating", "clear")
@@ -59,7 +62,8 @@ class PostContentParser(private val content: String) {
             content = ArrayList(),
             images = ArrayList(),
             videos = ArrayList(),
-            videosRaw = ArrayList()
+            videosRaw = ArrayList(),
+            videosLinks = ArrayList()
         )
 
         val singlePost = Jsoup.parse(content)
@@ -135,6 +139,15 @@ class PostContentParser(private val content: String) {
                 if (element.tagName() == IFRAME_TAG && element.hasAttr(SRC_ATTR)) {
                     result.videos.add(element.attr(SRC_ATTR))
                     result.videosRaw.add(element.toString().replace("&amp;", "&"))
+                }
+
+                if (element.data().contains(Regex(VIDEO_LINK_SELECTOR_BEFORE))) {
+                    result.videosLinks.add(
+                        element.data()
+                            .substringAfter(VIDEO_LINK_SELECTOR_BEFORE)
+                            .substringBefore(VIDEO_LINK_SELECTOR_AFTER)
+                            .substringBefore(VIDEO_LINK_SELECTOR_END)
+                    )
                 }
 
                 // P.S.
