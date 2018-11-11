@@ -96,7 +96,14 @@ class NewsDelegateAdapter(
                         clickListener.onMediaPreviewClicked(url, "", false)
                     }
                 } else if (newsItem.videos.isNotEmpty() && newsItem.videosRaw.isNotEmpty()) {
-                    val url = newsItem.videos.first()
+
+                    val url = if (settings.isExternalYapPlayer()) {
+                        newsItem.videosLinks.first()
+                    }
+                    else {
+                        newsItem.videos.first()
+                    }
+
                     val rawVideo = newsItem.videosRaw.first()
                     val videoType = newsItem.videoTypes.first()
                     news_content_image_container.isVisible = true

@@ -288,7 +288,16 @@ class ChosenTopicDelegateAdapter(
                     // Load thumbnail
                     thumbnailProvider.loadThumbnail(url, thumbnail)
 
-                    thumbnail.setOnClickListener { clickListener.onMediaPreviewClicked(url, rawHtml, true) }
+                    thumbnail.setOnClickListener {
+
+                        if (settings.isExternalYapPlayer()) {
+                            clickListener.onMediaPreviewClicked(post.videosLinks[index], rawHtml, true)
+                        } else {
+                            clickListener.onMediaPreviewClicked(url, rawHtml, true)
+                        }
+
+
+                    }
                 }
             }
         }

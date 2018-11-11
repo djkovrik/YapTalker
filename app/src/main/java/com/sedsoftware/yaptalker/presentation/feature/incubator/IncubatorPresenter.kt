@@ -64,6 +64,10 @@ class IncubatorPresenter @Inject constructor(
                 viewState.browseExternalResource(url.validateUrl())
             }
 
+            isVideo && settings.isExternalYapPlayer() -> {
+                viewState.browseExternalResource(url.validateUrl())
+            }
+
             isVideo && !url.contains("youtube") -> {
                 router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
             }

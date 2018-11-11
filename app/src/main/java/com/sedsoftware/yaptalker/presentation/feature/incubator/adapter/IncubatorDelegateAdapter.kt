@@ -98,7 +98,13 @@ class IncubatorDelegateAdapter(
                         clickListener.onMediaPreviewClicked(url, "", false)
                     }
                 } else if (incubatorItem.videos.isNotEmpty() && incubatorItem.videosRaw.isNotEmpty()) {
-                    val url = incubatorItem.videos.first()
+                    val url = if (settings.isExternalYapPlayer()) {
+                        incubatorItem.videosLinks.first()
+                    }
+                    else {
+                        incubatorItem.videos.first()
+                    }
+
                     val rawVideo = incubatorItem.videosRaw.first()
                     val videoType = incubatorItem.videoTypes.first()
                     incubator_topic_content_image_container.isVisible = true
