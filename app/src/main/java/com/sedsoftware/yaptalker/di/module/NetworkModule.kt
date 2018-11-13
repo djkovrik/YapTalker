@@ -38,6 +38,7 @@ class NetworkModule {
         private const val SITE_ALPHA_URL_HTTPS = "https://alpha.yaplakal.com/"
         private const val SITE_INCUBATOR_BASE_URL = "http://inkubator.yaplakal.com/"
         private const val SITE_INCUBATOR_BASE_URL_HTTPS = "https://inkubator.yaplakal.com/"
+        private const val SITE_YAPFILES_URL = "https://www.yapfiles.ru/"
 
         // Videos
         private const val COUB_BASE_URL = "https://coub.com/"
@@ -155,7 +156,7 @@ class NetworkModule {
     ): YapVideoTokenLoader =
         Retrofit
             .Builder()
-            .baseUrl(SITE_BASE_URL)
+            .baseUrl(SITE_YAPFILES_URL)
             .client(okHttpClient)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(VideoTokenConverterFactory.create(TOKEN_START_MARKER, TOKEN_END_MARKER))

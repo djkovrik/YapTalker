@@ -8,6 +8,7 @@ import com.sedsoftware.yaptalker.domain.interactor.MessagePostingInteractor
 import com.sedsoftware.yaptalker.domain.interactor.SiteKarmaInteractor
 import com.sedsoftware.yaptalker.domain.interactor.TopicInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
+import com.sedsoftware.yaptalker.domain.interactor.VideoTokenInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
@@ -53,6 +54,7 @@ class ChosenTopicPresenter @Inject constructor(
     private val quoteDataMapper: QuotedPostModelMapper,
     private val editedTextDataMapper: EditedPostModelMapper,
     private val serverResponseMapper: ServerResponseModelMapper,
+    private val tokenInteractor: VideoTokenInteractor,
     private val schedulers: SchedulersProvider
 ) : BasePresenter<ChosenTopicView>(), ChosenTopicElementsClickListener, NavigationPanelClickListener {
 
@@ -426,6 +428,7 @@ class ChosenTopicPresenter @Inject constructor(
             .getChosenTopic(currentForumId, currentTopicId, startingPost)
             .map(topicMapper)
             .flatMapObservable { Observable.fromIterable(it) }
+            .concatMapSingle { updateDisplayingItem(it) }
             .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
@@ -516,5 +519,34 @@ class ChosenTopicPresenter @Inject constructor(
         val karmaAvailable = ratingPlusAvailable && ratingMinusAvailable
         viewState.setLoggedInState(loggedIn)
         viewState.setTopicKarmaState(karmaAvailable)
+    }
+
+    private fun updateDisplayingItem(item: DisplayedItemModel): Single<DisplayedItemModel> {
+        if (item is SinglePostModel) {
+            if (item.postContentParsed.videosLinks.isNotEmpty()) {
+                return Observable.fromIterable(item.postContentParsed.videosLinks)
+                    .flatMapSingle { link ->
+                        if (link.contains("token")) {
+                            Single.just(link)
+                        } else {
+                            tokenInteractor.getVideoToken(link)
+                                .map { token ->
+                                    val mainId = link.substringAfter("show/").substringBefore("/")
+                                    val videoId = link.substringAfterLast("/").substringBefore(".mp4")
+                                    "http://www.yapfiles.ru/files/$mainId/$videoId.mp4?token=$token"
+                                }
+                        }
+                    }
+                    .toList()
+                    .flatMap { list ->
+                        item.postContentParsed.videosLinks = list
+                        Single.just(item)
+                    }
+            } else {
+                return Single.just(item)
+            }
+        } else {
+            return Single.just(item)
+        }
     }
 }
