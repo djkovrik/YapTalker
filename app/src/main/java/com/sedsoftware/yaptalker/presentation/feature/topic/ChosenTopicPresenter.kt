@@ -526,15 +526,15 @@ class ChosenTopicPresenter @Inject constructor(
             if (item.postContentParsed.videosLinks.isNotEmpty()) {
                 return Observable.fromIterable(item.postContentParsed.videosLinks)
                     .flatMapSingle { link ->
-                        if (link.contains("token")) {
-                            Single.just(link)
-                        } else {
-                            tokenInteractor.getVideoToken(link)
-                                .map { token ->
+                        when {
+                            link.contains("token") -> Single.just(link)
+                            link.contains(".html") ->
+                                tokenInteractor.getVideoToken(link).map { token ->
                                     val mainId = link.substringAfter("show/").substringBefore("/")
                                     val videoId = link.substringAfterLast("/").substringBefore(".mp4")
                                     "http://www.yapfiles.ru/files/$mainId/$videoId.mp4?token=$token"
                                 }
+                            else -> Single.just("")
                         }
                     }
                     .toList()

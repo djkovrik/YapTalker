@@ -5,6 +5,7 @@ import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.IncubatorInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
+import com.sedsoftware.yaptalker.domain.interactor.VideoTokenInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
@@ -14,6 +15,7 @@ import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.Incubato
 import com.sedsoftware.yaptalker.presentation.mapper.IncubatorModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 import com.uber.autodispose.kotlin.autoDisposable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
@@ -28,6 +30,7 @@ class IncubatorPresenter @Inject constructor(
     private val incubatorInteractor: IncubatorInteractor,
     private val videoThumbnailsInteractor: VideoThumbnailsInteractor,
     private val incubatorModelMapper: IncubatorModelMapper,
+    private val tokenInteractor: VideoTokenInteractor,
     private val schedulers: SchedulersProvider
 ) : BasePresenter<IncubatorView>(), IncubatorElementsClickListener {
 
@@ -107,6 +110,9 @@ class IncubatorPresenter @Inject constructor(
         incubatorInteractor
             .getIncubatorPage(currentPage)
             .map(incubatorModelMapper)
+            .flatMapObservable { Observable.fromIterable(it) }
+            .concatMapSingle { updateIncubatorItem(it) }
+            .toList()
             .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
@@ -144,4 +150,29 @@ class IncubatorPresenter @Inject constructor(
                 e.message?.let { viewState.showErrorMessage(it) }
             }
         }
+
+    private fun updateIncubatorItem(item: IncubatorItemModel): Single<IncubatorItemModel> {
+        if (item.videosLinks.isNotEmpty()) {
+            return Observable.fromIterable(item.videosLinks)
+                .flatMapSingle { link ->
+                    when {
+                        link.contains("token") -> Single.just(link)
+                        link.contains(".html") ->
+                            tokenInteractor.getVideoToken(link).map { token ->
+                                val mainId = link.substringAfter("show/").substringBefore("/")
+                                val videoId = link.substringAfterLast("/").substringBefore(".mp4")
+                                "http://www.yapfiles.ru/files/$mainId/$videoId.mp4?token=$token"
+                            }
+                        else -> Single.just("")
+                    }
+                }
+                .toList()
+                .flatMap { list ->
+                    item.videosLinks = list
+                    Single.just(item)
+                }
+        } else {
+            return Single.just(item)
+        }
+    }
 }
