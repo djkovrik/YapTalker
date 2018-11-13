@@ -6,6 +6,7 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
 import com.sedsoftware.yaptalker.domain.interactor.NewsInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
+import com.sedsoftware.yaptalker.domain.interactor.VideoTokenInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
@@ -15,6 +16,7 @@ import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsItemEleme
 import com.sedsoftware.yaptalker.presentation.mapper.NewsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import com.uber.autodispose.kotlin.autoDisposable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
@@ -30,6 +32,7 @@ class NewsPresenter @Inject constructor(
     private val videoThumbnailsInteractor: VideoThumbnailsInteractor,
     private val blacklistInteractor: BlacklistInteractor,
     private val newsModelMapper: NewsModelMapper,
+    private val tokenInteractor: VideoTokenInteractor,
     private val schedulers: SchedulersProvider
 ) : BasePresenter<NewsView>(), NewsItemElementsClickListener {
 
@@ -129,6 +132,9 @@ class NewsPresenter @Inject constructor(
         newsInteractor
             .getNewsPage(currentPage)
             .map(newsModelMapper)
+            .flatMapObservable { Observable.fromIterable(it) }
+            .concatMapSingle { updateNewsItem(it) }
+            .toList()
             .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
@@ -165,4 +171,29 @@ class NewsPresenter @Inject constructor(
                 e.message?.let { viewState.showErrorMessage(it) }
             }
         }
+
+    private fun updateNewsItem(item: NewsItemModel): Single<NewsItemModel> {
+        if (item.videosLinks.isNotEmpty()) {
+            return Observable.fromIterable(item.videosLinks)
+                .flatMapSingle { link ->
+                    when {
+                        link.contains("token") -> Single.just(link)
+                        link.contains(".html") ->
+                            tokenInteractor.getVideoToken(link).map { token ->
+                                val mainId = link.substringAfter("show/").substringBefore("/")
+                                val videoId = link.substringAfterLast("/").substringBefore(".mp4")
+                                "http://www.yapfiles.ru/files/$mainId/$videoId.mp4?token=$token"
+                            }
+                        else -> Single.just("")
+                    }
+                }
+                .toList()
+                .flatMap { list ->
+                    item.videosLinks = list
+                    Single.just(item)
+                }
+        } else {
+            return Single.just(item)
+        }
+    }
 }

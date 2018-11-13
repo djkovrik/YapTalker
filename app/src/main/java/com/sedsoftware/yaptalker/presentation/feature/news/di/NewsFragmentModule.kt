@@ -10,6 +10,7 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
 import com.sedsoftware.yaptalker.domain.interactor.NewsInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
+import com.sedsoftware.yaptalker.domain.interactor.VideoTokenInteractor
 import com.sedsoftware.yaptalker.domain.repository.BlacklistRepository
 import com.sedsoftware.yaptalker.domain.repository.NewsRepository
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
@@ -40,9 +41,10 @@ abstract class NewsFragmentModule {
             getThumbnails: VideoThumbnailsInteractor,
             getBlacklist: BlacklistInteractor,
             mapper: NewsModelMapper,
+            tokenInteractor: VideoTokenInteractor,
             schedulers: SchedulersProvider
         ): NewsPresenter =
-            NewsPresenter(router, settings, getNews, getThumbnails, getBlacklist, mapper, schedulers)
+            NewsPresenter(router, settings, getNews, getThumbnails, getBlacklist, mapper, tokenInteractor, schedulers)
     }
 
     @FragmentScope
