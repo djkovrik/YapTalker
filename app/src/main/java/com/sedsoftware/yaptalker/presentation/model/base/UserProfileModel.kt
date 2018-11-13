@@ -2,7 +2,7 @@ package com.sedsoftware.yaptalker.presentation.model.base
 
 import android.text.Spanned
 
-class UserProfileModel(
+data class UserProfileModel(
     val nickname: String,
     val avatar: String,
     val photo: String,

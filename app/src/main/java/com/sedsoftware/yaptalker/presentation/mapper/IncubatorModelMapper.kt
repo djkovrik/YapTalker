@@ -27,7 +27,7 @@ class IncubatorModelMapper @Inject constructor(
             images = item.images,
             videos = item.videos,
             videosRaw = item.videosRaw,
-            videosLinks = item.videosLinks,
+            videosLinks = item.videosLinks.map { link -> if (link.contains("yapfiles.ru")) link else "" },
             videoTypes = item.videos.map { videoTypeDetector.detectVideoType(it) },
             author = item.author,
             authorLink = item.authorLink,

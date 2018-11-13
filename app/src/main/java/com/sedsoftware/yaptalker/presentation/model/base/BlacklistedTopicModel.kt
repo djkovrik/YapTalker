@@ -4,7 +4,7 @@ import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 import java.util.Date
 
-class BlacklistedTopicModel(
+data class BlacklistedTopicModel(
     val topicName: String,
     val topicId: Int,
     val dateAdded: Date,

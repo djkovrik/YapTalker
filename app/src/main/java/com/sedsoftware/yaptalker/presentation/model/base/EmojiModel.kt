@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
-class EmojiModel(
+data class EmojiModel(
     val code: String,
     val link: String
 )

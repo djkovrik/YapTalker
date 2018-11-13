@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.model.base
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 
-class ForumModel(
+data class ForumModel(
     val title: String,
     val forumId: Int,
     val lastTopicTitle: String,

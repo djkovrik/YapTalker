@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.model.base
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 
-class TopicInfoBlockModel(
+data class TopicInfoBlockModel(
     val topicTitle: String,
     val isClosed: Boolean,
     val authKey: String,

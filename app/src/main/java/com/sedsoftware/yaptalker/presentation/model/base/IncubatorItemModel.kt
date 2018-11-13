@@ -4,7 +4,7 @@ import android.text.Spanned
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 
-class IncubatorItemModel(
+data class IncubatorItemModel(
     val title: String,
     val link: String,
     val topicId: Int,

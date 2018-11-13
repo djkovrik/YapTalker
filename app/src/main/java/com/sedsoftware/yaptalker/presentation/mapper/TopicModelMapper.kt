@@ -115,7 +115,7 @@ class TopicModelMapper @Inject constructor(
             images = post.images,
             videos = post.videos,
             videosRaw = post.videosRaw,
-            videosLinks = post.videosLinks,
+            videosLinks = post.videosLinks.map { link -> if (link.contains("yapfiles.ru")) link else "" },
             videoTypes = post.videos.map { videoTypeDetector.detectVideoType(it) }
         )
 

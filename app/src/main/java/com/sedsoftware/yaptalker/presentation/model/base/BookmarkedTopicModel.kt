@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.model.base
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 
-class BookmarkedTopicModel(
+data class BookmarkedTopicModel(
     val bookmarkId: Int,
     val title: String,
     val link: String

@@ -1,5 +1,5 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
-class ServerResponseModel(
+data class ServerResponseModel(
     val text: String
 )

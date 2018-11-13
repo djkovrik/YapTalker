@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.model.base
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 
-class TopicModel(
+data class TopicModel(
     val title: String,
     val link: String,
     val id: Int,

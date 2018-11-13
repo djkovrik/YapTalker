@@ -1,10 +1,10 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
-class SinglePostParsedModel(
+data class SinglePostParsedModel(
     val content: MutableList<PostContentModel>,
     val images: MutableList<String>,
-    val videos: MutableList<String>,
-    val videosRaw: MutableList<String>,
-    val videosLinks: MutableList<String>,
-    val videoTypes: List<String>
+    var videos: List<String>,
+    var videosRaw: List<String>,
+    var videosLinks: List<String>,
+    var videoTypes: List<String>
 )

@@ -4,7 +4,7 @@ import android.text.Spanned
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 
-class SinglePostModel(
+data class SinglePostModel(
     val authorNickname: String,
     val authorProfile: String,
     val authorProfileId: Int,

@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.model.base
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemType
 
-class SearchTopicsPageInfoModel(
+data class SearchTopicsPageInfoModel(
     val hasNextPage: Boolean,
     val searchId: String
 ) : DisplayedItemModel {

@@ -1,5 +1,5 @@
 package com.sedsoftware.yaptalker.presentation.model.base
 
-class EditedPostModel(
+data class EditedPostModel(
     val text: String
 )
