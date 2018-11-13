@@ -3,6 +3,7 @@ package com.sedsoftware.yaptalker.presentation.feature.news.di
 import com.sedsoftware.yaptalker.data.repository.YapBlacklistRepository
 import com.sedsoftware.yaptalker.data.repository.YapNewsRepository
 import com.sedsoftware.yaptalker.data.repository.YapThumbnailRepository
+import com.sedsoftware.yaptalker.data.repository.YapVideoTokenRepository
 import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.device.Settings
@@ -12,6 +13,7 @@ import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
 import com.sedsoftware.yaptalker.domain.repository.BlacklistRepository
 import com.sedsoftware.yaptalker.domain.repository.NewsRepository
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
+import com.sedsoftware.yaptalker.domain.repository.VideoTokenRepository
 import com.sedsoftware.yaptalker.presentation.feature.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.feature.news.NewsPresenter
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsItemElementsClickListener
@@ -46,6 +48,10 @@ abstract class NewsFragmentModule {
     @FragmentScope
     @Binds
     abstract fun newsRepository(repo: YapNewsRepository): NewsRepository
+
+    @FragmentScope
+    @Binds
+    abstract fun tokenRepository(repo: YapVideoTokenRepository): VideoTokenRepository
 
     @FragmentScope
     @Binds

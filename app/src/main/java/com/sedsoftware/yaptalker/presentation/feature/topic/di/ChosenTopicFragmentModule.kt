@@ -4,6 +4,7 @@ import com.sedsoftware.yaptalker.data.repository.YapBlacklistRepository
 import com.sedsoftware.yaptalker.data.repository.YapBookmarksRepository
 import com.sedsoftware.yaptalker.data.repository.YapChosenTopicRepository
 import com.sedsoftware.yaptalker.data.repository.YapThumbnailRepository
+import com.sedsoftware.yaptalker.data.repository.YapVideoTokenRepository
 import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.device.Settings
@@ -16,6 +17,7 @@ import com.sedsoftware.yaptalker.domain.repository.BlacklistRepository
 import com.sedsoftware.yaptalker.domain.repository.BookmarksRepository
 import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
+import com.sedsoftware.yaptalker.domain.repository.VideoTokenRepository
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.feature.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.presentation.feature.topic.ChosenTopicPresenter
@@ -78,6 +80,10 @@ abstract class ChosenTopicFragmentModule {
     @FragmentScope
     @Binds
     abstract fun thumbnailsRepository(repo: YapThumbnailRepository): ThumbnailRepository
+
+    @FragmentScope
+    @Binds
+    abstract fun tokenRepository(repo: YapVideoTokenRepository): VideoTokenRepository
 
     @FragmentScope
     @Binds

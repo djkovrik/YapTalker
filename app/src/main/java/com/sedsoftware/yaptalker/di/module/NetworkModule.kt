@@ -1,12 +1,14 @@
 package com.sedsoftware.yaptalker.di.module
 
 import com.sedsoftware.yaptalker.common.converter.HashSearchConverterFactory
+import com.sedsoftware.yaptalker.common.converter.VideoTokenConverterFactory
 import com.sedsoftware.yaptalker.data.network.external.AppUpdatesChecker
 import com.sedsoftware.yaptalker.data.network.external.GitHubLoader
 import com.sedsoftware.yaptalker.data.network.site.YapIncubatorLoader
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.data.network.site.YapLoaderAlpha
 import com.sedsoftware.yaptalker.data.network.site.YapSearchIdLoader
+import com.sedsoftware.yaptalker.data.network.site.YapVideoTokenLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.CoubLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.RutubeLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.VkLoader
@@ -53,6 +55,10 @@ class NetworkModule {
 
         // Deploy
         private const val APP_DEPLOY_BASE_URL = "http://sedsoftware.com/"
+
+        // Token
+        private const val TOKEN_START_MARKER = "token="
+        private const val TOKEN_END_MARKER = "\""
     }
 
     @Singleton
@@ -140,6 +146,21 @@ class NetworkModule {
             .addConverterFactory(HashSearchConverterFactory.create(YAP_SEARCH_ID_HASH_MARKER))
             .build()
             .create(YapSearchIdLoader::class.java)
+
+
+    @Singleton
+    @Provides
+    fun provideYapVideoTokenLoader(
+        @Named("siteClient") okHttpClient: OkHttpClient
+    ): YapVideoTokenLoader =
+        Retrofit
+            .Builder()
+            .baseUrl(SITE_BASE_URL)
+            .client(okHttpClient)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(VideoTokenConverterFactory.create(TOKEN_START_MARKER, TOKEN_END_MARKER))
+            .build()
+            .create(YapVideoTokenLoader::class.java)
 
 
     @Singleton
