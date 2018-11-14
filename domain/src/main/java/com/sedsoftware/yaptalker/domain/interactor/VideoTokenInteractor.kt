@@ -10,7 +10,11 @@ class VideoTokenInteractor @Inject constructor(
 
     fun getVideoToken(url: String): Single<String> {
 
-        val mainId = url.substringAfter("show/").substringBefore("/")
+        val mainId = if (url.contains("token")) {
+            url.substringAfter("files/").substringBefore("/")
+        } else {
+            url.substringAfter("show/").substringBefore("/")
+        }
         val videoId = url.substringAfterLast("/").substringBefore(".mp4")
 
         return repository.getVideoToken(mainId, videoId)

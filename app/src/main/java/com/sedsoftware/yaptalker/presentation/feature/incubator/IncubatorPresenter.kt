@@ -156,7 +156,12 @@ class IncubatorPresenter @Inject constructor(
             return Observable.fromIterable(item.videosLinks)
                 .flatMapSingle { link ->
                     when {
-                        link.contains("token") -> Single.just(link)
+                        link.contains("token") ->
+                            tokenInteractor.getVideoToken(link).map { token ->
+                                val mainId = link.substringAfter("files/").substringBefore("/")
+                                val videoId = link.substringAfterLast("/").substringBefore(".mp4")
+                                "http://www.yapfiles.ru/files/$mainId/$videoId.mp4?token=$token"
+                            }
                         link.contains(".html") ->
                             tokenInteractor.getVideoToken(link).map { token ->
                                 val mainId = link.substringAfter("show/").substringBefore("/")
