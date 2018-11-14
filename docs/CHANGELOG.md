@@ -1,5 +1,11 @@
 ## Changelog
 
+### [0.9.22] - 2018-11-14
+
+**Fixed**
+* Multiple videos post click crash
+* Yap-videos token handling
+
 ### [0.9.21] - 2018-11-11
 
 **Added**
