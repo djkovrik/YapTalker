@@ -13,4 +13,5 @@
     <attr name="iconProfileStatistic" format="reference" />
     <attr name="iconProfileContacts" format="reference" />
     <attr name="iconRemoveAttachment" format="reference" />
+    <attr name="iconTopicStarter" format="reference" />
 </resources>

@@ -46,6 +46,7 @@
     <dimen name="attachment_card_drawable_padding">2dp</dimen>
     <dimen name="updater_icon_size">54dp</dimen>
     <dimen name="updater_vertical_margin">8dp</dimen>
+    <dimen name="topic_starter_icon_size">16dp</dimen>
 
     <!-- TABLETS DIMENSION VARIATIONS -->
     <dimen name="navigation_drawer_width">280dp</dimen>

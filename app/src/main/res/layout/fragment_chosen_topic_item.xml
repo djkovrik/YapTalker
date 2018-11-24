@@ -33,6 +33,16 @@
         android:gravity="center_vertical"
         tools:text="Administrator" />
 
+    <ImageView
+        android:id="@+id/topic_starter_icon"
+        android:layout_width="@dimen/topic_starter_icon_size"
+        android:layout_height="@dimen/topic_starter_icon_size"
+        android:layout_alignBottom="@id/post_author"
+        android:layout_alignTop="@id/post_author"
+        android:layout_toEndOf="@+id/post_author"
+        android:src="?attr/iconTopicStarter"
+        tools:ignore="ContentDescription" />
+
     <TextView
         android:id="@+id/post_date"
         style="@style/CommonSupportingText"
@@ -43,7 +53,7 @@
         android:layout_alignTop="@+id/post_author_avatar"
         android:layout_marginEnd="@dimen/material_list_avatar_margin_start"
         android:layout_marginStart="@dimen/material_card_gutter"
-        android:layout_toEndOf="@+id/post_author"
+        android:layout_toEndOf="@+id/topic_starter_icon"
         android:gravity="center_vertical|end"
         tools:text="20 min" />
 
