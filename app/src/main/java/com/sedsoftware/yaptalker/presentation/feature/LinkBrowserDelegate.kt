@@ -5,9 +5,11 @@ import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import org.jetbrains.anko.browse
 import javax.inject.Inject
 
-class LinkBrowserDelegate @Inject constructor(private val context: Context?) {
+class LinkBrowserDelegate @Inject constructor(context: Context?) {
+
+    private val weakContext: Context? by weak(context)
 
     fun browse(link: String) {
-        context?.browse(link.validateUrl())
+        weakContext?.browse(link.validateUrl())
     }
 }
