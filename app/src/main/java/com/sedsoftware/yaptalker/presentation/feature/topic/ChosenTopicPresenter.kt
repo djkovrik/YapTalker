@@ -15,7 +15,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSc
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
-import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.feature.LinkBrowserDelegate
 import com.sedsoftware.yaptalker.presentation.feature.search.SearchRequest
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.EditedPostModelMapper
@@ -55,6 +55,7 @@ class ChosenTopicPresenter @Inject constructor(
     private val editedTextDataMapper: EditedPostModelMapper,
     private val serverResponseMapper: ServerResponseModelMapper,
     private val tokenInteractor: VideoTokenInteractor,
+    private val linksDelegate: LinkBrowserDelegate,
     private val schedulers: SchedulersProvider
 ) : BasePresenter<ChosenTopicView>(), ChosenTopicElementsClickListener, NavigationPanelClickListener {
 
@@ -137,15 +138,15 @@ class ChosenTopicPresenter @Inject constructor(
         when {
             isVideo && url.contains("youtube") -> {
                 val videoId = url.extractYoutubeVideoId()
-                viewState.browseExternalResource("http://www.youtube.com/watch?v=$videoId")
+                linksDelegate.browse("http://www.youtube.com/watch?v=$videoId")
             }
 
             isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
-                viewState.browseExternalResource(url.validateUrl())
+                linksDelegate.browse(url)
             }
 
             isVideo && settings.isExternalYapPlayer() && type == "YapFiles" -> {
-                viewState.browseExternalResource(directUrl.validateUrl())
+                linksDelegate.browse(directUrl)
             }
 
             isVideo && !url.contains("youtube") -> {

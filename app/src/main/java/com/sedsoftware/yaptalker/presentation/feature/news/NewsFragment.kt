@@ -22,13 +22,11 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
-import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_news.*
-import org.jetbrains.anko.browse
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -87,10 +85,6 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
 
     override fun clearNewsList() {
         newsAdapter.clearNews()
-    }
-
-    override fun browseExternalResource(url: String) {
-        context?.browse(url.validateUrl())
     }
 
     override fun showLoadingIndicator() {

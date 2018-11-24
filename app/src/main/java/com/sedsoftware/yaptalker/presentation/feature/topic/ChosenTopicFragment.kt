@@ -12,7 +12,6 @@ import android.widget.ImageView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.sedsoftware.yaptalker.R
@@ -28,7 +27,6 @@ import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.orZero
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
-import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicAdapter
 import com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu.FabMenu
 import com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu.FabMenuItemPrimary
@@ -39,7 +37,6 @@ import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_chosen_topic.*
 import kotlinx.android.synthetic.main.include_topic_fab_menu.*
-import org.jetbrains.anko.browse
 import org.jetbrains.anko.bundleOf
 import org.jetbrains.anko.share
 import timber.log.Timber
@@ -352,10 +349,6 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
             val offset = fab.height + fab.paddingTop + fab.paddingBottom
             fab.moveWithAnimationAxisY(offset = offset.toFloat())
         }
-    }
-
-    override fun browseExternalResource(url: String) {
-        context?.browse(url.validateUrl())
     }
 
     override fun updateKarmaUi(postId: Int, shouldIncrease: Boolean) {

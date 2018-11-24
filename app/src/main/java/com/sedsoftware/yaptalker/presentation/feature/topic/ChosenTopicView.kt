@@ -71,7 +71,5 @@ interface ChosenTopicView : MvpView, CanShowErrorMessage, CanShowLoadingIndicato
 
     fun hideFab()
 
-    fun browseExternalResource(url: String)
-
     fun updateKarmaUi(postId: Int, shouldIncrease: Boolean)
 }

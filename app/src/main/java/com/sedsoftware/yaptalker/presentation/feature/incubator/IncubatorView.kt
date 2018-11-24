@@ -19,8 +19,6 @@ interface IncubatorView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator,
     @StateStrategyType(SingleStateStrategy::class)
     fun clearIncubatorsList()
 
-    fun browseExternalResource(url: String)
-
     fun showFab()
 
     fun hideFab()

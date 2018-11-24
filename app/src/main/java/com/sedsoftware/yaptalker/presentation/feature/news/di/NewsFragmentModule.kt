@@ -15,6 +15,7 @@ import com.sedsoftware.yaptalker.domain.repository.BlacklistRepository
 import com.sedsoftware.yaptalker.domain.repository.NewsRepository
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
 import com.sedsoftware.yaptalker.domain.repository.VideoTokenRepository
+import com.sedsoftware.yaptalker.presentation.feature.LinkBrowserDelegate
 import com.sedsoftware.yaptalker.presentation.feature.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.feature.news.NewsPresenter
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsItemElementsClickListener
@@ -34,6 +35,12 @@ abstract class NewsFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
+        fun providesLinkBrowserDelegate(fragment: NewsFragment): LinkBrowserDelegate =
+            LinkBrowserDelegate(fragment.context)
+
+        @FragmentScope
+        @Provides
+        @JvmStatic
         fun providePresenter(
             router: Router,
             settings: Settings,
@@ -42,9 +49,20 @@ abstract class NewsFragmentModule {
             getBlacklist: BlacklistInteractor,
             mapper: NewsModelMapper,
             tokenInteractor: VideoTokenInteractor,
+            linksDelegate: LinkBrowserDelegate,
             schedulers: SchedulersProvider
         ): NewsPresenter =
-            NewsPresenter(router, settings, getNews, getThumbnails, getBlacklist, mapper, tokenInteractor, schedulers)
+            NewsPresenter(
+                router,
+                settings,
+                getNews,
+                getThumbnails,
+                getBlacklist,
+                mapper,
+                tokenInteractor,
+                linksDelegate,
+                schedulers
+            )
     }
 
     @FragmentScope

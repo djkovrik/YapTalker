@@ -20,13 +20,11 @@ import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
-import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.IncubatorAdapter
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import com.uber.autodispose.kotlin.autoDisposable
 import kotlinx.android.synthetic.main.fragment_incubator.*
-import org.jetbrains.anko.browse
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -90,10 +88,6 @@ class IncubatorFragment : BaseFragment(), IncubatorView, ThumbnailsProvider {
 
     override fun clearIncubatorsList() {
         incubatorAdapter.clearIncubatorItems()
-    }
-
-    override fun browseExternalResource(url: String) {
-        context?.browse(url.validateUrl())
     }
 
     override fun showFab() {

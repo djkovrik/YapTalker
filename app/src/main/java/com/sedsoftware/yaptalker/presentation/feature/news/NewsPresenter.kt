@@ -11,7 +11,7 @@ import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
-import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.feature.LinkBrowserDelegate
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsItemElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.NewsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
@@ -33,6 +33,7 @@ class NewsPresenter @Inject constructor(
     private val blacklistInteractor: BlacklistInteractor,
     private val newsModelMapper: NewsModelMapper,
     private val tokenInteractor: VideoTokenInteractor,
+    private val linksDelegate: LinkBrowserDelegate,
     private val schedulers: SchedulersProvider
 ) : BasePresenter<NewsView>(), NewsItemElementsClickListener {
 
@@ -68,15 +69,15 @@ class NewsPresenter @Inject constructor(
         when {
             isVideo && url.contains("youtube") -> {
                 val videoId = url.extractYoutubeVideoId()
-                viewState.browseExternalResource("http://www.youtube.com/watch?v=$videoId")
+                linksDelegate.browse("http://www.youtube.com/watch?v=$videoId")
             }
 
             isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
-                viewState.browseExternalResource(url.validateUrl())
+                linksDelegate.browse(url)
             }
 
             isVideo && settings.isExternalYapPlayer() && type == "YapFiles" -> {
-                viewState.browseExternalResource(directUrl.validateUrl())
+                linksDelegate.browse(directUrl)
             }
 
             isVideo && !url.contains("youtube") -> {

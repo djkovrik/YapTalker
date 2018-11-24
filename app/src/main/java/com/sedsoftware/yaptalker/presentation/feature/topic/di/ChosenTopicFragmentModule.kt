@@ -20,6 +20,7 @@ import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
 import com.sedsoftware.yaptalker.domain.repository.VideoTokenRepository
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
+import com.sedsoftware.yaptalker.presentation.feature.LinkBrowserDelegate
 import com.sedsoftware.yaptalker.presentation.feature.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.presentation.feature.topic.ChosenTopicPresenter
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicElementsClickListener
@@ -43,6 +44,12 @@ abstract class ChosenTopicFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
+        fun providesLinkBrowserDelegate(fragment: ChosenTopicFragment): LinkBrowserDelegate =
+            LinkBrowserDelegate(fragment.context)
+
+        @FragmentScope
+        @Provides
+        @JvmStatic
         fun providePresenter(
             router: Router,
             settings: Settings,
@@ -56,6 +63,7 @@ abstract class ChosenTopicFragmentModule {
             editedTextDataMapper: EditedPostModelMapper,
             serverResponseMapper: ServerResponseModelMapper,
             tokenInteractor: VideoTokenInteractor,
+            linksDelegate: LinkBrowserDelegate,
             schedulers: SchedulersProvider
         ): ChosenTopicPresenter =
 
@@ -72,6 +80,7 @@ abstract class ChosenTopicFragmentModule {
                 editedTextDataMapper,
                 serverResponseMapper,
                 tokenInteractor,
+                linksDelegate,
                 schedulers
             )
     }

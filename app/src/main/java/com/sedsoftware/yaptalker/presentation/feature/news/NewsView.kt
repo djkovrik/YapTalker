@@ -19,8 +19,6 @@ interface NewsView : MvpView, CanShowErrorMessage, CanShowLoadingIndicator, CanU
     @StateStrategyType(SingleStateStrategy::class)
     fun clearNewsList()
 
-    fun browseExternalResource(url: String)
-
     fun showFab()
 
     fun hideFab()

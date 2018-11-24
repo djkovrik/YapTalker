@@ -12,6 +12,7 @@ import com.sedsoftware.yaptalker.domain.interactor.VideoTokenInteractor
 import com.sedsoftware.yaptalker.domain.repository.IncubatorRepository
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
 import com.sedsoftware.yaptalker.domain.repository.VideoTokenRepository
+import com.sedsoftware.yaptalker.presentation.feature.LinkBrowserDelegate
 import com.sedsoftware.yaptalker.presentation.feature.incubator.IncubatorFragment
 import com.sedsoftware.yaptalker.presentation.feature.incubator.IncubatorPresenter
 import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.IncubatorElementsClickListener
@@ -31,6 +32,12 @@ abstract class IncubatorFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
+        fun providesLinkBrowserDelegate(fragment: IncubatorFragment): LinkBrowserDelegate =
+            LinkBrowserDelegate(fragment.context)
+
+        @FragmentScope
+        @Provides
+        @JvmStatic
         fun providePresenter(
             router: Router,
             settings: Settings,
@@ -38,6 +45,7 @@ abstract class IncubatorFragmentModule {
             videoThumbnailsInteractor: VideoThumbnailsInteractor,
             mapper: IncubatorModelMapper,
             tokenInteractor: VideoTokenInteractor,
+            linksDelegate: LinkBrowserDelegate,
             schedulers: SchedulersProvider
         ): IncubatorPresenter =
             IncubatorPresenter(
@@ -47,6 +55,7 @@ abstract class IncubatorFragmentModule {
                 videoThumbnailsInteractor,
                 mapper,
                 tokenInteractor,
+                linksDelegate,
                 schedulers
             )
     }
