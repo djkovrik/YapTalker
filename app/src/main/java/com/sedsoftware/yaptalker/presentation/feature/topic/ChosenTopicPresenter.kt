@@ -25,6 +25,7 @@ import com.sedsoftware.yaptalker.presentation.mapper.EditedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.QuotedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.ServerResponseModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.TopicModelMapper
+import com.sedsoftware.yaptalker.presentation.mapper.TopicStarterMapper
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.EditedPostModel
 import com.sedsoftware.yaptalker.presentation.model.base.NavigationPanelModel
@@ -55,6 +56,7 @@ class ChosenTopicPresenter @Inject constructor(
     private val videoThumbnailsInteractor: VideoThumbnailsInteractor,
     private val blacklistInteractor: BlacklistInteractor,
     private val topicMapper: TopicModelMapper,
+    private val topicStarterMapper: TopicStarterMapper,
     private val quoteDataMapper: QuotedPostModelMapper,
     private val editedTextDataMapper: EditedPostModelMapper,
     private val serverResponseMapper: ServerResponseModelMapper,
@@ -460,6 +462,7 @@ class ChosenTopicPresenter @Inject constructor(
             .map(topicMapper)
             .flatMapObservable { Observable.fromIterable(it) }
             .concatMapSingle { updateDisplayingItem(it) }
+            .map { topicStarterMapper.updateAuthorId(it, topicStarterId) }
 
     // ==== OBSERVERS ====
 

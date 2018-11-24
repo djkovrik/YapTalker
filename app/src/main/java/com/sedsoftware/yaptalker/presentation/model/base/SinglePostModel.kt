@@ -12,6 +12,7 @@ data class SinglePostModel(
     val authorMessagesCount: Int,
     val postDate: String,
     val postDateFull: String,
+    var isTopicStarterHere: Boolean,
     var postRank: Int,
     var postRankText: Spanned,
     var postRankPlusAvailable: Boolean,

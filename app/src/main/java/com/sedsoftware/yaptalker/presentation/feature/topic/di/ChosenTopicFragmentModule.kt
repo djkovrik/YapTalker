@@ -28,6 +28,7 @@ import com.sedsoftware.yaptalker.presentation.mapper.EditedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.QuotedPostModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.ServerResponseModelMapper
 import com.sedsoftware.yaptalker.presentation.mapper.TopicModelMapper
+import com.sedsoftware.yaptalker.presentation.mapper.TopicStarterMapper
 import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import dagger.Binds
 import dagger.Module
@@ -59,6 +60,7 @@ abstract class ChosenTopicFragmentModule {
             thumbnailsInteractor: VideoThumbnailsInteractor,
             blacklistInteractor: BlacklistInteractor,
             topicMapper: TopicModelMapper,
+            topicStarterMapper: TopicStarterMapper,
             quoteDataMapper: QuotedPostModelMapper,
             editedTextDataMapper: EditedPostModelMapper,
             serverResponseMapper: ServerResponseModelMapper,
@@ -76,6 +78,7 @@ abstract class ChosenTopicFragmentModule {
                 thumbnailsInteractor,
                 blacklistInteractor,
                 topicMapper,
+                topicStarterMapper,
                 quoteDataMapper,
                 editedTextDataMapper,
                 serverResponseMapper,
