@@ -441,8 +441,8 @@ class ChosenTopicPresenter @Inject constructor(
             .subscribe(getTopicObserver(shouldScrollToViewTop, restoreScrollState))
     }
 
-    private fun preloadTopicStarterId(): Completable {
-        return if (topicStarterId == -1) {
+    private fun preloadTopicStarterId(): Completable =
+        if (topicStarterId == -1) {
             topicInteractor
                 .getChosenTopic(currentForumId, currentTopicId, 0)
                 .doOnSuccess { posts: List<BaseEntity> ->
@@ -452,9 +452,8 @@ class ChosenTopicPresenter @Inject constructor(
                 }
                 .ignoreElement()
         } else {
-            return Completable.complete()
+            Completable.complete()
         }
-    }
 
     private fun continueTopicLoading(startingPost: Int) =
         topicInteractor
@@ -549,6 +548,7 @@ class ChosenTopicPresenter @Inject constructor(
         viewState.setTopicKarmaState(karmaAvailable)
     }
 
+    @Suppress("ReturnCount")
     private fun updateDisplayingItem(item: DisplayedItemModel): Single<DisplayedItemModel> {
         if (item is SinglePostModel) {
             if (item.postContentParsed.videosLinks.isNotEmpty()) {
