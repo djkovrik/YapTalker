@@ -1,8 +1,11 @@
 package com.sedsoftware.yaptalker.presentation.feature.topic
 
 import com.arellomobile.mvp.InjectViewState
+import com.sedsoftware.yaptalker.data.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.device.Settings
+import com.sedsoftware.yaptalker.domain.entity.BaseEntity
+import com.sedsoftware.yaptalker.domain.entity.base.SinglePost
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
 import com.sedsoftware.yaptalker.domain.interactor.MessagePostingInteractor
 import com.sedsoftware.yaptalker.domain.interactor.SiteKarmaInteractor
@@ -31,6 +34,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.TagModel
 import com.sedsoftware.yaptalker.presentation.model.base.TopicInfoBlockModel
 import com.uber.autodispose.kotlin.autoDisposable
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.SingleObserver
@@ -88,6 +92,7 @@ class ChosenTopicPresenter @Inject constructor(
     private var isClosed = false
     private var currentTitle = ""
     private var clearCurrentList = false
+    private var topicStarterId = -1
 
     init {
         router.setResultListener(
@@ -425,17 +430,36 @@ class ChosenTopicPresenter @Inject constructor(
         val startingPost = (currentPage - OFFSET_FOR_PAGE_NUMBER) * postsPerPage
         clearCurrentList = true
 
-        topicInteractor
-            .getChosenTopic(currentForumId, currentTopicId, startingPost)
-            .map(topicMapper)
-            .flatMapObservable { Observable.fromIterable(it) }
-            .concatMapSingle { updateDisplayingItem(it) }
+        preloadTopicStarterId()
+            .andThen(continueTopicLoading(startingPost))
             .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe(getTopicObserver(shouldScrollToViewTop, restoreScrollState))
     }
+
+    private fun preloadTopicStarterId(): Completable {
+        return if (topicStarterId == -1) {
+            topicInteractor
+                .getChosenTopic(currentForumId, currentTopicId, 0)
+                .doOnSuccess { posts: List<BaseEntity> ->
+                    topicStarterId =
+                            (posts.firstOrNull { it is SinglePost } as? SinglePost)?.authorProfile?.getLastDigits()
+                            ?: 0
+                }
+                .ignoreElement()
+        } else {
+            return Completable.complete()
+        }
+    }
+
+    private fun continueTopicLoading(startingPost: Int) =
+        topicInteractor
+            .getChosenTopic(currentForumId, currentTopicId, startingPost)
+            .map(topicMapper)
+            .flatMapObservable { Observable.fromIterable(it) }
+            .concatMapSingle { updateDisplayingItem(it) }
 
     // ==== OBSERVERS ====
 
