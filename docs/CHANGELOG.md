@@ -1,5 +1,13 @@
 ## Changelog
 
+### [0.9.23] - 2018-11-24
+
+**Fixed**
+* Video rotation bug
+
+**Added**
+* Topic starter icon displaying
+
 ### [0.9.22] - 2018-11-14
 
 **Fixed**
