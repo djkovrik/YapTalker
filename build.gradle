@@ -1,14 +1,15 @@
 buildscript {
-    ext.kotlin_version = '1.2.70'
-    ext.goole_play_services_version = '4.0.1'
+    ext.kotlin_version = '1.2.71'
+    ext.goole_play_services_version = '4.2.0'
     ext.fabric_version = '1.25.4'
     repositories {
         google()
+        maven { url 'https://maven.google.com/' }
         jcenter()
         maven { url "https://maven.fabric.io/public" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0-alpha03'
+        classpath "com.android.tools.build:gradle:3.2.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.gms:google-services:$goole_play_services_version"
         classpath "io.fabric.tools:gradle:$fabric_version"
@@ -31,9 +32,9 @@ def versionPatch = 23
 
 allprojects {
     ext {
-        compileSdkVersion = 27
+        compileSdkVersion = 28
         minSdkVersion = 21
-        targetSdkVersion = 27
+        targetSdkVersion = 28
         androidApplicationId = "com.sedsoftware.yaptalker"
         androidVersionCode = versionMajor * 1000000 + versionMinor * 1000 + versionPatch
         androidVersionName = "${versionMajor}.${versionMinor}.${versionPatch}"
@@ -42,10 +43,9 @@ allprojects {
     }
     repositories {
         google()
+        maven { url 'https://maven.google.com/' }
         jcenter()
-        mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "https://maven.google.com/" }
     }
 }
 
@@ -54,7 +54,7 @@ subprojects {
         resolutionStrategy {
             eachDependency { DependencyResolveDetails details ->
                 if (details.requested.name == 'kotlin-compiler-embeddable') {
-                    details.useVersion "1.2.70"
+                    details.useVersion "1.2.71"
                 }
             }
         }
