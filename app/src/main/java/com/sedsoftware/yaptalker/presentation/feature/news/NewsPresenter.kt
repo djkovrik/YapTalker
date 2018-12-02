@@ -2,15 +2,12 @@ package com.sedsoftware.yaptalker.presentation.feature.news
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.data.system.SchedulersProvider
-import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
 import com.sedsoftware.yaptalker.domain.interactor.NewsInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
-import com.sedsoftware.yaptalker.domain.interactor.VideoTokenInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
-import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.feature.LinkBrowserDelegate
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsItemElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.NewsModelMapper
@@ -27,12 +24,10 @@ import javax.inject.Inject
 @InjectViewState
 class NewsPresenter @Inject constructor(
     private val router: Router,
-    private val settings: Settings,
     private val newsInteractor: NewsInteractor,
     private val videoThumbnailsInteractor: VideoThumbnailsInteractor,
     private val blacklistInteractor: BlacklistInteractor,
     private val newsModelMapper: NewsModelMapper,
-    private val tokenInteractor: VideoTokenInteractor,
     private val linksDelegate: LinkBrowserDelegate,
     private val schedulers: SchedulersProvider
 ) : BasePresenter<NewsView>(), NewsItemElementsClickListener {
@@ -66,28 +61,7 @@ class NewsPresenter @Inject constructor(
     }
 
     override fun onMediaPreviewClicked(url: String, directUrl: String, type: String, html: String, isVideo: Boolean) {
-        when {
-            isVideo && url.contains("youtube") -> {
-                val videoId = url.extractYoutubeVideoId()
-                linksDelegate.browse("http://www.youtube.com/watch?v=$videoId")
-            }
-
-            isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
-                linksDelegate.browse(url)
-            }
-
-            isVideo && settings.isExternalYapPlayer() && type == "YapFiles" -> {
-                linksDelegate.browse(directUrl)
-            }
-
-            isVideo && !url.contains("youtube") -> {
-                router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
-            }
-
-            else -> {
-                router.navigateTo(NavigationScreen.IMAGE_DISPLAY_SCREEN, url)
-            }
-        }
+        linksDelegate.browse(url, directUrl, type, html, isVideo)
     }
 
     fun addSelectedTopicToBlacklist() {
@@ -134,7 +108,6 @@ class NewsPresenter @Inject constructor(
             .getNewsPage(currentPage)
             .map(newsModelMapper)
             .flatMapObservable { Observable.fromIterable(it) }
-            .concatMapSingle { updateNewsItem(it) }
             .toList()
             .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
@@ -172,34 +145,4 @@ class NewsPresenter @Inject constructor(
                 e.message?.let { viewState.showErrorMessage(it) }
             }
         }
-
-    private fun updateNewsItem(item: NewsItemModel): Single<NewsItemModel> {
-        if (item.videosLinks.isNotEmpty()) {
-            return Observable.fromIterable(item.videosLinks)
-                .flatMapSingle { link ->
-                    when {
-                        link.contains("token") ->
-                            tokenInteractor.getVideoToken(link).map { token ->
-                                val mainId = link.substringAfter("files/").substringBefore("/")
-                                val videoId = link.substringAfterLast("/").substringBefore(".mp4")
-                                "http://www.yapfiles.ru/files/$mainId/$videoId.mp4?token=$token"
-                            }
-                        link.contains(".html") ->
-                            tokenInteractor.getVideoToken(link).map { token ->
-                                val mainId = link.substringAfter("show/").substringBefore("/")
-                                val videoId = link.substringAfterLast("/").substringBefore(".mp4")
-                                "http://www.yapfiles.ru/files/$mainId/$videoId.mp4?token=$token"
-                            }
-                        else -> Single.just("")
-                    }
-                }
-                .toList()
-                .flatMap { list ->
-                    item.videosLinks = list
-                    Single.just(item)
-                }
-        } else {
-            return Single.just(item)
-        }
-    }
 }

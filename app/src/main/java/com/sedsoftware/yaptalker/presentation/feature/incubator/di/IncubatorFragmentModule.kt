@@ -32,29 +32,27 @@ abstract class IncubatorFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
-        fun providesLinkBrowserDelegate(fragment: IncubatorFragment): LinkBrowserDelegate =
-            LinkBrowserDelegate(fragment.context)
+        fun providesLinkBrowserDelegate(router: Router,
+                                        settings: Settings,
+                                        fragment: IncubatorFragment): LinkBrowserDelegate =
+            LinkBrowserDelegate(router, settings, fragment.context)
 
         @FragmentScope
         @Provides
         @JvmStatic
         fun providePresenter(
             router: Router,
-            settings: Settings,
             incubatorInteractor: IncubatorInteractor,
             videoThumbnailsInteractor: VideoThumbnailsInteractor,
             mapper: IncubatorModelMapper,
-            tokenInteractor: VideoTokenInteractor,
             linksDelegate: LinkBrowserDelegate,
             schedulers: SchedulersProvider
         ): IncubatorPresenter =
             IncubatorPresenter(
                 router,
-                settings,
                 incubatorInteractor,
                 videoThumbnailsInteractor,
                 mapper,
-                tokenInteractor,
                 linksDelegate,
                 schedulers
             )

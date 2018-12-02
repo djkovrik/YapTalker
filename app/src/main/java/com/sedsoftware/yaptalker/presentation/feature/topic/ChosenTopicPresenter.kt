@@ -60,7 +60,6 @@ class ChosenTopicPresenter @Inject constructor(
     private val quoteDataMapper: QuotedPostModelMapper,
     private val editedTextDataMapper: EditedPostModelMapper,
     private val serverResponseMapper: ServerResponseModelMapper,
-    private val tokenInteractor: VideoTokenInteractor,
     private val linksDelegate: LinkBrowserDelegate,
     private val schedulers: SchedulersProvider
 ) : BasePresenter<ChosenTopicView>(), ChosenTopicElementsClickListener, NavigationPanelClickListener {
@@ -142,31 +141,7 @@ class ChosenTopicPresenter @Inject constructor(
     }
 
     override fun onMediaPreviewClicked(url: String, directUrl: String, type: String, html: String, isVideo: Boolean) {
-        when {
-            isVideo && url.contains("youtube") -> {
-                val videoId = url.extractYoutubeVideoId()
-                linksDelegate.browse("http://www.youtube.com/watch?v=$videoId")
-            }
-
-            isVideo && url.contains("coub") && settings.isExternalCoubPlayer() -> {
-                linksDelegate.browse(url)
-            }
-
-            isVideo && settings.isExternalYapPlayer() && type == "YapFiles" -> {
-                linksDelegate.browse(directUrl)
-            }
-
-            isVideo && !url.contains("youtube") -> {
-                router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
-            }
-
-            else -> {
-                router.navigateTo(
-                    NavigationScreen.TOPIC_GALLERY,
-                    GalleryInitialState(currentForumId, currentTopicId, currentPage, url)
-                )
-            }
-        }
+        linksDelegate.browse(url, directUrl, type, html, isVideo)
     }
 
     override fun onUserAvatarClicked(userId: Int) {
@@ -460,7 +435,6 @@ class ChosenTopicPresenter @Inject constructor(
             .getChosenTopic(currentForumId, currentTopicId, startingPost)
             .map(topicMapper)
             .flatMapObservable { Observable.fromIterable(it) }
-            .concatMapSingle { updateDisplayingItem(it) }
             .map { topicStarterMapper.updateAuthorId(it, topicStarterId) }
 
     // ==== OBSERVERS ====
@@ -546,40 +520,5 @@ class ChosenTopicPresenter @Inject constructor(
         val karmaAvailable = ratingPlusAvailable && ratingMinusAvailable
         viewState.setLoggedInState(loggedIn)
         viewState.setTopicKarmaState(karmaAvailable)
-    }
-
-    @Suppress("ReturnCount")
-    private fun updateDisplayingItem(item: DisplayedItemModel): Single<DisplayedItemModel> {
-        if (item is SinglePostModel) {
-            if (item.postContentParsed.videosLinks.isNotEmpty()) {
-                return Observable.fromIterable(item.postContentParsed.videosLinks)
-                    .flatMapSingle { link ->
-                        when {
-                            link.contains("token") ->
-                                tokenInteractor.getVideoToken(link).map { token ->
-                                val mainId = link.substringAfter("files/").substringBefore("/")
-                                val videoId = link.substringAfterLast("/").substringBefore(".mp4")
-                                "http://www.yapfiles.ru/files/$mainId/$videoId.mp4?token=$token"
-                            }
-                            link.contains(".html") ->
-                                tokenInteractor.getVideoToken(link).map { token ->
-                                    val mainId = link.substringAfter("show/").substringBefore("/")
-                                    val videoId = link.substringAfterLast("/").substringBefore(".mp4")
-                                    "http://www.yapfiles.ru/files/$mainId/$videoId.mp4?token=$token"
-                                }
-                            else -> Single.just("")
-                        }
-                    }
-                    .toList()
-                    .flatMap { list ->
-                        item.postContentParsed.videosLinks = list
-                        Single.just(item)
-                    }
-            } else {
-                return Single.just(item)
-            }
-        } else {
-            return Single.just(item)
-        }
     }
 }

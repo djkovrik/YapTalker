@@ -13,7 +13,6 @@ import com.sedsoftware.yaptalker.domain.interactor.MessagePostingInteractor
 import com.sedsoftware.yaptalker.domain.interactor.SiteKarmaInteractor
 import com.sedsoftware.yaptalker.domain.interactor.TopicInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
-import com.sedsoftware.yaptalker.domain.interactor.VideoTokenInteractor
 import com.sedsoftware.yaptalker.domain.repository.BlacklistRepository
 import com.sedsoftware.yaptalker.domain.repository.BookmarksRepository
 import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
@@ -45,8 +44,11 @@ abstract class ChosenTopicFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
-        fun providesLinkBrowserDelegate(fragment: ChosenTopicFragment): LinkBrowserDelegate =
-            LinkBrowserDelegate(fragment.context)
+        fun providesLinkBrowserDelegate(
+            router: Router,
+            settings: Settings,
+            fragment: ChosenTopicFragment
+        ): LinkBrowserDelegate = LinkBrowserDelegate(router, settings, fragment.context)
 
         @FragmentScope
         @Provides
@@ -64,7 +66,6 @@ abstract class ChosenTopicFragmentModule {
             quoteDataMapper: QuotedPostModelMapper,
             editedTextDataMapper: EditedPostModelMapper,
             serverResponseMapper: ServerResponseModelMapper,
-            tokenInteractor: VideoTokenInteractor,
             linksDelegate: LinkBrowserDelegate,
             schedulers: SchedulersProvider
         ): ChosenTopicPresenter =
@@ -82,7 +83,6 @@ abstract class ChosenTopicFragmentModule {
                 quoteDataMapper,
                 editedTextDataMapper,
                 serverResponseMapper,
-                tokenInteractor,
                 linksDelegate,
                 schedulers
             )
