@@ -32,10 +32,10 @@ class SearchResultsAdapter @Inject constructor(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        delegateAdapters.get(viewType).onCreateViewHolder(parent)
+        delegateAdapters.get(viewType)!!.onCreateViewHolder(parent)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])
+        delegateAdapters.get(getItemViewType(position))?.onBindViewHolder(holder, items[position])
 
         with(holder.itemView) {
             AnimationUtils.loadAnimation(context, R.anim.recyclerview_fade_in).apply {

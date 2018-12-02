@@ -148,7 +148,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
                 forumId = presenter.currentForumId,
                 topicId = presenter.currentTopicId,
                 currentPage = presenter.currentPage,
-                scrollState = topic_posts_list.layoutManager.onSaveInstanceState() as LinearLayoutManager.SavedState
+                scrollState = topic_posts_list.layoutManager?.onSaveInstanceState() as LinearLayoutManager.SavedState
             )
             topicStateStorage.saveState(state)
         } else {
@@ -269,7 +269,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
     }
 
     override fun restoreScrollState() {
-        topic_posts_list.layoutManager.onRestoreInstanceState(savedScrollState)
+        topic_posts_list.layoutManager?.onRestoreInstanceState(savedScrollState)
     }
 
     override fun scrollToViewTop() {
