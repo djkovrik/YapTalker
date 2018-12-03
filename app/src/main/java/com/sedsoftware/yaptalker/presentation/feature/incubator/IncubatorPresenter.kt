@@ -2,23 +2,21 @@ package com.sedsoftware.yaptalker.presentation.feature.incubator
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.data.system.SchedulersProvider
-import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.IncubatorInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
-import com.sedsoftware.yaptalker.domain.interactor.VideoTokenInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
-import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.feature.LinkBrowserDelegate
 import com.sedsoftware.yaptalker.presentation.feature.incubator.adapter.IncubatorElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.IncubatorModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.IncubatorItemModel
 import com.uber.autodispose.kotlin.autoDisposable
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -56,7 +54,17 @@ class IncubatorPresenter @Inject constructor(
     }
 
     override fun onMediaPreviewClicked(url: String, directUrl: String, type: String, html: String, isVideo: Boolean) {
-        linksDelegate.browse(url, directUrl, type, html, isVideo)
+        linksDelegate.checkVideoLink(directUrl)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { viewState.showLoadingIndicator() }
+            .doFinally { viewState.hideLoadingIndicator() }
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe({ link: String ->
+                linksDelegate.browse(url, link, type, html, isVideo)
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
+            })
     }
 
     fun handleFabVisibility(diff: Int) {

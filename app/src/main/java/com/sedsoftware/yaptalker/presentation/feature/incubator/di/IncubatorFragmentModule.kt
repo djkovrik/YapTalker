@@ -32,10 +32,12 @@ abstract class IncubatorFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
-        fun providesLinkBrowserDelegate(router: Router,
-                                        settings: Settings,
-                                        fragment: IncubatorFragment): LinkBrowserDelegate =
-            LinkBrowserDelegate(router, settings, fragment.context)
+        fun providesLinkBrowserDelegate(
+            router: Router,
+            tokenInteractor: VideoTokenInteractor,
+            settings: Settings,
+            fragment: IncubatorFragment
+        ): LinkBrowserDelegate = LinkBrowserDelegate(router, tokenInteractor, settings, fragment.context)
 
         @FragmentScope
         @Provides

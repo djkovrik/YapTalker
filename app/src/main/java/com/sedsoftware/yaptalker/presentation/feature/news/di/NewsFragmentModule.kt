@@ -10,6 +10,7 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
 import com.sedsoftware.yaptalker.domain.interactor.NewsInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
+import com.sedsoftware.yaptalker.domain.interactor.VideoTokenInteractor
 import com.sedsoftware.yaptalker.domain.repository.BlacklistRepository
 import com.sedsoftware.yaptalker.domain.repository.NewsRepository
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
@@ -36,10 +37,10 @@ abstract class NewsFragmentModule {
         @JvmStatic
         fun providesLinkBrowserDelegate(
             router: Router,
+            tokenInteractor: VideoTokenInteractor,
             settings: Settings,
             fragment: NewsFragment
-        ): LinkBrowserDelegate =
-            LinkBrowserDelegate(router, settings, fragment.context)
+        ): LinkBrowserDelegate = LinkBrowserDelegate(router, tokenInteractor, settings, fragment.context)
 
         @FragmentScope
         @Provides

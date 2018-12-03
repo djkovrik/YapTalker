@@ -2,15 +2,18 @@ package com.sedsoftware.yaptalker.presentation.feature
 
 import android.content.Context
 import com.sedsoftware.yaptalker.domain.device.Settings
+import com.sedsoftware.yaptalker.domain.interactor.VideoTokenInteractor
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import io.reactivex.Single
 import org.jetbrains.anko.browse
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class LinkBrowserDelegate @Inject constructor(
     private val router: Router,
+    private val tokenInteractor: VideoTokenInteractor,
     private val settings: Settings,
     context: Context?
 ) {
@@ -41,38 +44,25 @@ class LinkBrowserDelegate @Inject constructor(
             }
         }
     }
+
+    fun checkVideoLink(directUrl: String): Single<String> =
+        if (directUrl.contains("yapfiles.ru") && settings.isExternalYapPlayer()) {
+            when {
+                directUrl.contains("token") ->
+                    tokenInteractor.getVideoToken(directUrl).map { token ->
+                        val mainId = directUrl.substringAfter("files/").substringBefore("/")
+                        val videoId = directUrl.substringAfterLast("/").substringBefore(".mp4")
+                        "http://www.yapfiles.ru/files/$mainId/$videoId.mp4?token=$token"
+                    }
+                directUrl.contains(".html") ->
+                    tokenInteractor.getVideoToken(directUrl).map { token ->
+                        val mainId = directUrl.substringAfter("show/").substringBefore("/")
+                        val videoId = directUrl.substringAfterLast("/").substringBefore(".mp4")
+                        "http://www.yapfiles.ru/files/$mainId/$videoId.mp4?token=$token"
+                    }
+                else -> Single.just(directUrl)
+            }
+        } else {
+            Single.just(directUrl)
+        }
 }
-//
-//private fun updateDisplayingItem(item: DisplayedItemModel): Single<DisplayedItemModel> {
-//    if (item is SinglePostModel) {
-//        if (item.postContentParsed.videosLinks.isNotEmpty()) {
-//            return Observable.fromIterable(item.postContentParsed.videosLinks)
-//                .flatMapSingle { link ->
-//                    when {
-//                        link.contains("token") ->
-//                            tokenInteractor.getVideoToken(link).map { token ->
-//                                val mainId = link.substringAfter("files/").substringBefore("/")
-//                                val videoId = link.substringAfterLast("/").substringBefore(".mp4")
-//                                "http://www.yapfiles.ru/files/$mainId/$videoId.mp4?token=$token"
-//                            }
-//                        link.contains(".html") ->
-//                            tokenInteractor.getVideoToken(link).map { token ->
-//                                val mainId = link.substringAfter("show/").substringBefore("/")
-//                                val videoId = link.substringAfterLast("/").substringBefore(".mp4")
-//                                "http://www.yapfiles.ru/files/$mainId/$videoId.mp4?token=$token"
-//                            }
-//                        else -> Single.just("")
-//                    }
-//                }
-//                .toList()
-//                .flatMap { list ->
-//                    item.postContentParsed.videosLinks = list
-//                    Single.just(item)
-//                }
-//        } else {
-//            return Single.just(item)
-//        }
-//    } else {
-//        return Single.just(item)
-//    }
-//}

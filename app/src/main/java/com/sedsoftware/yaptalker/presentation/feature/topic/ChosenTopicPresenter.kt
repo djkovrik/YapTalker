@@ -39,8 +39,10 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
+import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -141,7 +143,17 @@ class ChosenTopicPresenter @Inject constructor(
     }
 
     override fun onMediaPreviewClicked(url: String, directUrl: String, type: String, html: String, isVideo: Boolean) {
-        linksDelegate.browse(url, directUrl, type, html, isVideo)
+        linksDelegate.checkVideoLink(directUrl)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { viewState.showLoadingIndicator() }
+            .doFinally { viewState.hideLoadingIndicator() }
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe({ link: String ->
+                linksDelegate.browse(url, link, type, html, isVideo)
+            }, { e: Throwable ->
+                e.message?.let { viewState.showErrorMessage(it) }
+            })
     }
 
     override fun onUserAvatarClicked(userId: Int) {
