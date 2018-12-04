@@ -24,16 +24,24 @@ class YapNewsRepository @Inject constructor(
         settings.getNewsCategories()
     }
 
-    override fun getNews(page: Int): Single<List<NewsItem>> =
+    private val mainPageUrl: String = "www.yaplakal.com"
+
+    override fun getNews(url: String, page: Int): Single<List<NewsItem>> =
         database
             .getTopicsDao()
             .getBlacklistedTopicIds()
             .flatMapObservable { blacklistedIds ->
                 dataLoader
-                    .loadNews(page)
+                    .loadNews(url, page)
                     .map(dataMapper)
                     .flatMap(listMapper)
-                    .filter { newsCategories.contains(it.forumLink) }
+                    .filter {
+                        if (url.contains(mainPageUrl)) {
+                            newsCategories.contains(it.forumLink)
+                        } else {
+                            true
+                        }
+                    }
                     .filter { it.isYapLink }
                     .filter { it.comments != 0 }
                     .filter { !blacklistedIds.contains(it.id) }

@@ -109,10 +109,6 @@ abstract class MainActivityModule {
     abstract fun addMessageFragmentInjector(): AddMessageFragment
 
     @FragmentScope
-    @ContributesAndroidInjector(modules = [(IncubatorFragmentModule::class)])
-    abstract fun incubatorFragmentInjector(): IncubatorFragment
-
-    @FragmentScope
     @ContributesAndroidInjector(modules = [(SearchFormFragmentModule::class)])
     abstract fun searchFormFragmentInjector(): SearchFormFragment
 

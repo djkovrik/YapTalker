@@ -27,6 +27,7 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 /**
  * Retrofit 2 interface definition for sending and retrieving data from the site.
@@ -42,7 +43,7 @@ interface YapLoader {
      * @return Parsed news page Observable.
      */
     @GET("/st/{startPage}/")
-    fun loadNews(@Path("startPage") startPage: Int): Observable<NewsPageParsed>
+    fun loadNews(@Url url: String, @Path("startPage") startPage: Int): Observable<NewsPageParsed>
 
 
     /**
