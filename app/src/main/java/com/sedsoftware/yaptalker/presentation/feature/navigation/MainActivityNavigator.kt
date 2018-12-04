@@ -17,7 +17,6 @@ import com.sedsoftware.yaptalker.presentation.feature.forum.ChosenForumFragment
 import com.sedsoftware.yaptalker.presentation.feature.forumslist.ForumsFragment
 import com.sedsoftware.yaptalker.presentation.feature.gallery.TopicGalleryActivity
 import com.sedsoftware.yaptalker.presentation.feature.imagedisplay.ImageDisplayActivity
-import com.sedsoftware.yaptalker.presentation.feature.incubator.IncubatorFragment
 import com.sedsoftware.yaptalker.presentation.feature.news.NewsFragment
 import com.sedsoftware.yaptalker.presentation.feature.posting.AddMessageFragment
 import com.sedsoftware.yaptalker.presentation.feature.search.SearchFormFragment
@@ -49,9 +48,9 @@ class MainActivityNavigator @Inject constructor(
 
     @Suppress("ComplexMethod")
     override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
-        NavigationScreen.NEWS_SCREEN -> NewsFragment.getNewInstance()
+        NavigationScreen.NEWS_SCREEN -> NewsFragment.getNewInstance(NavigationScreen.NEWS_SCREEN)
+        NavigationScreen.INCUBATOR_SCREEN -> NewsFragment.getNewInstance(NavigationScreen.INCUBATOR_SCREEN)
         NavigationScreen.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
-        NavigationScreen.INCUBATOR_SCREEN -> IncubatorFragment.getNewInstance()
         NavigationScreen.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()
         NavigationScreen.BOOKMARKS_SCREEN -> BookmarksFragment.getNewInstance()
         NavigationScreen.FORUMS_LIST_SCREEN -> ForumsFragment.getNewInstance()

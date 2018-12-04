@@ -2,6 +2,13 @@ package com.sedsoftware.yaptalker.presentation.base.enums.navigation
 
 object NavigationScreen {
     const val NEWS_SCREEN = "NEWS_SCREEN"
+    const val PICTURES_SCREEN = "PICTURES_SCREEN"
+    const val VIDEO_SCREEN = "VIDEO_SCREEN"
+    const val EVENTS_SCREEN = "EVENTS_SCREEN"
+    const val AUTO_MOTO_SCREEN = "AUTO_MOTO_SCREEN"
+    const val ANIMALS_SCREEN = "ANIMALS_SCREEN"
+    const val PHOTOBOMB_SCREEN = "PHOTOBOMB_SCREEN"
+    const val INCUBATOR_SCREEN = "INCUBATOR_SCREEN"
     const val FORUMS_LIST_SCREEN = "FORUMS_LIST_SCREEN"
     const val CHOSEN_FORUM_SCREEN = "CHOSEN_FORUM_SCREEN"
     const val CHOSEN_TOPIC_SCREEN = "CHOSEN_TOPIC_SCREEN"
@@ -13,7 +20,6 @@ object NavigationScreen {
     const val BOOKMARKS_SCREEN = "BOOKMARKS_SCREEN"
     const val IMAGE_DISPLAY_SCREEN = "IMAGE_DISPLAY_SCREEN"
     const val VIDEO_DISPLAY_SCREEN = "VIDEO_DISPLAY_SCREEN"
-    const val INCUBATOR_SCREEN = "INCUBATOR_SCREEN"
     const val SEARCH_FORM = "SEARCH_FORM"
     const val SEARCH_RESULTS = "SEARCH_RESULTS"
     const val TOPIC_GALLERY = "TOPIC_GALLERY"

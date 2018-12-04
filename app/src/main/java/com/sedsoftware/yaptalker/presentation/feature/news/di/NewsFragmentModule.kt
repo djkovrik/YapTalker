@@ -35,6 +35,12 @@ abstract class NewsFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
+        fun provideTargetScreen(fragment: NewsFragment): String =
+            fragment.targetScreen
+
+        @FragmentScope
+        @Provides
+        @JvmStatic
         fun providesLinkBrowserDelegate(
             router: Router,
             tokenInteractor: VideoTokenInteractor,
@@ -47,6 +53,8 @@ abstract class NewsFragmentModule {
         @JvmStatic
         fun providePresenter(
             router: Router,
+            settings: Settings,
+            targetScreen: String,
             getNews: NewsInteractor,
             getThumbnails: VideoThumbnailsInteractor,
             getBlacklist: BlacklistInteractor,
@@ -56,6 +64,8 @@ abstract class NewsFragmentModule {
         ): NewsPresenter =
             NewsPresenter(
                 router,
+                settings,
+                targetScreen,
                 getNews,
                 getThumbnails,
                 getBlacklist,

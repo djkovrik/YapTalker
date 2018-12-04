@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
+import androidx.core.os.bundleOf
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -26,7 +27,9 @@ import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsAdapter
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_news.*
+import kotlinx.android.synthetic.main.fragment_news.news_fab
+import kotlinx.android.synthetic.main.fragment_news.news_list
+import kotlinx.android.synthetic.main.fragment_news.refresh_layout
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -34,7 +37,15 @@ import javax.inject.Inject
 class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
 
     companion object {
-        fun getNewInstance() = NewsFragment()
+        fun getNewInstance(target: String) = NewsFragment().apply {
+            arguments = bundleOf(TARGET_ID to target)
+        }
+
+        private const val TARGET_ID = "TARGET_ID"
+    }
+
+    val targetScreen: String by lazy {
+        arguments?.getString(TARGET_ID) ?: ""
     }
 
     @Inject
