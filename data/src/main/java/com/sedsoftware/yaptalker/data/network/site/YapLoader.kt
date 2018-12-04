@@ -42,8 +42,8 @@ interface YapLoader {
      *
      * @return Parsed news page Observable.
      */
-    @GET("/st/{startPage}/")
-    fun loadNews(@Url url: String, @Path("startPage") startPage: Int): Observable<NewsPageParsed>
+    @GET
+    fun loadNews(@Url url: String): Observable<NewsPageParsed>
 
 
     /**

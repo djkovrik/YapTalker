@@ -145,7 +145,6 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
         navDrawer.removeItem(NavigationSection.SIGN_IN)
         navDrawer.removeItem(NavigationSection.SIGN_OUT)
         navDrawer.removeItem(NavigationSection.BOOKMARKS)
-        navDrawer.removeItem(NavigationSection.MAIL)
     }
 
     override fun displaySignedInNavigation() {

@@ -57,11 +57,11 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideYapLoader(
-        @Named("siteClient") okHttpClient: OkHttpClient,
-        settings: Settings
+        @Named("siteClient") okHttpClient: OkHttpClient
     ): YapLoader =
         Retrofit
             .Builder()
+            .baseUrl(SITE_BASE_URL)
             .client(okHttpClient)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(JspoonConverterFactory.create())

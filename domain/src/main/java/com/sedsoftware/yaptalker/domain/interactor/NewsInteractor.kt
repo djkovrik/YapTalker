@@ -9,7 +9,7 @@ class NewsInteractor @Inject constructor(
     private val newsRepository: NewsRepository
 ) {
 
-    fun getNewsPage(url: String, pageNumber: Int): Single<List<NewsItem>> =
+    fun getNewsPage(url: String): Single<List<NewsItem>> =
         newsRepository
-            .getNews(url, pageNumber)
+            .getNews(url)
 }

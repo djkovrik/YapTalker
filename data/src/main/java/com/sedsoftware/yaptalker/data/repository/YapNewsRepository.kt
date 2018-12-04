@@ -26,13 +26,13 @@ class YapNewsRepository @Inject constructor(
 
     private val mainPageUrl: String = "www.yaplakal.com"
 
-    override fun getNews(url: String, page: Int): Single<List<NewsItem>> =
+    override fun getNews(url: String): Single<List<NewsItem>> =
         database
             .getTopicsDao()
             .getBlacklistedTopicIds()
             .flatMapObservable { blacklistedIds ->
                 dataLoader
-                    .loadNews(url, page)
+                    .loadNews(url)
                     .map(dataMapper)
                     .flatMap(listMapper)
                     .filter {

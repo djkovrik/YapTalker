@@ -15,8 +15,6 @@ import com.sedsoftware.yaptalker.presentation.feature.forum.ChosenForumFragment
 import com.sedsoftware.yaptalker.presentation.feature.forum.di.ChosenForumFragmentModule
 import com.sedsoftware.yaptalker.presentation.feature.forumslist.ForumsFragment
 import com.sedsoftware.yaptalker.presentation.feature.forumslist.di.ForumsFragmentModule
-import com.sedsoftware.yaptalker.presentation.feature.incubator.IncubatorFragment
-import com.sedsoftware.yaptalker.presentation.feature.incubator.di.IncubatorFragmentModule
 import com.sedsoftware.yaptalker.presentation.feature.navigation.MainActivity
 import com.sedsoftware.yaptalker.presentation.feature.navigation.MainActivityNavigator
 import com.sedsoftware.yaptalker.presentation.feature.news.NewsFragment

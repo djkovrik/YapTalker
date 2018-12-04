@@ -121,7 +121,7 @@ class NewsPresenter @Inject constructor(
     private fun loadDataForCurrentPage() {
         val url = buildUrl()
         newsInteractor
-            .getNewsPage(url, currentPage)
+            .getNewsPage(url)
             .map(newsModelMapper)
             .flatMapObservable { Observable.fromIterable(it) }
             .toList()
@@ -175,6 +175,6 @@ class NewsPresenter @Inject constructor(
             else -> "inkubator.yaplakal.com/"
         }
 
-        return "$schema$base"
+        return "$schema$base/st/$currentPage/"
     }
 }
