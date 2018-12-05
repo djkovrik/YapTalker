@@ -256,7 +256,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
             .withSelectedIconColor(colorFromAttr(R.attr.colorNavAutoMoto))
 
         drawerItemAnimals = PrimaryDrawerItem()
-            .withIdentifier(NavigationSection.AUTO_MOTO)
+            .withIdentifier(NavigationSection.ANIMALS)
             .withName(R.string.nav_drawer_animals)
             .withIcon(CommunityMaterial.Icon.cmd_cat)
             .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))

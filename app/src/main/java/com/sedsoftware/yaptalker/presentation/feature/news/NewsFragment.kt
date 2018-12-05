@@ -89,7 +89,7 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
 
     override fun updateCurrentUiState() {
         setCurrentAppbarTitle(buildTitle())
-        setCurrentNavDrawerItem(NavigationSection.MAIN_PAGE)
+        setCurrentNavDrawerItem(buildSelection())
     }
 
     override fun appendNewsItems(items: List<NewsItemModel>) {
@@ -191,5 +191,17 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
             NavigationScreen.ANIMALS_SCREEN -> string(R.string.nav_drawer_animals)
             NavigationScreen.PHOTOBOMB_SCREEN -> string(R.string.nav_drawer_photobomb)
             else -> string(R.string.nav_drawer_incubator)
+        }
+
+    private fun buildSelection(): Long =
+        when (targetScreen) {
+            NavigationScreen.NEWS_SCREEN -> NavigationSection.MAIN_PAGE
+            NavigationScreen.PICTURES_SCREEN -> NavigationSection.PICTURES
+            NavigationScreen.VIDEOS_SCREEN -> NavigationSection.VIDEO
+            NavigationScreen.EVENTS_SCREEN -> NavigationSection.EVENTS
+            NavigationScreen.AUTO_MOTO_SCREEN -> NavigationSection.AUTO_MOTO
+            NavigationScreen.ANIMALS_SCREEN -> NavigationSection.ANIMALS
+            NavigationScreen.PHOTOBOMB_SCREEN -> NavigationSection.PHOTOBOMB
+            else -> NavigationSection.INCUBATOR
         }
 }
