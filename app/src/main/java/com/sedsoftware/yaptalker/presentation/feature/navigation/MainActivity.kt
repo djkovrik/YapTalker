@@ -50,8 +50,8 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
         private const val ACTION_NAVIGATE_TO_INCUBATOR =
             "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_INCUBATOR"
 
-        private const val BOOKMARKS_INSERT_POSITION = 5
-        private const val SIGN_IN_INSERT_POSITION = 16
+        private const val BOOKMARKS_INSERT_POSITION = 4
+        private const val SIGN_IN_INSERT_POSITION = 17
     }
 
     @Inject

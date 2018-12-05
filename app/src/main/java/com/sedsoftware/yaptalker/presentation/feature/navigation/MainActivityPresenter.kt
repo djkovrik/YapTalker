@@ -62,7 +62,7 @@ class MainActivityPresenter @Inject constructor(
             NavigationSection.AUTO_MOTO -> router.navigateTo(NavigationScreen.AUTO_MOTO_SCREEN)
             NavigationSection.ANIMALS -> router.navigateTo(NavigationScreen.ANIMALS_SCREEN)
             NavigationSection.PHOTOBOMB -> router.navigateTo(NavigationScreen.PHOTOBOMB_SCREEN)
-            NavigationSection.INCUBATOR -> router.newRootScreen(NavigationScreen.INCUBATOR_SCREEN)
+            NavigationSection.INCUBATOR -> router.navigateTo(NavigationScreen.INCUBATOR_SCREEN)
             NavigationSection.SITE_SEARCH -> router.newRootScreen(NavigationScreen.SEARCH_FORM)
             NavigationSection.SETTINGS -> router.navigateTo(NavigationScreen.SETTINGS_SCREEN)
             NavigationSection.APP_UPDATES -> router.newRootScreen(NavigationScreen.UPDATES_SCREEN)
