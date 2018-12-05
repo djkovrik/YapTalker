@@ -8,12 +8,17 @@
     <string name="nav_drawer_main_page">Главная страница</string>
     <string name="nav_drawer_forums">Форумы</string>
     <string name="nav_drawer_active_topics">Активные темы</string>
+    <string name="nav_drawer_bookmarks">Закладки</string>
+    <string name="nav_drawer_pictures">Картинки</string>
+    <string name="nav_drawer_video">Видео</string>
+    <string name="nav_drawer_events">События</string>
+    <string name="nav_drawer_auto_moto">Авто/Мото</string>
+    <string name="nav_drawer_animals">Зверье</string>
+    <string name="nav_drawer_photobomb">Фотожаба</string>
     <string name="nav_drawer_incubator">Инкубатор</string>
+    <string name="nav_drawer_search">Поиск</string>
     <string name="nav_drawer_settings">Настройки</string>
     <string name="nav_drawer_updates">Обновление приложения</string>
-    <string name="nav_drawer_mail">Почта</string>
-    <string name="nav_drawer_bookmarks">Закладки</string>
-    <string name="nav_drawer_search">Поиск</string>
     <string name="nav_drawer_sign_in">Вход</string>
     <string name="nav_drawer_sign_out">Выход</string>
 

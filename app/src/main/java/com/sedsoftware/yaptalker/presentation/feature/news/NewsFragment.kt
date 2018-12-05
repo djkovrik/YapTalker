@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.news
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.BaseFragment
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.FragmentLifecycle
+import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSection
 import com.sedsoftware.yaptalker.presentation.custom.InfiniteScrollListener
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
@@ -86,7 +88,7 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
     }
 
     override fun updateCurrentUiState() {
-        setCurrentAppbarTitle(string(R.string.nav_drawer_main_page))
+        setCurrentAppbarTitle(buildTitle())
         setCurrentNavDrawerItem(NavigationSection.MAIN_PAGE)
     }
 
@@ -160,6 +162,7 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
             })
     }
 
+    @SuppressLint("RxSubscribeOnError")
     private fun subscribeViews() {
 
         RxSwipeRefreshLayout
@@ -177,4 +180,16 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
             .autoDisposable(event(FragmentLifecycle.DESTROY))
             .subscribe { presenter.loadNews(loadFromFirstPage = true) }
     }
+
+    private fun buildTitle(): String =
+        when (targetScreen) {
+            NavigationScreen.NEWS_SCREEN -> string(R.string.nav_drawer_main_page)
+            NavigationScreen.PICTURES_SCREEN -> string(R.string.nav_drawer_pictures)
+            NavigationScreen.VIDEO_SCREEN -> string(R.string.nav_drawer_video)
+            NavigationScreen.EVENTS_SCREEN -> string(R.string.nav_drawer_events)
+            NavigationScreen.AUTO_MOTO_SCREEN -> string(R.string.nav_drawer_auto_moto)
+            NavigationScreen.ANIMALS_SCREEN -> string(R.string.nav_drawer_animals)
+            NavigationScreen.PHOTOBOMB_SCREEN -> string(R.string.nav_drawer_photobomb)
+            else -> string(R.string.nav_drawer_incubator)
+        }
 }

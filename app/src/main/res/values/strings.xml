@@ -8,12 +8,17 @@
     <string name="nav_drawer_main_page">Main page</string>
     <string name="nav_drawer_forums">Forums</string>
     <string name="nav_drawer_active_topics">Active topics</string>
+    <string name="nav_drawer_bookmarks">Bookmarks</string>
+    <string name="nav_drawer_pictures">Pictures</string>
+    <string name="nav_drawer_video">Video</string>
+    <string name="nav_drawer_events">Events</string>
+    <string name="nav_drawer_auto_moto">Auto/Moto</string>
+    <string name="nav_drawer_animals">Animals</string>
+    <string name="nav_drawer_photobomb">Photobomb</string>
     <string name="nav_drawer_incubator">Incubator</string>
+    <string name="nav_drawer_search">Search</string>
     <string name="nav_drawer_settings">Settings</string>
     <string name="nav_drawer_updates">App updates</string>
-    <string name="nav_drawer_mail">Mail</string>
-    <string name="nav_drawer_bookmarks">Bookmarks</string>
-    <string name="nav_drawer_search">Search</string>
     <string name="nav_drawer_sign_in">Sign In</string>
     <string name="nav_drawer_sign_out">Sign Out</string>
 
