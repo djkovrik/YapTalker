@@ -170,7 +170,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
 
     override fun getCurrentDrawer(): Drawer = navDrawer
 
-    @Suppress("PLUGIN_WARNING")
+    @Suppress("PLUGIN_WARNING", "LongMethod")
     private fun initializeNavigationDrawer(savedInstanceState: Bundle?) {
 
         drawerItemMainPage = PrimaryDrawerItem()

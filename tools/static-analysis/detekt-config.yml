@@ -77,7 +77,7 @@ potential-bugs:
     excludeAnnotatedProperties: ''
     ignoreOnClassesPattern: ''
   UnsafeCallOnNullableType:
-    active: true
+    active: false
   UnsafeCast:
     active: false
   UselessPostfixExpression:

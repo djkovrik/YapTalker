@@ -13,7 +13,6 @@ import com.sedsoftware.yaptalker.data.network.thumbnails.VkLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapFileLoader
 import com.sedsoftware.yaptalker.data.network.thumbnails.YapVideoLoader
 import com.sedsoftware.yaptalker.di.module.network.HttpClientsModule
-import com.sedsoftware.yaptalker.domain.device.Settings
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

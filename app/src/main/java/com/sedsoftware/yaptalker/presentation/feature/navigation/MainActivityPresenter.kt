@@ -50,6 +50,7 @@ class MainActivityPresenter @Inject constructor(
         router.removeResultListener(RequestCode.SIGN_IN)
     }
 
+    @Suppress("ComplexMethod")
     fun navigateToChosenSection(@NavigationSection.Section identifier: Long) {
         when (identifier) {
             NavigationSection.MAIN_PAGE -> router.newRootScreen(NavigationScreen.NEWS_SCREEN)

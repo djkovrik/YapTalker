@@ -11,13 +11,11 @@ import com.sedsoftware.yaptalker.domain.interactor.MessagePostingInteractor
 import com.sedsoftware.yaptalker.domain.interactor.SiteKarmaInteractor
 import com.sedsoftware.yaptalker.domain.interactor.TopicInteractor
 import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
-import com.sedsoftware.yaptalker.domain.interactor.VideoTokenInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
-import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.feature.LinkBrowserDelegate
 import com.sedsoftware.yaptalker.presentation.feature.search.SearchRequest
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicElementsClickListener
