@@ -167,7 +167,7 @@ class NewsPresenter @Inject constructor(
         val base = when (targetScreen) {
             NavigationScreen.NEWS_SCREEN -> "www.yaplakal.com/"
             NavigationScreen.PICTURES_SCREEN -> "pics.yaplakal.com/"
-            NavigationScreen.VIDEO_SCREEN -> "video.yaplakal.com/"
+            NavigationScreen.VIDEOS_SCREEN -> "video.yaplakal.com/"
             NavigationScreen.EVENTS_SCREEN -> "news.yaplakal.com/"
             NavigationScreen.AUTO_MOTO_SCREEN -> "auto.yaplakal.com/"
             NavigationScreen.ANIMALS_SCREEN -> "animals.yaplakal.com/"

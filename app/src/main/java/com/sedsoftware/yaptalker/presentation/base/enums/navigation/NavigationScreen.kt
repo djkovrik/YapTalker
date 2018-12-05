@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.base.enums.navigation
 object NavigationScreen {
     const val NEWS_SCREEN = "NEWS_SCREEN"
     const val PICTURES_SCREEN = "PICTURES_SCREEN"
-    const val VIDEO_SCREEN = "VIDEO_SCREEN"
+    const val VIDEOS_SCREEN = "VIDEOS_SCREEN"
     const val EVENTS_SCREEN = "EVENTS_SCREEN"
     const val AUTO_MOTO_SCREEN = "AUTO_MOTO_SCREEN"
     const val ANIMALS_SCREEN = "ANIMALS_SCREEN"

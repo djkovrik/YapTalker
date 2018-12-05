@@ -28,10 +28,15 @@
         <!-- Navigation drawer -->
         <item name="colorNavDefaultText">@color/colorNavDefaultTextL</item>
         <item name="colorNavMainPage">@color/colorNavMainPageL</item>
+        <item name="colorNavPictures">@color/colorNavPicturesL</item>
+        <item name="colorNavVideos">@color/colorNavVideosL</item>
+        <item name="colorNavEvents">@color/colorNavEventsL</item>
+        <item name="colorNavAutoMoto">@color/colorNavAutoMotoL</item>
+        <item name="colorNavAnimals">@color/colorNavAnimalsL</item>
+        <item name="colorNavPhotobomb">@color/colorNavPhotobombL</item>
         <item name="colorNavForums">@color/colorNavForumsL</item>
         <item name="colorNavActiveTopics">@color/colorNavActiveTopicsL</item>
         <item name="colorNavIncubator">@color/colorNavIncubatorL</item>
-        <item name="colorNavMail">@color/colorNavMailL</item>
         <item name="colorNavBookmarks">@color/colorNavBookmarksL</item>
         <item name="colorNavSearch">@color/colorNavSearchL</item>
         <item name="colorNavSettings">@color/colorNavSettingsL</item>
@@ -138,10 +143,15 @@
         <!-- Navigation drawer -->
         <item name="colorNavDefaultText">@color/colorNavDefaultTextLC</item>
         <item name="colorNavMainPage">@color/colorNavMainPageLC</item>
+        <item name="colorNavPictures">@color/colorNavPicturesLC</item>
+        <item name="colorNavVideos">@color/colorNavVideosLC</item>
+        <item name="colorNavEvents">@color/colorNavEventsLC</item>
+        <item name="colorNavAutoMoto">@color/colorNavAutoMotoLC</item>
+        <item name="colorNavAnimals">@color/colorNavAnimalsLC</item>
+        <item name="colorNavPhotobomb">@color/colorNavPhotobombLC</item>
         <item name="colorNavForums">@color/colorNavForumsLC</item>
         <item name="colorNavActiveTopics">@color/colorNavActiveTopicsLC</item>
         <item name="colorNavIncubator">@color/colorNavIncubatorLC</item>
-        <item name="colorNavMail">@color/colorNavMailLC</item>
         <item name="colorNavBookmarks">@color/colorNavBookmarksLC</item>
         <item name="colorNavSearch">@color/colorNavSearchLC</item>
         <item name="colorNavSettings">@color/colorNavSettingsLC</item>
@@ -248,10 +258,15 @@
         <!-- Navigation drawer -->
         <item name="colorNavDefaultText">@color/colorNavDefaultTextLY</item>
         <item name="colorNavMainPage">@color/colorNavMainPageLY</item>
+        <item name="colorNavPictures">@color/colorNavPicturesL</item>
+        <item name="colorNavVideos">@color/colorNavVideosLY</item>
+        <item name="colorNavEvents">@color/colorNavEventsLY</item>
+        <item name="colorNavAutoMoto">@color/colorNavAutoMotoLY</item>
+        <item name="colorNavAnimals">@color/colorNavAnimalsLY</item>
+        <item name="colorNavPhotobomb">@color/colorNavPhotobombLY</item>
         <item name="colorNavForums">@color/colorNavForumsLY</item>
         <item name="colorNavActiveTopics">@color/colorNavActiveTopicsLY</item>
         <item name="colorNavIncubator">@color/colorNavIncubatorLY</item>
-        <item name="colorNavMail">@color/colorNavMailLY</item>
         <item name="colorNavBookmarks">@color/colorNavBookmarksLY</item>
         <item name="colorNavSearch">@color/colorNavSearchLY</item>
         <item name="colorNavSettings">@color/colorNavSettingsLY</item>
@@ -358,10 +373,15 @@
         <!-- Navigation drawer -->
         <item name="colorNavDefaultText">@color/colorNavDefaultTextD</item>
         <item name="colorNavMainPage">@color/colorNavMainPageD</item>
+        <item name="colorNavPictures">@color/colorNavPicturesD</item>
+        <item name="colorNavVideos">@color/colorNavVideosD</item>
+        <item name="colorNavEvents">@color/colorNavEventsD</item>
+        <item name="colorNavAutoMoto">@color/colorNavAutoMotoD</item>
+        <item name="colorNavAnimals">@color/colorNavAnimalsD</item>
+        <item name="colorNavPhotobomb">@color/colorNavPhotobombD</item>
         <item name="colorNavForums">@color/colorNavForumsD</item>
         <item name="colorNavActiveTopics">@color/colorNavActiveTopicsD</item>
         <item name="colorNavIncubator">@color/colorNavIncubatorD</item>
-        <item name="colorNavMail">@color/colorNavMailD</item>
         <item name="colorNavBookmarks">@color/colorNavBookmarksD</item>
         <item name="colorNavSearch">@color/colorNavSearchD</item>
         <item name="colorNavSettings">@color/colorNavSettingsD</item>
@@ -470,10 +490,15 @@
         <!-- Navigation drawer -->
         <item name="colorNavDefaultText">@color/colorNavDefaultTextDB</item>
         <item name="colorNavMainPage">@color/colorNavMainPageDB</item>
+        <item name="colorNavPictures">@color/colorNavPicturesDB</item>
+        <item name="colorNavVideos">@color/colorNavVideosDB</item>
+        <item name="colorNavEvents">@color/colorNavEventsDB</item>
+        <item name="colorNavAutoMoto">@color/colorNavAutoMotoDB</item>
+        <item name="colorNavAnimals">@color/colorNavAnimalsDB</item>
+        <item name="colorNavPhotobomb">@color/colorNavPhotobombDB</item>
         <item name="colorNavForums">@color/colorNavForumsDB</item>
         <item name="colorNavActiveTopics">@color/colorNavActiveTopicsDB</item>
         <item name="colorNavIncubator">@color/colorNavIncubatorDB</item>
-        <item name="colorNavMail">@color/colorNavMailDB</item>
         <item name="colorNavBookmarks">@color/colorNavBookmarksDB</item>
         <item name="colorNavSearch">@color/colorNavSearchDB</item>
         <item name="colorNavSettings">@color/colorNavSettingsDB</item>

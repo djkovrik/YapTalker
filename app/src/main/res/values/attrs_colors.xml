@@ -12,10 +12,15 @@
     <attr name="colorLoadMoreStroke" format="color" />
     <attr name="colorNavDefaultText" format="color" />
     <attr name="colorNavMainPage" format="color" />
+    <attr name="colorNavPictures" format="color" />
+    <attr name="colorNavVideos" format="color" />
+    <attr name="colorNavEvents" format="color" />
+    <attr name="colorNavAutoMoto" format="color" />
+    <attr name="colorNavAnimals" format="color" />
+    <attr name="colorNavPhotobomb" format="color" />
+    <attr name="colorNavIncubator" format="color" />
     <attr name="colorNavForums" format="color" />
     <attr name="colorNavActiveTopics" format="color" />
-    <attr name="colorNavIncubator" format="color" />
-    <attr name="colorNavMail" format="color" />
     <attr name="colorNavBookmarks" format="color" />
     <attr name="colorNavSearch" format="color" />
     <attr name="colorNavSettings" format="color" />

@@ -49,6 +49,12 @@ class MainActivityNavigator @Inject constructor(
     @Suppress("ComplexMethod")
     override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
         NavigationScreen.NEWS_SCREEN -> NewsFragment.getNewInstance(NavigationScreen.NEWS_SCREEN)
+        NavigationScreen.PICTURES_SCREEN -> NewsFragment.getNewInstance(NavigationScreen.PICTURES_SCREEN)
+        NavigationScreen.VIDEOS_SCREEN -> NewsFragment.getNewInstance(NavigationScreen.VIDEOS_SCREEN)
+        NavigationScreen.EVENTS_SCREEN -> NewsFragment.getNewInstance(NavigationScreen.EVENTS_SCREEN)
+        NavigationScreen.AUTO_MOTO_SCREEN -> NewsFragment.getNewInstance(NavigationScreen.AUTO_MOTO_SCREEN)
+        NavigationScreen.ANIMALS_SCREEN -> NewsFragment.getNewInstance(NavigationScreen.ANIMALS_SCREEN)
+        NavigationScreen.PHOTOBOMB_SCREEN -> NewsFragment.getNewInstance(NavigationScreen.PHOTOBOMB_SCREEN)
         NavigationScreen.INCUBATOR_SCREEN -> NewsFragment.getNewInstance(NavigationScreen.INCUBATOR_SCREEN)
         NavigationScreen.ACTIVE_TOPICS_SCREEN -> ActiveTopicsFragment.getNewInstance()
         NavigationScreen.AUTHORIZATION_SCREEN -> AuthorizationFragment.getNewInstance()

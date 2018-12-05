@@ -53,15 +53,21 @@ class MainActivityPresenter @Inject constructor(
     fun navigateToChosenSection(@NavigationSection.Section identifier: Long) {
         when (identifier) {
             NavigationSection.MAIN_PAGE -> router.newRootScreen(NavigationScreen.NEWS_SCREEN)
-            NavigationSection.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
-            NavigationSection.INCUBATOR -> router.newRootScreen(NavigationScreen.INCUBATOR_SCREEN)
-            NavigationSection.SIGN_IN -> router.navigateTo(NavigationScreen.AUTHORIZATION_SCREEN)
-            NavigationSection.SIGN_OUT -> sendSignOutRequest()
-            NavigationSection.BOOKMARKS -> router.navigateTo(NavigationScreen.BOOKMARKS_SCREEN)
-            NavigationSection.SITE_SEARCH -> router.newRootScreen(NavigationScreen.SEARCH_FORM)
             NavigationSection.FORUMS -> router.newRootScreen(NavigationScreen.FORUMS_LIST_SCREEN)
+            NavigationSection.ACTIVE_TOPICS -> router.newRootScreen(NavigationScreen.ACTIVE_TOPICS_SCREEN)
+            NavigationSection.BOOKMARKS -> router.navigateTo(NavigationScreen.BOOKMARKS_SCREEN)
+            NavigationSection.PICTURES -> router.navigateTo(NavigationScreen.PICTURES_SCREEN)
+            NavigationSection.VIDEO -> router.navigateTo(NavigationScreen.VIDEOS_SCREEN)
+            NavigationSection.EVENTS -> router.navigateTo(NavigationScreen.EVENTS_SCREEN)
+            NavigationSection.AUTO_MOTO -> router.navigateTo(NavigationScreen.AUTO_MOTO_SCREEN)
+            NavigationSection.ANIMALS -> router.navigateTo(NavigationScreen.ANIMALS_SCREEN)
+            NavigationSection.PHOTOBOMB -> router.navigateTo(NavigationScreen.PHOTOBOMB_SCREEN)
+            NavigationSection.INCUBATOR -> router.newRootScreen(NavigationScreen.INCUBATOR_SCREEN)
+            NavigationSection.SITE_SEARCH -> router.newRootScreen(NavigationScreen.SEARCH_FORM)
             NavigationSection.SETTINGS -> router.navigateTo(NavigationScreen.SETTINGS_SCREEN)
             NavigationSection.APP_UPDATES -> router.newRootScreen(NavigationScreen.UPDATES_SCREEN)
+            NavigationSection.SIGN_IN -> router.navigateTo(NavigationScreen.AUTHORIZATION_SCREEN)
+            NavigationSection.SIGN_OUT -> sendSignOutRequest()
         }
     }
 

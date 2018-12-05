@@ -185,7 +185,7 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
         when (targetScreen) {
             NavigationScreen.NEWS_SCREEN -> string(R.string.nav_drawer_main_page)
             NavigationScreen.PICTURES_SCREEN -> string(R.string.nav_drawer_pictures)
-            NavigationScreen.VIDEO_SCREEN -> string(R.string.nav_drawer_video)
+            NavigationScreen.VIDEOS_SCREEN -> string(R.string.nav_drawer_video)
             NavigationScreen.EVENTS_SCREEN -> string(R.string.nav_drawer_events)
             NavigationScreen.AUTO_MOTO_SCREEN -> string(R.string.nav_drawer_auto_moto)
             NavigationScreen.ANIMALS_SCREEN -> string(R.string.nav_drawer_animals)

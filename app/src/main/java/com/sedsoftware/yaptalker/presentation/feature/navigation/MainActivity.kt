@@ -31,8 +31,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
 import com.sedsoftware.yaptalker.presentation.model.base.LoginSessionInfoModel
 import com.sedsoftware.yaptalker.presentation.provider.ActionBarProvider
 import com.sedsoftware.yaptalker.presentation.provider.NavDrawerProvider
-import kotlinx.android.synthetic.main.activity_main_tablets.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.activity_main_tablets.navigation_drawer
+import kotlinx.android.synthetic.main.include_main_appbar.toolbar
 import ru.terrakok.cicerone.Navigator
 import timber.log.Timber
 import javax.inject.Inject
@@ -50,7 +50,8 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
         private const val ACTION_NAVIGATE_TO_INCUBATOR =
             "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_INCUBATOR"
 
-        private const val SIGNED_IN_ITEMS_INSERT_POSITION = 4
+        private const val BOOKMARKS_INSERT_POSITION = 5
+        private const val SIGN_IN_INSERT_POSITION = 16
     }
 
     @Inject
@@ -72,8 +73,14 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
     private lateinit var drawerItemMainPage: PrimaryDrawerItem
     private lateinit var drawerItemForums: PrimaryDrawerItem
     private lateinit var drawerItemActiveTopics: PrimaryDrawerItem
-    private lateinit var drawerItemIncubator: PrimaryDrawerItem
     private lateinit var drawerItemBookmarks: PrimaryDrawerItem
+    private lateinit var drawerItemPictures: PrimaryDrawerItem
+    private lateinit var drawerItemVideos: PrimaryDrawerItem
+    private lateinit var drawerItemEvents: PrimaryDrawerItem
+    private lateinit var drawerItemAutoMoto: PrimaryDrawerItem
+    private lateinit var drawerItemAnimals: PrimaryDrawerItem
+    private lateinit var drawerItemPhotobomb: PrimaryDrawerItem
+    private lateinit var drawerItemIncubator: PrimaryDrawerItem
     private lateinit var drawerItemSearch: PrimaryDrawerItem
     private lateinit var drawerItemSettings: PrimaryDrawerItem
     private lateinit var drawerItemUpdater: PrimaryDrawerItem
@@ -148,8 +155,8 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
     }
 
     override fun displaySignedInNavigation() {
-        navDrawer.addItemAtPosition(drawerItemBookmarks, SIGNED_IN_ITEMS_INSERT_POSITION)
-        navDrawer.addItem(drawerItemSignOut)
+        navDrawer.addItemAtPosition(drawerItemBookmarks, BOOKMARKS_INSERT_POSITION)
+        navDrawer.addItemAtPosition(drawerItemSignOut, SIGN_IN_INSERT_POSITION)
     }
 
     override fun displaySignedOutNavigation() {
@@ -194,15 +201,6 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
             .withSelectedTextColor(colorFromAttr(R.attr.colorNavActiveTopics))
             .withSelectedIconColor(colorFromAttr(R.attr.colorNavActiveTopics))
 
-        drawerItemIncubator = PrimaryDrawerItem()
-            .withIdentifier(NavigationSection.INCUBATOR)
-            .withName(R.string.nav_drawer_incubator)
-            .withIcon(Typeicons.Icon.typ_user)
-            .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
-            .withIconColor(colorFromAttr(R.attr.colorNavIncubator))
-            .withSelectedTextColor(colorFromAttr(R.attr.colorNavIncubator))
-            .withSelectedIconColor(colorFromAttr(R.attr.colorNavIncubator))
-
         drawerItemBookmarks = PrimaryDrawerItem()
             .withIdentifier(NavigationSection.BOOKMARKS)
             .withName(R.string.nav_drawer_bookmarks)
@@ -211,6 +209,78 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
             .withIconColor(colorFromAttr(R.attr.colorNavBookmarks))
             .withSelectedTextColor(colorFromAttr(R.attr.colorNavBookmarks))
             .withSelectedIconColor(colorFromAttr(R.attr.colorNavBookmarks))
+
+        drawerItemPictures = PrimaryDrawerItem()
+            .withIdentifier(NavigationSection.PICTURES)
+            .withName(R.string.nav_drawer_pictures)
+            .withIcon(Typeicons.Icon.typ_image)
+            .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
+            .withIconColor(colorFromAttr(R.attr.colorNavPictures))
+            .withSelectedTextColor(colorFromAttr(R.attr.colorNavPictures))
+            .withSelectedIconColor(colorFromAttr(R.attr.colorNavPictures))
+
+        drawerItemPictures = PrimaryDrawerItem()
+            .withIdentifier(NavigationSection.PICTURES)
+            .withName(R.string.nav_drawer_pictures)
+            .withIcon(Typeicons.Icon.typ_image)
+            .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
+            .withIconColor(colorFromAttr(R.attr.colorNavPictures))
+            .withSelectedTextColor(colorFromAttr(R.attr.colorNavPictures))
+            .withSelectedIconColor(colorFromAttr(R.attr.colorNavPictures))
+
+        drawerItemVideos = PrimaryDrawerItem()
+            .withIdentifier(NavigationSection.VIDEO)
+            .withName(R.string.nav_drawer_video)
+            .withIcon(Typeicons.Icon.typ_video)
+            .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
+            .withIconColor(colorFromAttr(R.attr.colorNavVideos))
+            .withSelectedTextColor(colorFromAttr(R.attr.colorNavVideos))
+            .withSelectedIconColor(colorFromAttr(R.attr.colorNavVideos))
+
+        drawerItemEvents = PrimaryDrawerItem()
+            .withIdentifier(NavigationSection.EVENTS)
+            .withName(R.string.nav_drawer_events)
+            .withIcon(Typeicons.Icon.typ_news)
+            .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
+            .withIconColor(colorFromAttr(R.attr.colorNavEvents))
+            .withSelectedTextColor(colorFromAttr(R.attr.colorNavEvents))
+            .withSelectedIconColor(colorFromAttr(R.attr.colorNavEvents))
+
+        drawerItemAutoMoto = PrimaryDrawerItem()
+            .withIdentifier(NavigationSection.AUTO_MOTO)
+            .withName(R.string.nav_drawer_auto_moto)
+            .withIcon(CommunityMaterial.Icon.cmd_car)
+            .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
+            .withIconColor(colorFromAttr(R.attr.colorNavAutoMoto))
+            .withSelectedTextColor(colorFromAttr(R.attr.colorNavAutoMoto))
+            .withSelectedIconColor(colorFromAttr(R.attr.colorNavAutoMoto))
+
+        drawerItemAnimals = PrimaryDrawerItem()
+            .withIdentifier(NavigationSection.AUTO_MOTO)
+            .withName(R.string.nav_drawer_animals)
+            .withIcon(CommunityMaterial.Icon.cmd_cat)
+            .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
+            .withIconColor(colorFromAttr(R.attr.colorNavAnimals))
+            .withSelectedTextColor(colorFromAttr(R.attr.colorNavAnimals))
+            .withSelectedIconColor(colorFromAttr(R.attr.colorNavAnimals))
+
+        drawerItemPhotobomb = PrimaryDrawerItem()
+            .withIdentifier(NavigationSection.PHOTOBOMB)
+            .withName(R.string.nav_drawer_photobomb)
+            .withIcon(Typeicons.Icon.typ_camera_outline)
+            .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
+            .withIconColor(colorFromAttr(R.attr.colorNavPhotobomb))
+            .withSelectedTextColor(colorFromAttr(R.attr.colorNavPhotobomb))
+            .withSelectedIconColor(colorFromAttr(R.attr.colorNavPhotobomb))
+
+        drawerItemIncubator = PrimaryDrawerItem()
+            .withIdentifier(NavigationSection.INCUBATOR)
+            .withName(R.string.nav_drawer_incubator)
+            .withIcon(Typeicons.Icon.typ_user)
+            .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
+            .withIconColor(colorFromAttr(R.attr.colorNavIncubator))
+            .withSelectedTextColor(colorFromAttr(R.attr.colorNavIncubator))
+            .withSelectedIconColor(colorFromAttr(R.attr.colorNavIncubator))
 
         drawerItemSearch = PrimaryDrawerItem()
             .withIdentifier(NavigationSection.SITE_SEARCH)
@@ -280,9 +350,16 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
             .addDrawerItems(drawerItemMainPage)
             .addDrawerItems(drawerItemForums)
             .addDrawerItems(drawerItemActiveTopics)
-            .addDrawerItems(drawerItemIncubator)
-            .addDrawerItems(drawerItemSearch)
             .addDrawerItems(DividerDrawerItem())
+            .addDrawerItems(drawerItemPictures)
+            .addDrawerItems(drawerItemVideos)
+            .addDrawerItems(drawerItemEvents)
+            .addDrawerItems(drawerItemAutoMoto)
+            .addDrawerItems(drawerItemAnimals)
+            .addDrawerItems(drawerItemPhotobomb)
+            .addDrawerItems(drawerItemIncubator)
+            .addDrawerItems(DividerDrawerItem())
+            .addDrawerItems(drawerItemSearch)
             .addDrawerItems(drawerItemSettings)
             .addDrawerItems(drawerItemUpdater)
             .withOnDrawerItemClickListener { _, _, drawerItem ->
