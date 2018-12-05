@@ -51,7 +51,6 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
             "com.sedsoftware.yaptalker.ACTION_NAVIGATE_TO_INCUBATOR"
 
         private const val BOOKMARKS_INSERT_POSITION = 4
-        private const val SIGN_IN_INSERT_POSITION = 17
     }
 
     @Inject
@@ -156,7 +155,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
 
     override fun displaySignedInNavigation() {
         navDrawer.addItemAtPosition(drawerItemBookmarks, BOOKMARKS_INSERT_POSITION)
-        navDrawer.addItemAtPosition(drawerItemSignOut, SIGN_IN_INSERT_POSITION)
+        navDrawer.addItem(drawerItemSignOut)
     }
 
     override fun displaySignedOutNavigation() {
@@ -351,12 +350,34 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
             .addDrawerItems(drawerItemForums)
             .addDrawerItems(drawerItemActiveTopics)
             .addDrawerItems(DividerDrawerItem())
-            .addDrawerItems(drawerItemPictures)
-            .addDrawerItems(drawerItemVideos)
-            .addDrawerItems(drawerItemEvents)
-            .addDrawerItems(drawerItemAutoMoto)
-            .addDrawerItems(drawerItemAnimals)
-            .addDrawerItems(drawerItemPhotobomb)
+
+        val chosenItems = settings.getDrawerItems()
+
+        if (chosenItems.contains(string(R.string.pref_appearance_drawer_value_pictures))) {
+            drawerBuilder.addDrawerItems(drawerItemPictures)
+        }
+
+        if (chosenItems.contains(string(R.string.pref_appearance_drawer_value_video))) {
+            drawerBuilder.addDrawerItems(drawerItemVideos)
+        }
+
+        if (chosenItems.contains(string(R.string.pref_appearance_drawer_value_events))) {
+            drawerBuilder.addDrawerItems(drawerItemEvents)
+        }
+
+        if (chosenItems.contains(string(R.string.pref_appearance_drawer_value_auto))) {
+            drawerBuilder.addDrawerItems(drawerItemAutoMoto)
+        }
+
+        if (chosenItems.contains(string(R.string.pref_appearance_drawer_value_animals))) {
+            drawerBuilder.addDrawerItems(drawerItemAnimals)
+        }
+
+        if (chosenItems.contains(string(R.string.pref_appearance_drawer_value_photoshop))) {
+            drawerBuilder.addDrawerItems(drawerItemPhotobomb)
+        }
+
+        drawerBuilder
             .addDrawerItems(drawerItemIncubator)
             .addDrawerItems(DividerDrawerItem())
             .addDrawerItems(drawerItemSearch)
