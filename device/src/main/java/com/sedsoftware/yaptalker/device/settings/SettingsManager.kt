@@ -25,6 +25,10 @@ class SettingsManager @Inject constructor(
         context.resources.getStringArray(R.array.pref_categorizer_values).toSet()
     }
 
+    private val defaultDrawerItems by lazy {
+        context.resources.getStringArray(R.array.pref_drawer_values_default).toSet()
+    }
+
     override fun getSingleCookie(): String =
         getStringPref(R.string.pref_key_cookie, "")
 
@@ -74,6 +78,9 @@ class SettingsManager @Inject constructor(
 
     override fun getNewsCategories(): Set<String> =
         getStringSetPref(R.string.pref_key_categorizer, defaultCategories)
+
+    override fun getDrawerItems(): Set<String> =
+        getStringSetPref(R.string.pref_key_drawer_customizer, defaultDrawerItems)
 
     override fun getLastUpdateCheckDate(): Long =
         getLongPref(R.string.pref_key_last_update_check, 0L)

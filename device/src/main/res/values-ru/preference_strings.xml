@@ -12,6 +12,15 @@
 
     <!-- APPEARANCE -->
     <string name="pref_category_title_appearance">Внешний вид</string>
+    <!-- Navdrawer themes -->
+    <string name="pref_appearance_drawer_label">Настройка бокового меню</string>
+    <string name="pref_appearance_drawer_summary">Выберите разделы сайта, которые будут отображаться в боковом меню.</string>
+    <string name="pref_appearance_drawer_label_pictures">Картинки</string>
+    <string name="pref_appearance_drawer_label_video">Видео</string>
+    <string name="pref_appearance_drawer_label_events">События</string>
+    <string name="pref_appearance_drawer_label_auto">Авто/Мото</string>
+    <string name="pref_appearance_drawer_label_animals">Зверье</string>
+    <string name="pref_appearance_drawer_label_photoshop">Фотожаба</string>
     <!-- Font size -->
     <string name="pref_appearance_font_size_title">Базовый размер шрифта</string>
     <!-- Avatars size -->

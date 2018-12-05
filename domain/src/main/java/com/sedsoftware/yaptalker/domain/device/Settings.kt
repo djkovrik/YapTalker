@@ -11,6 +11,7 @@ interface Settings {
     fun getMessagesPerPage(): Int
     fun getTopicsPerPage(): Int
     fun getNewsCategories(): Set<String>
+    fun getDrawerItems(): Set<String>
     fun getLastUpdateCheckDate(): Long
     fun getCurrentTheme(): String
     fun isNsfwEnabled(): Boolean

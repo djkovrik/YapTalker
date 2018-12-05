@@ -101,4 +101,29 @@
         <item>@string/pref_content_categorizer_value_building</item>
     </string-array>
 
+    <!-- Nav drawer -->
+    <string-array name="pref_drawer_labels">
+        <item>@string/pref_appearance_drawer_label_pictures</item>
+        <item>@string/pref_appearance_drawer_label_video</item>
+        <item>@string/pref_appearance_drawer_label_events</item>
+        <item>@string/pref_appearance_drawer_label_auto</item>
+        <item>@string/pref_appearance_drawer_label_animals</item>
+        <item>@string/pref_appearance_drawer_label_photoshop</item>
+    </string-array>
+
+    <string-array name="pref_drawer_values">
+        <item>@string/pref_appearance_drawer_value_pictures</item>
+        <item>@string/pref_appearance_drawer_value_video</item>
+        <item>@string/pref_appearance_drawer_value_events</item>
+        <item>@string/pref_appearance_drawer_value_auto</item>
+        <item>@string/pref_appearance_drawer_value_animals</item>
+        <item>@string/pref_appearance_drawer_value_photoshop</item>
+    </string-array>
+
+    <string-array name="pref_drawer_values_default">
+        <item>@string/pref_appearance_drawer_value_pictures</item>
+        <item>@string/pref_appearance_drawer_value_video</item>
+        <item>@string/pref_appearance_drawer_value_events</item>
+    </string-array>
+
 </resources>

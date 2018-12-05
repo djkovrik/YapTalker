@@ -15,6 +15,15 @@
 
     <PreferenceCategory android:title="@string/pref_category_title_appearance">
 
+        <com.afollestad.materialdialogs.prefs.MaterialMultiSelectListPreference
+            android:defaultValue="@array/pref_drawer_values_default"
+            android:entries="@array/pref_drawer_labels"
+            android:entryValues="@array/pref_drawer_values"
+            android:key="@string/pref_key_drawer_customizer"
+            android:persistent="true"
+            android:summary="@string/pref_appearance_drawer_summary"
+            android:title="@string/pref_appearance_drawer_label" />
+
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:defaultValue="@string/pref_appearance_font_size_value_14"
             android:entries="@array/pref_font_size_values"

@@ -16,6 +16,21 @@
 
     <!-- APPEARANCE -->
     <string name="pref_category_title_appearance">Appearance</string>
+    <!-- Navdrawer themes -->
+    <string name="pref_appearance_drawer_label">Customize navigation drawer</string>
+    <string name="pref_appearance_drawer_summary">Select categories to display in navigation drawer menu.</string>
+    <string name="pref_appearance_drawer_label_pictures">Pictures</string>
+    <string name="pref_appearance_drawer_label_video">Video</string>
+    <string name="pref_appearance_drawer_label_events">Events</string>
+    <string name="pref_appearance_drawer_label_auto">Auto</string>
+    <string name="pref_appearance_drawer_label_animals">Animals</string>
+    <string name="pref_appearance_drawer_label_photoshop">Photoshop</string>
+    <string name="pref_appearance_drawer_value_pictures" translatable="false">pictures</string>
+    <string name="pref_appearance_drawer_value_video" translatable="false">video</string>
+    <string name="pref_appearance_drawer_value_events" translatable="false">events</string>
+    <string name="pref_appearance_drawer_value_auto" translatable="false">auto</string>
+    <string name="pref_appearance_drawer_value_animals" translatable="false">animals</string>
+    <string name="pref_appearance_drawer_value_photoshop" translatable="false">photoshop</string>
     <!-- Font size -->
     <string name="pref_appearance_font_size_title">Base font size</string>
     <string name="pref_appearance_font_size_value_12" translatable="false">12</string>
