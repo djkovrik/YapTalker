@@ -13,7 +13,6 @@ class SettingsPageMapper @Inject constructor() : Function<SitePreferencesPagePar
     }
 
     override fun apply(from: SitePreferencesPageParsed): SitePreferences {
-
         val messages = from.messagesPerTopicPage.toInt()
         val topics = from.topicsPerForumPage.toInt()
 

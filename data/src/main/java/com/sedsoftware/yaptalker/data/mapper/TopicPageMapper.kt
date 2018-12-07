@@ -20,7 +20,6 @@ class TopicPageMapper @Inject constructor() : Function<TopicPageParsed, List<Bas
     }
 
     override fun apply(from: TopicPageParsed): List<BaseEntity> {
-
         val result: MutableList<BaseEntity> = ArrayList(POSTS_PER_PAGE)
 
         with(from) {

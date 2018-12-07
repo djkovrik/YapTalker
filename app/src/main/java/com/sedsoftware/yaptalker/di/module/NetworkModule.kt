@@ -55,11 +55,8 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideYapLoader(
-        @Named("siteClient") okHttpClient: OkHttpClient
-    ): YapLoader =
-        Retrofit
-            .Builder()
+    fun provideYapLoader(@Named("siteClient") okHttpClient: OkHttpClient): YapLoader =
+        Retrofit.Builder()
             .baseUrl(SITE_BASE_URL)
             .client(okHttpClient)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -70,11 +67,8 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideYapSearchIdLoader(
-        @Named("siteClient") okHttpClient: OkHttpClient
-    ): YapSearchIdLoader =
-        Retrofit
-            .Builder()
+    fun provideYapSearchIdLoader(@Named("siteClient") okHttpClient: OkHttpClient): YapSearchIdLoader =
+        Retrofit.Builder()
             .baseUrl(SITE_BASE_URL)
             .client(okHttpClient)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -85,11 +79,8 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideYapVideoTokenLoader(
-        @Named("siteClient") okHttpClient: OkHttpClient
-    ): YapVideoTokenLoader =
-        Retrofit
-            .Builder()
+    fun provideYapVideoTokenLoader(@Named("siteClient") okHttpClient: OkHttpClient): YapVideoTokenLoader =
+        Retrofit.Builder()
             .baseUrl(SITE_YAPFILES_URL)
             .client(okHttpClient)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -101,8 +92,7 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideCoubLoader(): CoubLoader =
-        Retrofit
-            .Builder()
+        Retrofit.Builder()
             .baseUrl(COUB_BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
@@ -112,8 +102,7 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideRutubeLoader(): RutubeLoader =
-        Retrofit
-            .Builder()
+        Retrofit.Builder()
             .baseUrl(RUTUBE_BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())

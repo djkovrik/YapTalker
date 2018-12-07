@@ -16,7 +16,6 @@ class NewsPageMapper @Inject constructor() : Function<NewsPageParsed, List<NewsI
     }
 
     override fun apply(from: NewsPageParsed): List<NewsItem> {
-
         val result: MutableList<NewsItem> = ArrayList(NEWS_PER_PAGE)
 
         with(from) {

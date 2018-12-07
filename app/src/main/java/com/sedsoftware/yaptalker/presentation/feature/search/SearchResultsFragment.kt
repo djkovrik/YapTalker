@@ -17,7 +17,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.feature.search.adapter.SearchResultsAdapter
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_site_search_results.*
+import kotlinx.android.synthetic.main.fragment_site_search_results.search_refresh_layout
+import kotlinx.android.synthetic.main.fragment_site_search_results.search_results_list
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_site_search_results)
@@ -69,10 +70,9 @@ class SearchResultsFragment : BaseFragment(), SearchResultsView {
 
         search_refresh_layout.setIndicatorColorScheme()
 
-        RxSwipeRefreshLayout
-            .refreshes(search_refresh_layout)
+        RxSwipeRefreshLayout.refreshes(search_refresh_layout)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { search_refresh_layout?.isRefreshing = false }
+            .subscribe({ search_refresh_layout?.isRefreshing = false }, { it.printStackTrace() })
 
         if (searchInTags) {
             presenter.searchInTags(searchRequest.searchFor)

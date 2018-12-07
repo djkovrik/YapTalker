@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.feature
+package com.sedsoftware.yaptalker.presentation.delegate
 
 import android.content.Context
 import com.sedsoftware.yaptalker.domain.device.Settings

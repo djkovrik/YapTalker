@@ -18,7 +18,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.bookmarks.adapter.BookmarksAdapter
 import com.sedsoftware.yaptalker.presentation.model.base.BookmarkedTopicModel
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_bookmarks.*
+import kotlinx.android.synthetic.main.fragment_bookmarks.bookmarks_list
+import kotlinx.android.synthetic.main.fragment_bookmarks.bookmarks_refresh_layout
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_bookmarks)
@@ -97,9 +98,8 @@ class BookmarksFragment : BaseFragment(), BookmarksView {
 
     private fun subscribeViews() {
 
-        RxSwipeRefreshLayout
-            .refreshes(bookmarks_refresh_layout)
+        RxSwipeRefreshLayout.refreshes(bookmarks_refresh_layout)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { presenter.loadBookmarks() }
+            .subscribe({ presenter.loadBookmarks() }, { it.printStackTrace() })
     }
 }

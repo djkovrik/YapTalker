@@ -14,9 +14,11 @@ class NavigationModule {
 
     @Singleton
     @Provides
-    fun provideRouter(): Router = cicerone.router
+    fun provideRouter(): Router =
+        cicerone.router
 
     @Singleton
     @Provides
-    fun provideNavigatorHolder(): NavigatorHolder = cicerone.navigatorHolder
+    fun provideNavigatorHolder(): NavigatorHolder =
+        cicerone.navigatorHolder
 }

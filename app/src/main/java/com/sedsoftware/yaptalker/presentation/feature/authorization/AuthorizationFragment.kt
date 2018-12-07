@@ -17,7 +17,10 @@ import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
-import kotlinx.android.synthetic.main.fragment_authorization.*
+import kotlinx.android.synthetic.main.fragment_authorization.authorization_anonymous
+import kotlinx.android.synthetic.main.fragment_authorization.authorization_login
+import kotlinx.android.synthetic.main.fragment_authorization.authorization_password
+import kotlinx.android.synthetic.main.fragment_authorization.button_sign_in
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_authorization)
@@ -68,25 +71,23 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
 
     private fun subscribeViews() {
 
-        Observable
-            .combineLatest(
+        Observable.combineLatest(
                 RxTextView.textChanges(authorization_login),
                 RxTextView.textChanges(authorization_password),
                 BiFunction { login: CharSequence, password: CharSequence ->
                     login.isNotEmpty() && password.isNotEmpty()
                 })
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { enabled -> presenter.handleSignInButton(enabled) }
+            .subscribe({ enabled -> presenter.handleSignInButton(enabled) }, { it.printStackTrace() })
 
-        RxView
-            .clicks(button_sign_in)
+        RxView.clicks(button_sign_in)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe {
+            .subscribe({
                 presenter.performLoginAttempt(
                     authorization_login.text.toString(),
                     authorization_password.text.toString(),
                     authorization_anonymous.isChecked
                 )
-            }
+            }, { it.printStackTrace() })
     }
 }

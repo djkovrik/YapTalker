@@ -17,7 +17,6 @@ import java.util.regex.Pattern
  *
  * @param content Raw html post content
  */
-@Suppress("MaxLineLength")
 class PostContentParser(private val content: String) {
 
     companion object {
@@ -110,7 +109,8 @@ class PostContentParser(private val content: String) {
                 }
 
                 // Quote authors
-                if (element.text().contains(Regex(QUOTE_AUTHOR_MARKER_REGEX)) && !element.html().contains(Regex("[\\r\\n]+"))) {
+                if (element.text().contains(Regex(QUOTE_AUTHOR_MARKER_REGEX))
+                    && !element.html().contains(Regex("[\\r\\n]+"))) {
                     result.content.add(PostQuoteAuthor(text = element.html()))
                 } else if (element.text() == QUOTE_MARKER) {
                     result.content.add(PostQuoteAuthor(text = element.html()))

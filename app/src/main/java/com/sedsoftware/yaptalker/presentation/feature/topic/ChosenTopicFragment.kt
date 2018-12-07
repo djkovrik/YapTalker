@@ -1,5 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.topic
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.content.ContextCompat
@@ -377,6 +378,7 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
             })
     }
 
+    @SuppressLint("RxSubscribeOnError")
     private fun subscribeViews() {
 
 //        RxSwipeRefreshLayout

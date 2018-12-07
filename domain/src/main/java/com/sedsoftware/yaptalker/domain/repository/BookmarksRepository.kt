@@ -5,10 +5,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 
 interface BookmarksRepository {
-
     fun getBookmarks(): Observable<BookmarkedTopic>
-
     fun requestBookmarkAdding(topicId: Int, startingPost: Int): Completable
-
     fun requestBookmarkDeletion(bookmarkId: Int): Completable
 }

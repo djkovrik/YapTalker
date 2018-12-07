@@ -9,12 +9,10 @@ class SiteKarmaInteractor @Inject constructor(
     private val chosenTopicRepository: ChosenTopicRepository
 ) {
 
-    fun sendChangeKarmaRequest(
-        isTopic: Boolean,
-        targetPostId: Int,
-        targetTopicId: Int,
-        diff: Int
-    ): Single<ServerResponse> =
+    fun sendChangeKarmaRequest(isTopic: Boolean,
+                               targetPostId: Int,
+                               targetTopicId: Int,
+                               diff: Int): Single<ServerResponse> =
         chosenTopicRepository
             .requestKarmaChange(isTopic, targetPostId, targetTopicId, diff)
 }

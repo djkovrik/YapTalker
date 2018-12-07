@@ -15,7 +15,6 @@ class SearchPageResultsMapper @Inject constructor() : Function<SearchTopicsPageP
     }
 
     override fun apply(from: SearchTopicsPageParsed): List<BaseEntity> {
-
         val result: MutableList<BaseEntity> = ArrayList(TOPICS_PER_PAGE)
 
         with(from) {

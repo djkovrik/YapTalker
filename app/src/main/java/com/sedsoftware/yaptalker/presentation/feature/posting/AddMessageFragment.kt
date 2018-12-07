@@ -31,8 +31,18 @@ import com.sedsoftware.yaptalker.presentation.feature.posting.adapter.EmojiAdapt
 import com.sedsoftware.yaptalker.presentation.feature.posting.tags.MessageTagCodes
 import com.sedsoftware.yaptalker.presentation.model.base.EmojiModel
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_new_post.*
-import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.*
+import kotlinx.android.synthetic.main.fragment_new_post.chosen_image_card
+import kotlinx.android.synthetic.main.fragment_new_post.chosen_image_name
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_bold
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_italic
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_link
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_smiles
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_underlined
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_button_video
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_edit_text
+import kotlinx.android.synthetic.main.fragment_new_post.new_post_topic_title
+import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.emojis_bottom_sheet
+import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet.emojis_list
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.fragment_new_post)
@@ -261,75 +271,75 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     }
 
     private fun subscribeViews() {
-        RxTextView
-            .textChangeEvents(new_post_edit_text)
+        RxTextView.textChangeEvents(new_post_edit_text)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN }
+            .subscribe({ bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN }, { it.printStackTrace() })
 
         // B
-        RxView
-            .clicks(new_post_button_bold)
+        RxView.clicks(new_post_button_bold)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe {
+            .subscribe({
                 with(new_post_edit_text) {
                     presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_B)
                 }
-            }
+            },
+                { it.printStackTrace() })
 
         // I
-        RxView
-            .clicks(new_post_button_italic)
+        RxView.clicks(new_post_button_italic)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe {
+            .subscribe({
                 with(new_post_edit_text) {
                     presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_I)
                 }
-            }
+            },
+                { it.printStackTrace() })
 
         // U
-        RxView
-            .clicks(new_post_button_underlined)
+        RxView.clicks(new_post_button_underlined)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe {
+            .subscribe({
                 with(new_post_edit_text) {
                     presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_U)
                 }
-            }
+            }, { it.printStackTrace() })
 
         // Link
-        RxView
-            .clicks(new_post_button_link)
+        RxView.clicks(new_post_button_link)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe {
+            .subscribe({
                 with(new_post_edit_text) {
                     presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_LINK)
                 }
-            }
+            },
+                { it.printStackTrace() })
 
         // Video
-        RxView
-            .clicks(new_post_button_video)
+        RxView.clicks(new_post_button_video)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe {
+            .subscribe({
                 with(new_post_edit_text) {
                     presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_VIDEO)
                 }
-            }
+            },
+                { it.printStackTrace() })
 
         // Smiles
-        RxView
-            .clicks(new_post_button_smiles)
+        RxView.clicks(new_post_button_smiles)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { presenter.onSmilesButtonClicked() }
+            .subscribe({
+                presenter.onSmilesButtonClicked()
+            },
+                { it.printStackTrace() })
 
         // Attachment
-        RxView
-            .clicks(chosen_image_card)
+        RxView.clicks(chosen_image_card)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe {
+            .subscribe({
                 chosenImagePath = ""
                 handleAttachmentCardState()
-            }
+            },
+                { it.printStackTrace() })
     }
 
     private fun returnMessageText() {

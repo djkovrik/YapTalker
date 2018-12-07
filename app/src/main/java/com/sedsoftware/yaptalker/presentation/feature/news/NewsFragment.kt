@@ -1,6 +1,5 @@
 package com.sedsoftware.yaptalker.presentation.feature.news
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -162,23 +161,19 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
             })
     }
 
-    @SuppressLint("RxSubscribeOnError")
     private fun subscribeViews() {
 
-        RxSwipeRefreshLayout
-            .refreshes(refresh_layout)
+        RxSwipeRefreshLayout.refreshes(refresh_layout)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { presenter.loadNews(loadFromFirstPage = true) }
+            .subscribe({ presenter.loadNews(loadFromFirstPage = true) }, { it.printStackTrace() })
 
-        RxRecyclerView
-            .scrollEvents(news_list)
+        RxRecyclerView.scrollEvents(news_list)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { event -> presenter.handleFabVisibility(event.dy()) }
+            .subscribe({ event -> presenter.handleFabVisibility(event.dy()) }, { it.printStackTrace() })
 
-        RxView
-            .clicks(news_fab)
+        RxView.clicks(news_fab)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { presenter.loadNews(loadFromFirstPage = true) }
+            .subscribe({ presenter.loadNews(loadFromFirstPage = true) }, { it.printStackTrace() })
     }
 
     private fun buildTitle(): String =

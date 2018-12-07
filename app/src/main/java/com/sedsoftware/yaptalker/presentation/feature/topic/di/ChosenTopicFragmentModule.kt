@@ -20,7 +20,7 @@ import com.sedsoftware.yaptalker.domain.repository.ChosenTopicRepository
 import com.sedsoftware.yaptalker.domain.repository.ThumbnailRepository
 import com.sedsoftware.yaptalker.domain.repository.VideoTokenRepository
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
-import com.sedsoftware.yaptalker.presentation.feature.LinkBrowserDelegate
+import com.sedsoftware.yaptalker.presentation.delegate.LinkBrowserDelegate
 import com.sedsoftware.yaptalker.presentation.feature.topic.ChosenTopicFragment
 import com.sedsoftware.yaptalker.presentation.feature.topic.ChosenTopicPresenter
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicElementsClickListener
@@ -45,33 +45,29 @@ abstract class ChosenTopicFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
-        fun providesLinkBrowserDelegate(
-            router: Router,
-            tokenInteractor: VideoTokenInteractor,
-            settings: Settings,
-            fragment: ChosenTopicFragment
-        ): LinkBrowserDelegate = LinkBrowserDelegate(router, tokenInteractor, settings, fragment.context)
+        fun providesLinkBrowserDelegate(router: Router,
+                                        tokenInteractor: VideoTokenInteractor,
+                                        settings: Settings,
+                                        fragment: ChosenTopicFragment): LinkBrowserDelegate =
+            LinkBrowserDelegate(router, tokenInteractor, settings, fragment.context)
 
         @FragmentScope
         @Provides
         @JvmStatic
-        fun providePresenter(
-            router: Router,
-            settings: Settings,
-            topicInteractor: TopicInteractor,
-            karmaInteractor: SiteKarmaInteractor,
-            postingInteractor: MessagePostingInteractor,
-            thumbnailsInteractor: VideoThumbnailsInteractor,
-            blacklistInteractor: BlacklistInteractor,
-            topicMapper: TopicModelMapper,
-            topicStarterMapper: TopicStarterMapper,
-            quoteDataMapper: QuotedPostModelMapper,
-            editedTextDataMapper: EditedPostModelMapper,
-            serverResponseMapper: ServerResponseModelMapper,
-            linksDelegate: LinkBrowserDelegate,
-            schedulers: SchedulersProvider
-        ): ChosenTopicPresenter =
-
+        fun providePresenter(router: Router,
+                             settings: Settings,
+                             topicInteractor: TopicInteractor,
+                             karmaInteractor: SiteKarmaInteractor,
+                             postingInteractor: MessagePostingInteractor,
+                             thumbnailsInteractor: VideoThumbnailsInteractor,
+                             blacklistInteractor: BlacklistInteractor,
+                             topicMapper: TopicModelMapper,
+                             topicStarterMapper: TopicStarterMapper,
+                             quoteDataMapper: QuotedPostModelMapper,
+                             editedTextDataMapper: EditedPostModelMapper,
+                             serverResponseMapper: ServerResponseModelMapper,
+                             linksDelegate: LinkBrowserDelegate,
+                             schedulers: SchedulersProvider): ChosenTopicPresenter =
             ChosenTopicPresenter(
                 router,
                 settings,

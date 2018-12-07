@@ -19,7 +19,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.adapter.ActiveTopicsAdapter
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_active_topics.*
+import kotlinx.android.synthetic.main.fragment_active_topics.active_topics_list
+import kotlinx.android.synthetic.main.fragment_active_topics.active_topics_refresh_layout
 import java.util.Locale
 import javax.inject.Inject
 
@@ -104,9 +105,8 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView {
     }
 
     private fun subscribeViews() {
-        RxSwipeRefreshLayout
-            .refreshes(active_topics_refresh_layout)
+        RxSwipeRefreshLayout.refreshes(active_topics_refresh_layout)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { presenter.refreshActiveTopicsList() }
+            .subscribe({ presenter.refreshActiveTopicsList() }, { it.printStackTrace() })
     }
 }

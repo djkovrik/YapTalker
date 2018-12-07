@@ -13,12 +13,7 @@ interface ChosenTopicRepository {
 
     fun requestPostTextAsQuote(forumId: Int, topicId: Int, targetPostId: Int): Single<QuotedPost>
 
-    fun requestPostTextForEditing(
-        forumId: Int,
-        topicId: Int,
-        targetPostId: Int,
-        startingPost: Int
-    ): Single<EditedPost>
+    fun requestPostTextForEditing(forumId: Int, topicId: Int, postId: Int, startingPost: Int): Single<EditedPost>
 
     fun requestKarmaChange(isTopic: Boolean, targetPostId: Int, targetTopicId: Int, diff: Int): Single<ServerResponse>
 
@@ -26,22 +21,18 @@ interface ChosenTopicRepository {
 
     fun requestTopicKarmaChange(targetPostId: Int, targetTopicId: Int, diff: Int): Single<ServerResponse>
 
-    fun requestMessageSending(
-        targetForumId: Int,
-        targetTopicId: Int,
-        page: Int,
-        authKey: String,
-        message: String,
-        filePath: String
-    ): Completable
+    fun requestMessageSending(targetForumId: Int,
+                              targetTopicId: Int,
+                              page: Int,
+                              authKey: String,
+                              message: String,
+                              filePath: String): Completable
 
-    fun requestEditedMessageSending(
-        targetForumId: Int,
-        targetTopicId: Int,
-        targetPostId: Int,
-        page: Int,
-        authKey: String,
-        message: String,
-        file: String
-    ): Completable
+    fun requestEditedMessageSending(targetForumId: Int,
+                                    targetTopicId: Int,
+                                    targetPostId: Int,
+                                    page: Int,
+                                    authKey: String,
+                                    message: String,
+                                    file: String): Completable
 }

@@ -16,7 +16,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLife
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.RequestCode
 import com.sedsoftware.yaptalker.presentation.base.navigation.NavigationPanelClickListener
-import com.sedsoftware.yaptalker.presentation.feature.LinkBrowserDelegate
+import com.sedsoftware.yaptalker.presentation.delegate.LinkBrowserDelegate
 import com.sedsoftware.yaptalker.presentation.feature.search.SearchRequest
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.EditedPostModelMapper

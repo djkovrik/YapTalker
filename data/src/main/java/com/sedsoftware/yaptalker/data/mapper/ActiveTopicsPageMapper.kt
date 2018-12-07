@@ -16,7 +16,6 @@ class ActiveTopicsPageMapper @Inject constructor() : Function<ActiveTopicsPagePa
     }
 
     override fun apply(from: ActiveTopicsPageParsed): List<BaseEntity> {
-
         val result: MutableList<BaseEntity> = ArrayList(TOPICS_PER_PAGE)
 
         with(from) {

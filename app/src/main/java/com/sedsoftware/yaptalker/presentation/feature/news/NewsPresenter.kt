@@ -9,7 +9,7 @@ import com.sedsoftware.yaptalker.domain.interactor.VideoThumbnailsInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
-import com.sedsoftware.yaptalker.presentation.feature.LinkBrowserDelegate
+import com.sedsoftware.yaptalker.presentation.delegate.LinkBrowserDelegate
 import com.sedsoftware.yaptalker.presentation.feature.news.adapter.NewsItemElementsClickListener
 import com.sedsoftware.yaptalker.presentation.mapper.NewsModelMapper
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel

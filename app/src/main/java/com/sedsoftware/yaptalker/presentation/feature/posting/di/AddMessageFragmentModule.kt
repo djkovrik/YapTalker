@@ -22,12 +22,10 @@ abstract class AddMessageFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
-        fun providePresenter(
-            router: Router,
-            interactor: EmojiInteractor,
-            mapper: EmojiModelMapper,
-            schedulers: SchedulersProvider
-        ): AddMessagePresenter =
+        fun providePresenter(router: Router,
+                             interactor: EmojiInteractor,
+                             mapper: EmojiModelMapper,
+                             schedulers: SchedulersProvider): AddMessagePresenter =
             AddMessagePresenter(router, interactor, mapper, schedulers)
     }
 

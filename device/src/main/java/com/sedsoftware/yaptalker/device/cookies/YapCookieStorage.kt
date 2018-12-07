@@ -3,7 +3,9 @@ package com.sedsoftware.yaptalker.device.cookies
 import com.sedsoftware.yaptalker.domain.device.CookieStorage
 import com.sedsoftware.yaptalker.domain.device.Settings
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class YapCookieStorage @Inject constructor(
     private val settings: Settings
 ) : CookieStorage {

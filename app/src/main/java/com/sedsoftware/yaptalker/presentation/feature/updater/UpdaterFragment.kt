@@ -18,7 +18,14 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSe
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.model.base.AppVersionInfoModel
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_updater.*
+import kotlinx.android.synthetic.main.fragment_updater.updater_btn_changelog
+import kotlinx.android.synthetic.main.fragment_updater.updater_btn_check_updates
+import kotlinx.android.synthetic.main.fragment_updater.updater_btn_download
+import kotlinx.android.synthetic.main.fragment_updater.updater_current_version
+import kotlinx.android.synthetic.main.fragment_updater.updater_last_update_check
+import kotlinx.android.synthetic.main.fragment_updater.updater_new_version
+import kotlinx.android.synthetic.main.fragment_updater.updater_progressbar_status
+import kotlinx.android.synthetic.main.fragment_updater.updater_title
 import java.util.Locale
 import javax.inject.Inject
 
@@ -128,20 +135,17 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
 
     private fun subscribeViews() {
 
-        RxView
-            .clicks(updater_btn_check_updates)
+        RxView.clicks(updater_btn_check_updates)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { presenter.checkForUpdates() }
+            .subscribe({ presenter.checkForUpdates() }, { it.printStackTrace() })
 
-        RxView
-            .clicks(updater_btn_changelog)
+        RxView.clicks(updater_btn_changelog)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { presenter.showChangelog() }
+            .subscribe({ presenter.showChangelog() }, { it.printStackTrace() })
 
-        RxView
-            .clicks(updater_btn_download)
+        RxView.clicks(updater_btn_download)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { checkPermissionForDownloading() }
+            .subscribe({ checkPermissionForDownloading() }, { it.printStackTrace() })
     }
 
     private fun checkPermissionForDownloading() {

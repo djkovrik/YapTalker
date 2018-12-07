@@ -21,7 +21,8 @@ import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.forum.adapter.ChosenForumAdapter
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_chosen_forum.*
+import kotlinx.android.synthetic.main.fragment_chosen_forum.forum_refresh_layout
+import kotlinx.android.synthetic.main.fragment_chosen_forum.forum_topics_list
 import java.util.Locale
 import javax.inject.Inject
 
@@ -129,6 +130,6 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView {
         RxSwipeRefreshLayout
             .refreshes(forum_refresh_layout)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe { presenter.loadForum(currentForumId) }
+            .subscribe({ presenter.loadForum(currentForumId) }, { it.printStackTrace() })
     }
 }

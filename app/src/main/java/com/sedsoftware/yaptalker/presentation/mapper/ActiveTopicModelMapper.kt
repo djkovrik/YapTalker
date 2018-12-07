@@ -19,7 +19,6 @@ class ActiveTopicModelMapper @Inject constructor(
 ) : Function<List<BaseEntity>, List<DisplayedItemModel>> {
 
     override fun apply(items: List<BaseEntity>): List<DisplayedItemModel> {
-
         val result: MutableList<DisplayedItemModel> = ArrayList(items.size)
 
         items.forEach { item ->

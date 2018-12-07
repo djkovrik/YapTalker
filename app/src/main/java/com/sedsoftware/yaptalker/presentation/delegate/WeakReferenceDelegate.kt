@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.feature
+package com.sedsoftware.yaptalker.presentation.delegate
 
 import java.lang.ref.WeakReference
 import kotlin.reflect.KProperty

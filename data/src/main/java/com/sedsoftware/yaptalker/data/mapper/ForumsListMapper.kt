@@ -13,7 +13,6 @@ class ForumsListMapper @Inject constructor() : Function<ForumsListParsed, List<F
     }
 
     override fun apply(from: ForumsListParsed): List<Forum> {
-
         val result: MutableList<Forum> = ArrayList(FORUMS_COUNT)
 
         with(from) {

@@ -70,11 +70,11 @@ class YapChosenTopicRepository @Inject constructor(
     override fun requestPostTextForEditing(
         forumId: Int,
         topicId: Int,
-        targetPostId: Int,
+        postId: Int,
         startingPost: Int
     ): Single<EditedPost> =
         dataLoader
-            .loadTargetPostEditedText(forumId, topicId, targetPostId, startingPost)
+            .loadTargetPostEditedText(forumId, topicId, postId, startingPost)
             .map(editedPostMapper)
             .subscribeOn(schedulers.io())
 

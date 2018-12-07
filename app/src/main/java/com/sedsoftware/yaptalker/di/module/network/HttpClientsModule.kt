@@ -30,8 +30,7 @@ class HttpClientsModule {
     @Provides
     @Named("siteClient")
     fun provideSiteClient(cookieStorage: CookieStorage): OkHttpClient =
-        OkHttpClient
-            .Builder()
+        OkHttpClient.Builder()
             .addInterceptor(HtmlFixerInterceptor())
             .addInterceptor(CustomHeadersInterceptor())
             .addInterceptor(SaveReceivedCookiesInterceptor(cookieStorage))
