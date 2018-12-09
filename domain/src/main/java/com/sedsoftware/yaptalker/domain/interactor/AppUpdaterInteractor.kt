@@ -3,12 +3,12 @@ package com.sedsoftware.yaptalker.domain.interactor
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.base.VersionInfo
 import com.sedsoftware.yaptalker.domain.repository.LastUpdateCheckRepository
-import com.sedsoftware.yaptalker.domain.repository.VersionInfoRepository
+import com.sedsoftware.yaptalker.domain.repository.AppVersionInfoRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
 class AppUpdaterInteractor @Inject constructor(
-    private val versionInfoRepository: VersionInfoRepository,
+    private val versionInfoRepository: AppVersionInfoRepository,
     private val lastUpdateCheckRepository: LastUpdateCheckRepository,
     private val settings: Settings
 ) {

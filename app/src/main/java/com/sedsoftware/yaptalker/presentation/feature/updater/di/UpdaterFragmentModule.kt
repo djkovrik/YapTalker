@@ -1,12 +1,12 @@
 package com.sedsoftware.yaptalker.presentation.feature.updater.di
 
-import com.sedsoftware.yaptalker.data.repository.AppVersionInfoRepository
+import com.sedsoftware.yaptalker.data.repository.YapAppVersionInfoRepository
 import com.sedsoftware.yaptalker.data.repository.YapLastUpdateCheckRepository
 import com.sedsoftware.yaptalker.device.storage.YapUpdatesDownloader
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.device.UpdatesDownloader
 import com.sedsoftware.yaptalker.domain.repository.LastUpdateCheckRepository
-import com.sedsoftware.yaptalker.domain.repository.VersionInfoRepository
+import com.sedsoftware.yaptalker.domain.repository.AppVersionInfoRepository
 import dagger.Binds
 import dagger.Module
 
@@ -15,7 +15,7 @@ abstract class UpdaterFragmentModule {
 
     @FragmentScope
     @Binds
-    abstract fun versionInfoRepository(repo: AppVersionInfoRepository): VersionInfoRepository
+    abstract fun versionInfoRepository(repo: YapAppVersionInfoRepository): AppVersionInfoRepository
 
     @FragmentScope
     @Binds

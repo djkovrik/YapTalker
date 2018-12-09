@@ -5,15 +5,15 @@ import com.sedsoftware.yaptalker.data.mapper.AppVersionInfoMapper
 import com.sedsoftware.yaptalker.data.network.external.AppUpdatesChecker
 import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.entity.base.VersionInfo
-import com.sedsoftware.yaptalker.domain.repository.VersionInfoRepository
+import com.sedsoftware.yaptalker.domain.repository.AppVersionInfoRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class AppVersionInfoRepository @Inject constructor(
+class YapAppVersionInfoRepository @Inject constructor(
     private val dataLoader: AppUpdatesChecker,
     private val dataMapper: AppVersionInfoMapper,
     private val schedulers: SchedulersProvider
-) : VersionInfoRepository {
+) : AppVersionInfoRepository {
 
     override fun getRemoteVersionInfo(): Single<VersionInfo> =
         dataLoader

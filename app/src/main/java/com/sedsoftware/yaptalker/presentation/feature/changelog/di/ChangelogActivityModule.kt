@@ -1,8 +1,8 @@
 package com.sedsoftware.yaptalker.presentation.feature.changelog.di
 
-import com.sedsoftware.yaptalker.data.repository.AppChangelogRepository
+import com.sedsoftware.yaptalker.data.repository.YapAppChangelogRepository
 import com.sedsoftware.yaptalker.di.scope.ActivityScope
-import com.sedsoftware.yaptalker.domain.repository.ChangelogRepository
+import com.sedsoftware.yaptalker.domain.repository.AppChangelogRepository
 import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.feature.changelog.ChangelogActivity
 import dagger.Binds
@@ -25,5 +25,5 @@ abstract class ChangelogActivityModule {
 
     @ActivityScope
     @Binds
-    abstract fun changelogRepository(repo: AppChangelogRepository): ChangelogRepository
+    abstract fun changelogRepository(repo: YapAppChangelogRepository): AppChangelogRepository
 }

@@ -4,15 +4,15 @@ import android.content.Context
 import android.os.Build
 import com.sedsoftware.yaptalker.data.network.external.GitHubLoader
 import com.sedsoftware.yaptalker.data.system.SchedulersProvider
-import com.sedsoftware.yaptalker.domain.repository.ChangelogRepository
+import com.sedsoftware.yaptalker.domain.repository.AppChangelogRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class AppChangelogRepository @Inject constructor(
+class YapAppChangelogRepository @Inject constructor(
     private val context: Context,
     private val dataLoader: GitHubLoader,
     private val schedulers: SchedulersProvider
-) : ChangelogRepository {
+) : AppChangelogRepository {
 
     private companion object {
         const val LOCALE_EN = "en"

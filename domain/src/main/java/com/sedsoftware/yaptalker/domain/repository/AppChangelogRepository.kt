@@ -2,6 +2,6 @@ package com.sedsoftware.yaptalker.domain.repository
 
 import io.reactivex.Single
 
-interface ChangelogRepository {
+interface AppChangelogRepository {
     fun getChangelog(): Single<String>
 }
