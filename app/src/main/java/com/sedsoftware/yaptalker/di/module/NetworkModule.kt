@@ -141,9 +141,10 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideGithubLoader(): GitHubLoader =
+    fun provideGithubLoader(@Named("outerClient") okHttpClient: OkHttpClient): GitHubLoader =
         Retrofit.Builder()
             .baseUrl(GITHUB_BASE_URL)
+            .client(okHttpClient)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()

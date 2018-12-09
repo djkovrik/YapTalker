@@ -42,4 +42,12 @@ class HttpClientsModule {
     @Provides
     @Named("fileClient")
     fun provideFileClient(): OkHttpClient = OkHttpClient.Builder().build()
+
+    @Singleton
+    @Provides
+    @Named("outerClient")
+    fun provideOuterClient(): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
 }
