@@ -21,7 +21,8 @@ class ActiveTopicsDelegateAdapter(
         settings.getNormalFontSize()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder = TopicViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder =
+        TopicViewHolder(parent)
 
     override fun onBindViewHolder(holder: ViewHolder, item: DisplayedItemModel) {
         holder as TopicViewHolder

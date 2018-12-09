@@ -28,9 +28,7 @@ class ActiveTopicsAdapter @Inject constructor(
     init {
         delegateAdapters.put(
             DisplayedItemType.ACTIVE_TOPIC,
-            ActiveTopicsDelegateAdapter(
-                itemClickListener, settings
-            )
+            ActiveTopicsDelegateAdapter(itemClickListener, settings)
         )
 
         delegateAdapters.put(
@@ -61,9 +59,11 @@ class ActiveTopicsAdapter @Inject constructor(
         holder.itemView.clearAnimation()
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int =
+        items.size
 
-    override fun getItemViewType(position: Int): Int = items[position].getEntityType()
+    override fun getItemViewType(position: Int): Int =
+        items[position].getEntityType()
 
     override fun getItemId(position: Int): Long =
         (items[position] as? ActiveTopicModel)?.topicId?.toLong() ?: position.toLong()

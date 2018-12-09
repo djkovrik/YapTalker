@@ -107,6 +107,10 @@ class ActiveTopicsFragment : BaseFragment(), ActiveTopicsView {
     private fun subscribeViews() {
         RxSwipeRefreshLayout.refreshes(active_topics_refresh_layout)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe({ presenter.refreshActiveTopicsList() }, { it.printStackTrace() })
+            .subscribe({
+                presenter.refreshActiveTopicsList()
+            }, { throwable: Throwable ->
+                throwable.message?.let { showErrorMessage(it) }
+            })
     }
 }

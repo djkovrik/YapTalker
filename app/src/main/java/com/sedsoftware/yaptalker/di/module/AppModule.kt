@@ -4,6 +4,7 @@ import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Resources
 import android.support.v7.preference.PreferenceManager
 import com.google.gson.Gson
 import com.sedsoftware.yaptalker.YapTalkerApp
@@ -30,20 +31,23 @@ abstract class AppModule {
         @Provides
         @Singleton
         @JvmStatic
+        fun provideResources(context: Context): Resources = context.resources
+
+        @Provides
+        @Singleton
+        @JvmStatic
         fun provideDatabase(context: Context): YapTalkerDatabase =
             Room.databaseBuilder(context, YapTalkerDatabase::class.java, YapTalkerDatabase.DATABASE_NAME).build()
 
         @Provides
         @Singleton
         @JvmStatic
-        fun provideSchedulers(): SchedulersProvider =
-            AppSchedulers()
+        fun provideSchedulers(): SchedulersProvider = AppSchedulers()
 
         @Provides
         @Singleton
         @JvmStatic
-        fun provideGson(): Gson =
-            Gson()
+        fun provideGson(): Gson = Gson()
 
         @Provides
         @Singleton

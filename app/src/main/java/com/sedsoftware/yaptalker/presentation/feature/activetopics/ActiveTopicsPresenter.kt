@@ -26,11 +26,6 @@ class ActiveTopicsPresenter @Inject constructor(
     private val schedulers: SchedulersProvider
 ) : BasePresenter<ActiveTopicsView>(), ActiveTopicsItemClickListener, NavigationPanelClickListener {
 
-    companion object {
-        private const val TOPICS_PER_PAGE = 25
-        private const val OFFSET_FOR_PAGE_NUMBER = 1
-    }
-
     init {
         router.setResultListener(RequestCode.REFRESH_REQUEST) { loadActiveTopicsForCurrentPage() }
     }
@@ -153,4 +148,9 @@ class ActiveTopicsPresenter @Inject constructor(
                 e.message?.let { viewState.showErrorMessage(it) }
             }
         }
+
+    private companion object {
+        const val TOPICS_PER_PAGE = 25
+        const val OFFSET_FOR_PAGE_NUMBER = 1
+    }
 }
