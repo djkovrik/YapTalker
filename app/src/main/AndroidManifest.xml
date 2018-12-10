@@ -131,14 +131,6 @@
                 android:value=".presentation.feature.settings.SettingsActivity" />
         </activity>
 
-        <activity
-            android:name=".presentation.feature.mail.MailActivity"
-            android:parentActivityName=".presentation.feature.navigation.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".presentation.feature.navigation.MainActivity" />
-        </activity>
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.sedsoftware.yaptalker"

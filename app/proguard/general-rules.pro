@@ -15,5 +15,15 @@
 -dontnote kotlin.internal.**
 -dontnote kotlin.jvm.internal.**
 -dontnote io.reactivex.**
+-dontnote android.arch.persistence.room.**
+-dontnote com.androidadvance.topsnackbar.**
+-dontnote com.facebook.stetho.**
+-dontnote com.google.firebase.analytics.**
+-dontnote com.omadahealth.github.**
+-dontnote com.robertlevonyan.views.**
+-dontwarn com.robertlevonyan.views.**
+-dontwarn com.google.android.flexbox.**
+-dontwarn com.facebook.stetho.**
+-dontwarn sun.misc.**
 
 -dontwarn com.jakewharton.rxbinding2.**
