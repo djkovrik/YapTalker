@@ -7,6 +7,7 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.view.isVisible
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -17,8 +18,9 @@ import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.blacklist.adapter.BlacklistAdapter
 import com.sedsoftware.yaptalker.presentation.model.base.BlacklistedTopicModel
-import kotlinx.android.synthetic.main.activity_blacklist.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.activity_blacklist.blacklisted_topics
+import kotlinx.android.synthetic.main.activity_blacklist.empty_label
+import kotlinx.android.synthetic.main.include_main_appbar.toolbar
 import javax.inject.Inject
 
 @LayoutResource(R.layout.activity_blacklist)
@@ -76,7 +78,14 @@ class BlacklistActivity : BaseActivity(), BlacklistView {
         }
 
     override fun showBlacklistedTopics(topics: List<BlacklistedTopicModel>) {
-        blacklistAdapter.setTopics(topics)
+        if (topics.isNotEmpty()) {
+            blacklisted_topics.isVisible = true
+            empty_label.isVisible = false
+            blacklistAdapter.setTopics(topics)
+        } else {
+            blacklisted_topics.isVisible = false
+            empty_label.isVisible = true
+        }
     }
 
     override fun showDeleteConfirmationDialog(topicId: Int) {

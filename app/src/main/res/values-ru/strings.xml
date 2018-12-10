@@ -162,6 +162,7 @@
     <string name="title_changelog_activity">Список изменений</string>
     <string name="title_blacklisted_date">Добавлено: <xliff:g id="date">%s</xliff:g></string>
     <string name="title_blacklist">Черный список</string>
+    <string name="blacklist_empty">Черный список пуст</string>
 
     <!-- MENUS -->
     <string name="action_save">Сохранить</string>

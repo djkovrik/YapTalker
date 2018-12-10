@@ -11,6 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/empty_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/blacklist_empty"
+            android:visibility="invisible" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/blacklisted_topics"
             android:layout_width="match_parent"

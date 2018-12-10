@@ -176,6 +176,7 @@
     <string name="title_changelog_activity">Changelog</string>
     <string name="title_blacklisted_date">Added: <xliff:g id="date">%s</xliff:g></string>
     <string name="title_blacklist">Blacklist</string>
+    <string name="blacklist_empty">Blacklist is empty</string>
 
     <!-- MENUS -->
     <string name="action_save">Save</string>

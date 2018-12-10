@@ -78,7 +78,11 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
                     login.isNotEmpty() && password.isNotEmpty()
                 })
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe({ enabled -> presenter.handleSignInButton(enabled) }, { it.printStackTrace() })
+            .subscribe({ enabled: Boolean ->
+                presenter.handleSignInButton(enabled)
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
 
         RxView.clicks(button_sign_in)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
@@ -88,6 +92,8 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
                     authorization_password.text.toString(),
                     authorization_anonymous.isChecked
                 )
-            }, { it.printStackTrace() })
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
     }
 }
