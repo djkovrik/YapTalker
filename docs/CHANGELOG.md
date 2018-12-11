@@ -1,5 +1,14 @@
 ## Changelog
 
+### [1.0.0] - 2018-12-11
+
+**Added**
+* Additional navigation drawer menu items
+* Prefs for navigation drawer menu setup
+
+**Changed**
+* Video token handling
+
 ### [0.9.23] - 2018-11-24
 
 **Fixed**
