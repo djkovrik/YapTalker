@@ -1,6 +1,6 @@
 ## Changelog
 
-### [1.0.0] - 2018-12-11
+### [1.0.0] - 2018-12-12
 
 **Added**
 * Additional navigation drawer menu items
