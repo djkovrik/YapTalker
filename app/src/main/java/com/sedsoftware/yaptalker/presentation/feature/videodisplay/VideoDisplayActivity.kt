@@ -14,7 +14,7 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
-import kotlinx.android.synthetic.main.activity_video_display.*
+import kotlinx.android.synthetic.main.activity_video_display.video_view
 import javax.inject.Inject
 
 @LayoutResource(value = R.layout.activity_video_display)

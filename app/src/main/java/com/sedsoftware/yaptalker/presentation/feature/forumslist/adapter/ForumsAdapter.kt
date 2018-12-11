@@ -47,11 +47,14 @@ class ForumsAdapter @Inject constructor(
         holder.itemView.clearAnimation()
     }
 
-    override fun getItemViewType(position: Int): Int = items[position].getEntityType()
+    override fun getItemViewType(position: Int): Int =
+        items[position].getEntityType()
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() =
+        items.size
 
-    override fun getItemId(position: Int) = position.toLong()
+    override fun getItemId(position: Int) =
+        position.toLong()
 
     fun addForumsListItem(item: ForumModel) {
         val insertPosition = items.size

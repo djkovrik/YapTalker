@@ -22,11 +22,12 @@ abstract class SearchResultsFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
-        fun providePresenter(router: Router,
-                             interactor: SearchInteractor,
-                             mapper: SearchResultsModelMapper,
-                             schedulers: SchedulersProvider): SearchResultsPresenter =
-            SearchResultsPresenter(router, interactor, mapper, schedulers)
+        fun providePresenter(
+            router: Router,
+            interactor: SearchInteractor,
+            mapper: SearchResultsModelMapper,
+            schedulers: SchedulersProvider
+        ): SearchResultsPresenter = SearchResultsPresenter(router, interactor, mapper, schedulers)
     }
 
     @FragmentScope

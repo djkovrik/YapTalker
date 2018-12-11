@@ -6,7 +6,9 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.model.base.EmojiModel
-import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet_item.view.*
+import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet_item.view.emoji_code
+import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet_item.view.emoji_container
+import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet_item.view.emoji_image
 import java.util.ArrayList
 import javax.inject.Inject
 

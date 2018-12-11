@@ -10,7 +10,11 @@ import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadRatingBackground
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.SearchTopicItemModel
-import kotlinx.android.synthetic.main.fragment_site_search_topic_item.view.*
+import kotlinx.android.synthetic.main.fragment_site_search_topic_item.view.search_topic_answers
+import kotlinx.android.synthetic.main.fragment_site_search_topic_item.view.search_topic_forum
+import kotlinx.android.synthetic.main.fragment_site_search_topic_item.view.search_topic_last_post_date
+import kotlinx.android.synthetic.main.fragment_site_search_topic_item.view.search_topic_name
+import kotlinx.android.synthetic.main.fragment_site_search_topic_item.view.search_topic_rating
 
 class SearchResultsDelegateAdapter(
     private val itemClickListener: SearchResultsItemClickListener,

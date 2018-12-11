@@ -19,7 +19,14 @@ import com.sedsoftware.yaptalker.presentation.feature.search.options.SearchCondi
 import com.sedsoftware.yaptalker.presentation.feature.search.options.SortingMode
 import com.sedsoftware.yaptalker.presentation.feature.search.options.TargetPeriod
 import com.uber.autodispose.kotlin.autoDisposable
-import kotlinx.android.synthetic.main.fragment_site_search.*
+import kotlinx.android.synthetic.main.fragment_site_search.search_box_chaos
+import kotlinx.android.synthetic.main.fragment_site_search.search_box_communication
+import kotlinx.android.synthetic.main.fragment_site_search.search_box_feed
+import kotlinx.android.synthetic.main.fragment_site_search.search_button
+import kotlinx.android.synthetic.main.fragment_site_search.search_group_conditions
+import kotlinx.android.synthetic.main.fragment_site_search.search_group_sorting
+import kotlinx.android.synthetic.main.fragment_site_search.search_period_spinner
+import kotlinx.android.synthetic.main.fragment_site_search.search_target_text
 import java.util.ArrayList
 import javax.inject.Inject
 

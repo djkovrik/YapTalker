@@ -41,26 +41,37 @@ abstract class NewsFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
-        fun providesLinkBrowserDelegate(router: Router,
-                                        tokenInteractor: VideoTokenInteractor,
-                                        settings: Settings,
-                                        fragment: NewsFragment): LinkBrowserDelegate =
-            LinkBrowserDelegate(router, tokenInteractor, settings, fragment.context)
+        fun providesLinkBrowserDelegate(
+            router: Router,
+            tokenInteractor: VideoTokenInteractor,
+            settings: Settings,
+            fragment: NewsFragment
+        ): LinkBrowserDelegate = LinkBrowserDelegate(router, tokenInteractor, settings, fragment.context)
 
         @FragmentScope
         @Provides
         @JvmStatic
-        fun providePresenter(router: Router,
-                             settings: Settings,
-                             targetScreen: String,
-                             getNews: NewsInteractor,
-                             getThumbnails: VideoThumbnailsInteractor,
-                             getBlacklist: BlacklistInteractor,
-                             mapper: NewsModelMapper,
-                             linksDelegate: LinkBrowserDelegate,
-                             schedulers: SchedulersProvider): NewsPresenter =
-            NewsPresenter(router, settings, targetScreen, getNews, getThumbnails, getBlacklist, mapper,
-                linksDelegate, schedulers)
+        fun providePresenter(
+            router: Router,
+            settings: Settings,
+            targetScreen: String,
+            getNews: NewsInteractor,
+            getThumbnails: VideoThumbnailsInteractor,
+            getBlacklist: BlacklistInteractor,
+            mapper: NewsModelMapper,
+            linksDelegate: LinkBrowserDelegate,
+            schedulers: SchedulersProvider
+        ): NewsPresenter = NewsPresenter(
+            router,
+            settings,
+            targetScreen,
+            getNews,
+            getThumbnails,
+            getBlacklist,
+            mapper,
+            linksDelegate,
+            schedulers
+        )
     }
 
     @FragmentScope

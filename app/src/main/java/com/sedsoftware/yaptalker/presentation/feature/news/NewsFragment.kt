@@ -165,15 +165,27 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
 
         RxSwipeRefreshLayout.refreshes(refresh_layout)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe({ presenter.loadNews(loadFromFirstPage = true) }, { it.printStackTrace() })
+            .subscribe({
+                presenter.loadNews(loadFromFirstPage = true)
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
 
         RxRecyclerView.scrollEvents(news_list)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe({ event -> presenter.handleFabVisibility(event.dy()) }, { it.printStackTrace() })
+            .subscribe({ event ->
+                presenter.handleFabVisibility(event.dy())
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
 
         RxView.clicks(news_fab)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe({ presenter.loadNews(loadFromFirstPage = true) }, { it.printStackTrace() })
+            .subscribe({
+                presenter.loadNews(loadFromFirstPage = true)
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
     }
 
     private fun buildTitle(): String =

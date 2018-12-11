@@ -23,8 +23,8 @@ import com.sedsoftware.yaptalker.presentation.feature.gallery.adapter.TopicGalle
 import com.sedsoftware.yaptalker.presentation.feature.topic.GalleryInitialState
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostGalleryImageModel
-import kotlinx.android.synthetic.main.activity_topic_gallery.*
-import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
+import kotlinx.android.synthetic.main.activity_topic_gallery.topic_gallery
+import kotlinx.android.synthetic.main.include_main_appbar_transparent.toolbar
 import java.util.Locale
 import javax.inject.Inject
 
@@ -60,7 +60,7 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView {
 
     val galleryInitialState: GalleryInitialState by lazy {
         intent.getParcelableExtra(GALLERY_INITIAL_STATE_KEY) as GalleryInitialState?
-            ?: throw  IllegalArgumentException("Gallery initial state must be provided via arguments")
+                ?: throw  IllegalArgumentException("Gallery initial state must be provided via arguments")
     }
 
     private var savingImageUrl = ""

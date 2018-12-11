@@ -20,8 +20,10 @@ import com.sedsoftware.yaptalker.presentation.custom.glide.GlideWithProgressImag
 import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
-import kotlinx.android.synthetic.main.activity_image_display.*
-import kotlinx.android.synthetic.main.include_main_appbar_transparent.*
+import kotlinx.android.synthetic.main.activity_image_display.image_progress
+import kotlinx.android.synthetic.main.activity_image_display.image_progress_label
+import kotlinx.android.synthetic.main.activity_image_display.photo_view
+import kotlinx.android.synthetic.main.include_main_appbar_transparent.toolbar
 import java.util.Locale
 import javax.inject.Inject
 

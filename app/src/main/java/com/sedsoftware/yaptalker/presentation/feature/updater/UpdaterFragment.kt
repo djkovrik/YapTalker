@@ -137,15 +137,27 @@ class UpdaterFragment : BaseFragment(), UpdaterView {
 
         RxView.clicks(updater_btn_check_updates)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe({ presenter.checkForUpdates() }, { it.printStackTrace() })
+            .subscribe({
+                presenter.checkForUpdates()
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
 
         RxView.clicks(updater_btn_changelog)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe({ presenter.showChangelog() }, { it.printStackTrace() })
+            .subscribe({
+                presenter.showChangelog()
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
 
         RxView.clicks(updater_btn_download)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe({ checkPermissionForDownloading() }, { it.printStackTrace() })
+            .subscribe({
+                checkPermissionForDownloading()
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
     }
 
     private fun checkPermissionForDownloading() {

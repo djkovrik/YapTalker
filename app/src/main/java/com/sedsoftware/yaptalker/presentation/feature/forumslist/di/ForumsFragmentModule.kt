@@ -22,10 +22,12 @@ abstract class ForumsFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
-        fun providePresenter(router: Router,
-                             interactor: ForumsListInteractor,
-                             mapper: ForumsListModelMapper, schedulers: SchedulersProvider): ForumsPresenter =
-            ForumsPresenter(router, interactor, mapper, schedulers)
+        fun providePresenter(
+            router: Router,
+            interactor: ForumsListInteractor,
+            mapper: ForumsListModelMapper,
+            schedulers: SchedulersProvider
+        ): ForumsPresenter = ForumsPresenter(router, interactor, mapper, schedulers)
     }
 
     @FragmentScope

@@ -4,10 +4,7 @@ import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 
 interface NewsItemElementsClickListener {
 
-    fun onNewsItemClicked(
-        forumId: Int,
-        topicId: Int
-    )
+    fun onNewsItemClicked(forumId: Int, topicId: Int)
 
     fun onNewsItemLongClicked(item: NewsItemModel)
 

@@ -11,8 +11,10 @@ import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
 import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
-import kotlinx.android.synthetic.main.activity_changelog.*
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.activity_changelog.changelog
+import kotlinx.android.synthetic.main.activity_changelog.changelog_container
+import kotlinx.android.synthetic.main.activity_changelog.changelog_progressbar
+import kotlinx.android.synthetic.main.include_main_appbar.toolbar
 import ru.noties.markwon.Markwon
 import javax.inject.Inject
 

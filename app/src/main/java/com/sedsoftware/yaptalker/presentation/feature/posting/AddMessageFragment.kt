@@ -273,7 +273,11 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
     private fun subscribeViews() {
         RxTextView.textChangeEvents(new_post_edit_text)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe({ bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN }, { it.printStackTrace() })
+            .subscribe({
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
 
         // B
         RxView.clicks(new_post_button_bold)
@@ -282,8 +286,9 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
                 with(new_post_edit_text) {
                     presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_B)
                 }
-            },
-                { it.printStackTrace() })
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
 
         // I
         RxView.clicks(new_post_button_italic)
@@ -292,8 +297,9 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
                 with(new_post_edit_text) {
                     presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_I)
                 }
-            },
-                { it.printStackTrace() })
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
 
         // U
         RxView.clicks(new_post_button_underlined)
@@ -302,7 +308,9 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
                 with(new_post_edit_text) {
                     presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_U)
                 }
-            }, { it.printStackTrace() })
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
 
         // Link
         RxView.clicks(new_post_button_link)
@@ -311,8 +319,9 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
                 with(new_post_edit_text) {
                     presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_LINK)
                 }
-            },
-                { it.printStackTrace() })
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
 
         // Video
         RxView.clicks(new_post_button_video)
@@ -321,16 +330,18 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
                 with(new_post_edit_text) {
                     presenter.insertChosenTag(selectionStart, selectionEnd, MessageTagCodes.TAG_VIDEO)
                 }
-            },
-                { it.printStackTrace() })
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
 
         // Smiles
         RxView.clicks(new_post_button_smiles)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
             .subscribe({
                 presenter.onSmilesButtonClicked()
-            },
-                { it.printStackTrace() })
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
 
         // Attachment
         RxView.clicks(chosen_image_card)
@@ -338,8 +349,9 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
             .subscribe({
                 chosenImagePath = ""
                 handleAttachmentCardState()
-            },
-                { it.printStackTrace() })
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
     }
 
     private fun returnMessageText() {

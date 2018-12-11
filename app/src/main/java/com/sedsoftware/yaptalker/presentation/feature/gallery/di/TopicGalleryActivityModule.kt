@@ -43,12 +43,14 @@ abstract class TopicGalleryActivityModule {
         @ActivityScope
         @Provides
         @JvmStatic
-        fun providePresenter(settings: Settings,
-                             galleryInteractor: TopicGalleryInteractor,
-                             imageHelper: ImageHelperInteractor,
-                             mapper: TopicGalleryModelMapper,
-                             initialState: GalleryInitialState,
-                             schedulers: SchedulersProvider): TopicGalleryPresenter =
+        fun providePresenter(
+            settings: Settings,
+            galleryInteractor: TopicGalleryInteractor,
+            imageHelper: ImageHelperInteractor,
+            mapper: TopicGalleryModelMapper,
+            initialState: GalleryInitialState,
+            schedulers: SchedulersProvider
+        ): TopicGalleryPresenter =
             TopicGalleryPresenter(settings, galleryInteractor, imageHelper, mapper, initialState, schedulers)
     }
 

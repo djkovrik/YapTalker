@@ -82,6 +82,10 @@ class ForumsFragment : BaseFragment(), ForumsView {
     private fun subscribeViews() {
         RxSwipeRefreshLayout.refreshes(forums_list_refresh_layout)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe({ presenter.loadForumsList() }, { it.printStackTrace() })
+            .subscribe({
+                presenter.loadForumsList()
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
     }
 }

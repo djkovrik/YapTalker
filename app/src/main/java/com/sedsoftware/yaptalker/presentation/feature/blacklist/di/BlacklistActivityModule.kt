@@ -24,9 +24,11 @@ abstract class BlacklistActivityModule {
         @ActivityScope
         @Provides
         @JvmStatic
-        fun providePresenter(interactor: BlacklistInteractor,
-                             mapper: BlacklistTopicModelMapper,
-                             schedulers: SchedulersProvider): BlacklistPresenter =
+        fun providePresenter(
+            interactor: BlacklistInteractor,
+            mapper: BlacklistTopicModelMapper,
+            schedulers: SchedulersProvider
+        ): BlacklistPresenter =
             BlacklistPresenter(interactor, mapper, schedulers)
 
         @ActivityScope

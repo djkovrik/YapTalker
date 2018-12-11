@@ -5,8 +5,8 @@ import com.sedsoftware.yaptalker.data.repository.YapLastUpdateCheckRepository
 import com.sedsoftware.yaptalker.device.storage.YapUpdatesDownloader
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.device.UpdatesDownloader
-import com.sedsoftware.yaptalker.domain.repository.LastUpdateCheckRepository
 import com.sedsoftware.yaptalker.domain.repository.AppVersionInfoRepository
+import com.sedsoftware.yaptalker.domain.repository.LastUpdateCheckRepository
 import dagger.Binds
 import dagger.Module
 

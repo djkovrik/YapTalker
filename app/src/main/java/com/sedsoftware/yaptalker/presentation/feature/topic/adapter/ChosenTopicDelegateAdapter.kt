@@ -36,7 +36,22 @@ import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostWa
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostModel
 import com.sedsoftware.yaptalker.presentation.model.base.SinglePostParsedModel
 import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
-import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.*
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_author
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_author_avatar
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_button_edit
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_button_reply
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_image_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_tags_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_text_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_content_video_container
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_date
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_block
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_down
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_down_available
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_up
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.post_rating_thumb_up_available
+import kotlinx.android.synthetic.main.fragment_chosen_topic_item.view.topic_starter_icon
 import java.util.ArrayList
 
 @Suppress("MagicNumber", "LargeClass")

@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.presentation.base.BaseActivity
-import kotlinx.android.synthetic.main.include_main_appbar.*
+import kotlinx.android.synthetic.main.include_main_appbar.toolbar
 
 @LayoutResource(value = R.layout.activity_settings)
 class SettingsActivity : BaseActivity() {

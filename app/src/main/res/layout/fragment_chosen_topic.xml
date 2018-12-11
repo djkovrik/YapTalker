@@ -10,8 +10,8 @@
         android:id="@+id/topic_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srl_direction="both"
-        android:animateLayoutChanges="true">
+        android:animateLayoutChanges="true"
+        app:srl_direction="both">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/topic_posts_list"

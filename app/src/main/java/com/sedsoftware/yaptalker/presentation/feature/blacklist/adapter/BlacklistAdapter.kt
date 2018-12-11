@@ -48,11 +48,14 @@ class BlacklistAdapter @Inject constructor(
         holder.itemView.clearAnimation()
     }
 
-    override fun getItemViewType(position: Int): Int = items[position].getEntityType()
+    override fun getItemViewType(position: Int): Int =
+        items[position].getEntityType()
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() =
+        items.size
 
-    override fun getItemId(position: Int) = position.toLong()
+    override fun getItemId(position: Int) =
+        position.toLong()
 
     fun setTopics(topics: List<BlacklistedTopicModel>) {
         items.clear()

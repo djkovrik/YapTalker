@@ -127,9 +127,12 @@ class ChosenForumFragment : BaseFragment(), ChosenForumView {
 
     private fun subscribeViews() {
 
-        RxSwipeRefreshLayout
-            .refreshes(forum_refresh_layout)
+        RxSwipeRefreshLayout.refreshes(forum_refresh_layout)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe({ presenter.loadForum(currentForumId) }, { it.printStackTrace() })
+            .subscribe({
+                presenter.loadForum(currentForumId)
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
     }
 }

@@ -45,29 +45,32 @@ abstract class ChosenTopicFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
-        fun providesLinkBrowserDelegate(router: Router,
-                                        tokenInteractor: VideoTokenInteractor,
-                                        settings: Settings,
-                                        fragment: ChosenTopicFragment): LinkBrowserDelegate =
-            LinkBrowserDelegate(router, tokenInteractor, settings, fragment.context)
+        fun providesLinkBrowserDelegate(
+            router: Router,
+            tokenInteractor: VideoTokenInteractor,
+            settings: Settings,
+            fragment: ChosenTopicFragment
+        ): LinkBrowserDelegate = LinkBrowserDelegate(router, tokenInteractor, settings, fragment.context)
 
         @FragmentScope
         @Provides
         @JvmStatic
-        fun providePresenter(router: Router,
-                             settings: Settings,
-                             topicInteractor: TopicInteractor,
-                             karmaInteractor: SiteKarmaInteractor,
-                             postingInteractor: MessagePostingInteractor,
-                             thumbnailsInteractor: VideoThumbnailsInteractor,
-                             blacklistInteractor: BlacklistInteractor,
-                             topicMapper: TopicModelMapper,
-                             topicStarterMapper: TopicStarterMapper,
-                             quoteDataMapper: QuotedPostModelMapper,
-                             editedTextDataMapper: EditedPostModelMapper,
-                             serverResponseMapper: ServerResponseModelMapper,
-                             linksDelegate: LinkBrowserDelegate,
-                             schedulers: SchedulersProvider): ChosenTopicPresenter =
+        fun providePresenter(
+            router: Router,
+            settings: Settings,
+            topicInteractor: TopicInteractor,
+            karmaInteractor: SiteKarmaInteractor,
+            postingInteractor: MessagePostingInteractor,
+            thumbnailsInteractor: VideoThumbnailsInteractor,
+            blacklistInteractor: BlacklistInteractor,
+            topicMapper: TopicModelMapper,
+            topicStarterMapper: TopicStarterMapper,
+            quoteDataMapper: QuotedPostModelMapper,
+            editedTextDataMapper: EditedPostModelMapper,
+            serverResponseMapper: ServerResponseModelMapper,
+            linksDelegate: LinkBrowserDelegate,
+            schedulers: SchedulersProvider
+        ): ChosenTopicPresenter =
             ChosenTopicPresenter(
                 router,
                 settings,

@@ -100,6 +100,10 @@ class BookmarksFragment : BaseFragment(), BookmarksView {
 
         RxSwipeRefreshLayout.refreshes(bookmarks_refresh_layout)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
-            .subscribe({ presenter.loadBookmarks() }, { it.printStackTrace() })
+            .subscribe({
+                presenter.loadBookmarks()
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
     }
 }

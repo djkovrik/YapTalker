@@ -22,11 +22,12 @@ abstract class BookmarksFragmentModule {
         @FragmentScope
         @Provides
         @JvmStatic
-        fun providePresenter(router: Router,
-                             interactor: BookmarksInteractor,
-                             mapper: BookmarksModelMapper,
-                             schedulers: SchedulersProvider): BookmarksPresenter =
-            BookmarksPresenter(router, interactor, mapper, schedulers)
+        fun providePresenter(
+            router: Router,
+            interactor: BookmarksInteractor,
+            mapper: BookmarksModelMapper,
+            schedulers: SchedulersProvider
+        ): BookmarksPresenter = BookmarksPresenter(router, interactor, mapper, schedulers)
     }
 
     @FragmentScope
