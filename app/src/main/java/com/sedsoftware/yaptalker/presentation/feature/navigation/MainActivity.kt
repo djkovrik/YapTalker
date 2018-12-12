@@ -329,6 +329,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
         navHeader = AccountHeaderBuilder()
             .withActivity(this)
             .withHeaderBackground(R.drawable.bg_primary_solid)
+            .withTextColor(colorFromAttr(R.attr.colorFabLabelText))
             .withCompactStyle(true)
             .withSelectionListEnabledForSingleProfile(false)
             .withSavedInstance(savedInstanceState)
