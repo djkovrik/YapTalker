@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.device.storage.state
 import android.os.Parcel
 import android.os.Parcelable
 import android.os.Parcelable.Creator
-import android.support.v7.widget.LinearLayoutManager.SavedState
+import androidx.recyclerview.widget.LinearLayoutManager.SavedState
 
 data class TopicState(
     val forumId: Int = 0,

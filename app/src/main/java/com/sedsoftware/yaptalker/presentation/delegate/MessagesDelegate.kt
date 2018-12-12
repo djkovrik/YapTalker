@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.delegate
 
-import android.support.annotation.AttrRes
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.AttrRes
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import com.androidadvance.topsnackbar.TSnackbar
 import com.sedsoftware.yaptalker.R

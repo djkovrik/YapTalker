@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.search.options
 
-import android.support.annotation.LongDef
+import androidx.annotation.LongDef
 
 class TargetPeriod {
     companion object {

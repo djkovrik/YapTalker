@@ -57,6 +57,7 @@ class FilePathResolver @Inject constructor(private val context: Context) {
         return null
     }
 
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     private fun getDataColumn(uri: Uri?, selection: String?, selectionArgs: Array<String>?): String? {
 
         var cursor: Cursor? = null

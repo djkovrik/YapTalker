@@ -1,15 +1,21 @@
 package com.sedsoftware.yaptalker.data.database
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
-import android.arch.persistence.room.TypeConverters
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.sedsoftware.yaptalker.data.database.converter.DateConverter
 import com.sedsoftware.yaptalker.data.database.dao.BlacklistedTagDao
 import com.sedsoftware.yaptalker.data.database.dao.BlacklistedTopicDao
 import com.sedsoftware.yaptalker.data.database.model.BlacklistedTagDbModel
 import com.sedsoftware.yaptalker.data.database.model.BlacklistedTopicDbModel
 
-@Database(entities = [(BlacklistedTagDbModel::class), (BlacklistedTopicDbModel::class)], version = 1)
+@Database(
+    entities = [
+        (BlacklistedTagDbModel::class), (BlacklistedTopicDbModel::class)
+    ],
+    version = 1,
+    exportSchema = false
+)
 @TypeConverters(DateConverter::class)
 abstract class YapTalkerDatabase : RoomDatabase() {
 

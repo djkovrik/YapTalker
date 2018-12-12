@@ -7,7 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Environment
-import android.support.v4.content.FileProvider
+import androidx.core.content.FileProvider
 import com.sedsoftware.yaptalker.device.R
 import com.squareup.picasso.Picasso
 import io.reactivex.Single

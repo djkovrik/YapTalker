@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.extensions
 
-import android.support.annotation.StringRes
-import android.support.v4.app.Fragment
+import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 
 fun Fragment.string(@StringRes resId: Int): String =
     context?.string(resId).orEmpty()

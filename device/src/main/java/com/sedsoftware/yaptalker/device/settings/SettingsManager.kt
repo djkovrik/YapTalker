@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.device.settings
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import com.sedsoftware.yaptalker.device.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import java.util.Date
@@ -135,10 +135,10 @@ class SettingsManager @Inject constructor(
     }
 
     private fun getStringPref(@StringRes key: Int, default: String): String =
-        preferences.getString(context.resources.getString(key), default)
+        preferences.getString(context.resources.getString(key), default) ?: ""
 
     private fun getStringSetPref(@StringRes key: Int, default: Set<String>): Set<String> =
-        preferences.getStringSet(context.resources.getString(key), default)
+        preferences.getStringSet(context.resources.getString(key), default) ?: emptySet()
 
     private fun getBooleanPref(@StringRes key: Int, default: Boolean): Boolean =
         preferences.getBoolean(context.resources.getString(key), default)

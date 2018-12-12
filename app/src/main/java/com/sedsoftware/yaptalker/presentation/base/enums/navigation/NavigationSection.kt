@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.base.enums.navigation
 
-import android.support.annotation.LongDef
+import androidx.annotation.LongDef
 
 class NavigationSection {
     companion object {

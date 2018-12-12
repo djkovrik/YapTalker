@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.PagerSnapHelper
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import android.view.Menu
 import android.view.MenuItem
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -72,7 +72,11 @@ class TopicGalleryActivity : BaseActivity(), TopicGalleryView {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         with(topic_gallery) {
-            val linearLayout = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val linearLayout = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             layoutManager = linearLayout
             adapter = galleryAdapter
             setHasFixedSize(true)

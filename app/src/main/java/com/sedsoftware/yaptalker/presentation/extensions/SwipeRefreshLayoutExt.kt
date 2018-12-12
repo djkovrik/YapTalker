@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.extensions
 
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
 import com.sedsoftware.yaptalker.R
 

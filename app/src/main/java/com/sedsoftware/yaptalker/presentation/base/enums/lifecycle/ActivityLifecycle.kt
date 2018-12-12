@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.base.enums.lifecycle
 
-import android.support.annotation.LongDef
+import androidx.annotation.LongDef
 
 class ActivityLifecycle {
 

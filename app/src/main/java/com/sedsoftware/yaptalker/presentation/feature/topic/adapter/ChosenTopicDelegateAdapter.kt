@@ -1,8 +1,8 @@
 package com.sedsoftware.yaptalker.presentation.feature.topic.adapter
 
 import android.graphics.Typeface
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import android.text.method.LinkMovementMethod
 import android.view.Gravity
 import android.view.ViewGroup

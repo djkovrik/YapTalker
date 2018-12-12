@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.base.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 

@@ -1,8 +1,8 @@
 package com.sedsoftware.yaptalker.presentation.feature.news.adapter
 
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.ViewHolder
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone

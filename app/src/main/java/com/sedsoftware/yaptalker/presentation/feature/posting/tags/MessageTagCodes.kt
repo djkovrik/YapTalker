@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.posting.tags
 
-import android.support.annotation.LongDef
+import androidx.annotation.LongDef
 
 class MessageTagCodes {
     companion object {

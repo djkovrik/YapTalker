@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.sedsoftware.yaptalker.presentation.feature.gallery.TopicGalleryActivity">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/topic_gallery"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

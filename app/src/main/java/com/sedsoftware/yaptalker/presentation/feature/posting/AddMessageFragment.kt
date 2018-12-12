@@ -4,8 +4,8 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.BottomSheetBehavior
-import android.support.v7.widget.GridLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import androidx.recyclerview.widget.GridLayoutManager
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuInflater

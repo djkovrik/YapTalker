@@ -1,5 +1,5 @@
 package com.sedsoftware.yaptalker.device.fileprovider
 
-import android.support.v4.content.FileProvider
+import androidx.core.content.FileProvider
 
 class ApkFileProvider : FileProvider()

@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.search.options
 
-import android.support.annotation.StringDef
+import androidx.annotation.StringDef
 
 class SearchConditions {
     companion object {

@@ -3,7 +3,7 @@ package com.sedsoftware.yaptalker.presentation.feature.navigation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.ActionBar
+import androidx.appcompat.app.ActionBar
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -284,7 +284,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
         drawerItemSearch = PrimaryDrawerItem()
             .withIdentifier(NavigationSection.SITE_SEARCH)
             .withName(R.string.nav_drawer_search)
-            .withIcon(CommunityMaterial.Icon.cmd_magnify)
+            .withIcon(Typeicons.Icon.typ_zoom)
             .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
             .withIconColor(colorFromAttr(R.attr.colorNavSearch))
             .withSelectedTextColor(colorFromAttr(R.attr.colorNavSearch))
@@ -311,7 +311,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
         drawerItemSignIn = PrimaryDrawerItem()
             .withIdentifier(NavigationSection.SIGN_IN)
             .withName(R.string.nav_drawer_sign_in)
-            .withIcon(CommunityMaterial.Icon.cmd_login)
+            .withIcon(Typeicons.Icon.typ_chevron_right)
             .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
             .withIconColor(colorFromAttr(R.attr.colorNavSignIn))
             .withSelectedTextColor(colorFromAttr(R.attr.colorNavSignIn))
@@ -320,7 +320,7 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
         drawerItemSignOut = PrimaryDrawerItem()
             .withIdentifier(NavigationSection.SIGN_OUT)
             .withName(R.string.nav_drawer_sign_out)
-            .withIcon(CommunityMaterial.Icon.cmd_logout)
+            .withIcon(Typeicons.Icon.typ_chevron_left)
             .withTextColor(colorFromAttr(R.attr.colorNavDefaultText))
             .withIconColor(colorFromAttr(R.attr.colorNavSignIn))
             .withSelectedTextColor(colorFromAttr(R.attr.colorNavSignIn))

@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.presentation.base
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.sedsoftware.yaptalker.R

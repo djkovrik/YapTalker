@@ -3,8 +3,8 @@ package com.sedsoftware.yaptalker.presentation.feature.blacklist
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.isVisible
@@ -54,7 +54,12 @@ class BlacklistActivity : BaseActivity(), BlacklistView {
             val linearLayout = LinearLayoutManager(context)
             layoutManager = linearLayout
             adapter = blacklistAdapter
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
             setHasFixedSize(true)
         }
     }

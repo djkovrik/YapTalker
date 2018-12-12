@@ -1,6 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.provider
 
-import android.support.v7.app.ActionBar
+import androidx.appcompat.app.ActionBar
 
 interface ActionBarProvider {
     fun getCurrentActionBar(): ActionBar?

@@ -1,11 +1,11 @@
 package com.sedsoftware.yaptalker.di.module
 
 import android.app.Application
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
-import android.support.v7.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import com.sedsoftware.yaptalker.YapTalkerApp
 import com.sedsoftware.yaptalker.common.AppSchedulers
