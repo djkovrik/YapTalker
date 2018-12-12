@@ -18,6 +18,7 @@
 -dontnote com.facebook.stetho.inspector.runtime.**
 -dontnote com.google.gson.internal.**
 
+-dontwarn org.codehaus.mojo.**
 -dontwarn com.jakewharton.rxbinding2.**
 -dontwarn com.google.android.flexbox.**
 
@@ -25,5 +26,6 @@
 -keep,includedescriptorclasses class com.androidadvance.topsnackbar.** { *; }
 -keep,includedescriptorclasses class com.facebook.stetho.dumpapp.** { *; }
 -keep,includedescriptorclasses class com.robertlevonyan.views.chip.** { *; }
+-keep,includedescriptorclasses class com.google.android.material.** { *; }
 -keep,includedescriptorclasses class com.omadahealth.github.swipyrefreshlayout.library.** { *; }
 -keep,includedescriptorclasses class com.google.firebase.analytics.connector.internal.** { *; }
