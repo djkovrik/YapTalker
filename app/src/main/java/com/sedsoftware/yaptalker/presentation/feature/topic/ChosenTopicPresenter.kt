@@ -148,7 +148,14 @@ class ChosenTopicPresenter @Inject constructor(
             .doFinally { viewState.hideLoadingIndicator() }
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({ link: String ->
-                linksDelegate.browse(url, link, type, html, isVideo)
+                linksDelegate.browse(
+                    url,
+                    link,
+                    type,
+                    html,
+                    isVideo,
+                    GalleryInitialState(currentForumId, currentTopicId, currentPage, url)
+                )
             }, { e: Throwable ->
                 e.message?.let { viewState.showErrorMessage(it) }
             })

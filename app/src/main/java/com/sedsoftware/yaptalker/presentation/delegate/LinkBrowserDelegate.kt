@@ -6,6 +6,7 @@ import com.sedsoftware.yaptalker.domain.interactor.VideoTokenInteractor
 import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationScreen
 import com.sedsoftware.yaptalker.presentation.extensions.extractYoutubeVideoId
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.feature.topic.GalleryInitialState
 import io.reactivex.Single
 import org.jetbrains.anko.browse
 import ru.terrakok.cicerone.Router
@@ -20,7 +21,14 @@ class LinkBrowserDelegate @Inject constructor(
 
     private val weakContext: Context? by weak(context)
 
-    fun browse(url: String, directUrl: String, type: String, html: String, isVideo: Boolean) {
+    fun browse(
+        url: String,
+        directUrl: String,
+        type: String,
+        html: String,
+        isVideo: Boolean,
+        state: GalleryInitialState? = null
+    ) {
         when {
             isVideo && url.contains("youtube") -> {
                 val videoId = url.extractYoutubeVideoId()
@@ -37,6 +45,9 @@ class LinkBrowserDelegate @Inject constructor(
 
             isVideo && !url.contains("youtube") -> {
                 router.navigateTo(NavigationScreen.VIDEO_DISPLAY_SCREEN, html)
+            }
+            state != null -> {
+                router.navigateTo(NavigationScreen.TOPIC_GALLERY, state)
             }
 
             else -> {
