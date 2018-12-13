@@ -1,8 +1,6 @@
 package com.sedsoftware.yaptalker.presentation.feature.topic.adapter
 
 import android.graphics.Typeface
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import android.text.method.LinkMovementMethod
 import android.view.Gravity
 import android.view.ViewGroup
@@ -13,6 +11,8 @@ import android.widget.TextView
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.flexbox.FlexboxLayout
 import com.robertlevonyan.views.chip.Chip
 import com.sedsoftware.yaptalker.R
@@ -406,7 +406,6 @@ class ChosenTopicDelegateAdapter(
                         chip.strokeSize = 2
                         chip.strokeColor = context.colorFromAttr(R.attr.colorAccent)
                         chip.changeBackgroundColor(context.colorFromAttr(R.attr.chipBackground))
-                        chip.textColor = context.colorFromAttr(R.attr.colorNavDefaultText)
                         chip.setOnChipClickListener { clickListener.onTopicTagClicked(tag) }
 
                         post_content_tags_container.addView(chip)
