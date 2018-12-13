@@ -1,5 +1,12 @@
 ## Changelog
 
+### [1.0.1] - 2018-12-13
+
+**Fixed**
+* Active topics navigation
+* News pagination
+* Topic gallery
+
 ### [1.0.0] - 2018-12-12
 
 **Added**
