@@ -99,6 +99,7 @@ class ActiveTopicsPresenter @Inject constructor(
             }
             .map(activeTopicsModelMapper)
             .flatMapObservable { Observable.fromIterable(it) }
+            .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
@@ -116,6 +117,7 @@ class ActiveTopicsPresenter @Inject constructor(
             .getActiveTopics(hash = searchIdKey, page = startingTopicNumber)
             .map(activeTopicsModelMapper)
             .flatMapObservable { Observable.fromIterable(it) }
+            .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoadingIndicator() }
             .doFinally { viewState.hideLoadingIndicator() }
