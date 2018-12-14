@@ -1,5 +1,11 @@
 ## Changelog
 
+
+### [1.0.2] - 2018-12-14
+
+**Fixed**
+* Message posting crash
+
 ### [1.0.1] - 2018-12-13
 
 **Fixed**
