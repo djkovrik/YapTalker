@@ -6,7 +6,7 @@ allprojects {
 
 ext {
     // Android
-    final KOTLIN_VERSION = "1.3.0"
+    final KOTLIN_VERSION = "1.3.11"
     final APPCOMPAT_VERSION = "1.0.0"
     final RECYCLERVIEW_VERSION = "1.0.0"
     final PREFERENCE_VERSION = "1.0.0"
