@@ -1,6 +1,5 @@
 YapTalker
 =========
-[![Build Status](https://travis-ci.org/djkovrik/YapTalker.svg?branch=master)](https://travis-ci.org/djkovrik/YapTalker/builds)
 ![minSdk](https://img.shields.io/badge/minSdk-21-green.svg)
 ![Last Commit](https://img.shields.io/github/last-commit/djkovrik/yaptalker/master.svg)
 ![Current Release](https://img.shields.io/github/release/djkovrik/yaptalker/all.svg)
