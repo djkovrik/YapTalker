@@ -43,7 +43,7 @@ class PostContentParser(private val content: String) {
         private const val POST_EDIT_MARKER = "edit"
         private const val POST_TAGS_BLOCK_SELECTOR = "div.topic-tags"
         private const val VIDEO_LINK_SELECTOR_BEGIN = "Begin Video:"
-        private const val VIDEO_LINK_REGEX = "Begin Video:(.*?)End Video"
+        private const val VIDEO_LINK_REGEX = "Begin Video:(.*)"
 
         private val tagsToSkip = setOf("#root", "html", "head", "body", "table", "tbody", "tr", "br", "b", "i", "u")
         private val attrsToSkip = setOf("rating", "clear")
@@ -143,7 +143,7 @@ class PostContentParser(private val content: String) {
 
                 if (element.data().contains(Regex(VIDEO_LINK_SELECTOR_BEGIN))) {
 
-                    val matcher = Pattern.compile(VIDEO_LINK_REGEX).matcher(element.data())
+                    val matcher = Pattern.compile(VIDEO_LINK_REGEX).matcher(element.data().removeSuffix("End Video"))
                     while (matcher.find()) {
                         result.videosLinks.add(matcher.group(1))
                     }
