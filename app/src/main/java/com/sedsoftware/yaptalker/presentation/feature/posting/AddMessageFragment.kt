@@ -131,7 +131,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
         return false
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_post_editor, menu)
     }
 

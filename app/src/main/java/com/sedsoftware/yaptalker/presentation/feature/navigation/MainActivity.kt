@@ -99,13 +99,13 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
         handleLinkIntent()
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
         handleLinkIntent()
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         navDrawer.saveInstanceState(outState)
         navHeader.saveInstanceState(outState)
         super.onSaveInstanceState(outState)

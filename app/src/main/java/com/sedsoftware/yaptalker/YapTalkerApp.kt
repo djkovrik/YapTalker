@@ -80,7 +80,7 @@ class YapTalkerApp : Application(), HasActivityInjector {
                 Picasso.with(imageView?.context).cancelRequest(imageView)
             }
 
-            override fun placeholder(ctx: Context?, tag: String?): Drawable =
+            override fun placeholder(ctx: Context, tag: String?): Drawable =
                 when (tag) {
                     DrawerImageLoader.Tags.PROFILE.name ->
                         IconicsDrawable(ctx)
