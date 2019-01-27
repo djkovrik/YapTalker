@@ -1,5 +1,9 @@
 ## Changelog
 
+### [1.0.3] - 2019-01-27
+
+**Fixed**
+* Video parsing crash
 
 ### [1.0.2] - 2018-12-14
 
