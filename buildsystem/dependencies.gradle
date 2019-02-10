@@ -1,6 +1,6 @@
 ext {
     // Android
-    final KOTLIN_VERSION = "1.3.20"
+    final KOTLIN_VERSION = "1.3.21"
     final APPCOMPAT_VERSION = "1.1.0-alpha01"
     final RECYCLERVIEW_VERSION = "1.1.0-alpha01"
     final PREFERENCE_VERSION = "1.1.0-alpha02"
@@ -30,7 +30,7 @@ ext {
     final CICERONE_VERSION = "3.0.0"
     final RETROFIT_VERSION = "2.5.0"
     final JSPOON_VERSION = "1.3.2"
-    final OKHTTP_VERSION = "3.12.1"
+    final OKHTTP_VERSION = "3.13.1"
     final GSON_VERSION = "2.8.5"
 
     // UI
@@ -56,7 +56,7 @@ ext {
 
     // Development tools
     final TIMBER_VERSION = "4.7.1"
-    final LEAK_CANARY_VERSION = "1.6.2"
+    final LEAK_CANARY_VERSION = "1.6.3"
     final STETHO_VERSION = "1.5.0"
 
     domainDependencies = [
