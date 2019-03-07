@@ -111,21 +111,23 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideYapFileLoader(): YapFileLoader =
+    fun provideYapFileLoader(@Named("siteClient") okHttpClient: OkHttpClient): YapFileLoader =
         Retrofit.Builder()
-            .baseUrl(YAP_FILES_BASE_URL)
+            .baseUrl(YAP_API_BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(HashSearchConverterFactory.create(YAP_FILE_HASH_MARKER))
+            .client(okHttpClient)
             .build()
             .create(YapFileLoader::class.java)
 
     @Singleton
     @Provides
-    fun provideYapVideoLoader(): YapVideoLoader =
+    fun provideYapVideoLoader(@Named("siteClient") okHttpClient: OkHttpClient): YapVideoLoader =
         Retrofit.Builder()
             .baseUrl(YAP_API_BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
             .build()
             .create(YapVideoLoader::class.java)
 
