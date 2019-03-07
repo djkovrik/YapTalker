@@ -1,5 +1,10 @@
 ## Changelog
 
+### [1.0.4] - 2019-03-07
+
+**Fixed**
+* Yap video previews
+
 ### [1.0.3] - 2019-01-27
 
 **Fixed**
