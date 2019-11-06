@@ -1,4 +1,8 @@
 ## Changelog
+### [1.0.5] - 2019-11-06
+
+**Fixed**
+* Authorization problems
 
 ### [1.0.4] - 2019-03-07
 
