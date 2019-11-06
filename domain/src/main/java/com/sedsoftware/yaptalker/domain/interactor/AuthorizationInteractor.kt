@@ -24,4 +24,8 @@ class AuthorizationInteractor @Inject constructor(
     fun sendSignInRequest(login: String, password: String, anonymously: Boolean): Completable =
         loginSessionRepository
             .requestSignIn(login, password, anonymously)
+
+    fun sendSignInRequestNew(login: String, password: String): Completable =
+        loginSessionRepository
+            .requestSignInWithApi(login, password)
 }
