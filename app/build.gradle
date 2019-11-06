@@ -115,6 +115,7 @@ dependencies {
     implementation presentationDependencies.retrofitJspoonConverter
     implementation presentationDependencies.okhttp
     implementation presentationDependencies.okhttpInterceptor
+    implementation presentationDependencies.cookies
     implementation presentationDependencies.picasso
     implementation presentationDependencies.glide
     implementation presentationDependencies.glideOkHttp3
