@@ -6,6 +6,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.provider.Settings
 import android.widget.ImageView
 import com.facebook.stetho.Stetho
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
@@ -22,6 +23,7 @@ import dagger.android.HasActivityInjector
 import ru.noties.markwon.SpannableConfiguration
 import ru.noties.markwon.spans.SpannableTheme
 import timber.log.Timber
+import java.security.MessageDigest
 import javax.inject.Inject
 
 @Suppress("ConstantConditionIf")
@@ -29,7 +31,35 @@ class YapTalkerApp : Application(), HasActivityInjector {
 
     companion object {
         private const val NAV_DRAWER_AVATAR_PADDING = 16
+        private const val YAP_API_KEY = "JanW23Sh"
+
+        private lateinit var appContext: Context
+
+        fun getMd5(): String =
+            md5(String.format("%s:%s", YAP_API_KEY, getUdid()))
+
+        fun getUdid(): String =
+            Settings.System.getString(appContext.contentResolver, "android_id")
+
+        fun getAppVersion(): String = "0.998"
+
+        private fun md5(str: String): String {
+            val digest = MessageDigest.getInstance("MD5")
+            digest.update(str.toByteArray())
+            val messageDigest = digest.digest()
+            val hexString = StringBuffer()
+
+            for (i in 0 until messageDigest.size) {
+                var hex = Integer.toHexString(0xFF and messageDigest[i].toInt())
+                while (hex.length < 2)
+                    hex = "0$hex"
+                hexString.append(hex)
+            }
+            return hexString.toString()
+        }
     }
+
+
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
@@ -40,6 +70,8 @@ class YapTalkerApp : Application(), HasActivityInjector {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return
         }
+
+        appContext = this
 
         LeakCanary.install(this)
 

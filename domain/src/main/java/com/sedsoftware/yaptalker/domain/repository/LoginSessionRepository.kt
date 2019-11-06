@@ -8,4 +8,5 @@ interface LoginSessionRepository {
     fun getLoginSessionInfo(): Single<LoginSessionInfo>
     fun requestSignIn(userLogin: String, userPassword: String, anonymously: Boolean): Completable
     fun requestSignOut(userKey: String): Completable
+    fun requestSignInWithApi(userLogin: String, userPassword: String): Completable
 }

@@ -4,6 +4,7 @@ import com.sedsoftware.yaptalker.common.converter.HashSearchConverterFactory
 import com.sedsoftware.yaptalker.common.converter.VideoTokenConverterFactory
 import com.sedsoftware.yaptalker.data.network.external.AppUpdatesChecker
 import com.sedsoftware.yaptalker.data.network.external.GitHubLoader
+import com.sedsoftware.yaptalker.data.network.site.YapApi
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.data.network.site.YapSearchIdLoader
 import com.sedsoftware.yaptalker.data.network.site.YapVideoTokenLoader
@@ -37,6 +38,7 @@ class NetworkModule {
         private const val YAP_FILES_BASE_URL = "http://www.yapfiles.ru/"
         private const val YAP_API_BASE_URL = "http://api.yapfiles.ru/"
         private const val VK_API_BASE_URL = "https://api.vk.com/"
+        private const val YAP_API_BASE_URL_NEW = "https://api.yaplakal.com/"
 
         // Misc
         private const val YAP_FILE_HASH_MARKER = "md5="
@@ -64,6 +66,18 @@ class NetworkModule {
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
             .create(YapLoader::class.java)
+
+    @Singleton
+    @Provides
+    fun provideYapApi(@Named("apiClient") okHttpClient: OkHttpClient): YapApi =
+        Retrofit.Builder()
+            .baseUrl(YAP_API_BASE_URL_NEW)
+            .client(okHttpClient)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .build()
+            .create(YapApi::class.java)
 
     @Singleton
     @Provides

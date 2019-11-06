@@ -47,6 +47,21 @@ class AuthorizationPresenter @Inject constructor(
             })
     }
 
+    fun performLoginAttemptNew(userLogin: String, userPassword: String) {
+        authorizationInteractor
+            .sendSignInRequestNew(login = userLogin, password = userPassword)
+            .observeOn(schedulers.ui())
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe({
+                viewState.showLoginSuccessMessage()
+                Timber.i("Sign In request completed, start site preferences loading...")
+                loadSitePreferences()
+            }, { e: Throwable ->
+                Timber.e("Error: ${e.message}")
+                viewState.showLoginErrorMessage()
+            })
+    }
+
     private fun loadSitePreferences() {
         authorizationInteractor
             .getSiteUserPreferences()

@@ -87,10 +87,9 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
         RxView.clicks(button_sign_in)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
             .subscribe({
-                presenter.performLoginAttempt(
+                presenter.performLoginAttemptNew(
                     authorization_login.text.toString(),
-                    authorization_password.text.toString(),
-                    authorization_anonymous.isChecked
+                    authorization_password.text.toString()
                 )
             }, { e: Throwable ->
                 e.message?.let { showErrorMessage(it) }

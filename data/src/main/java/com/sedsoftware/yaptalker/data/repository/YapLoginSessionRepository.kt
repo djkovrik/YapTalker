@@ -1,10 +1,13 @@
 package com.sedsoftware.yaptalker.data.repository
 
+import android.util.Log
 import com.sedsoftware.yaptalker.data.exception.RequestErrorException
 import com.sedsoftware.yaptalker.data.mapper.LoginSessionInfoMapper
 import com.sedsoftware.yaptalker.data.mapper.ServerResponseMapper
+import com.sedsoftware.yaptalker.data.network.site.YapApi
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.data.system.SchedulersProvider
+import com.sedsoftware.yaptalker.domain.device.CookieStorage
 import com.sedsoftware.yaptalker.domain.entity.base.LoginSessionInfo
 import com.sedsoftware.yaptalker.domain.repository.LoginSessionRepository
 import io.reactivex.Completable
@@ -13,6 +16,8 @@ import javax.inject.Inject
 
 class YapLoginSessionRepository @Inject constructor(
     private val dataLoader: YapLoader,
+    private val yapApi: YapApi,
+    private val cookieStorage: CookieStorage,
     private val dataMapper: LoginSessionInfoMapper,
     private val responseMapper: ServerResponseMapper,
     private val schedulers: SchedulersProvider
@@ -67,6 +72,21 @@ class YapLoginSessionRepository @Inject constructor(
             }
             .subscribeOn(schedulers.io())
 
+    override fun requestSignInWithApi(userLogin: String, userPassword: String): Completable =
+        yapApi
+            .authUser(
+                name = userLogin,
+                password = userPassword
+            )
+            .flatMapCompletable { response ->
+                Log.d("NewAuth", "Response: $response")
+                val sid = response.user?.sid.orEmpty()
+                if (sid.isNotEmpty()) {
+                    cookieStorage.saveCookie("SID=$sid")
+                }
+                Completable.complete()
+            }
+            .subscribeOn(schedulers.io())
 
     @Suppress("MagicNumber")
     private fun String.toMd5(): String {
