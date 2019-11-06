@@ -1,7 +1,11 @@
 package com.sedsoftware.yaptalker.di.module.network
 
+import android.content.Context
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.sedsoftware.yaptalker.BuildConfig
-import com.sedsoftware.yaptalker.di.module.network.interceptors.CustomHeadersInterceptor
+import com.sedsoftware.yaptalker.di.module.network.interceptors.HeaderAndParamManipulationInterceptor
 import com.sedsoftware.yaptalker.di.module.network.interceptors.HtmlFixerInterceptor
 import com.sedsoftware.yaptalker.di.module.network.interceptors.SaveReceivedCookiesInterceptor
 import com.sedsoftware.yaptalker.di.module.network.interceptors.SendSavedCookiesInterceptor
@@ -26,17 +30,47 @@ class HttpClientsModule {
         HttpLoggingInterceptor().setLevel(loggingLevel)
     }
 
+    @Provides
+    @Singleton
+    fun provideSetCookieCache(): SetCookieCache =
+        SetCookieCache()
+
+    @Provides
+    @Singleton
+    fun provideSharedPrefsCookiePersistor(context: Context): SharedPrefsCookiePersistor =
+        SharedPrefsCookiePersistor(context)
+
+    @Provides
+    @Singleton
+    fun providePersistentCookieJar(
+        cache: SetCookieCache,
+        persistor: SharedPrefsCookiePersistor
+    ): PersistentCookieJar =
+        PersistentCookieJar(cache, persistor)
+
     @Singleton
     @Provides
     @Named("siteClient")
     fun provideSiteClient(cookieStorage: CookieStorage): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(HtmlFixerInterceptor())
-            .addInterceptor(CustomHeadersInterceptor())
+            .addInterceptor(HeaderAndParamManipulationInterceptor())
             .addInterceptor(SaveReceivedCookiesInterceptor(cookieStorage))
             .addInterceptor(SendSavedCookiesInterceptor(cookieStorage))
             .addInterceptor(loggingInterceptor)
             .build()
+
+    @Singleton
+    @Provides
+    @Named("apiClient")
+    fun provideApiClient(jar: PersistentCookieJar): OkHttpClient {
+        val builder = OkHttpClient.Builder()
+        builder.addInterceptor(HeaderAndParamManipulationInterceptor())
+        builder.addInterceptor(loggingInterceptor)
+        builder.cookieJar(jar)
+        builder.cache(null)
+        return builder.build()
+    }
 
     @Singleton
     @Provides
