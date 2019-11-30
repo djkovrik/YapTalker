@@ -17,7 +17,7 @@ import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
-import kotlinx.android.synthetic.main.fragment_authorization.authorization_anonymous
+import kotlinx.android.synthetic.main.fragment_authorization.authorization_remember
 import kotlinx.android.synthetic.main.fragment_authorization.authorization_login
 import kotlinx.android.synthetic.main.fragment_authorization.authorization_password
 import kotlinx.android.synthetic.main.fragment_authorization.button_sign_in
@@ -84,15 +84,32 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
                 e.message?.let { showErrorMessage(it) }
             })
 
+        RxView.clicks(authorization_remember)
+            .autoDisposable(event(FragmentLifecycle.DESTROY))
+            .subscribe({
+                if (!authorization_remember.isChecked()) {
+                    presenter.clearStoredAccount()
+                }
+            }, { e: Throwable ->
+                e.message?.let { showErrorMessage(it) }
+            })
+
         RxView.clicks(button_sign_in)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
             .subscribe({
+                authorization_login.isEnabled = false
+                authorization_password.isEnabled = false
+                authorization_remember.isEnabled = false
                 presenter.performLoginAttemptNew(
                     authorization_login.text.toString(),
-                    authorization_password.text.toString()
+                    authorization_password.text.toString(),
+                    authorization_remember.isChecked()
                 )
             }, { e: Throwable ->
                 e.message?.let { showErrorMessage(it) }
+                authorization_login.isEnabled = true
+                authorization_password.isEnabled = true
+                authorization_remember.isEnabled = true
             })
     }
 }

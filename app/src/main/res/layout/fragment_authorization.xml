@@ -52,7 +52,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
-            android:id="@+id/authorization_anonymous"
+            android:id="@+id/authorization_remember"
             style="@style/CheckboxStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

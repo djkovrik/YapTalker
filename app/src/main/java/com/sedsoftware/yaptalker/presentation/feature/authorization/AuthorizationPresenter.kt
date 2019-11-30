@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.presentation.feature.authorization
 
 import com.arellomobile.mvp.InjectViewState
 import com.sedsoftware.yaptalker.data.system.SchedulersProvider
+import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.AuthorizationInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -15,6 +16,7 @@ import javax.inject.Inject
 class AuthorizationPresenter @Inject constructor(
     private val router: Router,
     private val authorizationInteractor: AuthorizationInteractor,
+    private val settings: Settings,
     private val schedulers: SchedulersProvider
 ) : BasePresenter<AuthorizationView>() {
 
@@ -47,7 +49,7 @@ class AuthorizationPresenter @Inject constructor(
             })
     }
 
-    fun performLoginAttemptNew(userLogin: String, userPassword: String) {
+    fun performLoginAttemptNew(userLogin: String, userPassword: String, shouldRemember: Boolean) {
         authorizationInteractor
             .sendSignInRequestNew(login = userLogin, password = userPassword)
             .observeOn(schedulers.ui())
@@ -55,11 +57,20 @@ class AuthorizationPresenter @Inject constructor(
             .subscribe({
                 viewState.showLoginSuccessMessage()
                 Timber.i("Sign In request completed, start site preferences loading...")
+                if (shouldRemember) {
+                    settings.saveLogin(userLogin)
+                    settings.savePassword(userPassword)
+                }
                 loadSitePreferences()
             }, { e: Throwable ->
                 Timber.e("Error: ${e.message}")
                 viewState.showLoginErrorMessage()
             })
+    }
+
+    fun clearStoredAccount() {
+        settings.saveLogin("")
+        settings.savePassword("")
     }
 
     private fun loadSitePreferences() {
