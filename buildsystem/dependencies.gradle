@@ -1,6 +1,6 @@
 ext {
     // Android
-    final KOTLIN_VERSION = "1.3.21"
+    final KOTLIN_VERSION = "1.3.61"
     final APPCOMPAT_VERSION = "1.1.0"
     final RECYCLERVIEW_VERSION = "1.1.0"
     final PREFERENCE_VERSION = "1.1.0"
