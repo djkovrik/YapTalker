@@ -1,9 +1,11 @@
 package com.sedsoftware.yaptalker.presentation.feature.navigation.di
 
 import com.sedsoftware.yaptalker.data.repository.YapLoginSessionRepository
+import com.sedsoftware.yaptalker.data.repository.YapSitePreferencesRepository
 import com.sedsoftware.yaptalker.di.scope.ActivityScope
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.repository.LoginSessionRepository
+import com.sedsoftware.yaptalker.domain.repository.SitePreferencesRepository
 import com.sedsoftware.yaptalker.presentation.delegate.MessagesDelegate
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.ActiveTopicsFragment
 import com.sedsoftware.yaptalker.presentation.feature.activetopics.di.ActiveTopicsFragmentModule
@@ -61,6 +63,10 @@ abstract class MainActivityModule {
     @ActivityScope
     @Binds
     abstract fun actionBarProvider(activity: MainActivity): ActionBarProvider
+
+    @ActivityScope
+    @Binds
+    abstract fun sitePreferencesRepository(repo: YapSitePreferencesRepository): SitePreferencesRepository
 
     @ActivityScope
     @Binds

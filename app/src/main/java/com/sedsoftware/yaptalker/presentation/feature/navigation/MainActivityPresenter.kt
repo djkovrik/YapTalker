@@ -5,6 +5,7 @@ import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.device.settings.DefaultHomeScreen
 import com.sedsoftware.yaptalker.device.storage.state.TopicStateStorage
 import com.sedsoftware.yaptalker.domain.device.Settings
+import com.sedsoftware.yaptalker.domain.interactor.AuthorizationInteractor
 import com.sedsoftware.yaptalker.domain.interactor.LoginSessionInteractor
 import com.sedsoftware.yaptalker.presentation.base.BasePresenter
 import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.PresenterLifecycle
@@ -25,6 +26,7 @@ class MainActivityPresenter @Inject constructor(
     private val loginSessionInteractor: LoginSessionInteractor,
     private val sessionInfoMapper: LoginSessionInfoModelMapper,
     private val topicStateStorage: TopicStateStorage,
+    private val authorizationInteractor: AuthorizationInteractor,
     private val schedulers: SchedulersProvider
 ) : BasePresenter<MainActivityView>() {
 
@@ -39,6 +41,7 @@ class MainActivityPresenter @Inject constructor(
     private var currentUserId = 0
     private var isLinkNavigationPending = false
     private var isStartupLaunchNavigated = false
+    private var triedToRestoreSession = false
 
     override fun attachView(view: MainActivityView?) {
         super.attachView(view)
@@ -78,7 +81,6 @@ class MainActivityPresenter @Inject constructor(
     }
 
     fun navigateToUserProfile() {
-
         if (currentUserId != 0) {
             viewState.closeNavigationDrawer()
             router.navigateTo(NavigationScreen.USER_PROFILE_SCREEN, currentUserId)
@@ -160,10 +162,29 @@ class MainActivityPresenter @Inject constructor(
         viewState.clearDynamicNavigationItems()
 
         if (sessionInfo.nickname.isEmpty()) {
-            viewState.displaySignedOutNavigation()
+            if (!triedToRestoreSession) {
+                triedToRestoreSession = true
+                tryToRestoreSession()
+            } else {
+                viewState.displaySignedOutNavigation()
+            }
         } else {
             viewState.displaySignedInNavigation()
         }
+    }
+
+    private fun tryToRestoreSession() {
+        authorizationInteractor
+            .tryToRestoreSession()
+            .observeOn(schedulers.ui())
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe({
+                refreshAuthorization()
+                Timber.i("Session restored.")
+            }, { e: Throwable ->
+                Timber.e("Session restore failed: ${e.message}")
+                viewState.displaySignedOutNavigation()
+            })
     }
 
     private fun sendSignOutRequest() {

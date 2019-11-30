@@ -53,7 +53,7 @@ class AuthorizationFragment : BaseFragment(), AuthorizationView {
     }
 
     override fun showLoginErrorMessage() {
-        messagesDelegate.showMessageSuccess(string(R.string.msg_login_error))
+        messagesDelegate.showMessageError(string(R.string.msg_login_error))
     }
 
     override fun showErrorMessage(message: String) {

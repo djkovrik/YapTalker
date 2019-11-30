@@ -4,6 +4,7 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.repository.LoginSessionRepository
 import com.sedsoftware.yaptalker.domain.repository.SitePreferencesRepository
 import io.reactivex.Completable
+import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 class AuthorizationInteractor @Inject constructor(
@@ -28,4 +29,11 @@ class AuthorizationInteractor @Inject constructor(
     fun sendSignInRequestNew(login: String, password: String): Completable =
         loginSessionRepository
             .requestSignInWithApi(login, password)
+
+    fun tryToRestoreSession(): Completable =
+        if (settings.getLogin().isNotEmpty() && settings.getPassword().isNotEmpty()) {
+            sendSignInRequestNew(settings.getLogin(), settings.getPassword())
+        } else {
+            Completable.error(IllegalArgumentException("No saved user data"))
+        }
 }
