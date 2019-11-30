@@ -134,6 +134,22 @@ class SettingsManager @Inject constructor(
             .apply()
     }
 
+    override fun saveLogin(login: String) {
+        preferences.edit().putString(context.resources.getString(R.string.pref_key_login), login).apply()
+    }
+
+    override fun savePassword(password: String) {
+        preferences.edit().putString(context.resources.getString(R.string.pref_key_password), password).apply()
+    }
+
+    override fun getLogin(): String {
+        return getStringPref(R.string.pref_key_login, "")
+    }
+
+    override fun getPassword(): String {
+        return getStringPref(R.string.pref_key_password, "")
+    }
+
     private fun getStringPref(@StringRes key: Int, default: String): String =
         preferences.getString(context.resources.getString(key), default) ?: ""
 

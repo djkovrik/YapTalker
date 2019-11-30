@@ -25,4 +25,8 @@ interface Settings {
     fun saveMessagesPerPagePref(value: Int)
     fun saveTopicsPerPagePref(value: Int)
     fun saveLastUpdateCheckDate()
+    fun saveLogin(login: String)
+    fun savePassword(password: String)
+    fun getLogin(): String
+    fun getPassword(): String
 }
