@@ -44,7 +44,7 @@
     <string name="authorization_login_label">Логин</string>
     <string name="authorization_password_label">Пароль</string>
     <string name="authorization_button_login">Войти</string>
-    <string name="authorization_anonymous">Войти анонимно</string>
+    <string name="authorization_remember">Запомнить аккаунт</string>
 
     <!-- TOPIC -->
     <string name="topic_post_edit_button">{cmd-pencil} Редактировать</string>

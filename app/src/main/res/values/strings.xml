@@ -55,7 +55,7 @@
     <string name="authorization_login_label">Login</string>
     <string name="authorization_password_label">Password</string>
     <string name="authorization_button_login">Sign In</string>
-    <string name="authorization_anonymous">Sign In anonymously</string>
+    <string name="authorization_remember">Remember account</string>
 
     <!-- TOPIC -->
     <string name="topic_post_edit_button">{typ-pencil} Edit</string>

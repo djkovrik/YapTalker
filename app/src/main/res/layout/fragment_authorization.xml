@@ -56,7 +56,7 @@
             style="@style/CheckboxStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/authorization_anonymous" />
+            android:text="@string/authorization_remember" />
 
         <Button
             android:id="@+id/button_sign_in"
