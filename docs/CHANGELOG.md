@@ -1,4 +1,10 @@
 ## Changelog
+### [1.0.6] - 2019-12-01
+
+**Added**
+* Login/password saving
+* Auto login if session expired
+
 ### [1.0.5] - 2019-11-06
 
 **Fixed**
