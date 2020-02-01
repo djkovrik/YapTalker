@@ -1,4 +1,11 @@
 ## Changelog
+### [1.0.7] - 2020-02-01
+
+**Fixed**
+* Forum section picture displaying
+* Emoji preview panel
+* Message posting
+
 ### [1.0.6] - 2019-12-01
 
 **Added**
