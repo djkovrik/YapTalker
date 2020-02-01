@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlWithGifSupport
 import com.sedsoftware.yaptalker.presentation.model.base.EmojiModel
 import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet_item.view.emoji_code
 import kotlinx.android.synthetic.main.fragment_new_post_bottom_sheet_item.view.emoji_container
@@ -49,7 +50,7 @@ class EmojiAdapter @Inject constructor(
         fun bindTo(emoji: EmojiModel) {
             with(itemView) {
                 emoji_code.text = emoji.code
-                emoji_image.loadFromUrl(emoji.link)
+                emoji_image.loadFromUrlWithGifSupport(emoji.link)
                 emoji_container.setOnClickListener { clickListener.onEmojiClicked(emoji.code) }
             }
         }
