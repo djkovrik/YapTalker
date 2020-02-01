@@ -41,7 +41,7 @@ class ForumsDelegateAdapter(
                 forum_last_topic_title.text = forumItem.lastTopicTitle
                 forum_last_topic_author.text = forumItem.lastTopicAuthor
                 forum_last_topic_date.text = forumItem.date
-                forum_image.loadFromUrl("http://www.yaplakal.com/html/icons/${forumItem.forumId}.gif")
+                forum_image.loadFromUrl("https://yaplakal.com/html/icons/${forumItem.forumId}.gif")
 
                 forum_title.textSize = normalFontSize
                 forum_last_topic_title.textSize = normalFontSize
