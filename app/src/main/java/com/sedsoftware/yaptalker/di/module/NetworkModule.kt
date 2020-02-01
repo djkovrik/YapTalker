@@ -29,7 +29,7 @@ import javax.inject.Singleton
 class NetworkModule {
 
     companion object {
-        private const val SITE_BASE_URL = "http://www.yaplakal.com/"
+        private const val SITE_BASE_URL = "https://www.yaplakal.com/"
         private const val SITE_YAPFILES_URL = "https://www.yapfiles.ru/"
 
         // Videos
