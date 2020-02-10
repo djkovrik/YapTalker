@@ -73,7 +73,7 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
             clearOnScrollListeners()
 
             addOnScrollListener(InfiniteScrollListener({
-                presenter.loadNews(loadFromFirstPage = false)
+                presenter.loadNextPage()
             }, linearLayout))
         }
 
@@ -166,7 +166,7 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
         RxSwipeRefreshLayout.refreshes(refresh_layout)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
             .subscribe({
-                presenter.loadNews(loadFromFirstPage = true)
+                presenter.loadFirstPage()
             }, { e: Throwable ->
                 e.message?.let { showErrorMessage(it) }
             })
@@ -182,7 +182,7 @@ class NewsFragment : BaseFragment(), NewsView, ThumbnailsProvider {
         RxView.clicks(news_fab)
             .autoDisposable(event(FragmentLifecycle.DESTROY))
             .subscribe({
-                presenter.loadNews(loadFromFirstPage = true)
+                presenter.loadFirstPage()
             }, { e: Throwable ->
                 e.message?.let { showErrorMessage(it) }
             })

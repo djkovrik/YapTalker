@@ -25,6 +25,8 @@ class YapNewsRepository @Inject constructor(
     }
 
     private val mainPageUrl: String = "www.yaplakal.com"
+    private var currentUrl: String = ""
+    private var currentOffset: String = ""
 
     override fun getNews(url: String): Single<List<NewsItem>> =
         database
@@ -34,9 +36,40 @@ class YapNewsRepository @Inject constructor(
                 dataLoader
                     .loadNews(url)
                     .map(dataMapper)
-                    .flatMap(listMapper)
+                    .flatMap { newsBlock ->
+                        currentUrl = url
+                        currentOffset = newsBlock.offset
+                        listMapper.apply(newsBlock.items)
+                    }
                     .filter {
                         if (url.contains(mainPageUrl)) {
+                            newsCategories.contains(it.forumLink)
+                        } else {
+                            true
+                        }
+                    }
+                    .filter { it.isYapLink }
+                    .filter { it.comments != 0 }
+                    .filter { !blacklistedIds.contains(it.id) }
+            }
+            .toList()
+            .subscribeOn(schedulers.io())
+
+    override fun getNewsNextPage(): Single<List<NewsItem>> =
+        database
+            .getTopicsDao()
+            .getBlacklistedTopicIds()
+            .flatMapObservable { blacklistedIds ->
+                val newUrl = "$currentUrl/st/$currentOffset"
+                dataLoader
+                    .loadNews(newUrl)
+                    .map(dataMapper)
+                    .flatMap { newsBlock ->
+                        currentOffset = newsBlock.offset
+                        listMapper.apply(newsBlock.items)
+                    }
+                    .filter {
+                        if (currentUrl.contains(mainPageUrl)) {
                             newsCategories.contains(it.forumLink)
                         } else {
                             true

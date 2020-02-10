@@ -2,6 +2,7 @@ package com.sedsoftware.yaptalker.data.mapper
 
 import com.sedsoftware.yaptalker.data.extensions.getLastDigits
 import com.sedsoftware.yaptalker.data.parsed.NewsPageParsed
+import com.sedsoftware.yaptalker.domain.entity.base.NewsBlock
 import com.sedsoftware.yaptalker.domain.entity.base.NewsItem
 import io.reactivex.functions.Function
 import org.jsoup.Jsoup
@@ -9,13 +10,13 @@ import org.jsoup.safety.Whitelist
 import java.util.ArrayList
 import javax.inject.Inject
 
-class NewsPageMapper @Inject constructor() : Function<NewsPageParsed, List<NewsItem>> {
+class NewsPageMapper @Inject constructor() : Function<NewsPageParsed, NewsBlock> {
 
     companion object {
         private const val NEWS_PER_PAGE = 50
     }
 
-    override fun apply(from: NewsPageParsed): List<NewsItem> {
+    override fun apply(from: NewsPageParsed): NewsBlock {
         val result: MutableList<NewsItem> = ArrayList(NEWS_PER_PAGE)
 
         with(from) {
@@ -47,7 +48,7 @@ class NewsPageMapper @Inject constructor() : Function<NewsPageParsed, List<NewsI
             }
         }
 
-        return result
+        return NewsBlock(items = result, offset = from.offset)
     }
 
     private fun cleanDescription(description: String) =

@@ -12,4 +12,6 @@ class NewsPageParsed {
     var contents: List<NewsContent> = emptyList()
     @Selector(value = "td[class=holder newsbottom]")
     var bottoms: List<NewsBottom> = emptyList()
+    @Selector(value = "*", regex = "var feedOffset = (.*);", attr = "outerHtml")
+    var offset: String = ""
 }

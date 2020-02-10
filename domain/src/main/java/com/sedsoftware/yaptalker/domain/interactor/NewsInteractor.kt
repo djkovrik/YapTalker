@@ -10,6 +10,8 @@ class NewsInteractor @Inject constructor(
 ) {
 
     fun getNewsPage(url: String): Single<List<NewsItem>> =
-        newsRepository
-            .getNews(url)
+        newsRepository.getNews(url)
+
+    fun getNextNewsPage(): Single<List<NewsItem>> =
+        newsRepository.getNewsNextPage()
 }

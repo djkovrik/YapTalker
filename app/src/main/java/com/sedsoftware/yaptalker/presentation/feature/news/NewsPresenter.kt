@@ -37,18 +37,13 @@ class NewsPresenter @Inject constructor(
     private val schedulers: SchedulersProvider
 ) : BasePresenter<NewsView>(), NewsItemElementsClickListener {
 
-    companion object {
-        private const val NEWS_PER_PAGE = 50
-    }
-
     private val displayedTopics = mutableSetOf<Int>()
-    private var currentPage = 0
-    private var backToFirstPage = false
     private lateinit var currentNewsItem: NewsItemModel
+    private var nextPagesLoadingActive: Boolean = false
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        loadNews(loadFromFirstPage = true)
+        loadFirstPage()
     }
 
     override fun attachView(view: NewsView?) {
@@ -105,23 +100,26 @@ class NewsPresenter @Inject constructor(
             .getThumbnail(videoUrl)
             .observeOn(schedulers.ui())
 
-    fun loadNews(loadFromFirstPage: Boolean) {
 
-        backToFirstPage = loadFromFirstPage
-
-        if (backToFirstPage) {
-            currentPage = 0
-        } else {
-            currentPage += NEWS_PER_PAGE
-        }
-
-        loadDataForCurrentPage()
-    }
-
-    private fun loadDataForCurrentPage() {
+    fun loadFirstPage() {
         val url = buildUrl()
+        nextPagesLoadingActive = false
         newsInteractor
             .getNewsPage(url)
+            .map(newsModelMapper)
+            .flatMapObservable { Observable.fromIterable(it) }
+            .toList()
+            .observeOn(schedulers.ui())
+            .doOnSubscribe { viewState.showLoadingIndicator() }
+            .doFinally { viewState.hideLoadingIndicator() }
+            .autoDisposable(event(PresenterLifecycle.DESTROY))
+            .subscribe(getNewsObserver())
+    }
+
+    fun loadNextPage() {
+        nextPagesLoadingActive = true
+        newsInteractor
+            .getNextNewsPage()
             .map(newsModelMapper)
             .flatMapObservable { Observable.fromIterable(it) }
             .toList()
@@ -139,10 +137,9 @@ class NewsPresenter @Inject constructor(
             }
 
             override fun onSuccess(items: List<NewsItemModel>) {
-                if (backToFirstPage) {
+                if (!nextPagesLoadingActive) {
                     viewState.clearNewsList()
                     displayedTopics.clear()
-                    backToFirstPage = false
                 }
 
                 val loadedTopicIds = items.map { it.topicId }
@@ -150,8 +147,7 @@ class NewsPresenter @Inject constructor(
                 displayedTopics.addAll(loadedTopicIds)
 
                 if (newTopics.isEmpty()) {
-                    currentPage += NEWS_PER_PAGE
-                    loadDataForCurrentPage()
+                    loadNextPage()
                 } else {
                     viewState.appendNewsItems(newTopics)
                 }
@@ -175,6 +171,6 @@ class NewsPresenter @Inject constructor(
             else -> "inkubator.yaplakal.com"
         }
 
-        return "$schema$base/st/$currentPage/"
+        return "$schema$base"
     }
 }
