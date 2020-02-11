@@ -1,4 +1,9 @@
 ## Changelog
+### [1.0.8] - 2020-02-11
+
+**Fixed**
+* Main page pagination
+
 ### [1.0.7] - 2020-02-01
 
 **Fixed**
