@@ -8,15 +8,15 @@ class Router internal constructor(private val navigatorHolder: NavigatorHolder) 
     private val resultListeners = mutableMapOf<Int, (Any?) -> Unit>()
 
     fun navigateTo(screenKey: String, data: Any? = null) {
-        navigatorHolder.navigator?.applyCommands(arrayOf(Forward(screenKey, data)))
+        navigatorHolder.executeCommands(arrayOf(Forward(screenKey, data)))
     }
 
     fun newRootScreen(screenKey: String, data: Any? = null) {
-        navigatorHolder.navigator?.applyCommands(arrayOf(Replace(screenKey, data)))
+        navigatorHolder.executeCommands(arrayOf(Replace(screenKey, data)))
     }
 
     fun exit() {
-        navigatorHolder.navigator?.applyCommands(arrayOf(Back))
+        navigatorHolder.executeCommands(arrayOf(Back))
     }
 
     fun exitWithResult(resultCode: Int, result: Any?) {
