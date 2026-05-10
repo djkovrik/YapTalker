@@ -38,4 +38,4 @@ RELEASE_KEY_PASSWORD="Key password"
 
 Download
 --------
-[![4pda](https://github.com/djkovrik/YapTalker/blob/master/graphics/4pda.png)](http://4pda.ru/forum/index.php?showtopic=881650)
+[![4pda](https://github.com/djkovrik/YapTalker/blob/master/graphics/4pda.png)](http://4pda.to/forum/index.php?showtopic=881650)
