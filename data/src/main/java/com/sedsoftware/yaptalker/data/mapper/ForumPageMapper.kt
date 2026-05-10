@@ -38,7 +38,7 @@ class ForumPageMapper @Inject constructor() : Function<ForumPageParsed, List<Bas
                         author = topic.author,
                         authorLink = topic.authorLink,
                         rating = topic.rating.toInt(),
-                        answers = topic.answers.toInt(),
+                        answers = topic.answers.filter { it.isDigit() }.toInt(),
                         lastPostDate = topic.lastPostDate,
                         lastPostAuthor = topic.lastPostAuthor
                     )
@@ -48,11 +48,16 @@ class ForumPageMapper @Inject constructor() : Function<ForumPageParsed, List<Bas
             result.add(
                 NavigationPanel(
                     currentPage = navigation.currentPage.toInt(),
-                    totalPages = navigation.totalPages.toInt()
+                    totalPages = calculateTotalPages(navigation.totalPages)
                 )
             )
         }
 
         return result
+    }
+
+    private fun calculateTotalPages(totalTopics: String): Int {
+        val topics = totalTopics.toInt()
+        return ((topics - 1) / TOPICS_PER_PAGE) + 1
     }
 }

@@ -15,7 +15,7 @@ class ForumPageParsed {
         defValue = "0"
     )
     lateinit var forumId: String
-    @Selector(value = "table[width=100%]")
+    @Selector(value = "table:has(td.pager > a.page-jump)")
     lateinit var navigation: ForumNavigationPanel
     @Selector(value = "table tr:has(td.row4)")
     lateinit var topics: List<TopicItemParsed>
