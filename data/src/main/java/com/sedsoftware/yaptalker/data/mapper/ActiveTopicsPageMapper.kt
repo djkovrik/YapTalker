@@ -13,6 +13,7 @@ class ActiveTopicsPageMapper @Inject constructor() : Function<ActiveTopicsPagePa
 
     companion object {
         private const val TOPICS_PER_PAGE = 25
+        private const val TOTAL_PAGES = 4
     }
 
     override fun apply(from: ActiveTopicsPageParsed): List<BaseEntity> {
@@ -39,7 +40,7 @@ class ActiveTopicsPageMapper @Inject constructor() : Function<ActiveTopicsPagePa
             result.add(
                 NavigationPanel(
                     currentPage = navigation.currentPage.toInt(),
-                    totalPages = navigation.totalPages.toInt()
+                    totalPages = TOTAL_PAGES
                 )
             )
         }
