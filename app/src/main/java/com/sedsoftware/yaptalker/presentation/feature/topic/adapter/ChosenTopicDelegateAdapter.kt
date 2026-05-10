@@ -400,13 +400,13 @@ class ChosenTopicDelegateAdapter(
 
                     post.tags.forEach { tag ->
                         val chip = Chip(context)
-                        chip.chipText = tag.name
+                        chip.text = tag.name
                         chip.gravity = Gravity.CENTER
                         chip.cornerRadius = 16
                         chip.strokeSize = 2
                         chip.strokeColor = context.colorFromAttr(R.attr.colorAccent)
-                        chip.changeBackgroundColor(context.colorFromAttr(R.attr.chipBackground))
-                        chip.setOnChipClickListener { clickListener.onTopicTagClicked(tag) }
+                        chip.chipBackgroundColor = context.colorFromAttr(R.attr.chipBackground)
+                        chip.setOnClickListener { clickListener.onTopicTagClicked(tag) }
 
                         post_content_tags_container.addView(chip)
 

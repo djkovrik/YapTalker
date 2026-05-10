@@ -29,8 +29,8 @@ class TopicPageParsed {
         defValue = "0"
     )
     lateinit var topicRatingTargetId: String
-    @Selector(value = "table.row3")
+    @Selector(value = "table.row3:has(td.pager)")
     lateinit var navigation: TopicNavigationPanel
-    @Selector(value = "table[id~=p_row_\\d+]:has(.normalname)")
+    @Selector(value = "table.comment-table[id~=entry\\d+]:has(.normalname)")
     lateinit var posts: List<PostItemParsed>
 }

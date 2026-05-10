@@ -51,7 +51,7 @@ class ImageDisplayActivity : BaseActivity(), ImageDisplayView {
     fun provideImagePresenter() = presenter
 
     private val imageUrl: String by lazy {
-        intent.getStringExtra(IMAGE_URL_KEY)
+        intent.getStringExtra(IMAGE_URL_KEY).orEmpty()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

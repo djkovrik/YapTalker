@@ -31,7 +31,7 @@ class VideoWebView : WebView {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    override fun setWebChromeClient(client: WebChromeClient) {
+    override fun setWebChromeClient(client: WebChromeClient?) {
         settings.javaScriptEnabled = true
 
         if (client is VideoWebChromeClient) {
@@ -41,14 +41,14 @@ class VideoWebView : WebView {
         super.setWebChromeClient(client)
     }
 
-    override fun loadData(data: String, mimeType: String, encoding: String) {
+    override fun loadData(data: String, mimeType: String?, encoding: String?) {
         addJavascriptInterface()
         super.loadData(data, mimeType, encoding)
     }
 
     override fun loadDataWithBaseURL(
         baseUrl: String?,
-        data: String?,
+        data: String,
         mimeType: String?,
         encoding: String?,
         historyUrl: String?

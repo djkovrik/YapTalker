@@ -1,39 +1,33 @@
 buildscript {
-    ext.kotlin_version = '1.3.61'
-    ext.goole_play_services_version = '4.3.3'
-    ext.fabric_version = '1.31.2'
+    ext.kotlin_version = '2.3.21'
+    ext.google_play_services_version = '4.4.4'
+    ext.firebase_crashlytics_version = '3.0.6'
     repositories {
         google()
-        jcenter()
-        maven { url "https://plugins.gradle.org/m2/" }
-        maven { url "https://maven.fabric.io/public" }
+        mavenCentral()
+        gradlePluginPortal()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:3.5.2"
+        classpath "com.android.tools.build:gradle:8.13.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.google.gms:google-services:$goole_play_services_version"
-        classpath "io.fabric.tools:gradle:$fabric_version"
+        classpath "com.google.gms:google-services:$google_play_services_version"
+        classpath "com.google.firebase:firebase-crashlytics-gradle:$firebase_crashlytics_version"
     }
-}
-
-plugins {
-    id "io.gitlab.arturbosch.detekt" version "1.0.0.RC6-3"
-    id "com.github.ben-manes.versions" version "0.20.0"
 }
 
 apply from: 'buildsystem/dependencies.gradle'
 
 // Versioning convention from ribot:
 // Major -> Millions, Minor -> Thousands, Bugfix -> Hundreds. E.g 1.3.72 == 1,003,072
-// Current: 1.0.8 (001,000,008)
+// Current: 1.0.9 (001,000,009)
 def versionMajor = 1
 def versionMinor = 0
-def versionPatch = 8
+def versionPatch = 9
 
 allprojects {
     ext {
-        compileSdkVersion = 28
-        minSdkVersion = 21
+        compileSdkVersion = 36
+        minSdkVersion = 23
         targetSdkVersion = 28
         androidApplicationId = "com.sedsoftware.yaptalker"
         androidVersionCode = versionMajor * 1000000 + versionMinor * 1000 + versionPatch
@@ -43,35 +37,14 @@ allprojects {
     }
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "https://plugins.gradle.org/m2" }
+        maven { url "https://artifactory.appodeal.com/appodeal-public/" }
+        maven { url "https://repository.liferay.com/nexus/content/groups/public/" }
+        gradlePluginPortal()
     }
 }
 
-subprojects {
-    configurations.all {
-        resolutionStrategy {
-            eachDependency { DependencyResolveDetails details ->
-                if (details.requested.name == 'kotlin-compiler-embeddable') {
-                    details.useVersion "1.3.61"
-                }
-            }
-        }
-    }
-}
-
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
-}
-
-detekt {
-    version = "1.0.0.RC6-3"
-
-    profile("main") {
-        config = "$rootDir/tools/static-analysis/detekt-config.yml"
-        filters = ".*test.*,.*/resources/.*,.*/tmp/.*"
-        output = "$projectDir/build/reports/detekt.xml"
-        baseline = "$projectDir/build/reports/baseline.xml"
-    }
 }

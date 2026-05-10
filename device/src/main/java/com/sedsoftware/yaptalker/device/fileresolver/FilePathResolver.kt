@@ -46,7 +46,7 @@ class FilePathResolver @Inject constructor(private val context: Context) {
                 val selection = "_id=?"
                 val selectionArgs = arrayOf(split[1])
 
-                return getDataColumn(contentUri, selection, selectionArgs)
+                return contentUri?.let { getDataColumn(it, selection, selectionArgs) }
             }
         } else if ("content".equals(uri.scheme, ignoreCase = true)) {
             return getDataColumn(uri, null, null)
@@ -57,8 +57,7 @@ class FilePathResolver @Inject constructor(private val context: Context) {
         return null
     }
 
-    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    private fun getDataColumn(uri: Uri?, selection: String?, selectionArgs: Array<String>?): String? {
+    private fun getDataColumn(uri: Uri, selection: String?, selectionArgs: Array<String>?): String? {
 
         var cursor: Cursor? = null
         val column = "_data"

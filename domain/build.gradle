@@ -1,6 +1,16 @@
 apply plugin: 'java'
 apply plugin: 'kotlin'
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8
+    }
+}
 
 dependencies {
     def domainDependencies = rootProject.ext.domainDependencies
@@ -14,6 +24,3 @@ dependencies {
     testImplementation domainTestDependencies.junit
 }
 
-configurations.all() {
-    resolutionStrategy.force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-}

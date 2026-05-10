@@ -8,6 +8,7 @@ import com.sedsoftware.yaptalker.domain.entity.base.PostContent.PostText
 import com.sedsoftware.yaptalker.domain.entity.base.PostContent.PostWarning
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePostParsed
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Element
 import org.jsoup.safety.Whitelist
 import java.util.ArrayList
 import java.util.regex.Pattern
@@ -31,6 +32,10 @@ class PostContentParser(private val content: String) {
         private const val WARNING_HEADER_SELECTOR = "td[align=center][vAlign=top]"
         private const val WARNING_TEXT_SELECTOR = "td[vAlign=top]"
         private const val QUOTE_SELECTOR = "QUOTE"
+        private const val QUOTE_TABLE_SELECTOR = "table:has(td#QUOTE)"
+        private const val QUOTE_AUTHOR_SELECTOR = "tr:first-child td"
+        private const val QUOTE_TEXT_SELECTOR = "td#QUOTE"
+        private const val PARSED_QUOTE_ATTR = "data-yaptalker-parsed-quote"
         private const val SPOILER_SELECTOR = "SPOILER"
         private const val QUOTE_START_TEXT = "Цитата"
         private const val IFRAME_TAG = "iframe"
@@ -82,7 +87,11 @@ class PostContentParser(private val content: String) {
             }
             .forEach { element ->
                 // Texts
-                if (element.tagName() == POST_TAG && element.className() == POST_TEXT_CLASS) {
+                if (element.tagName() == POST_TAG && element.hasClass(POST_TEXT_CLASS)) {
+                    element.findTopLevelQuotes().forEach { quote ->
+                        parseQuote(quote, result)
+                    }
+                    element.select(QUOTE_TABLE_SELECTOR).remove()
                     element.select(RATING_SELECTOR).remove()
                     element.select(EDITED_TIME_SELECTOR).remove()
                     element.select(CLIENT_SELECTOR).remove()
@@ -98,7 +107,8 @@ class PostContentParser(private val content: String) {
                 }
 
                 // Quotes
-                if (element.attributes().toString().contains(QUOTE_SELECTOR) && !element.text().contains(
+                if (!element.isInsidePostTextBlock() && !element.isParsedPostQuote() &&
+                    element.attributes().toString().contains(QUOTE_SELECTOR) && !element.text().contains(
                         QUOTE_START_TEXT
                     )
                 ) {
@@ -109,10 +119,12 @@ class PostContentParser(private val content: String) {
                 }
 
                 // Quote authors
-                if (element.text().contains(Regex(QUOTE_AUTHOR_MARKER_REGEX))
+                if (!element.isInsidePostTextBlock() && !element.isParsedPostQuote() &&
+                    element.text().contains(Regex(QUOTE_AUTHOR_MARKER_REGEX))
                     && !element.html().contains(Regex("[\\r\\n]+"))) {
                     result.content.add(PostQuoteAuthor(text = element.html()))
-                } else if (element.text() == QUOTE_MARKER) {
+                } else if (!element.isInsidePostTextBlock() && !element.isParsedPostQuote() &&
+                    element.text() == QUOTE_MARKER) {
                     result.content.add(PostQuoteAuthor(text = element.html()))
                 }
 
@@ -145,7 +157,7 @@ class PostContentParser(private val content: String) {
 
                     val matcher = Pattern.compile(VIDEO_LINK_REGEX).matcher(element.data().removeSuffix("End Video"))
                     while (matcher.find()) {
-                        result.videosLinks.add(matcher.group(1))
+                        result.videosLinks.add(matcher.group(1) ?: "")
                     }
                 }
 
@@ -189,5 +201,42 @@ class PostContentParser(private val content: String) {
             .removePrefix("<br>")
             .removeSuffix("<br>")
             .trim()
+
+    private fun Element.isInsidePostTextBlock(): Boolean =
+        parents().any { parent -> parent.tagName() == POST_TAG && parent.hasClass(POST_TEXT_CLASS) }
+
+    private fun Element.isParsedPostQuote(): Boolean =
+        hasAttr(PARSED_QUOTE_ATTR) || parents().any { parent -> parent.hasAttr(PARSED_QUOTE_ATTR) }
+
+    private fun Element.findTopLevelQuotes(): List<Element> {
+        val quotes = select(QUOTE_TABLE_SELECTOR)
+        return quotes.filter { quote -> quote.parents().none { parent -> quotes.contains(parent) } }
+    }
+
+    private fun parseQuote(quote: Element, result: SinglePostParsed) {
+        quote.attr(PARSED_QUOTE_ATTR, "true")
+        quote.select("*").attr(PARSED_QUOTE_ATTR, "true")
+
+        quote.selectFirst(QUOTE_AUTHOR_SELECTOR)?.html()?.apply {
+            if (this.isNotEmpty()) {
+                result.content.add(PostQuoteAuthor(text = this))
+            }
+        }
+
+        val quoteTextElement = quote.selectFirst(QUOTE_TEXT_SELECTOR) ?: return
+        val nestedQuotes = quoteTextElement.findTopLevelQuotes()
+        nestedQuotes.forEach { nestedQuote -> parseQuote(nestedQuote, result) }
+        nestedQuotes.forEach { nestedQuote -> nestedQuote.remove() }
+
+        quoteTextElement.html().formatPostHtmlCode().trimLinebreakTags().apply {
+            if (this.isNotEmpty()) {
+                if (nestedQuotes.isNotEmpty()) {
+                    result.content.add(PostText(text = this))
+                } else {
+                    result.content.add(PostQuote(text = this))
+                }
+            }
+        }
+    }
 
 }

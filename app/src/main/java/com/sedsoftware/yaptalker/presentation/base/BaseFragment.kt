@@ -28,7 +28,7 @@ abstract class BaseFragment : MvpAppCompatFragment() {
     @Inject
     lateinit var messagesDelegate: MessagesDelegate
 
-    private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
+    private val lifecycleRelay: BehaviorRelay<Long> = BehaviorRelay.create()
     private lateinit var backPressHandler: CanHandleBackPressed
 
     open fun onBackPressed(): Boolean = false
@@ -37,7 +37,7 @@ abstract class BaseFragment : MvpAppCompatFragment() {
         AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        lifecycle.accept(FragmentLifecycle.CREATE)
+        lifecycleRelay.accept(FragmentLifecycle.CREATE)
 
         if (activity is CanHandleBackPressed) {
             backPressHandler = activity as CanHandleBackPressed
@@ -58,42 +58,42 @@ abstract class BaseFragment : MvpAppCompatFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        lifecycle.accept(FragmentLifecycle.ATTACH)
+        lifecycleRelay.accept(FragmentLifecycle.ATTACH)
     }
 
     override fun onStart() {
         super.onStart()
-        lifecycle.accept(FragmentLifecycle.START)
+        lifecycleRelay.accept(FragmentLifecycle.START)
         backPressHandler.setSelectedFragment(this)
     }
 
     override fun onResume() {
         super.onResume()
-        lifecycle.accept(FragmentLifecycle.RESUME)
+        lifecycleRelay.accept(FragmentLifecycle.RESUME)
     }
 
     override fun onPause() {
         super.onPause()
-        lifecycle.accept(FragmentLifecycle.PAUSE)
+        lifecycleRelay.accept(FragmentLifecycle.PAUSE)
     }
 
     override fun onStop() {
         super.onStop()
-        lifecycle.accept(FragmentLifecycle.STOP)
+        lifecycleRelay.accept(FragmentLifecycle.STOP)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.accept(FragmentLifecycle.DESTROY)
+        lifecycleRelay.accept(FragmentLifecycle.DESTROY)
     }
 
     override fun onDetach() {
         super.onDetach()
-        lifecycle.accept(FragmentLifecycle.DETACH)
+        lifecycleRelay.accept(FragmentLifecycle.DETACH)
     }
 
     protected fun event(@FragmentLifecycle.Event event: Long): Maybe<*> =
-        lifecycle.filter { it == event }.firstElement()
+        lifecycleRelay.filter { it == event }.firstElement()
 
     protected fun setCurrentAppbarTitle(title: String) {
         appBarProvider.getCurrentActionBar()?.title = title

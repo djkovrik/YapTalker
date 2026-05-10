@@ -5,11 +5,12 @@ apply plugin: 'kotlin-kapt'
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
-    compileSdkVersion globalConfiguration["compileSdkVersion"]
+    namespace "com.sedsoftware.yaptalker.data"
+    compileSdk globalConfiguration["compileSdkVersion"]
 
     defaultConfig {
-        minSdkVersion globalConfiguration["minSdkVersion"]
-        targetSdkVersion globalConfiguration["targetSdkVersion"]
+        minSdk globalConfiguration["minSdkVersion"]
+        targetSdk globalConfiguration["targetSdkVersion"]
         versionCode globalConfiguration["androidVersionCode"]
         versionName globalConfiguration["androidVersionName"]
 
@@ -37,10 +38,18 @@ android {
     }
     buildTypes.each {
         it.buildConfigField 'String', 'VK_ACCESS_TOKEN', VK_ACCESS_TOKEN
+        it.buildConfigField 'int', 'VERSION_CODE', "${globalConfiguration["androidVersionCode"]}"
+        it.buildConfigField 'String', 'VERSION_NAME', "\"${globalConfiguration["androidVersionName"]}\""
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    buildFeatures {
+        buildConfig true
     }
 }
 
@@ -66,6 +75,3 @@ dependencies {
     testImplementation dataTestDependencies.junit
 }
 
-configurations.all() {
-    resolutionStrategy.force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-}

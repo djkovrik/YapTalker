@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu
+﻿package com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu
 
 import android.animation.Animator
 import android.animation.AnimatorInflater
@@ -26,12 +26,12 @@ class FabMenuItemPrimary(
             hideAnimator.interpolator = OvershootInterpolator()
             hideAnimator.setTarget(mainView)
             hideAnimator.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?, isReverse: Boolean) {
+                override fun onAnimationStart(animation: Animator, isReverse: Boolean) {
                     super.onAnimationStart(animation, isReverse)
                     mainView.isEnabled = false
                 }
 
-                override fun onAnimationEnd(animation: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     super.onAnimationEnd(animation)
                     mainView.isInvisible = true
                 }
@@ -43,7 +43,7 @@ class FabMenuItemPrimary(
             showAnimator.interpolator = OvershootInterpolator()
             showAnimator.setTarget(secondaryView)
             showAnimator.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?) {
+                override fun onAnimationStart(animation: Animator) {
                     super.onAnimationStart(animation)
                     secondaryView.isEnabled = true
                     secondaryView.isVisible = true
@@ -61,12 +61,12 @@ class FabMenuItemPrimary(
             hideAnimator.interpolator = OvershootInterpolator()
             hideAnimator.setTarget(secondaryView)
             hideAnimator.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?) {
+                override fun onAnimationStart(animation: Animator) {
                     super.onAnimationStart(animation)
                     secondaryView.isEnabled = false
                 }
 
-                override fun onAnimationEnd(animation: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     super.onAnimationEnd(animation)
                     secondaryView.isInvisible = true
                 }
@@ -78,7 +78,7 @@ class FabMenuItemPrimary(
             showAnimator.interpolator = OvershootInterpolator()
             showAnimator.setTarget(mainView)
             showAnimator.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?) {
+                override fun onAnimationStart(animation: Animator) {
                     super.onAnimationStart(animation)
                     mainView.isEnabled = true
                     mainView.isVisible = true
@@ -94,7 +94,7 @@ class FabMenuItemPrimary(
         showAnimator.interpolator = OvershootInterpolator()
         showAnimator.setTarget(secondaryViewLabel)
         showAnimator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator?) {
+            override fun onAnimationStart(animation: Animator) {
                 super.onAnimationStart(animation)
                 secondaryViewLabel.isVisible = true
             }
@@ -107,7 +107,7 @@ class FabMenuItemPrimary(
         hideAnimator.interpolator = OvershootInterpolator()
         hideAnimator.setTarget(secondaryViewLabel)
         hideAnimator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 super.onAnimationEnd(animation)
                 secondaryViewLabel.isInvisible = true
             }

@@ -40,7 +40,7 @@ class TopicPageMapper @Inject constructor() : Function<TopicPageParsed, List<Bas
             result.add(
                 NavigationPanel(
                     currentPage = navigation.currentPage.toInt(),
-                    totalPages = navigation.totalPages.toInt()
+                    totalPages = calculateTotalPages(navigation.totalPages)
                 )
             )
 
@@ -70,7 +70,7 @@ class TopicPageMapper @Inject constructor() : Function<TopicPageParsed, List<Bas
                 result.add(
                     NavigationPanel(
                         currentPage = navigation.currentPage.toInt(),
-                        totalPages = navigation.totalPages.toInt()
+                        totalPages = calculateTotalPages(navigation.totalPages)
                     )
                 )
             }
@@ -85,4 +85,9 @@ class TopicPageMapper @Inject constructor() : Function<TopicPageParsed, List<Bas
             link = from.link,
             searchParameter = from.name.substringAfter("#")
         )
+
+    private fun calculateTotalPages(totalPosts: String): Int {
+        val posts = totalPosts.toInt()
+        return ((posts - 1) / POSTS_PER_PAGE) + 1
+    }
 }

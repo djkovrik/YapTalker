@@ -40,7 +40,7 @@
     <string name="forum_pinned_and_closed_topic_template" translatable="false"><xliff:g id="icons">{cmd-lock} {typ-pin}</xliff:g> <xliff:g id="title">%s</xliff:g></string>
 
     <!-- NAVIGATION -->
-    <string name="navigation_pages_template"><xliff:g id="page">%d</xliff:g> of <xliff:g id="total_pages">%d</xliff:g></string>
+    <string name="navigation_pages_template"><xliff:g id="page">%1$d</xliff:g> of <xliff:g id="total_pages">%2$d</xliff:g></string>
     <string name="navigation_go_to_page_title">Go to page</string>
     <string name="navigation_go_to_page_hint">Enter page number…</string>
     <string name="navigation_page_not_available">Page <xliff:g id="page">%d</xliff:g> is not available</string>

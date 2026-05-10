@@ -19,6 +19,37 @@ class DateTransformer @Inject constructor(private val context: Context) {
         private const val HOURS_PER_DAY = 24
         private const val DAYS_PER_MONTH = 30
         private const val MONTH_PER_YEAR = 12
+
+        private val MONTHS_NORMALIZATION = mapOf(
+            "\u044f\u043d\u0432" to "01",
+            "\u0444\u0435\u0432" to "02",
+            "\u043c\u0430\u0440" to "03",
+            "\u0430\u043f\u0440" to "04",
+            "\u043c\u0430\u044f" to "05",
+            "\u043c\u0430\u0439" to "05",
+            "\u0438\u044e\u043d" to "06",
+            "\u0438\u044e\u043b" to "07",
+            "\u0430\u0432\u0433" to "08",
+            "\u0441\u0435\u043d" to "09",
+            "\u0441\u0435\u043d\u0442" to "09",
+            "\u043e\u043a\u0442" to "10",
+            "\u043d\u043e\u044f" to "11",
+            "\u0434\u0435\u043a" to "12"
+        )
+        private val MONTH_NAMES = listOf(
+            "\u044f\u043d\u0432",
+            "\u0444\u0435\u0432",
+            "\u043c\u0430\u0440",
+            "\u0430\u043f\u0440",
+            "\u043c\u0430\u044f",
+            "\u0438\u044e\u043d",
+            "\u0438\u044e\u043b",
+            "\u0430\u0432\u0433",
+            "\u0441\u0435\u043d",
+            "\u043e\u043a\u0442",
+            "\u043d\u043e\u044f",
+            "\u0434\u0435\u043a"
+        )
     }
 
     fun transformDateToShortView(date: String): String {
@@ -28,22 +59,42 @@ class DateTransformer @Inject constructor(private val context: Context) {
     }
 
     fun transformLongToDateString(value: Long): String {
-        val date = Date(value)
-        val sdf = SimpleDateFormat("dd.MM.yyyy - HH:mm", Locale.getDefault())
         return when {
-            value != 0L -> sdf.format(date)
+            value != 0L -> {
+                val calendar = Calendar.getInstance().apply {
+                    time = Date(value)
+                }
+                String.format(
+                    Locale.getDefault(),
+                    "%d %s %d \u0432 %02d:%02d",
+                    calendar.get(Calendar.DAY_OF_MONTH),
+                    MONTH_NAMES[calendar.get(Calendar.MONTH)],
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.HOUR_OF_DAY),
+                    calendar.get(Calendar.MINUTE)
+                )
+            }
             else -> ""
         }
     }
 
     private fun getDifference(source: String): Int {
 
-        val format = SimpleDateFormat("dd.MM.yyyy - HH:mm", Locale.getDefault())
-        val topicDate = format.parse(source)
+        val normalizedSource = normalizeDateSource(source)
+        val format = SimpleDateFormat("d MM yyyy '\u0432' HH:mm", Locale.getDefault())
         val currentDate = Calendar.getInstance().time
+        val topicDate = format.parse(normalizedSource) ?: currentDate
 
         return ((currentDate.time - topicDate.time) / MILLISECONDS_PER_SECOND).toInt()
 
+    }
+
+    private fun normalizeDateSource(source: String): String {
+        val dateParts = source.trim().lowercase(Locale.getDefault()).split(Regex("\\s+")).toMutableList()
+        if (dateParts.size > 1) {
+            dateParts[1] = MONTHS_NORMALIZATION[dateParts[1]] ?: dateParts[1]
+        }
+        return dateParts.joinToString(" ")
     }
 
     private fun getCalculatedTime(diff: Int): CalculatedTime {

@@ -43,6 +43,7 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
     private val videoHtml: String by lazy {
         val iframe = intent
             .getStringExtra(VIDEO_HTML_KEY)
+            .orEmpty()
             .replace(Regex("width=\"\\d+\" height=\"\\d+\""), "")
             .replace("src=\"//", "src=\"http://")
 
@@ -93,7 +94,6 @@ class VideoDisplayActivity : BaseActivity(), VideoDisplayView {
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun initWebView() {
-        video_view.settings?.setAppCacheEnabled(false)
         video_view.settings?.javaScriptEnabled = true
         video_view.webChromeClient = WebChromeClient()
 

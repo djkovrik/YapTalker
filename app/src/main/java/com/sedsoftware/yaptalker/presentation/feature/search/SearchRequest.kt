@@ -5,7 +5,7 @@ import android.os.Parcelable
 import com.sedsoftware.yaptalker.presentation.feature.search.options.SearchConditions
 import com.sedsoftware.yaptalker.presentation.feature.search.options.SortingMode
 import com.sedsoftware.yaptalker.presentation.feature.search.options.TargetPeriod
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @SuppressLint("ParcelCreator")
 @Parcelize

@@ -7,8 +7,8 @@ import okhttp3.ResponseBody
 import okio.Buffer
 import okio.BufferedSource
 import okio.ForwardingSource
-import okio.Okio
 import okio.Source
+import okio.buffer
 import java.io.IOException
 
 class OkHttpProgressResponseBody(
@@ -25,16 +25,15 @@ class OkHttpProgressResponseBody(
     override fun contentType(): MediaType? =
         responseBody?.contentType()
 
-    override fun source(): BufferedSource? {
+    override fun source(): BufferedSource {
         if (bufferedSource == null) {
-            bufferedSource = Okio.buffer(source(responseBody?.source()))
+            bufferedSource = source(responseBody?.source() ?: Buffer()).buffer()
         }
 
-        return bufferedSource
+        return bufferedSource ?: Buffer()
     }
 
-    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    private fun source(source: Source?): Source =
+    private fun source(source: Source): Source =
         object : ForwardingSource(source) {
             var totalBytesRead = 0L
 
