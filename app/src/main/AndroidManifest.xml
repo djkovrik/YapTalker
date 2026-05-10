@@ -20,6 +20,7 @@
         <activity
             android:name="com.sedsoftware.yaptalker.presentation.feature.navigation.MainActivity"
             android:launchMode="singleTop"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
@@ -153,7 +154,8 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <receiver android:name=".presentation.custom.DownloadManagerReceiver">
+        <receiver android:name=".presentation.custom.DownloadManagerReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>

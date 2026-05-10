@@ -153,9 +153,6 @@ dependencies {
     implementation supportingToolsDependencies.firebaseCrashlytics
 
     implementation developmentDependencies.timber
-    debugImplementation developmentDependencies.leakCanary
-    releaseImplementation developmentDependencies.leakCanaryNoOp
-    testImplementation developmentDependencies.leakCanaryNoOp
 
     implementation developmentDependencies.stetho
 }

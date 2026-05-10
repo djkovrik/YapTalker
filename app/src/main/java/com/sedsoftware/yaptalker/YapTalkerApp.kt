@@ -15,7 +15,6 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.sedsoftware.yaptalker.common.CrashReportingTree
 import com.sedsoftware.yaptalker.di.DaggerAppComponent
-import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -66,14 +65,7 @@ class YapTalkerApp : Application(), HasAndroidInjector {
 
     override fun onCreate() {
         super.onCreate()
-
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return
-        }
-
         appContext = this
-
-        LeakCanary.install(this)
 
         DaggerAppComponent.builder().create(this).inject(this)
 
