@@ -17,7 +17,7 @@ class ActiveTopicItemParsed {
     lateinit var forumLink: String
     @Selector(value = "div.rating-short-value", regex = "([-\\d]+)", defValue = "0")
     lateinit var rating: String
-    @Selector(value = "td.row4:matchesOwn(\\d+)", defValue = "0")
+    @Selector(value = "td.row4:matchesOwn([\\d ]+)", defValue = "0")
     lateinit var answers: String
     @Selector(value = "span.desc", regex = "([0-9\\.]+ - [0-9:]+)", defValue = "Unknown")
     lateinit var lastPostDate: String

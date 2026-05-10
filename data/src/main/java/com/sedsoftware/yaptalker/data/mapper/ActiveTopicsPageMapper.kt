@@ -30,7 +30,7 @@ class ActiveTopicsPageMapper @Inject constructor() : Function<ActiveTopicsPagePa
                         forumTitle = topic.forumTitle,
                         forumLink = topic.forumLink,
                         rating = topic.rating.toInt(),
-                        answers = topic.answers.toInt(),
+                        answers = topic.answers.replace(" ", "").toInt(),
                         lastPostDate = topic.lastPostDate
                     )
                 )
