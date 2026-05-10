@@ -1,4 +1,9 @@
 ## Changelog
+### [1.0.9] - 2026-05-10
+
+**Fixed**
+* Pages parsing adapted to the newest site design changes
+
 ### [1.0.8] - 2020-02-11
 
 **Fixed**
