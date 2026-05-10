@@ -4,11 +4,12 @@ apply plugin: 'kotlin-android'
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
-    compileSdkVersion globalConfiguration["compileSdkVersion"]
+    namespace "com.sedsoftware.yaptalker.device"
+    compileSdk globalConfiguration["compileSdkVersion"]
 
     defaultConfig {
-        minSdkVersion globalConfiguration["minSdkVersion"]
-        targetSdkVersion globalConfiguration["targetSdkVersion"]
+        minSdk globalConfiguration["minSdkVersion"]
+        targetSdk globalConfiguration["targetSdkVersion"]
         versionCode globalConfiguration["androidVersionCode"]
         versionName globalConfiguration["androidVersionName"]
 
@@ -38,6 +39,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -63,6 +67,3 @@ dependencies {
     testImplementation deviceTestDependencies.junit
 }
 
-configurations.all() {
-    resolutionStrategy.force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-}

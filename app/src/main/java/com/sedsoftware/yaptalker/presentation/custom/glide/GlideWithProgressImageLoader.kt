@@ -42,11 +42,11 @@ class GlideWithProgressImageLoader {
             GlideApp.with(imageView.context)
                 .load(url)
                 .apply(options)
-                .listener(object : RequestListener<Drawable?> {
+                .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
                         model: Any?,
-                        target: Target<Drawable?>?,
+                        target: Target<Drawable>,
                         isFirstResource: Boolean
                     ): Boolean {
                         DispatchingProgressListener.forget(url)
@@ -56,10 +56,10 @@ class GlideWithProgressImageLoader {
                     }
 
                     override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable?>?,
-                        dataSource: DataSource?,
+                        resource: Drawable,
+                        model: Any,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource,
                         isFirstResource: Boolean
                     ): Boolean {
                         DispatchingProgressListener.forget(url)

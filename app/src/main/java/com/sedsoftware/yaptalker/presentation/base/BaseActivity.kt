@@ -13,12 +13,12 @@ import com.sedsoftware.yaptalker.presentation.base.enums.lifecycle.ActivityLifec
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
+import dagger.android.HasAndroidInjector
 import io.reactivex.Maybe
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
-abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector, CanHandleBackPressed {
+abstract class BaseActivity : MvpAppCompatActivity(), HasAndroidInjector, CanHandleBackPressed {
 
     @Inject
     lateinit var settings: Settings
@@ -27,11 +27,11 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
     lateinit var navigatorHolder: NavigatorHolder
 
     @Inject
-    lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
+    lateinit var fragmentInjector: DispatchingAndroidInjector<Any>
 
     protected lateinit var backPressFragment: BaseFragment
 
-    private val lifecycle: BehaviorRelay<Long> = BehaviorRelay.create()
+    private val lifecycleRelay: BehaviorRelay<Long> = BehaviorRelay.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -57,42 +57,42 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector
             }
         }
 
-        lifecycle.accept(ActivityLifecycle.CREATE)
+        lifecycleRelay.accept(ActivityLifecycle.CREATE)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.accept(ActivityLifecycle.DESTROY)
+        lifecycleRelay.accept(ActivityLifecycle.DESTROY)
     }
 
     override fun onStart() {
         super.onStart()
-        lifecycle.accept(ActivityLifecycle.START)
+        lifecycleRelay.accept(ActivityLifecycle.START)
     }
 
     override fun onStop() {
         super.onStop()
-        lifecycle.accept(ActivityLifecycle.STOP)
+        lifecycleRelay.accept(ActivityLifecycle.STOP)
     }
 
     override fun onResume() {
         super.onResume()
-        lifecycle.accept(ActivityLifecycle.RESUME)
+        lifecycleRelay.accept(ActivityLifecycle.RESUME)
     }
 
     override fun onPause() {
         super.onPause()
-        lifecycle.accept(ActivityLifecycle.PAUSE)
+        lifecycleRelay.accept(ActivityLifecycle.PAUSE)
     }
 
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
+    override fun androidInjector(): AndroidInjector<Any> = fragmentInjector
 
     override fun setSelectedFragment(fragment: BaseFragment) {
         backPressFragment = fragment
     }
 
     protected fun event(@ActivityLifecycle.Event event: Long): Maybe<*> =
-        lifecycle.filter { it == event }.firstElement()
+        lifecycleRelay.filter { it == event }.firstElement()
 
     private fun applyTheme() {
         val dark = getString(R.string.pref_appearance_theme_value_dark)

@@ -1,7 +1,7 @@
 package com.sedsoftware.yaptalker.common
 
 import android.util.Log
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import timber.log.Timber
 
 
@@ -10,8 +10,8 @@ class CrashReportingTree : Timber.Tree() {
         t?.let {
             when (priority) {
                 Log.ERROR -> {
-                    Crashlytics.log(priority, tag, message)
-                    Crashlytics.logException(t)
+                    FirebaseCrashlytics.getInstance().log("${tag.orEmpty()}: $message")
+                    FirebaseCrashlytics.getInstance().recordException(t)
                 }
             }
         }

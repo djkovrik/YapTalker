@@ -152,7 +152,7 @@ class AddMessageFragment : BaseFragment(), AddMessageView {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_REQUEST) {
-            chosenImagePath = data?.let { pathResolver.getFilePathFromUri(data.data) }.orEmpty()
+            chosenImagePath = data?.data?.let { pathResolver.getFilePathFromUri(it) }.orEmpty()
             handleAttachmentCardState()
         }
     }

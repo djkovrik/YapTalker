@@ -1,4 +1,4 @@
-package com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu
+﻿package com.sedsoftware.yaptalker.presentation.feature.topic.fabmenu
 
 import android.animation.Animator
 import android.animation.AnimatorInflater
@@ -21,7 +21,7 @@ class FabMenuItemSecondary(
         animator.interpolator = OvershootInterpolator()
         animator.setTarget(view)
         animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator?) {
+            override fun onAnimationStart(animation: Animator) {
                 super.onAnimationStart(animation)
                 view.isVisible = true
             }
@@ -34,7 +34,7 @@ class FabMenuItemSecondary(
         animator.interpolator = OvershootInterpolator()
         animator.setTarget(view)
         animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 super.onAnimationEnd(animation)
                 view.isGone = true
             }

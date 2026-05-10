@@ -51,8 +51,8 @@ class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPrefere
             }
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        val preference = findPreference(key)
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
+        val preference = key?.let { findPreference(it) }
         preference?.let { setListPreferenceSummary(sharedPreferences, preference) }
     }
 

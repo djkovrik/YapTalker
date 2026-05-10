@@ -132,7 +132,7 @@ class VideoWebChromeClient : WebChromeClient, OnPreparedListener, OnCompletionLi
             loadingView?.visibility = View.VISIBLE
             loadingView as View
         } else {
-            super.getVideoLoadingProgressView()
+            super.getVideoLoadingProgressView() ?: View(webView?.context)
         }
 
     override fun onPrepared(mp: MediaPlayer) {

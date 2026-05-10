@@ -1,17 +1,18 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
-    compileSdkVersion globalConfiguration["compileSdkVersion"]
+    namespace "com.sedsoftware.yaptalker"
+    compileSdk globalConfiguration["compileSdkVersion"]
 
     defaultConfig {
-        minSdkVersion globalConfiguration["minSdkVersion"]
-        targetSdkVersion globalConfiguration["targetSdkVersion"]
+        minSdk globalConfiguration["minSdkVersion"]
+        targetSdk globalConfiguration["targetSdkVersion"]
         applicationId globalConfiguration["androidApplicationId"]
         versionCode globalConfiguration["androidVersionCode"]
         versionName globalConfiguration["androidVersionName"]
@@ -58,10 +59,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-}
 
-androidExtensions {
-    experimental = true
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
 }
 
 dependencies {
@@ -95,9 +97,6 @@ dependencies {
     implementation presentationDependencies.moxy
     implementation presentationDependencies.moxyAndroid
     implementation presentationDependencies.moxyAppCompat
-    implementation presentationDependencies.cicerone
-    implementation presentationDependencies.anko
-    implementation presentationDependencies.ankoDesign
 
     implementation presentationDependencies.rxJava
     implementation presentationDependencies.rxAndroid
@@ -136,7 +135,6 @@ dependencies {
     implementation presentationDependencies.materialDialogs
     implementation presentationDependencies.materialDialogsCommons
     implementation presentationDependencies.photoView
-    implementation presentationDependencies.tsnackbar
     implementation presentationDependencies.markwon
     implementation presentationDependencies.swipeRefreshBottom
 
@@ -146,8 +144,9 @@ dependencies {
 
     testImplementation presentationTestDependencies.junit
 
-    implementation(supportingToolsDependencies.crashalytics) { transitive = true }
-    implementation supportingToolsDependencies.firebaseCore
+    implementation platform(supportingToolsDependencies.firebaseBom)
+    implementation supportingToolsDependencies.firebaseAnalytics
+    implementation supportingToolsDependencies.firebaseCrashlytics
 
     implementation developmentDependencies.timber
     debugImplementation developmentDependencies.leakCanary
@@ -155,10 +154,6 @@ dependencies {
     testImplementation developmentDependencies.leakCanaryNoOp
 
     implementation developmentDependencies.stetho
-}
-
-configurations.all() {
-    resolutionStrategy.force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -42,7 +42,8 @@ class SearchResultsFragment : BaseFragment(), SearchResultsView {
     fun provideSearchResultsPresenter() = presenter
 
     private val searchRequest: SearchRequest by lazy {
-        arguments?.getParcelable(SEARCH_REQUEST_KEY) as SearchRequest
+        arguments?.getParcelable<SearchRequest>(SEARCH_REQUEST_KEY)
+            ?: SearchRequest("")
     }
 
     private val searchInTags: Boolean by lazy {

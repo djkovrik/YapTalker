@@ -19,7 +19,7 @@ import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import dagger.android.HasAndroidInjector
 import ru.noties.markwon.SpannableConfiguration
 import ru.noties.markwon.spans.SpannableTheme
 import timber.log.Timber
@@ -27,7 +27,7 @@ import java.security.MessageDigest
 import javax.inject.Inject
 
 @Suppress("ConstantConditionIf")
-class YapTalkerApp : Application(), HasActivityInjector {
+class YapTalkerApp : Application(), HasAndroidInjector {
 
     companion object {
         private const val NAV_DRAWER_AVATAR_PADDING = 16
@@ -62,7 +62,7 @@ class YapTalkerApp : Application(), HasActivityInjector {
 
 
     @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate() {
         super.onCreate()
@@ -84,7 +84,7 @@ class YapTalkerApp : Application(), HasActivityInjector {
         dumpAppInfo()
     }
 
-    override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
+    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
     private fun initStetho() {
         if (BuildConfig.DEBUG) {
