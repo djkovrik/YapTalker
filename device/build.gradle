@@ -1,5 +1,7 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+}
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -45,25 +47,20 @@ android {
 }
 
 dependencies {
-    def deviceDependencies = rootProject.ext.deviceDependencies
-    def deviceTestDependencies = rootProject.ext.deviceTestDependencies
-    def developmentDependencies = rootProject.ext.developmentDependencies
-
     implementation project(':domain')
 
-    implementation deviceDependencies.appCompat
-    implementation deviceDependencies.recycler
-    implementation deviceDependencies.kotlin
-    implementation deviceDependencies.javax
-    implementation deviceDependencies.rxAndroid
-    implementation deviceDependencies.rxJava
-    implementation deviceDependencies.rxKotlin
-    implementation deviceDependencies.okhttp
-    implementation deviceDependencies.picasso
-    implementation deviceDependencies.gson
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.recyclerview
+    implementation libs.kotlin.stdlib.jdk8
+    implementation libs.javax.inject
+    implementation libs.rxandroid
+    implementation libs.rxjava
+    implementation libs.rxkotlin
+    implementation libs.okhttp
+    implementation libs.picasso
+    implementation libs.gson
 
-    implementation developmentDependencies.timber
+    implementation libs.timber
 
-    testImplementation deviceTestDependencies.junit
+    testImplementation libs.junit
 }
-

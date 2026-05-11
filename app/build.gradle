@@ -1,8 +1,11 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-parcelize'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'com.google.firebase.crashlytics'
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.google.services)
+}
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -71,90 +74,82 @@ android {
 }
 
 dependencies {
-
-    def presentationDependencies = rootProject.ext.presentationDependencies
-    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
-    def supportingToolsDependencies = rootProject.ext.supportingToolsDependencies
-    def developmentDependencies = rootProject.ext.developmentDependencies
-
     implementation project(':domain')
     implementation project(':data')
     implementation project(':device')
 
-    implementation presentationDependencies.kotlin
-    implementation presentationDependencies.androidKtx
+    implementation libs.kotlin.stdlib.jdk8
+    implementation libs.androidx.core.ktx
 
-    implementation presentationDependencies.room
-    kapt presentationDependencies.roomCompiler
+    implementation libs.room.runtime
+    kapt libs.room.compiler
 
-    implementation presentationDependencies.appCompat
-    implementation presentationDependencies.preferenceV7
-    implementation presentationDependencies.preferenceV14
-    implementation presentationDependencies.cardView
-    implementation presentationDependencies.design
-    implementation presentationDependencies.recyclerView
-    implementation presentationDependencies.constraintLayout
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.preference
+    implementation libs.androidx.legacy.preference.v14
+    implementation libs.androidx.cardview
+    implementation libs.android.material
+    implementation libs.androidx.recyclerview
+    implementation libs.androidx.constraintlayout
 
-    implementation presentationDependencies.dagger
-    implementation presentationDependencies.daggerAndroid
-    implementation presentationDependencies.daggerAndroidSupport
-    implementation presentationDependencies.moxy
-    implementation presentationDependencies.moxyAndroid
-    implementation presentationDependencies.moxyAppCompat
+    implementation libs.dagger
+    implementation libs.dagger.android
+    implementation libs.dagger.android.support
+    implementation libs.moxy
+    implementation libs.moxy.android
+    implementation libs.moxy.appcompat
 
-    implementation presentationDependencies.rxJava
-    implementation presentationDependencies.rxAndroid
-    implementation presentationDependencies.rxKotlin
-    implementation presentationDependencies.rxRelay
-    implementation presentationDependencies.rxLint
-    implementation presentationDependencies.rxBinding
-    implementation presentationDependencies.rxBindingAppCompat
-    implementation presentationDependencies.rxBindingRecyclerView
-    implementation presentationDependencies.rxBindingSupport
-    implementation presentationDependencies.autoDispose
-    implementation presentationDependencies.autoDisposeKotlin
+    implementation libs.rxjava
+    implementation libs.rxandroid
+    implementation libs.rxkotlin
+    implementation libs.rxrelay
+    implementation libs.rxlint
+    implementation libs.rxbinding.kotlin
+    implementation libs.rxbinding.appcompat
+    implementation libs.rxbinding.recyclerview
+    implementation libs.rxbinding.support
+    implementation libs.autodispose
+    implementation libs.autodispose.kotlin
 
-    implementation presentationDependencies.gson
-    implementation presentationDependencies.retrofit
-    implementation presentationDependencies.retrofitRxAdapter
-    implementation presentationDependencies.retrofitGsonConverter
-    implementation presentationDependencies.retrofitScalarsConverter
-    implementation presentationDependencies.retrofitJspoonConverter
-    implementation presentationDependencies.okhttp
-    implementation presentationDependencies.okhttpInterceptor
-    implementation presentationDependencies.cookies
-    implementation presentationDependencies.picasso
-    implementation presentationDependencies.glide
-    implementation presentationDependencies.glideOkHttp3
-    kapt presentationDependencies.glideCompiler
+    implementation libs.gson
+    implementation libs.retrofit
+    implementation libs.retrofit.adapter.rxjava2
+    implementation libs.retrofit.converter.gson
+    implementation libs.retrofit.converter.scalars
+    implementation libs.retrofit.converter.jspoon
+    implementation libs.okhttp
+    implementation libs.okhttp.logging.interceptor
+    implementation libs.persistent.cookie.jar
+    implementation libs.picasso
+    implementation libs.glide
+    implementation libs.glide.okhttp3
+    kapt libs.glide.compiler
 
-    implementation presentationDependencies.materialValues
-    implementation(presentationDependencies.materialDrawer) { transitive = true }
-    implementation presentationDependencies.materialChip
-    implementation presentationDependencies.flexbox
-    implementation presentationDependencies.iconicsCore
-    implementation presentationDependencies.iconicsView
-    implementation presentationDependencies.materialTypeface
-    implementation presentationDependencies.typeiconcsTypeface
-    implementation presentationDependencies.materialDialogs
-    implementation presentationDependencies.materialDialogsCommons
-    implementation presentationDependencies.photoView
-    implementation presentationDependencies.markwon
-    implementation presentationDependencies.swipeRefreshBottom
+    implementation libs.material.values
+    implementation(libs.materialdrawer) { transitive = true }
+    implementation libs.material.chip
+    implementation libs.flexbox
+    implementation libs.iconics.core
+    implementation libs.iconics.views
+    implementation libs.community.material.typeface
+    implementation libs.typeicons.typeface
+    implementation libs.material.dialogs.core
+    implementation libs.material.dialogs.commons
+    implementation libs.photoview
+    implementation libs.markwon
+    implementation libs.swipe.refresh.bottom
 
-    kapt presentationDependencies.daggerCompiler
-    kapt presentationDependencies.daggerAndroidCompiler
-    kapt presentationDependencies.moxyCompiler
+    kapt libs.dagger.compiler
+    kapt libs.dagger.android.compiler
+    kapt libs.moxy.compiler
 
-    testImplementation presentationTestDependencies.junit
+    testImplementation libs.junit
 
-    implementation platform(supportingToolsDependencies.firebaseBom)
-    implementation supportingToolsDependencies.firebaseAnalytics
-    implementation supportingToolsDependencies.firebaseCrashlytics
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.analytics
+    implementation libs.firebase.crashlytics
 
-    implementation developmentDependencies.timber
+    implementation libs.timber
 
-    implementation developmentDependencies.stetho
+    implementation libs.stetho
 }
-
-apply plugin: 'com.google.gms.google-services'
