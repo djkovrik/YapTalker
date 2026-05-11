@@ -11,9 +11,14 @@ class YapUpdatesDownloader @Inject constructor(
     private val context: Context
 ) : UpdatesDownloader {
 
+    companion object {
+        private const val APK_MIME_TYPE = "application/vnd.android.package-archive"
+    }
+
     override fun initiateUpdateDownloadSession(url: String) {
         val request = DownloadManager.Request(Uri.parse(url))
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, url.substringAfterLast("/"))
+        request.setMimeType(APK_MIME_TYPE)
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         downloadManager.enqueue(request)
