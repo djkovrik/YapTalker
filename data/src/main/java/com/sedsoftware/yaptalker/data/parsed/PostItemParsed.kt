@@ -15,19 +15,19 @@ class PostItemParsed {
     lateinit var postDate: String
     @Selector(value = "span[class~=rank-\\w+]", regex = "([-\\d]+)", defValue = "0")
     lateinit var postRank: String
-    @Selector(value = "a.post-plus", attr = "innerHtml", defValue = "")
+    @Selector(value = "a.post-plus", attr = "outerHtml", defValue = "")
     lateinit var postRankPlusAvailable: String
-    @Selector(value = "a.post-minus", attr = "innerHtml", defValue = "")
+    @Selector(value = "a.post-minus", attr = "outerHtml", defValue = "")
     lateinit var postRankMinusAvailable: String
-    @Selector(value = "span.post-plus-clicked", attr = "innerHtml", defValue = "")
+    @Selector(value = "span.post-plus-clicked", attr = "outerHtml", defValue = "")
     lateinit var postRankPlusClicked: String
-    @Selector(value = "span.post-minus-clicked", attr = "innerHtml", defValue = "")
+    @Selector(value = "span.post-minus-clicked", attr = "outerHtml", defValue = "")
     lateinit var postRankMinusClicked: String
     @Selector(value = "td[width*=100%][valign*=top]", attr = "innerHtml", defValue = "")
     lateinit var postContent: String
-    @Selector(value = "a[name~=entry]", attr = "outerHtml", regex = "entry(\\d+)", defValue = "0")
+    @Selector(value = "td.post2", attr = "outerHtml", regex = "THE POST (\\d+)", defValue = "0")
     lateinit var postId: String
-    @Selector(value = "a:containsOwn(цитировать)", attr = "href", defValue = "")
+    @Selector(value = "a.reply-icon", attr = "href", defValue = "")
     lateinit var hasQuoteButton: String
     @Selector(value = "a:containsOwn(правка)", attr = "href", defValue = "")
     lateinit var hasEditButton: String
