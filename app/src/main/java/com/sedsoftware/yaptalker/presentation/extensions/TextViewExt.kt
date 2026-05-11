@@ -2,12 +2,31 @@ package com.sedsoftware.yaptalker.presentation.extensions
 
 import android.text.Html
 import android.widget.TextView
+import com.mikepenz.iconics.IconicsDrawable
+import com.mikepenz.iconics.typeface.IIcon
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.custom.PicassoImageGetter
+import kotlin.math.roundToInt
 
 var TextView.textColor: Int
     get() = currentTextColor
     set(v) = setTextColor(context.colorFromAttr(v))
+
+private val iconicsTokenRegex = Regex("\\{[a-z0-9]{3}[-a-z0-9_]*\\}\\s*")
+
+fun CharSequence.withoutIconicsTokens(): String =
+    iconicsTokenRegex.replace(this, "")
+
+fun TextView.setStartIcon(icon: IIcon) {
+    val iconSize = textSize.roundToInt().coerceAtLeast(1)
+    val drawable = IconicsDrawable(context)
+        .icon(icon)
+        .color(currentTextColor)
+        .sizePx(iconSize)
+
+    compoundDrawablePadding = context.resources.getDimensionPixelSize(R.dimen.post_karma_thump_icon_padding)
+    setCompoundDrawablesRelative(drawable, null, null, null)
+}
 
 @Suppress("MagicNumber")
 fun TextView.loadRatingBackground(rating: Int) {
