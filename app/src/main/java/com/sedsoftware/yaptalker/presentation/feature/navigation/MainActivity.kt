@@ -66,6 +66,8 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
         settings.isInTwoPaneMode()
     }
 
+    override val edgeToEdgeEnabled: Boolean = false
+
     private lateinit var navDrawer: Drawer
     private lateinit var navHeader: AccountHeader
     private lateinit var drawerItemMainPage: PrimaryDrawerItem

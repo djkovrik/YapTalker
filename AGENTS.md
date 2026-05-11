@@ -117,6 +117,16 @@ Keep exported components conservative:
 - Launcher activity: `android:exported="true"`
 - Internal activities, services, and receivers: `android:exported="false"` unless Android or an external integration requires otherwise.
 
+## Edge-To-Edge Notes
+
+`BaseActivity` enables edge-to-edge by default. `MainActivity` explicitly opts out and should keep the old system-window behavior unless its navigation drawer/app bar layout is intentionally redesigned.
+
+For new activities:
+
+- Fullscreen/media activities can use the default transparent status bar.
+- Regular toolbar activities should override `edgeToEdgeStatusBarColorAttr` with `R.attr.colorPrimaryDark` so `BaseActivity` adds a matching status bar scrim instead of showing the root layout background.
+- Avoid setting `fitsSystemWindows` in layouts unless there is a screen-specific reason; prefer the centralized insets handling in `BaseActivity`.
+
 ## Dependency Updates
 
 When updating dependencies:

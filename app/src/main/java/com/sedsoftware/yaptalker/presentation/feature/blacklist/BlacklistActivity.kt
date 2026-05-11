@@ -44,6 +44,8 @@ class BlacklistActivity : BaseActivity(), BlacklistView {
     @ProvidePresenter
     fun providePresenter() = presenter
 
+    override val edgeToEdgeStatusBarColorAttr: Int = R.attr.colorPrimaryDark
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
