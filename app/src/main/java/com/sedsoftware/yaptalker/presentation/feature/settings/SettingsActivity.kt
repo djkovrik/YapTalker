@@ -15,6 +15,8 @@ class SettingsActivity : BaseActivity() {
         fun getIntent(ctx: Context) = Intent(ctx, SettingsActivity::class.java)
     }
 
+    override val edgeToEdgeStatusBarColorAttr: Int = R.attr.colorPrimaryDark
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

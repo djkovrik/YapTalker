@@ -1,6 +1,8 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+}
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -54,24 +56,20 @@ android {
 }
 
 dependencies {
-    def dataDependencies = rootProject.ext.dataDependencies
-    def dataTestDependencies = rootProject.ext.dataTestDependencies
-
     implementation project(':domain')
 
-    implementation dataDependencies.room
-    implementation dataDependencies.roomRx
-    kapt dataDependencies.roomCompiler
+    implementation libs.room.runtime
+    implementation libs.room.rxjava2
+    kapt libs.room.compiler
 
-    implementation dataDependencies.kotlin
+    implementation libs.kotlin.stdlib.jdk8
 
-    implementation dataDependencies.javax
-    implementation dataDependencies.rxJava
-    implementation dataDependencies.rxKotlin
-    implementation dataDependencies.retrofit
-    implementation dataDependencies.jspoon
-    implementation dataDependencies.gson
+    implementation libs.javax.inject
+    implementation libs.rxjava
+    implementation libs.rxkotlin
+    implementation libs.retrofit
+    implementation libs.jspoon
+    implementation libs.gson
 
-    testImplementation dataTestDependencies.junit
+    testImplementation libs.junit
 }
-

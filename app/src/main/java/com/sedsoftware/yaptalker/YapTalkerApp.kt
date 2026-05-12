@@ -10,12 +10,13 @@ import android.provider.Settings
 import android.widget.ImageView
 import com.facebook.stetho.Stetho
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
+import com.mikepenz.iconics.Iconics
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
+import com.mikepenz.typeicons_typeface_library.Typeicons
 import com.sedsoftware.yaptalker.common.CrashReportingTree
 import com.sedsoftware.yaptalker.di.DaggerAppComponent
-import com.squareup.leakcanary.LeakCanary
 import com.squareup.picasso.Picasso
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -66,17 +67,11 @@ class YapTalkerApp : Application(), HasAndroidInjector {
 
     override fun onCreate() {
         super.onCreate()
-
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return
-        }
-
         appContext = this
-
-        LeakCanary.install(this)
 
         DaggerAppComponent.builder().create(this).inject(this)
 
+        initIconics()
         initStetho()
         initTimber()
         initMaterialDrawerImageLoader()
@@ -85,6 +80,12 @@ class YapTalkerApp : Application(), HasAndroidInjector {
     }
 
     override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
+
+    private fun initIconics() {
+        Iconics.init(this)
+        Iconics.registerFont(CommunityMaterial())
+        Iconics.registerFont(Typeicons())
+    }
 
     private fun initStetho() {
         if (BuildConfig.DEBUG) {

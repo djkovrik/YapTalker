@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrlAndRoundCorners
+import com.sedsoftware.yaptalker.presentation.extensions.setStartIcon
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.NewsItemModel
 import com.sedsoftware.yaptalker.presentation.provider.ThumbnailsProvider
@@ -78,6 +80,7 @@ class NewsDelegateAdapter(
                 news_date.text = newsItem.date
                 news_rating.text = newsItem.rating
                 news_comments_counter.text = newsItem.comments
+                news_comments_counter.setStartIcon(CommunityMaterial.Icon.cmd_comment_outline)
                 news_content_text.text = newsItem.cleanedDescription
             }
         }

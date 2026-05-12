@@ -6,6 +6,7 @@ import android.text.Spanned
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.presentation.extensions.quantityString
 import com.sedsoftware.yaptalker.presentation.extensions.string
+import com.sedsoftware.yaptalker.presentation.extensions.withoutIconicsTokens
 import java.util.Locale
 import javax.inject.Inject
 
@@ -91,14 +92,14 @@ class TextTransformer @Inject constructor(private val context: Context) {
 
     fun transformCommentsLabel(comments: Int): String {
         val commentsTemplate: String = context.quantityString(R.plurals.news_comments_template, comments)
-        return String.format(Locale.getDefault(), commentsTemplate, comments)
+        return String.format(Locale.getDefault(), commentsTemplate, comments).withoutIconicsTokens()
     }
 
     fun transformBlacklistDate(dateString: String): String =
         String.format(Locale.getDefault(), blacklistedDateTemplate, dateString)
 
     fun transformCommentsLabelShort(comments: Int): String =
-        String.format(Locale.getDefault(), commentsTemplateShort, comments)
+        String.format(Locale.getDefault(), commentsTemplateShort, comments).withoutIconicsTokens()
 
     fun transformNewsForumTitle(title: String): String =
         String.format(Locale.getDefault(), forumTitleTemplate, title)

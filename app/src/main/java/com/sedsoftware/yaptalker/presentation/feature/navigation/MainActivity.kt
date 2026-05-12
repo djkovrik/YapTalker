@@ -8,7 +8,6 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.mikepenz.community_material_typeface_library.CommunityMaterial
-import com.mikepenz.iconics.context.IconicsContextWrapper
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeader.OnAccountHeaderProfileImageListener
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
@@ -67,6 +66,8 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
         settings.isInTwoPaneMode()
     }
 
+    override val edgeToEdgeEnabled: Boolean = false
+
     private lateinit var navDrawer: Drawer
     private lateinit var navHeader: AccountHeader
     private lateinit var drawerItemMainPage: PrimaryDrawerItem
@@ -86,9 +87,8 @@ class MainActivity : BaseActivity(), MainActivityView, ActionBarProvider, NavDra
     private lateinit var drawerItemSignIn: PrimaryDrawerItem
     private lateinit var drawerItemSignOut: PrimaryDrawerItem
 
-    // Init Iconics here
     override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(IconicsContextWrapper.wrap(base))
+        super.attachBaseContext(base)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

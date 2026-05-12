@@ -3,11 +3,13 @@ package com.sedsoftware.yaptalker.presentation.feature.activetopics.adapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
+import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.presentation.base.adapter.YapEntityDelegateAdapter
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadRatingBackground
+import com.sedsoftware.yaptalker.presentation.extensions.setStartIcon
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.ActiveTopicModel
 import kotlinx.android.synthetic.main.fragment_active_topics_list_item.view.active_topic_answers
@@ -49,6 +51,7 @@ class ActiveTopicsDelegateAdapter(
                 active_topic_forum.textSize = normalFontSize
                 active_topic_last_post_date.textSize = normalFontSize
                 active_topic_answers.textSize = normalFontSize
+                active_topic_answers.setStartIcon(CommunityMaterial.Icon.cmd_comment_outline)
 
                 setOnClickListener {
                     val triple = Triple(topicItem.forumId, topicItem.topicId, 0)

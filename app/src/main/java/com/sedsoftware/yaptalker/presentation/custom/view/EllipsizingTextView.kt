@@ -96,7 +96,7 @@ class EllipsizingTextView @JvmOverloads constructor(
         super.setLineSpacing(add, mult)
     }
 
-    override fun setText(text: CharSequence, type: TextView.BufferType) {
+    override fun setText(text: CharSequence?, type: TextView.BufferType) {
         if (!programmaticChange) {
             mFullText = text
             isStale = true

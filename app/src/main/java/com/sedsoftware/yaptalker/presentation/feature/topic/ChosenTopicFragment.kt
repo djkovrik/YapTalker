@@ -15,6 +15,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
+import com.mikepenz.community_material_typeface_library.CommunityMaterial
+import com.mikepenz.typeicons_typeface_library.Typeicons
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.common.annotation.LayoutResource
 import com.sedsoftware.yaptalker.device.storage.state.TopicState
@@ -26,6 +28,7 @@ import com.sedsoftware.yaptalker.presentation.base.enums.navigation.NavigationSe
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.moveWithAnimationAxisY
 import com.sedsoftware.yaptalker.presentation.extensions.orZero
+import com.sedsoftware.yaptalker.presentation.extensions.setIconicsImage
 import com.sedsoftware.yaptalker.presentation.extensions.setIndicatorColorScheme
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.feature.topic.adapter.ChosenTopicAdapter
@@ -145,9 +148,21 @@ class ChosenTopicFragment : BaseFragment(), ChosenTopicView, ThumbnailsProvider 
 
         topic_refresh_layout.setOnRefreshListener { presenter.refreshCurrentPage() }
 
+        setupFabIcons()
         subscribeViews()
 
         topicScrollState = topic_posts_list.layoutManager?.onSaveInstanceState() ?: Bundle()
+    }
+
+    private fun setupFabIcons() {
+        fab_menu.setIconicsImage(Typeicons.Icon.typ_th_menu)
+        fab_new_message.setIconicsImage(Typeicons.Icon.typ_pencil)
+        fab_refresh.setIconicsImage(CommunityMaterial.Icon2.cmd_refresh, R.dimen.mini_fab_icon_padding)
+        fab_bookmark.setIconicsImage(Typeicons.Icon.typ_bookmark, R.dimen.mini_fab_icon_padding)
+        fab_karma.setIconicsImage(CommunityMaterial.Icon2.cmd_thumbs_up_down, R.dimen.mini_fab_icon_padding)
+        fab_share.setIconicsImage(CommunityMaterial.Icon2.cmd_share_variant, R.dimen.mini_fab_icon_padding)
+        fab_gallery.setIconicsImage(CommunityMaterial.Icon2.cmd_view_dashboard, R.dimen.mini_fab_icon_padding)
+        fab_blacklist.setIconicsImage(CommunityMaterial.Icon.cmd_block_helper, R.dimen.mini_fab_icon_padding)
     }
 
     override fun onBackPressed(): Boolean {

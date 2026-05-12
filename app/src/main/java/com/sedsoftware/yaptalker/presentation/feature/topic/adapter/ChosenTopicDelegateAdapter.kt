@@ -14,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.flexbox.FlexboxLayout
+import com.mikepenz.community_material_typeface_library.CommunityMaterial
 import com.robertlevonyan.views.chip.Chip
 import com.sedsoftware.yaptalker.R
 import com.sedsoftware.yaptalker.domain.device.Settings
@@ -23,9 +24,11 @@ import com.sedsoftware.yaptalker.presentation.extensions.currentDensity
 import com.sedsoftware.yaptalker.presentation.extensions.inflate
 import com.sedsoftware.yaptalker.presentation.extensions.loadAvatarFromUrl
 import com.sedsoftware.yaptalker.presentation.extensions.loadFromUrl
+import com.sedsoftware.yaptalker.presentation.extensions.setStartIcon
 import com.sedsoftware.yaptalker.presentation.extensions.string
 import com.sedsoftware.yaptalker.presentation.extensions.textFromHtmlWithEmoji
 import com.sedsoftware.yaptalker.presentation.extensions.validateUrl
+import com.sedsoftware.yaptalker.presentation.extensions.withoutIconicsTokens
 import com.sedsoftware.yaptalker.presentation.model.DisplayedItemModel
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostHiddenTextModel
 import com.sedsoftware.yaptalker.presentation.model.base.PostContentModel.PostQuoteAuthorModel
@@ -319,6 +322,15 @@ class ChosenTopicDelegateAdapter(
                 post_date.text = post.postDate
                 post_rating.text = post.postRankText
 
+                post_rating_thumb_up.setCommunityMaterialIcon(CommunityMaterial.Icon2.cmd_thumb_up)
+                post_rating_thumb_up_available.setCommunityMaterialIcon(CommunityMaterial.Icon2.cmd_thumb_up)
+                post_rating_thumb_down.setCommunityMaterialIcon(CommunityMaterial.Icon2.cmd_thumb_down)
+                post_rating_thumb_down_available.setCommunityMaterialIcon(CommunityMaterial.Icon2.cmd_thumb_down)
+                post_button_reply.text = context.string(R.string.topic_post_reply_button).withoutIconicsTokens()
+                post_button_reply.setStartIcon(CommunityMaterial.Icon2.cmd_reply)
+                post_button_edit.text = context.string(R.string.topic_post_edit_button).withoutIconicsTokens()
+                post_button_edit.setStartIcon(CommunityMaterial.Icon2.cmd_pencil)
+
                 post_rating.textSize = normalFontSize
                 post_rating_thumb_up.textSize = normalFontSize
                 post_rating_thumb_down.textSize = normalFontSize
@@ -390,6 +402,11 @@ class ChosenTopicDelegateAdapter(
                     topic_starter_icon.isGone = true
                 }
             }
+        }
+
+        private fun TextView.setCommunityMaterialIcon(icon: CommunityMaterial.Icon2) {
+            typeface = icon.typeface.getTypeface(context)
+            text = icon.character.toString()
         }
 
         @Suppress("NestedBlockDepth")
