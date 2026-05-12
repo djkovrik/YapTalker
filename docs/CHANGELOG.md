@@ -1,4 +1,10 @@
 ## Changelog
+### [1.0.10] - 2026-05-12
+
+**Fixed**
+* Messages quoting and karma
+* Crash and apk downloading for in-app updated
+
 ### [1.0.9] - 2026-05-10
 
 **Fixed**
