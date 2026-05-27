@@ -1,4 +1,9 @@
 ## Changelog
+### [1.0.11] - 2026-05-27
+
+**Fixed**
+* Session info parsing issues which might affect user authorization flow
+
 ### [1.0.10] - 2026-05-12
 
 **Fixed**
