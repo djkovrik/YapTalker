@@ -15,10 +15,10 @@ class LoginSessionInfoParsed {
     lateinit var title: String
     @Selector(value = "span.user-rank", defValue = "0")
     lateinit var uq: String
-    @Selector(value = "div[style~=float: left; padding: 10px] > a > img", attr = "src", defValue = "")
+    @Selector(value = "#user-box .user-info a[href*=members/member] > img", attr = "src", defValue = "")
     lateinit var avatar: String
     @Selector(value = "a[href$=alpha.yaplakal.com/mail/]:containsOwn(\\()", regex = "\\((\\d+)\\)", defValue = "0")
     lateinit var mailCounter: String
-    @Selector(value = "div[style=float: right;] > a", attr = "href", regex = "\\?key=(.*)", defValue = "")
+    @Selector(value = "#user-box a[href*=/act/Login/CODE/03/]", attr = "href", regex = "[?&]key=([^&]+)", defValue = "")
     lateinit var sessionId: String
 }
