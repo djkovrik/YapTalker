@@ -7,6 +7,7 @@ import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
 import com.sedsoftware.yaptalker.domain.entity.base.SinglePost
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
+import com.sedsoftware.yaptalker.domain.interactor.LoginSessionInteractor
 import com.sedsoftware.yaptalker.domain.interactor.MessagePostingInteractor
 import com.sedsoftware.yaptalker.domain.interactor.SiteKarmaInteractor
 import com.sedsoftware.yaptalker.domain.interactor.TopicInteractor
@@ -50,6 +51,7 @@ import javax.inject.Inject
 class ChosenTopicPresenter @Inject constructor(
     private val router: Router,
     private val settings: Settings,
+    private val loginSessionInteractor: LoginSessionInteractor,
     private val topicInteractor: TopicInteractor,
     private val siteKarmaInteractor: SiteKarmaInteractor,
     private val messagePostingInteractor: MessagePostingInteractor,
@@ -90,6 +92,7 @@ class ChosenTopicPresenter @Inject constructor(
     private var ratingMinusClicked = false
     private var ratingTargetId = 0
     private var authKey = ""
+    private var isApiSessionAvailable = false
     private var isClosed = false
     private var currentTitle = ""
     private var clearCurrentList = false
@@ -131,7 +134,7 @@ class ChosenTopicPresenter @Inject constructor(
 
     override fun onPostItemClicked(postId: Int, isKarmaAvailable: Boolean) {
 
-        if (postId == 0 || authKey.isEmpty()) {
+        if (postId == 0 || !isAuthorizedForApiActions()) {
             return
         }
 
@@ -162,7 +165,7 @@ class ChosenTopicPresenter @Inject constructor(
     }
 
     override fun onUserAvatarClicked(userId: Int) {
-        if (authKey.isNotEmpty()) {
+        if (isAuthorizedForApiActions()) {
             viewState.showUserProfile(userId)
         }
     }
@@ -292,7 +295,7 @@ class ChosenTopicPresenter @Inject constructor(
     }
 
     fun showTopicKarmaMenuIfAvailable() {
-        if (ratingTargetId == 0 || authKey.isEmpty()) {
+        if (ratingTargetId == 0 || !isAuthorizedForApiActions()) {
             return
         }
 
@@ -340,7 +343,7 @@ class ChosenTopicPresenter @Inject constructor(
 
     fun changeKarma(postId: Int = 0, isTopic: Boolean, shouldIncrease: Boolean) {
 
-        if (authKey.isEmpty() || currentTopicId == 0) {
+        if (!isAuthorizedForApiActions() || currentTopicId == 0) {
             return
         }
 
@@ -366,7 +369,7 @@ class ChosenTopicPresenter @Inject constructor(
 
     private fun sendMessage(message: Pair<String, String>) {
 
-        if (authKey.isEmpty()) {
+        if (!isAuthorizedForApiActions()) {
             return
         }
 
@@ -533,9 +536,32 @@ class ChosenTopicPresenter @Inject constructor(
     // ==== UTILITY ====
 
     private fun setupCurrentLoginSessionState() {
-        val loggedIn = authKey.isNotEmpty()
+        if (authKey.isEmpty()) {
+            loginSessionInteractor
+                .getLoginSessionInfo()
+                .observeOn(schedulers.ui())
+                .autoDisposable(event(PresenterLifecycle.DESTROY))
+                .subscribe({ info ->
+                    authKey = info.sessionId
+                    isApiSessionAvailable = info.nickname.isNotEmpty()
+                    applyCurrentLoginSessionState()
+                }, {
+                    isApiSessionAvailable = false
+                    applyCurrentLoginSessionState()
+                })
+        } else {
+            isApiSessionAvailable = true
+            applyCurrentLoginSessionState()
+        }
+    }
+
+    private fun applyCurrentLoginSessionState() {
+        val loggedIn = authKey.isNotEmpty() || isApiSessionAvailable
         val karmaAvailable = ratingPlusAvailable && ratingMinusAvailable
         viewState.setLoggedInState(loggedIn)
         viewState.setTopicKarmaState(karmaAvailable)
     }
+
+    private fun isAuthorizedForApiActions(): Boolean =
+        authKey.isNotEmpty() || isApiSessionAvailable
 }

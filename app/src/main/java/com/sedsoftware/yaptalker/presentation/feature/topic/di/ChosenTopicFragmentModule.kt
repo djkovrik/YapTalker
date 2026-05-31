@@ -9,6 +9,7 @@ import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.di.scope.FragmentScope
 import com.sedsoftware.yaptalker.domain.device.Settings
 import com.sedsoftware.yaptalker.domain.interactor.BlacklistInteractor
+import com.sedsoftware.yaptalker.domain.interactor.LoginSessionInteractor
 import com.sedsoftware.yaptalker.domain.interactor.MessagePostingInteractor
 import com.sedsoftware.yaptalker.domain.interactor.SiteKarmaInteractor
 import com.sedsoftware.yaptalker.domain.interactor.TopicInteractor
@@ -58,6 +59,7 @@ abstract class ChosenTopicFragmentModule {
         fun providePresenter(
             router: Router,
             settings: Settings,
+            loginSessionInteractor: LoginSessionInteractor,
             topicInteractor: TopicInteractor,
             karmaInteractor: SiteKarmaInteractor,
             postingInteractor: MessagePostingInteractor,
@@ -74,6 +76,7 @@ abstract class ChosenTopicFragmentModule {
             ChosenTopicPresenter(
                 router,
                 settings,
+                loginSessionInteractor,
                 topicInteractor,
                 karmaInteractor,
                 postingInteractor,

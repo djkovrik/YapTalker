@@ -31,9 +31,14 @@ class HeaderAndParamManipulationInterceptor : Interceptor {
         }
         val str4 = "Connection"
         if (request2.header(str4) == null) {
-            request = request2.newBuilder().addHeader(str4, "keep-alive").url(newBuilder.build()).build()
+            request = request2.newBuilder()
+                .addHeader(str4, "keep-alive")
+                .url(newBuilder.build())
+                .build()
         } else {
-            request = request2.newBuilder().url(newBuilder.build()).build()
+            request = request2.newBuilder()
+                .url(newBuilder.build())
+                .build()
         }
         val str5 = "User-Agent"
         if (request.header(str5) == null) {

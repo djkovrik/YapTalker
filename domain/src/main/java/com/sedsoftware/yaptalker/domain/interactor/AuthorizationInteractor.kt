@@ -21,6 +21,7 @@ class AuthorizationInteractor @Inject constructor(
                 settings.saveTopicsPerPagePref(sitePrefs.topicsPerForumPage)
                 Completable.complete()
             }
+            .onErrorComplete()
 
     fun sendSignInRequest(login: String, password: String, anonymously: Boolean): Completable =
         loginSessionRepository

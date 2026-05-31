@@ -18,10 +18,14 @@ class YapCookieStorage @Inject constructor(
     override fun saveCookie(cookie: String) {
         if (cookie.contains(SID_COOKIE_MARKER)) {
             val sid = cookie.substringAfter("=").substringBefore(";")
-            if (sid != DELETED_MARKER) {
+            if (sid.isNotEmpty() && sid != DELETED_MARKER) {
                 settings.saveSingleCookie(sid)
             }
         }
+    }
+
+    override fun clearCookie() {
+        settings.saveSingleCookie("")
     }
 
     override fun getCookie(): String {

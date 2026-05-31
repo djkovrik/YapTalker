@@ -108,7 +108,6 @@ interface YapLoader {
     @GET("/forum")
     fun loadAuthorizedUserInfo(): Single<LoginSessionInfoParsed>
 
-
     /**
      * Load active topics page.
      *
