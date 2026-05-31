@@ -33,6 +33,7 @@ class YapTalkerApp : Application(), HasAndroidInjector {
     companion object {
         private const val NAV_DRAWER_AVATAR_PADDING = 16
         private const val YAP_API_KEY = "JanW23Sh"
+        private const val YAP_API_APP_VERSION = "2.136"
 
         private lateinit var appContext: Context
 
@@ -42,7 +43,7 @@ class YapTalkerApp : Application(), HasAndroidInjector {
         fun getUdid(): String =
             Settings.System.getString(appContext.contentResolver, "android_id")
 
-        fun getAppVersion(): String = "0.998"
+        fun getAppVersion(): String = YAP_API_APP_VERSION
 
         private fun md5(str: String): String {
             val digest = MessageDigest.getInstance("MD5")

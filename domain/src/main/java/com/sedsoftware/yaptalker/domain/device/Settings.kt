@@ -1,5 +1,7 @@
 package com.sedsoftware.yaptalker.domain.device
 
+import com.sedsoftware.yaptalker.domain.entity.base.LoginSessionInfo
+
 @Suppress("ComplexInterface", "TooManyFunctions")
 interface Settings {
     fun getSingleCookie(): String
@@ -29,4 +31,7 @@ interface Settings {
     fun savePassword(password: String)
     fun getLogin(): String
     fun getPassword(): String
+    fun saveCachedLoginSessionInfo(info: LoginSessionInfo)
+    fun getCachedLoginSessionInfo(): LoginSessionInfo?
+    fun clearCachedLoginSessionInfo()
 }

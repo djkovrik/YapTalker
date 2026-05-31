@@ -63,10 +63,13 @@ class HttpClientsModule {
     @Singleton
     @Provides
     @Named("apiClient")
-    fun provideApiClient(jar: PersistentCookieJar): OkHttpClient {
+    fun provideApiClient(jar: PersistentCookieJar, cookieStorage: CookieStorage): OkHttpClient {
         val builder = OkHttpClient.Builder()
+        builder.dns(Ipv4OnlyDns())
         builder.addInterceptor(HeaderAndParamManipulationInterceptor())
+        builder.addInterceptor(SaveReceivedCookiesInterceptor(cookieStorage))
         builder.addInterceptor(loggingInterceptor)
+        builder.addNetworkInterceptor(SendSavedCookiesInterceptor(cookieStorage))
         builder.cookieJar(jar)
         builder.cache(null)
         return builder.build()

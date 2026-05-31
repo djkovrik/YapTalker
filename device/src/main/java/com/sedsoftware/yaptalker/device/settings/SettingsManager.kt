@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.annotation.StringRes
 import com.sedsoftware.yaptalker.device.R
 import com.sedsoftware.yaptalker.domain.device.Settings
+import com.sedsoftware.yaptalker.domain.entity.base.LoginSessionInfo
 import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -21,6 +22,13 @@ class SettingsManager @Inject constructor(
         private const val TEXT_SIZE_OFFSET = 2f
         private const val MESSAGES_PER_PAGE_DEFAULT = 25
         private const val TOPICS_PER_PAGE_DEFAULT = 30
+        private const val CACHED_LOGIN_NICKNAME = "cached_login_nickname"
+        private const val CACHED_LOGIN_PROFILE_LINK = "cached_login_profile_link"
+        private const val CACHED_LOGIN_TITLE = "cached_login_title"
+        private const val CACHED_LOGIN_UQ = "cached_login_uq"
+        private const val CACHED_LOGIN_AVATAR = "cached_login_avatar"
+        private const val CACHED_LOGIN_MAIL_COUNTER = "cached_login_mail_counter"
+        private const val CACHED_LOGIN_SESSION_ID = "cached_login_session_id"
     }
 
     private val defaultCategories by lazy {
@@ -148,6 +156,47 @@ class SettingsManager @Inject constructor(
 
     override fun getPassword(): String {
         return getStringPref(R.string.pref_key_password, "")
+    }
+
+    override fun saveCachedLoginSessionInfo(info: LoginSessionInfo) {
+        preferences.edit()
+            .putString(CACHED_LOGIN_NICKNAME, info.nickname)
+            .putString(CACHED_LOGIN_PROFILE_LINK, info.profileLink)
+            .putString(CACHED_LOGIN_TITLE, info.title)
+            .putInt(CACHED_LOGIN_UQ, info.uq)
+            .putString(CACHED_LOGIN_AVATAR, info.avatar)
+            .putString(CACHED_LOGIN_MAIL_COUNTER, info.mailCounter)
+            .putString(CACHED_LOGIN_SESSION_ID, info.sessionId)
+            .apply()
+    }
+
+    override fun getCachedLoginSessionInfo(): LoginSessionInfo? {
+        val nickname = preferences.getString(CACHED_LOGIN_NICKNAME, "").orEmpty()
+        val sessionId = preferences.getString(CACHED_LOGIN_SESSION_ID, "").orEmpty()
+        if (nickname.isEmpty() || sessionId.isEmpty()) {
+            return null
+        }
+        return LoginSessionInfo(
+            nickname = nickname,
+            profileLink = preferences.getString(CACHED_LOGIN_PROFILE_LINK, "").orEmpty(),
+            title = preferences.getString(CACHED_LOGIN_TITLE, "").orEmpty(),
+            uq = preferences.getInt(CACHED_LOGIN_UQ, 0),
+            avatar = preferences.getString(CACHED_LOGIN_AVATAR, "").orEmpty(),
+            mailCounter = preferences.getString(CACHED_LOGIN_MAIL_COUNTER, "").orEmpty(),
+            sessionId = sessionId
+        )
+    }
+
+    override fun clearCachedLoginSessionInfo() {
+        preferences.edit()
+            .remove(CACHED_LOGIN_NICKNAME)
+            .remove(CACHED_LOGIN_PROFILE_LINK)
+            .remove(CACHED_LOGIN_TITLE)
+            .remove(CACHED_LOGIN_UQ)
+            .remove(CACHED_LOGIN_AVATAR)
+            .remove(CACHED_LOGIN_MAIL_COUNTER)
+            .remove(CACHED_LOGIN_SESSION_ID)
+            .apply()
     }
 
     private fun getStringPref(@StringRes key: Int, default: String): String =
