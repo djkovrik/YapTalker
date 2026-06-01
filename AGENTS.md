@@ -57,6 +57,7 @@ API-backed flows currently include:
 - Current user lookup via `GET settings`, with fallback to cached API login profile data when `settings` fails.
 - New comment posting via `POST action/comment`, including multipart image upload.
 - Post/topic rating via `GET action/rank`.
+- Bookmarks loading via `GET feed/favs`, adding via `PUT action/favs`, and deletion via `DELETE action/favs`.
 
 Web/HTML-backed flows currently include:
 

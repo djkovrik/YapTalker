@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class FeedResult(
     @SerializedName("code")
     var code: Int? = null,
+    @SerializedName("feed")
+    var feed: List<PostItem>? = null,
     @SerializedName("global")
     var global: GlobalParam? = null,
     @SerializedName("offset")
