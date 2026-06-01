@@ -1,8 +1,10 @@
 ## Changelog
-### [1.0.11] - 2026-05-27
+### [1.0.11] - 2026-06-01
 
 **Fixed**
-* Session info parsing issues which might affect user authorization flow
+* Session info parsing issues which might affect app logout flow
+* Authorization related issues on Android 16+
+* Login, comments ana karma related methods migrated a few method from web to api based calls to improve stability
 
 ### [1.0.10] - 2026-05-12
 
