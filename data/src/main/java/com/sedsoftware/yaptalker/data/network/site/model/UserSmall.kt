@@ -3,6 +3,8 @@ package com.sedsoftware.yaptalker.data.network.site.model
 import com.google.gson.annotations.SerializedName
 
 data class UserSmall(
+    @SerializedName("auth_key")
+    var authKey: String? = null,
     @SerializedName("avatar_res")
     var avatarRes: String? = null,
     @SerializedName("avatar_type")

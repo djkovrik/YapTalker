@@ -5,6 +5,7 @@ import com.sedsoftware.yaptalker.data.mapper.EditedPostMapper
 import com.sedsoftware.yaptalker.data.mapper.QuotedPostMapper
 import com.sedsoftware.yaptalker.data.mapper.ServerResponseMapper
 import com.sedsoftware.yaptalker.data.mapper.TopicPageMapper
+import com.sedsoftware.yaptalker.data.network.site.YapApi
 import com.sedsoftware.yaptalker.data.network.site.YapLoader
 import com.sedsoftware.yaptalker.data.system.SchedulersProvider
 import com.sedsoftware.yaptalker.domain.entity.BaseEntity
@@ -22,6 +23,7 @@ import javax.inject.Inject
 
 class YapChosenTopicRepository @Inject constructor(
     private val dataLoader: YapLoader,
+    private val yapApi: YapApi,
     private val dataMapper: TopicPageMapper,
     private val quoteMapper: QuotedPostMapper,
     private val editedPostMapper: EditedPostMapper,
@@ -41,8 +43,9 @@ class YapChosenTopicRepository @Inject constructor(
 
         private const val POST_EDIT_CODE = "09"
 
-        private const val FILE_PART_NAME = "FILE_UPLOAD"
+        private const val FILE_PART_NAME = "FILE_UPLOAD[0]"
         private const val UPLOADED_FILE_TYPE = "image/jpeg"
+        private const val TEXT_PLAIN_TYPE = "text/plain"
 
         private const val MESSAGE_SENDING_ERROR_MARKER = "Возникли следующие трудности"
     }
@@ -84,16 +87,7 @@ class YapChosenTopicRepository @Inject constructor(
         targetTopicId: Int,
         diff: Int
     ): Single<ServerResponse> =
-        dataLoader
-            .changeKarma(
-                act = KARMA_ACT,
-                code = KARMA_CODE,
-                rank = diff,
-                postId = targetPostId,
-                topicId = targetTopicId,
-                type = if (isTopic) KARMA_TYPE_TOPIC else KARMA_TYPE_POST
-            )
-            .map(responseMapper)
+        requestApiKarmaChange(targetPostId, diff)
             .subscribeOn(schedulers.io())
 
     override fun requestPostKarmaChange(
@@ -101,16 +95,7 @@ class YapChosenTopicRepository @Inject constructor(
         targetTopicId: Int,
         diff: Int
     ): Single<ServerResponse> =
-        dataLoader
-            .changeKarma(
-                act = KARMA_ACT,
-                code = KARMA_CODE,
-                rank = diff,
-                postId = targetPostId,
-                topicId = targetTopicId,
-                type = KARMA_TYPE_POST
-            )
-            .map(responseMapper)
+        requestApiKarmaChange(targetPostId, diff)
             .subscribeOn(schedulers.io())
 
     override fun requestTopicKarmaChange(
@@ -118,16 +103,7 @@ class YapChosenTopicRepository @Inject constructor(
         targetTopicId: Int,
         diff: Int
     ): Single<ServerResponse> =
-        dataLoader
-            .changeKarma(
-                act = KARMA_ACT,
-                code = KARMA_CODE,
-                rank = diff,
-                postId = targetPostId,
-                topicId = targetTopicId,
-                type = KARMA_TYPE_TOPIC
-            )
-            .map(responseMapper)
+        requestApiKarmaChange(targetPostId, diff)
             .subscribeOn(schedulers.io())
 
     override fun requestMessageSending(
@@ -137,25 +113,26 @@ class YapChosenTopicRepository @Inject constructor(
         authKey: String,
         message: String,
         filePath: String
-    ): Completable =
-        dataLoader
-            .postMessage(
-                act = POST_ACT,
-                code = POST_CODE,
-                forum = targetForumId,
-                topic = targetTopicId,
-                st = page,
-                enableemo = "yes",
-                enablesig = "yes",
-                authKey = authKey,
-                postContent = message,
-                enabletag = 0,
-                maxFileSize = POST_MAX_FILE_SIZE,
+    ): Completable {
+        val request = if (filePath.isNotEmpty()) {
+            yapApi.sendComment(
+                topicId = targetTopicId.toString(),
+                post = createRequestBody(message),
+                replyPostId = null,
                 uploadedFile = createMultiPartForFile(FILE_PART_NAME, filePath)
             )
+        } else {
+            yapApi.sendComment(
+                topicId = targetTopicId.toString(),
+                post = message,
+                replyPostId = null
+            )
+        }
+        return request
             .map(responseMapper)
             .flatMapCompletable { checkMessageSending(it) }
             .subscribeOn(schedulers.io())
+    }
 
     override fun requestEditedMessageSending(
         targetForumId: Int,
@@ -187,14 +164,19 @@ class YapChosenTopicRepository @Inject constructor(
             .flatMapCompletable { checkMessageSending(it) }
             .subscribeOn(schedulers.io())
 
-    private fun createMultiPartForFile(partName: String, path: String): MultipartBody.Part? =
-        if (path.isNotEmpty()) {
-            val file = File(path)
-            val requestFile = RequestBody.create(MediaType.parse(UPLOADED_FILE_TYPE), file)
-            MultipartBody.Part.createFormData(partName, file.name, requestFile)
-        } else {
-            null
-        }
+    private fun requestApiKarmaChange(targetPostId: Int, diff: Int): Single<ServerResponse> =
+        yapApi
+            .vote(postId = targetPostId.toString(), value = diff.toString())
+            .map { result -> ServerResponse(text = "{\"status\":${result.status ?: 0}}") }
+
+    private fun createRequestBody(text: String): RequestBody =
+        RequestBody.create(MediaType.parse(TEXT_PLAIN_TYPE), text)
+
+    private fun createMultiPartForFile(partName: String, path: String): MultipartBody.Part {
+        val file = File(path)
+        val requestFile = RequestBody.create(MediaType.parse(UPLOADED_FILE_TYPE), file)
+        return MultipartBody.Part.createFormData(partName, file.name, requestFile)
+    }
 
     private fun checkMessageSending(response: ServerResponse): Completable =
         if (response.text.contains(MESSAGE_SENDING_ERROR_MARKER)) {

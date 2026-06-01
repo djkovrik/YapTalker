@@ -44,6 +44,61 @@ Use the existing Gradle wrapper. Do not assume a globally installed Gradle versi
 - Keep local secrets and developer-specific settings out of source control. `gradle.properties` is intentionally ignored.
 - Temporary investigation directories such as `.codex-tmp` should not be committed. Delete them when done.
 
+## API And Web Session Notes
+
+The app is gradually moving critical flows from HTML/web form requests on `www.yaplakal.com` to the mobile API on `https://api.yaplakal.com/`.
+
+Keep this section current whenever auth, cookies, posting, rating, or API/web routing changes. Future agents should be able to tell from this file which flows are API-backed and which still depend on jspoon/web parsing.
+
+API-backed flows currently include:
+
+- Login via `GET action/login`.
+- Logout via `GET action/logout`, with fallback to the legacy web logout.
+- Current user lookup via `GET settings`, with fallback to cached API login profile data when `settings` fails.
+- New comment posting via `POST action/comment`, including multipart image upload.
+- Post/topic rating via `GET action/rank`.
+
+Web/HTML-backed flows currently include:
+
+- Topic, forum, news, active topic, and other feed/page loading through `YapLoader` + jspoon/jsoup parsers.
+- Quote text loading and edit text loading.
+- Edited post submission through the legacy web form.
+- Site preferences under `UserCP`.
+- `/forum` user parsing as a last-resort fallback only when no cached API login profile exists.
+
+The current auth approach is not a fake local login. A successful API login returns real `SID`, `auth_key`, user id, nickname, rank, avatar, and mail data. The repository saves:
+
+- `SID` through `CookieStorage`, so API and compatible web/file requests can send `Cookie: SID=...`.
+- `LoginSessionInfo` in `Settings`, so the navigation drawer and API-only actions still have real user data if `GET settings` returns `403`.
+
+This cache exists because a real Pixel 10 Pro on Android 16 has been observed to complete `action/login` successfully while `settings` still returns `403`; emulators may not reproduce it. Do not replace this with guest data or with a synthetic session. Clear the cached profile on logout and before a new login attempt.
+
+The API OkHttp client intentionally follows the unofficial app's network shape:
+
+- It uses `HeaderAndParamManipulationInterceptor` to add `md5`, `appVersion`, `type=json`, `User-Agent`, and `http-udid`.
+- `YapTalkerApp.getAppVersion()` is pinned to the mobile API version expected by the server.
+- `Ipv4OnlyDns` is used for the API client, matching the unofficial app.
+- `Skip-Saved-Cookies` is used for `action/login` so stale locally saved SID values do not poison login; do not remove this without retesting Pixel/Android 16 auth.
+- `SendSavedCookiesInterceptor` must not overwrite cookies already prepared by OkHttp's `CookieJar`; `CookieStorage` is a fallback for requests that have no Cookie header.
+- Empty web `Set-Cookie: SID=` values must not clear the saved API SID. Explicit logout should clear it.
+
+The decompiled source of an unofficial Yaplakal app is available locally and should be used as a reference before inventing API behavior:
+
+```text
+D:\Sources\Android\ru.swc.yaplakalcom
+```
+
+Start API research from:
+
+```text
+D:\Sources\Android\ru.swc.yaplakalcom\interfaces\Api.java
+D:\Sources\Android\ru.swc.yaplakalcom\App.java
+D:\Sources\Android\ru.swc.yaplakalcom\utils\HeaderAndParamManipulationInterceptor.java
+D:\Sources\Android\ru.swc.yaplakalcom\network\DnsSelector.java
+```
+
+When migrating more web flows to API, prefer matching the decompiled client's endpoint, HTTP method, query/form fields, cookie handling, and model names first, then map the API model into the app's existing domain/presentation models.
+
 ## jspoon Parsing Notes
 
 HTML parsing lives mostly under:

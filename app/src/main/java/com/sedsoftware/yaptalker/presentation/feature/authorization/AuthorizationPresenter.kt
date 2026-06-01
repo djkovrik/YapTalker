@@ -35,8 +35,9 @@ class AuthorizationPresenter @Inject constructor(
     }
 
     fun performLoginAttempt(userLogin: String, userPassword: String, isAnonymous: Boolean) {
+        val normalizedLogin = userLogin.trim()
         authorizationInteractor
-            .sendSignInRequest(login = userLogin, password = userPassword, anonymously = isAnonymous)
+            .sendSignInRequest(login = normalizedLogin, password = userPassword, anonymously = isAnonymous)
             .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({
@@ -50,15 +51,16 @@ class AuthorizationPresenter @Inject constructor(
     }
 
     fun performLoginAttemptNew(userLogin: String, userPassword: String, shouldRemember: Boolean) {
+        val normalizedLogin = userLogin.trim()
         authorizationInteractor
-            .sendSignInRequestNew(login = userLogin, password = userPassword)
+            .sendSignInRequestNew(login = normalizedLogin, password = userPassword)
             .observeOn(schedulers.ui())
             .autoDisposable(event(PresenterLifecycle.DESTROY))
             .subscribe({
                 viewState.showLoginSuccessMessage()
                 Timber.i("Sign In request completed, start site preferences loading...")
                 if (shouldRemember) {
-                    settings.saveLogin(userLogin)
+                    settings.saveLogin(normalizedLogin)
                     settings.savePassword(userPassword)
                 }
                 loadSitePreferences()
