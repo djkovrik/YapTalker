@@ -3,7 +3,7 @@
 // Current: 1.0.8 (001,000,009)
 def versionMajor = 1
 def versionMinor = 0
-def versionPatch = 11
+def versionPatch = 12
 
 ext {
     compileSdkVersion = 36

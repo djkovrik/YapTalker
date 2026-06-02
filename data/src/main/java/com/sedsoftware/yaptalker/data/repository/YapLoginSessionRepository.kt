@@ -45,8 +45,10 @@ class YapLoginSessionRepository @Inject constructor(
             }
             .onErrorResumeNext {
                 val cachedInfo = settings.getCachedLoginSessionInfo()
-                if (cachedInfo != null) {
+                if (cookieStorage.getCookie().isNotEmpty() && cachedInfo != null) {
                     Single.just(cachedInfo)
+                } else if (settings.getLogin().isNotEmpty() && settings.getPassword().isNotEmpty()) {
+                    restoreApiSession()
                 } else {
                     dataLoader.loadAuthorizedUserInfo().map(dataMapper)
                 }
@@ -92,10 +94,8 @@ class YapLoginSessionRepository @Inject constructor(
                         }
                     }
             }
-            .doOnComplete {
-                cookieStorage.clearCookie()
-                settings.clearCachedLoginSessionInfo()
-            }
+            .onErrorComplete()
+            .doOnComplete(::clearLocalSession)
             .subscribeOn(schedulers.io())
 
     override fun requestSignInWithApi(userLogin: String, userPassword: String): Completable =
@@ -124,6 +124,31 @@ class YapLoginSessionRepository @Inject constructor(
                 }
                 .subscribeOn(schedulers.io())
         }
+
+    private fun clearLocalSession() {
+        cookieStorage.clearCookie()
+        settings.clearCachedLoginSessionInfo()
+        settings.saveLogin("")
+        settings.savePassword("")
+    }
+
+    private fun restoreApiSession(): Single<LoginSessionInfo> =
+        yapApi
+            .authUser(
+                name = settings.getLogin(),
+                password = settings.getPassword()
+            )
+            .map { response ->
+                val sid = response.user?.sid.orEmpty()
+                val authKey = response.user?.authKey.orEmpty()
+                val userId = response.user?.id.orEmpty()
+                val userName = response.user?.name.orEmpty()
+                if (sid.isEmpty() || authKey.isEmpty() || userId == "0" || userName.equals("Guest", ignoreCase = true)) {
+                    throw RequestErrorException("API login response did not contain authorized user.")
+                }
+                cookieStorage.saveCookie("SID=$sid")
+                response.user?.toLoginSessionInfo()?.also(settings::saveCachedLoginSessionInfo) ?: emptyLoginSessionInfo()
+            }
 
     private fun UserSmall.toLoginSessionInfo(): LoginSessionInfo =
         LoginSessionInfo(

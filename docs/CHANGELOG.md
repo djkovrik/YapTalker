@@ -1,4 +1,9 @@
 ## Changelog
+### [1.0.12] - 2026-06-02
+
+**Fixed**
+* Bookmarks logic moved from web to api based calls
+
 ### [1.0.11] - 2026-06-01
 
 **Fixed**
