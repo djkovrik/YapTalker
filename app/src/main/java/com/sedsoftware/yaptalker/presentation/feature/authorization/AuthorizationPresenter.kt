@@ -59,10 +59,8 @@ class AuthorizationPresenter @Inject constructor(
             .subscribe({
                 viewState.showLoginSuccessMessage()
                 Timber.i("Sign In request completed, start site preferences loading...")
-                if (shouldRemember) {
-                    settings.saveLogin(normalizedLogin)
-                    settings.savePassword(userPassword)
-                }
+                settings.saveLogin(normalizedLogin)
+                settings.savePassword(userPassword)
                 loadSitePreferences()
             }, { e: Throwable ->
                 Timber.e("Error: ${e.message}")

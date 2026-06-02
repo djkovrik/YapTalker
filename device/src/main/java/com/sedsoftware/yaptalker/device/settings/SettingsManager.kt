@@ -123,7 +123,7 @@ class SettingsManager @Inject constructor(
         getBooleanPref(R.string.pref_key_video_landscape, true)
 
     override fun saveSingleCookie(cookie: String) {
-        preferences.edit().putString(context.resources.getString(R.string.pref_key_cookie), cookie).apply()
+        preferences.edit().putString(context.resources.getString(R.string.pref_key_cookie), cookie).commit()
     }
 
     override fun saveMessagesPerPagePref(value: Int) {

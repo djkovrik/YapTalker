@@ -24,10 +24,25 @@ class SendSavedCookiesInterceptor(private val cookieStorage: CookieStorage) : In
             if (chain.request().url().encodedPath().contains(API_LOGIN_PATH)) {
                 builder.removeHeader(COOKIE_HEADER)
             }
-        } else if (sidCookie.isNotEmpty() && chain.request().header(COOKIE_HEADER).isNullOrEmpty()) {
-            builder.header(COOKIE_HEADER, sidCookie)
+        } else if (sidCookie.isNotEmpty()) {
+            val requestCookie = chain.request().header(COOKIE_HEADER).orEmpty()
+            if (!requestCookie.hasNonEmptySid()) {
+                builder.header(COOKIE_HEADER, requestCookie.withSidCookie(sidCookie))
+            }
         }
 
         return chain.proceed(builder.build())
     }
+
+    private fun String.hasNonEmptySid(): Boolean =
+        split(";")
+            .map { cookie -> cookie.trim() }
+            .any { cookie -> cookie.startsWith("SID=") && cookie.substringAfter("SID=").isNotEmpty() }
+
+    private fun String.withSidCookie(sidCookie: String): String =
+        split(";")
+            .map { cookie -> cookie.trim() }
+            .filter { cookie -> cookie.isNotEmpty() && !cookie.startsWith("SID=") }
+            .plus(sidCookie)
+            .joinToString(separator = "; ")
 }

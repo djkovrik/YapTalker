@@ -73,6 +73,8 @@ The current auth approach is not a fake local login. A successful API login retu
 - `LoginSessionInfo` in `Settings`, so the navigation drawer and API-only actions still have real user data if `GET settings` returns `403`.
 
 This cache exists because a real Pixel 10 Pro on Android 16 has been observed to complete `action/login` successfully while `settings` still returns `403`; emulators may not reproduce it. Do not replace this with guest data or with a synthetic session. Clear the cached profile on logout and before a new login attempt.
+Do not treat cached profile data as an active session when `CookieStorage` has no SID. API login credentials are saved after successful login so the app can restore a real SID for protected API calls.
+Logout must clear `CookieStorage`, cached profile data, and saved API login credentials; otherwise the session restore path will immediately log the user back in.
 
 The API OkHttp client intentionally follows the unofficial app's network shape:
 
@@ -80,8 +82,9 @@ The API OkHttp client intentionally follows the unofficial app's network shape:
 - `YapTalkerApp.getAppVersion()` is pinned to the mobile API version expected by the server.
 - `Ipv4OnlyDns` is used for the API client, matching the unofficial app.
 - `Skip-Saved-Cookies` is used for `action/login` so stale locally saved SID values do not poison login; do not remove this without retesting Pixel/Android 16 auth.
-- `SendSavedCookiesInterceptor` must not overwrite cookies already prepared by OkHttp's `CookieJar`; `CookieStorage` is a fallback for requests that have no Cookie header.
+- `SendSavedCookiesInterceptor` must not overwrite a non-empty `SID` prepared by OkHttp's `CookieJar`; `CookieStorage` is a fallback for requests that have no `Cookie` header, no `SID`, or only an empty `SID=`.
 - Empty web `Set-Cookie: SID=` values must not clear the saved API SID. Explicit logout should clear it.
+- Protected API flows may still receive `403` on Pixel/Android 16 if the stored SID is missing or stale while the drawer is populated from cached profile data. Bookmarks recover by re-running real API login with stored credentials and retrying the request; keep similar recovery behavior in mind for future API-backed flows.
 
 The decompiled source of an unofficial Yaplakal app is available locally and should be used as a reference before inventing API behavior:
 
