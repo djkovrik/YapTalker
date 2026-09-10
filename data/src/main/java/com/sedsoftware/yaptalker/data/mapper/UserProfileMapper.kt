@@ -15,37 +15,31 @@ class UserProfileMapper @Inject constructor() : Function<UserProfileApi, UserPro
             avatar = from.avatarUrl.orEmpty(),
             photo = from.photoUrl.orEmpty(),
             group = from.groupTitle.orEmpty(),
-            status = from.status.orEmpty(),
             uq = from.rankValue?.toIntOrNull() ?: 0,
-            signature = "",
-            rewards = "",
-            registerDate = formatJoinedDate(from.joined),
+            signature = from.status.orEmpty(),
+            registerDate = formatDate(from.joined, SERVER_DATE_PATTERN),
             timeZone = from.timeZone.orEmpty(),
-            website = "",
-            birthDate = from.birthday.orEmpty(),
+            birthDate = formatDate(from.birthday, BIRTH_DATE_PATTERN),
             location = from.location.orEmpty(),
-            interests = "",
             sex = from.sex.orEmpty(),
-            messagesCount = from.posts.orEmpty(),
-            messsagesPerDay = "",
-            bayans = "",
-            todayTopics = "",
-            email = from.email.orEmpty(),
-            icq = ""
+            messagesCount = from.posts.orEmpty()
         )
 
-    private fun formatJoinedDate(joined: String?): String {
-        if (joined.isNullOrBlank()) return ""
+    private fun formatDate(value: String?, sourcePattern: String): String {
+        if (value.isNullOrBlank()) return ""
 
         return runCatching {
-            val sourceFormat = SimpleDateFormat(SERVER_DATE_PATTERN, Locale.US)
+            val sourceFormat = SimpleDateFormat(sourcePattern, Locale.US).apply {
+                isLenient = false
+            }
             val targetFormat = SimpleDateFormat(PROFILE_DATE_PATTERN, Locale.getDefault())
-            sourceFormat.parse(joined)?.let(targetFormat::format) ?: joined
-        }.getOrDefault(joined)
+            sourceFormat.parse(value)?.let(targetFormat::format) ?: value
+        }.getOrDefault(value)
     }
 
     private companion object {
         const val SERVER_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss"
+        const val BIRTH_DATE_PATTERN = "yyyy-MM-dd"
         const val PROFILE_DATE_PATTERN = "dd.MM.yyyy"
     }
 }

@@ -86,29 +86,20 @@
     <!-- Personal data -->
     <string name="profile_label_personal_data"> Личные данные</string>
     <string name="profile_group">Группа: <xliff:g id="forum_group">%s</xliff:g></string>
-    <string name="profile_status">Статус: <xliff:g id="status">%s</xliff:g></string>
     <string name="profile_uq">UQ:</string>
     <string name="profile_sign">Подпись:</string>
-    <string name="profile_rewards">Награды:</string>
     <!-- User info -->
     <string name="profile_label_info"> Информация</string>
     <string name="profile_registered">Регистрация: <xliff:g id="date">%s</xliff:g></string>
     <string name="profile_time_zone">Часовой пояс: <xliff:g id="time_zone">%s</xliff:g></string>
-    <string name="profile_web_site"><![CDATA[<a href=\"%s\">Вебсайт</a>]]></string>
     <string name="profile_birth_date">Дата рождения: <xliff:g id="date">%s</xliff:g></string>
     <string name="profile_location">Место жительства: <xliff:g id="place">%s</xliff:g></string>
-    <string name="profile_interests">Увлечения: <xliff:g id="list">%s</xliff:g></string>
     <string name="profile_sex">Пол: <xliff:g id="gender">%s</xliff:g></string>
+    <string name="profile_sex_male">Мужской</string>
+    <string name="profile_sex_female">Женский</string>
     <!-- Statistics -->
     <string name="profile_label_statistics"> Статистика активности</string>
     <string name="profile_messages">Сообщений: <xliff:g id="messages">%s</xliff:g></string>
-    <string name="profile_messages_day">Сообщений в день: <xliff:g id="messages">%s</xliff:g></string>
-    <string name="profile_bayans">Баянов: <xliff:g id="news">%s</xliff:g></string>
-    <string name="profile_topics_today">Создано тем сегодня: <xliff:g id="topics">%s</xliff:g></string>
-    <!-- Contacts -->
-    <string name="profile_label_contacts"> Связь</string>
-    <string name="profile_email">Email: <xliff:g id="email">%s</xliff:g></string>
-    <string name="profile_icq">ICQ: <xliff:g id="icq">%s</xliff:g></string>
 
     <!-- SEARCH SCREEN -->
     <string name="btn_search">Поиск</string>

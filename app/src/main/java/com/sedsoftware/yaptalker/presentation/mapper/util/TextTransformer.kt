@@ -42,10 +42,6 @@ class TextTransformer @Inject constructor(private val context: Context) {
         context.getString(R.string.news_comments_template_short)
     }
 
-    private val websiteTemplate: String by lazy {
-        context.string(R.string.profile_web_site)
-    }
-
     private val pagesLabelTemplate: String by lazy {
         context.getString(R.string.navigation_pages_template)
     }
@@ -61,17 +57,6 @@ class TextTransformer @Inject constructor(private val context: Context) {
         } else {
             Html.fromHtml(html)
         }
-
-    @Suppress("DEPRECATION")
-    fun transformWebsiteToSpanned(link: String): Spanned {
-        val html = if (link.startsWith("http")) {
-            String.format(Locale.getDefault(), websiteTemplate, link)
-        } else {
-            link
-        }
-
-        return transformHtmlToSpanned(html)
-    }
 
     @Suppress("DEPRECATION")
     fun transformRankToFormattedText(rank: Int): Spanned {

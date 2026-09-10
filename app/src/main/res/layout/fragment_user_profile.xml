@@ -45,16 +45,6 @@
                     tools:text="Group: Users" />
 
                 <TextView
-                    android:id="@+id/profile_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnSpan="2"
-                    android:paddingBottom="@dimen/material_card_title_block_large_subtitle_margin_top"
-                    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    tools:text="Status: custom status" />
-
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/material_card_title_block_large_subtitle_margin_top"
@@ -85,29 +75,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnSpan="2"
-                    android:paddingBottom="@dimen/material_card_title_block_large_subtitle_margin_top"
-                    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    tools:text="Signature text here" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnSpan="2"
-                    android:paddingBottom="@dimen/material_card_title_block_large_subtitle_margin_top"
-                    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    android:text="@string/profile_rewards" />
-
-                <TextView
-                    android:id="@+id/profile_rewards"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnSpan="2"
                     android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
                     android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
                     android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    tools:text="Rewards text here" />
+                    tools:text="Signature text here" />
 
             </GridLayout>
 
@@ -162,19 +133,11 @@
                     android:id="@+id/profile_birth_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_columnSpan="2"
                     android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
                     android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
                     android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
                     tools:text="Birth date: Jun 01, 1988" />
-
-                <TextView
-                    android:id="@+id/profile_web_site"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
-                    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    tools:text="Web site: xxx.com" />
 
                 <TextView
                     android:id="@+id/profile_location"
@@ -191,20 +154,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnSpan="2"
-                    android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
-                    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    tools:text="Sex: Male" />
-
-                <TextView
-                    android:id="@+id/profile_interests"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnSpan="2"
                     android:paddingBottom="@dimen/material_card_title_block_large_subtitle_margin_top"
                     android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
                     android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    tools:text="Interests: IT, programming" />
+                    tools:text="Sex: Male" />
 
             </GridLayout>
 
@@ -239,86 +192,11 @@
                     android:id="@+id/profile_messages"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
+                    android:layout_columnSpan="2"
+                    android:paddingBottom="@dimen/material_card_title_block_large_subtitle_margin_top"
                     android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
                     android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
                     tools:text="Messages: 10000" />
-
-                <TextView
-                    android:id="@+id/profile_messages_day"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
-                    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    tools:text="Message per day:: 100" />
-
-                <TextView
-                    android:id="@+id/profile_bayans"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
-                    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    tools:text="Outdated news: 10" />
-
-                <TextView
-                    android:id="@+id/profile_topics_today"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/material_card_title_block_large_subtitle_margin_top"
-                    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    tools:text="Created topics todays: 10" />
-
-            </GridLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            style="?attr/customCardViewStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/material_card_edge_margin">
-
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:columnCount="2">
-
-                <TextView
-                    style="@style/InfoCardTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnSpan="2"
-                    android:drawablePadding="4dp"
-                    android:drawableStart="?attr/iconProfileContacts"
-                    android:paddingBottom="@dimen/material_card_title_block_large_subtitle_margin_top"
-                    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingTop="@dimen/material_card_title_block_small_padding_vertical"
-                    android:text="@string/profile_label_contacts"
-                    tools:text="Contacts" />
-
-                <TextView
-                    android:id="@+id/profile_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnSpan="2"
-                    android:paddingBottom="@dimen/material_card_title_block_large_subtitle_margin_top"
-                    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    tools:text="Email: abdcdefg@gmail.com" />
-
-                <TextView
-                    android:id="@+id/profile_icq"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnSpan="2"
-                    android:paddingBottom="@dimen/material_card_title_block_large_subtitle_margin_top"
-                    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    tools:text="ICQ: 123456789" />
 
             </GridLayout>
 
