@@ -55,6 +55,7 @@ API-backed flows currently include:
 - Login via `GET action/login`.
 - Logout via `GET action/logout`, with fallback to the legacy web logout.
 - Current user lookup via `GET settings`, with fallback to cached API login profile data when `settings` fails.
+- User profile loading via `GET profiles/{id}`. The mobile API exposes the core profile fields but not every field previously scraped from the HTML page; unavailable legacy fields remain empty in the existing profile model.
 - New comment posting via `POST action/comment`, including multipart image upload.
 - Post/topic rating via `GET action/rank`.
 - Bookmarks loading via `GET feed/favs`, adding via `PUT action/favs`, and deletion via `DELETE action/favs`.
