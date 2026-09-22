@@ -9,6 +9,8 @@ data class SettingsResult(
     var global: GlobalParam? = null,
     @SerializedName("message")
     var message: String? = null,
+    @SerializedName("profile")
+    var profile: List<UserProfileApi>? = null,
     @SerializedName("user")
     var user: UserSmall? = null
 )

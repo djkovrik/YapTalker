@@ -1,4 +1,9 @@
 ## Changelog
+### [1.0.13] - 2026-09-22
+
+**Fixed**
+* Profile info displaying
+
 ### [1.0.12] - 2026-06-02
 
 **Fixed**
